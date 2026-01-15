@@ -265,7 +265,7 @@ const SalaryCalculator = () => {
 
         {/* Results */}
         <div id="salary-results" className="lg:col-span-2">
-          <div className="glass-card p-6 sticky top-24 z-10">
+          <div className="glass-card p-6">
             <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
               <Calculator className="w-5 h-5 text-primary" />
               Результаты

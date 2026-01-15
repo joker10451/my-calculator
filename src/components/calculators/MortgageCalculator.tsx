@@ -462,7 +462,7 @@ const MortgageCalculator = () => {
 
         {/* Results Sidebar */}
         <div id="mortgage-results" className="lg:col-span-5 space-y-6">
-          <div className="glass-card p-6 sticky top-24 bg-primary/5 border-primary/20 z-10">
+          <div className="glass-card p-6 bg-primary/5 border-primary/20">
             <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
               <TrendingDown className="w-6 h-6 text-primary" />
               Итоги расчета
