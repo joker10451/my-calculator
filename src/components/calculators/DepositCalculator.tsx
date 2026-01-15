@@ -3,19 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Calculator, TrendingUp, Info, Share2, Wallet, Download } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useToast } from "@/hooks/use-toast";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { PSBCardWidget } from "@/components/PSBCardWidget";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory } from "@/hooks/useCalculatorHistory";
 import { parseShareableLink } from "@/utils/exportUtils";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const DepositCalculator = () => {
-    const { toast } = useToast();
-    const { addCalculation } = useCalculatorHistory();
+    const { formatCurrency, saveCalculation, showToast } = useCalculatorCommon('deposit', 'Калькулятор вкладов');
     const [amount, setAmount] = useLocalStorage("calc_deposit_amount", 100000);
     const [rate, setRate] = useLocalStorage("calc_deposit_rate", 15);
     const [term, setTerm] = useLocalStorage("calc_deposit_term", 12); // months
@@ -65,33 +63,27 @@ const DepositCalculator = () => {
     }, [amount, rate, term, replenishment, indexation]);
     const initialPlusReplenishment = amount + (replenishment * term);
 
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat("ru-RU", {
-            style: "currency",
-            currency: "RUB",
-            maximumFractionDigits: 0,
-        }).format(value);
-    };
+    // Сохранение в историю
+    useEffect(() => {
+        if (amount > 0 && total > 0) {
+            saveCalculation(
+                { amount, rate, term, replenishment, indexation },
+                {
+                    'Начальная сумма': formatCurrency(amount),
+                    'Итоговая сумма': formatCurrency(total),
+                    'Доход': formatCurrency(interest)
+                }
+            );
+        }
+    }, [amount, rate, term, replenishment, indexation, total, interest, saveCalculation, formatCurrency]);
 
     const handleDownload = async () => {
-        toast({
-            title: "Генерация PDF",
-            description: "Пожалуйста, подождите...",
-        });
-
+        showToast("Генерация PDF", "Пожалуйста, подождите...");
         const success = await exportToPDF("deposit-report-template", `расчет_вклада_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
-
         if (success) {
-            toast({
-                title: "Успех!",
-                description: "PDF-отчет успешно сформирован и скачан.",
-            });
+            showToast("Успех!", "PDF-отчет успешно сформирован и скачан.");
         } else {
-            toast({
-                title: "Ошибка",
-                description: "Не удалось создать PDF-отчет.",
-                variant: "destructive"
-            });
+            showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
     };
 
@@ -116,9 +108,9 @@ const DepositCalculator = () => {
 
         try {
             await navigator.clipboard.writeText(text);
-            toast({ title: "Скопировано!", description: "Результат сохранен в буфер обмена." });
+            showToast("Скопировано!", "Результат сохранен в буфер обмена.");
         } catch (e) {
-            toast({ title: "Ошибка", description: "Не удалось скопировать", variant: "destructive" });
+            showToast("Ошибка", "Не удалось скопировать", "destructive");
         }
     };
 
@@ -129,22 +121,6 @@ const DepositCalculator = () => {
         if (item.inputs.replenishment !== undefined) setReplenishment(item.inputs.replenishment);
         if (item.inputs.indexation !== undefined) setIndexation(item.inputs.indexation);
     };
-
-    // Сохранение в историю
-    useEffect(() => {
-        if (amount > 0 && total > 0) {
-            addCalculation(
-                'deposit',
-                'Калькулятор вкладов',
-                { amount, rate, term, replenishment, indexation },
-                {
-                    'Начальная сумма': formatCurrency(amount),
-                    'Итоговая сумма': formatCurrency(total),
-                    'Доход': formatCurrency(interest)
-                }
-            );
-        }
-    }, [amount, rate, term, replenishment, indexation, total, interest]);
 
     const exportData = history.map(item => ({
         'Месяц': item.month,
