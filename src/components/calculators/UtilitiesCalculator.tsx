@@ -1,8 +1,10 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Calculator, Share2, Info, Droplets, Zap, Flame, Home } from "lucide-react";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const UtilitiesCalculator = () => {
+    const { formatCurrency } = useCalculatorCommon('utilities', 'Калькулятор ЖКХ');
     // Electricity
     const [elecRate, setElecRate] = useState(5.50);
     const [elecPrev, setElecBrev] = useState(1000);
@@ -42,14 +44,6 @@ const UtilitiesCalculator = () => {
     const elecCost = useMemo(() => calculateElecCost(), [elecCurr, elecPrev, elecRate, elecByNorm, residents]);
     const waterCost = useMemo(() => calculateWaterCost(), [waterCurr, waterPrev, waterRate, waterByNorm, residents]);
     const totalCost = useMemo(() => elecCost + waterCost, [elecCost, waterCost]);
-
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat("ru-RU", {
-            style: "currency",
-            currency: "RUB",
-            maximumFractionDigits: 2,
-        }).format(value);
-    };
 
     return (
         <div className="max-w-4xl mx-auto">

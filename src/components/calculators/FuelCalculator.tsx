@@ -2,12 +2,12 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Calculator, Share2, Info, Fuel, MapPin, Wallet, Download } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const FuelCalculator = () => {
-    const { toast } = useToast();
+    const { formatCurrency, showToast } = useCalculatorCommon('fuel', 'Калькулятор топлива');
     const [distance, setDistance] = useState(100);
     const [consumption, setConsumption] = useState(8); // L/100km
     const [price, setPrice] = useState(55); // RUB/L
@@ -16,21 +16,13 @@ const FuelCalculator = () => {
     const tripCost = useMemo(() => requiredFuel * price, [requiredFuel, price]);
 
     const handleDownload = async () => {
-        toast({ title: "Генерация PDF", description: "Пожалуйста, подождите..." });
+        showToast("Генерация PDF", "Пожалуйста, подождите...");
         const success = await exportToPDF("fuel-report-template", `расчет_топлива_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
         if (success) {
-            toast({ title: "Успех!", description: "PDF-отчет успешно сформирован." });
+            showToast("Успех!", "PDF-отчет успешно сформирован.");
         } else {
-            toast({ title: "Ошибка", description: "Не удалось создать PDF-отчет.", variant: "destructive" });
+            showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
-    };
-
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat("ru-RU", {
-            style: "currency",
-            currency: "RUB",
-            maximumFractionDigits: 0,
-        }).format(value);
     };
 
     const formatNumber = (value: number, decimals = 1) => {

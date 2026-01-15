@@ -2,12 +2,12 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Calculator, Download, Share2, Info, User, Scale, Ruler } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const BMICalculator = () => {
-    const { toast } = useToast();
+    const { showToast } = useCalculatorCommon('bmi', 'Калькулятор ИМТ');
     const [height, setHeight] = useState(175); // cm
     const [weight, setWeight] = useState(75); // kg
     const [age, setAge] = useState(30);
@@ -28,12 +28,12 @@ const BMICalculator = () => {
     const status = getBMIStatus(bmi);
 
     const handleDownload = async () => {
-        toast({ title: "Генерация PDF", description: "Пожалуйста, подождите..." });
+        showToast("Генерация PDF", "Пожалуйста, подождите...");
         const success = await exportToPDF("bmi-report-template", `расчет_ИМТ_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
         if (success) {
-            toast({ title: "Успех!", description: "PDF-отчет успешно сформирован." });
+            showToast("Успех!", "PDF-отчет успешно сформирован.");
         } else {
-            toast({ title: "Ошибка", description: "Не удалось создать PDF-отчет.", variant: "destructive" });
+            showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
     };
 
