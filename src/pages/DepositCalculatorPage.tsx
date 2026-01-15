@@ -27,12 +27,12 @@ const DepositCalculatorPage = () => {
     ];
 
     const features = [
-        { icon: Calculator, text: "Точный расчет дохода с учетом капитализации процентов", color: 'blue' as const },
+        { icon: Calculator, text: "Расчет доходности с учетом капитализации процентов", color: 'blue' as const },
         { icon: PiggyBank, text: "Учет регулярных пополнений вклада", color: 'green' as const },
-        { icon: Calendar, text: "Различные периоды капитализации: ежемесячно, ежеквартально, ежегодно", color: 'purple' as const },
-        { icon: TrendingUp, text: "Сравнение эффективной доходности разных вкладов", color: 'orange' as const },
-        { icon: LineChart, text: "График роста вклада с визуализацией", color: 'pink' as const },
-        { icon: BarChart3, text: "Детальная разбивка по периодам начисления", color: 'indigo' as const }
+        { icon: Calendar, text: "Различные периоды капитализации (ежемесячно, ежеквартально, ежегодно)", color: 'purple' as const },
+        { icon: TrendingUp, text: "Расчет эффективной процентной ставки", color: 'orange' as const },
+        { icon: BarChart3, text: "График роста вклада с визуализацией", color: 'pink' as const },
+        { icon: LineChart, text: "Сравнение различных вариантов вкладов", color: 'indigo' as const }
     ];
 
     const howToUseSteps = [
@@ -41,7 +41,7 @@ const DepositCalculatorPage = () => {
         "Выберите срок вклада в месяцах",
         "Укажите периодичность капитализации процентов",
         "При необходимости добавьте регулярные пополнения",
-        "Изучите итоговую доходность и график роста вклада"
+        "Изучите результаты расчета и график роста вклада"
     ];
 
     return (
