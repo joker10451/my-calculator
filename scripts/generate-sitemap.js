@@ -30,6 +30,7 @@ const pages = [
   { url: '/category/transport', priority: 0.7, changefreq: 'weekly' },
   { url: '/category/utilities', priority: 0.7, changefreq: 'weekly' },
   { url: '/category/legal', priority: 0.7, changefreq: 'weekly' },
+  { url: '/category/family', priority: 0.8, changefreq: 'weekly' },
   
   // Калькуляторы (высокий приоритет)
   { url: '/calculator/mortgage', priority: 0.9, changefreq: 'weekly' },

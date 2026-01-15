@@ -23,8 +23,8 @@ const AlimonyCalculatorPage = () => {
             schemaDescription="Бесплатный онлайн калькулятор алиментов на детей"
             title="Калькулятор алиментов"
             description="Рассчитайте размер алиментов на содержание детей"
-            category="Юридические"
-            categoryHref="/category/legal"
+            category="Семейные"
+            categoryHref="/category/family"
             faqItems={faqItems}
             calculator={<AlimonyCalculator />}
         />
