@@ -30,16 +30,25 @@ const CreditCalculator = () => {
         }
     }, []);
 
-    const monthlyRate = useMemo(() => interestRate / 100 / 12, [interestRate]);
+    const calculations = useMemo(() => {
+        const monthlyRate = interestRate / 100 / 12;
+        const monthlyPayment = monthlyRate === 0 
+            ? loanAmount / loanTerm 
+            : loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, loanTerm)) / (Math.pow(1 + monthlyRate, loanTerm) - 1);
+        const totalPayment = monthlyPayment * loanTerm;
+        const overpayment = totalPayment - loanAmount;
+        const overpaymentPercent = (overpayment / loanAmount) * 100;
+        
+        return {
+            monthlyRate,
+            monthlyPayment,
+            totalPayment,
+            overpayment,
+            overpaymentPercent
+        };
+    }, [loanAmount, loanTerm, interestRate]);
 
-    const monthlyPayment = useMemo(() => {
-        if (monthlyRate === 0) return loanAmount / loanTerm;
-        return loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, loanTerm)) / (Math.pow(1 + monthlyRate, loanTerm) - 1);
-    }, [loanAmount, loanTerm, monthlyRate]);
-
-    const totalPayment = useMemo(() => monthlyPayment * loanTerm, [monthlyPayment, loanTerm]);
-    const overpayment = useMemo(() => totalPayment - loanAmount, [totalPayment, loanAmount]);
-    const overpaymentPercent = useMemo(() => (overpayment / loanAmount) * 100, [overpayment, loanAmount]);
+    const { monthlyPayment, totalPayment, overpayment, overpaymentPercent } = calculations;
 
     const formatCurrency = (value: number) => {
         return new Intl.NumberFormat("ru-RU", {
