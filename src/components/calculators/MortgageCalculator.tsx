@@ -54,6 +54,14 @@ const MortgageCalculator = () => {
     }
   }, []);
 
+  const formatCurrency = (val: number) => {
+    return new Intl.NumberFormat("ru-RU", {
+      style: "currency",
+      currency: "RUB",
+      maximumFractionDigits: 0,
+    }).format(val);
+  };
+
   const calculations = useMemo(() => {
     const result = calculateMortgage({
       price,
@@ -67,30 +75,24 @@ const MortgageCalculator = () => {
       MAT_CAPITAL
     });
 
-    // Сохраняем в историю
-    if (result.monthlyPayment > 0) {
+    return result;
+  }, [price, initialPayment, isInitialPercent, term, rate, withMatCapital, paymentType, extraPayments]);
+
+  // Сохраняем в историю (отдельно от useMemo)
+  useEffect(() => {
+    if (calculations.monthlyPayment > 0) {
       addCalculation(
         'mortgage',
         'Ипотечный калькулятор',
         { price, initialPayment, term, rate, withMatCapital, paymentType },
         {
-          'Ежемесячный платеж': formatCurrency(result.monthlyPayment),
-          'Переплата': formatCurrency(result.totalInterest),
-          'Экономия': formatCurrency(result.savings)
+          'Ежемесячный платеж': formatCurrency(calculations.monthlyPayment),
+          'Переплата': formatCurrency(calculations.totalInterest),
+          'Экономия': formatCurrency(calculations.savings)
         }
       );
     }
-
-    return result;
-  }, [price, initialPayment, isInitialPercent, term, rate, withMatCapital, paymentType, extraPayments]);
-
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(val);
-  };
+  }, [calculations, price, initialPayment, term, rate, withMatCapital, paymentType]);
 
   const handleDownload = async () => {
     toast({ title: "Генерация PDF", description: "Пожалуйста, подождите..." });
