@@ -34,7 +34,7 @@ const DepositCalculator = () => {
         }
     }, []);
 
-    const calculateDeposit = () => {
+    const { total, interest, history } = useMemo(() => {
         let currentBalance = amount;
         let totalInterest = 0;
         let currentReplenishment = replenishment;
@@ -62,9 +62,7 @@ const DepositCalculator = () => {
             interest: Math.round(totalInterest),
             history
         };
-    };
-
-    const { total, interest, history } = useMemo(() => calculateDeposit(), [amount, rate, term, replenishment, indexation]);
+    }, [amount, rate, term, replenishment, indexation]);
     const initialPlusReplenishment = amount + (replenishment * term);
 
     const formatCurrency = (value: number) => {
