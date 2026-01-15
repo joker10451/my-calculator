@@ -7,10 +7,11 @@ import { useState, useMemo, useEffect } from "react";
 import { Calendar, Wallet, TrendingUp, Info } from "lucide-react";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory, CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const VacationCalculator = () => {
-  const { addCalculation } = useCalculatorHistory();
+  const { formatCurrency, saveCalculation } = useCalculatorCommon('vacation', 'Калькулятор отпускных');
   
   const [vacationDays, setVacationDays] = useState(14);
   const [salary, setSalary] = useState(100000);
@@ -49,20 +50,10 @@ const VacationCalculator = () => {
     };
   }, [salary, bonuses, workedMonths, excludedDays, vacationDays]);
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   // Сохранение расчета в историю
   useEffect(() => {
     if (calculation.netPay > 0) {
-      addCalculation(
-        'vacation',
-        'Калькулятор отпускных',
+      saveCalculation(
         { vacationDays, salary, bonuses, workedMonths, excludedDays },
         {
           'К выплате': formatCurrency(calculation.netPay),
@@ -72,7 +63,7 @@ const VacationCalculator = () => {
         }
       );
     }
-  }, [calculation.netPay, vacationDays, salary, bonuses, workedMonths, excludedDays, addCalculation]);
+  }, [calculation.netPay, vacationDays, salary, bonuses, workedMonths, excludedDays, saveCalculation, formatCurrency]);
 
   // Данные для экспорта
   const exportData = [

@@ -7,10 +7,11 @@ import { useState, useMemo, useEffect } from "react";
 import { Car, Calendar, MapPin, Shield, Users } from "lucide-react";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory, CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const KASKOCalculator = () => {
-  const { addCalculation } = useCalculatorHistory();
+  const { formatCurrency, saveCalculation } = useCalculatorCommon('kasko', 'Калькулятор КАСКО');
   
   const [carValue, setCarValue] = useState(1500000);
   const [carAge, setCarAge] = useState(0);
@@ -79,14 +80,6 @@ const KASKOCalculator = () => {
     };
   }, [carValue, carAge, driverAge, driverExperience, region, franchise, coverage]);
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   // Сохранение расчета в историю
   useEffect(() => {
     if (calculation.totalCost > 0) {
@@ -96,9 +89,7 @@ const KASKOCalculator = () => {
         'regions': 'Регионы'
       };
       
-      addCalculation(
-        'kasko',
-        'Калькулятор КАСКО',
+      saveCalculation(
         { carValue, carAge, driverAge, driverExperience, region, franchise, coverage },
         {
           'Стоимость полиса': formatCurrency(calculation.totalCost),
@@ -109,7 +100,7 @@ const KASKOCalculator = () => {
         }
       );
     }
-  }, [calculation.totalCost, carValue, carAge, driverAge, driverExperience, region, franchise, coverage, addCalculation]);
+  }, [calculation.totalCost, carValue, carAge, driverAge, driverExperience, region, franchise, coverage, saveCalculation, formatCurrency]);
 
   // Данные для экспорта
   const exportData = [

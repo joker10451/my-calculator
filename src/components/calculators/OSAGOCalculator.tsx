@@ -7,10 +7,11 @@ import { useState, useMemo, useEffect } from "react";
 import { Car, Shield, MapPin, Calendar, Users, Award } from "lucide-react";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory, CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const OSAGOCalculator = () => {
-  const { addCalculation } = useCalculatorHistory();
+  const { formatCurrency, saveCalculation } = useCalculatorCommon('osago', 'Калькулятор ОСАГО');
   
   // Базовые ставки 2026 (примерные)
   const BASE_RATES = {
@@ -83,14 +84,6 @@ const OSAGOCalculator = () => {
     };
   }, [vehicleType, region, power, ageExperience, drivers, kbm, period]);
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   const getKBMDescription = (kbm: number) => {
     if (kbm >= 2.0) return "Много аварий";
     if (kbm >= 1.5) return "Есть аварии";
@@ -102,9 +95,7 @@ const OSAGOCalculator = () => {
   // Сохранение расчета в историю
   useEffect(() => {
     if (calculation.cost > 0) {
-      addCalculation(
-        'osago',
-        'Калькулятор ОСАГО',
+      saveCalculation(
         { vehicleType, region, power, ageExperience, drivers, kbm, period },
         {
           'Стоимость': formatCurrency(calculation.cost),
@@ -115,7 +106,7 @@ const OSAGOCalculator = () => {
         }
       );
     }
-  }, [calculation.cost, vehicleType, region, power, ageExperience, drivers, kbm, period, addCalculation]);
+  }, [calculation.cost, vehicleType, region, power, ageExperience, drivers, kbm, period, saveCalculation, formatCurrency]);
 
   // Данные для экспорта
   const exportData = [

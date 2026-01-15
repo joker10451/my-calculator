@@ -7,10 +7,11 @@ import { useState, useMemo, useEffect } from "react";
 import { Activity, Calendar, Wallet, TrendingDown } from "lucide-react";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory, CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const SickLeaveCalculator = () => {
-  const { addCalculation } = useCalculatorHistory();
+  const { formatCurrency, saveCalculation } = useCalculatorCommon('sick-leave', 'Калькулятор больничного');
   
   const [sickDays, setSickDays] = useState(7);
   const [avgSalary, setAvgSalary] = useState(100000);
@@ -66,14 +67,6 @@ const SickLeaveCalculator = () => {
     };
   }, [avgSalary, experience, sickDays, reason]);
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   // Сохранение расчета в историю
   useEffect(() => {
     if (calculation.netPay > 0) {
@@ -88,9 +81,7 @@ const SickLeaveCalculator = () => {
         'child': 'Уход за ребенком'
       };
       
-      addCalculation(
-        'sick-leave',
-        'Калькулятор больничного',
+      saveCalculation(
         { sickDays, avgSalary, experience, reason },
         {
           'К выплате': formatCurrency(calculation.netPay),
@@ -101,7 +92,7 @@ const SickLeaveCalculator = () => {
         }
       );
     }
-  }, [calculation.netPay, sickDays, avgSalary, experience, reason, addCalculation]);
+  }, [calculation.netPay, sickDays, avgSalary, experience, reason, saveCalculation, formatCurrency]);
 
   // Данные для экспорта
   const exportData = [
