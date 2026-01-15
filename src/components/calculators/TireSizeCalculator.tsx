@@ -2,10 +2,10 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Calculator, Car, Info, Share2, Gauge, Ruler, Scale, Download } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { useComparison } from "@/context/ComparisonContext";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 interface TireSize {
   width: number;
@@ -14,7 +14,7 @@ interface TireSize {
 }
 
 const TireSizeCalculator = () => {
-  const { toast } = useToast();
+  const { showToast } = useCalculatorCommon('tire-size', 'Калькулятор размера шин');
   const { addItem } = useComparison();
   
   // Текущие шины
@@ -121,16 +121,9 @@ const TireSizeCalculator = () => {
 
     try {
       await navigator.clipboard.writeText(text);
-      toast({
-        title: "Скопировано!",
-        description: "Расчет сохранен в буфер обмена.",
-      });
+      showToast("Скопировано!", "Расчет сохранен в буфер обмена.");
     } catch (err) {
-      toast({
-        title: "Ошибка",
-        description: "Не удалось скопировать.",
-        variant: "destructive",
-      });
+      showToast("Ошибка", "Не удалось скопировать.", "destructive");
     }
   };
 
@@ -149,21 +142,18 @@ const TireSizeCalculator = () => {
         newTire
       }
     });
-    toast({
-      title: "Добавлено к сравнению",
-      description: "Вы можете сравнить этот расчет с другими на странице сравнения."
-    });
+    showToast("Добавлено к сравнению", "Вы можете сравнить этот расчет с другими на странице сравнения.");
   };
 
   const recommendation = getRecommendation();
 
   const handleDownloadPDF = async () => {
-    toast({ title: "Генерация PDF", description: "Пожалуйста, подождите..." });
+    showToast("Генерация PDF", "Пожалуйста, подождите...");
     const success = await exportToPDF("tire-report-template", `расчет_шин_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
     if (success) {
-      toast({ title: "Успех!", description: "PDF-отчет успешно сформирован." });
+      showToast("Успех!", "PDF-отчет успешно сформирован.");
     } else {
-      toast({ title: "Ошибка", description: "Не удалось создать PDF-отчет.", variant: "destructive" });
+      showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
     }
   };
 

@@ -1,12 +1,12 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Calculator, Users, Info, Share2, Wallet, UserMinus, Download } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const AlimonyCalculator = () => {
-    const { toast } = useToast();
+    const { formatCurrency, showToast } = useCalculatorCommon('alimony', 'Калькулятор алиментов');
     const [income, setIncome] = useState(60000);
     const [children, setChildren] = useState(1);
     const [method, setMethod] = useState<"percent" | "fixed">("percent");
@@ -26,21 +26,13 @@ const AlimonyCalculator = () => {
     const netIncome = Math.max(0, income - alimony);
 
     const handleDownload = async () => {
-        toast({ title: "Генерация PDF", description: "Пожалуйста, подождите..." });
+        showToast("Генерация PDF", "Пожалуйста, подождите...");
         const success = await exportToPDF("alimony-report-template", `расчет_алиментов_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
         if (success) {
-            toast({ title: "Успех!", description: "PDF-отчет успешно сформирован." });
+            showToast("Успех!", "PDF-отчет успешно сформирован.");
         } else {
-            toast({ title: "Ошибка", description: "Не удалось создать PDF-отчет.", variant: "destructive" });
+            showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
-    };
-
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat("ru-RU", {
-            style: "currency",
-            currency: "RUB",
-            maximumFractionDigits: 0,
-        }).format(value);
     };
 
     return (

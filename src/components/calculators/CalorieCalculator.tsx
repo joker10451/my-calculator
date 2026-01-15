@@ -2,9 +2,9 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Calculator, Utensils, Info, Share2, Flame, User, Activity, Download } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 type Gender = "male" | "female";
 type ActivityLevel = "sedentary" | "light" | "moderate" | "active" | "very_active";
@@ -18,7 +18,7 @@ const ACTIVITY_MULTIPLIERS: Record<ActivityLevel, number> = {
 };
 
 const CalorieCalculator = () => {
-    const { toast } = useToast();
+    const { showToast } = useCalculatorCommon('calorie', 'Калькулятор калорий');
     const [gender, setGender] = useState<Gender>("female");
     const [age, setAge] = useState(30);
     const [weight, setWeight] = useState(65);
@@ -39,12 +39,12 @@ const CalorieCalculator = () => {
     const calories = useMemo(() => calculateCalories(), [gender, age, weight, height, activity]);
 
     const handleDownload = async () => {
-        toast({ title: "Генерация PDF", description: "Пожалуйста, подождите..." });
+        showToast("Генерация PDF", "Пожалуйста, подождите...");
         const success = await exportToPDF("calorie-report-template", `расчет_калорий_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
         if (success) {
-            toast({ title: "Успех!", description: "PDF-отчет успешно сформирован." });
+            showToast("Успех!", "PDF-отчет успешно сформирован.");
         } else {
-            toast({ title: "Ошибка", description: "Не удалось создать PDF-отчет.", variant: "destructive" });
+            showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
     };
 
