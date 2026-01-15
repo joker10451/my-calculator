@@ -7,12 +7,13 @@ import { useState, useMemo, useEffect } from "react";
 import { Wallet, TrendingDown, Building2, Users, Calculator } from "lucide-react";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory, CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 type TaxSystem = 'self-employed' | 'usn-income' | 'usn-profit' | 'patent';
 
 const SelfEmployedCalculator = () => {
-  const { addCalculation } = useCalculatorHistory();
+  const { formatCurrency, saveCalculation } = useCalculatorCommon('self-employed', 'Калькулятор для самозанятых');
   
   const [taxSystem, setTaxSystem] = useState<TaxSystem>('self-employed');
   const [monthlyIncome, setMonthlyIncome] = useState(100000);
@@ -110,14 +111,6 @@ const SelfEmployedCalculator = () => {
     };
   }, [taxSystem, monthlyIncome, expenses, clientType, patentCost]);
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   // Сохранение расчета в историю
   useEffect(() => {
     if (calculation.netIncome > 0) {
@@ -128,9 +121,7 @@ const SelfEmployedCalculator = () => {
         'patent': 'Патент'
       };
       
-      addCalculation(
-        'self-employed',
-        'Калькулятор налогов ИП',
+      saveCalculation(
         { taxSystem, monthlyIncome, expenses, clientType, patentCost },
         {
           'Чистый доход': formatCurrency(calculation.netIncome),
@@ -140,7 +131,7 @@ const SelfEmployedCalculator = () => {
         }
       );
     }
-  }, [calculation.netIncome, calculation.effectiveRate, taxSystem, monthlyIncome, expenses, clientType, patentCost, addCalculation]);
+  }, [calculation.netIncome, calculation.effectiveRate, taxSystem, monthlyIncome, expenses, clientType, patentCost, saveCalculation, formatCurrency]);
 
   // Данные для экспорта
   const exportData = [

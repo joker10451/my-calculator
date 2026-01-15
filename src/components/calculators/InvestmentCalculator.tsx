@@ -7,10 +7,11 @@ import { useState, useMemo, useEffect } from "react";
 import { TrendingUp, Wallet, Calendar, PiggyBank, Percent } from "lucide-react";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory, CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const InvestmentCalculator = () => {
-  const { addCalculation } = useCalculatorHistory();
+  const { formatCurrency, saveCalculation } = useCalculatorCommon('investment', 'Калькулятор инвестиций');
   
   const [initialAmount, setInitialAmount] = useState(100000);
   const [monthlyContribution, setMonthlyContribution] = useState(10000);
@@ -65,20 +66,10 @@ const InvestmentCalculator = () => {
     };
   }, [initialAmount, monthlyContribution, annualReturn, years, taxRate]);
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   // Сохранение расчета в историю
   useEffect(() => {
     if (calculation.netBalance > 0) {
-      addCalculation(
-        'investment',
-        'Калькулятор инвестиций',
+      saveCalculation(
         { initialAmount, monthlyContribution, annualReturn, years, taxRate },
         {
           'Итоговая сумма': formatCurrency(calculation.netBalance),
@@ -89,7 +80,7 @@ const InvestmentCalculator = () => {
         }
       );
     }
-  }, [calculation.netBalance, calculation.netProfit, initialAmount, monthlyContribution, annualReturn, years, taxRate, addCalculation]);
+  }, [calculation.netBalance, calculation.netProfit, initialAmount, monthlyContribution, annualReturn, years, taxRate, saveCalculation, formatCurrency]);
 
   // Данные для экспорта
   const exportData = [

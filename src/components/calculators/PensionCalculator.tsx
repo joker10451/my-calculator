@@ -7,10 +7,11 @@ import { useState, useMemo, useEffect } from "react";
 import { Users, Calendar, Wallet, TrendingUp } from "lucide-react";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory, CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const PensionCalculator = () => {
-  const { addCalculation } = useCalculatorHistory();
+  const { formatCurrency, saveCalculation } = useCalculatorCommon('pension', 'Калькулятор пенсии');
   
   const [gender, setGender] = useState<'male' | 'female'>('male');
   const [birthYear, setBirthYear] = useState(1970);
@@ -77,20 +78,10 @@ const PensionCalculator = () => {
     };
   }, [gender, birthYear, workExperience, averageSalary, pensionPoints]);
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   // Сохранение расчета в историю
   useEffect(() => {
     if (calculation.totalPension > 0) {
-      addCalculation(
-        'pension',
-        'Калькулятор пенсии',
+      saveCalculation(
         { gender, birthYear, workExperience, averageSalary, pensionPoints },
         {
           'Размер пенсии': formatCurrency(calculation.totalPension),
@@ -101,7 +92,7 @@ const PensionCalculator = () => {
         }
       );
     }
-  }, [calculation.totalPension, calculation.age, calculation.futurePoints, calculation.yearsToRetirement, gender, birthYear, workExperience, averageSalary, pensionPoints, addCalculation]);
+  }, [calculation.totalPension, calculation.age, calculation.futurePoints, calculation.yearsToRetirement, gender, birthYear, workExperience, averageSalary, pensionPoints, saveCalculation, formatCurrency]);
 
   // Данные для экспорта
   const exportData = [
