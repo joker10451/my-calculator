@@ -1,24 +1,28 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Download, Share2, Info, Banknote, Calendar, Percent, Scale, TrendingUp, Clock, FileText } from "lucide-react";
-import { useComparison } from "@/context/ComparisonContext";
-import { useToast } from "@/hooks/use-toast";
+import { Calculator, Download, Info, Banknote, Calendar, Percent } from "lucide-react";
 import { PSBCardWidget } from "@/components/PSBCardWidget";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory } from "@/hooks/useCalculatorHistory";
 import { parseShareableLink } from "@/utils/exportUtils";
 import { FeatureCard } from "@/components/calculators/FeatureCard";
 import { HowToUseSection } from "@/components/calculators/HowToUseSection";
+import { CalculatorResults } from "@/components/calculators/CalculatorResults";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
+import { useAnnuityCalculation } from "@/hooks/useCalculatorMemo";
 
 const CreditCalculator = () => {
-    const { addItem } = useComparison();
-    const { toast } = useToast();
-    const { addCalculation } = useCalculatorHistory();
     const [loanAmount, setLoanAmount] = useState(500000);
     const [loanTerm, setLoanTerm] = useState(24); // months
     const [interestRate, setInterestRate] = useState(19.5);
+
+    const {
+        formatCurrency,
+        formatTerm,
+        saveCalculation,
+        addToComparison,
+    } = useCalculatorCommon('credit', 'Кредитный калькулятор');
 
     // Загрузка из расшаренной ссылки
     useEffect(() => {
@@ -30,64 +34,35 @@ const CreditCalculator = () => {
         }
     }, []);
 
-    const calculations = useMemo(() => {
-        const monthlyRate = interestRate / 100 / 12;
-        const monthlyPayment = monthlyRate === 0 
-            ? loanAmount / loanTerm 
-            : loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, loanTerm)) / (Math.pow(1 + monthlyRate, loanTerm) - 1);
-        const totalPayment = monthlyPayment * loanTerm;
-        const overpayment = totalPayment - loanAmount;
-        const overpaymentPercent = (overpayment / loanAmount) * 100;
-        
-        return {
-            monthlyRate,
-            monthlyPayment,
-            totalPayment,
-            overpayment,
-            overpaymentPercent
-        };
-    }, [loanAmount, loanTerm, interestRate]);
+    // Расчеты с использованием оптимизированного хука
+    const calculations = useAnnuityCalculation(loanAmount, interestRate, loanTerm);
+    const { monthlyPayment, totalPayment, totalInterest, overpaymentPercent } = calculations;
 
-    const { monthlyPayment, totalPayment, overpayment, overpaymentPercent } = calculations;
-
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat("ru-RU", {
-            style: "currency",
-            currency: "RUB",
-            maximumFractionDigits: 0,
-        }).format(value);
-    };
-
-    const getTermString = (months: number) => {
-        const years = Math.floor(months / 12);
-        const m = months % 12;
-        let res = "";
-        if (years > 0) res += `${years} лет `;
-        if (m > 0) res += `${m} мес`;
-        if (years === 0 && m === 0) return "0 мес";
-        return res.trim();
-    };
+    // Сохранение в историю
+    useEffect(() => {
+        if (loanAmount > 0 && monthlyPayment > 0) {
+            saveCalculation(
+                { loanAmount, loanTerm, interestRate },
+                {
+                    'Ежемесячный платеж': formatCurrency(monthlyPayment),
+                    'Переплата': formatCurrency(totalInterest),
+                    'Всего к выплате': formatCurrency(totalPayment)
+                }
+            );
+        }
+    }, [loanAmount, loanTerm, interestRate, monthlyPayment, totalInterest, totalPayment, saveCalculation, formatCurrency]);
 
     const handleCompare = () => {
-        addItem({
-            title: `Кредит: ${formatCurrency(loanAmount)}`,
-            calculatorId: "credit",
-            data: {
-                monthlyPayment: Math.round(monthlyPayment),
-                totalOverpayment: Math.round(overpayment),
-                totalAmount: Math.round(totalPayment),
-                loanAmount: loanAmount
+        addToComparison(
+            `Кредит: ${formatCurrency(loanAmount)}`,
+            {
+                monthlyPayment,
+                totalOverpayment: totalInterest,
+                totalAmount: totalPayment,
+                loanAmount
             },
-            params: {
-                loanAmount,
-                loanTerm,
-                interestRate
-            }
-        });
-        toast({
-            title: "Добавлено к сравнению",
-            description: "Вы можете сравнить этот расчет с другими на странице сравнения."
-        });
+            { loanAmount, loanTerm, interestRate }
+        );
     };
 
     const handleLoadFromHistory = (item: any) => {
@@ -96,28 +71,12 @@ const CreditCalculator = () => {
         if (item.inputs.interestRate) setInterestRate(item.inputs.interestRate);
     };
 
-    // Сохранение в историю
-    useEffect(() => {
-        if (loanAmount > 0 && monthlyPayment > 0) {
-            addCalculation(
-                'credit',
-                'Кредитный калькулятор',
-                { loanAmount, loanTerm, interestRate },
-                {
-                    'Ежемесячный платеж': formatCurrency(monthlyPayment),
-                    'Переплата': formatCurrency(overpayment),
-                    'Всего к выплате': formatCurrency(totalPayment)
-                }
-            );
-        }
-    }, [loanAmount, loanTerm, interestRate, monthlyPayment, overpayment, totalPayment]);
-
     const exportData = [{
         'Сумма кредита': formatCurrency(loanAmount),
-        'Срок': getTermString(loanTerm),
+        'Срок': formatTerm(loanTerm),
         'Ставка': `${interestRate}%`,
         'Ежемесячный платеж': formatCurrency(monthlyPayment),
-        'Переплата': formatCurrency(overpayment),
+        'Переплата': formatCurrency(totalInterest),
         'Всего к выплате': formatCurrency(totalPayment)
     }];
 
@@ -168,7 +127,7 @@ const CreditCalculator = () => {
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
                             <label className="text-base font-medium">Срок кредита</label>
-                            <span className="text-lg font-semibold">{getTermString(loanTerm)}</span>
+                            <span className="text-lg font-semibold">{formatTerm(loanTerm)}</span>
                         </div>
                         <Slider
                             value={[loanTerm]}
@@ -215,63 +174,31 @@ const CreditCalculator = () => {
 
                 {/* Results */}
                 <div id="credit-results" className="lg:col-span-2">
-                    <div className="glass-card p-6">
-                        <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                            <Calculator className="w-5 h-5 text-primary" />
-                            Результаты
-                        </h3>
-
-                        {/* Monthly Payment */}
-                        <div className="mb-6">
-                            <div className="text-sm text-muted-foreground mb-1">
-                                Ежемесячный платёж
-                            </div>
-                            <div className="calc-result animate-count-up">
-                                {formatCurrency(monthlyPayment)}
-                            </div>
-                        </div>
-
-                        {/* Details */}
-                        <div className="space-y-4 py-4 border-t border-border">
-                            <div className="flex items-center justify-between">
-                                <span className="text-muted-foreground flex items-center gap-2">
-                                    <Banknote className="w-4 h-4" />
-                                    Сумма кредита
-                                </span>
-                                <span className="font-semibold">{formatCurrency(loanAmount)}</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <span className="text-muted-foreground flex items-center gap-2">
-                                    <Percent className="w-4 h-4" />
-                                    Переплата
-                                </span>
-                                <span className="font-semibold text-destructive">
-                                    {formatCurrency(overpayment)}
-                                </span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <span className="text-muted-foreground flex items-center gap-2">
-                                    <Calendar className="w-4 h-4" />
-                                    Всего выплат
-                                </span>
-                                <span className="font-semibold">
-                                    {formatCurrency(totalPayment)}
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Actions */}
-                        <div className="space-y-3 pt-4 border-t border-border">
-                            <Button variant="hero" className="w-full gap-2">
-                                <Download className="w-5 h-5" />
-                                График платежей
-                            </Button>
-                            <Button variant="secondary" className="w-full gap-2" onClick={handleCompare}>
-                                <Scale className="w-5 h-5" />
-                                Добавить к сравнению
-                            </Button>
-                        </div>
-                    </div>
+                    <CalculatorResults
+                        mainResult={{
+                            label: 'Ежемесячный платёж',
+                            value: formatCurrency(monthlyPayment)
+                        }}
+                        results={[
+                            {
+                                label: 'Сумма кредита',
+                                value: formatCurrency(loanAmount),
+                                icon: <Banknote className="w-4 h-4" />
+                            },
+                            {
+                                label: 'Переплата',
+                                value: formatCurrency(totalInterest),
+                                icon: <Percent className="w-4 h-4" />,
+                                variant: 'danger'
+                            },
+                            {
+                                label: 'Всего выплат',
+                                value: formatCurrency(totalPayment),
+                                icon: <Calendar className="w-4 h-4" />
+                            }
+                        ]}
+                        onCompare={handleCompare}
+                    />
 
                     {/* PSB Card Widget */}
                     <div className="mt-6 animate-fade-in relative z-0">
