@@ -214,6 +214,77 @@
   .text-balance {
     text-wrap: balance;
   }
+  
+  /* Touch-friendly sizes for mobile */
+  @media (max-width: 768px) {
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+  
+  /* Prevent text selection on buttons */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Larger touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Better spacing on mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Prevent zoom on input focus (iOS) */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Better modal/dialog on mobile */
+  .glass-card {
+    border-radius: 1rem;
+  }
+  
+  /* Improve calculator inputs on mobile */
+  .calc-input {
+    height: 3.5rem;
+    font-size: 1rem;
+  }
+  
+  /* Better result display on mobile */
+  .calc-result {
+    font-size: 2rem;
+  }
+  
+  /* Improve grid layouts on mobile */
+  .grid {
+    gap: 1rem;
+  }
 }
 
 @media print {
