@@ -186,7 +186,24 @@ const BlogPostPage = () => {
             </header>
 
             {/* Содержание статьи */}
-            <div className="prose prose-lg max-w-none mb-12 prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-li:text-foreground">
+            <div className="prose prose-lg max-w-none mb-12 
+              prose-headings:font-bold prose-headings:text-foreground prose-headings:mt-8 prose-headings:mb-4
+              prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl
+              prose-p:text-foreground prose-p:leading-relaxed prose-p:mb-4
+              prose-strong:text-foreground prose-strong:font-semibold
+              prose-li:text-foreground prose-li:my-2
+              prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
+              prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
+              prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:my-6
+              prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
+              prose-pre:bg-muted prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto prose-pre:my-6
+              prose-a:text-primary prose-a:underline prose-a:hover:text-primary/80
+              prose-img:rounded-lg prose-img:my-6
+              prose-hr:my-8 prose-hr:border-border
+              prose-table:my-6 prose-table:border-collapse
+              prose-th:border prose-th:border-border prose-th:bg-muted prose-th:p-3 prose-th:font-semibold
+              prose-td:border prose-td:border-border prose-td:p-3
+            ">
               <div 
                 className="blog-content"
                 dangerouslySetInnerHTML={{ __html: getMarkdownContent(post.content) }}
