@@ -1,18 +1,16 @@
 import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Calculator, Percent, Info, Share2, Wallet, ArrowRight, Download } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
 import { PSBCardWidget } from "@/components/PSBCardWidget";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory } from "@/hooks/useCalculatorHistory";
 import { parseShareableLink } from "@/utils/exportUtils";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const RefinancingCalculator = () => {
-    const { toast } = useToast();
-    const { addCalculation } = useCalculatorHistory();
+    const { formatCurrency, saveCalculation, showToast } = useCalculatorCommon('refinancing', 'Калькулятор рефинансирования');
     // Current Loan
     const [currentBalance, setCurrentBalance] = useState(1500000);
     const [currentRate, setCurrentRate] = useState(16);
@@ -50,21 +48,13 @@ const RefinancingCalculator = () => {
     const totalSavings = oldTotal - newTotal;
 
     const handleDownload = async () => {
-        toast({ title: "Генерация PDF", description: "Пожалуйста, подождите..." });
+        showToast("Генерация PDF", "Пожалуйста, подождите...");
         const success = await exportToPDF("refinancing-report-template", `рефинансирование_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
         if (success) {
-            toast({ title: "Успех!", description: "PDF-отчет успешно сформирован." });
+            showToast("Успех!", "PDF-отчет успешно сформирован.");
         } else {
-            toast({ title: "Ошибка", description: "Не удалось создать PDF-отчет.", variant: "destructive" });
+            showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
-    };
-
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat("ru-RU", {
-            style: "currency",
-            currency: "RUB",
-            maximumFractionDigits: 0,
-        }).format(value);
     };
 
     const handleLoadFromHistory = (item: any) => {
@@ -77,9 +67,7 @@ const RefinancingCalculator = () => {
 
     useEffect(() => {
         if (currentBalance > 0 && totalSavings !== 0) {
-            addCalculation(
-                'refinancing',
-                'Калькулятор рефинансирования',
+            saveCalculation(
                 { currentBalance, currentRate, currentTerm, newRate, newTerm },
                 {
                     'Старый платеж': formatCurrency(oldMonthly),
@@ -88,7 +76,7 @@ const RefinancingCalculator = () => {
                 }
             );
         }
-    }, [currentBalance, currentRate, currentTerm, newRate, newTerm, oldMonthly, newMonthly, totalSavings]);
+    }, [currentBalance, currentRate, currentTerm, newRate, newTerm, oldMonthly, newMonthly, totalSavings, saveCalculation, formatCurrency]);
 
     const exportData = [{
         'Остаток долга': formatCurrency(currentBalance),

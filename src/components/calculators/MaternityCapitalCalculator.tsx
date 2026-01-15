@@ -1,13 +1,12 @@
 import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Calculator, Baby, Info, Share2, Wallet, Calendar, Download } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory } from "@/hooks/useCalculatorHistory";
 import { parseShareableLink } from "@/utils/exportUtils";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 // Official data for 2026 (approved by Putin)
 const BASE_CAPITAL = 934058; // 1st child (2026)
@@ -15,8 +14,7 @@ const ADD_CAPITAL = 230000; // 2nd child (if 1st was after 2020)
 const FULL_CAPITAL_2ND = 934058; // 2nd child (total)
 
 const MaternityCapitalCalculator = () => {
-    const { toast } = useToast();
-    const { addCalculation } = useCalculatorHistory();
+    const { formatCurrency, saveCalculation, showToast } = useCalculatorCommon('maternity-capital', 'Калькулятор материнского капитала');
     const [firstChildYear, setFirstChildYear] = useState<number | null>(2026);
     const [secondChildYear, setSecondChildYear] = useState<number | null>(null);
     const [hasSecondChild, setHasSecondChild] = useState(false);
@@ -54,21 +52,13 @@ const MaternityCapitalCalculator = () => {
     const totalAmount = useMemo(() => calculateCapital(), [firstChildYear, secondChildYear, hasSecondChild]);
 
     const handleDownload = async () => {
-        toast({ title: "Генерация PDF", description: "Пожалуйста, подождите..." });
+        showToast("Генерация PDF", "Пожалуйста, подождите...");
         const success = await exportToPDF("maternity-report-template", `материнский_капитал_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
         if (success) {
-            toast({ title: "Успех!", description: "PDF-отчет успешно сформирован." });
+            showToast("Успех!", "PDF-отчет успешно сформирован.");
         } else {
-            toast({ title: "Ошибка", description: "Не удалось создать PDF-отчет.", variant: "destructive" });
+            showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
-    };
-
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat("ru-RU", {
-            style: "currency",
-            currency: "RUB",
-            maximumFractionDigits: 0,
-        }).format(value);
     };
 
     return (
