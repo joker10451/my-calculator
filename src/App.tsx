@@ -9,6 +9,7 @@ import { ThemeProvider } from "next-themes";
 import { ComparisonProvider } from "./context/ComparisonContext";
 import { useYandexMetrika } from "./hooks/useYandexMetrika";
 import { trackPageView } from "./lib/analytics/googleAnalytics";
+import { CalculatorLoadingSkeleton, PageLoadingSkeleton } from "./components/LoadingSkeleton";
 
 // Lazy loading для страниц
 const Index = lazy(() => import("./pages/Index"));
@@ -47,13 +48,6 @@ const BlogCategoryPage = lazy(() => import("./pages/BlogCategoryPage"));
 const AnalyticsDashboardPage = lazy(() => import("./pages/AnalyticsDashboardPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Компонент загрузки
-const LoadingSpinner = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-  </div>
-);
-
 // Конфигурация QueryClient с оптимизацией
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -80,7 +74,7 @@ const App = () => (
             <Router>
               <YandexMetrikaTracker />
               <GoogleAnalyticsTracker />
-              <Suspense fallback={<LoadingSpinner />}>
+              <Suspense fallback={<CalculatorLoadingSkeleton />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/calculator/mortgage" element={<MortgageCalculatorPage />} />
