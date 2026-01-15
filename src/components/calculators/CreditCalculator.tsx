@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Download, Info, Banknote, Calendar, Percent } from "lucide-react";
+import { Info, Banknote, Calendar, Percent } from "lucide-react";
 import { PSBCardWidget } from "@/components/PSBCardWidget";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
 import { parseShareableLink } from "@/utils/exportUtils";
-import { FeatureCard } from "@/components/calculators/FeatureCard";
-import { HowToUseSection } from "@/components/calculators/HowToUseSection";
 import { CalculatorResults } from "@/components/calculators/CalculatorResults";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 import { useAnnuityCalculation } from "@/hooks/useCalculatorMemo";
@@ -36,7 +33,7 @@ const CreditCalculator = () => {
 
     // Расчеты с использованием оптимизированного хука
     const calculations = useAnnuityCalculation(loanAmount, interestRate, loanTerm);
-    const { monthlyPayment, totalPayment, totalInterest, overpaymentPercent } = calculations;
+    const { monthlyPayment, totalPayment, totalInterest } = calculations;
 
     // Сохранение в историю
     useEffect(() => {

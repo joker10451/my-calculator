@@ -2,10 +2,10 @@ import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import {
-  Calculator, Home, Info, Share2, Wallet, Download, Calendar,
+  Home, Info, Share2, Download, Calendar,
   TrendingDown, PieChart as ChartIcon, Table as TableIcon, Scale,
-  Plus, Trash2, TrendingDown as SavingsIcon, Activity,
-  LineChart as LineChartIcon, BarChart3, Percent, Clock
+  Plus, Trash2, TrendingDown as SavingsIcon,
+  LineChart as LineChartIcon
 } from "lucide-react";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid,
@@ -13,23 +13,19 @@ import {
   PieChart, Pie, Cell, Legend
 } from 'recharts';
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useToast } from "@/hooks/use-toast";
 import { useComparison } from "@/context/ComparisonContext";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory } from "@/hooks/useCalculatorHistory";
 import { parseShareableLink } from "@/utils/exportUtils";
 import { calculateMortgage, type ExtraPayment } from "@/lib/mortgageCalculations";
-import { FeatureCard } from "@/components/calculators/FeatureCard";
-import { HowToUseSection } from "@/components/calculators/HowToUseSection";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const MortgageCalculator = () => {
-  const { toast } = useToast();
   const { addItem } = useComparison();
-  const { addCalculation } = useCalculatorHistory();
+  const { formatCurrency, saveCalculation, addToComparison, showToast } = useCalculatorCommon('mortgage', 'Ипотечный калькулятор');
   const [price, setPrice] = useLocalStorage("mortgage_price", 5000000);
   const [initialPayment, setInitialPayment] = useLocalStorage("mortgage_initial", 1000000);
   const [isInitialPercent, setIsInitialPercent] = useState(false);
@@ -54,14 +50,6 @@ const MortgageCalculator = () => {
     }
   }, []);
 
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(val);
-  };
-
   const calculations = useMemo(() => {
     const result = calculateMortgage({
       price,
@@ -81,9 +69,7 @@ const MortgageCalculator = () => {
   // Сохраняем в историю (отдельно от useMemo)
   useEffect(() => {
     if (calculations.monthlyPayment > 0) {
-      addCalculation(
-        'mortgage',
-        'Ипотечный калькулятор',
+      saveCalculation(
         { price, initialPayment, term, rate, withMatCapital, paymentType },
         {
           'Ежемесячный платеж': formatCurrency(calculations.monthlyPayment),
@@ -92,15 +78,15 @@ const MortgageCalculator = () => {
         }
       );
     }
-  }, [calculations, price, initialPayment, term, rate, withMatCapital, paymentType]);
+  }, [calculations, price, initialPayment, term, rate, withMatCapital, paymentType, saveCalculation, formatCurrency]);
 
   const handleDownload = async () => {
-    toast({ title: "Генерация PDF", description: "Пожалуйста, подождите..." });
+    showToast("Генерация PDF", "Пожалуйста, подождите...");
     const success = await exportToPDF("mortgage-report-template", `расчет_ипотеки_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
     if (success) {
-      toast({ title: "Успех!", description: "PDF-отчет успешно сформирован." });
+      showToast("Успех!", "PDF-отчет успешно сформирован.");
     } else {
-      toast({ title: "Ошибка", description: "Не удалось создать PDF.", variant: "destructive" });
+      showToast("Ошибка", "Не удалось создать PDF.", "destructive");
     }
   };
 
@@ -110,31 +96,26 @@ const MortgageCalculator = () => {
       try { await navigator.share({ title: 'Расчет ипотеки Считай.RU', text }); return; } catch (e) { }
     }
     await navigator.clipboard.writeText(text);
-    toast({ title: "Скопировано!" });
+    showToast("Скопировано!");
   };
 
   const handleCompare = () => {
-    addItem({
-      title: `Ипотека: ${formatCurrency(price)}`,
-      calculatorId: "mortgage",
-      data: {
+    addToComparison(
+      `Ипотека: ${formatCurrency(price)}`,
+      {
         monthlyPayment: calculations.monthlyPayment,
         totalOverpayment: calculations.totalInterest,
         totalAmount: calculations.totalAmount,
         loanAmount: calculations.loanAmount
       },
-      params: {
+      {
         price,
         initialPayment,
         term,
         rate,
         paymentType
       }
-    });
-    toast({
-      title: "Добавлено к сравнению",
-      description: "Вы можете сравнить этот расчет с другими на странице сравнения."
-    });
+    );
   };
 
   const addExtraPayment = () => {

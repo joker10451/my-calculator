@@ -1,26 +1,20 @@
 import { useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Download, Share2, Info, Wallet, Building2, Coins, PiggyBank, TrendingUp, Scale, Percent, Calendar, FileText, BarChart3 } from "lucide-react";
+import { Calculator, Download, Share2, Info, Wallet, Building2, Coins, PiggyBank, TrendingUp, Scale } from "lucide-react";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useToast } from "@/hooks/use-toast";
-import { useComparison } from "@/context/ComparisonContext";
-import { exportToPDF } from "@/lib/pdfService";
-import { STAMP_BASE64 } from "@/lib/assets";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { PSBCardWidget } from "@/components/PSBCardWidget";
 import { shouldShowPSBCard, getPSBCardVariant, getPSBCardSource } from "@/lib/psbCardPlacement";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { useCalculatorHistory } from "@/hooks/useCalculatorHistory";
 import { parseShareableLink } from "@/utils/exportUtils";
-import { FeatureCard } from "@/components/calculators/FeatureCard";
-import { HowToUseSection } from "@/components/calculators/HowToUseSection";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
+import { exportToPDF } from "@/lib/pdfService";
+import { STAMP_BASE64 } from "@/lib/assets";
 
 const SalaryCalculator = () => {
-  const { toast } = useToast();
-  const { addItem } = useComparison();
-  const { addCalculation } = useCalculatorHistory();
+  const { formatCurrency, saveCalculation, addToComparison, showToast } = useCalculatorCommon('salary', 'Зарплатный калькулятор');
   const [salary, setSalary] = useLocalStorage<number>("calc_salary_amount", 100000);
 
   // Загрузка параметров из расшаренной ссылки
@@ -74,9 +68,7 @@ const SalaryCalculator = () => {
   // Сохранение в историю
   useEffect(() => {
     if (salary > 0 && netSalary > 0) {
-      addCalculation(
-        'salary',
-        'Зарплатный калькулятор',
+      saveCalculation(
         { salary },
         {
           'Зарплата': formatCurrency(salary),
@@ -85,15 +77,7 @@ const SalaryCalculator = () => {
         }
       );
     }
-  }, [salary, netSalary, taxAmount]);
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
+  }, [salary, netSalary, taxAmount, saveCalculation, formatCurrency]);
 
   const chartData = [
     { name: 'На руки', value: netSalary, color: '#3b82f6' },
@@ -101,24 +85,12 @@ const SalaryCalculator = () => {
   ];
 
   const handleDownload = async () => {
-    toast({
-      title: "Генерация PDF",
-      description: "Пожалуйста, подождите...",
-    });
-
+    showToast("Генерация PDF", "Пожалуйста, подождите...");
     const success = await exportToPDF("salary-report-template", `расчет_зарплаты_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
-
     if (success) {
-      toast({
-        title: "Успех!",
-        description: "PDF-отчет успешно сформирован и скачан.",
-      });
+      showToast("Успех!", "PDF-отчет успешно сформирован и скачан.");
     } else {
-      toast({
-        title: "Ошибка",
-        description: "Не удалось создать PDF-отчет.",
-        variant: "destructive"
-      });
+      showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
     }
   };
 
@@ -146,38 +118,26 @@ const SalaryCalculator = () => {
     // Fallback to clipboard
     try {
       await navigator.clipboard.writeText(text);
-      toast({
-        title: "Скопировано!",
-        description: "Расчет сохранен в буфер обмена.",
-      });
+      showToast("Скопировано!", "Расчет сохранен в буфер обмена.");
     } catch (err) {
-      toast({
-        title: "Ошибка",
-        description: "Не удалось скопировать.",
-        variant: "destructive",
-      });
+      showToast("Ошибка", "Не удалось скопировать.", "destructive");
     }
   };
 
   const handleCompare = () => {
-    addItem({
-      title: `Зарплата: ${formatCurrency(salary)}`,
-      calculatorId: "salary",
-      data: {
+    addToComparison(
+      `Зарплата: ${formatCurrency(salary)}`,
+      {
         monthlyPayment: netSalary,
         totalOverpayment: taxAmount,
         loanAmount: salary,
         taxRate: parseFloat(effectiveRate)
       },
-      params: {
+      {
         salary,
         taxRate: parseFloat(effectiveRate)
       }
-    });
-    toast({
-      title: "Добавлено к сравнению",
-      description: "Вы можете сравнить этот расчет с другими на странице сравнения."
-    });
+    );
   };
 
   const handleLoadFromHistory = (item: any) => {
