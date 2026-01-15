@@ -285,52 +285,6 @@ const CreditCalculator = () => {
                 </div>
             </div>
 
-            {/* Возможности калькулятора */}
-            <div className="calculator-section">
-                <h2 className="section-title">Возможности калькулятора</h2>
-                <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-12">
-                    Калькулятор кредита поможет вам рассчитать ежемесячный платеж по потребительскому кредиту и общую переплату. Инструмент использует аннуитетную схему платежей и позволяет сравнить предложения разных банков.
-                </p>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <FeatureCard
-                        icon={Calculator}
-                        title="Расчет аннуитетных платежей"
-                        description="Точный расчет ежемесячного платежа"
-                        gradient="blue"
-                    />
-                    <FeatureCard
-                        icon={Percent}
-                        title="Учет процентной ставки"
-                        description="Расчет переплаты с учетом ставки"
-                        gradient="green"
-                    />
-                    <FeatureCard
-                        icon={Calendar}
-                        title="Гибкий срок кредитования"
-                        description="От 1 месяца до 7 лет"
-                        gradient="purple"
-                    />
-                    <FeatureCard
-                        icon={Scale}
-                        title="Сравнение предложений"
-                        description="Сопоставьте условия разных банков"
-                        gradient="orange"
-                    />
-                    <FeatureCard
-                        icon={TrendingUp}
-                        title="Анализ переплаты"
-                        description="Узнайте реальную стоимость кредита"
-                        gradient="pink"
-                    />
-                    <FeatureCard
-                        icon={FileText}
-                        title="График платежей"
-                        description="Детальный план выплат"
-                        gradient="blue"
-                    />
-                </div>
-            </div>
-
             {/* Как пользоваться */}
             <HowToUseSection
                 steps={[

@@ -552,52 +552,6 @@ const MortgageCalculator = () => {
         </div>
       </div>
 
-      {/* Возможности калькулятора */}
-      <div className="calculator-section">
-        <h2 className="section-title">Возможности калькулятора</h2>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-12">
-          Ипотечный калькулятор поможет вам рассчитать ежемесячный платеж, переплату по процентам и оценить выгоду от досрочного погашения. Инструмент поддерживает аннуитетные и дифференцированные платежи, учитывает материнский капитал и позволяет сравнить различные варианты кредитования.
-        </p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <FeatureCard
-            icon={Calculator}
-            title="Аннуитетные и дифференцированные платежи"
-            description="Выберите оптимальный тип платежей"
-            gradient="blue"
-          />
-          <FeatureCard
-            icon={TrendingDown}
-            title="Расчет досрочного погашения"
-            description="Узнайте выгоду от досрочных платежей"
-            gradient="green"
-          />
-          <FeatureCard
-            icon={Calendar}
-            title="Учет материнского капитала"
-            description="Автоматический расчет с маткапиталом"
-            gradient="purple"
-          />
-          <FeatureCard
-            icon={Scale}
-            title="Сравнение разных условий"
-            description="Сопоставьте предложения банков"
-            gradient="orange"
-          />
-          <FeatureCard
-            icon={Percent}
-            title="Детальный график платежей"
-            description="Помесячная разбивка по процентам и долгу"
-            gradient="pink"
-          />
-          <FeatureCard
-            icon={BarChart3}
-            title="Визуализация динамики долга"
-            description="Графики изменения остатка задолженности"
-            gradient="blue"
-          />
-        </div>
-      </div>
-
       {/* Как пользоваться */}
       <HowToUseSection
         steps={[

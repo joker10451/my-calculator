@@ -470,52 +470,6 @@ const SalaryCalculator = () => {
         </div>
       </div>
 
-      {/* Возможности калькулятора */}
-      <div className="calculator-section">
-        <h2 className="section-title">Возможности калькулятора</h2>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-12">
-          Калькулятор зарплаты поможет вам рассчитать чистую зарплату на руки с учетом всех налогов и взносов. Инструмент учитывает НДФЛ, страховые взносы и прогрессивную шкалу налогообложения.
-        </p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <FeatureCard
-            icon={Calculator}
-            title="Расчет зарплаты на руки"
-            description="Точный расчет с учетом всех налогов"
-            gradient="blue"
-          />
-          <FeatureCard
-            icon={Percent}
-            title="Учет НДФЛ и взносов"
-            description="Автоматический расчет налогов"
-            gradient="green"
-          />
-          <FeatureCard
-            icon={TrendingUp}
-            title="Прогрессивная шкала"
-            description="15% с доходов свыше 5 млн ₽/год"
-            gradient="purple"
-          />
-          <FeatureCard
-            icon={Calendar}
-            title="Расчет по месяцам"
-            description="Помесячная разбивка выплат"
-            gradient="orange"
-          />
-          <FeatureCard
-            icon={FileText}
-            title="Детальная разбивка"
-            description="Все начисления и удержания"
-            gradient="pink"
-          />
-          <FeatureCard
-            icon={BarChart3}
-            title="Сравнение вариантов"
-            description="Сопоставьте разные условия"
-            gradient="blue"
-          />
-        </div>
-      </div>
-
       {/* Как пользоваться */}
       <HowToUseSection
         steps={[
