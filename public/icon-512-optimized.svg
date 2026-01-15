@@ -1,0 +1,51 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="64" fill="#3B82F6"/>
+  
+  <text x="256" y="40" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">Считай.RU</text>
+  
+  <!-- Calculator body -->
+  <rect x="102" y="128" width="307" height="307" rx="20" fill="white"/>
+  
+  <!-- Display -->
+  <rect x="128" y="154" width="256" height="51" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="256" y="189" fill="#374151" font-family="monospace" font-size="20" text-anchor="middle">123.45</text>
+  
+  <!-- Button grid -->
+  <g fill="#f3f4f6" stroke="#e2e8f0" stroke-width="1">
+    <!-- Row 1 -->
+    <rect x="128" y="230" width="41" height="31" rx="2"/>
+    <rect x="179" y="230" width="41" height="31" rx="2"/>
+    <rect x="230" y="230" width="41" height="31" rx="2"/>
+    <rect x="282" y="230" width="102" height="31" rx="2" fill="#3B82F6"/>
+    
+    <!-- Row 2 -->
+    <rect x="128" y="271" width="41" height="31" rx="2"/>
+    <rect x="179" y="271" width="41" height="31" rx="2"/>
+    <rect x="230" y="271" width="41" height="31" rx="2"/>
+    <rect x="282" y="271" width="102" height="31" rx="2" fill="#3B82F6"/>
+    
+    <!-- Row 3 -->
+    <rect x="128" y="312" width="92" height="31" rx="2"/>
+    <rect x="230" y="312" width="41" height="31" rx="2"/>
+    <rect x="282" y="312" width="102" height="31" rx="2" fill="#3B82F6"/>
+  </g>
+  
+  <!-- Button labels -->
+  <g fill="#374151" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" font-weight="bold">
+    <text x="148" y="251">7</text>
+    <text x="200" y="251">8</text>
+    <text x="251" y="251">9</text>
+    <text x="148" y="292">4</text>
+    <text x="200" y="292">5</text>
+    <text x="251" y="292">6</text>
+    <text x="174" y="333">0</text>
+    <text x="251" y="333">.</text>
+  </g>
+  
+  <!-- Operation symbols -->
+  <g fill="white" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" font-weight="bold">
+    <text x="333" y="251">÷</text>
+    <text x="333" y="292">×</text>
+    <text x="333" y="333">=</text>
+  </g>
+</svg>

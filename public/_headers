@@ -1,0 +1,76 @@
+# HTTP заголовки для favicon файлов и оптимизации производительности
+
+# Основной favicon
+/favicon.ico
+  Content-Type: image/x-icon
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Vary: Accept-Encoding
+
+# SVG иконка
+/icon.svg
+  Content-Type: image/svg+xml
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Vary: Accept-Encoding
+
+# Apple Touch Icon
+/apple-touch-icon.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Vary: Accept-Encoding
+
+# PWA иконки
+/icon-192.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Vary: Accept-Encoding
+
+/icon-512.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Vary: Accept-Encoding
+
+# Web App Manifest
+/manifest.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: public, max-age=86400
+  X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Vary: Accept-Encoding
+
+# Общие заголовки для всех статических ресурсов
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Сжатие для текстовых файлов (SVG, JSON, CSS, JS)
+/*.svg
+  Content-Encoding: gzip
+
+/*.json
+  Content-Encoding: gzip
+
+/*.css
+  Content-Encoding: gzip
+
+/*.js
+  Content-Encoding: gzip
+
+/*.html
+  Content-Encoding: gzip

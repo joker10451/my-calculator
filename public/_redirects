@@ -1,0 +1,10 @@
+# Специальная обработка favicon файлов - не перенаправлять на index.html
+/favicon.ico    /favicon.ico    200
+/icon.svg       /icon.svg       200
+/apple-touch-icon.png    /apple-touch-icon.png    200
+/icon-192.png   /icon-192.png   200
+/icon-512.png   /icon-512.png   200
+/manifest.json  /manifest.json  200
+
+# Все остальные маршруты перенаправляем на SPA
+/*    /index.html   200

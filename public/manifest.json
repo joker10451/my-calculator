@@ -1,0 +1,53 @@
+{
+  "name": "Считай.RU — Бесплатные онлайн калькуляторы",
+  "short_name": "Считай.RU",
+  "description": "Бесплатные онлайн калькуляторы для финансов, здоровья, транспорта и ЖКХ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["finance", "utilities", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Ипотечный калькулятор",
+      "short_name": "Ипотека",
+      "description": "Расчет ипотечного кредита",
+      "url": "/mortgage-calculator",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Кредитный калькулятор",
+      "short_name": "Кредит",
+      "description": "Расчет потребительского кредита",
+      "url": "/credit-calculator",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
