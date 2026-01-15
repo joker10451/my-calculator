@@ -53,8 +53,8 @@ const MaternityCapitalCalculatorPage = () => {
             schemaDescription="Бесплатный онлайн калькулятор для расчета размера материнского капитала"
             title="Калькулятор материнского капитала"
             description="Узнайте размер господдержки для вашей семьи в 2025-2026 году"
-            category="Финансы"
-            categoryHref="/category/financial"
+            category="Семейные"
+            categoryHref="/category/family"
             faqItems={faqItems}
             calculator={<MaternityCapitalCalculator />}
             features={features}
