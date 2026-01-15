@@ -23,8 +23,8 @@ import {
   Minus
 } from "lucide-react";
 import { useComparison } from "@/context/ComparisonContext";
-import { useToast } from "@/hooks/use-toast";
 import { useOfflineMode } from "@/hooks/useOfflineMode";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 import { feeCalculationEngine } from "@/lib/feeCalculationEngine";
 import { exemptionManager } from "@/lib/exemptionManager";
 import { feeDataService } from "@/lib/feeDataService";
@@ -40,7 +40,7 @@ import {
 
 const CourtFeeCalculator = () => {
   const { addItem } = useComparison();
-  const { toast } = useToast();
+  const { formatCurrency, showToast } = useCalculatorCommon('court-fee', 'Калькулятор госпошлины');
   const {
     isOffline,
     isOnline,
@@ -139,11 +139,7 @@ const CourtFeeCalculator = () => {
         // Проверяем целостность данных
         const isDataValid = feeDataService.validateDataIntegrity();
         if (!isDataValid) {
-          toast({
-            title: "Предупреждение",
-            description: "Обнаружены проблемы с данными о госпошлинах. Расчеты могут быть неточными.",
-            variant: "destructive"
-          });
+          showToast("Предупреждение", "Обнаружены проблемы с данными о госпошлинах. Расчеты могут быть неточными.", "destructive");
         }
 
         // Получаем информацию о актуальности
@@ -156,34 +152,22 @@ const CourtFeeCalculator = () => {
 
         // Показываем предупреждение если данные устарели
         if (!freshness.isUpToDate && freshness.warningMessage) {
-          toast({
-            title: "Внимание",
-            description: freshness.warningMessage,
-            variant: "default"
-          });
+          showToast("Внимание", freshness.warningMessage);
         }
 
         // В онлайн-режиме проверяем наличие обновлений
         if (isOnline && !isOffline) {
           const hasUpdates = await feeDataService.checkForUpdates();
           if (hasUpdates) {
-            toast({
-              title: "Доступны обновления",
-              description: "Найдены обновления тарифов госпошлин. Рекомендуется обновить данные.",
-              variant: "default"
-            });
+            showToast("Доступны обновления", "Найдены обновления тарифов госпошлин. Рекомендуется обновить данные.");
           }
         }
 
         // Показываем уведомление о офлайн-режиме
         if (isOffline) {
-          toast({
-            title: "Офлайн-режим",
-            description: isOfflineReady 
-              ? "Калькулятор работает с кэшированными данными"
-              : "Ограниченная функциональность. Некоторые данные могут быть недоступны.",
-            variant: "default"
-          });
+          showToast("Офлайн-режим", isOfflineReady 
+            ? "Калькулятор работает с кэшированными данными"
+            : "Ограниченная функциональность. Некоторые данные могут быть недоступны.");
         }
       } catch (error) {
         console.error('Ошибка проверки данных:', error);
@@ -191,16 +175,12 @@ const CourtFeeCalculator = () => {
     };
 
     checkDataStatus();
-  }, [toast, isOffline, isOnline, isOfflineReady]);
+  }, [showToast, isOffline, isOnline, isOfflineReady]);
 
   // Обновление данных
   const handleUpdateData = async () => {
     if (isOffline) {
-      toast({
-        title: "Офлайн-режим",
-        description: "Обновление данных недоступно без подключения к интернету.",
-        variant: "destructive"
-      });
+      showToast("Офлайн-режим", "Обновление данных недоступно без подключения к интернету.", "destructive");
       return;
     }
 
@@ -217,18 +197,10 @@ const CourtFeeCalculator = () => {
       const version = feeDataService.getDataVersionInfo();
       setDataVersion(version);
       
-      toast({
-        title: "Данные обновлены",
-        description: "Тарифы госпошлин успешно обновлены до актуальной версии.",
-        variant: "default"
-      });
+      showToast("Данные обновлены", "Тарифы госпошлин успешно обновлены до актуальной версии.");
     } catch (error) {
       console.error('Ошибка обновления данных:', error);
-      toast({
-        title: "Ошибка обновления",
-        description: "Не удалось обновить данные. Попробуйте позже.",
-        variant: "destructive"
-      });
+      showToast("Ошибка обновления", "Не удалось обновить данные. Попробуйте позже.", "destructive");
     } finally {
       setIsUpdating(false);
     }
@@ -237,38 +209,22 @@ const CourtFeeCalculator = () => {
   // Обновление офлайн-кэша
   const handleRefreshOfflineCache = async () => {
     if (isOffline) {
-      toast({
-        title: "Офлайн-режим",
-        description: "Обновление кэша недоступно без подключения к интернету.",
-        variant: "destructive"
-      });
+      showToast("Офлайн-режим", "Обновление кэша недоступно без подключения к интернету.", "destructive");
       return;
     }
 
     const success = await refreshOfflineCache();
     if (success) {
-      toast({
-        title: "Кэш обновлен",
-        description: "Офлайн-данные успешно обновлены.",
-        variant: "default"
-      });
+      showToast("Кэш обновлен", "Офлайн-данные успешно обновлены.");
     } else {
-      toast({
-        title: "Ошибка обновления кэша",
-        description: "Не удалось обновить офлайн-данные.",
-        variant: "destructive"
-      });
+      showToast("Ошибка обновления кэша", "Не удалось обновить офлайн-данные.", "destructive");
     }
   };
 
   // Очистка офлайн-кэша
   const handleClearOfflineCache = () => {
     clearOfflineCache();
-    toast({
-      title: "Кэш очищен",
-      description: "Все офлайн-данные удалены.",
-      variant: "default"
-    });
+    showToast("Кэш очищен", "Все офлайн-данные удалены.");
   };
   // Получение доступных льгот для выбранного типа суда
   const availableExemptions = useMemo(() => {
@@ -334,15 +290,6 @@ const CourtFeeCalculator = () => {
     }
   }, [claimAmount, courtType, selectedExemption]);
 
-  // Форматирование валюты
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   // Обработчик изменения типа суда
   const handleCourtTypeChange = (newCourtType: CourtType) => {
     setCourtType(newCourtType);
@@ -350,11 +297,7 @@ const CourtFeeCalculator = () => {
     // Проверяем совместимость текущей льготы с новым типом суда
     if (selectedExemption && !selectedExemption.applicableCourts.includes(newCourtType)) {
       setSelectedExemption(null);
-      toast({
-        title: "Льгота сброшена",
-        description: "Выбранная льгота не применима к данному типу суда",
-        variant: "default"
-      });
+      showToast("Льгота сброшена", "Выбранная льгота не применима к данному типу суда");
     }
   };
 
@@ -390,10 +333,7 @@ const CourtFeeCalculator = () => {
       }
     });
     
-    toast({
-      title: "Добавлено к сравнению",
-      description: "Вы можете сравнить этот расчет с другими на странице сравнения."
-    });
+    showToast("Добавлено к сравнению", "Вы можете сравнить этот расчет с другими на странице сравнения.");
   };
 
   // Поделиться результатом
@@ -415,7 +355,7 @@ const CourtFeeCalculator = () => {
     }
     
     await navigator.clipboard.writeText(text);
-    toast({ title: "Скопировано в буфер обмена!" });
+    showToast("Скопировано в буфер обмена!");
   };
 
   // Экспорт в PDF
@@ -427,20 +367,13 @@ const CourtFeeCalculator = () => {
       const success = await exportToPDF('court-fee-pdf-export', filename);
       
       if (success) {
-        toast({
-          title: "PDF сохранен",
-          description: "Расчет госпошлины успешно экспортирован в PDF."
-        });
+        showToast("PDF сохранен", "Расчет госпошлины успешно экспортирован в PDF.");
       } else {
         throw new Error('Ошибка генерации PDF');
       }
     } catch (error) {
       console.error('Ошибка экспорта PDF:', error);
-      toast({
-        title: "Ошибка экспорта",
-        description: "Не удалось создать PDF файл. Попробуйте еще раз.",
-        variant: "destructive"
-      });
+      showToast("Ошибка экспорта", "Не удалось создать PDF файл. Попробуйте еще раз.", "destructive");
     }
   };
 

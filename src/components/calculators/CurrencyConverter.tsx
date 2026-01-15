@@ -4,6 +4,7 @@ import { Calculator, ArrowRightLeft, Info, Share2, Coins, RefreshCw, Download } 
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
+import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 type Currency = "RUB" | "USD" | "EUR" | "CNY" | "KZT" | "BYN";
 
@@ -26,10 +27,8 @@ const LABELS: Record<Currency, string> = {
     BYN: "🇧🇾 Бел. рубль (BYN)",
 };
 
-import { useToast } from "@/hooks/use-toast";
-
 const CurrencyConverter = () => {
-    const { toast } = useToast();
+    const { formatCurrency, showToast } = useCalculatorCommon('currency', 'Конвертер валют');
     const [amount, setAmount] = useLocalStorage<number>("calc_currency_amount", 100);
     const [from, setFrom] = useLocalStorage<Currency>("calc_currency_from", "USD");
     const [to, setTo] = useLocalStorage<Currency>("calc_currency_to", "RUB");
@@ -77,7 +76,7 @@ const CurrencyConverter = () => {
         setTo(from);
     };
 
-    const formatCurrency = (val: number, cur: Currency) => {
+    const formatCurrencyLocal = (val: number, cur: Currency) => {
         return new Intl.NumberFormat("ru-RU", {
             style: "currency",
             currency: cur,
@@ -86,31 +85,21 @@ const CurrencyConverter = () => {
     };
 
     const handleDownload = async () => {
-        toast({
-            title: "Генерация PDF",
-            description: "Пожалуйста, подождите...",
-        });
+        showToast("Генерация PDF", "Пожалуйста, подождите...");
 
         const success = await exportToPDF("currency-report-template", `конвертация_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
 
         if (success) {
-            toast({
-                title: "Успех!",
-                description: "PDF-отчет успешно сформирован и скачан.",
-            });
+            showToast("Успех!", "PDF-отчет успешно сформирован и скачан.");
         } else {
-            toast({
-                title: "Ошибка",
-                description: "Не удалось создать PDF-отчет.",
-                variant: "destructive"
-            });
+            showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
     };
 
     const handleShare = async () => {
         const text = [
             'Конвертация валют',
-            `${formatCurrency(amount, from)} = ${formatCurrency(result, to)}`,
+            `${formatCurrencyLocal(amount, from)} = ${formatCurrencyLocal(result, to)}`,
             `Курс: 1 ${from} ≈ ${(rates[from] / rates[to]).toFixed(4)} ${to}`,
             `(${lastUpdated ? 'Официальный курс ЦБ' : 'Примерный курс'})`
         ].join('\n');
@@ -124,9 +113,9 @@ const CurrencyConverter = () => {
 
         try {
             await navigator.clipboard.writeText(text);
-            toast({ title: "Скопировано!", description: "Результат сохранен в буфер обмена." });
+            showToast("Скопировано!", "Результат сохранен в буфер обмена.");
         } catch (e) {
-            toast({ title: "Ошибка", description: "Не удалось скопировать", variant: "destructive" });
+            showToast("Ошибка", "Не удалось скопировать", "destructive");
         }
     };
 
@@ -227,7 +216,7 @@ const CurrencyConverter = () => {
                                 Результат обмена
                             </div>
                             <div className="calc-result animate-count-up text-3xl md:text-4xl text-green-600 word-break">
-                                {formatCurrency(result, to)}
+                                {formatCurrencyLocal(result, to)}
                             </div>
                         </div>
 
@@ -280,10 +269,10 @@ const CurrencyConverter = () => {
                             <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 text-center">
                                 <p className="text-slate-500 text-sm mb-2 uppercase font-semibold">Результат обмена</p>
                                 <p className="text-5xl font-black text-primary">
-                                    {formatCurrency(result, to)}
+                                    {formatCurrencyLocal(result, to)}
                                 </p>
                                 <p className="text-slate-400 mt-2 italic text-sm">
-                                    из рассчета {formatCurrency(amount, from)}
+                                    из рассчета {formatCurrencyLocal(amount, from)}
                                 </p>
                             </div>
                         </div>
@@ -292,7 +281,7 @@ const CurrencyConverter = () => {
                     <div className="space-y-4 mb-12">
                         <div className="flex justify-between py-3 border-b border-slate-100">
                             <span className="text-slate-600 font-medium">Исходная сумма</span>
-                            <span className="font-bold text-slate-900">{formatCurrency(amount, from)}</span>
+                            <span className="font-bold text-slate-900">{formatCurrencyLocal(amount, from)}</span>
                         </div>
                         <div className="flex justify-between py-3 border-b border-slate-100">
                             <span className="text-slate-600 font-medium">Курс конвертации</span>
@@ -310,7 +299,7 @@ const CurrencyConverter = () => {
                         )}
                         <div className="flex justify-between py-3 border-b border-slate-200 bg-slate-50 px-4 rounded-lg mt-4">
                             <span className="text-slate-800 font-bold uppercase">ИТОГО К ПОЛУЧЕНИЮ</span>
-                            <span className="font-extrabold text-primary text-xl">{formatCurrency(result, to)}</span>
+                            <span className="font-extrabold text-primary text-xl">{formatCurrencyLocal(result, to)}</span>
                         </div>
                     </div>
 
