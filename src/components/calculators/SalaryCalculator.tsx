@@ -472,7 +472,7 @@ const SalaryCalculator = () => {
 
       {/* Возможности калькулятора */}
       <div className="calculator-section">
-        <h2 className="section-title">О калькуляторе зарплаты</h2>
+        <h2 className="section-title">Возможности калькулятора</h2>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-12">
           Калькулятор зарплаты поможет вам рассчитать чистую зарплату на руки с учетом всех налогов и взносов. Инструмент учитывает НДФЛ, страховые взносы и прогрессивную шкалу налогообложения.
         </p>
