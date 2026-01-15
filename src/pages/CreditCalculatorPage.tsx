@@ -65,19 +65,6 @@ const CreditCalculatorPage = () => {
                 </div>
 
                 <div className="mt-12 space-y-8">
-                    {/* Header Section */}
-                    <div className="text-center space-y-4">
-                        <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-purple-400">
-                            О кредитном калькуляторе
-                        </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-                            Кредитный калькулятор поможет вам рассчитать все параметры потребительского кредита: 
-                            ежемесячный платеж, общую сумму выплат, переплату по процентам и полную стоимость кредита (ПСК). 
-                            Калькулятор использует стандартную формулу аннуитетных платежей, которую применяют большинство 
-                            российских банков в 2026 году.
-                        </p>
-                    </div>
-
                     {/* Features Grid */}
                     <div>
                         <h3 className="text-2xl font-semibold mb-6 text-slate-800 dark:text-slate-100">
