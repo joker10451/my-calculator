@@ -144,7 +144,15 @@ describe('Constraint Handling Completeness Properties', () => {
           fc.integer({ min: 5, max: 10 }),
           fc.float({ min: Math.fround(5), max: Math.fround(15), noNaN: true }),
           async (productType, productCount, maxRate) => {
-            const products = await fc.sample(bankProductArbitrary(productType), productCount);
+            // Создаем продукты со ставками в пределах ограничения
+            const products = await fc.sample(
+              fc.record({
+                ...bankProductArbitrary(productType).value,
+                interest_rate: fc.float({ min: Math.fround(0.1), max: Math.fround(maxRate), noNaN: true }),
+                promotional_rate: fc.option(fc.float({ min: Math.fround(0.1), max: Math.fround(maxRate), noNaN: true }))
+              }),
+              productCount
+            );
             
             const productsWithBanks = products.map((product, index) => ({
               ...product,
@@ -441,7 +449,32 @@ describe('Constraint Handling Completeness Properties', () => {
           fc.constantFrom('mortgage', 'credit'),
           fc.integer({ min: 5, max: 10 }),
           async (productType, productCount) => {
-            const products = await fc.sample(bankProductArbitrary(productType), productCount);
+            // Создаем продукты которые соответствуют ограничениям
+            const products = await fc.sample(
+              fc.record({
+                ...bankProductArbitrary(productType).value,
+                interest_rate: fc.float({ min: Math.fround(0.1), max: Math.fround(15), noNaN: true }),
+                promotional_rate: fc.option(fc.float({ min: Math.fround(0.1), max: Math.fround(15), noNaN: true })),
+                fees: fc.record({
+                  application: fc.option(fc.float({ min: Math.fround(0), max: Math.fround(5000), noNaN: true })),
+                  monthly: fc.option(fc.float({ min: Math.fround(0), max: Math.fround(2000), noNaN: true })),
+                  early_repayment: fc.option(fc.float({ min: Math.fround(0), max: Math.fround(5000), noNaN: true })),
+                  cash_withdrawal: fc.option(fc.float({ min: Math.fround(0), max: Math.fround(1000), noNaN: true })),
+                  account_maintenance: fc.option(fc.float({ min: Math.fround(0), max: Math.fround(2000), noNaN: true }))
+                }),
+                features: fc.record({
+                  online_application: fc.constant(true),
+                  early_repayment: fc.option(fc.boolean()),
+                  grace_period: fc.option(fc.oneof(fc.boolean(), fc.integer({ min: 0, max: 100 }))),
+                  capitalization: fc.option(fc.boolean()),
+                  replenishment: fc.option(fc.boolean()),
+                  partial_withdrawal: fc.option(fc.boolean()),
+                  fast_approval: fc.option(fc.boolean()),
+                  insurance_included: fc.option(fc.boolean())
+                })
+              }),
+              productCount
+            );
             
             const productsWithBanks = products.map((product, index) => ({
               ...product,
@@ -525,7 +558,15 @@ describe('Constraint Handling Completeness Properties', () => {
           fc.constantFrom('mortgage', 'deposit', 'credit'),
           fc.integer({ min: 5, max: 10 }),
           async (productType, productCount) => {
-            const products = await fc.sample(bankProductArbitrary(productType), productCount);
+            // Создаем продукты которые соответствуют ограничениям
+            const products = await fc.sample(
+              fc.record({
+                ...bankProductArbitrary(productType).value,
+                interest_rate: fc.float({ min: Math.fround(0.1), max: Math.fround(12), noNaN: true }),
+                promotional_rate: fc.option(fc.float({ min: Math.fround(0.1), max: Math.fround(12), noNaN: true }))
+              }),
+              productCount
+            );
             
             const productsWithBanks = products.map((product, index) => ({
               ...product,

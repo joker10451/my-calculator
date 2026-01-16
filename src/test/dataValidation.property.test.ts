@@ -16,9 +16,9 @@ import type {
 // Генераторы для property-based тестирования
 const bankNameArbitrary = fc.string({ minLength: 1, maxLength: 255 }).filter(s => s.trim().length > 0);
 const shortNameArbitrary = fc.string({ minLength: 1, maxLength: 100 }).filter(s => s.trim().length > 0);
-const ratingArbitrary = fc.float({ min: 0, max: 5, noNaN: true });
-const commissionRateArbitrary = fc.float({ min: 0, max: 100, noNaN: true });
-const interestRateArbitrary = fc.float({ min: 0, max: 50, noNaN: true });
+const ratingArbitrary = fc.float({ min: 0, max: Math.fround(5), noNaN: true });
+const commissionRateArbitrary = fc.float({ min: 0, max: Math.fround(100), noNaN: true });
+const interestRateArbitrary = fc.float({ min: 0, max: Math.fround(50), noNaN: true });
 const amountArbitrary = fc.integer({ min: 1000, max: 100000000 });
 const termArbitrary = fc.integer({ min: 1, max: 600 });
 const productTypeArbitrary = fc.constantFrom('mortgage', 'deposit', 'credit', 'insurance') as fc.Arbitrary<ProductType>;
@@ -93,8 +93,7 @@ describe('Data Validation Property Tests', () => {
             expect(bankData.commission_rate).toBeLessThanOrEqual(100);
           }
         }
-      ), 
-      { numRuns: 100 }
+      )
     );
 
     it('should reject invalid bank data with appropriate error messages', 
@@ -112,14 +111,14 @@ describe('Data Validation Property Tests', () => {
             fc.constant(null as any)
           ),
           overall_rating: fc.oneof(
-            fc.float({ min: -1, max: -0.1 }), // отрицательный рейтинг
-            fc.float({ min: 5.1, max: 10 }), // слишком высокий рейтинг
+            fc.float({ min: Math.fround(-1), max: Math.fround(-0.1) }), // отрицательный рейтинг
+            fc.float({ min: Math.fround(5.1), max: Math.fround(10) }), // слишком высокий рейтинг
             fc.constant(NaN),
             fc.constant(Infinity)
           ),
           commission_rate: fc.oneof(
-            fc.float({ min: -1, max: -0.1 }), // отрицательная комиссия
-            fc.float({ min: 100.1, max: 200 }), // слишком высокая комиссия
+            fc.float({ min: Math.fround(-1), max: Math.fround(-0.1) }), // отрицательная комиссия
+            fc.float({ min: Math.fround(100.1), max: Math.fround(200) }), // слишком высокая комиссия
             fc.constant(NaN)
           ),
           email: fc.oneof(
@@ -148,8 +147,7 @@ describe('Data Validation Property Tests', () => {
             expect(error.code).toBeTruthy();
           });
         }
-      ), 
-      { numRuns: 100 }
+      )
     );
 
     it('should validate correct product data and accept all valid inputs', 
@@ -180,8 +178,7 @@ describe('Data Validation Property Tests', () => {
             expect(productWithBank.min_term).toBeLessThanOrEqual(productWithBank.max_term);
           }
         }
-      ), 
-      { numRuns: 100 }
+      )
     );
 
     it('should reject invalid product data with appropriate error messages', 
@@ -191,12 +188,12 @@ describe('Data Validation Property Tests', () => {
           product_type: fc.constantFrom('invalid_type' as any, '' as any, null as any),
           name: fc.oneof(fc.constant(''), fc.constant(null as any), fc.constant(undefined as any)),
           interest_rate: fc.oneof(
-            fc.float({ min: -10, max: -0.1 }), // отрицательная ставка
+            fc.float({ min: Math.fround(-10), max: Math.fround(-0.1) }), // отрицательная ставка
             fc.constant(NaN),
             fc.constant(Infinity),
             fc.constant(null as any)
           ),
-          min_amount: fc.float({ min: -1000, max: -1 }), // отрицательная сумма
+          min_amount: fc.float({ min: Math.fround(-1000), max: Math.fround(-1) }), // отрицательная сумма
           max_amount: fc.integer({ min: 1, max: 1000 }), // потенциально меньше минимальной
           min_term: fc.integer({ min: -10, max: 0 }), // отрицательный срок
           max_term: fc.integer({ min: 1, max: 5 }), // потенциально меньше минимального
@@ -217,8 +214,7 @@ describe('Data Validation Property Tests', () => {
             expect(error.code).toBeTruthy();
           });
         }
-      ), 
-      { numRuns: 100 }
+      )
     );
 
     it('should prioritize data sources correctly when conflicts arise', 
@@ -261,8 +257,7 @@ describe('Data Validation Property Tests', () => {
           const validation = BankDataValidator.validateBank(resolvedData);
           expect(validation.is_valid).toBe(true);
         }
-      ), 
-      { numRuns: 100 }
+      )
     );
 
     it('should handle edge cases in validation correctly', 
@@ -273,12 +268,12 @@ describe('Data Validation Property Tests', () => {
           overall_rating: fc.oneof(
             fc.constant(0), // минимальное значение
             fc.constant(5), // максимальное значение
-            fc.float({ min: 0.1, max: 4.9 }) // промежуточные значения
+            fc.float({ min: Math.fround(0.1), max: Math.fround(4.9) }) // промежуточные значения
           ),
           commission_rate: fc.oneof(
             fc.constant(0), // минимальное значение
             fc.constant(100), // максимальное значение
-            fc.float({ min: 0.01, max: 99.99 }) // промежуточные значения
+            fc.float({ min: Math.fround(0.01), max: Math.fround(99.99) }) // промежуточные значения
           ),
           email: fc.oneof(
             fc.emailAddress(), // валидный email
@@ -309,8 +304,7 @@ describe('Data Validation Property Tests', () => {
             expect(edgeCaseData.commission_rate).toBeLessThanOrEqual(100);
           }
         }
-      ), 
-      { numRuns: 100 }
+      )
     );
 
     it('should maintain consistency in validation results', 
@@ -332,8 +326,7 @@ describe('Data Validation Property Tests', () => {
             expect(error.code).toBe(validation2.errors[index].code);
           });
         }
-      ), 
-      { numRuns: 100 }
+      )
     );
 
     it('should validate product type constraints correctly', 
@@ -361,8 +354,7 @@ describe('Data Validation Property Tests', () => {
           const validTypes = ['mortgage', 'deposit', 'credit', 'insurance'];
           expect(validTypes).toContain(productType);
         }
-      ), 
-      { numRuns: 100 }
+      )
     );
   });
 });

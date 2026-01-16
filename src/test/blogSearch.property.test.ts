@@ -20,7 +20,7 @@ const blogPostArbitrary = fc.record({
     name: fc.string({ minLength: 5, maxLength: 30 }),
     bio: fc.string({ minLength: 10, maxLength: 100 })
   }),
-  publishedAt: fc.date({ min: new Date('2020-01-01'), max: new Date('2026-12-31') }).map(d => d.toISOString()),
+  publishedAt: fc.date({ min: new Date('2020-01-01'), max: new Date('2026-12-31') }).filter(d => !isNaN(d.getTime())).map(d => d.toISOString()),
   category: fc.record({
     id: fc.uuid(),
     name: fc.string({ minLength: 5, maxLength: 30 }),

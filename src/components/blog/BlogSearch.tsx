@@ -1,13 +1,15 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import { Search, X, TrendingUp, Clock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import { search, getPopularArticles, suggestAlternatives } from '@/services/searchService';
 import type { SearchResult } from '@/services/searchService';
 import type { BlogPost } from '@/types/blog';
+
+// Lazy load GlassCard component for better performance
+const GlassCard = lazy(() => import('@/components/ui/glass-card').then(module => ({ default: module.GlassCard })));
 
 interface BlogSearchProps {
   articles: BlogPost[];
@@ -89,36 +91,52 @@ export const BlogSearch = ({
 
   return (
     <div className="relative w-full">
-      {/* Поле поиска */}
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-        <Input
-          type="text"
-          value={query}
-          onChange={handleQueryChange}
-          onFocus={() => setShowResults(true)}
-          placeholder={placeholder}
-          className="pl-10 pr-10"
-        />
-        {query && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleClear}
-            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0"
-          >
-            <X className="w-4 h-4" />
-          </Button>
-        )}
-      </div>
+      {/* Поле поиска с glassmorphism эффектом */}
+      <Suspense fallback={
+        <div className="relative p-1 bg-background/50 backdrop-blur-sm rounded-2xl border">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Input
+              type="text"
+              disabled
+              placeholder={placeholder}
+              className="pl-12 pr-12 bg-transparent border-0 text-lg h-14"
+            />
+          </div>
+        </div>
+      }>
+        <GlassCard className="relative p-1">
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/80 dark:text-white/60" />
+          <Input
+            type="text"
+            value={query}
+            onChange={handleQueryChange}
+            onFocus={() => setShowResults(true)}
+            placeholder={placeholder}
+            className="pl-12 pr-12 bg-transparent border-0 text-white placeholder:text-white/50 focus-visible:ring-0 focus-visible:ring-offset-0 text-lg h-14"
+          />
+          {query && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleClear}
+              className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 p-0 hover:bg-white/10 text-white/80"
+            >
+              <X className="w-5 h-5" />
+            </Button>
+          )}
+        </div>
+      </GlassCard>
+      </Suspense>
 
       {/* Результаты поиска */}
       {shouldShowResults && (
-        <Card className="absolute top-full mt-2 w-full z-50 max-h-[500px] overflow-y-auto shadow-lg">
-          <CardContent className="p-4">
-            {/* Индикатор загрузки */}
+        <Suspense fallback={null}>
+          <GlassCard className="absolute top-full mt-2 w-full z-50 max-h-[500px] overflow-y-auto">
+          <div className="p-4">{/* Индикатор загрузки */}
             {isSearching && (
-              <div className="text-center py-4 text-muted-foreground">
+              <div className="text-center py-4 text-white/70 dark:text-white/60">
                 Поиск...
               </div>
             )}
@@ -126,7 +144,7 @@ export const BlogSearch = ({
             {/* Результаты поиска */}
             {!isSearching && searchResults.length > 0 && (
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                <div className="flex items-center gap-2 text-sm text-white/70 dark:text-white/60 mb-3">
                   <Search className="w-4 h-4" />
                   <span>Найдено результатов: {searchResults.length}</span>
                 </div>
@@ -136,7 +154,7 @@ export const BlogSearch = ({
                     key={result.article.id}
                     to={`/blog/${result.article.slug}`}
                     onClick={() => handleResultClick(result.article)}
-                    className="block p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                    className="block p-3 rounded-lg hover:bg-white/10 dark:hover:bg-white/5 transition-colors"
                   >
                     <div className="flex items-start gap-3">
                       {/* Изображение статьи */}
@@ -150,18 +168,18 @@ export const BlogSearch = ({
 
                       <div className="flex-1 min-w-0">
                         {/* Заголовок */}
-                        <h4 className="font-semibold text-sm mb-1 line-clamp-1">
+                        <h4 className="font-semibold text-sm mb-1 line-clamp-1 text-white dark:text-white/90">
                           {result.article.title}
                         </h4>
 
                         {/* Подсвеченный excerpt */}
                         <p
-                          className="text-xs text-muted-foreground line-clamp-2 mb-2"
+                          className="text-xs text-white/70 dark:text-white/60 line-clamp-2 mb-2"
                           dangerouslySetInnerHTML={{ __html: result.highlightedExcerpt }}
                         />
 
                         {/* Метаданные */}
-                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-3 text-xs text-white/60 dark:text-white/50">
                           <Badge variant="secondary" className="text-xs">
                             {result.article.category.name}
                           </Badge>
@@ -185,14 +203,14 @@ export const BlogSearch = ({
             {/* Нет результатов */}
             {!isSearching && debouncedQuery.trim() && searchResults.length === 0 && (
               <div className="py-6 text-center">
-                <p className="text-muted-foreground mb-4">
+                <p className="text-white/70 dark:text-white/60 mb-4">
                   По запросу "{debouncedQuery}" ничего не найдено
                 </p>
 
                 {/* Альтернативные запросы */}
                 {alternatives.length > 0 && (
                   <div className="mb-4">
-                    <p className="text-sm text-muted-foreground mb-2">
+                    <p className="text-sm text-white/70 dark:text-white/60 mb-2">
                       Попробуйте поискать:
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center">
@@ -202,6 +220,7 @@ export const BlogSearch = ({
                           variant="outline"
                           size="sm"
                           onClick={() => handleAlternativeClick(alt)}
+                          className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                         >
                           {alt}
                         </Button>
@@ -213,7 +232,7 @@ export const BlogSearch = ({
                 {/* Популярные статьи */}
                 {showPopularOnEmpty && popularArticles.length > 0 && (
                   <div className="mt-6">
-                    <div className="flex items-center gap-2 text-sm font-semibold mb-3">
+                    <div className="flex items-center gap-2 text-sm font-semibold mb-3 text-white dark:text-white/90">
                       <TrendingUp className="w-4 h-4" />
                       <span>Популярные статьи</span>
                     </div>
@@ -223,16 +242,16 @@ export const BlogSearch = ({
                           key={article.id}
                           to={`/blog/${article.slug}`}
                           onClick={() => handleResultClick(article)}
-                          className="block p-2 rounded hover:bg-muted/50 transition-colors text-left"
+                          className="block p-2 rounded hover:bg-white/10 dark:hover:bg-white/5 transition-colors text-left"
                         >
-                          <p className="text-sm font-medium line-clamp-1">
+                          <p className="text-sm font-medium line-clamp-1 text-white dark:text-white/90">
                             {article.title}
                           </p>
                           <div className="flex items-center gap-2 mt-1">
                             <Badge variant="secondary" className="text-xs">
                               {article.category.name}
                             </Badge>
-                            <span className="text-xs text-muted-foreground">
+                            <span className="text-xs text-white/60 dark:text-white/50">
                               {article.readingTime} мин
                             </span>
                           </div>
@@ -247,7 +266,7 @@ export const BlogSearch = ({
             {/* Популярные статьи при пустом запросе */}
             {!isSearching && !debouncedQuery.trim() && showPopularOnEmpty && popularArticles.length > 0 && (
               <div>
-                <div className="flex items-center gap-2 text-sm font-semibold mb-3">
+                <div className="flex items-center gap-2 text-sm font-semibold mb-3 text-white dark:text-white/90">
                   <TrendingUp className="w-4 h-4" />
                   <span>Популярные статьи</span>
                 </div>
@@ -257,16 +276,16 @@ export const BlogSearch = ({
                       key={article.id}
                       to={`/blog/${article.slug}`}
                       onClick={() => handleResultClick(article)}
-                      className="block p-2 rounded hover:bg-muted/50 transition-colors text-left"
+                      className="block p-2 rounded hover:bg-white/10 dark:hover:bg-white/5 transition-colors text-left"
                     >
-                      <p className="text-sm font-medium line-clamp-1">
+                      <p className="text-sm font-medium line-clamp-1 text-white dark:text-white/90">
                         {article.title}
                       </p>
                       <div className="flex items-center gap-2 mt-1">
                         <Badge variant="secondary" className="text-xs">
                           {article.category.name}
                         </Badge>
-                        <span className="text-xs text-muted-foreground">
+                        <span className="text-xs text-white/60 dark:text-white/50">
                           {article.readingTime} мин
                         </span>
                       </div>
@@ -275,8 +294,9 @@ export const BlogSearch = ({
                 </div>
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </GlassCard>
+        </Suspense>
       )}
 
       {/* Overlay для закрытия результатов при клике вне */}

@@ -194,12 +194,21 @@ describe('Unit Tests: BlogSearch Component', () => {
     // Проверяем, что текст введен
     expect(input.value).toBe('ипотека');
 
-    // Находим и кликаем кнопку очистки
-    const clearButton = screen.getByRole('button');
+    // Ждем появления кнопки очистки (ищем по классу или по родителю)
+    await waitFor(() => {
+      const clearButtons = screen.getAllByRole('button');
+      expect(clearButtons.length).toBeGreaterThan(0);
+    });
+
+    // Находим кнопку очистки (последняя кнопка в списке)
+    const buttons = screen.getAllByRole('button');
+    const clearButton = buttons[buttons.length - 1];
     fireEvent.click(clearButton);
 
     // Проверяем, что поле очищено
-    expect(input.value).toBe('');
+    await waitFor(() => {
+      expect(input.value).toBe('');
+    });
   });
 
   /**

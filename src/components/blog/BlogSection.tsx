@@ -21,19 +21,19 @@ const BlogSection = () => {
   }
 
   return (
-    <section className="py-16 bg-gradient-to-br from-muted/30 via-background to-muted/20">
-      <div className="container mx-auto px-4">
+    <section className="py-xl sm:py-2xl lg:py-3xl xl:py-4xl bg-gradient-to-br from-muted/30 via-background to-muted/20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl">
         {/* Заголовок секции */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-primary" />
+        <div className="text-center mb-xl sm:mb-2xl lg:mb-3xl">
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4 lg:mb-6">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+              <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
               Финансовый блог
             </h2>
           </div>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Экспертные статьи о финансах, налогах и экономии. 
             Актуальная информация для принятия правильных решений.
           </p>
@@ -41,12 +41,12 @@ const BlogSection = () => {
 
         {/* Рекомендуемые статьи */}
         {featuredPosts.length > 0 && (
-          <div className="mb-12">
-            <div className="flex items-center gap-2 mb-6">
-              <TrendingUp className="w-5 h-5 text-primary" />
-              <h3 className="text-xl font-semibold">Рекомендуем к прочтению</h3>
+          <div className="mb-xl sm:mb-2xl lg:mb-3xl">
+            <div className="flex items-center gap-2 mb-lg sm:mb-xl lg:mb-2xl">
+              <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold">Рекомендуем к прочтению</h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-md sm:gap-lg md:gap-xl lg:gap-2xl mb-xl sm:mb-2xl lg:mb-3xl">
               {featuredPosts.map(post => (
                 <BlogCard key={post.id} post={post} variant="featured" />
               ))}
@@ -55,9 +55,9 @@ const BlogSection = () => {
         )}
 
         {/* Последние статьи */}
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold mb-6">Последние публикации</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mb-xl sm:mb-2xl lg:mb-3xl">
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-lg sm:mb-xl lg:mb-2xl">Последние публикации</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md sm:gap-lg md:gap-xl lg:gap-2xl">
             {latestPosts.map(post => (
               <BlogCard key={post.id} post={post} />
             ))}
@@ -66,7 +66,7 @@ const BlogSection = () => {
 
         {/* Кнопка "Все статьи" */}
         <div className="text-center">
-          <Button asChild size="lg" className="group">
+          <Button asChild size="lg" className="group min-h-[44px]">
             <Link to="/blog">
               Все статьи блога
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
@@ -75,21 +75,21 @@ const BlogSection = () => {
         </div>
 
         {/* Статистика блога */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center p-6 bg-card rounded-xl border">
-            <div className="text-2xl font-bold text-primary mb-2">
+        <div className="mt-xl sm:mt-2xl lg:mt-3xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-md sm:gap-lg lg:gap-xl">
+          <div className="text-center p-md sm:p-lg bg-card rounded-xl border">
+            <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {blogPosts.filter(p => p.isPublished).length}
             </div>
-            <div className="text-muted-foreground">Статей опубликовано</div>
+            <div className="text-sm sm:text-base text-muted-foreground">Статей опубликовано</div>
           </div>
-          <div className="text-center p-6 bg-card rounded-xl border">
-            <div className="text-2xl font-bold text-primary mb-2">
+          <div className="text-center p-md sm:p-lg bg-card rounded-xl border">
+            <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {blogPosts.filter(p => p.isPublished && p.isFeatured).length}
             </div>
-            <div className="text-muted-foreground">Рекомендуемых статей</div>
+            <div className="text-sm sm:text-base text-muted-foreground">Рекомендуемых статей</div>
           </div>
-          <div className="text-center p-6 bg-card rounded-xl border">
-            <div className="text-2xl font-bold text-primary mb-2">
+          <div className="text-center p-md sm:p-lg bg-card rounded-xl border sm:col-span-2 md:col-span-1">
+            <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {Math.round(
                 blogPosts
                   .filter(p => p.isPublished)
@@ -97,7 +97,7 @@ const BlogSection = () => {
                 blogPosts.filter(p => p.isPublished).length
               )}
             </div>
-            <div className="text-muted-foreground">Минут среднее время чтения</div>
+            <div className="text-sm sm:text-base text-muted-foreground">Минут среднее время чтения</div>
           </div>
         </div>
       </div>

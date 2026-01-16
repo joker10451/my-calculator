@@ -44,17 +44,19 @@ describe('OptimizedImage Component', () => {
     expect(img).toHaveAttribute('loading', 'eager');
   });
 
-  test('generates WebP URL correctly', () => {
+  test('generates srcset correctly', () => {
     const { container } = render(
       <OptimizedImage
         src="/test-image.jpg"
         alt="Test image"
         priority={true}
+        width={800}
       />
     );
 
-    const source = container.querySelector('source[type="image/webp"]');
-    expect(source).toBeTruthy();
+    const img = container.querySelector('img[src="/test-image.jpg"]');
+    expect(img).toBeTruthy();
+    expect(img).toHaveAttribute('srcset');
   });
 
   test('calls onLoad callback when image loads', async () => {
@@ -104,8 +106,8 @@ describe('OptimizedImage Component', () => {
       />
     );
 
-    const source = container.querySelector('source[type="image/webp"]');
-    expect(source).toHaveAttribute('sizes', customSizes);
+    const img = container.querySelector('img[src="/test-image.jpg"]');
+    expect(img).toHaveAttribute('sizes', customSizes);
   });
 });
 

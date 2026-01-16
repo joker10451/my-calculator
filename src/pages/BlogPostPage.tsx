@@ -19,6 +19,7 @@ import { Separator } from '@/components/ui/separator';
 import { blogPosts } from '@/data/blogPosts';
 import { categories } from '@/lib/data';
 import { parseMarkdown } from '@/utils/markdown';
+import { FadeInUp, StaggerContainer, StaggerItem } from '@/components/animations';
 
 // Lazy load комментариев
 const BlogComments = lazy(() => import('@/components/blog/BlogComments').then(module => ({ default: module.BlogComments })));
@@ -158,7 +159,8 @@ const BlogPostPage = () => {
               {/* Основная статья */}
               <article className="max-w-4xl">
                 {/* Заголовок статьи */}
-                <header className="mb-8">
+                <FadeInUp>
+                  <header className="mb-8">
               <div className="flex flex-wrap items-center gap-4 mb-4">
                 <Badge 
                   className="text-sm"
@@ -175,28 +177,28 @@ const BlogPostPage = () => {
                 )}
               </div>
 
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+              <h1 className="text-h1 md:text-hero font-extrabold leading-tight mb-8">
                 {post.title}
               </h1>
 
-              <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-body md:text-body-lg text-muted-foreground mb-8 leading-relaxed">
                 {post.excerpt}
               </p>
 
               {/* Мета-информация */}
-              <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-6">
+              <div className="flex flex-wrap items-center gap-6 text-base text-muted-foreground mb-8">
                 <div className="flex items-center gap-2">
-                  <User className="w-4 h-4" aria-hidden="true" />
+                  <User className="w-5 h-5" aria-hidden="true" />
                   <span>{post.author.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" aria-hidden="true" />
+                  <Calendar className="w-5 h-5" aria-hidden="true" />
                   <time dateTime={post.publishedAt}>
                     {formatDate(post.publishedAt)}
                   </time>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" aria-hidden="true" />
+                  <Clock className="w-5 h-5" aria-hidden="true" />
                   <span>{post.readingTime} мин чтения</span>
                 </div>
                 <div className="ml-auto flex items-center gap-2">
@@ -207,7 +209,7 @@ const BlogPostPage = () => {
                     onClick={handleShare}
                     aria-label="Поделиться статьей"
                   >
-                    <Share2 className="w-4 h-4 mr-2" aria-hidden="true" />
+                    <Share2 className="w-5 h-5 mr-2" aria-hidden="true" />
                     Поделиться
                   </Button>
                 </div>
@@ -228,25 +230,27 @@ const BlogPostPage = () => {
                 </div>
               )}
             </header>
+            </FadeInUp>
 
             {/* Содержание статьи */}
-            <div className="prose prose-lg max-w-none mb-12 
-              prose-headings:font-bold prose-headings:text-foreground prose-headings:mt-8 prose-headings:mb-4
-              prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl
-              prose-p:text-foreground prose-p:leading-relaxed prose-p:mb-4
-              prose-strong:text-foreground prose-strong:font-semibold
-              prose-li:text-foreground prose-li:my-2 prose-li:leading-relaxed
-              prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-2
-              prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6 prose-ol:space-y-2
-              prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:my-6
-              prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
-              prose-pre:bg-muted prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto prose-pre:my-6
-              prose-a:text-primary prose-a:underline prose-a:hover:text-primary/80
-              prose-img:rounded-lg prose-img:my-6
-              prose-hr:my-8 prose-hr:border-border
-              prose-table:my-6 prose-table:border-collapse
-              prose-th:border prose-th:border-border prose-th:bg-muted prose-th:p-3 prose-th:font-semibold
-              prose-td:border prose-td:border-border prose-td:p-3
+            <FadeInUp delay={0.2}>
+            <div className="prose prose-lg max-w-none mb-16 
+              prose-headings:font-bold prose-headings:text-foreground prose-headings:mt-12 prose-headings:mb-6
+              prose-h1:text-h1 prose-h2:text-h2 prose-h3:text-h3 prose-h4:text-xl
+              prose-p:text-body prose-p:leading-relaxed prose-p:mb-6
+              prose-strong:text-foreground prose-strong:font-bold
+              prose-li:text-body prose-li:my-3 prose-li:leading-relaxed
+              prose-ul:my-8 prose-ul:list-disc prose-ul:pl-8 prose-ul:space-y-3
+              prose-ol:my-8 prose-ol:list-decimal prose-ol:pl-8 prose-ol:space-y-3
+              prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:my-8 prose-blockquote:text-body
+              prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-base
+              prose-pre:bg-muted prose-pre:p-6 prose-pre:rounded-lg prose-pre:overflow-x-auto prose-pre:my-8
+              prose-a:text-primary prose-a:underline prose-a:hover:text-primary/80 prose-a:font-medium
+              prose-img:rounded-lg prose-img:my-8
+              prose-hr:my-12 prose-hr:border-border
+              prose-table:my-8 prose-table:border-collapse
+              prose-th:border prose-th:border-border prose-th:bg-muted prose-th:p-4 prose-th:font-bold prose-th:text-base
+              prose-td:border prose-td:border-border prose-td:p-4 prose-td:text-base
             ">
               <div 
                 className="blog-content break-words"
@@ -254,33 +258,38 @@ const BlogPostPage = () => {
                 dangerouslySetInnerHTML={{ __html: getMarkdownContent(post.content) }}
               />
             </div>
+            </FadeInUp>
 
             {/* Теги */}
-            <div className="mb-8">
-              <h2 className="text-lg font-semibold mb-4">Теги статьи:</h2>
-              <div className="flex flex-wrap gap-2" role="list" aria-label="Теги статьи">
+            <FadeInUp delay={0.3}>
+              <div className="mb-12">
+              <h2 className="text-h3 font-bold mb-6">Теги статьи:</h2>
+              <div className="flex flex-wrap gap-3" role="list" aria-label="Теги статьи">
                 {post.tags.map(tag => (
-                  <Badge key={tag} variant="secondary" role="listitem">
+                  <Badge key={tag} variant="secondary" className="text-base px-4 py-2" role="listitem">
                     {tag}
                   </Badge>
                 ))}
               </div>
             </div>
+            </FadeInUp>
 
-            <Separator className="my-8" />
+            <Separator className="my-12" />
 
             {/* Информация об авторе */}
-            <div className="bg-muted/50 rounded-xl p-6 mb-8">
-              <div className="flex items-start gap-4">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center" aria-hidden="true">
-                  <User className="w-8 h-8 text-primary" />
+            <FadeInUp delay={0.4}>
+              <div className="bg-muted/50 rounded-xl p-8 mb-12">
+              <div className="flex items-start gap-6">
+                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center" aria-hidden="true">
+                  <User className="w-10 h-10 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold mb-2">{post.author.name}</h2>
-                  <p className="text-muted-foreground">{post.author.bio}</p>
+                  <h2 className="text-h3 font-bold mb-3">{post.author.name}</h2>
+                  <p className="text-body text-muted-foreground leading-relaxed">{post.author.bio}</p>
                 </div>
               </div>
             </div>
+            </FadeInUp>
           </article>
 
           {/* Оглавление (Table of Contents) */}
@@ -297,49 +306,54 @@ const BlogPostPage = () => {
 
           {/* Связанные калькуляторы */}
           {relatedCalculators.length > 0 && (
-            <section className="max-w-4xl mx-auto mb-12" aria-labelledby="related-calculators-heading">
-              <div className="flex items-center gap-2 mb-6">
-                <Calculator className="w-6 h-6 text-primary" aria-hidden="true" />
-                <h2 id="related-calculators-heading" className="text-2xl font-bold">Полезные калькуляторы</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" role="list">
-                {relatedCalculators.map(calc => (
-                  <Link
-                    key={calc.href}
-                    to={calc.href}
-                    className="p-4 border rounded-xl hover:shadow-md transition-all duration-300 hover:-translate-y-1 bg-card"
-                    role="listitem"
-                  >
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center" aria-hidden="true">
-                        <Calculator className="w-5 h-5 text-primary" />
-                      </div>
-                      <h3 className="font-semibold">{calc.name}</h3>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Перейти к расчету
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </section>
+            <FadeInUp delay={0.5}>
+              <section className="max-w-4xl mx-auto mb-16" aria-labelledby="related-calculators-heading">
+                <div className="flex items-center gap-3 mb-8">
+                  <Calculator className="w-7 h-7 text-primary" aria-hidden="true" />
+                  <h2 id="related-calculators-heading" className="text-h2 font-bold">Полезные калькуляторы</h2>
+                </div>
+                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
+                  {relatedCalculators.map(calc => (
+                    <StaggerItem key={calc.href}>
+                      <Link
+                        to={calc.href}
+                        className="p-6 border rounded-xl hover:shadow-md transition-all duration-300 hover:-translate-y-1 bg-card block"
+                        role="listitem"
+                      >
+                        <div className="flex items-center gap-4 mb-3">
+                          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center" aria-hidden="true">
+                            <Calculator className="w-6 h-6 text-primary" />
+                          </div>
+                          <h3 className="text-body-lg font-bold">{calc.name}</h3>
+                        </div>
+                        <p className="text-base text-muted-foreground">
+                          Перейти к расчету
+                        </p>
+                      </Link>
+                    </StaggerItem>
+                  ))}
+                </StaggerContainer>
+              </section>
+            </FadeInUp>
           )}
 
           {/* Похожие статьи */}
           {relatedPosts.length > 0 && (
-            <section className="max-w-6xl mx-auto mb-12" aria-labelledby="related-posts-heading">
-              <div className="flex items-center gap-2 mb-6">
-                <BookOpen className="w-6 h-6 text-primary" aria-hidden="true" />
-                <h2 id="related-posts-heading" className="text-2xl font-bold">Похожие статьи</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
-                {relatedPosts.map(relatedPost => (
-                  <div key={relatedPost.id} role="listitem">
-                    <BlogCard post={relatedPost} />
-                  </div>
-                ))}
-              </div>
-            </section>
+            <FadeInUp delay={0.6}>
+              <section className="max-w-6xl mx-auto mb-16" aria-labelledby="related-posts-heading">
+                <div className="flex items-center gap-3 mb-8">
+                  <BookOpen className="w-7 h-7 text-primary" aria-hidden="true" />
+                  <h2 id="related-posts-heading" className="text-h2 font-bold">Похожие статьи</h2>
+                </div>
+                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="list">
+                  {relatedPosts.map(relatedPost => (
+                    <StaggerItem key={relatedPost.id} role="listitem">
+                      <BlogCard post={relatedPost} />
+                    </StaggerItem>
+                  ))}
+                </StaggerContainer>
+              </section>
+            </FadeInUp>
           )}
 
           {/* Комментарии (lazy loaded) */}

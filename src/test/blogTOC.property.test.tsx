@@ -31,7 +31,10 @@ describe('Property Tests: BlogTOC', () => {
     fc.assert(
       fc.property(
         fc.array(
-          fc.string({ minLength: 5, maxLength: 100 }).filter(s => s.trim().length > 0),
+          fc.string({ minLength: 5, maxLength: 100 })
+            .filter(s => s.trim().length > 0)
+            .filter(s => !s.includes('<') && !s.includes('>')) // Исключаем HTML символы
+            .map(s => s.replace(/[<>]/g, '')), // Удаляем HTML символы если они есть
           { minLength: 5, maxLength: 20 }
         ),
         (headings) => {

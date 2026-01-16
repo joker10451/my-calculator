@@ -86,8 +86,8 @@ describe('Property Tests: Accessibility', () => {
     fc.assert(
       fc.property(
         fc.record({
-          foreground: fc.hexaString().map(s => s.slice(0, 6).padEnd(6, '0')),
-          background: fc.hexaString().map(s => s.slice(0, 6).padEnd(6, '0')),
+          foreground: fc.integer({ min: 0, max: 0xFFFFFF }).map(n => n.toString(16).padStart(6, '0')),
+          background: fc.integer({ min: 0, max: 0xFFFFFF }).map(n => n.toString(16).padStart(6, '0')),
         }),
         (colors) => {
           // Функция для расчета относительной яркости
@@ -250,7 +250,7 @@ describe('Property Tests: Accessibility', () => {
   test('Property: Time elements have datetime attribute', () => {
     fc.assert(
       fc.property(
-        fc.date({ min: new Date('2020-01-01'), max: new Date('2026-12-31') }),
+        fc.date({ min: new Date('2020-01-01'), max: new Date('2026-12-31') }).filter(d => !isNaN(d.getTime())),
         (date) => {
           const post = createMockBlogPost({
             publishedAt: date.toISOString(),

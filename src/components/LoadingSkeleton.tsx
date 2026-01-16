@@ -66,6 +66,42 @@ export const PageLoadingSkeleton = () => {
   );
 };
 
+export const BlogLoadingSkeleton = () => {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <div className="container mx-auto px-4 py-8">
+        {/* Hero Skeleton */}
+        <div className="mb-12">
+          <Skeleton className="h-16 w-3/4 mb-4" />
+          <Skeleton className="h-6 w-1/2" />
+        </div>
+
+        {/* Search Bar Skeleton */}
+        <div className="mb-8">
+          <Skeleton className="h-12 w-full max-w-2xl" />
+        </div>
+
+        {/* Blog Grid Skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="space-y-4">
+              <Skeleton className="h-48 w-full rounded-lg" />
+              <Skeleton className="h-6 w-3/4" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-2/3" />
+              <div className="flex gap-2">
+                <Skeleton className="h-6 w-16" />
+                <Skeleton className="h-6 w-20" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const LoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
     <div className="text-center space-y-4">

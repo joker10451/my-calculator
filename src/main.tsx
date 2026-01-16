@@ -5,6 +5,9 @@ import { initGA } from "./lib/analytics/googleAnalytics";
 import { initConversionTracking } from "./lib/analytics/conversionTracking";
 import { registerServiceWorker } from "./utils/serviceWorker";
 
+// Add no-transition class to prevent flash on initial load
+document.body.classList.add('no-transition');
+
 // Initialize analytics
 initGA();
 initConversionTracking();
