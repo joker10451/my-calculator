@@ -271,7 +271,7 @@
     - Test with contrast checker
     - _Requirements: 3.7_
 
-- [ ] 17. Final Checkpoint - Complete Testing
+- [x] 17. Final Checkpoint - Complete Testing
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

@@ -1,8 +1,15 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { BlogSearch } from '@/components/blog/BlogSearch';
 import type { BlogPost } from '@/types/blog';
+
+// Mock GlassCard component to avoid Suspense issues
+vi.mock('@/components/ui/glass-card', () => ({
+  GlassCard: ({ children, className }: { children: React.ReactNode; className?: string }) => (
+    <div className={className}>{children}</div>
+  ),
+}));
 
 // Mock данные для тестов
 const mockArticles: BlogPost[] = [
@@ -184,7 +191,7 @@ describe('Unit Tests: BlogSearch Component', () => {
    * Тест очистки поиска
    */
   test('Clears search when clear button is clicked', async () => {
-    renderWithRouter(<BlogSearch articles={mockArticles} />);
+    const { container } = renderWithRouter(<BlogSearch articles={mockArticles} />);
 
     const input = screen.getByPlaceholderText('Поиск по статьям...') as HTMLInputElement;
 
@@ -194,21 +201,21 @@ describe('Unit Tests: BlogSearch Component', () => {
     // Проверяем, что текст введен
     expect(input.value).toBe('ипотека');
 
-    // Ждем появления кнопки очистки (ищем по классу или по родителю)
-    await waitFor(() => {
-      const clearButtons = screen.getAllByRole('button');
-      expect(clearButtons.length).toBeGreaterThan(0);
-    });
+    // Ждем немного для debounce
+    await new Promise(resolve => setTimeout(resolve, 100));
 
-    // Находим кнопку очистки (последняя кнопка в списке)
-    const buttons = screen.getAllByRole('button');
-    const clearButton = buttons[buttons.length - 1];
+    // Находим кнопку очистки по селектору (она находится рядом с input)
+    const clearButton = container.querySelector('button[class*="absolute right-2"]');
+    
+    if (!clearButton) {
+      throw new Error('Clear button not found');
+    }
+
+    // Кликаем на кнопку очистки
     fireEvent.click(clearButton);
 
     // Проверяем, что поле очищено
-    await waitFor(() => {
-      expect(input.value).toBe('');
-    });
+    expect(input.value).toBe('');
   });
 
   /**
