@@ -20,10 +20,8 @@ import { blogPosts } from '@/data/blogPosts';
 import { categories } from '@/lib/data';
 import { parseMarkdown } from '@/utils/markdown';
 
-// Lazy load комментариев и рекомендаций с ErrorBoundary
-const BlogComments = lazy(() => import('@/components/blog/BlogComments').catch(() => ({
-  default: () => <div className="text-muted-foreground">Комментарии временно недоступны</div>
-})));
+// Lazy load комментариев
+const BlogComments = lazy(() => import('@/components/blog/BlogComments').then(module => ({ default: module.BlogComments })));
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
