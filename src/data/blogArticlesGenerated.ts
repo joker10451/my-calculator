@@ -20,7 +20,7 @@ export const investmentArticle = createArticle({
   category: blogCategories[6], // investments-deposits
   tags: ['инвестиции', 'акции', 'облигации', 'фонды', 'доходность'],
   featuredImage: {
-    url: '/blog/investicii-2026.jpg',
+    url: '/blog/investicii-2026.svg',
     alt: 'Инвестиции 2026 - куда вложить деньги',
     width: 1200,
     height: 630
@@ -243,7 +243,7 @@ export const courtFeeArticle = createArticle({
   category: blogCategories[7], // legal-court
   tags: ['госпошлина', 'суд', 'нотариус', 'регистрация', 'юридические услуги'],
   featuredImage: {
-    url: '/blog/gosposhliny-2026.jpg',
+    url: '/blog/gosposhliny-2026.svg',
     alt: 'Госпошлины 2026 - размеры и расчет',
     width: 1200,
     height: 630

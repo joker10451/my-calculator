@@ -82,7 +82,7 @@ const legacyBlogPosts: Partial<BlogPost>[] = [
     category: blogCategories[0], // mortgage-credit
     tags: ['ипотека', 'кредит', '2026', 'льготы', 'ставки'],
     featuredImage: {
-      url: '/blog/ipoteka-2026.jpg',
+      url: '/blog/ipoteka-2026.jpg', // JPG версия существует
       alt: 'Ипотека в 2026 году - новые условия',
       width: 1200,
       height: 630
@@ -218,7 +218,7 @@ const legacyBlogPosts: Partial<BlogPost>[] = [
     category: blogCategories[1], // taxes-salary
     tags: ['НДФЛ', 'налоги', 'зарплата', 'прогрессивная шкала', '2026'],
     featuredImage: {
-      url: '/blog/ndfl-2026.jpg',
+      url: '/blog/ndfl-2026.jpg', // JPG версия существует
       alt: 'НДФЛ 2026 - прогрессивная шкала налогообложения',
       width: 1200,
       height: 630
@@ -379,7 +379,7 @@ const legacyBlogPosts: Partial<BlogPost>[] = [
     category: blogCategories[2], // utilities-housing
     tags: ['ЖКХ', 'тарифы', 'коммунальные услуги', 'экономия', 'льготы', '2026'],
     featuredImage: {
-      url: '/blog/tarify-zhkh-2026.jpg',
+      url: '/blog/tarify-zhkh-2026.jpg', // JPG версия существует
       alt: 'Тарифы ЖКХ 2026 - как экономить на коммунальных платежах',
       width: 1200,
       height: 630
@@ -590,7 +590,7 @@ const legacyBlogPosts: Partial<BlogPost>[] = [
     category: blogCategories[2],
     tags: ['алименты', 'семейное право', 'дети', 'развод', '2026'],
     featuredImage: {
-      url: '/blog/alimenty-2026.jpg',
+      url: '/blog/alimenty-2026.svg', // Используем SVG версию
       alt: 'Алименты в 2026 году - размеры и порядок взыскания',
       width: 1200,
       height: 630

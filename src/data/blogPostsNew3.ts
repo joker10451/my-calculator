@@ -207,7 +207,7 @@ export const newBlogPosts: BlogPost[] = [
     category: blogCategories[5], // auto-transport
     tags: ['ОСАГО', 'страхование', 'автомобиль', 'ДТП', '2026'],
     featuredImage: {
-      url: '/blog/osago-2026.jpg',
+      url: '/blog/osago-2026.svg',
       alt: 'ОСАГО 2026 - стоимость и оформление',
       width: 1200,
       height: 630
@@ -526,7 +526,7 @@ export const newBlogPosts: BlogPost[] = [
     category: blogCategories[5], // auto-transport
     tags: ['КАСКО', 'страхование', 'автомобиль', 'защита авто', '2026'],
     featuredImage: {
-      url: '/blog/kasko-2026.jpg',
+      url: '/blog/kasko-2026.svg',
       alt: 'КАСКО 2026 - что покрывает и стоит ли оформлять',
       width: 1200,
       height: 630

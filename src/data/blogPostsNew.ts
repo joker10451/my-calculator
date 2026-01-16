@@ -181,7 +181,7 @@
     category: blogCategories[2], // family-law
     tags: ['алименты', 'семейное право', 'дети', 'развод', '2026'],
     featuredImage: {
-      url: '/blog/alimenty-2026.jpg',
+      url: '/blog/alimenty-2026.svg',
       alt: 'Алименты в 2026 году - размеры и порядок взыскания',
       width: 1200,
       height: 630
@@ -420,7 +420,7 @@
     category: blogCategories[2], // family-law
     tags: ['материнский капитал', 'маткапитал', 'господдержка', 'семья', '2026'],
     featuredImage: {
-      url: '/blog/matkapital-2026.jpg',
+      url: '/blog/matkapital-2026.svg',
       alt: 'Материнский капитал 2026 - размер и как получить',
       width: 1200,
       height: 630

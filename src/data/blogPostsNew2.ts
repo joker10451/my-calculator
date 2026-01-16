@@ -214,7 +214,7 @@ BMR × коэффициент активности:
     category: blogCategories[3], // health-fitness
     tags: ['похудение', 'калории', 'диета', 'здоровье', 'фитнес'],
     featuredImage: {
-      url: '/blog/kak-pohudet-2026.jpg',
+      url: '/blog/kak-pohudet-2026.svg',
       alt: 'Как похудеть правильно - расчет калорий и дефицит',
       width: 1200,
       height: 630
@@ -527,7 +527,7 @@ BMR × коэффициент активности:
     category: blogCategories[0], // mortgage-credit
     tags: ['рефинансирование', 'кредит', 'ипотека', 'экономия', '2026'],
     featuredImage: {
-      url: '/blog/refinansirovanie-2026.jpg',
+      url: '/blog/refinansirovanie-2026.svg',
       alt: 'Рефинансирование кредита 2026 - когда выгодно',
       width: 1200,
       height: 630

@@ -20,7 +20,7 @@ export const creditCardsArticle = createArticle({
   category: blogCategories[0], // mortgage-credit
   tags: ['кредитные карты', 'кредит', 'кэшбэк', 'льготный период', 'банки'],
   featuredImage: {
-    url: '/blog/kreditnye-karty-2026.jpg',
+    url: '/blog/kreditnye-karty-2026.svg',
     alt: 'Кредитные карты 2026 - лучшие предложения',
     width: 1200,
     height: 630
@@ -253,7 +253,7 @@ export const maternityCapitalArticle = createArticle({
   category: blogCategories[4], // family-law
   tags: ['материнский капитал', 'маткапитал', 'пособия', 'семья', 'дети'],
   featuredImage: {
-    url: '/blog/materinskij-kapital-2026.jpg',
+    url: '/blog/materinskij-kapital-2026.svg',
     alt: 'Материнский капитал 2026 - размер и использование',
     width: 1200,
     height: 630
@@ -471,7 +471,7 @@ export const refinancingArticle = createArticle({
   category: blogCategories[0], // mortgage-credit
   tags: ['рефинансирование', 'кредит', 'ипотека', 'снижение ставки', 'банки'],
   featuredImage: {
-    url: '/blog/refinansirovanie-2026.jpg',
+    url: '/blog/refinansirovanie-2026.svg',
     alt: 'Рефинансирование кредитов 2026 - как снизить ставку',
     width: 1200,
     height: 630
@@ -709,7 +709,7 @@ export const calorieArticle = createArticle({
   category: blogCategories[3], // health-fitness
   tags: ['калории', 'похудение', 'диета', 'питание', 'БЖУ'],
   featuredImage: {
-    url: '/blog/raschet-kalorij-2026.jpg',
+    url: '/blog/raschet-kalorij-2026.svg',
     alt: 'Расчет калорий 2026 - норма для похудения',
     width: 1200,
     height: 630

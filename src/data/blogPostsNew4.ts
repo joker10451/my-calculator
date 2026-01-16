@@ -267,7 +267,7 @@ export const additionalBlogPosts: BlogPost[] = [
     category: blogCategories[1], // taxes-salary
     tags: ['отпускные', 'отпуск', 'зарплата', 'расчет', 'трудовое право'],
     featuredImage: {
-      url: '/blog/otpusknye-2026.jpg',
+      url: '/blog/otpusknye-2026.svg',
       alt: 'Отпускные 2026 - расчет и сроки выплаты',
       width: 1200,
       height: 630
@@ -565,7 +565,7 @@ export const additionalBlogPosts: BlogPost[] = [
     category: blogCategories[1], // taxes-salary
     tags: ['больничный', 'пособие', 'нетрудоспособность', 'ФСС', 'расчет'],
     featuredImage: {
-      url: '/blog/bolnichnyj-2026.jpg',
+      url: '/blog/bolnichnyj-2026.svg',
       alt: 'Больничный 2026 - расчет и оформление',
       width: 1200,
       height: 630

@@ -300,7 +300,7 @@ export const moreBlogPosts: BlogPost[] = [
     category: blogCategories[3], // health-fitness
     tags: ['ИМТ', 'индекс массы тела', 'вес', 'здоровье', 'похудение'],
     featuredImage: {
-      url: '/blog/imt-2026.jpg',
+      url: '/blog/imt-2026.svg',
       alt: 'ИМТ 2026 - норма и расчет индекса массы тела',
       width: 1200,
       height: 630
@@ -588,7 +588,7 @@ export const depositArticle: BlogPost = {
   category: blogCategories[6], // investments-deposits
   tags: ['вклады', 'банки', 'проценты', 'инвестиции', 'накопления'],
   featuredImage: {
-    url: '/blog/vklady-2026.jpg',
+    url: '/blog/vklady-2026.svg',
     alt: 'Банковские вклады 2026 - лучшие предложения',
     width: 1200,
     height: 630
