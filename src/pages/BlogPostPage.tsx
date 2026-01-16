@@ -235,9 +235,9 @@ const BlogPostPage = () => {
               prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl
               prose-p:text-foreground prose-p:leading-relaxed prose-p:mb-4
               prose-strong:text-foreground prose-strong:font-semibold
-              prose-li:text-foreground prose-li:my-2
-              prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
-              prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
+              prose-li:text-foreground prose-li:my-2 prose-li:leading-relaxed
+              prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6 prose-ul:space-y-2
+              prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6 prose-ol:space-y-2
               prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:my-6
               prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
               prose-pre:bg-muted prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto prose-pre:my-6
@@ -249,7 +249,8 @@ const BlogPostPage = () => {
               prose-td:border prose-td:border-border prose-td:p-3
             ">
               <div 
-                className="blog-content"
+                className="blog-content break-words"
+                style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
                 dangerouslySetInnerHTML={{ __html: getMarkdownContent(post.content) }}
               />
             </div>

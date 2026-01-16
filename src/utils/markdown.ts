@@ -5,19 +5,19 @@
 export function parseMarkdown(content: string): string {
   let html = content;
 
-  // Заголовки
-  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+  // Заголовки (обрабатываем в обратном порядке чтобы не было конфликтов)
+  html = html.replace(/^### (.*$)/gim, '<h3 class="text-2xl font-bold mt-8 mb-4">$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold mt-8 mb-4">$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1 class="text-4xl font-bold mt-8 mb-4">$1</h1>');
 
   // Жирный текст
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>');
 
   // Курсив
   html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
   // Ссылки
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary underline hover:text-primary/80">$1</a>');
 
   // Разделяем на блоки по двойным переносам строк
   const blocks = html.split('\n\n');
@@ -33,26 +33,70 @@ export function parseMarkdown(content: string): string {
 
     // Обрабатываем списки
     const lines = trimmed.split('\n');
-    const listItems: string[] = [];
+    const unorderedListItems: string[] = [];
+    const orderedListItems: string[] = [];
     const nonListLines: string[] = [];
+    let inUnorderedList = false;
+    let inOrderedList = false;
     
     for (const line of lines) {
-      if (line.match(/^- /)) {
-        listItems.push(`<li>${line.substring(2)}</li>`);
-      } else if (line.match(/^\d+\. /)) {
-        listItems.push(`<li>${line.replace(/^\d+\. /, '')}</li>`);
-      } else {
-        nonListLines.push(line);
+      const trimmedLine = line.trim();
+      
+      // Неупорядоченный список (начинается с "- ")
+      if (trimmedLine.match(/^- /)) {
+        if (inOrderedList) {
+          // Закрываем упорядоченный список
+          nonListLines.push(`<ol class="my-6 list-decimal pl-6 space-y-2">${orderedListItems.join('')}</ol>`);
+          orderedListItems.length = 0;
+          inOrderedList = false;
+        }
+        inUnorderedList = true;
+        const content = trimmedLine.substring(2).trim();
+        unorderedListItems.push(`<li class="my-2 leading-relaxed">${content}</li>`);
+      }
+      // Упорядоченный список (начинается с цифры и точки)
+      else if (trimmedLine.match(/^\d+\. /)) {
+        if (inUnorderedList) {
+          // Закрываем неупорядоченный список
+          nonListLines.push(`<ul class="my-6 list-disc pl-6 space-y-2">${unorderedListItems.join('')}</ul>`);
+          unorderedListItems.length = 0;
+          inUnorderedList = false;
+        }
+        inOrderedList = true;
+        const content = trimmedLine.replace(/^\d+\. /, '').trim();
+        orderedListItems.push(`<li class="my-2 leading-relaxed">${content}</li>`);
+      }
+      // Обычная строка
+      else {
+        // Закрываем открытые списки
+        if (inUnorderedList) {
+          nonListLines.push(`<ul class="my-6 list-disc pl-6 space-y-2">${unorderedListItems.join('')}</ul>`);
+          unorderedListItems.length = 0;
+          inUnorderedList = false;
+        }
+        if (inOrderedList) {
+          nonListLines.push(`<ol class="my-6 list-decimal pl-6 space-y-2">${orderedListItems.join('')}</ol>`);
+          orderedListItems.length = 0;
+          inOrderedList = false;
+        }
+        nonListLines.push(trimmedLine);
       }
     }
 
-    // Если есть элементы списка, создаем список
-    if (listItems.length > 0) {
-      return `<ul>${listItems.join('')}</ul>`;
+    // Закрываем оставшиеся списки
+    if (inUnorderedList && unorderedListItems.length > 0) {
+      return `<ul class="my-6 list-disc pl-6 space-y-2">${unorderedListItems.join('')}</ul>`;
+    }
+    if (inOrderedList && orderedListItems.length > 0) {
+      return `<ol class="my-6 list-decimal pl-6 space-y-2">${orderedListItems.join('')}</ol>`;
     }
 
     // Обычный параграф
-    return `<p>${nonListLines.join('<br>')}</p>`;
+    if (nonListLines.length > 0) {
+      return `<p class="mb-4 leading-relaxed">${nonListLines.join('<br>')}</p>`;
+    }
+
+    return '';
   });
 
   return processedBlocks.filter(block => block).join('\n\n');
