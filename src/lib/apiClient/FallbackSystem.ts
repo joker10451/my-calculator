@@ -29,12 +29,12 @@ export interface FallbackStrategy {
   name: string;
   priority: number; // Приоритет стратегии (1 - высший)
   canHandle(dataType: string): boolean;
-  execute<T>(dataType: string, context?: any): Promise<ApiResponse<T>>;
+  execute<T>(dataType: string, context?: Record<string, unknown>): Promise<ApiResponse<T>>;
 }
 
 export class FallbackSystem {
   private strategies: Map<string, FallbackStrategy[]> = new Map();
-  private dataProviders: Map<string, FallbackDataProvider<any>[]> = new Map();
+  private dataProviders: Map<string, FallbackDataProvider<unknown>[]> = new Map();
   private config: FallbackConfig;
   private fallbackHistory: Map<string, { timestamp: number; strategy: string; success: boolean }[]> = new Map();
 
@@ -106,7 +106,7 @@ export class FallbackSystem {
       priority: 2,
       canHandle: (dataType: string) => ['fee_schedule', 'legal_document'].includes(dataType),
       execute: async <T>(dataType: string) => {
-        let defaultData: any;
+        let defaultData: unknown;
 
         switch (dataType) {
           case 'fee_schedule':
@@ -140,7 +140,7 @@ export class FallbackSystem {
       name: 'graceful_degradation',
       priority: 3,
       canHandle: () => this.config.gracefulDegradation,
-      execute: async <T>(dataType: string, context?: any) => {
+      execute: async <T>(dataType: string, context?: Record<string, unknown>) => {
         // Возвращаем минимально функциональные данные
         const degradedData = this.getDegradedData(dataType, context);
         
@@ -235,7 +235,7 @@ export class FallbackSystem {
   /**
    * Выполнение fallback для указанного типа данных
    */
-  async executeFallback<T>(dataType: string, context?: any): Promise<ApiResponse<T>> {
+  async executeFallback<T>(dataType: string, context?: Record<string, unknown>): Promise<ApiResponse<T>> {
     const strategies = this.strategies.get(dataType) || [];
     
     if (strategies.length === 0) {
@@ -300,14 +300,15 @@ export class FallbackSystem {
           sessionStorage.setItem('session_fee_schedule_timestamp', timestamp);
           break;
         
-        case 'legal_document':
+        case 'legal_document': {
           // Для правовых документов используем более сложную схему хранения
-          const docData = data as any;
+          const docData = data as Record<string, unknown>;
           if (docData.id) {
             localStorage.setItem(`fallback_legal_doc_${docData.id}`, JSON.stringify(data));
             localStorage.setItem(`fallback_legal_doc_${docData.id}_timestamp`, timestamp);
           }
           break;
+        }
       }
       
       console.log(`Stored fallback data for ${dataType} from ${source}`);
@@ -443,7 +444,7 @@ export class FallbackSystem {
   /**
    * Получение деградированных данных
    */
-  private getDegradedData(dataType: string, context?: any): any {
+  private getDegradedData(dataType: string, context?: Record<string, unknown>): unknown {
     switch (dataType) {
       case 'fee_schedule':
         // Возвращаем минимальную структуру для расчета госпошлин

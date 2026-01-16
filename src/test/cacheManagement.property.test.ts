@@ -173,7 +173,7 @@ describe('Cache Management Property Tests', () => {
           }),
           async ({ key, data, ttl, refreshThreshold }) => {
             let refreshCalled = false;
-            let refreshedData = `refreshed_${data}`;
+            const refreshedData = `refreshed_${data}`;
             
             // Создаем кэш с настроенным порогом обновления
             const testCache = new EnhancedCacheManager({

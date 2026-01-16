@@ -74,7 +74,7 @@ export class FormulaTestSuite implements IFormulaTestSuite {
    * );
    * ```
    */
-  public validateFormula(formula: Function, testCases: TestCase[]): TestResult[] {
+  public validateFormula(formula: (...args: unknown[]) => unknown, testCases: TestCase[]): TestResult[] {
     return testCases.map(testCase => {
       const startTime = performance.now();
       
@@ -234,7 +234,7 @@ export class FormulaTestSuite implements IFormulaTestSuite {
    * @param inputs - Входные параметры
    * @returns Результат выполнения
    */
-  private executeFormula(formula: Function, inputs: Record<string, any>): any {
+  private executeFormula(formula: (...args: unknown[]) => unknown, inputs: Record<string, unknown>): unknown {
     // Определяем количество параметров функции
     const paramCount = formula.length;
     
@@ -257,7 +257,7 @@ export class FormulaTestSuite implements IFormulaTestSuite {
    * @param tolerance - Допустимая погрешность
    * @returns true если результаты совпадают в пределах погрешности
    */
-  private compareResults(actual: any, expected: any, tolerance: number): boolean {
+  private compareResults(actual: unknown, expected: unknown, tolerance: number): boolean {
     // Точное сравнение для не-числовых значений
     if (typeof actual !== 'number' || typeof expected !== 'number') {
       return actual === expected;

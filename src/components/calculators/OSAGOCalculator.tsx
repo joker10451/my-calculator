@@ -178,7 +178,7 @@ const OSAGOCalculator = () => {
           ].map(type => (
             <button
               key={type.value}
-              onClick={() => setVehicleType(type.value as any)}
+              onClick={() => setVehicleType(type.value as 'car' | 'truck' | 'bus' | 'motorcycle')}
               className={`p-4 rounded-xl border-2 transition-all ${
                 vehicleType === type.value
                   ? 'border-primary bg-primary/10'

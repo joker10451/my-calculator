@@ -98,7 +98,7 @@ export interface ProductRequirements {
   employment_experience?: number; // стаж работы в месяцах
   citizenship?: string[]; // гражданство
   regions?: string[]; // доступные регионы
-  [key: string]: any;
+  [key: string]: string[] | number | undefined;
 }
 
 /**
@@ -118,7 +118,7 @@ export interface ProductFeatures {
     regular?: string;
     maxMonthly?: number;
   }; // кешбэк для дебетовых карт
-  [key: string]: any;
+  [key: string]: boolean | { welcome?: string; regular?: string; maxMonthly?: number } | string | number | undefined;
 }
 
 /**
@@ -271,8 +271,8 @@ export interface UserProfile {
  */
 export interface CalculationHistoryItem {
   calculator_type: string;
-  parameters: Record<string, any>;
-  result: Record<string, any>;
+  parameters: Record<string, unknown>;
+  result: Record<string, unknown>;
   timestamp: string;
   session_id?: string;
 }
@@ -305,7 +305,7 @@ export interface Recommendation {
   // Параметры рекомендации
   score: number; // 0-100
   reasoning: string[];
-  context: Record<string, any>;
+  context: Record<string, unknown>;
   
   // Взаимодействие пользователя
   shown_at: string;
@@ -336,7 +336,7 @@ export interface RecommendationCreateData {
   product_id: string;
   score: number;
   reasoning?: string[];
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
   referral_link?: string;
   referral_id?: string;
   commission_potential?: number;
@@ -444,7 +444,7 @@ export interface ComparisonRow {
  * Значение в сравнении
  */
 export interface ComparisonValue {
-  raw: any;
+  raw: string | number | boolean | null;
   formatted: string;
   is_best: boolean;
   is_worst: boolean;
@@ -490,7 +490,7 @@ export interface ReferralAnalytics {
   commission_status: CommissionStatus;
   
   // Метаданные
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
   created_at: string;
 }
 
@@ -510,7 +510,7 @@ export interface ReferralEventData {
   potential_commission?: number;
   actual_commission?: number;
   commission_status?: CommissionStatus;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 /**
@@ -520,7 +520,7 @@ export interface ValidationError {
   field: string;
   message: string;
   code: string;
-  value?: any;
+  value?: unknown;
 }
 
 /**

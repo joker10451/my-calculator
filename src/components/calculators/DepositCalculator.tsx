@@ -114,7 +114,7 @@ const DepositCalculator = () => {
         }
     };
 
-    const handleLoadFromHistory = (item: any) => {
+    const handleLoadFromHistory = (item: { inputs: { amount?: number; rate?: number; term?: number; replenishment?: number; indexation?: boolean } }) => {
         if (item.inputs.amount) setAmount(item.inputs.amount);
         if (item.inputs.rate) setRate(item.inputs.rate);
         if (item.inputs.term) setTerm(item.inputs.term);

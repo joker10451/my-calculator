@@ -34,7 +34,7 @@ const SelfEmployedCalculator = () => {
     let effectiveRate = 0;
 
     switch (taxSystem) {
-      case 'self-employed':
+      case 'self-employed': {
         // Налог на профессиональный доход (НПД)
         // 4% с физлиц, 6% с юрлиц
         const rate = clientType === 'individual' ? 0.04 : 0.06;
@@ -46,6 +46,7 @@ const SelfEmployedCalculator = () => {
         netIncome = yearlyIncome - tax;
         effectiveRate = (tax / yearlyIncome) * 100;
         break;
+      }
 
       case 'usn-income':
         // УСН Доходы 6%
@@ -64,7 +65,7 @@ const SelfEmployedCalculator = () => {
         effectiveRate = ((tax + totalContributions) / yearlyIncome) * 100;
         break;
 
-      case 'usn-profit':
+      case 'usn-profit': {
         // УСН Доходы минус расходы 15%
         tax = Math.max(0, profit * 0.15);
         // Минимальный налог 1% от дохода
@@ -80,6 +81,7 @@ const SelfEmployedCalculator = () => {
         netIncome = yearlyIncome - yearlyExpenses - tax - totalContributions;
         effectiveRate = ((tax + totalContributions) / yearlyIncome) * 100;
         break;
+      }
 
       case 'patent':
         // Патентная система

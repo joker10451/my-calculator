@@ -217,7 +217,7 @@ const SickLeaveCalculator = () => {
           ].map(exp => (
             <button
               key={exp.value}
-              onClick={() => setExperience(exp.value as any)}
+              onClick={() => setExperience(exp.value as 'less5' | '5to8' | 'more8')}
               className={`p-4 rounded-xl border-2 transition-all ${
                 experience === exp.value
                   ? 'border-primary bg-primary/10'

@@ -27,6 +27,7 @@ export function BankManagement() {
   // Загрузка банков
   useEffect(() => {
     loadBanks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadBanks = async () => {
@@ -303,7 +304,7 @@ function BankForm({ bank, onSave, onCancel }: BankFormProps) {
     onSave(formData);
   };
 
-  const handleChange = (field: keyof BankCreateData, value: any) => {
+  const handleChange = (field: keyof BankCreateData, value: string | number | boolean | undefined) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 

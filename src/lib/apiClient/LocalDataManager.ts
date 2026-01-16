@@ -20,9 +20,9 @@ interface ApiResponse<T> {
 interface FeeScheduleApiData {
   version: string;
   lastModified: Date;
-  generalJurisdiction: any[];
-  arbitrationCourts: any[];
-  exemptions: any[];
+  generalJurisdiction: Array<Record<string, unknown>>;
+  arbitrationCourts: Array<Record<string, unknown>>;
+  exemptions: Array<Record<string, unknown>>;
   metadata: {
     source: string;
     legalBasis: string;
@@ -223,13 +223,15 @@ export class LocalDataManager {
   /**
    * Получить статистику кэша
    */
-  getCacheStatistics(): any {
-    if ('getStatistics' in this.cache && typeof (this.cache as any).getStatistics === 'function') {
-      return (this.cache as any).getStatistics();
+  getCacheStatistics(): Record<string, unknown> {
+    const cacheWithStats = this.cache as Record<string, unknown>;
+    
+    if ('getStatistics' in this.cache && typeof cacheWithStats.getStatistics === 'function') {
+      return (cacheWithStats.getStatistics as () => Record<string, unknown>)();
     }
     
-    if ('getCacheStats' in this.cache && typeof (this.cache as any).getCacheStats === 'function') {
-      return (this.cache as any).getCacheStats();
+    if ('getCacheStats' in this.cache && typeof cacheWithStats.getCacheStats === 'function') {
+      return (cacheWithStats.getCacheStats as () => Record<string, unknown>)();
     }
     
     return {

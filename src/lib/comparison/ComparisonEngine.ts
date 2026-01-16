@@ -331,7 +331,7 @@ export class ComparisonEngine {
   /**
    * Извлекает значение из продукта по ключу
    */
-  private extractValue(product: BankProduct, key: string): any {
+  private extractValue(product: BankProduct, key: string): string | number | boolean | null {
     switch (key) {
       case 'bank_name':
         return product.bank?.name || 'Неизвестный банк';
@@ -367,7 +367,7 @@ export class ComparisonEngine {
   /**
    * Вычисляет общую сумму комиссий
    */
-  private calculateTotalFees(fees: Record<string, any>): number {
+  private calculateTotalFees(fees: Record<string, unknown>): number {
     if (!fees || typeof fees !== 'object') return 0;
     
     return Object.values(fees).reduce((sum, fee) => {
@@ -379,7 +379,7 @@ export class ComparisonEngine {
   /**
    * Форматирует значение в зависимости от типа
    */
-  private formatValue(value: any, type: string): string {
+  private formatValue(value: string | number | boolean | null, type: string): string {
     if (value === null || value === undefined) {
       return '—';
     }
@@ -412,7 +412,7 @@ export class ComparisonEngine {
    * Вычисляет балл для значения (0-100)
    */
   private calculateScore(
-    value: any,
+    value: string | number | boolean | null,
     header: ComparisonHeader,
     allProducts: BankProduct[]
   ): number {
@@ -453,7 +453,7 @@ export class ComparisonEngine {
    * Проверяет, является ли значение лучшим
    */
   private isBestValue(
-    value: any,
+    value: string | number | boolean | null,
     header: ComparisonHeader,
     allProducts: BankProduct[]
   ): boolean {
@@ -480,7 +480,7 @@ export class ComparisonEngine {
    * Проверяет, является ли значение худшим
    */
   private isWorstValue(
-    value: any,
+    value: string | number | boolean | null,
     header: ComparisonHeader,
     allProducts: BankProduct[]
   ): boolean {
@@ -967,8 +967,8 @@ export class ComparisonEngine {
     criteria: ComparisonCriteria;
   } | null> {
     // В реальном приложении здесь будет загрузка из БД
-    const savedComparisons = JSON.parse(localStorage.getItem('saved_comparisons') || '[]');
-    const comparison = savedComparisons.find((c: any) => c.id === comparisonId);
+    const savedComparisons = JSON.parse(localStorage.getItem('saved_comparisons') || '[]') as Array<{ id: string }>;
+    const comparison = savedComparisons.find((c) => c.id === comparisonId);
     
     if (!comparison) return null;
     

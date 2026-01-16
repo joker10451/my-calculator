@@ -57,7 +57,7 @@ const RefinancingCalculator = () => {
         }
     };
 
-    const handleLoadFromHistory = (item: any) => {
+    const handleLoadFromHistory = (item: { inputs: { currentBalance?: number; currentRate?: number; currentTerm?: number; newRate?: number; newTerm?: number } }) => {
         if (item.inputs.currentBalance) setCurrentBalance(item.inputs.currentBalance);
         if (item.inputs.currentRate) setCurrentRate(item.inputs.currentRate);
         if (item.inputs.currentTerm) setCurrentTerm(item.inputs.currentTerm);

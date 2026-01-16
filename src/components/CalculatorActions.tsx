@@ -36,9 +36,9 @@ import { useFavorites } from "@/hooks/useFavorites";
 interface CalculatorActionsProps {
   calculatorId: string;
   calculatorName: string;
-  data?: Record<string, any>[];
+  data?: Record<string, unknown>[];
   printElementId?: string;
-  shareParams?: Record<string, any>;
+  shareParams?: Record<string, unknown>;
   className?: string;
 }
 

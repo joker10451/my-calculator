@@ -10,8 +10,8 @@ export interface CalculationHistoryItem {
   calculatorType: string;
   calculatorName: string;
   timestamp: number;
-  inputs: Record<string, any>;
-  results: Record<string, any>;
+  inputs: Record<string, unknown>;
+  results: Record<string, unknown>;
 }
 
 const HISTORY_KEY = 'calculator_history';
@@ -46,8 +46,8 @@ export function useCalculatorHistory() {
   const addCalculation = useCallback((
     calculatorType: string,
     calculatorName: string,
-    inputs: Record<string, any>,
-    results: Record<string, any>
+    inputs: Record<string, unknown>,
+    results: Record<string, unknown>
   ) => {
     const newItem: CalculationHistoryItem = {
       id: `${calculatorType}_${Date.now()}`,

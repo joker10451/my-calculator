@@ -7,17 +7,19 @@ import { VitePWA } from "vite-plugin-pwa";
 const faviconHeadersMiddleware = () => {
   return {
     name: 'favicon-headers',
-    configureServer(server: any) {
-      server.middlewares.use((req: any, res: any, next: any) => {
-        const url = req.url;
+    configureServer(server: { middlewares: { use: (middleware: (req: unknown, res: unknown, next: () => void) => void) => void } }) {
+      server.middlewares.use((req: unknown, res: unknown, next: () => void) => {
+        const request = req as { url?: string };
+        const response = res as { setHeader: (name: string, value: string) => void };
+        const url = request.url;
         
         // Настройка заголовков для favicon файлов
         if (url === '/favicon.ico') {
-          res.setHeader('Content-Type', 'image/x-icon');
-          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 год
-          res.setHeader('Vary', 'Accept-Encoding');
+          response.setHeader('Content-Type', 'image/x-icon');
+          response.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 год
+          response.setHeader('Vary', 'Accept-Encoding');
         } else if (url === '/icon.svg') {
-          res.setHeader('Content-Type', 'image/svg+xml');
+          response.setHeader('Content-Type', 'image/svg+xml');
           res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 год
           res.setHeader('Vary', 'Accept-Encoding');
         } else if (url === '/apple-touch-icon.png') {

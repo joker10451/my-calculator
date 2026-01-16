@@ -22,6 +22,7 @@ const AlimonyCalculator = () => {
         return Math.round(income * percent);
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const alimony = useMemo(() => calculateAlimony(), [income, children, method, fixedAmount]);
     const netIncome = Math.max(0, income - alimony);
 

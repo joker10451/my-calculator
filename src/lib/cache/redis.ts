@@ -15,7 +15,7 @@ interface CacheConfig {
 
 class RedisCache {
   private config: CacheConfig;
-  private memoryCache: Map<string, CacheItem<any>>;
+  private memoryCache: Map<string, CacheItem<unknown>>;
   private isRedisAvailable: boolean = false;
 
   constructor(config: Partial<CacheConfig> = {}) {
@@ -47,7 +47,7 @@ class RedisCache {
     return `${this.config.keyPrefix}${key}`;
   }
 
-  private isExpired(item: CacheItem<any>): boolean {
+  private isExpired(item: CacheItem<unknown>): boolean {
     return Date.now() - item.timestamp > item.ttl;
   }
 
@@ -168,7 +168,7 @@ class RedisCache {
           try {
             const stored = localStorage.getItem(key);
             if (stored) {
-              const item: CacheItem<any> = JSON.parse(stored);
+              const item: CacheItem<unknown> = JSON.parse(stored);
               if (this.isExpired(item)) {
                 localStorage.removeItem(key);
               }
@@ -185,7 +185,7 @@ class RedisCache {
   }
 
   // Специальные методы для системы сравнения и рекомендаций
-  async cacheProductComparison(productIds: string[], comparison: any, ttl = 10 * 60 * 1000) {
+  async cacheProductComparison(productIds: string[], comparison: Record<string, unknown>, ttl = 10 * 60 * 1000) {
     const key = `comparison:${productIds.sort().join(',')}`;
     await this.set(key, comparison, ttl);
   }
@@ -195,7 +195,7 @@ class RedisCache {
     return await this.get(key);
   }
 
-  async cacheUserRecommendations(userId: string, recommendations: any[], ttl = 15 * 60 * 1000) {
+  async cacheUserRecommendations(userId: string, recommendations: unknown[], ttl = 15 * 60 * 1000) {
     const key = `recommendations:${userId}`;
     await this.set(key, recommendations, ttl);
   }
@@ -205,7 +205,7 @@ class RedisCache {
     return await this.get(key);
   }
 
-  async cacheBankProducts(productType: string, products: any[], ttl = 30 * 60 * 1000) {
+  async cacheBankProducts(productType: string, products: unknown[], ttl = 30 * 60 * 1000) {
     const key = `products:${productType}`;
     await this.set(key, products, ttl);
   }
@@ -215,7 +215,7 @@ class RedisCache {
     return await this.get(key);
   }
 
-  async cacheUserProfile(userId: string, profile: any, ttl = 60 * 60 * 1000) {
+  async cacheUserProfile(userId: string, profile: Record<string, unknown>, ttl = 60 * 60 * 1000) {
     const key = `profile:${userId}`;
     await this.set(key, profile, ttl);
   }

@@ -1,5 +1,6 @@
 // Дополнительные статьи для блога - часть 2
 
+export const newBlogPosts2 = [
   {
     id: '6',
     slug: 'kak-pohudet-pravilno-kalkulyator-kalorii',
@@ -557,3 +558,4 @@ BMR × коэффициент активности:
       }
     }
   },
+];

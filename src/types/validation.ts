@@ -9,7 +9,7 @@ export interface ValidationRule {
   max?: number;
   required: boolean;
   type: 'number' | 'string' | 'date';
-  customValidator?: (value: any) => ValidationResult;
+  customValidator?: (value: unknown) => ValidationResult;
 }
 
 export interface ValidationResult {
@@ -28,7 +28,7 @@ export interface ValidationError {
 
 export interface ValidationContext {
   calculatorType: 'salary' | 'credit' | 'mortgage' | 'deposit' | 'court-fee';
-  currentValues: Record<string, any>;
+  currentValues: Record<string, unknown>;
   validationRules: ValidationRule[];
 }
 
@@ -42,28 +42,28 @@ export interface InputValidator {
 export interface ErrorHandler {
   handleValidationError(error: ValidationError): void;
   handleCalculationError(error: CalculationError): void;
-  recoverFromError(error: Error, context: any): any;
-  logError(error: Error, context: any): void;
+  recoverFromError(error: Error, context: Record<string, unknown>): unknown;
+  logError(error: Error, context: Record<string, unknown>): void;
 }
 
 export interface CalculationError extends Error {
   type: 'division_by_zero' | 'overflow' | 'invalid_input' | 'configuration_error';
-  context?: any;
+  context?: Record<string, unknown>;
   recoverable: boolean;
 }
 
 export interface TestCase {
   name: string;
-  inputs: Record<string, any>;
-  expectedOutput: any;
+  inputs: Record<string, unknown>;
+  expectedOutput: unknown;
   tolerance?: number;
 }
 
 export interface TestResult {
   testName: string;
   passed: boolean;
-  actualOutput?: any;
-  expectedOutput?: any;
+  actualOutput?: unknown;
+  expectedOutput?: unknown;
   error?: string;
   executionTime?: number;
 }
@@ -72,7 +72,7 @@ export interface FormulaTestSuite {
   testCases: TestCase[];
   runTests(): TestResult[];
   addTestCase(testCase: TestCase): void;
-  validateFormula(formula: Function, testCases: TestCase[]): TestResult[];
+  validateFormula(formula: (...args: unknown[]) => unknown, testCases: TestCase[]): TestResult[];
 }
 
 export interface CalculationResult<T> {
@@ -80,6 +80,6 @@ export interface CalculationResult<T> {
   metadata: {
     calculationTime: number;
     formula: string;
-    inputs: Record<string, any>;
+    inputs: Record<string, unknown>;
   };
 }

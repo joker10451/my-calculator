@@ -93,7 +93,9 @@ const MortgageCalculator = () => {
   const handleShare = async () => {
     const text = `Расчет ипотеки: ${formatCurrency(price)}. Платеж: ${formatCurrency(calculations.monthlyPayment)}/мес. Переплата: ${formatCurrency(calculations.totalInterest)}. Экономия: ${formatCurrency(calculations.savings)}`;
     if (navigator.share) {
-      try { await navigator.share({ title: 'Расчет ипотеки Считай.RU', text }); return; } catch (e) { }
+      try { await navigator.share({ title: 'Расчет ипотеки Считай.RU', text }); return; } catch (e) { 
+        // Ignore share errors
+      }
     }
     await navigator.clipboard.writeText(text);
     showToast("Скопировано!");
@@ -137,7 +139,7 @@ const MortgageCalculator = () => {
     setExtraPayments(extraPayments.map(p => p.id === id ? { ...p, ...updates } : p));
   };
 
-  const handleLoadFromHistory = (item: any) => {
+  const handleLoadFromHistory = (item: { inputs: { price?: number; initialPayment?: number; term?: number; rate?: number; withMatCapital?: boolean } }) => {
     if (item.inputs.price) setPrice(item.inputs.price);
     if (item.inputs.initialPayment) setInitialPayment(item.inputs.initialPayment);
     if (item.inputs.term) setTerm(item.inputs.term);
@@ -330,7 +332,7 @@ const MortgageCalculator = () => {
                         <label className="text-[10px] uppercase font-bold text-muted-foreground">Тип</label>
                         <select
                           value={p.type}
-                          onChange={(e) => updateExtraPayment(p.id, { type: e.target.value as any })}
+                          onChange={(e) => updateExtraPayment(p.id, { type: e.target.value as 'one-time' | 'monthly' })}
                           className="w-full bg-muted/30 border-none rounded px-2 py-1 text-xs"
                         >
                           <option value="one-time">Разово</option>
@@ -341,7 +343,7 @@ const MortgageCalculator = () => {
                         <label className="text-[10px] uppercase font-bold text-muted-foreground">Режим</label>
                         <select
                           value={p.mode}
-                          onChange={(e) => updateExtraPayment(p.id, { mode: e.target.value as any })}
+                          onChange={(e) => updateExtraPayment(p.id, { mode: e.target.value as 'reduce-term' | 'reduce-payment' })}
                           className="w-full bg-muted/30 border-none rounded px-2 py-1 text-xs"
                         >
                           <option value="reduce-term">Срок</option>

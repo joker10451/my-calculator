@@ -138,14 +138,14 @@ export const BlogAnalytics = ({ articleId, articleTitle }: BlogAnalyticsProps) =
 /**
  * Throttle функция для ограничения частоты вызовов
  */
-function throttle<T extends (...args: any[]) => any>(
+function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
   delay: number
 ): (...args: Parameters<T>) => void {
   let lastCall = 0;
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  return function (this: any, ...args: Parameters<T>) {
+  return function (this: unknown, ...args: Parameters<T>) {
     const now = Date.now();
 
     if (now - lastCall >= delay) {

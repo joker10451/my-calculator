@@ -35,7 +35,7 @@ class ApiAdapter {
     );
   }
 
-  async getBanks(params: any = {}) {
+  async getBanks(params: Record<string, unknown> = {}) {
     try {
       if (this.config.useExternalApi) {
         // Используем реальный API
@@ -50,7 +50,7 @@ class ApiAdapter {
     }
   }
 
-  async getProducts(filters: any = {}, pagination: any = {}) {
+  async getProducts(filters: Record<string, unknown> = {}, pagination: Record<string, unknown> = {}) {
     try {
       if (this.config.useExternalApi) {
         return await this.fetchFromSupabase('bank_products', { ...filters, ...pagination });
@@ -87,13 +87,13 @@ class ApiAdapter {
     }
   }
 
-  private async fetchFromSupabase(table: string, params: any) {
+  private async fetchFromSupabase(table: string, params: Record<string, unknown>) {
     // Здесь будет реальный запрос к Supabase
     // Пока возвращаем заглушку
     throw new Error('Supabase API не настроен');
   }
 
-  private async getLocalBanks(params: any) {
+  private async getLocalBanks(params: Record<string, unknown>) {
     // Локальные данные банков для демонстрации
     const mockBanks = [
       {
@@ -146,7 +146,7 @@ class ApiAdapter {
     return mockBanks;
   }
 
-  private async getLocalProducts(filters: any, pagination: any) {
+  private async getLocalProducts(filters: Record<string, unknown>, pagination: Record<string, unknown>) {
     // Локальные данные продуктов для демонстрации
     const mockProducts = [
       {
@@ -267,7 +267,7 @@ class ApiAdapter {
     return allProducts.filter(p => productIds.includes(p.id));
   }
 
-  private buildComparisonMatrix(products: any[]) {
+  private buildComparisonMatrix(products: Array<Record<string, unknown>>) {
     const headers = [
       'Банк',
       'Продукт', 
@@ -299,7 +299,7 @@ class ApiAdapter {
     };
   }
 
-  private highlightBestOptions(products: any[]) {
+  private highlightBestOptions(products: Array<Record<string, unknown>>) {
     const highlights: Record<string, string> = {};
     
     // Лучшая процентная ставка для разных типов продуктов
@@ -327,7 +327,7 @@ class ApiAdapter {
   }
 
   // Методы для будущего расширения
-  async saveUserProfile(profile: any) {
+  async saveUserProfile(profile: Record<string, unknown>) {
     // Сохраняем в localStorage для статического хостинга
     const key = `user_profile_${profile.userId}`;
     localStorage.setItem(key, JSON.stringify(profile));
@@ -340,7 +340,7 @@ class ApiAdapter {
     return stored ? JSON.parse(stored) : null;
   }
 
-  async trackEvent(event: any) {
+  async trackEvent(event: Record<string, unknown>) {
     // Для статического хостинга отправляем в Google Analytics или другую аналитику
     console.log('Tracking event:', event);
     

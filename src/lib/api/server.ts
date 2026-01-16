@@ -6,7 +6,7 @@ import { supabase, handleDatabaseError } from '../database/supabase';
 import { cache } from '../cache/redis';
 
 // Типы для API
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;
@@ -299,7 +299,7 @@ export class ComparisonController extends BaseController {
     }, cacheKey, 5 * 60 * 1000); // 5 минут
   }
 
-  private buildComparisonMatrix(products: any[]) {
+  private buildComparisonMatrix(products: Array<Record<string, unknown>>) {
     const headers = [
       'Банк',
       'Продукт', 
@@ -326,7 +326,7 @@ export class ComparisonController extends BaseController {
     return { headers, rows };
   }
 
-  private highlightBestOptions(products: any[]) {
+  private highlightBestOptions(products: Array<Record<string, unknown>>) {
     const highlights: Record<string, string> = {};
     
     // Лучшая процентная ставка (минимальная для кредитов, максимальная для вкладов)
@@ -353,7 +353,7 @@ export class ComparisonController extends BaseController {
     return highlights;
   }
 
-  private async saveComparison(userId: string, productIds: string[], matrix: any) {
+  private async saveComparison(userId: string, productIds: string[], matrix: Record<string, unknown>) {
     try {
       const { error } = await supabase
         .from('comparisons')
@@ -381,7 +381,7 @@ export const comparisonController = new ComparisonController();
 
 // Простой роутер для API
 export class ApiRouter {
-  private routes: Map<string, (params: any) => Promise<ApiResponse>> = new Map();
+  private routes: Map<string, (params: Record<string, unknown>) => Promise<ApiResponse>> = new Map();
 
   constructor() {
     this.setupRoutes();
@@ -402,7 +402,7 @@ export class ApiRouter {
     this.routes.set('POST /api/compare', (params) => comparisonController.compareProducts(params.productIds, params.userId));
   }
 
-  async handleRequest(method: string, path: string, params: any = {}): Promise<ApiResponse> {
+  async handleRequest(method: string, path: string, params: Record<string, unknown> = {}): Promise<ApiResponse> {
     const routeKey = `${method} ${path}`;
     const handler = this.routes.get(routeKey);
 

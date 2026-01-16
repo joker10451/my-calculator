@@ -149,7 +149,7 @@ export class LocalStorageCache implements ApiCache {
   /**
    * Установить callback для автоматического обновления
    */
-  setRefreshCallback(callback: (key: string) => Promise<any>): void {
+  setRefreshCallback(callback: (key: string) => Promise<unknown>): void {
     this.enhancedCache.setRefreshCallback(callback);
   }
 

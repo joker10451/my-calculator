@@ -44,11 +44,11 @@ export const BlogTOC = ({ content, minHeadings = 5 }: BlogTOCProps) => {
   }, [content]);
 
   // Не показываем TOC если заголовков меньше минимума
-  if (tocItems.length < minHeadings) {
-    return null;
-  }
+  const shouldShowTOC = tocItems.length >= minHeadings;
 
   useEffect(() => {
+    if (!shouldShowTOC) return;
+    
     // Добавляем ID к заголовкам в DOM
     const headings = document.querySelectorAll('h2');
     headings.forEach((heading, index) => {
@@ -78,7 +78,11 @@ export const BlogTOC = ({ content, minHeadings = 5 }: BlogTOCProps) => {
         observer.unobserve(heading);
       });
     };
-  }, [tocItems]);
+  }, [tocItems, minHeadings, shouldShowTOC]);
+
+  if (!shouldShowTOC) {
+    return null;
+  }
 
   const handleClick = (anchor: string) => {
     const element = document.getElementById(anchor);

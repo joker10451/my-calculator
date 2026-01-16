@@ -140,7 +140,7 @@ const SalaryCalculator = () => {
     );
   };
 
-  const handleLoadFromHistory = (item: any) => {
+  const handleLoadFromHistory = (item: { inputs: { salary?: number } }) => {
     if (item.inputs.salary) {
       setSalary(item.inputs.salary);
     }

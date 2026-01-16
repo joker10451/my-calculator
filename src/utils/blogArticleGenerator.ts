@@ -158,7 +158,7 @@ export class BlogArticleBuilder {
   /**
    * Добавить пример расчета
    */
-  addCalculationExample(title: string, data: Record<string, any>, result: string): this {
+  addCalculationExample(title: string, data: Record<string, unknown>, result: string): this {
     this.addH3(title);
     
     const dataList = Object.entries(data).map(([key, value]) => `- **${key}**: ${value}`);

@@ -33,7 +33,7 @@ export interface UserPreferences {
 
 export interface Constraint {
   type: 'max_rate' | 'min_amount' | 'max_amount' | 'min_term' | 'max_term' | 'required_feature' | 'max_fees';
-  value: any;
+  value: string | number | boolean;
   strict: boolean; // строгое ограничение или предпочтение
 }
 
@@ -244,11 +244,12 @@ export class MatchingAlgorithm {
         return !product.max_term || product.max_term >= constraint.value;
       
       case 'required_feature':
-        return !!product.features?.[constraint.value];
+        return !!product.features?.[constraint.value as string];
       
-      case 'max_fees':
+      case 'max_fees': {
         const totalFees = this.calculateTotalFees(product.fees);
-        return totalFees <= constraint.value;
+        return totalFees <= (constraint.value as number);
+      }
       
       default:
         return true;
@@ -258,7 +259,7 @@ export class MatchingAlgorithm {
   /**
    * Вычисляет общую сумму комиссий
    */
-  private calculateTotalFees(fees: Record<string, any>): number {
+  private calculateTotalFees(fees: Record<string, unknown>): number {
     if (!fees || typeof fees !== 'object') return 0;
     
     return Object.values(fees).reduce((sum, fee) => {
@@ -274,7 +275,7 @@ export class MatchingAlgorithm {
     const prefs = requirements.preferences;
     
     // Базовые веса
-    let weights = {
+    const weights = {
       rate: 0.3,
       fees: 0.2,
       eligibility: 0.2,
@@ -1492,8 +1493,8 @@ export interface ProductComparison {
 export interface ComparisonDifference {
   field: string;
   label: string;
-  value1: any;
-  value2: any;
+  value1: string | number | boolean | null;
+  value2: string | number | boolean | null;
   difference: number;
   impact: string;
 }
@@ -1527,6 +1528,6 @@ export interface ProductChange {
   productName: string;
   impact: 'low' | 'medium' | 'high';
   message: string;
-  oldValue?: any;
-  newValue?: any;
+  oldValue?: string | number | boolean | null;
+  newValue?: string | number | boolean | null;
 }

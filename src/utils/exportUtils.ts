@@ -5,7 +5,7 @@
 /**
  * Экспорт данных в CSV
  */
-export function exportToCSV(data: Record<string, any>[], filename: string) {
+export function exportToCSV(data: Record<string, unknown>[], filename: string) {
   if (data.length === 0) {
     console.warn('No data to export');
     return;
@@ -41,7 +41,7 @@ export function exportToCSV(data: Record<string, any>[], filename: string) {
 /**
  * Экспорт данных в Excel (простой формат)
  */
-export function exportToExcel(data: Record<string, any>[], filename: string, sheetName: string = 'Sheet1') {
+export function exportToExcel(data: Record<string, unknown>[], filename: string, sheetName: string = 'Sheet1') {
   if (data.length === 0) {
     console.warn('No data to export');
     return;
@@ -82,7 +82,7 @@ export function exportToExcel(data: Record<string, any>[], filename: string, she
 /**
  * Экспорт данных в JSON
  */
-export function exportToJSON(data: any, filename: string) {
+export function exportToJSON(data: unknown, filename: string) {
   const jsonString = JSON.stringify(data, null, 2);
   const blob = new Blob([jsonString], { type: 'application/json' });
   downloadBlob(blob, `${filename}.json`);
@@ -152,7 +152,7 @@ export function printElement(elementId: string, title?: string) {
  */
 export function generateShareableLink(
   calculatorType: string,
-  params: Record<string, any>
+  params: Record<string, unknown>
 ): string {
   const baseUrl = window.location.origin + window.location.pathname;
   const encodedParams = btoa(JSON.stringify(params));
@@ -162,7 +162,7 @@ export function generateShareableLink(
 /**
  * Парсинг параметров из расшаренной ссылки
  */
-export function parseShareableLink(): Record<string, any> | null {
+export function parseShareableLink(): Record<string, unknown> | null {
   const urlParams = new URLSearchParams(window.location.search);
   const shareParam = urlParams.get('share');
   

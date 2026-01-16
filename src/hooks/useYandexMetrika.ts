@@ -12,7 +12,7 @@ declare global {
     ym?: (
       counterId: number,
       method: string,
-      ...params: any[]
+      ...params: unknown[]
     ) => void;
   }
 }
@@ -55,7 +55,7 @@ export const useYandexMetrika = () => {
  * @param goalName - название цели
  * @param params - дополнительные параметры
  */
-export const trackYandexGoal = (goalName: string, params?: Record<string, any>) => {
+export const trackYandexGoal = (goalName: string, params?: Record<string, unknown>) => {
   if (typeof window.ym === 'function') {
     window.ym(YANDEX_METRIKA_ID, 'reachGoal', goalName, params);
     if (process.env.NODE_ENV === 'development') {
@@ -72,7 +72,7 @@ export const trackYandexGoal = (goalName: string, params?: Record<string, any>) 
  * Функция для отслеживания параметров визита
  * @param params - параметры визита
  */
-export const trackYandexParams = (params: Record<string, any>) => {
+export const trackYandexParams = (params: Record<string, unknown>) => {
   if (typeof window.ym === 'function') {
     window.ym(YANDEX_METRIKA_ID, 'params', params);
     if (process.env.NODE_ENV === 'development') {

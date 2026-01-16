@@ -21,7 +21,7 @@ interface ImportResult {
   errors: Array<{
     row: number;
     message: string;
-    data?: any;
+    data?: Record<string, unknown>;
   }>;
 }
 
@@ -51,7 +51,7 @@ export function BulkImport() {
 
     try {
       const text = await file.text();
-      let data: any[];
+      let data: Record<string, unknown>[];
 
       if (file.name.endsWith('.json')) {
         data = JSON.parse(text);
@@ -103,21 +103,21 @@ export function BulkImport() {
     }
   };
 
-  const parseCSV = (text: string): any[] => {
+  const parseCSV = (text: string): Record<string, unknown>[] => {
     const lines = text.split('\n').filter(line => line.trim());
     if (lines.length < 2) {
       throw new Error('CSV файл должен содержать заголовки и хотя бы одну строку данных');
     }
 
     const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-    const data = [];
+    const data: Record<string, unknown>[] = [];
 
     for (let i = 1; i < lines.length; i++) {
       const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
-      const row: any = {};
+      const row: Record<string, unknown> = {};
       
       headers.forEach((header, index) => {
-        let value: any = values[index] || '';
+        let value: string | number | boolean | Record<string, unknown> = values[index] || '';
         
         // Попытка преобразования типов
         if (value === 'true') value = true;
@@ -140,7 +140,7 @@ export function BulkImport() {
     return data;
   };
 
-  const importBanks = async (data: any[]): Promise<ImportResult> => {
+  const importBanks = async (data: Record<string, unknown>[]): Promise<ImportResult> => {
     const result: ImportResult = {
       success: true,
       total: data.length,
@@ -190,7 +190,7 @@ export function BulkImport() {
     return result;
   };
 
-  const importProducts = async (data: any[]): Promise<ImportResult> => {
+  const importProducts = async (data: Record<string, unknown>[]): Promise<ImportResult> => {
     const result: ImportResult = {
       success: true,
       total: data.length,
@@ -219,7 +219,7 @@ export function BulkImport() {
 
         const productData: BankProductCreateData = {
           bank_id: bankId,
-          product_type: (data[i].product_type || data[i]['Тип продукта'] || 'mortgage').toLowerCase() as any,
+          product_type: (data[i].product_type || data[i]['Тип продукта'] || 'mortgage').toLowerCase() as 'mortgage' | 'deposit' | 'credit' | 'insurance',
           name: data[i].name || data[i]['Название'] || '',
           description: data[i].description || data[i]['Описание'] || '',
           interest_rate: parseFloat(data[i].interest_rate || data[i]['Процентная ставка'] || '0'),
@@ -234,8 +234,8 @@ export function BulkImport() {
           promo_valid_until: data[i].promo_valid_until || data[i]['Промо до'] || '',
           promo_conditions: data[i].promo_conditions || data[i]['Условия промо'] || '',
           available_regions: Array.isArray(data[i].available_regions) 
-            ? data[i].available_regions 
-            : (data[i].available_regions || data[i]['Регионы'] || 'all').split(',').map((r: string) => r.trim()),
+            ? data[i].available_regions as string[]
+            : String(data[i].available_regions || data[i]['Регионы'] || 'all').split(',').map((r: string) => r.trim()),
           is_active: Boolean(data[i].is_active !== undefined ? data[i].is_active : data[i]['Активен'] !== undefined ? data[i]['Активен'] : true),
           is_featured: Boolean(data[i].is_featured || data[i]['Рекомендуемый'] || false),
           priority: parseInt(data[i].priority || data[i]['Приоритет'] || '0') || 0

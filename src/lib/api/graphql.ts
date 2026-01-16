@@ -2,6 +2,7 @@
 // Используется для гибких запросов данных
 
 import { banksController, productsController, comparisonController } from './server';
+import type { PaginationInput, ProductFilters, ComparisonInput, GraphQLContext } from '../../types/graphql';
 
 // GraphQL схема в виде строки (SDL)
 export const typeDefs = `
@@ -320,12 +321,12 @@ export const typeDefs = `
 export const resolvers = {
   Query: {
     // Банки
-    banks: async (_: any, { pagination }: any) => {
+    banks: async (_: unknown, { pagination }: { pagination?: PaginationInput }) => {
       const result = await banksController.getAllBanks(pagination);
       return result.success ? result.data : [];
     },
 
-    bank: async (_: any, { id }: any) => {
+    bank: async (_: unknown, { id }: { id: string }) => {
       const result = await banksController.getBankById(id);
       return result.success ? result.data : null;
     },
@@ -336,23 +337,23 @@ export const resolvers = {
     },
 
     // Продукты
-    products: async (_: any, { filters, pagination }: any) => {
+    products: async (_: unknown, { filters, pagination }: { filters?: ProductFilters; pagination?: PaginationInput }) => {
       const result = await productsController.getProducts(filters, pagination);
       return result.success ? result.data : [];
     },
 
-    product: async (_: any, { id }: any) => {
+    product: async (_: unknown, { id }: { id: string }) => {
       const result = await productsController.getProductById(id);
       return result.success ? result.data : null;
     },
 
-    featuredProducts: async (_: any, { productType }: any) => {
+    featuredProducts: async (_: unknown, { productType }: { productType?: string }) => {
       const result = await productsController.getFeaturedProducts(productType?.toLowerCase());
       return result.success ? result.data : [];
     },
 
     // Сравнения
-    compareProducts: async (_: any, { input }: any) => {
+    compareProducts: async (_: unknown, { input }: { input: ComparisonInput }) => {
       const result = await comparisonController.compareProducts(input.productIds, input.userId);
       if (!result.success) {
         throw new Error(result.error || 'Ошибка сравнения продуктов');
@@ -388,28 +389,28 @@ export const resolvers = {
 
   // Резолверы для связанных полей
   Bank: {
-    products: async (parent: any) => {
+    products: async (parent: { id: string }) => {
       const result = await productsController.getProducts({ bankId: parent.id });
       return result.success ? result.data : [];
     }
   },
 
   BankProduct: {
-    bank: async (parent: any) => {
+    bank: async (parent: { bank_id: string }) => {
       const result = await banksController.getBankById(parent.bank_id);
       return result.success ? result.data : null;
     }
   },
 
   Recommendation: {
-    product: async (parent: any) => {
+    product: async (parent: { product_id: string }) => {
       const result = await productsController.getProductById(parent.product_id);
       return result.success ? result.data : null;
     }
   },
 
   Comparison: {
-    products: async (parent: any) => {
+    products: async (parent: { product_ids: string[] }) => {
       const results = await Promise.all(
         parent.product_ids.map((id: string) => productsController.getProductById(id))
       );
@@ -421,7 +422,7 @@ export const resolvers = {
 };
 
 // Утилита для создания GraphQL контекста
-export const createGraphQLContext = (req?: any) => {
+export const createGraphQLContext = (req?: unknown): GraphQLContext => {
   return {
     // Здесь можно добавить пользователя, права доступа и т.д.
     user: req?.user || null,
@@ -432,7 +433,7 @@ export const createGraphQLContext = (req?: any) => {
 
 // Типы для TypeScript
 export interface GraphQLContext {
-  user?: any;
+  user?: { id: string; email?: string };
   ip?: string;
   userAgent?: string;
 }

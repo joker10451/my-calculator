@@ -24,7 +24,7 @@ export interface AnalyticsEvent {
   userId?: string;
   sessionId: string;
   timestamp: Date;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
 }
 
 /**
@@ -432,9 +432,9 @@ export function initAnalytics(): void {
     const stored = localStorage.getItem('blog_analytics_events');
     if (stored) {
       const data = JSON.parse(stored);
-      events.push(...data.map((e: any) => ({
+      events.push(...data.map((e: Record<string, unknown>) => ({
         ...e,
-        timestamp: new Date(e.timestamp),
+        timestamp: new Date(e.timestamp as string),
       })));
     }
 

@@ -19,7 +19,7 @@ export interface ABVariant {
   id: string;
   name: string;
   weight: number; // 0-100, percentage of traffic
-  config: Record<string, any>;
+  config: Record<string, unknown>;
 }
 
 export interface ABTestResult {

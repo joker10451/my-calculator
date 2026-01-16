@@ -62,7 +62,7 @@ const CreditCalculator = () => {
         );
     };
 
-    const handleLoadFromHistory = (item: any) => {
+    const handleLoadFromHistory = (item: { inputs: { loanAmount?: number; loanTerm?: number; interestRate?: number } }) => {
         if (item.inputs.loanAmount) setLoanAmount(item.inputs.loanAmount);
         if (item.inputs.loanTerm) setLoanTerm(item.inputs.loanTerm);
         if (item.inputs.interestRate) setInterestRate(item.inputs.interestRate);

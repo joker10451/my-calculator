@@ -460,20 +460,24 @@ export class FeeDataService implements IFeeDataService {
   /**
    * Преобразовать данные API в локальный формат расписания
    */
-  private transformApiDataToSchedule(apiData: any, courtType: CourtType): FeeSchedule {
+  private transformApiDataToSchedule(apiData: Record<string, unknown>, courtType: CourtType): FeeSchedule {
     try {
       // Если данные уже в правильном формате API
-      if (apiData.courtTypes && apiData.courtTypes[courtType]) {
-        const rules = apiData.courtTypes[courtType].map((apiRule: any) => ({
-          minAmount: apiRule.minAmount,
-          maxAmount: apiRule.maxAmount,
-          feeType: apiRule.feeType,
-          feeValue: apiRule.feeValue,
-          minimumFee: apiRule.minimumFee,
-          maximumFee: apiRule.maximumFee,
-          formula: apiRule.formula,
-          legalBasis: apiRule.legalBasis
-        }));
+      const courtTypes = apiData.courtTypes as Record<string, unknown[]> | undefined;
+      if (courtTypes && courtTypes[courtType]) {
+        const rules = courtTypes[courtType].map((apiRule: unknown) => {
+          const rule = apiRule as Record<string, unknown>;
+          return {
+            minAmount: rule.minAmount,
+            maxAmount: rule.maxAmount,
+            feeType: rule.feeType,
+            feeValue: rule.feeValue,
+            minimumFee: rule.minimumFee,
+            maximumFee: rule.maximumFee,
+            formula: rule.formula,
+            legalBasis: rule.legalBasis
+          };
+        });
 
         return {
           courtType,
@@ -522,7 +526,7 @@ export class FeeDataService implements IFeeDataService {
   /**
    * Поиск правовых документов через API
    */
-  async searchLegalDocuments(query: string): Promise<any[]> {
+  async searchLegalDocuments(query: string): Promise<unknown[]> {
     try {
       // В офлайн-режиме поиск недоступен
       if (this.isOfflineMode) {
@@ -541,11 +545,11 @@ export class FeeDataService implements IFeeDataService {
   /**
    * Получить кэшированные данные о льготах
    */
-  getCachedExemptions(): any[] {
+  getCachedExemptions(): unknown[] {
     try {
       const cachedData = localStorage.getItem(FeeDataService.EXEMPTIONS_CACHE_KEY);
       if (cachedData) {
-        const exemptionsData = JSON.parse(cachedData);
+        const exemptionsData = JSON.parse(cachedData) as { categories?: unknown[] };
         return exemptionsData.categories || [];
       }
       return [];

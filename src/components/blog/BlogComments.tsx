@@ -49,6 +49,7 @@ export function BlogComments({ articleId }: BlogCommentsProps) {
   // Load comments on mount
   useEffect(() => {
     loadComments();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleId]);
 
   const loadComments = () => {

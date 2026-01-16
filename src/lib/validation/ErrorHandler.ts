@@ -19,7 +19,7 @@ import { ValidationError, CalculationError, ErrorHandler as IErrorHandler } from
  */
 export class ErrorHandler implements IErrorHandler {
   private static instance: ErrorHandler;
-  private errorLog: Array<{ timestamp: Date; error: Error; context: any }> = [];
+  private errorLog: Array<{ timestamp: Date; error: Error; context: Record<string, unknown> }> = [];
 
   private constructor() {}
 
@@ -107,12 +107,13 @@ export class ErrorHandler implements IErrorHandler {
    * @param context - Контекст выполнения
    * @returns Fallback значение или null
    */
-  public recoverFromError(error: Error, context: any): any {
+  public recoverFromError(error: Error, context: Record<string, unknown>): unknown {
     this.logError(error, { ...context, recovery: true });
 
     // Стратегии восстановления в зависимости от типа ошибки
-    if (error instanceof Error && (error.message.includes('NaN') || context.calculatorType)) {
-      return this.getDefaultCalculationResult(context.calculatorType);
+    const ctx = context as { calculatorType?: string };
+    if (error instanceof Error && (error.message.includes('NaN') || ctx.calculatorType)) {
+      return this.getDefaultCalculationResult(ctx.calculatorType);
     }
 
     if (error instanceof Error && error.message.includes('network')) {
@@ -129,7 +130,7 @@ export class ErrorHandler implements IErrorHandler {
    * @param error - Ошибка для логирования
    * @param context - Дополнительный контекст
    */
-  public logError(error: Error, context: any): void {
+  public logError(error: Error, context: Record<string, unknown>): void {
     const logEntry = {
       timestamp: new Date(),
       error: {
@@ -215,7 +216,7 @@ export class ErrorHandler implements IErrorHandler {
    * @param calculatorType - Тип калькулятора
    * @returns Значения по умолчанию
    */
-  private getDefaultCalculationResult(calculatorType: string): any {
+  private getDefaultCalculationResult(calculatorType?: string): Record<string, unknown> {
     switch (calculatorType) {
       case 'salary':
         return {
@@ -248,7 +249,7 @@ export class ErrorHandler implements IErrorHandler {
    * @param context - Контекст запроса
    * @returns Кэшированный результат или null
    */
-  private getCachedResult(context: any): any {
+  private getCachedResult(context: Record<string, unknown>): unknown {
     // В реальном приложении здесь была бы работа с localStorage или другим кэшем
     return null;
   }

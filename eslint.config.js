@@ -23,4 +23,17 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
+  // Отключаем строгие правила для тестовых файлов
+  {
+    files: ["**/*.test.{ts,tsx}", "**/__mocks__/**/*.{ts,tsx}", "**/test/**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "react-hooks/rules-of-hooks": "off",
+      "no-case-declarations": "off",
+      "no-useless-escape": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "no-prototype-builtins": "off",
+      "@typescript-eslint/no-unsafe-function-type": "off",
+    },
+  },
 );

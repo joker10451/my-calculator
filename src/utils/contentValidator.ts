@@ -103,7 +103,7 @@ export function generateSlug(title: string): string {
   
   // Транслитерация русских букв (посимвольно, чтобы правильно обработать 'ь' и 'ъ')
   slug = slug.split('').map(char => {
-    if (translitMap.hasOwnProperty(char)) {
+    if (Object.prototype.hasOwnProperty.call(translitMap, char)) {
       return translitMap[char];
     }
     return char;

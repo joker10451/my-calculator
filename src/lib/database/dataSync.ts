@@ -125,10 +125,10 @@ export interface DataConflict {
   values: Array<{
     source_id: string;
     source_priority: DataSourcePriority;
-    value: any;
+    value: unknown;
     timestamp: string;
   }>;
-  resolved_value?: any;
+  resolved_value?: unknown;
   resolution_strategy: 'priority' | 'newest' | 'manual';
 }
 
@@ -383,17 +383,19 @@ export class DataSyncManager {
       } else {
         // Обработка других источников
         switch (source.id) {
-          case 'cbr_api':
+          case 'cbr_api': {
             const cbrResult = await this.syncCentralBankData(source);
             banksUpdated += cbrResult.banks_updated;
             productsUpdated += cbrResult.products_updated;
             break;
+          }
 
-          case 'partner_api':
+          case 'partner_api': {
             const partnerResult = await this.syncPartnerData(source);
             banksUpdated += partnerResult.banks_updated;
             productsUpdated += partnerResult.products_updated;
             break;
+          }
         }
       }
 
@@ -490,7 +492,7 @@ export class DataSyncManager {
    * Маппинг данных из API на нашу модель продуктов
    */
   private mapApiDataToProducts(
-    apiData: any,
+    apiData: Record<string, unknown>,
     config: BankApiConfig
   ): BankProductCreateData[] {
     const products: BankProductCreateData[] = [];
@@ -532,15 +534,20 @@ export class DataSyncManager {
   /**
    * Получить вложенное значение по пути (например, "data.rate.value")
    */
-  private getNestedValue(obj: any, path: string): any {
-    return path.split('.').reduce((current, key) => current?.[key], obj);
+  private getNestedValue(obj: Record<string, unknown>, path: string): unknown {
+    return path.split('.').reduce((current: unknown, key) => {
+      if (current && typeof current === 'object' && key in current) {
+        return (current as Record<string, unknown>)[key];
+      }
+      return undefined;
+    }, obj);
   }
 
   /**
    * Маппинг объекта по правилам
    */
-  private mapObject(source: any, mapping: Record<string, string>): Record<string, any> {
-    const result: Record<string, any> = {};
+  private mapObject(source: Record<string, unknown>, mapping: Record<string, string>): Record<string, unknown> {
+    const result: Record<string, unknown> = {};
     
     for (const [key, path] of Object.entries(mapping)) {
       const value = this.getNestedValue(source, path);
@@ -824,7 +831,7 @@ export class DataSyncManager {
    * Разрешение конкретного конфликта
    * Приоритизирует официальные банковские API (Requirement 6.8)
    */
-  private resolveConflict(conflict: DataConflict): any {
+  private resolveConflict(conflict: DataConflict): unknown {
     // Сортируем значения по приоритету источника (меньше = выше приоритет)
     const sortedValues = conflict.values.sort((a, b) => a.source_priority - b.source_priority);
     
@@ -834,12 +841,13 @@ export class DataSyncManager {
         // Официальные API банков имеют приоритет 1 (самый высокий)
         return sortedValues[0].value;
         
-      case 'newest':
+      case 'newest': {
         // Берем самое новое значение
         const newestValue = conflict.values.sort((a, b) => 
           new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
         )[0];
         return newestValue.value;
+      }
         
       case 'manual':
         // Требует ручного разрешения
@@ -855,7 +863,7 @@ export class DataSyncManager {
   /**
    * Применение разрешенного значения
    */
-  private async applyResolvedValue(conflict: DataConflict, resolvedValue: any): Promise<void> {
+  private async applyResolvedValue(conflict: DataConflict, resolvedValue: unknown): Promise<void> {
     try {
       if (conflict.entity_type === 'bank') {
         await BankRepository.updateBank(conflict.entity_id, {

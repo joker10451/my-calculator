@@ -452,8 +452,8 @@ export class PdfService {
   /**
    * Извлекает структурированные данные из элемента
    */
-  private extractStructuredData(element: HTMLElement): any {
-    const data: any = {
+  private extractStructuredData(element: HTMLElement): Record<string, unknown> {
+    const data: Record<string, unknown> = {
       timestamp: new Date().toISOString(),
       source: 'schitay.ru',
       type: 'calculation_result',

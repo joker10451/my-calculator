@@ -16,12 +16,10 @@ const BlogCategoryPage = () => {
   
   const category = blogCategories.find(cat => cat.slug === slug);
   
-  if (!category) {
-    return <Navigate to="/blog" replace />;
-  }
-
   // Фильтруем посты по категории
   const categoryPosts = useMemo(() => {
+    if (!category) return [];
+    
     let posts = blogPosts.filter(post => 
       post.isPublished && post.category.id === category.id
     );
@@ -36,16 +34,22 @@ const BlogCategoryPage = () => {
       if (!a.isFeatured && b.isFeatured) return 1;
       return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
     });
-  }, [category.id, showFeaturedOnly]);
+  }, [category, showFeaturedOnly]);
 
   // Получаем все теги для этой категории
   const categoryTags = useMemo(() => {
+    if (!category) return [];
+    
     const tags = new Set<string>();
     blogPosts
       .filter(post => post.isPublished && post.category.id === category.id)
       .forEach(post => post.tags.forEach(tag => tags.add(tag)));
     return Array.from(tags).sort();
-  }, [category.id]);
+  }, [category]);
+
+  if (!category) {
+    return <Navigate to="/blog" replace />;
+  }
 
   const featuredCount = categoryPosts.filter(post => post.isFeatured).length;
 

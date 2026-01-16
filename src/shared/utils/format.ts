@@ -102,7 +102,7 @@ export function parseNumber(value: string, locale = 'ru-RU'): number {
   const thousandsSeparator = locale === 'ru-RU' ? ' ' : ',';
   
   // Заменяем разделители на стандартные
-  let normalized = cleaned
+  const normalized = cleaned
     .replace(new RegExp(`\\${thousandsSeparator}`, 'g'), '')
     .replace(decimalSeparator, '.');
   

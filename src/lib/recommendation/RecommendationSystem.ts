@@ -20,7 +20,7 @@ import { supabase } from '@/lib/database/supabase';
 
 export interface RecommendationContext {
   calculationType: 'mortgage' | 'deposit' | 'credit' | 'insurance';
-  calculationParams: Record<string, any>;
+  calculationParams: Record<string, unknown>;
   userLocation?: string;
   deviceType?: 'mobile' | 'desktop';
   sessionHistory?: string[];
@@ -651,7 +651,7 @@ export class RecommendationSystem {
     region?: string
   ): Promise<BankProduct[]> {
     try {
-      let query = supabase
+      const query = supabase
         .from('bank_products')
         .select('*, bank:banks(*)')
         .eq('product_type', productType)
@@ -702,7 +702,7 @@ export class RecommendationSystem {
       
       // Вставляем каждую рекомендацию отдельно, чтобы избежать проблем с типами
       for (const data of recommendationsData) {
-        await (supabase as any)
+        await supabase
           .from('recommendations')
           .insert(data);
       }
@@ -746,7 +746,7 @@ export class RecommendationSystem {
   /**
    * Обновляет профиль пользователя на основе расчета
    */
-  async updateUserProfile(userId: string, calculationData: any): Promise<void> {
+  async updateUserProfile(userId: string, calculationData: Record<string, unknown>): Promise<void> {
     await this.profileManager.trackCalculation(userId, calculationData);
   }
 
@@ -759,7 +759,7 @@ export class RecommendationSystem {
     feedback: 'clicked' | 'dismissed' | 'applied'
   ): Promise<void> {
     try {
-      const updates: any = {};
+      const updates: Record<string, string> = {};
       
       if (feedback === 'clicked') {
         updates.clicked_at = new Date().toISOString();
@@ -771,14 +771,14 @@ export class RecommendationSystem {
         // Увеличиваем счетчик конверсий
         const profile = await this.profileManager.getUserProfile(userId);
         if (profile) {
-          await this.profileManager.updateUserProfile(userId, {} as any, {
+          await this.profileManager.updateUserProfile(userId, {} as Record<string, unknown>, {
             increment_session: false,
             update_last_active: true
           });
           
           // Обновляем счетчик конверсий напрямую через Supabase
           const updateData = { conversion_count: (profile.conversion_count || 0) + 1 };
-          await (supabase as any)
+          await (supabase as { from: (table: string) => { update: (data: Record<string, number>) => { eq: (col: string, val: string) => Promise<unknown> } } })
             .from('user_profiles')
             .update(updateData)
             .eq('user_id', userId);
@@ -786,7 +786,7 @@ export class RecommendationSystem {
       }
       
       const updateRecommendation = updates;
-      await (supabase as any)
+      await (supabase as { from: (table: string) => { update: (data: Record<string, string>) => { eq: (col: string, val: string) => Promise<unknown> } } })
         .from('recommendations')
         .update(updateRecommendation)
         .eq('id', recommendationId);
@@ -808,12 +808,12 @@ export class RecommendationSystem {
       
       if (error || !data) return null;
       
-      const recommendation = data as any;
+      const recommendation = data as Record<string, unknown>;
       
       // Здесь можно добавить более детальный анализ
       return {
         recommendationId,
-        mainReasons: recommendation.reasoning || [],
+        mainReasons: (recommendation.reasoning as string[]) || [],
         detailedAnalysis: {
           profileMatch: 75,
           locationMatch: 80,
@@ -861,7 +861,7 @@ export class RecommendationSystem {
       if (!latestCalc) continue;
 
       const context: RecommendationContext = {
-        calculationType: calcType as any,
+        calculationType: calcType as 'mortgage' | 'deposit' | 'credit' | 'insurance',
         calculationParams: latestCalc.parameters,
         userLocation: profile.region,
         sessionHistory: profile.calculation_history.map(h => h.calculator_type)

@@ -17,8 +17,8 @@ import { storage } from '@/shared/utils/storage';
 
 export interface CalculationData {
   calculator_type: string;
-  parameters: Record<string, any>;
-  result: Record<string, any>;
+  parameters: Record<string, unknown>;
+  result: Record<string, unknown>;
   timestamp?: string;
   session_id?: string;
 }
@@ -106,7 +106,7 @@ export class UserProfileManager {
       // Пытаемся сохранить в Supabase
       const { data, error } = await supabase
         .from('user_profiles')
-        .insert(newProfileInsert as any)
+        .insert(newProfileInsert)
         .select()
         .single();
 
@@ -145,7 +145,7 @@ export class UserProfileManager {
     } = options;
 
     // Получаем текущий профиль
-    let currentProfile = await this.getUserProfile(userId);
+    const currentProfile = await this.getUserProfile(userId);
 
     // Если профиля нет, создаем новый
     if (!currentProfile) {
@@ -153,7 +153,7 @@ export class UserProfileManager {
     }
 
     // Подготавливаем обновления для Supabase (без id, created_at)
-    const profileUpdates: Record<string, any> = {
+    const profileUpdates: Record<string, unknown> = {
       ...updates,
       updated_at: new Date().toISOString()
     };
@@ -184,7 +184,7 @@ export class UserProfileManager {
       // Обновляем в Supabase
       const { data, error } = await supabase
         .from('user_profiles')
-        .update(profileUpdates as any)
+        .update(profileUpdates)
         .eq('user_id', userId)
         .select()
         .single();

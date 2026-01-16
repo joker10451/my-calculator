@@ -81,9 +81,9 @@ export interface Database {
           max_amount: number | null;
           min_term: number | null;
           max_term: number | null;
-          fees: Record<string, any>;
-          requirements: Record<string, any>;
-          features: Record<string, any>;
+          fees: Record<string, unknown>;
+          requirements: Record<string, unknown>;
+          features: Record<string, unknown>;
           promotional_rate: number | null;
           promo_valid_until: string | null;
           promo_conditions: string | null;
@@ -105,9 +105,9 @@ export interface Database {
           max_amount?: number | null;
           min_term?: number | null;
           max_term?: number | null;
-          fees?: Record<string, any>;
-          requirements?: Record<string, any>;
-          features?: Record<string, any>;
+          fees?: Record<string, unknown>;
+          requirements?: Record<string, unknown>;
+          features?: Record<string, unknown>;
           promotional_rate?: number | null;
           promo_valid_until?: string | null;
           promo_conditions?: string | null;
@@ -129,9 +129,9 @@ export interface Database {
           max_amount?: number | null;
           min_term?: number | null;
           max_term?: number | null;
-          fees?: Record<string, any>;
-          requirements?: Record<string, any>;
-          features?: Record<string, any>;
+          fees?: Record<string, unknown>;
+          requirements?: Record<string, unknown>;
+          features?: Record<string, unknown>;
           promotional_rate?: number | null;
           promo_valid_until?: string | null;
           promo_conditions?: string | null;
@@ -155,7 +155,7 @@ export interface Database {
           risk_tolerance: 'low' | 'medium' | 'high' | null;
           preferred_banks: string[];
           blacklisted_banks: string[];
-          calculation_history: Record<string, any>[];
+          calculation_history: Record<string, unknown>[];
           product_interests: string[];
           last_active: string;
           session_count: number;
@@ -174,7 +174,7 @@ export interface Database {
           risk_tolerance?: 'low' | 'medium' | 'high' | null;
           preferred_banks?: string[];
           blacklisted_banks?: string[];
-          calculation_history?: Record<string, any>[];
+          calculation_history?: Record<string, unknown>[];
           product_interests?: string[];
           last_active?: string;
           session_count?: number;
@@ -193,7 +193,7 @@ export interface Database {
           risk_tolerance?: 'low' | 'medium' | 'high' | null;
           preferred_banks?: string[];
           blacklisted_banks?: string[];
-          calculation_history?: Record<string, any>[];
+          calculation_history?: Record<string, unknown>[];
           product_interests?: string[];
           last_active?: string;
           session_count?: number;
@@ -209,7 +209,7 @@ export interface Database {
           product_id: string;
           score: number;
           reasoning: string[];
-          context: Record<string, any>;
+          context: Record<string, unknown>;
           shown_at: string;
           clicked_at: string | null;
           dismissed_at: string | null;
@@ -227,7 +227,7 @@ export interface Database {
           product_id: string;
           score: number;
           reasoning?: string[];
-          context?: Record<string, any>;
+          context?: Record<string, unknown>;
           shown_at?: string;
           clicked_at?: string | null;
           dismissed_at?: string | null;
@@ -245,7 +245,7 @@ export interface Database {
           product_id?: string;
           score?: number;
           reasoning?: string[];
-          context?: Record<string, any>;
+          context?: Record<string, unknown>;
           shown_at?: string;
           clicked_at?: string | null;
           dismissed_at?: string | null;
@@ -263,8 +263,8 @@ export interface Database {
           id: string;
           user_id: string | null;
           product_ids: string[];
-          comparison_criteria: Record<string, any>;
-          comparison_matrix: Record<string, any> | null;
+          comparison_criteria: Record<string, unknown>;
+          comparison_matrix: Record<string, unknown> | null;
           highlighted_products: string[];
           saved_at: string | null;
           shared_at: string | null;
@@ -276,8 +276,8 @@ export interface Database {
           id?: string;
           user_id?: string | null;
           product_ids: string[];
-          comparison_criteria?: Record<string, any>;
-          comparison_matrix?: Record<string, any> | null;
+          comparison_criteria?: Record<string, unknown>;
+          comparison_matrix?: Record<string, unknown> | null;
           highlighted_products?: string[];
           saved_at?: string | null;
           shared_at?: string | null;
@@ -289,8 +289,8 @@ export interface Database {
           id?: string;
           user_id?: string | null;
           product_ids?: string[];
-          comparison_criteria?: Record<string, any>;
-          comparison_matrix?: Record<string, any> | null;
+          comparison_criteria?: Record<string, unknown>;
+          comparison_matrix?: Record<string, unknown> | null;
           highlighted_products?: string[];
           saved_at?: string | null;
           shared_at?: string | null;
@@ -315,7 +315,7 @@ export interface Database {
           potential_commission: number | null;
           actual_commission: number | null;
           commission_status: 'pending' | 'confirmed' | 'paid' | 'cancelled';
-          metadata: Record<string, any>;
+          metadata: Record<string, unknown>;
           created_at: string;
         };
         Insert: {
@@ -333,7 +333,7 @@ export interface Database {
           potential_commission?: number | null;
           actual_commission?: number | null;
           commission_status?: 'pending' | 'confirmed' | 'paid' | 'cancelled';
-          metadata?: Record<string, any>;
+          metadata?: Record<string, unknown>;
           created_at?: string;
         };
         Update: {
@@ -351,7 +351,7 @@ export interface Database {
           potential_commission?: number | null;
           actual_commission?: number | null;
           commission_status?: 'pending' | 'confirmed' | 'paid' | 'cancelled';
-          metadata?: Record<string, any>;
+          metadata?: Record<string, unknown>;
           created_at?: string;
         };
       };
@@ -378,17 +378,18 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
 
 // Утилиты для работы с базой данных
 export class DatabaseError extends Error {
-  constructor(message: string, public code?: string, public details?: any) {
+  constructor(message: string, public code?: string, public details?: unknown) {
     super(message);
     this.name = 'DatabaseError';
   }
 }
 
-export const handleDatabaseError = (error: any): never => {
+export const handleDatabaseError = (error: unknown): never => {
   console.error('Database error:', error);
   
-  if (error.code) {
-    switch (error.code) {
+  const err = error as { code?: string };
+  if (err.code) {
+    switch (err.code) {
       case 'PGRST116':
         throw new DatabaseError('Запись не найдена', 'NOT_FOUND', error);
       case '23505':

@@ -175,11 +175,12 @@ export class ReferralTracker {
     }
   }
 
-  private static sendToAnalytics(eventName: string, data: any): void {
+  private static sendToAnalytics(eventName: string, data: Record<string, unknown>): void {
     // Интеграция с Yandex Metrika (если настроена)
-    if (typeof window !== 'undefined' && (window as any).ym) {
-      (window as any).ym(
-        (window as any).YM_COUNTER_ID || 0,
+    if (typeof window !== 'undefined' && (window as Window & { ym?: (id: number, method: string, event: string, data: Record<string, unknown>) => void; YM_COUNTER_ID?: number }).ym) {
+      const w = window as Window & { ym: (id: number, method: string, event: string, data: Record<string, unknown>) => void; YM_COUNTER_ID?: number };
+      w.ym(
+        w.YM_COUNTER_ID || 0,
         'reachGoal',
         eventName,
         data
@@ -187,8 +188,9 @@ export class ReferralTracker {
     }
 
     // Интеграция с Google Analytics (если настроена)
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', eventName, data);
+    if (typeof window !== 'undefined' && (window as Window & { gtag?: (command: string, event: string, data: Record<string, unknown>) => void }).gtag) {
+      const w = window as Window & { gtag: (command: string, event: string, data: Record<string, unknown>) => void };
+      w.gtag('event', eventName, data);
     }
 
     // Можно добавить отправку на ваш сервер

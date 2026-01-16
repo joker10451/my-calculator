@@ -34,7 +34,7 @@ export interface CacheStatistics {
 }
 
 export interface CacheRefreshOptions {
-  refreshCallback?: (key: string) => Promise<any>;
+  refreshCallback?: (key: string) => Promise<unknown>;
   refreshThreshold: number; // Процент от TTL, после которого начинается обновление
   backgroundRefresh: boolean;
   maxConcurrentRefresh: number;
@@ -248,7 +248,7 @@ export class EnhancedCacheManager implements ApiCache {
         return null;
       }
 
-      const entry: CacheEntry<any> = JSON.parse(item);
+      const entry: CacheEntry<unknown> = JSON.parse(item);
       return entry.metadata;
     } catch (error) {
       console.error('Get metadata error:', error);
@@ -272,7 +272,7 @@ export class EnhancedCacheManager implements ApiCache {
           const item = localStorage.getItem(key);
           if (!item) continue;
 
-          const entry: CacheEntry<any> = JSON.parse(item);
+          const entry: CacheEntry<unknown> = JSON.parse(item);
           if (entry.metadata && entry.metadata.tags && entry.metadata.tags.includes(tag)) {
             const originalKey = key.replace(this.prefix, '');
             // Проверяем что ключ не пустой после удаления префикса
@@ -309,7 +309,7 @@ export class EnhancedCacheManager implements ApiCache {
           const item = localStorage.getItem(key);
           if (!item) continue;
 
-          const entry: CacheEntry<any> = JSON.parse(item);
+          const entry: CacheEntry<unknown> = JSON.parse(item);
           if (entry.metadata && entry.metadata.source === source) {
             const originalKey = key.replace(this.prefix, '');
             // Проверяем что ключ не пустой после удаления префикса
@@ -358,7 +358,7 @@ export class EnhancedCacheManager implements ApiCache {
           const item = localStorage.getItem(key);
           if (!item) continue;
 
-          const entry: CacheEntry<any> = JSON.parse(item);
+          const entry: CacheEntry<unknown> = JSON.parse(item);
           const metadata = entry.metadata;
           
           totalSize += metadata.size;
@@ -553,7 +553,7 @@ export class EnhancedCacheManager implements ApiCache {
           const item = localStorage.getItem(key);
           if (!item) continue;
 
-          const entry: CacheEntry<any> = JSON.parse(item);
+          const entry: CacheEntry<unknown> = JSON.parse(item);
           
           // Удаляем устаревшие записи
           if (entry.metadata.expirationDate > 0 && now > entry.metadata.expirationDate) {
@@ -594,7 +594,7 @@ export class EnhancedCacheManager implements ApiCache {
   /**
    * Установить callback для обновления
    */
-  setRefreshCallback(callback: (key: string) => Promise<any>): void {
+  setRefreshCallback(callback: (key: string) => Promise<unknown>): void {
     this.refreshOptions.refreshCallback = callback;
   }
 

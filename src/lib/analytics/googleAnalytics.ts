@@ -9,8 +9,8 @@ export const GA_MEASUREMENT_ID = 'G-K1W27063WG';
 // Declare gtag function for TypeScript
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
+    gtag: (...args: unknown[]) => void;
+    dataLayer: unknown[];
   }
 }
 
@@ -28,8 +28,8 @@ export const initGA = () => {
 
   // Initialize dataLayer
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag() {
-    window.dataLayer.push(arguments);
+  window.gtag = function gtag(...args: unknown[]) {
+    window.dataLayer.push(args);
   };
   window.gtag('js', new Date());
   window.gtag('config', GA_MEASUREMENT_ID, {
@@ -60,7 +60,7 @@ export const trackPageView = (url: string, title?: string) => {
  */
 export const trackEvent = (
   eventName: string,
-  params?: Record<string, any>
+  params?: Record<string, unknown>
 ) => {
   if (typeof window.gtag === 'function') {
     window.gtag('event', eventName, params);
@@ -159,7 +159,7 @@ export const trackError = (errorMessage: string, errorLocation: string) => {
 /**
  * Set user properties
  */
-export const setUserProperties = (properties: Record<string, any>) => {
+export const setUserProperties = (properties: Record<string, unknown>) => {
   if (typeof window.gtag === 'function') {
     window.gtag('set', 'user_properties', properties);
   }

@@ -29,7 +29,7 @@ const MaternityCapitalCalculator = () => {
     }, []);
 
     const calculateCapital = () => {
-        let total = 0;
+        const total = 0;
 
         // Logic simplification for MVP
         if (!hasSecondChild) {

@@ -85,7 +85,7 @@ export function createICOFile(pngImages: { size: number; data: Uint8Array }[]): 
   const entrySize = 16; // Размер каждой записи
   const entriesSize = sortedImages.length * entrySize;
   
-  let dataOffset = headerSize + entriesSize;
+  const dataOffset = headerSize + entriesSize;
   let totalSize = dataOffset;
   
   // Добавляем размеры данных изображений
@@ -205,7 +205,7 @@ export function saveToFile(data: Uint8Array, filename: string): void {
     URL.revokeObjectURL(url);
   } else {
     // Node.js окружение
-    const fs = require('fs');
+    const fs = await import('fs');
     fs.writeFileSync(filename, Buffer.from(data));
   }
 }

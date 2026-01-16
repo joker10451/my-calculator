@@ -39,11 +39,13 @@ export function ProductManagement() {
   // Загрузка данных
   useEffect(() => {
     loadData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Применение фильтров
   useEffect(() => {
     loadProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchQuery]);
 
   const loadData = async () => {
@@ -526,7 +528,7 @@ function ProductForm({ product, banks, onSave, onCancel }: ProductFormProps) {
     onSave(formData);
   };
 
-  const handleChange = (field: keyof BankProductCreateData, value: any) => {
+  const handleChange = (field: keyof BankProductCreateData, value: string | number | boolean | string[] | Record<string, unknown> | undefined) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 

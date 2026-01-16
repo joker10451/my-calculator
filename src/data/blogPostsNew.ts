@@ -1,5 +1,6 @@
 // Новые статьи для блога - добавить в blogPosts.ts
 
+export const newBlogPosts = [
   {
     id: '4',
     slug: 'alimenty-2026-razmery-poryadok-vzyskaniya',
@@ -450,3 +451,4 @@
       }
     }
   },
+];

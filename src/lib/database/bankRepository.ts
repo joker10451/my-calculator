@@ -83,7 +83,7 @@ export class BankDataValidator {
     // Валидация рейтингов
     const ratingFields = ['overall_rating', 'customer_service_rating', 'reliability_rating', 'processing_speed_rating'];
     ratingFields.forEach(field => {
-      const value = (data as any)[field];
+      const value = (data as Record<string, unknown>)[field];
       if (value !== undefined && value !== null) {
         if (typeof value !== 'number' || value < 0 || value > 5) {
           errors.push({
@@ -532,7 +532,7 @@ export class BankRepository {
       }, {} as Record<string, { sum: number; count: number }>);
 
       const avgRates = Object.entries(averageRates).reduce((acc, [type, data]) => {
-        acc[type as any] = data.sum / data.count;
+        acc[type] = data.sum / data.count;
         return acc;
       }, {} as Record<string, number>);
 
@@ -546,8 +546,8 @@ export class BankRepository {
         partner_banks: banks.filter(bank => bank.is_partner).length,
         total_products: products.length,
         active_products: products.filter(product => product.is_active).length,
-        products_by_type: productsByType as any,
-        average_rates: avgRates as any,
+        products_by_type: productsByType,
+        average_rates: avgRates,
         top_rated_banks: topRatedBanks
       };
     } catch (error) {
@@ -587,8 +587,8 @@ export class BankRepository {
 
     if (options.sort) {
       banks.sort((a, b) => {
-        const aValue = (a as any)[options.sort!.field];
-        const bValue = (b as any)[options.sort!.field];
+        const aValue = (a as Record<string, unknown>)[options.sort!.field];
+        const bValue = (b as Record<string, unknown>)[options.sort!.field];
         
         if (options.sort!.direction === 'asc') {
           return aValue > bValue ? 1 : -1;
@@ -933,8 +933,8 @@ export class BankProductRepository {
     // Сортировка
     if (options.sort) {
       products.sort((a, b) => {
-        const aValue = (a as any)[options.sort!.field];
-        const bValue = (b as any)[options.sort!.field];
+        const aValue = (a as Record<string, unknown>)[options.sort!.field];
+        const bValue = (b as Record<string, unknown>)[options.sort!.field];
         
         if (options.sort!.direction === 'asc') {
           return aValue > bValue ? 1 : -1;

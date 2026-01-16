@@ -36,6 +36,7 @@ const CalorieCalculator = () => {
         return Math.round(bmr * ACTIVITY_MULTIPLIERS[activity]);
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const calories = useMemo(() => calculateCalories(), [gender, age, weight, height, activity]);
 
     const handleDownload = async () => {

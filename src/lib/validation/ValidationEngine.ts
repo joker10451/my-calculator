@@ -254,10 +254,10 @@ export class ValidationEngine implements InputValidator {
    * @param input - Входные данные
    * @returns Очищенные данные
    */
-  public sanitizeInput(input: any): any {
+  public sanitizeInput(input: unknown): unknown {
     if (typeof input === 'string') {
       // Удаляем потенциально опасные символы
-      return input.replace(/[<>\"'&]/g, '').trim();
+      return input.replace(/[<>"'&]/g, '').trim();
     }
     
     if (typeof input === 'number') {
@@ -279,7 +279,7 @@ export class ValidationEngine implements InputValidator {
   public createCalculationError(
     type: CalculationError['type'], 
     message: string, 
-    context?: any
+    context?: unknown
   ): CalculationError {
     const error = new Error(message) as CalculationError;
     error.type = type;

@@ -333,7 +333,7 @@ export function createArticleFromTemplate(
     content: template.contentStructure,
     excerpt: '',
     tags: [],
-    category: { id: categoryId } as any,
+    category: { id: categoryId } as { id: string; name: string; slug: string; description: string },
     isPublished: false,
     isFeatured: false,
     readingTime: Math.ceil(template.recommendedLength / 200),

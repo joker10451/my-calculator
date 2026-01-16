@@ -1,14 +1,15 @@
 // Локальная база данных для статического хостинга
 // Использует localStorage + IndexedDB для хранения данных
 
-interface LocalStorageDB {
-  banks: any[];
-  products: any[];
-  userProfiles: Record<string, any>;
-  comparisons: any[];
-  recommendations: any[];
-  analytics: any[];
-}
+import type {
+  Bank,
+  Product,
+  UserProfile,
+  Comparison,
+  AnalyticsEvent,
+  LocalStorageDB,
+  ProductFilters
+} from '../../types/database';
 
 class LocalDatabase {
   private dbName = 'comparison_system_db';
@@ -76,7 +77,7 @@ class LocalDatabase {
   }
 
   // Методы для работы с банками
-  async getBanks(): Promise<any[]> {
+  async getBanks(): Promise<Bank[]> {
     try {
       if (this.db) {
         return await this.getFromIndexedDB('banks');
@@ -88,7 +89,7 @@ class LocalDatabase {
     }
   }
 
-  async saveBanks(banks: any[]): Promise<void> {
+  async saveBanks(banks: Bank[]): Promise<void> {
     try {
       if (this.db) {
         await this.saveToIndexedDB('banks', banks);
@@ -101,9 +102,9 @@ class LocalDatabase {
   }
 
   // Методы для работы с продуктами
-  async getProducts(filters: any = {}): Promise<any[]> {
+  async getProducts(filters: ProductFilters = {}): Promise<Product[]> {
     try {
-      let products: any[];
+      let products: Product[];
       
       if (this.db) {
         products = await this.getFromIndexedDB('products');
@@ -119,7 +120,7 @@ class LocalDatabase {
     }
   }
 
-  async saveProducts(products: any[]): Promise<void> {
+  async saveProducts(products: Product[]): Promise<void> {
     try {
       if (this.db) {
         await this.saveToIndexedDB('products', products);
@@ -132,11 +133,11 @@ class LocalDatabase {
   }
 
   // Методы для работы с профилями пользователей
-  async getUserProfile(userId: string): Promise<any | null> {
+  async getUserProfile(userId: string): Promise<UserProfile | null> {
     try {
       if (this.db) {
-        const profiles = await this.getFromIndexedDB('userProfiles');
-        return profiles.find((p: any) => p.userId === userId) || null;
+        const profiles = await this.getFromIndexedDB('userProfiles') as UserProfile[];
+        return profiles.find((p: UserProfile) => p.userId === userId) || null;
       }
       
       const profiles = this.getFromLocalStorage('userProfiles', {});
@@ -147,7 +148,7 @@ class LocalDatabase {
     }
   }
 
-  async saveUserProfile(profile: any): Promise<void> {
+  async saveUserProfile(profile: UserProfile): Promise<void> {
     try {
       if (this.db) {
         const transaction = this.db.transaction(['userProfiles'], 'readwrite');
@@ -167,34 +168,37 @@ class LocalDatabase {
   }
 
   // Методы для работы с сравнениями
-  async saveComparison(comparison: any): Promise<void> {
+  async saveComparison(comparison: Omit<Comparison, 'id' | 'created_at'>): Promise<void> {
     try {
-      comparison.id = this.generateId();
-      comparison.created_at = new Date().toISOString();
+      const fullComparison: Comparison = {
+        ...comparison,
+        id: this.generateId(),
+        created_at: new Date().toISOString()
+      };
       
       if (this.db) {
         const transaction = this.db.transaction(['comparisons'], 'readwrite');
         const store = transaction.objectStore('comparisons');
-        await store.add(comparison);
+        await store.add(fullComparison);
       }
       
       const comparisons = this.getFromLocalStorage('comparisons', []);
-      comparisons.push(comparison);
+      comparisons.push(fullComparison);
       this.saveToLocalStorage('comparisons', comparisons);
     } catch (error) {
       console.error('Ошибка сохранения сравнения:', error);
     }
   }
 
-  async getUserComparisons(userId: string): Promise<any[]> {
+  async getUserComparisons(userId: string): Promise<Comparison[]> {
     try {
       if (this.db) {
-        const comparisons = await this.getFromIndexedDB('comparisons');
-        return comparisons.filter((c: any) => c.user_id === userId);
+        const comparisons = await this.getFromIndexedDB('comparisons') as Comparison[];
+        return comparisons.filter((c: Comparison) => c.user_id === userId);
       }
       
-      const comparisons = this.getFromLocalStorage('comparisons', []);
-      return comparisons.filter((c: any) => c.user_id === userId);
+      const comparisons = this.getFromLocalStorage('comparisons', []) as Comparison[];
+      return comparisons.filter((c: Comparison) => c.user_id === userId);
     } catch (error) {
       console.error('Ошибка получения сравнений:', error);
       return [];
@@ -202,19 +206,22 @@ class LocalDatabase {
   }
 
   // Методы для работы с аналитикой
-  async trackEvent(event: any): Promise<void> {
+  async trackEvent(event: Omit<AnalyticsEvent, 'id' | 'timestamp'>): Promise<void> {
     try {
-      event.id = this.generateId();
-      event.timestamp = new Date().toISOString();
+      const fullEvent: AnalyticsEvent = {
+        ...event,
+        id: this.generateId(),
+        timestamp: new Date().toISOString()
+      };
       
       if (this.db) {
         const transaction = this.db.transaction(['analytics'], 'readwrite');
         const store = transaction.objectStore('analytics');
-        await store.add(event);
+        await store.add(fullEvent);
       }
       
       const analytics = this.getFromLocalStorage('analytics', []);
-      analytics.push(event);
+      analytics.push(fullEvent);
       
       // Ограничиваем размер аналитики в localStorage
       if (analytics.length > 1000) {
@@ -228,7 +235,7 @@ class LocalDatabase {
   }
 
   // Вспомогательные методы
-  private async getFromIndexedDB(storeName: string): Promise<any[]> {
+  private async getFromIndexedDB(storeName: string): Promise<unknown[]> {
     return new Promise((resolve, reject) => {
       if (!this.db) {
         reject(new Error('IndexedDB не инициализирован'));
@@ -244,7 +251,7 @@ class LocalDatabase {
     });
   }
 
-  private async saveToIndexedDB(storeName: string, data: any[]): Promise<void> {
+  private async saveToIndexedDB(storeName: string, data: unknown[]): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!this.db) {
         reject(new Error('IndexedDB не инициализирован'));
@@ -263,7 +270,7 @@ class LocalDatabase {
     });
   }
 
-  private getFromLocalStorage(key: string, defaultValue: any): any {
+  private getFromLocalStorage<T>(key: string, defaultValue: T): T {
     try {
       const stored = localStorage.getItem(`${this.dbName}_${key}`);
       return stored ? JSON.parse(stored) : defaultValue;
@@ -273,7 +280,7 @@ class LocalDatabase {
     }
   }
 
-  private saveToLocalStorage(key: string, data: any): void {
+  private saveToLocalStorage(key: string, data: unknown): void {
     try {
       localStorage.setItem(`${this.dbName}_${key}`, JSON.stringify(data));
     } catch (error) {
@@ -291,7 +298,7 @@ class LocalDatabase {
     }
   }
 
-  private applyFilters(products: any[], filters: any): any[] {
+  private applyFilters(products: Product[], filters: ProductFilters): Product[] {
     let filtered = [...products];
 
     if (filters.productType) {
@@ -359,7 +366,7 @@ class LocalDatabase {
     }
   }
 
-  private getMockBanks(): any[] {
+  private getMockBanks(): Bank[] {
     return [
       {
         id: '1',
@@ -409,7 +416,7 @@ class LocalDatabase {
     ];
   }
 
-  private getMockProducts(): any[] {
+  private getMockProducts(): Product[] {
     return [
       {
         id: '1',

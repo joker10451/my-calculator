@@ -44,7 +44,7 @@ export const useCalculatorCommon = (calculatorId: string, calculatorName: string
 
   // Сохранение расчета в историю
   const saveCalculation = useCallback((
-    inputs: Record<string, any>,
+    inputs: Record<string, unknown>,
     results: Record<string, string>
   ) => {
     addCalculation(calculatorId, calculatorName, inputs, results);
@@ -54,7 +54,7 @@ export const useCalculatorCommon = (calculatorId: string, calculatorName: string
   const addToComparison = useCallback((
     title: string,
     data: Record<string, number>,
-    params: Record<string, any>
+    params: Record<string, unknown>
   ) => {
     addItem({
       title,
