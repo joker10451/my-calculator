@@ -95,10 +95,10 @@ export function optimizeImage(
   } = {}
 ): OptimizedImageData {
   const {
-    convertToWebP: shouldConvertToWebP = true,
+    convertToWebP: shouldConvertToWebP = false, // Отключено: WebP файлы не сгенерированы
     addLazyLoading = true,
     isBelowFold = true,
-    generateSrcset = false,
+    generateSrcset = false, // Отключено: responsive варианты не сгенерированы
   } = options;
   
   const optimized: OptimizedImageData = { ...image };

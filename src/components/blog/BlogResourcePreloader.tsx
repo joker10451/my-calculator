@@ -10,6 +10,9 @@ export const BlogResourcePreloader = () => {
     // Preload критических ресурсов при монтировании
     const preloadResources = () => {
       // Preload изображений для блога (если есть)
+      // ОТКЛЮЧЕНО: файлы hero-bg.webp и default-thumbnail.webp не существуют
+      // Раскомментируйте после создания этих файлов
+      /*
       const criticalImages = [
         '/blog/hero-bg.webp',
         '/blog/default-thumbnail.webp',
@@ -23,6 +26,7 @@ export const BlogResourcePreloader = () => {
         link.type = 'image/webp';
         document.head.appendChild(link);
       });
+      */
     };
 
     preloadResources();
@@ -30,7 +34,9 @@ export const BlogResourcePreloader = () => {
 
   return (
     <Helmet>
-      {/* Preload шрифтов */}
+      {/* Preload шрифтов - ОТКЛЮЧЕНО: файл /fonts/inter-var.woff2 не существует */}
+      {/* Раскомментируйте после добавления файла шрифта */}
+      {/*
       <link
         rel="preload"
         href="/fonts/inter-var.woff2"
@@ -38,6 +44,7 @@ export const BlogResourcePreloader = () => {
         type="font/woff2"
         crossOrigin="anonymous"
       />
+      */}
       
       {/* Preconnect к внешним ресурсам */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
