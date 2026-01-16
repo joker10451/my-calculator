@@ -24,6 +24,7 @@
     "generate:feeds": "node scripts/generate-feeds.js",
     "generate:spa-fallback": "node scripts/generate-spa-fallback.js",
     "generate:sitemap": "node scripts/generate-sitemap.js",
+    "generate:blog-placeholders": "node scripts/generate-blog-placeholders.js",
     "validate:favicon-headers": "node scripts/validateFaviconHeaders.js",
     "validate:favicon-headers:prod": "node scripts/validateFaviconHeaders.js https://schitay-online.ru",
     "audit:performance": "node scripts/performance-audit.js",

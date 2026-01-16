@@ -2,7 +2,7 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calendar, Clock, User, ArrowLeft, Share2, BookOpen, Calculator } from 'lucide-react';
 import DOMPurify from 'dompurify';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BlogCard } from '@/components/blog/BlogCard';
@@ -20,14 +20,20 @@ import { blogPosts } from '@/data/blogPosts';
 import { categories } from '@/lib/data';
 import { parseMarkdown } from '@/utils/markdown';
 
-// Lazy load комментариев и рекомендаций
-const BlogComments = lazy(() => import('@/components/blog/BlogComments'));
-const BlogRecommendations = lazy(() => import('@/components/blog/BlogRecommendations'));
+// Lazy load комментариев и рекомендаций с ErrorBoundary
+const BlogComments = lazy(() => import('@/components/blog/BlogComments').catch(() => ({
+  default: () => <div className="text-muted-foreground">Комментарии временно недоступны</div>
+})));
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
   
   const post = blogPosts.find(p => p.slug === slug && p.isPublished);
+  
+  // Scroll to top при загрузке страницы
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
   
   if (!post) {
     return <Navigate to="/blog" replace />;

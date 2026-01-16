@@ -18,6 +18,7 @@ interface OptimizedImageProps {
  * - Responsive images (srcset)
  * - Blur-up placeholder
  * - Lazy loading для изображений ниже fold
+ * - Обработка ошибок загрузки с fallback на placeholder
  */
 export const OptimizedImage = ({
   src,
@@ -31,27 +32,16 @@ export const OptimizedImage = ({
 }: OptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority); // Если priority, сразу загружаем
+  const [hasError, setHasError] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState(src);
   const imgRef = useRef<HTMLImageElement>(null);
 
-  // Генерация WebP версии URL
-  const getWebPUrl = (url: string): string => {
-    if (url.endsWith('.webp')) return url;
-    const extension = url.split('.').pop();
-    return url.replace(`.${extension}`, '.webp');
-  };
-
-  // Генерация srcset для responsive images
-  const generateSrcSet = (url: string): string => {
-    const webpUrl = getWebPUrl(url);
-    const sizes = [320, 640, 768, 1024, 1280, 1920];
-    
-    return sizes
-      .map(size => {
-        // Предполагаем, что у нас есть разные размеры изображений
-        const sizedUrl = webpUrl.replace(/\.(webp|jpg|jpeg|png)$/, `-${size}w.$1`);
-        return `${sizedUrl} ${size}w`;
-      })
-      .join(', ');
+  // Fallback placeholder для ошибок загрузки
+  const placeholderUrl = '/placeholder.svg';
+  
+  // Попытка загрузить SVG версию при ошибке
+  const getSvgFallback = (url: string): string => {
+    return url.replace(/\.(jpg|jpeg|png|webp)$/i, '.svg');
   };
 
   // Генерация blur placeholder (base64 SVG)
@@ -86,11 +76,42 @@ export const OptimizedImage = ({
 
   const handleLoad = () => {
     setIsLoaded(true);
+    setHasError(false);
     onLoad?.();
   };
 
-  const webpUrl = getWebPUrl(src);
-  const srcSet = generateSrcSet(src);
+  const handleError = () => {
+    console.warn(`Failed to load image: ${currentSrc}`);
+    
+    // Пробуем загрузить SVG версию
+    const svgFallback = getSvgFallback(src);
+    if (currentSrc !== svgFallback && currentSrc !== placeholderUrl) {
+      console.log(`Trying SVG fallback: ${svgFallback}`);
+      setCurrentSrc(svgFallback);
+      return;
+    }
+    
+    // Если SVG тоже не загрузился, используем placeholder
+    if (currentSrc !== placeholderUrl) {
+      console.log(`Using placeholder: ${placeholderUrl}`);
+      setCurrentSrc(placeholderUrl);
+      return;
+    }
+    
+    setHasError(true);
+    setIsLoaded(true); // Показываем что-то
+  };
+
+  // Сбрасываем состояние при изменении src
+  useEffect(() => {
+    setCurrentSrc(src);
+    setHasError(false);
+    setIsLoaded(false);
+  }, [src]);
+
+  // Используем оригинальное изображение без попыток загрузить WebP версии
+  // так как у нас нет оптимизированных версий изображений
+  const imageSrc = isInView ? currentSrc : getBlurPlaceholder();
 
   return (
     <div className={cn('relative overflow-hidden', className)}>
@@ -105,32 +126,21 @@ export const OptimizedImage = ({
       )}
 
       {/* Основное изображение */}
-      <picture>
-        {/* WebP версия с srcset */}
-        {isInView && (
-          <source
-            type="image/webp"
-            srcSet={srcSet}
-            sizes={sizes}
-          />
+      <img
+        ref={imgRef}
+        src={imageSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        onLoad={handleLoad}
+        onError={handleError}
+        className={cn(
+          'w-full h-full object-cover transition-opacity duration-300',
+          isLoaded ? 'opacity-100' : 'opacity-0'
         )}
-        
-        {/* Fallback для браузеров без поддержки WebP */}
-        <img
-          ref={imgRef}
-          src={isInView ? src : getBlurPlaceholder()}
-          alt={alt}
-          width={width}
-          height={height}
-          loading={priority ? 'eager' : 'lazy'}
-          decoding="async"
-          onLoad={handleLoad}
-          className={cn(
-            'w-full h-full object-cover transition-opacity duration-300',
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          )}
-        />
-      </picture>
+      />
     </div>
   );
 };
