@@ -1,13 +1,28 @@
-// Настройка тестовой среды для Vitest
+// Настройка тестовой среды для Vitest с happy-dom
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
-// Мок для ResizeObserver
+// Мок для ResizeObserver (не поддерживается в happy-dom)
 global.ResizeObserver = class ResizeObserver {
   observe() {}
   unobserve() {}
   disconnect() {}
 };
+
+// Мок для IntersectionObserver (не поддерживается в happy-dom)
+global.IntersectionObserver = class IntersectionObserver {
+  constructor(
+    public callback: IntersectionObserverCallback,
+    public options?: IntersectionObserverInit
+  ) {}
+  
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords(): IntersectionObserverEntry[] {
+    return [];
+  }
+} as any;
 
 // Мок для matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -16,8 +31,8 @@ Object.defineProperty(window, 'matchMedia', {
     matches: false,
     media: query,
     onchange: null,
-    addListener: vi.fn(), // deprecated
-    removeListener: vi.fn(), // deprecated
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
     dispatchEvent: vi.fn(),
@@ -29,11 +44,15 @@ Object.defineProperty(navigator, 'clipboard', {
   value: {
     writeText: vi.fn().mockResolvedValue(undefined),
   },
+  writable: true,
+  configurable: true,
 });
 
 // Мок для navigator.share
 Object.defineProperty(navigator, 'share', {
   value: vi.fn().mockResolvedValue(undefined),
+  writable: true,
+  configurable: true,
 });
 
 // Мок для Canvas API
@@ -59,7 +78,7 @@ class MockCanvasRenderingContext2D {
   closePath = vi.fn();
 }
 
-class MockHTMLCanvasElement {
+class MockHTMLCanvasElement extends HTMLElement {
   width = 300;
   height = 150;
   
@@ -71,7 +90,6 @@ class MockHTMLCanvasElement {
   }
   
   toDataURL(type?: string, quality?: number) {
-    // Возвращаем валидный PNG data URL
     return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
   }
   
@@ -81,25 +99,14 @@ class MockHTMLCanvasElement {
   }
 }
 
-// Мок для createElement canvas
+// Переопределяем createElement для canvas
 const originalCreateElement = document.createElement.bind(document);
-document.createElement = vi.fn().mockImplementation((tagName: string) => {
-  if (tagName === 'canvas') {
+document.createElement = function(tagName: string, options?: any) {
+  if (tagName.toLowerCase() === 'canvas') {
     return new MockHTMLCanvasElement() as any;
   }
-  if (tagName === 'a') {
-    return {
-      href: '',
-      download: '',
-      click: vi.fn(),
-      style: {},
-      setAttribute: vi.fn(),
-      getAttribute: vi.fn(),
-      remove: vi.fn()
-    } as any;
-  }
-  return originalCreateElement(tagName);
-});
+  return originalCreateElement.call(document, tagName, options);
+};
 
 // Мок для Image constructor
 global.Image = class MockImage {
@@ -110,7 +117,6 @@ global.Image = class MockImage {
   onerror: (() => void) | null = null;
   
   constructor() {
-    // Симулируем успешную загрузку изображения
     setTimeout(() => {
       this.width = 100;
       this.height = 100;
@@ -121,30 +127,10 @@ global.Image = class MockImage {
   }
 } as any;
 
-// Мок для URL API
-Object.defineProperty(global, 'URL', {
-  value: class MockURL {
-    static createObjectURL = vi.fn(() => 'blob:mock-url');
-    static revokeObjectURL = vi.fn();
-  },
-  writable: true
-});
-
-// Мок для Blob
-global.Blob = class MockBlob {
-  size: number;
-  type: string;
-  
-  constructor(blobParts?: BlobPart[], options?: BlobPropertyBag) {
-    this.size = blobParts ? blobParts.join('').length : 0;
-    this.type = options?.type || '';
-  }
-  
-  arrayBuffer(): Promise<ArrayBuffer> {
-    return Promise.resolve(new ArrayBuffer(this.size));
-  }
-  
-  text(): Promise<string> {
-    return Promise.resolve('mock-blob-text');
-  }
-} as any;
+// URL.createObjectURL и revokeObjectURL для Blob/File
+if (typeof URL.createObjectURL === 'undefined') {
+  URL.createObjectURL = vi.fn(() => 'blob:mock-url');
+}
+if (typeof URL.revokeObjectURL === 'undefined') {
+  URL.revokeObjectURL = vi.fn();
+}

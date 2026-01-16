@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageSwitcherCompact } from "./blog/LanguageSwitcher";
 import { categories } from "@/lib/data";
 import { useComparison } from "@/context/ComparisonContext";
 
@@ -111,6 +112,7 @@ const Header = () => {
                 </span>
               )}
             </Link>
+            <LanguageSwitcherCompact />
             <ThemeToggle />
           </nav>
 
@@ -133,6 +135,7 @@ const Header = () => {
             >
               <Search className="w-5 h-5" />
             </button>
+            <LanguageSwitcherCompact />
             <ThemeToggle />
             <button
               className="p-2 rounded-lg hover:bg-muted transition-colors"

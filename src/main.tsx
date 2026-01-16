@@ -3,9 +3,15 @@ import App from "./App.tsx";
 import "./index.css";
 import { initGA } from "./lib/analytics/googleAnalytics";
 import { initConversionTracking } from "./lib/analytics/conversionTracking";
+import { registerServiceWorker } from "./utils/serviceWorker";
 
 // Initialize analytics
 initGA();
 initConversionTracking();
+
+// Register Service Worker for caching
+if (import.meta.env.PROD) {
+  registerServiceWorker();
+}
 
 createRoot(document.getElementById("root")!).render(<App />);

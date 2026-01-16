@@ -1,6 +1,7 @@
 /**
  * Генератор sitemap.xml с приоритетами
  * Запускается после сборки проекта
+ * Обновлено для поддержки статей блога
  */
 
 import fs from 'fs';
@@ -12,6 +13,35 @@ const __dirname = path.dirname(__filename);
 
 const SITE_URL = 'https://schitay-online.ru';
 const DIST_DIR = path.join(__dirname, '..', 'dist');
+const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+
+// Загружаем статьи блога
+function loadBlogPosts() {
+  try {
+    // Пытаемся загрузить данные блога из собранного проекта
+    const blogDataPath = path.join(__dirname, '..', 'src', 'data', 'blogPosts.ts');
+    
+    if (fs.existsSync(blogDataPath)) {
+      // Читаем файл и извлекаем slug'и статей
+      const content = fs.readFileSync(blogDataPath, 'utf8');
+      
+      // Простой парсинг для извлечения slug'ов
+      const slugMatches = content.matchAll(/slug:\s*['"]([^'"]+)['"]/g);
+      const publishedMatches = content.matchAll(/isPublished:\s*(true|false)/g);
+      
+      const slugs = Array.from(slugMatches).map(m => m[1]);
+      const published = Array.from(publishedMatches).map(m => m[1] === 'true');
+      
+      // Фильтруем только опубликованные статьи
+      return slugs.filter((_, index) => published[index] || published.length === 0);
+    }
+    
+    return [];
+  } catch (error) {
+    console.warn('⚠️  Не удалось загрузить статьи блога:', error.message);
+    return [];
+  }
+}
 
 // Определяем страницы с приоритетами
 const pages = [
@@ -24,7 +54,17 @@ const pages = [
   { url: '/contacts', priority: 0.5, changefreq: 'monthly' },
   { url: '/blog', priority: 0.8, changefreq: 'weekly' },
   
-  // Категории
+  // Категории блога
+  { url: '/blog/category/mortgage-credit', priority: 0.7, changefreq: 'weekly' },
+  { url: '/blog/category/taxes-salary', priority: 0.7, changefreq: 'weekly' },
+  { url: '/blog/category/utilities-housing', priority: 0.7, changefreq: 'weekly' },
+  { url: '/blog/category/auto-transport', priority: 0.7, changefreq: 'weekly' },
+  { url: '/blog/category/health-fitness', priority: 0.7, changefreq: 'weekly' },
+  { url: '/blog/category/investments-deposits', priority: 0.7, changefreq: 'weekly' },
+  { url: '/blog/category/legal-issues', priority: 0.7, changefreq: 'weekly' },
+  { url: '/blog/category/family-children', priority: 0.7, changefreq: 'weekly' },
+  
+  // Категории калькуляторов
   { url: '/category/financial', priority: 0.8, changefreq: 'weekly' },
   { url: '/category/personal', priority: 0.8, changefreq: 'weekly' },
   { url: '/category/transport', priority: 0.7, changefreq: 'weekly' },
@@ -65,10 +105,23 @@ const pages = [
 function generateSitemap() {
   const today = new Date().toISOString().split('T')[0];
   
+  // Загружаем статьи блога
+  const blogSlugs = loadBlogPosts();
+  console.log(`📝 Найдено статей блога: ${blogSlugs.length}`);
+  
+  // Добавляем статьи блога к страницам
+  const blogPages = blogSlugs.map(slug => ({
+    url: `/blog/${slug}`,
+    priority: 0.7,
+    changefreq: 'monthly'
+  }));
+  
+  const allPages = [...pages, ...blogPages];
+  
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
   xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
   
-  pages.forEach(page => {
+  allPages.forEach(page => {
     xml += '  <url>\n';
     xml += `    <loc>${SITE_URL}${page.url}</loc>\n`;
     xml += `    <lastmod>${today}</lastmod>\n`;
@@ -79,13 +132,21 @@ function generateSitemap() {
   
   xml += '</urlset>';
   
-  // Сохраняем sitemap.xml
-  const sitemapPath = path.join(DIST_DIR, 'sitemap.xml');
-  fs.writeFileSync(sitemapPath, xml, 'utf8');
+  // Сохраняем sitemap.xml в dist
+  const sitemapDistPath = path.join(DIST_DIR, 'sitemap.xml');
+  fs.mkdirSync(DIST_DIR, { recursive: true });
+  fs.writeFileSync(sitemapDistPath, xml, 'utf8');
+  
+  // Также сохраняем в public для разработки
+  const sitemapPublicPath = path.join(PUBLIC_DIR, 'sitemap.xml');
+  fs.writeFileSync(sitemapPublicPath, xml, 'utf8');
   
   console.log('✅ sitemap.xml успешно создан!');
-  console.log(`📍 Путь: ${sitemapPath}`);
-  console.log(`📊 Страниц в sitemap: ${pages.length}`);
+  console.log(`📍 Путь (dist): ${sitemapDistPath}`);
+  console.log(`📍 Путь (public): ${sitemapPublicPath}`);
+  console.log(`📊 Всего страниц в sitemap: ${allPages.length}`);
+  console.log(`   - Статических страниц: ${pages.length}`);
+  console.log(`   - Статей блога: ${blogSlugs.length}`);
   
   // Создаем robots.txt
   generateRobotsTxt();
@@ -98,9 +159,12 @@ Allow: /
 Disallow: /admin/
 Disallow: /*.json$
 Disallow: /api/
+Disallow: /dist/
+Disallow: /node_modules/
 
 # Sitemap
 Sitemap: ${SITE_URL}/sitemap.xml
+Sitemap: ${SITE_URL}/sitemap-blog.xml
 
 # Yandex
 User-agent: Yandex
@@ -118,11 +182,17 @@ Allow: /
 Crawl-delay: 0.5
 `;
   
-  const robotsPath = path.join(DIST_DIR, 'robots.txt');
-  fs.writeFileSync(robotsPath, robotsTxt, 'utf8');
+  // Сохраняем в dist
+  const robotsDistPath = path.join(DIST_DIR, 'robots.txt');
+  fs.writeFileSync(robotsDistPath, robotsTxt, 'utf8');
+  
+  // Также сохраняем в public
+  const robotsPublicPath = path.join(PUBLIC_DIR, 'robots.txt');
+  fs.writeFileSync(robotsPublicPath, robotsTxt, 'utf8');
   
   console.log('✅ robots.txt успешно создан!');
-  console.log(`📍 Путь: ${robotsPath}`);
+  console.log(`📍 Путь (dist): ${robotsDistPath}`);
+  console.log(`📍 Путь (public): ${robotsPublicPath}`);
 }
 
 // Запускаем генерацию

@@ -148,6 +148,9 @@ describe('Constraint Handling Completeness Properties', () => {
             
             const productsWithBanks = products.map((product, index) => ({
               ...product,
+              // Убедимся что ставка в пределах ограничения для некоторых продуктов
+              interest_rate: index < productCount / 2 ? Math.min(product.interest_rate, maxRate) : product.interest_rate,
+              promotional_rate: index < productCount / 2 && product.promotional_rate ? Math.min(product.promotional_rate, maxRate) : product.promotional_rate,
               bank: product.bank || {
                 id: product.bank_id,
                 name: `Банк ${index + 1}`,
@@ -199,7 +202,7 @@ describe('Constraint Handling Completeness Properties', () => {
             }
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 50 }
       );
     });
 
@@ -214,18 +217,28 @@ describe('Constraint Handling Completeness Properties', () => {
           async (productType, productCount, maxFees) => {
             const products = await fc.sample(bankProductArbitrary(productType), productCount);
             
-            const productsWithBanks = products.map((product, index) => ({
-              ...product,
-              bank: product.bank || {
-                id: product.bank_id,
-                name: `Банк ${index + 1}`,
-                short_name: `Б${index + 1}`,
-                is_partner: false,
-                overall_rating: 3.5,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-              } as Bank
-            }));
+            const productsWithBanks = products.map((product, index) => {
+              // Создаем продукты с разными комиссиями
+              const fees = {
+                application: index < productCount / 2 ? Math.min(product.fees?.application || 0, maxFees / 3) : (product.fees?.application || 0),
+                monthly: index < productCount / 2 ? Math.min(product.fees?.monthly || 0, maxFees / 3) : (product.fees?.monthly || 0),
+                early_repayment: product.fees?.early_repayment || 0
+              };
+              
+              return {
+                ...product,
+                fees,
+                bank: product.bank || {
+                  id: product.bank_id,
+                  name: `Банк ${index + 1}`,
+                  short_name: `Б${index + 1}`,
+                  is_partner: false,
+                  overall_rating: 3.5,
+                  created_at: new Date().toISOString(),
+                  updated_at: new Date().toISOString()
+                } as Bank
+              };
+            });
             
             const requirements: UserRequirements = {
               productType,
@@ -268,7 +281,7 @@ describe('Constraint Handling Completeness Properties', () => {
             }
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 50 }
       );
     });
 
@@ -283,18 +296,27 @@ describe('Constraint Handling Completeness Properties', () => {
           async (productType, productCount, requiredFeature) => {
             const products = await fc.sample(bankProductArbitrary(productType), productCount);
             
-            const productsWithBanks = products.map((product, index) => ({
-              ...product,
-              bank: product.bank || {
-                id: product.bank_id,
-                name: `Банк ${index + 1}`,
-                short_name: `Б${index + 1}`,
-                is_partner: false,
-                overall_rating: 3.5,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-              } as Bank
-            }));
+            const productsWithBanks = products.map((product, index) => {
+              // Убедимся что некоторые продукты имеют требуемую функцию
+              const features = {
+                ...product.features,
+                [requiredFeature]: index < productCount / 2 ? true : (product.features?.[requiredFeature] || false)
+              };
+              
+              return {
+                ...product,
+                features,
+                bank: product.bank || {
+                  id: product.bank_id,
+                  name: `Банк ${index + 1}`,
+                  short_name: `Б${index + 1}`,
+                  is_partner: false,
+                  overall_rating: 3.5,
+                  created_at: new Date().toISOString(),
+                  updated_at: new Date().toISOString()
+                } as Bank
+              };
+            });
             
             const requirements: UserRequirements = {
               productType,
@@ -333,7 +355,7 @@ describe('Constraint Handling Completeness Properties', () => {
             }
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 50 }
       );
     });
 

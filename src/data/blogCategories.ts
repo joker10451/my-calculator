@@ -11,7 +11,9 @@ export const blogCategories: BlogCategory[] = [
     seo: {
       metaTitle: 'Ипотека и кредиты - советы экспертов | Считай.RU',
       metaDescription: 'Экспертные статьи об ипотеке, кредитах, рефинансировании. Как выбрать выгодный кредит, рассчитать переплату, получить одобрение банка.'
-    }
+    },
+    language: 'ru',
+    translations: {}
   },
   {
     id: 'taxes-salary',
@@ -23,7 +25,9 @@ export const blogCategories: BlogCategory[] = [
     seo: {
       metaTitle: 'Налоги и зарплата - актуальная информация 2026 | Считай.RU',
       metaDescription: 'Все о НДФЛ, налоговых вычетах, расчете зарплаты. Изменения в налоговом законодательстве 2026 года, примеры расчетов.'
-    }
+    },
+    language: 'ru',
+    translations: {}
   },
   {
     id: 'utilities-housing',
@@ -35,7 +39,9 @@ export const blogCategories: BlogCategory[] = [
     seo: {
       metaTitle: 'ЖКХ и коммунальные услуги - тарифы и расчеты | Считай.RU',
       metaDescription: 'Актуальные тарифы ЖКХ, как рассчитать коммунальные платежи, получить субсидии. Права потребителей коммунальных услуг.'
-    }
+    },
+    language: 'ru',
+    translations: {}
   },
   {
     id: 'health-fitness',
@@ -47,7 +53,9 @@ export const blogCategories: BlogCategory[] = [
     seo: {
       metaTitle: 'Здоровье и фитнес - расчеты и советы | Считай.RU',
       metaDescription: 'Расчет ИМТ, калорий, нормы воды. Советы по здоровому питанию, похудению, поддержанию формы от экспертов.'
-    }
+    },
+    language: 'ru',
+    translations: {}
   },
   {
     id: 'family-law',
@@ -59,7 +67,9 @@ export const blogCategories: BlogCategory[] = [
     seo: {
       metaTitle: 'Семейное право - алименты, пособия, материнский капитал | Считай.RU',
       metaDescription: 'Расчет алиментов, размер материнского капитала 2026, семейные пособия. Юридические консультации по семейному праву.'
-    }
+    },
+    language: 'ru',
+    translations: {}
   },
   {
     id: 'auto-transport',
@@ -71,7 +81,9 @@ export const blogCategories: BlogCategory[] = [
     seo: {
       metaTitle: 'Авто и транспорт - расходы, кредиты, страхование | Считай.RU',
       metaDescription: 'Расчет расхода топлива, автокредиты, ОСАГО, КАСКО. Советы по экономии на автомобиле, выбору шин и запчастей.'
-    }
+    },
+    language: 'ru',
+    translations: {}
   },
   {
     id: 'investments-deposits',
@@ -83,7 +95,9 @@ export const blogCategories: BlogCategory[] = [
     seo: {
       metaTitle: 'Инвестиции и вклады - доходность и стратегии | Считай.RU',
       metaDescription: 'Сравнение банковских вкладов, инвестиционные стратегии, расчет доходности. Как сохранить и приумножить капитал.'
-    }
+    },
+    language: 'ru',
+    translations: {}
   },
   {
     id: 'legal-court',
@@ -95,6 +109,8 @@ export const blogCategories: BlogCategory[] = [
     seo: {
       metaTitle: 'Юридические вопросы - госпошлины, суды, права | Считай.RU',
       metaDescription: 'Размеры госпошлин, судебные расходы, юридическая помощь. Как защитить свои права, подать в суд, рассчитать расходы.'
-    }
+    },
+    language: 'ru',
+    translations: {}
   }
 ];

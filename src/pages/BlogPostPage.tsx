@@ -2,15 +2,27 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calendar, Clock, User, ArrowLeft, Share2, BookOpen, Calculator } from 'lucide-react';
 import DOMPurify from 'dompurify';
+import { Suspense, lazy } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BlogCard } from '@/components/blog/BlogCard';
+import { BlogProgress } from '@/components/blog/BlogProgress';
+import { BlogTOC } from '@/components/blog/BlogTOC';
+import { BlogReadabilitySettings } from '@/components/blog/BlogReadabilitySettings';
+import { BlogAnalytics } from '@/components/blog/BlogAnalytics';
+import { BlogResourcePreloader } from '@/components/blog/BlogResourcePreloader';
+import { BlogNavigation } from '@/components/blog/BlogNavigation';
+import { OptimizedImage } from '@/components/blog/OptimizedImage';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { blogPosts } from '@/data/blogPosts';
 import { categories } from '@/lib/data';
 import { parseMarkdown } from '@/utils/markdown';
+
+// Lazy load комментариев и рекомендаций
+const BlogComments = lazy(() => import('@/components/blog/BlogComments'));
+const BlogRecommendations = lazy(() => import('@/components/blog/BlogRecommendations'));
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -75,6 +87,7 @@ const BlogPostPage = () => {
 
   return (
     <>
+      <BlogResourcePreloader />
       <Helmet>
         <title>{post.seo.metaTitle || post.title}</title>
         <meta name="description" content={post.seo.metaDescription || post.excerpt} />
@@ -108,10 +121,22 @@ const BlogPostPage = () => {
         )}
       </Helmet>
 
+      {/* Компонент прогресса чтения */}
+      <BlogProgress 
+        articleTitle={post.title}
+        wordCount={post.wordCount || 0}
+      />
+
+      {/* Компонент аналитики */}
+      <BlogAnalytics 
+        articleId={post.id}
+        articleTitle={post.title}
+      />
+
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
         <Header />
         
-        <main className="container mx-auto px-4 py-8">
+        <main id="main-content" className="container mx-auto px-4 py-8">
           {/* Навигация */}
           <div className="mb-8">
             <Link 
@@ -123,18 +148,26 @@ const BlogPostPage = () => {
             </Link>
           </div>
 
-          <article className="max-w-4xl mx-auto">
-            {/* Заголовок статьи */}
-            <header className="mb-8">
+          {/* Основной контент с TOC */}
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
+              {/* Основная статья */}
+              <article className="max-w-4xl">
+                {/* Заголовок статьи */}
+                <header className="mb-8">
               <div className="flex flex-wrap items-center gap-4 mb-4">
                 <Badge 
                   className="text-sm"
                   style={{ backgroundColor: post.category.color }}
+                  role="status"
+                  aria-label={`Категория: ${post.category.name}`}
                 >
                   {post.category.name}
                 </Badge>
                 {post.isFeatured && (
-                  <Badge variant="secondary">Рекомендуем</Badge>
+                  <Badge variant="secondary" role="status" aria-label="Рекомендуемая статья">
+                    Рекомендуем
+                  </Badge>
                 )}
               </div>
 
@@ -149,37 +182,44 @@ const BlogPostPage = () => {
               {/* Мета-информация */}
               <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
-                  <User className="w-4 h-4" />
+                  <User className="w-4 h-4" aria-hidden="true" />
                   <span>{post.author.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className="w-4 h-4" aria-hidden="true" />
                   <time dateTime={post.publishedAt}>
                     {formatDate(post.publishedAt)}
                   </time>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
+                  <Clock className="w-4 h-4" aria-hidden="true" />
                   <span>{post.readingTime} мин чтения</span>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleShare}
-                  className="ml-auto"
-                >
-                  <Share2 className="w-4 h-4 mr-2" />
-                  Поделиться
-                </Button>
+                <div className="ml-auto flex items-center gap-2">
+                  <BlogReadabilitySettings />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleShare}
+                    aria-label="Поделиться статьей"
+                  >
+                    <Share2 className="w-4 h-4 mr-2" aria-hidden="true" />
+                    Поделиться
+                  </Button>
+                </div>
               </div>
 
               {/* Изображение */}
               {post.featuredImage && (
                 <div className="rounded-xl overflow-hidden mb-8">
-                  <img
+                  <OptimizedImage
                     src={post.featuredImage.url}
                     alt={post.featuredImage.alt}
-                    className="w-full h-64 md:h-96 object-cover"
+                    width={1200}
+                    height={600}
+                    className="w-full h-64 md:h-96"
+                    priority={true}
+                    sizes="(max-width: 768px) 100vw, 1200px"
                   />
                 </div>
               )}
@@ -212,10 +252,10 @@ const BlogPostPage = () => {
 
             {/* Теги */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold mb-4">Теги статьи:</h3>
-              <div className="flex flex-wrap gap-2">
+              <h2 className="text-lg font-semibold mb-4">Теги статьи:</h2>
+              <div className="flex flex-wrap gap-2" role="list" aria-label="Теги статьи">
                 {post.tags.map(tag => (
-                  <Badge key={tag} variant="secondary">
+                  <Badge key={tag} variant="secondary" role="listitem">
                     {tag}
                   </Badge>
                 ))}
@@ -227,33 +267,46 @@ const BlogPostPage = () => {
             {/* Информация об авторе */}
             <div className="bg-muted/50 rounded-xl p-6 mb-8">
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center" aria-hidden="true">
                   <User className="w-8 h-8 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">{post.author.name}</h3>
+                  <h2 className="text-lg font-semibold mb-2">{post.author.name}</h2>
                   <p className="text-muted-foreground">{post.author.bio}</p>
                 </div>
               </div>
             </div>
           </article>
 
+          {/* Оглавление (Table of Contents) */}
+          <aside className="hidden lg:block">
+            <BlogTOC content={getMarkdownContent(post.content)} />
+          </aside>
+        </div>
+      </div>
+
+          {/* Навигация между статьями */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <BlogNavigation currentPost={post} />
+          </div>
+
           {/* Связанные калькуляторы */}
           {relatedCalculators.length > 0 && (
-            <section className="max-w-4xl mx-auto mb-12">
+            <section className="max-w-4xl mx-auto mb-12" aria-labelledby="related-calculators-heading">
               <div className="flex items-center gap-2 mb-6">
-                <Calculator className="w-6 h-6 text-primary" />
-                <h2 className="text-2xl font-bold">Полезные калькуляторы</h2>
+                <Calculator className="w-6 h-6 text-primary" aria-hidden="true" />
+                <h2 id="related-calculators-heading" className="text-2xl font-bold">Полезные калькуляторы</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" role="list">
                 {relatedCalculators.map(calc => (
                   <Link
                     key={calc.href}
                     to={calc.href}
                     className="p-4 border rounded-xl hover:shadow-md transition-all duration-300 hover:-translate-y-1 bg-card"
+                    role="listitem"
                   >
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center" aria-hidden="true">
                         <Calculator className="w-5 h-5 text-primary" />
                       </div>
                       <h3 className="font-semibold">{calc.name}</h3>
@@ -269,18 +322,34 @@ const BlogPostPage = () => {
 
           {/* Похожие статьи */}
           {relatedPosts.length > 0 && (
-            <section className="max-w-6xl mx-auto">
+            <section className="max-w-6xl mx-auto mb-12" aria-labelledby="related-posts-heading">
               <div className="flex items-center gap-2 mb-6">
-                <BookOpen className="w-6 h-6 text-primary" />
-                <h2 className="text-2xl font-bold">Похожие статьи</h2>
+                <BookOpen className="w-6 h-6 text-primary" aria-hidden="true" />
+                <h2 id="related-posts-heading" className="text-2xl font-bold">Похожие статьи</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
                 {relatedPosts.map(relatedPost => (
-                  <BlogCard key={relatedPost.id} post={relatedPost} />
+                  <div key={relatedPost.id} role="listitem">
+                    <BlogCard post={relatedPost} />
+                  </div>
                 ))}
               </div>
             </section>
           )}
+
+          {/* Комментарии (lazy loaded) */}
+          <section className="max-w-4xl mx-auto" aria-labelledby="comments-heading">
+            <Suspense fallback={
+              <div className="bg-card rounded-xl p-6 border">
+                <div className="animate-pulse space-y-4">
+                  <div className="h-6 bg-muted rounded w-1/4"></div>
+                  <div className="h-32 bg-muted rounded"></div>
+                </div>
+              </div>
+            }>
+              <BlogComments articleId={post.id} />
+            </Suspense>
+          </section>
         </main>
 
         <Footer />

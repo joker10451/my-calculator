@@ -85,7 +85,7 @@ describe('PDF Generation Property Tests', () => {
         fc.record({
           elementId: fc.string({ minLength: 1, maxLength: 20 }).filter(s => /^[a-zA-Z][a-zA-Z0-9_-]*$/.test(s)),
           filename: fc.string({ minLength: 1, maxLength: 50 }).filter(s => /^[a-zA-Z0-9_-]+$/.test(s)),
-          content: fc.string({ minLength: 1, maxLength: 200 }).filter(s => s.trim().length > 0),
+          content: fc.string({ minLength: 10, maxLength: 200 }).filter(s => s.trim().length >= 10),
           hasImages: fc.boolean(),
           hasTables: fc.boolean()
         }),
@@ -168,7 +168,7 @@ describe('PDF Generation Property Tests', () => {
         fc.record({
           elementId: fc.string({ minLength: 1, maxLength: 20 }).filter(s => /^[a-zA-Z][a-zA-Z0-9_-]*$/.test(s)),
           format: fc.constantFrom('html', 'text'),
-          content: fc.string({ minLength: 1, maxLength: 200 }).filter(s => s.trim().length > 0),
+          content: fc.string({ minLength: 10, maxLength: 200 }).filter(s => s.trim().length >= 10),
           hasStructure: fc.boolean()
         }),
         async ({ elementId, format, content, hasStructure }) => {

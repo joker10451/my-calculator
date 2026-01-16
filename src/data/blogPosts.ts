@@ -1,7 +1,13 @@
 import type { BlogPost } from '@/types/blog';
 import { blogCategories } from './blogCategories';
+import { newBlogPosts } from './blogPostsNew3';
+import { additionalBlogPosts } from './blogPostsNew4';
+import { moreBlogPosts, depositArticle } from './blogPostsNew5';
+import { generatedArticles } from './blogArticlesGenerated';
+import { allGeneratedArticles } from './blogArticlesGenerated2';
+import { migrateBlogPosts } from '@/utils/migrateBlogData';
 
-export const blogPosts: BlogPost[] = [
+const legacyBlogPosts: Partial<BlogPost>[] = [
   {
     id: '1',
     slug: 'ipoteka-2026-novye-usloviya',
@@ -613,5 +619,13 @@ export const blogPosts: BlogPost[] = [
         "name": "Считай.RU"
       }
     }
-  }
+  },
+  ...newBlogPosts,
+  ...additionalBlogPosts,
+  ...moreBlogPosts,
+  ...generatedArticles,
+  ...allGeneratedArticles
 ];
+
+// Мигрируем все посты к новой структуре с поддержкой мультиязычности
+export const blogPosts: BlogPost[] = migrateBlogPosts(legacyBlogPosts);

@@ -56,17 +56,27 @@ export function generateCashbackUrl(
   const utmParameters = generateUTMParameters(source, amount);
   const baseUrl = cashbackConfig.partnerUrl;
   
+  if (!baseUrl) {
+    throw new Error('Partner URL is not configured');
+  }
+  
   // Создаем URL с UTM параметрами
   const url = new URL(baseUrl);
+  
+  if (!url.searchParams) {
+    throw new Error('URL searchParams is not available');
+  }
+  
   url.searchParams.set('utm_source', utmParameters.source);
   url.searchParams.set('utm_medium', utmParameters.medium);
   url.searchParams.set('utm_campaign', utmParameters.campaign);
   
-  if (utmParameters.content) {
+  // Добавляем опциональные параметры только если они определены
+  if (utmParameters.content !== undefined && utmParameters.content !== null) {
     url.searchParams.set('utm_content', utmParameters.content);
   }
   
-  if (utmParameters.term) {
+  if (utmParameters.term !== undefined && utmParameters.term !== null) {
     url.searchParams.set('utm_term', utmParameters.term);
   }
 

@@ -10,6 +10,7 @@ import { ComparisonProvider } from "./context/ComparisonContext";
 import { useYandexMetrika } from "./hooks/useYandexMetrika";
 import { trackPageView } from "./lib/analytics/googleAnalytics";
 import { CalculatorLoadingSkeleton, PageLoadingSkeleton } from "./components/LoadingSkeleton";
+import { SkipToContent } from "./components/SkipToContent";
 
 // Lazy loading для страниц
 const Index = lazy(() => import("./pages/Index"));
@@ -42,9 +43,15 @@ const AllCalculatorsPage = lazy(() => import("./pages/AllCalculatorsPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const LegalPage = lazy(() => import("./pages/LegalPage"));
 const ContactsPage = lazy(() => import("./pages/ContactsPage"));
+// Blog pages with code splitting
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const BlogCategoryPage = lazy(() => import("./pages/BlogCategoryPage"));
+
+// Blog components with lazy loading (loaded on demand)
+export const BlogComments = lazy(() => import("./components/blog/BlogComments"));
+export const BlogShare = lazy(() => import("./components/blog/BlogShare"));
+export const BlogRecommendations = lazy(() => import("./components/blog/BlogRecommendations"));
 const AnalyticsDashboardPage = lazy(() => import("./pages/AnalyticsDashboardPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -69,6 +76,7 @@ const App = () => (
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <TooltipProvider>
           <ComparisonProvider>
+            <SkipToContent />
             <Toaster />
             <Sonner />
             <Router>
@@ -111,6 +119,10 @@ const App = () => (
                   <Route path="/blog" element={<BlogPage />} />
                   <Route path="/blog/:slug" element={<BlogPostPage />} />
                   <Route path="/blog/category/:slug" element={<BlogCategoryPage />} />
+                  {/* Multilingual blog routes */}
+                  <Route path="/:lang/blog" element={<BlogPage />} />
+                  <Route path="/:lang/blog/:slug" element={<BlogPostPage />} />
+                  <Route path="/:lang/blog/category/:slug" element={<BlogCategoryPage />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

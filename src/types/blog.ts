@@ -1,4 +1,6 @@
 // Типы для блога
+export type SupportedLanguage = 'ru' | 'en';
+
 export interface BlogPost {
   id: string;
   slug: string;
@@ -28,10 +30,14 @@ export interface BlogPost {
     ogImage?: string;
   };
   readingTime: number; // в минутах
+  wordCount?: number; // количество слов в статье
   isPublished: boolean;
   isFeatured: boolean;
   relatedCalculators?: string[]; // ID калькуляторов
   structuredData?: Record<string, unknown>;
+  shareCount?: number; // количество шерингов статьи
+  language: SupportedLanguage; // язык статьи
+  translations?: Record<SupportedLanguage, string>; // ID переводов статьи
 }
 
 export interface BlogCategory {
@@ -45,6 +51,8 @@ export interface BlogCategory {
     metaTitle?: string;
     metaDescription?: string;
   };
+  language: SupportedLanguage; // язык категории
+  translations?: Record<SupportedLanguage, string>; // ID переводов категории
 }
 
 export interface BlogTag {
