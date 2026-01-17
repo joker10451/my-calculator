@@ -119,9 +119,9 @@ const BlogPage = () => {
               <section className="mb-2xl sm:mb-3xl lg:mb-4xl xl:mb-5xl" aria-labelledby="featured-posts-heading">
                 <div className="flex items-center gap-2 sm:gap-3 mb-xl sm:mb-2xl lg:mb-3xl">
                   <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-primary" aria-hidden="true" />
-                  <h2 id="featured-posts-heading" className="text-2xl sm:text-3xl lg:text-h2 font-bold">Рекомендуемые статьи</h2>
+                  <h2 id="featured-posts-heading" className="typography-responsive-heading-lg">Рекомендуемые статьи</h2>
                 </div>
-                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg sm:gap-xl lg:gap-2xl xl:gap-3xl" role="list">
+                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10" role="list">
                   {featuredPosts.map(post => (
                     <StaggerItem key={post.id} role="listitem">
                       <EnhancedBlogCard post={post} variant="featured" />
@@ -214,7 +214,7 @@ const BlogPage = () => {
                 <Badge
                   key={tag}
                   variant={filters.tags?.includes(tag) ? 'default' : 'secondary'}
-                  className="cursor-pointer text-sm px-3 sm:px-4 py-1.5 sm:py-2 transition-all duration-300 hover:scale-110 hover:shadow-md min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="typography-tag typography-touch-target cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-md"
                   onClick={() => {
                     const currentTags = filters.tags || [];
                     const newTags = currentTags.includes(tag)
@@ -247,13 +247,13 @@ const BlogPage = () => {
 
           {/* Результаты поиска */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-xl sm:mb-2xl lg:mb-3xl xl:mb-4xl">
-            <h2 className="text-xl sm:text-2xl lg:text-h2 font-bold">
+            <h2 className="typography-responsive-heading-lg">
               {searchQuery || Object.keys(filters).length > 0 
                 ? `Найдено статей: ${sortedPosts.length}` 
                 : 'Все статьи'
               }
             </h2>
-            <div className="flex items-center gap-2 text-sm sm:text-base text-muted-foreground">
+            <div className="flex items-center gap-2 typography-metadata">
               <Calendar className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
               <span aria-label="Сортировка по дате публикации">Сортировка по дате</span>
             </div>
@@ -262,7 +262,7 @@ const BlogPage = () => {
           {/* Список статей */}
           {sortedPosts.length > 0 ? (
             <FadeInUp delay={0.4}>
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg sm:gap-xl lg:gap-2xl xl:gap-3xl" role="list" aria-label="Список статей">
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10" role="list" aria-label="Список статей">
                 {sortedPosts.map(post => (
                   <StaggerItem key={post.id} role="listitem">
                     <EnhancedBlogCard post={post} />
@@ -274,8 +274,8 @@ const BlogPage = () => {
             <FadeInUp delay={0.4}>
               <div className="text-center py-2xl sm:py-3xl" role="status" aria-live="polite">
                 <Search className="w-16 h-16 sm:w-20 sm:h-20 text-muted-foreground mx-auto mb-lg sm:mb-xl" aria-hidden="true" />
-                <h3 className="text-xl sm:text-2xl lg:text-h3 font-bold mb-2 sm:mb-3">Статьи не найдены</h3>
-                <p className="text-base sm:text-body text-muted-foreground mb-lg sm:mb-xl leading-relaxed px-4">
+                <h3 className="typography-responsive-heading-md mb-2 sm:mb-3">Статьи не найдены</h3>
+                <p className="typography-body-lg typography-reading-optimized text-muted-foreground mb-lg sm:mb-xl px-4">
                   Попробуйте изменить параметры поиска или сбросить фильтры
                 </p>
                 <Button onClick={clearFilters} className="min-h-[44px] min-w-[44px]" aria-label="Сбросить все фильтры">Сбросить фильтры</Button>
@@ -286,8 +286,8 @@ const BlogPage = () => {
           {/* Последние статьи */}
           {!searchQuery && Object.keys(filters).length === 0 && (
             <section className="mt-2xl sm:mt-3xl lg:mt-4xl xl:mt-5xl" aria-labelledby="recent-posts-heading">
-              <h2 id="recent-posts-heading" className="text-xl sm:text-2xl lg:text-h2 font-bold mb-xl sm:mb-2xl lg:mb-3xl xl:mb-4xl">Последние публикации</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-lg sm:gap-xl lg:gap-2xl xl:gap-3xl" role="list">
+              <h2 id="recent-posts-heading" className="typography-responsive-heading-lg mb-xl sm:mb-2xl lg:mb-3xl xl:mb-4xl">Последние публикации</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10" role="list">
                 {recentPosts.map(post => (
                   <div key={post.id} role="listitem">
                     <EnhancedBlogCard post={post} variant="default" />

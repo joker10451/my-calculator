@@ -103,14 +103,22 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Категории калькуляторов
-        finance: "hsl(var(--finance))",
-        housing: "hsl(var(--housing))",
-        auto: "hsl(var(--auto))",
-        health: "hsl(var(--health))",
-        family: "hsl(var(--family))",
-        business: "hsl(var(--business))",
-        legal: "hsl(var(--legal))",
+        // Типографические цвета (Requirements 8.1, 8.2, 8.3)
+        text: {
+          primary: "#1a1a1a",      // Заголовки - очень темный
+          secondary: "#4a4a4a",    // Основной текст - темно-серый  
+          muted: "#6a6a6a",        // Метаданные - средне-серый
+          accent: "#3b82f6",       // Ссылки и акценты - синий
+          light: "#8a8a8a",        // Очень светлый текст
+        },
+        // Темная тема для типографики
+        "dark-text": {
+          primary: "#ffffff",      // Заголовки в темной теме
+          secondary: "#e5e5e5",    // Основной текст в темной теме
+          muted: "#a3a3a3",        // Метаданные в темной теме
+          accent: "#60a5fa",       // Ссылки в темной теме
+          light: "#737373",        // Светлый текст в темной теме
+        },
         // Категории блога (яркие цвета)
         categories: {
           finance: {
@@ -180,23 +188,34 @@ export default {
         display: ["Cal Sans", "Inter", "system-ui", "sans-serif"],
       },
       fontSize: {
-        // Display sizes for hero sections
+        // Typography Scale для блога (Requirements 1.1, 1.2, 1.3)
+        "heading-xl": ["2.5rem", { lineHeight: "1.2", fontWeight: "800", letterSpacing: "-0.01em" }],    // 40px desktop
+        "heading-lg": ["2rem", { lineHeight: "1.2", fontWeight: "700", letterSpacing: "-0.01em" }],      // 32px desktop  
+        "heading-md": ["1.5rem", { lineHeight: "1.3", fontWeight: "700" }],                              // 24px desktop
+        "heading-sm": ["1.25rem", { lineHeight: "1.4", fontWeight: "600" }],                             // 20px desktop
+        
+        // Body Typography (Requirements 2.1, 2.2)
+        "body-xl": ["1.25rem", { lineHeight: "1.7", fontWeight: "400" }],                                // 20px - большие описания
+        "body-lg": ["1.125rem", { lineHeight: "1.6", fontWeight: "400" }],                               // 18px desktop, 16px mobile
+        "body-md": ["1rem", { lineHeight: "1.6", fontWeight: "400" }],                                   // 16px - основной текст
+        "body-sm": ["0.875rem", { lineHeight: "1.5", fontWeight: "500" }],                               // 14px - метаданные
+        
+        // Mobile Typography (Requirements 6.1, 6.2)
+        "heading-xl-mobile": ["2rem", { lineHeight: "1.3", fontWeight: "800" }],                         // 32px mobile
+        "heading-lg-mobile": ["1.75rem", { lineHeight: "1.3", fontWeight: "700" }],                      // 28px mobile
+        "heading-md-mobile": ["1.375rem", { lineHeight: "1.4", fontWeight: "700" }],                     // 22px mobile
+        "heading-sm-mobile": ["1.125rem", { lineHeight: "1.4", fontWeight: "600" }],                     // 18px mobile
+        
+        // Legacy sizes (сохраняем для совместимости)
         "display": ["4rem", { lineHeight: "1.1", fontWeight: "800", letterSpacing: "-0.02em" }],
         "display-sm": ["2.5rem", { lineHeight: "1.2", fontWeight: "800" }],
         "hero": ["4rem", { lineHeight: "1.1", fontWeight: "800", letterSpacing: "-0.02em" }],
-        
-        // Heading sizes (Requirements 2.1, 2.2, 2.3, 2.4)
-        "h1": ["3rem", { lineHeight: "1.2", fontWeight: "700", letterSpacing: "-0.01em" }],      // 48px
-        "h2": ["2.25rem", { lineHeight: "1.3", fontWeight: "700" }],                             // 36px
-        "h3": ["1.75rem", { lineHeight: "1.4", fontWeight: "700" }],                             // 28px
-        
-        // Body text (Requirement 2.3)
-        "body": ["1.125rem", { lineHeight: "1.8", fontWeight: "400" }],                          // 18px
-        "body-lg": ["1.25rem", { lineHeight: "1.8", fontWeight: "400" }],                        // 20px
-        
-        // Supporting text
-        "caption": ["0.875rem", { lineHeight: "1.5", fontWeight: "500" }],                       // 14px
-        "small": ["0.75rem", { lineHeight: "1.5", fontWeight: "400" }],                          // 12px
+        "h1": ["3rem", { lineHeight: "1.2", fontWeight: "700", letterSpacing: "-0.01em" }],
+        "h2": ["2.25rem", { lineHeight: "1.3", fontWeight: "700" }],
+        "h3": ["1.75rem", { lineHeight: "1.4", fontWeight: "700" }],
+        "body": ["1.125rem", { lineHeight: "1.8", fontWeight: "400" }],
+        "caption": ["0.875rem", { lineHeight: "1.5", fontWeight: "500" }],
+        "small": ["0.75rem", { lineHeight: "1.5", fontWeight: "400" }],
       },
       fontWeight: {
         normal: "400",
@@ -213,8 +232,9 @@ export default {
         loose: "2.0",
       },
       spacing: {
+        // Базовые отступы
         "xs": "8px",
-        "sm": "16px",
+        "sm": "16px", 
         "md": "24px",
         "lg": "32px",
         "xl": "48px",
@@ -222,6 +242,17 @@ export default {
         "3xl": "96px",
         "4xl": "120px",
         "5xl": "160px",
+        
+        // Типографические отступы (Requirements 5.1, 5.2, 5.3, 5.4)
+        "typography": {
+          "title-to-excerpt": "12px",      // Отступ от заголовка к описанию
+          "excerpt-to-meta": "16px",       // Отступ от описания к метаданным
+          "meta-items": "8px",             // Отступ между элементами метаданных
+          "card-padding-mobile": "20px",   // Внутренние отступы карточки на мобильном
+          "card-padding-desktop": "32px",  // Внутренние отступы карточки на десктопе
+          "cards-gap-mobile": "24px",      // Отступ между карточками на мобильном
+          "cards-gap-desktop": "32px",     // Отступ между карточками на десктопе
+        },
       },
       boxShadow: {
         "card": "var(--shadow-card)",

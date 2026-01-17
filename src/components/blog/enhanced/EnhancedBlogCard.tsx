@@ -81,21 +81,21 @@ export const EnhancedBlogCard = ({
       padding: 'p-md sm:p-lg',  // 24px -> 32px
       borderRadius: 'rounded-xl sm:rounded-2xl',
       border: '',
-      titleSize: 'text-lg sm:text-xl',
+      titleSize: '', // Убираем, используем typography классы
     },
     featured: {
       imageHeight: 'h-[280px] sm:h-[320px] lg:h-[360px]',
       padding: 'p-lg sm:p-xl lg:p-2xl',  // 32px -> 48px -> 64px
       borderRadius: 'rounded-2xl sm:rounded-3xl',
       border: 'border-2',
-      titleSize: 'text-xl sm:text-2xl',
+      titleSize: '', // Убираем, используем typography классы
     },
     hero: {
       imageHeight: 'h-[360px] sm:h-[440px] lg:h-[500px]',
       padding: 'p-lg sm:p-xl lg:p-2xl',  // 32px -> 48px -> 64px
       borderRadius: 'rounded-2xl sm:rounded-3xl',
       border: 'border-2',
-      titleSize: 'text-2xl sm:text-3xl',
+      titleSize: '', // Убираем, используем typography классы
     },
   };
 
@@ -110,7 +110,7 @@ export const EnhancedBlogCard = ({
       variants={cardHover}
       initial="initial"
       whileHover="hover"
-      className="h-full"
+      className="h-full typography-animate-fade-in"
       style={willChangeStyles.transform}
     >
       <Card 
@@ -173,8 +173,8 @@ export const EnhancedBlogCard = ({
           </div>
         )}
         
-        <CardHeader className={config.padding}>
-          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
+        <CardHeader className={`${config.padding} typography-spacing-card-padding`}>
+          <div className="flex items-center gap-3 sm:gap-4 typography-metadata mb-2 sm:mb-3">
             <div className="flex items-center gap-1 sm:gap-1.5">
               <Calendar className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
               <time dateTime={post.publishedAt}>
@@ -190,7 +190,7 @@ export const EnhancedBlogCard = ({
             )}
           </div>
           
-          <h3 className={`font-bold leading-tight hover:text-primary transition-colors ${config.titleSize}`}>
+          <h3 className="typography-responsive-heading-lg typography-animate-hover font-bold leading-tight hover:text-primary transition-colors">
             <Link 
               to={`/blog/${post.slug}`} 
               className="block min-h-[44px] flex items-center"
@@ -203,18 +203,18 @@ export const EnhancedBlogCard = ({
         </CardHeader>
 
         {showExcerpt && (
-          <CardContent className={`${config.padding} pt-0`}>
-            <p className="text-muted-foreground line-clamp-3 text-sm sm:text-base leading-relaxed">
+          <CardContent className={`${config.padding} typography-spacing-card-padding pt-0`}>
+            <p className="typography-body-lg typography-reading-optimized text-muted-foreground line-clamp-3 leading-relaxed">
               {post.excerpt}
             </p>
             
             {post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4" role="list" aria-label="Теги статьи">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 typography-spacing-excerpt-to-meta" role="list" aria-label="Теги статьи">
                 {post.tags.slice(0, 3).map((tag) => (
                   <Badge 
                     key={tag} 
                     variant="secondary" 
-                    className="text-xs font-medium min-h-[32px] sm:min-h-[36px]"
+                    className="typography-tag typography-touch-target"
                     role="listitem"
                   >
                     {tag}
@@ -223,7 +223,7 @@ export const EnhancedBlogCard = ({
                 {post.tags.length > 3 && (
                   <Badge 
                     variant="secondary" 
-                    className="text-xs font-medium min-h-[32px] sm:min-h-[36px]"
+                    className="typography-tag typography-touch-target"
                     role="listitem"
                   >
                     +{post.tags.length - 3}
@@ -234,10 +234,10 @@ export const EnhancedBlogCard = ({
           </CardContent>
         )}
 
-        <CardFooter className={`${config.padding} pt-0`}>
+        <CardFooter className={`${config.padding} typography-spacing-card-padding pt-0`}>
           <div className="flex items-center justify-between w-full gap-2">
             {showAuthor && (
-              <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted-foreground">
+              <div className="flex items-center gap-1.5 sm:gap-2 typography-metadata">
                 <User className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
                 <span className="truncate">{post.author.name}</span>
               </div>
@@ -250,7 +250,7 @@ export const EnhancedBlogCard = ({
             >
               <Link 
                 to={`/blog/${post.slug}`}
-                className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-primary hover:text-primary/80 transition-colors min-h-[44px] px-2 sm:px-0"
+                className="typography-link typography-touch-target inline-flex items-center gap-1.5 sm:gap-2 font-semibold transition-colors px-2 sm:px-0"
                 onMouseEnter={() => prefetchOnHover(post.slug)}
                 aria-label={`Читать далее: ${post.title}`}
               >

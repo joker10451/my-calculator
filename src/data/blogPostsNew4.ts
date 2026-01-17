@@ -272,12 +272,6 @@ export const additionalBlogPosts: BlogPost[] = [
     publishedAt: '2026-01-16T09:00:00Z',
     category: blogCategories[1], // taxes-salary
     tags: ['отпускные', 'отпуск', 'зарплата', 'расчет', 'трудовое право'],
-    featuredImage: {
-      url: '/blog/otpusknye-2026.svg',
-      alt: 'Отпускные 2026 - расчет и сроки выплаты',
-      width: 1200,
-      height: 630
-    },
     seo: {
       metaTitle: 'Отпускные в 2026 году: расчет, сроки выплаты, налоги | Считай.RU',
       metaDescription: 'Как рассчитать отпускные в 2026 году. Формулы, примеры, сроки выплаты, НДФЛ. Калькулятор отпускных онлайн с учетом всех параметров.',

@@ -212,12 +212,6 @@ export const newBlogPosts: BlogPost[] = [
     publishedAt: '2026-01-14T10:00:00Z',
     category: blogCategories[5], // auto-transport
     tags: ['ОСАГО', 'страхование', 'автомобиль', 'ДТП', '2026'],
-    featuredImage: {
-      url: '/blog/osago-2026.svg',
-      alt: 'ОСАГО 2026 - стоимость и оформление',
-      width: 1200,
-      height: 630
-    },
     seo: {
       metaTitle: 'ОСАГО в 2026 году: стоимость, расчет, оформление онлайн | Считай.RU',
       metaDescription: 'Как рассчитать стоимость ОСАГО в 2026 году. Коэффициенты, тарифы, оформление онлайн. Калькулятор ОСАГО с учетом всех параметров.',
@@ -537,12 +531,6 @@ export const newBlogPosts: BlogPost[] = [
     publishedAt: '2026-01-15T11:00:00Z',
     category: blogCategories[5], // auto-transport
     tags: ['КАСКО', 'страхование', 'автомобиль', 'защита авто', '2026'],
-    featuredImage: {
-      url: '/blog/kasko-2026.svg',
-      alt: 'КАСКО 2026 - что покрывает и стоит ли оформлять',
-      width: 1200,
-      height: 630
-    },
     seo: {
       metaTitle: 'КАСКО в 2026 году: что покрывает, стоимость, как выбрать | Считай.RU',
       metaDescription: 'Полный гайд по КАСКО: что входит, сколько стоит, как сэкономить. Сравнение с ОСАГО, виды КАСКО, калькулятор стоимости онлайн.',

@@ -305,12 +305,6 @@ export const moreBlogPosts: BlogPost[] = [
     publishedAt: '2026-01-18T09:00:00Z',
     category: blogCategories[3], // health-fitness
     tags: ['ИМТ', 'индекс массы тела', 'вес', 'здоровье', 'похудение'],
-    featuredImage: {
-      url: '/blog/imt-2026.svg',
-      alt: 'ИМТ 2026 - норма и расчет индекса массы тела',
-      width: 1200,
-      height: 630
-    },
     seo: {
       metaTitle: 'Индекс массы тела (ИМТ) 2026: норма, расчет, рекомендации | Считай.RU',
       metaDescription: 'Как рассчитать ИМТ, что означают результаты, нормы для мужчин и женщин. Калькулятор ИМТ онлайн с персональными рекомендациями.',
@@ -599,12 +593,6 @@ export const depositArticle: BlogPost = {
   publishedAt: '2026-01-19T10:00:00Z',
   category: blogCategories[6], // investments-deposits
   tags: ['вклады', 'банки', 'проценты', 'инвестиции', 'накопления'],
-  featuredImage: {
-    url: '/blog/vklady-2026.svg',
-    alt: 'Банковские вклады 2026 - лучшие предложения',
-    width: 1200,
-    height: 630
-  },
   seo: {
     metaTitle: 'Банковские вклады в 2026 году: ставки, рейтинг банков | Считай.RU',
     metaDescription: 'Лучшие банковские вклады 2026: актуальные ставки до 18%, рейтинг банков, калькулятор доходности. Как выбрать выгодный вклад.',
