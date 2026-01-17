@@ -18,25 +18,32 @@ const PUBLIC_DIR = path.join(__dirname, '..', 'public');
 // Загружаем статьи блога
 function loadBlogPosts() {
   try {
-    // Пытаемся загрузить данные блога из собранного проекта
-    const blogDataPath = path.join(__dirname, '..', 'src', 'data', 'blogPosts.ts');
+    // Читаем все файлы с данными блога
+    const blogFiles = [
+      'src/data/blogPosts.ts',
+      'src/data/blogPostsNew3.ts',
+      'src/data/blogPostsNew4.ts', 
+      'src/data/blogPostsNew5.ts',
+      'src/data/blogArticlesGenerated.ts',
+      'src/data/blogArticlesGenerated2.ts'
+    ];
     
-    if (fs.existsSync(blogDataPath)) {
-      // Читаем файл и извлекаем slug'и статей
-      const content = fs.readFileSync(blogDataPath, 'utf8');
-      
-      // Простой парсинг для извлечения slug'ов
-      const slugMatches = content.matchAll(/slug:\s*['"]([^'"]+)['"]/g);
-      const publishedMatches = content.matchAll(/isPublished:\s*(true|false)/g);
-      
-      const slugs = Array.from(slugMatches).map(m => m[1]);
-      const published = Array.from(publishedMatches).map(m => m[1] === 'true');
-      
-      // Фильтруем только опубликованные статьи
-      return slugs.filter((_, index) => published[index] || published.length === 0);
+    const allSlugs = [];
+    
+    for (const filePath of blogFiles) {
+      const fullPath = path.join(__dirname, '..', filePath);
+      if (fs.existsSync(fullPath)) {
+        const content = fs.readFileSync(fullPath, 'utf8');
+        
+        // Извлекаем slug'и из каждого файла
+        const slugMatches = content.matchAll(/slug:\s*['"]([^'"]+)['"]/g);
+        const slugs = Array.from(slugMatches).map(m => m[1]);
+        allSlugs.push(...slugs);
+      }
     }
     
-    return [];
+    // Убираем дубликаты
+    return [...new Set(allSlugs)];
   } catch (error) {
     console.warn('⚠️  Не удалось загрузить статьи блога:', error.message);
     return [];
