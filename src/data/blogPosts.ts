@@ -628,4 +628,11 @@ const legacyBlogPosts: Partial<BlogPost>[] = [
 ];
 
 // Мигрируем все посты к новой структуре с поддержкой мультиязычности
-export const blogPosts: BlogPost[] = migrateBlogPosts(legacyBlogPosts);
+export const blogPosts: BlogPost[] = migrateBlogPosts([
+  ...legacyBlogPosts,
+  ...newBlogPosts,
+  ...additionalBlogPosts,
+  ...moreBlogPosts,
+  ...generatedArticles,
+  ...allGeneratedArticles
+]);
