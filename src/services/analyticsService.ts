@@ -130,21 +130,38 @@ function saveEvent(event: AnalyticsEvent): void {
  * Отправка события на backend
  */
 async function sendEventToBackend(event: AnalyticsEvent): Promise<void> {
+  // В development режиме не отправляем на backend
+  if (process.env.NODE_ENV === 'development') {
+    return;
+  }
+
   try {
     // TODO: Заменить на реальный endpoint
     const endpoint = '/api/blog/analytics';
     
-    await fetch(endpoint, {
+    // Проверяем доступность API с коротким timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 секунды timeout
+    
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(event),
+      signal: controller.signal,
     });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
   } catch (e) {
     // Тихий fail - аналитика не должна ломать приложение
+    // В production режиме не логируем ошибки в консоль
     if (process.env.NODE_ENV === 'development') {
-      console.error('Failed to send analytics event to backend', e);
+      console.warn('Analytics API unavailable, events stored locally only');
     }
   }
 }

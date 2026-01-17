@@ -78,21 +78,21 @@ export const EnhancedBlogCard = ({
   const variantConfig = {
     default: {
       imageHeight: 'h-[200px] sm:h-[240px] lg:h-[280px]',
-      padding: 'p-md sm:p-lg',  // 24px -> 32px
+      padding: 'p-6 sm:p-8',  // Увеличиваем отступы
       borderRadius: 'rounded-xl sm:rounded-2xl',
       border: '',
       titleSize: '', // Убираем, используем typography классы
     },
     featured: {
       imageHeight: 'h-[280px] sm:h-[320px] lg:h-[360px]',
-      padding: 'p-lg sm:p-xl lg:p-2xl',  // 32px -> 48px -> 64px
+      padding: 'p-8 sm:p-10 lg:p-12',  // Увеличиваем отступы
       borderRadius: 'rounded-2xl sm:rounded-3xl',
       border: 'border-2',
       titleSize: '', // Убираем, используем typography классы
     },
     hero: {
       imageHeight: 'h-[360px] sm:h-[440px] lg:h-[500px]',
-      padding: 'p-lg sm:p-xl lg:p-2xl',  // 32px -> 48px -> 64px
+      padding: 'p-8 sm:p-10 lg:p-12',  // Увеличиваем отступы
       borderRadius: 'rounded-2xl sm:rounded-3xl',
       border: 'border-2',
       titleSize: '', // Убираем, используем typography классы
@@ -152,7 +152,7 @@ export const EnhancedBlogCard = ({
             {/* Бейдж "Рекомендуем" */}
             {post.isFeatured && (
               <Badge 
-                className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 shadow-lg text-xs sm:text-sm"
+                className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 shadow-lg text-sm sm:text-base font-semibold px-3 py-2"
                 role="status" 
                 aria-label="Рекомендуемая статья"
               >
@@ -162,21 +162,21 @@ export const EnhancedBlogCard = ({
 
             {/* Бейдж категории с иконкой (справа сверху) */}
             <Badge 
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 flex items-center gap-1 sm:gap-1.5 text-white border-0 shadow-lg font-semibold px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 flex items-center gap-1 sm:gap-1.5 text-white border-0 shadow-lg font-semibold px-3 py-2 sm:px-4 sm:py-2.5 text-sm sm:text-base"
               style={{ backgroundColor: categoryColor }}
               role="status"
               aria-label={`Категория: ${post.category.name}`}
             >
-              <CategoryIcon className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
+              <CategoryIcon className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
               <span className="hidden sm:inline">{post.category.name}</span>
             </Badge>
           </div>
         )}
         
         <CardHeader className={`${config.padding} typography-spacing-card-padding`}>
-          <div className="flex items-center gap-3 sm:gap-4 typography-metadata mb-2 sm:mb-3">
+          <div className="flex items-center gap-3 sm:gap-4 text-base md:text-lg font-medium text-gray-600 dark:text-gray-400 mb-6">
             <div className="flex items-center gap-1 sm:gap-1.5">
-              <Calendar className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
+              <Calendar className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
               <time dateTime={post.publishedAt}>
                 {formatDate(post.publishedAt)}
               </time>
@@ -184,13 +184,13 @@ export const EnhancedBlogCard = ({
             
             {showReadingTime && (
               <div className="flex items-center gap-1 sm:gap-1.5">
-                <Clock className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                 <span>{post.readingTime} мин</span>
               </div>
             )}
           </div>
           
-          <h3 className="typography-responsive-heading-lg typography-animate-hover font-bold leading-tight hover:text-primary transition-colors">
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white hover:text-primary transition-colors duration-200 hover:-translate-y-0.5">
             <Link 
               to={`/blog/${post.slug}`} 
               className="block min-h-[44px] flex items-center"
@@ -204,7 +204,7 @@ export const EnhancedBlogCard = ({
 
         {showExcerpt && (
           <CardContent className={`${config.padding} typography-spacing-card-padding pt-0`}>
-            <p className="typography-body-lg typography-reading-optimized text-muted-foreground line-clamp-3 leading-relaxed">
+            <p className="text-xl md:text-2xl leading-relaxed text-gray-700 dark:text-gray-300 line-clamp-3 max-w-[65ch]">
               {post.excerpt}
             </p>
             
@@ -214,7 +214,7 @@ export const EnhancedBlogCard = ({
                   <Badge 
                     key={tag} 
                     variant="secondary" 
-                    className="typography-tag typography-touch-target"
+                    className="text-sm md:text-base font-medium px-3 py-2 rounded-full min-h-[36px] sm:min-h-[40px] inline-flex items-center cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-md"
                     role="listitem"
                   >
                     {tag}
@@ -223,7 +223,7 @@ export const EnhancedBlogCard = ({
                 {post.tags.length > 3 && (
                   <Badge 
                     variant="secondary" 
-                    className="typography-tag typography-touch-target"
+                    className="text-sm md:text-base font-medium px-3 py-2 rounded-full min-h-[36px] sm:min-h-[40px] inline-flex items-center"
                     role="listitem"
                   >
                     +{post.tags.length - 3}
@@ -237,8 +237,8 @@ export const EnhancedBlogCard = ({
         <CardFooter className={`${config.padding} typography-spacing-card-padding pt-0`}>
           <div className="flex items-center justify-between w-full gap-2">
             {showAuthor && (
-              <div className="flex items-center gap-1.5 sm:gap-2 typography-metadata">
-                <User className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
+              <div className="flex items-center gap-1.5 sm:gap-2 text-base md:text-lg font-medium text-gray-600 dark:text-gray-400">
+                <User className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                 <span className="truncate">{post.author.name}</span>
               </div>
             )}
@@ -250,13 +250,13 @@ export const EnhancedBlogCard = ({
             >
               <Link 
                 to={`/blog/${post.slug}`}
-                className="typography-link typography-touch-target inline-flex items-center gap-1.5 sm:gap-2 font-semibold transition-colors px-2 sm:px-0"
+                className="inline-flex items-center gap-1.5 sm:gap-2 text-base md:text-lg font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200 min-h-[44px] px-2 sm:px-0"
                 onMouseEnter={() => prefetchOnHover(post.slug)}
                 aria-label={`Читать далее: ${post.title}`}
               >
                 <span className="hidden sm:inline">Читать далее</span>
                 <span className="sm:hidden">Читать</span>
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                <ArrowRight className="w-5 h-5" aria-hidden="true" />
               </Link>
             </motion.div>
           </div>

@@ -119,9 +119,9 @@ const BlogPage = () => {
               <section className="mb-2xl sm:mb-3xl lg:mb-4xl xl:mb-5xl" aria-labelledby="featured-posts-heading">
                 <div className="flex items-center gap-2 sm:gap-3 mb-xl sm:mb-2xl lg:mb-3xl">
                   <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-primary" aria-hidden="true" />
-                  <h2 id="featured-posts-heading" className="typography-responsive-heading-lg">Рекомендуемые статьи</h2>
+                  <h2 id="featured-posts-heading" className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-900 dark:text-white">Рекомендуемые статьи</h2>
                 </div>
-                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10" role="list">
+                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12" role="list">
                   {featuredPosts.map(post => (
                     <StaggerItem key={post.id} role="listitem">
                       <EnhancedBlogCard post={post} variant="featured" />
@@ -155,7 +155,7 @@ const BlogPage = () => {
                     placeholder="Поиск по статьям..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 sm:pl-12 h-11 sm:h-12 text-base bg-background/50 backdrop-blur-sm border-2 focus:border-primary transition-all"
+                    className="pl-10 sm:pl-12 h-12 sm:h-14 text-lg bg-background/50 backdrop-blur-sm border-2 focus:border-primary transition-all"
                     aria-label="Поиск по статьям"
                   />
                 </div>
@@ -167,7 +167,7 @@ const BlogPage = () => {
                   value={filters.category || 'all'}
                   onValueChange={(value) => setFilters(prev => ({ ...prev, category: value === 'all' ? undefined : value }))}
                 >
-                  <SelectTrigger className="w-full sm:w-52 h-11 sm:h-12 bg-background/50 backdrop-blur-sm border-2 hover:border-primary transition-all" aria-label="Фильтр по категории">
+                  <SelectTrigger className="w-full sm:w-52 h-12 sm:h-14 text-lg bg-background/50 backdrop-blur-sm border-2 hover:border-primary transition-all" aria-label="Фильтр по категории">
                     <SelectValue placeholder="Все категории" />
                   </SelectTrigger>
                   <SelectContent>
@@ -183,7 +183,7 @@ const BlogPage = () => {
                 <Button
                   variant="outline"
                   onClick={() => setFilters(prev => ({ ...prev, featured: !prev.featured }))}
-                  className={`h-11 sm:h-12 px-4 sm:px-6 transition-all duration-300 ${
+                  className={`h-12 sm:h-14 px-5 sm:px-7 text-lg transition-all duration-300 ${
                     filters.featured 
                       ? 'bg-primary text-primary-foreground hover:bg-primary/90 scale-105 shadow-lg' 
                       : 'bg-background/50 backdrop-blur-sm border-2 hover:border-primary hover:scale-105'
@@ -199,7 +199,7 @@ const BlogPage = () => {
                   <Button 
                     variant="ghost" 
                     onClick={clearFilters} 
-                    className="h-11 sm:h-12 px-4 sm:px-6 hover:bg-destructive/10 hover:text-destructive hover:scale-105 transition-all duration-300"
+                    className="h-12 sm:h-14 px-5 sm:px-7 text-lg hover:bg-destructive/10 hover:text-destructive hover:scale-105 transition-all duration-300"
                     aria-label="Сбросить все фильтры"
                   >
                     Сбросить
@@ -214,7 +214,7 @@ const BlogPage = () => {
                 <Badge
                   key={tag}
                   variant={filters.tags?.includes(tag) ? 'default' : 'secondary'}
-                  className="typography-tag typography-touch-target cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-md"
+                  className="text-sm md:text-base font-medium px-4 sm:px-5 py-2 sm:py-2.5 rounded-full min-h-[44px] min-w-[44px] inline-flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-md"
                   onClick={() => {
                     const currentTags = filters.tags || [];
                     const newTags = currentTags.includes(tag)
@@ -247,13 +247,13 @@ const BlogPage = () => {
 
           {/* Результаты поиска */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-xl sm:mb-2xl lg:mb-3xl xl:mb-4xl">
-            <h2 className="typography-responsive-heading-lg">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-gray-900 dark:text-white">
               {searchQuery || Object.keys(filters).length > 0 
                 ? `Найдено статей: ${sortedPosts.length}` 
                 : 'Все статьи'
               }
             </h2>
-            <div className="flex items-center gap-2 typography-metadata">
+            <div className="flex items-center gap-2 text-base md:text-lg font-medium text-gray-600 dark:text-gray-400">
               <Calendar className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
               <span aria-label="Сортировка по дате публикации">Сортировка по дате</span>
             </div>
@@ -262,7 +262,7 @@ const BlogPage = () => {
           {/* Список статей */}
           {sortedPosts.length > 0 ? (
             <FadeInUp delay={0.4}>
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10" role="list" aria-label="Список статей">
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12" role="list" aria-label="Список статей">
                 {sortedPosts.map(post => (
                   <StaggerItem key={post.id} role="listitem">
                     <EnhancedBlogCard post={post} />
@@ -274,8 +274,8 @@ const BlogPage = () => {
             <FadeInUp delay={0.4}>
               <div className="text-center py-2xl sm:py-3xl" role="status" aria-live="polite">
                 <Search className="w-16 h-16 sm:w-20 sm:h-20 text-muted-foreground mx-auto mb-lg sm:mb-xl" aria-hidden="true" />
-                <h3 className="typography-responsive-heading-md mb-2 sm:mb-3">Статьи не найдены</h3>
-                <p className="typography-body-lg typography-reading-optimized text-muted-foreground mb-lg sm:mb-xl px-4">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight text-gray-900 dark:text-white mb-3">Статьи не найдены</h3>
+                <p className="text-xl md:text-2xl leading-relaxed text-gray-700 dark:text-gray-300 mb-lg sm:mb-xl px-4 max-w-[65ch] mx-auto">
                   Попробуйте изменить параметры поиска или сбросить фильтры
                 </p>
                 <Button onClick={clearFilters} className="min-h-[44px] min-w-[44px]" aria-label="Сбросить все фильтры">Сбросить фильтры</Button>
@@ -286,8 +286,8 @@ const BlogPage = () => {
           {/* Последние статьи */}
           {!searchQuery && Object.keys(filters).length === 0 && (
             <section className="mt-2xl sm:mt-3xl lg:mt-4xl xl:mt-5xl" aria-labelledby="recent-posts-heading">
-              <h2 id="recent-posts-heading" className="typography-responsive-heading-lg mb-xl sm:mb-2xl lg:mb-3xl xl:mb-4xl">Последние публикации</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10" role="list">
+              <h2 id="recent-posts-heading" className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-900 dark:text-white mb-xl sm:mb-2xl lg:mb-3xl xl:mb-4xl">Последние публикации</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 lg:gap-12" role="list">
                 {recentPosts.map(post => (
                   <div key={post.id} role="listitem">
                     <EnhancedBlogCard post={post} variant="default" />

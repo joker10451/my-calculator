@@ -42,7 +42,10 @@
     "production:check": "node scripts/check-production.js",
     "analytics:setup": "node scripts/setup-analytics.js",
     "analytics:dashboard": "node scripts/generate-analytics-dashboard.js",
-    "seo:generate-urls": "node scripts/submit-to-search-engines.js"
+    "seo:generate-urls": "node scripts/submit-to-search-engines.js",
+    "analyze:blog-data": "node scripts/analyze-blog-data.js",
+    "test:consolidation": "node scripts/test-consolidation.js",
+    "consolidate:blog-data": "node scripts/consolidate-blog-data.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

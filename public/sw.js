@@ -1,7 +1,7 @@
 // Service Worker для кеширования статей блога
-const CACHE_NAME = 'schitay-blog-v1';
-const ARTICLE_CACHE_NAME = 'schitay-articles-v1';
-const SEARCH_CACHE_NAME = 'schitay-search-v1';
+const CACHE_NAME = 'schitay-blog-v2';
+const ARTICLE_CACHE_NAME = 'schitay-articles-v2';
+const SEARCH_CACHE_NAME = 'schitay-search-v2';
 
 // Ресурсы для кеширования при установке
 const STATIC_RESOURCES = [
@@ -46,8 +46,18 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
+  // Кешируем только GET запросы
+  if (request.method !== 'GET') {
+    return;
+  }
+
+  // Не кешируем API запросы
+  if (url.pathname.includes('/api/')) {
+    return;
+  }
+
   // Кешируем статьи блога
-  if (url.pathname.startsWith('/blog/') && !url.pathname.includes('/api/')) {
+  if (url.pathname.startsWith('/blog/')) {
     event.respondWith(
       caches.open(ARTICLE_CACHE_NAME).then((cache) => {
         return cache.match(request).then((cachedResponse) => {
@@ -57,6 +67,8 @@ self.addEventListener('fetch', (event) => {
               if (networkResponse && networkResponse.status === 200) {
                 cache.put(request, networkResponse.clone());
               }
+            }).catch(() => {
+              // Игнорируем ошибки фонового обновления
             });
             return cachedResponse;
           }
@@ -67,6 +79,9 @@ self.addEventListener('fetch', (event) => {
               cache.put(request, networkResponse.clone());
             }
             return networkResponse;
+          }).catch((error) => {
+            // Возвращаем кешированную версию если есть
+            return cache.match(request) || Promise.reject(error);
           });
         });
       })
@@ -106,6 +121,9 @@ self.addEventListener('fetch', (event) => {
               cache.put(request, modifiedResponse);
             }
             return networkResponse;
+          }).catch((error) => {
+            // Возвращаем кешированную версию если есть
+            return cache.match(request) || Promise.reject(error);
           });
         });
       })
@@ -113,14 +131,16 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Для остальных запросов - стандартная стратегия Network First
+  // Для остальных GET запросов - стандартная стратегия Network First
   event.respondWith(
     fetch(request)
       .then((response) => {
-        if (response && response.status === 200) {
+        if (response && response.status === 200 && request.url.startsWith('http')) {
           const responseToCache = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(request, responseToCache);
+          }).catch(() => {
+            // Игнорируем ошибки кеширования
           });
         }
         return response;
