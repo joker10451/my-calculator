@@ -78,7 +78,7 @@ const CalculatorLayout = ({
 
                 <main className={`flex-1 ${bgClass}`}>
                     {/* Hero Section */}
-                    <div className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
+                    <div className="relative py-6 md:py-8 lg:py-10 overflow-hidden">
                         {/* Background decoration */}
                         <div className="absolute inset-0 -z-10 overflow-hidden">
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl" />
