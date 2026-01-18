@@ -6,6 +6,7 @@ import { MortgageSummary } from "./mortgage/MortgageSummary";
 import { MortgageExtraPayments } from "./mortgage/MortgageExtraPayments";
 import { MortgageResultsTabs } from "./mortgage/MortgageResultsTabs";
 import { MortgageComparison } from "./mortgage/MortgageComparison";
+import { ZenithAI } from "./mortgage/ZenithAI";
 import { useTranslation } from "react-i18next";
 
 const MortgageCalculator = () => {
@@ -110,13 +111,20 @@ const MortgageCalculator = () => {
         </div>
 
         {/* Результаты и графики */}
-        <MortgageSummary
-          calculations={calculations}
-          formatCurrency={formatCurrency}
-          handleDownload={handleDownload}
-          handleShare={handleShare}
-          handleCompare={handleCompare}
-        />
+        <div className="lg:col-span-5 space-y-8">
+          <MortgageSummary
+            calculations={calculations}
+            formatCurrency={formatCurrency}
+            handleDownload={handleDownload}
+            handleShare={handleShare}
+            handleCompare={handleCompare}
+          />
+
+          <ZenithAI
+            calculations={calculations}
+            formatCurrency={formatCurrency}
+          />
+        </div>
       </div>
     </div>
   );

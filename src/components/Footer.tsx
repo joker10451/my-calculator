@@ -6,20 +6,20 @@ const Footer = () => {
   const { t } = useTranslation();
 
   const categoriesList = [
-    { name: t("common.categories.finance"), href: "/category/finance" },
-    { name: t("common.categories.salary"), href: "/category/salary" },
-    { name: t("common.categories.housing"), href: "/category/housing" },
-    { name: t("common.categories.auto"), href: "/category/auto" },
-    { name: t("common.categories.health"), href: "/category/health" },
-    { name: t("common.categories.family"), href: "/category/family" },
+    { name: t("common.categories.finance.name"), href: "/category/finance" },
+    { name: t("common.categories.salary.name"), href: "/category/salary" },
+    { name: t("common.categories.housing.name"), href: "/category/housing" },
+    { name: t("common.categories.auto.name"), href: "/category/auto" },
+    { name: t("common.categories.health.name"), href: "/category/health" },
+    { name: t("common.categories.family.name"), href: "/category/family" },
   ];
 
   const popular = [
-    { name: t("common.popular_calculators.mortgage"), href: "/calculator/mortgage" },
-    { name: t("common.popular_calculators.salary"), href: "/calculator/salary" },
-    { name: t("common.popular_calculators.bmi"), href: "/calculator/bmi" },
-    { name: t("common.popular_calculators.fuel"), href: "/calculator/fuel" },
-    { name: t("common.popular_calculators.utilities"), href: "/calculator/utilities" },
+    { name: t("common.popular_calculators.items.mortgage.name"), href: "/calculator/mortgage" },
+    { name: t("common.popular_calculators.items.salary.name"), href: "/calculator/salary" },
+    { name: t("common.popular_calculators.items.bmi.name"), href: "/calculator/bmi" },
+    { name: t("common.popular_calculators.items.fuel.name"), href: "/calculator/fuel" },
+    { name: t("common.popular_calculators.items.utilities.name"), href: "/calculator/utilities" },
   ];
 
   const legal = [

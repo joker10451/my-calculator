@@ -7,19 +7,17 @@ import { VitePWA } from "vite-plugin-pwa";
 const faviconHeadersMiddleware = () => {
   return {
     name: 'favicon-headers',
-    configureServer(server: { middlewares: { use: (middleware: (req: unknown, res: unknown, next: () => void) => void) => void } }) {
-      server.middlewares.use((req: unknown, res: unknown, next: () => void) => {
-        const request = req as { url?: string };
-        const response = res as { setHeader: (name: string, value: string) => void };
-        const url = request.url;
-        
+    configureServer(server: any) {
+      server.middlewares.use((req: any, res: any, next: () => void) => {
+        const url = req.url;
+
         // Настройка заголовков для favicon файлов
         if (url === '/favicon.ico') {
-          response.setHeader('Content-Type', 'image/x-icon');
-          response.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 год
-          response.setHeader('Vary', 'Accept-Encoding');
+          res.setHeader('Content-Type', 'image/x-icon');
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 год
+          res.setHeader('Vary', 'Accept-Encoding');
         } else if (url === '/icon.svg') {
-          response.setHeader('Content-Type', 'image/svg+xml');
+          res.setHeader('Content-Type', 'image/svg+xml');
           res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 год
           res.setHeader('Vary', 'Accept-Encoding');
         } else if (url === '/apple-touch-icon.png') {
@@ -35,14 +33,14 @@ const faviconHeadersMiddleware = () => {
           res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 день (может изменяться чаще)
           res.setHeader('Vary', 'Accept-Encoding');
         }
-        
+
         // Добавляем заголовки безопасности для всех favicon файлов
-        if (url.match(/\/(favicon\.ico|icon\.svg|apple-touch-icon\.png|icon-\d+\.png|manifest\.json)$/)) {
+        if (url && url.match(/\/(favicon\.ico|icon\.svg|apple-touch-icon\.png|icon-\d+\.png|manifest\.json)$/)) {
           res.setHeader('X-Content-Type-Options', 'nosniff');
           res.setHeader('Access-Control-Allow-Origin', '*');
           res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
         }
-        
+
         next();
       });
     }
@@ -64,7 +62,7 @@ export default defineConfig(({ mode }) => ({
       includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
       workbox: {
         maximumFileSizeToCacheInBytes: 4000000, // 4MB
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,json}'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -112,7 +110,7 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           // Основные библиотеки
           'react-vendor': ['react', 'react-dom'],
-          
+
           // UI библиотеки
           'ui-vendor': [
             '@radix-ui/react-accordion',
@@ -126,16 +124,16 @@ export default defineConfig(({ mode }) => ({
             '@radix-ui/react-toast',
             '@radix-ui/react-tooltip'
           ],
-          
+
           // Графики и визуализация
           'charts-vendor': ['recharts'],
-          
+
           // PDF и экспорт
           'export-vendor': ['jspdf', 'html2canvas'],
-          
+
           // Роутинг
           'router-vendor': ['react-router-dom'],
-          
+
           // Утилиты
           'utils-vendor': [
             'clsx',
@@ -143,7 +141,7 @@ export default defineConfig(({ mode }) => ({
             'date-fns',
             'zod'
           ],
-          
+
           // Калькуляторы - группируем по типам
           'calculators-financial': [
             './src/components/calculators/MortgageCalculator.tsx',
@@ -151,19 +149,19 @@ export default defineConfig(({ mode }) => ({
             './src/components/calculators/DepositCalculator.tsx',
             './src/components/calculators/RefinancingCalculator.tsx'
           ],
-          
+
           'calculators-personal': [
             './src/components/calculators/SalaryCalculator.tsx',
             './src/components/calculators/BMICalculator.tsx',
             './src/components/calculators/CalorieCalculator.tsx'
           ],
-          
+
           'calculators-utility': [
             './src/components/calculators/UtilitiesCalculator.tsx',
             './src/components/calculators/FuelCalculator.tsx',
             './src/components/calculators/WaterCalculator.tsx'
           ],
-          
+
           'calculators-other': [
             './src/components/calculators/CourtFeeCalculator.tsx',
             './src/components/calculators/CurrencyConverter.tsx',
