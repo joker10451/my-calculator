@@ -23,11 +23,18 @@ const NotFound = () => {
             Возможно, она была удалена или перенесена. Но у нас есть много других полезных калькуляторов!
           </p>
 
-          <Button asChild size="lg" className="mb-16">
-            <Link to="/">
-              Вернуться на главную
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Button asChild size="lg">
+              <Link to="/">
+                Вернуться на главную
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/#categories">
+                Выбрать калькулятор
+              </Link>
+            </Button>
+          </div>
 
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl font-semibold mb-8">Популярные разделы</h2>

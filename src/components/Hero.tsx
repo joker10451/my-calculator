@@ -1,6 +1,7 @@
 import { ArrowRight, Calculator, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { BackgroundBeamsWithCollision } from "./ui/background-beams-with-collision";
 import { FlipWords } from "./ui/flip-words";
 
@@ -46,17 +47,17 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col items-center justify-center gap-4 mb-12 sm:flex-row">
-            <a href="#categories">
+            <Link to="/#categories">
               <Button size="lg" className="h-12 px-8 text-lg rounded-full group">
                 {t('common.home.hero.cta_primary')}
                 <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
-            </a>
-            <a href="/blog">
+            </Link>
+            <Link to="/blog">
               <Button size="lg" variant="outline" className="h-12 px-8 text-lg rounded-full backdrop-blur-sm bg-background/30 dark:bg-neutral-800/30">
                 {t('common.home.hero.cta_secondary')}
               </Button>
-            </a>
+            </Link>
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 md:gap-8">

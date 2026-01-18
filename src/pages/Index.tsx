@@ -1,4 +1,6 @@
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Categories from "@/components/Categories";
@@ -9,6 +11,19 @@ import { Helmet } from "react-helmet-async";
 
 const Index = () => {
   const { t } = useTranslation();
+  const location = useLocation();
+
+  // Обработка скроллинга к якорям (например, /#categories)
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
 
   return (
     <>
