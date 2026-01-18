@@ -3,7 +3,7 @@
  * Позволяет пользователю переключаться между доступными языками
  */
 
-import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,26 +15,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import type { SupportedLanguage } from '@/types/blog';
 import {
-  getCurrentLanguage,
   setCurrentLanguage,
   getLanguageSwitchUrl,
 } from '@/utils/i18n';
 
 interface LanguageSwitcherProps {
-  /**
-   * Доступные языки для текущей страницы
-   * Если не указано, показываются все поддерживаемые языки
-   */
   availableLanguages?: SupportedLanguage[];
-  
-  /**
-   * Компактный режим (только иконка без текста)
-   */
   compact?: boolean;
-  
-  /**
-   * Класс для стилизации
-   */
   className?: string;
 }
 
@@ -53,34 +40,27 @@ export function LanguageSwitcher({
   compact = false,
   className = '',
 }: LanguageSwitcherProps) {
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const [currentLang, setCurrentLang] = useState<SupportedLanguage>(getCurrentLanguage());
-
-  // Обновляем текущий язык при изменении location
-  useEffect(() => {
-    const lang = getCurrentLanguage();
-    setCurrentLang(lang);
-  }, [location.pathname]);
+  const currentLang = i18n.language as SupportedLanguage;
 
   // Определяем доступные языки
   const languages: SupportedLanguage[] = availableLanguages || ['ru', 'en'];
 
   // Обработчик переключения языка
-  const handleLanguageChange = (language: SupportedLanguage) => {
+  const handleLanguageChange = async (language: SupportedLanguage) => {
     // Сохраняем выбранный язык в localStorage
     setCurrentLanguage(language);
-    setCurrentLang(language);
+
+    // Меняем язык в i18next
+    await i18n.changeLanguage(language);
 
     // Получаем новый URL с языковым префиксом
     const newUrl = getLanguageSwitchUrl(location.pathname, language);
-    
+
     // Переходим на новый URL
     navigate(newUrl);
-    
-    // Перезагружаем страницу для применения изменений
-    // В production можно использовать более элегантное решение с контекстом
-    window.location.reload();
   };
 
   return (
@@ -95,7 +75,7 @@ export function LanguageSwitcher({
           <Globe className="h-5 w-5" />
           {!compact && (
             <span className="ml-2">
-              {LANGUAGE_CODES[currentLang]}
+              {LANGUAGE_CODES[currentLang] || 'RU'}
             </span>
           )}
         </Button>

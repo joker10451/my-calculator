@@ -14,6 +14,7 @@ import { CalculatorLoadingSkeleton, PageLoadingSkeleton } from "./components/Loa
 import { SkipToContent } from "./components/SkipToContent";
 import { PageTransition } from "./components/animations/PageTransition";
 import { ThemeInitializer } from "./components/ThemeInitializer";
+import { I18nWatcher } from "./components/I18nWatcher";
 
 // Lazy loading для страниц
 const Index = lazy(() => import("./pages/Index"));
@@ -89,6 +90,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <Router>
+              <I18nWatcher />
               <YandexMetrikaTracker />
               <GoogleAnalyticsTracker />
               <AnimatedRoutes />
@@ -103,7 +105,7 @@ const App = () => (
 // Компонент с анимированными маршрутами
 const AnimatedRoutes = () => {
   const location = useLocation();
-  
+
   return (
     <AnimatePresence mode="wait" initial={false}>
       <Suspense fallback={<CalculatorLoadingSkeleton />}>
@@ -169,12 +171,12 @@ const YandexMetrikaTracker = () => {
 // Компонент для отслеживания переходов в Google Analytics
 const GoogleAnalyticsTracker = () => {
   const location = useLocation();
-  
+
   useEffect(() => {
     // Track page view in Google Analytics
     trackPageView(location.pathname + location.search, document.title);
   }, [location]);
-  
+
   return null;
 };
 

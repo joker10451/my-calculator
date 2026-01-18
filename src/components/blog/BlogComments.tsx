@@ -1,9 +1,3 @@
-/**
- * BlogComments Component
- * Displays comments and comment form for blog articles
- * Requirements: 8.1, 8.2, 8.4, 8.5, 8.6
- */
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,7 +11,6 @@ import {
   countApprovedComments,
   type Comment,
   type CommentData,
-  type ValidationError,
 } from '@/services/commentService';
 
 interface BlogCommentsProps {
@@ -31,7 +24,7 @@ interface CommentFormData {
   parentId?: string;
 }
 
-export function BlogComments({ articleId }: BlogCommentsProps) {
+function BlogComments({ articleId }: BlogCommentsProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentCount, setCommentCount] = useState(0);
   const [formData, setFormData] = useState<CommentFormData>({
@@ -49,7 +42,7 @@ export function BlogComments({ articleId }: BlogCommentsProps) {
   // Load comments on mount
   useEffect(() => {
     loadComments();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleId]);
 
   const loadComments = () => {
@@ -390,3 +383,5 @@ function CommentItem({ comment, onReply, level }: CommentItemProps) {
     </div>
   );
 }
+
+export default BlogComments;

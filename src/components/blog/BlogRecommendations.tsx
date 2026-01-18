@@ -4,29 +4,29 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { BlogPost } from '@/types/blog';
-import type { Calculator } from '@/services/recommendationService';
+import type { Calculator as RecCalculator } from '@/services/recommendationService';
 
 interface BlogRecommendationsProps {
   /**
    * Похожие статьи для отображения
    */
   relatedArticles: BlogPost[];
-  
+
   /**
    * Связанные калькуляторы для отображения
    */
-  relatedCalculators?: Calculator[];
-  
+  relatedCalculators?: RecCalculator[];
+
   /**
    * Заголовок секции похожих статей
    */
   articlesTitle?: string;
-  
+
   /**
    * Заголовок секции калькуляторов
    */
   calculatorsTitle?: string;
-  
+
   /**
    * Показывать ли секцию калькуляторов
    */
@@ -38,7 +38,7 @@ interface BlogRecommendationsProps {
  * 
  * Requirements: 4.1, 4.3
  */
-export const BlogRecommendations = ({
+const BlogRecommendations = ({
   relatedArticles,
   relatedCalculators = [],
   articlesTitle = 'Похожие статьи',
@@ -62,10 +62,10 @@ export const BlogRecommendations = ({
             <TrendingUp className="w-6 h-6 text-primary" />
             <h2 className="text-2xl font-bold">{articlesTitle}</h2>
           </div>
-          
+
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {relatedArticles.map((article) => (
-              <Card 
+              <Card
                 key={article.id}
                 className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
               >
@@ -77,7 +77,7 @@ export const BlogRecommendations = ({
                       className="w-full h-40 object-cover transition-transform duration-300 hover:scale-105"
                       loading="lazy"
                     />
-                    <Badge 
+                    <Badge
                       className="absolute top-2 right-2 text-xs"
                       style={{ backgroundColor: article.category.color }}
                     >
@@ -85,12 +85,12 @@ export const BlogRecommendations = ({
                     </Badge>
                   </div>
                 )}
-                
+
                 <CardHeader className="pb-3">
                   <div className="text-xs text-muted-foreground mb-2">
                     {formatDate(article.publishedAt)} · {article.readingTime} мин
                   </div>
-                  
+
                   <Link to={`/blog/${article.slug}`}>
                     <h3 className="text-base font-semibold leading-tight hover:text-primary transition-colors">
                       {article.title}
@@ -102,8 +102,8 @@ export const BlogRecommendations = ({
                   <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
                     {article.excerpt}
                   </p>
-                  
-                  <Link 
+
+                  <Link
                     to={`/blog/${article.slug}`}
                     className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
                   >
@@ -124,10 +124,10 @@ export const BlogRecommendations = ({
             <Calculator className="w-6 h-6 text-primary" />
             <h2 className="text-2xl font-bold">{calculatorsTitle}</h2>
           </div>
-          
+
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {relatedCalculators.map((calculator) => (
-              <Card 
+              <Card
                 key={calculator.id || calculator.href}
                 className="transition-all duration-300 hover:shadow-md hover:border-primary/50"
               >
@@ -137,21 +137,21 @@ export const BlogRecommendations = ({
                       <h3 className="font-semibold mb-2 text-base">
                         {calculator.name}
                       </h3>
-                      
+
                       {calculator.category && (
                         <Badge variant="secondary" className="text-xs mb-3">
                           {calculator.category}
                         </Badge>
                       )}
                     </div>
-                    
+
                     <Calculator className="w-5 h-5 text-primary flex-shrink-0" />
                   </div>
-                  
+
                   <Link to={calculator.href}>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
+                    <Button
+                      variant="outline"
+                      size="sm"
                       className="w-full mt-3 group"
                     >
                       Рассчитать
@@ -181,3 +181,5 @@ export const BlogRecommendations = ({
     </div>
   );
 };
+
+export default BlogRecommendations;

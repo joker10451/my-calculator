@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Calculator, Menu, X, Search, Scale } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ import { categories } from "@/lib/data";
 import { useComparison } from "@/context/ComparisonContext";
 
 const Header = () => {
+  const { t } = useTranslation();
   const { items } = useComparison();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -41,8 +43,8 @@ const Header = () => {
             <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
               <Calculator className="w-4 h-4 md:w-5 md:h-5 text-primary-foreground" />
             </div>
-            <span className="text-base md:text-xl font-bold tracking-tight hidden xs:inline">
-              СЧИТАЙ<span className="text-primary">.RU</span>
+            <span className="text-base md:text-xl font-bold tracking-tight hidden xs:inline uppercase">
+              {t('common.title')}
             </span>
           </Link>
 
@@ -52,7 +54,7 @@ const Header = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Поиск калькулятора..."
+                placeholder={t('common.header.search')}
                 className="w-full h-10 pl-10 pr-4 rounded-lg border bg-muted/50 focus:bg-background transition-colors focus:ring-2 focus:ring-primary/20 outline-none text-sm"
                 value={searchQuery}
                 onChange={(e) => {
@@ -102,7 +104,7 @@ const Header = () => {
               to="/blog"
               className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
             >
-              Блог
+              {t('common.header.blog')}
             </Link>
             <Link to="/compare" className="relative p-2 text-muted-foreground hover:text-primary transition-colors">
               <Scale className="w-5 h-5" />

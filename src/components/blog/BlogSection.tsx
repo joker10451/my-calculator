@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import { BookOpen, ArrowRight, TrendingUp } from 'lucide-react';
 import { BlogCard } from './BlogCard';
@@ -5,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { blogPosts } from '@/data/blogPosts';
 
 const BlogSection = () => {
+  const { t } = useTranslation();
+
   // Получаем последние 3 опубликованные статьи
   const latestPosts = blogPosts
     .filter(post => post.isPublished)
@@ -29,13 +32,12 @@ const BlogSection = () => {
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center">
               <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-              Финансовый блог
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase">
+              {t("common.blog_section.title")}
             </h2>
           </div>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            Экспертные статьи о финансах, налогах и экономии. 
-            Актуальная информация для принятия правильных решений.
+            {t("common.blog_section.subtitle")}
           </p>
         </div>
 
@@ -44,7 +46,7 @@ const BlogSection = () => {
           <div className="mb-xl sm:mb-2xl lg:mb-3xl">
             <div className="flex items-center gap-2 mb-lg sm:mb-xl lg:mb-2xl">
               <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold">Рекомендуем к прочтению</h3>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold">{t("common.blog_section.featured_title")}</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-md sm:gap-lg md:gap-xl lg:gap-2xl mb-xl sm:mb-2xl lg:mb-3xl">
               {featuredPosts.map(post => (
@@ -56,7 +58,7 @@ const BlogSection = () => {
 
         {/* Последние статьи */}
         <div className="mb-xl sm:mb-2xl lg:mb-3xl">
-          <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-lg sm:mb-xl lg:mb-2xl">Последние публикации</h3>
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-lg sm:mb-xl lg:mb-2xl">{t("common.blog_section.latest_title")}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md sm:gap-lg md:gap-xl lg:gap-2xl">
             {latestPosts.map(post => (
               <BlogCard key={post.id} post={post} />
@@ -68,7 +70,7 @@ const BlogSection = () => {
         <div className="text-center">
           <Button asChild size="lg" className="group min-h-[44px]">
             <Link to="/blog">
-              Все статьи блога
+              {t("common.blog_section.all_posts_button")}
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
@@ -80,24 +82,24 @@ const BlogSection = () => {
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {blogPosts.filter(p => p.isPublished).length}
             </div>
-            <div className="text-sm sm:text-base text-muted-foreground">Статей опубликовано</div>
+            <div className="text-sm sm:text-base text-muted-foreground">{t("common.blog_section.stats.published")}</div>
           </div>
           <div className="text-center p-md sm:p-lg bg-card rounded-xl border">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {blogPosts.filter(p => p.isPublished && p.isFeatured).length}
             </div>
-            <div className="text-sm sm:text-base text-muted-foreground">Рекомендуемых статей</div>
+            <div className="text-sm sm:text-base text-muted-foreground">{t("common.blog_section.stats.featured")}</div>
           </div>
           <div className="text-center p-md sm:p-lg bg-card rounded-xl border sm:col-span-2 md:col-span-1">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {Math.round(
                 blogPosts
                   .filter(p => p.isPublished)
-                  .reduce((sum, post) => sum + post.readingTime, 0) / 
+                  .reduce((sum, post) => sum + post.readingTime, 0) /
                 blogPosts.filter(p => p.isPublished).length
               )}
             </div>
-            <div className="text-sm sm:text-base text-muted-foreground">Минут среднее время чтения</div>
+            <div className="text-sm sm:text-base text-muted-foreground">{t("common.blog_section.stats.reading_time")}</div>
           </div>
         </div>
       </div>

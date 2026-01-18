@@ -1,0 +1,222 @@
+{
+    "common": {
+        "title": "Schitay.RU",
+        "description": "Free online calculators for Russia and CIS. Accurate calculations based on current data.",
+        "header": {
+            "calculators": "Calculators",
+            "blog": "Blog",
+            "about": "About Project",
+            "search": "Search...",
+            "comparison": "Comparison"
+        },
+        "footer": {
+            "categories": "Categories",
+            "popular": "Popular",
+            "info": "Information",
+            "contacts": "Contacts",
+            "contact_us": "Contact us:",
+            "contact_hint": "Questions, suggestions, bug reports",
+            "copyright": "© 2026 Schitay.ru — All rights reserved",
+            "disclaimer": "Information is for reference purposes only and is not a public offer",
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Use",
+            "contact": "Contact",
+            "download": "Download Report",
+            "share": "Share",
+            "to_comparison": "Compare"
+        },
+        "categories": {
+            "title": "Choose category",
+            "subtitle": "{{count}} quality calculators for your life",
+            "finance": {
+                "name": "Loans and Mortgage",
+                "description": "Calculate payments and overpayment"
+            },
+            "salary": {
+                "name": "Salary and Taxes",
+                "description": "Income tax, pension, self-employment"
+            },
+            "housing": {
+                "name": "Utilities",
+                "description": "Water, electricity, heating"
+            },
+            "auto": {
+                "name": "Auto",
+                "description": "Fuel, OSAGO, car tax"
+            },
+            "health": {
+                "name": "Health",
+                "description": "BMI, calories, water"
+            },
+            "family": {
+                "name": "Family",
+                "description": "Alimony, maternity capital"
+            },
+            "legal": {
+                "name": "Legal",
+                "description": "Court fees, legal expenses"
+            }
+        },
+        "calculators": {
+            "mortgage": "Mortgage Calculator",
+            "credit": "Loan Calculator",
+            "refinancing": "Refinancing",
+            "deposit": "Deposit Calculator",
+            "currency": "Currency Converter",
+            "investment": "Investment Returns",
+            "salary": "Salary & Tax Calculator",
+            "vacation": "Vacation Pay",
+            "sick-leave": "Sick Leave Pay",
+            "self-employed": "Self-Employed Taxes",
+            "pension": "Pension Calculator",
+            "utilities": "Utility Calculator",
+            "osago": "OSAGO Calculator",
+            "kasko": "KASKO Calculator",
+            "fuel": "Fuel Consumption",
+            "tire-size": "Tire Size",
+            "bmi": "Body Mass Index",
+            "calories": "Calorie Calculator",
+            "water": "Water Intake",
+            "maternity-capital": "Maternity Capital",
+            "alimony": "Alimony",
+            "court-fee": "Court Fee"
+        },
+        "popular_calculators": {
+            "title": "Popular Calculators",
+            "subtitle": "Most requested calculations right now",
+            "all_button": "All calculators",
+            "stats_suffix": "calculations today",
+            "items": {
+                "mortgage": {
+                    "name": "Mortgage Calculator",
+                    "description": "Monthly payment, overpayment and schedule"
+                },
+                "salary": {
+                    "name": "Net Salary",
+                    "description": "Income tax 13%, pension and insurance"
+                },
+                "court-fee": {
+                    "name": "Court Fee",
+                    "description": "Fee calculation for civil and arbitration courts"
+                },
+                "bmi": {
+                    "name": "Body Mass Index",
+                    "description": "WHO formula with recommendations"
+                },
+                "utilities": {
+                    "name": "Utility Costs",
+                    "description": "Water, electricity and heating"
+                },
+                "fuel": {
+                    "name": "Fuel Consumption",
+                    "description": "Calculate trip costs"
+                },
+                "credit": {
+                    "name": "Loan Calculator",
+                    "description": "Consumer loan with early repayment"
+                }
+            }
+        },
+        "blog_card": {
+            "recommended": "Featured",
+            "reading_time": "min",
+            "read_more": "Read more",
+            "aria": {
+                "featured": "Featured article",
+                "category": "Category: {{name}}",
+                "tags": "Article tags",
+                "read_article": "Read article: {{title}}",
+                "read_more": "Read more: {{title}}"
+            }
+        },
+        "blog_section": {
+            "title": "Financial Blog",
+            "subtitle": "Expert articles on finance, taxes, and savings. Relevant information for making the right decisions.",
+            "featured_title": "Recommended Reading",
+            "latest_title": "Latest Publications",
+            "all_posts_button": "All blog posts",
+            "stats": {
+                "published": "Articles published",
+                "featured": "Featured articles",
+                "reading_time": "Minutes average reading time"
+            }
+        },
+        "home": {
+            "seo": {
+                "title": "Schitay.RU — Online Calculators for Russia and CIS",
+                "description": "Free online calculators: mortgage, credit, salary, utilities, taxes, health. Accurate calculations based on current data in 10 seconds.",
+                "keywords": "calculator online, mortgage calculator, credit calculation, salary after tax, utilities calculator"
+            },
+            "hero": {
+                "badge": "Universal Assistant",
+                "title_start": "Calculate",
+                "description": "Free online calculators for Russia and CIS. Loans, taxes, utilities, health — all accurate and compliant with the law.",
+                "cta_primary": "Choose Calculator",
+                "cta_secondary": "Read Articles",
+                "features": {
+                    "accurate": "Accurate algorithms",
+                    "free": "Always free",
+                    "no_reg": "No registration"
+                },
+                "words": {
+                    "mortgage": "Mortgage",
+                    "credit": "Loan",
+                    "taxes": "Taxes",
+                    "deposit": "Deposit",
+                    "salary": "Salary",
+                    "utilities": "Utilities",
+                    "bmi": "BMI"
+                }
+            }
+        },
+        "mortgage_calc": {
+            "title": "Mortgage Calculator",
+            "inputs": {
+                "price": "Property Price",
+                "initial": "Initial Payment",
+                "term": "Term (years)",
+                "rate": "Rate (%)",
+                "mat_capital": "Use Maternity Capital",
+                "mat_capital_hint": "Subtract {{amount}} from the loan amount",
+                "payment_type": "Payment Type",
+                "annuity": "Annuity",
+                "differentiated": "Differentiated"
+            },
+            "summary": {
+                "monthly": "Monthly Payment",
+                "overpayment": "Total Interest Overpayment",
+                "total": "Total Amount of Payments",
+                "loan": "Loan Amount",
+                "savings": "Savings"
+            },
+            "comparison": {
+                "title": "Scenario Comparison",
+                "hint": "Pin the current calculation to compare it with another option (e.g., with a different rate).",
+                "pin_button": "Pin Calculation",
+                "clear": "Clear Comparison",
+                "variant_a": "Option A",
+                "variant_b": "Option B",
+                "current_badge": "Current",
+                "pinned_badge": "Pinned",
+                "slider_hint": "Move the slider to compare",
+                "benefits": "Benefit from early payments",
+                "term_reduction": "Term reduced by",
+                "years_short": "y",
+                "months_short": "m"
+            },
+            "extra_payments": {
+                "title": "Extra Payments",
+                "add_button": "Add",
+                "empty_hint": "Add one-time or monthly payments to see the benefit.",
+                "amount": "Amount",
+                "month": "Month",
+                "type": "Type",
+                "mode": "Mode",
+                "one_time": "One-time",
+                "monthly": "Monthly",
+                "reduce_term": "Term",
+                "reduce_payment": "Payment"
+            }
+        }
+    }
+}
