@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { useLocation, Link } from "react-router-dom";
 import { categories } from "@/lib/data";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 interface CalculatorLayoutProps {
     children: ReactNode;
@@ -17,7 +17,7 @@ const CalculatorLayout = ({
     children,
     title,
     description,
-    bgClass = "bg-muted/30"
+    bgClass = "bg-gradient-to-b from-muted/30 via-background to-muted/20"
 }: CalculatorLayoutProps) => {
     const location = useLocation();
     const currentPath = location.pathname;
@@ -76,47 +76,69 @@ const CalculatorLayout = ({
             <div className="min-h-screen flex flex-col">
                 <Header />
 
-                <main className={`flex-1 py-12 md:py-20 ${bgClass}`}>
-                    <div className="container mx-auto px-4">
-                        <div className="text-center mb-12 animate-fade-in relative group">
-                            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-balance">
-                                {title.split('—')[0]}
-                            </h1>
-                            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                                {description}
-                            </p>
-
-                            {/* Print Button (Desktop only) */}
-                            <button
-                                onClick={() => window.print()}
-                                className="no-print absolute top-0 right-0 p-2 text-muted-foreground hover:text-foreground transition-colors hidden md:block"
-                                title="Распечатать"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-printer"><polyline points="6 9 6 2 18 2 18 9" /><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><rect width="12" height="8" x="6" y="14" /></svg>
-                            </button>
+                <main className={`flex-1 ${bgClass}`}>
+                    {/* Hero Section */}
+                    <div className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
+                        {/* Background decoration */}
+                        <div className="absolute inset-0 -z-10 overflow-hidden">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl" />
                         </div>
 
+                        <div className="container mx-auto px-4">
+                            <div className="text-center max-w-3xl mx-auto animate-fade-in">
+                                {/* Category badge */}
+                                {currentCategory && (
+                                    <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium border rounded-full bg-primary/5 border-primary/20 text-primary">
+                                        <Sparkles className="w-4 h-4" />
+                                        <span>{currentCategory.name}</span>
+                                    </div>
+                                )}
+
+                                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-balance leading-tight">
+                                    {title.split('—')[0]}
+                                </h1>
+                                <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                                    {description}
+                                </p>
+
+                                {/* Print Button (Desktop only) */}
+                                <button
+                                    onClick={() => window.print()}
+                                    className="no-print absolute top-4 right-4 p-2.5 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all hidden lg:flex items-center gap-2"
+                                    title="Распечатать"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9" /><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><rect width="12" height="8" x="6" y="14" /></svg>
+                                    <span className="text-sm font-medium">Печать</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Calculator Content */}
+                    <div className="container mx-auto px-4 pb-16 md:pb-20 lg:pb-24">
                         {children}
 
                         {/* Related Calculators Section */}
                         {relatedCalculators.length > 0 && (
-                            <div className="mt-20 max-w-4xl mx-auto animate-fade-in no-print">
-                                <h3 className="text-2xl font-bold mb-6 text-center">
-                                    Смотрите также в категории «{currentCategory?.name}»
-                                </h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {relatedCalculators.map((calc) => (
-                                        <Link
-                                            key={calc.name}
-                                            to={calc.href}
-                                            className="group bg-background border rounded-xl p-4 hover:border-primary/50 transition-all flex items-center justify-between"
-                                        >
-                                            <span className="font-medium group-hover:text-primary transition-colors">
-                                                {calc.name}
-                                            </span>
-                                            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
-                                        </Link>
-                                    ))}
+                            <div className="mt-16 md:mt-20 max-w-4xl mx-auto animate-fade-in no-print">
+                                <div className="glass-card p-6 md:p-8">
+                                    <h3 className="text-xl md:text-2xl font-bold mb-6 text-center">
+                                        Ещё в категории «{currentCategory?.name}»
+                                    </h3>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        {relatedCalculators.slice(0, 6).map((calc) => (
+                                            <Link
+                                                key={calc.name}
+                                                to={calc.href}
+                                                className="group bg-background/50 hover:bg-background border border-border/50 hover:border-primary/30 rounded-xl p-4 transition-all flex items-center justify-between"
+                                            >
+                                                <span className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
+                                                    {calc.name}
+                                                </span>
+                                                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         )}
