@@ -14,7 +14,6 @@ import { CalculatorLoadingSkeleton, PageLoadingSkeleton } from "./components/Loa
 import { SkipToContent } from "./components/SkipToContent";
 import { PageTransition } from "./components/animations/PageTransition";
 import { ThemeInitializer } from "./components/ThemeInitializer";
-import { I18nWatcher } from "./components/I18nWatcher";
 
 // Lazy loading для страниц
 const Index = lazy(() => import("./pages/Index"));
@@ -90,7 +89,6 @@ const App = () => (
             <Toaster />
             <Sonner />
             <Router>
-              <I18nWatcher />
               <YandexMetrikaTracker />
               <GoogleAnalyticsTracker />
               <AnimatedRoutes />

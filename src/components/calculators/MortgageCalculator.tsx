@@ -7,7 +7,6 @@ import { MortgageExtraPayments } from "./mortgage/MortgageExtraPayments";
 import { MortgageResultsTabs } from "./mortgage/MortgageResultsTabs";
 import { MortgageComparison } from "./mortgage/MortgageComparison";
 import { ZenithAI } from "./mortgage/ZenithAI";
-import { useTranslation } from "react-i18next";
 
 const MortgageCalculator = () => {
   const {
@@ -35,13 +34,11 @@ const MortgageCalculator = () => {
     MAT_CAPITAL
   } = useMortgageCalculator();
 
-  const { t } = useTranslation();
-
   return (
     <div className="max-w-6xl mx-auto">
       {/* Панель действий */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">{t('common.mortgage_calc.title')}</h2>
+        <h2 className="text-2xl font-bold">Ипотечный калькулятор</h2>
         <div className="flex gap-2">
           <CalculatorHistory
             calculatorType="mortgage"

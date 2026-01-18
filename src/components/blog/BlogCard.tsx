@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, User, ArrowRight } from 'lucide-react';
@@ -27,8 +26,6 @@ export const BlogCard = ({
   showReadingTime = true,
   isLoading = false
 }: BlogCardProps) => {
-  const { t, i18n } = useTranslation();
-
   // Show skeleton if loading
   if (isLoading) {
     return (
@@ -42,8 +39,7 @@ export const BlogCard = ({
   }
 
   const formatDate = (dateString: string) => {
-    const locale = i18n.language === 'ru' ? 'ru-RU' : 'en-US';
-    return new Date(dateString).toLocaleDateString(locale, {
+    return new Date(dateString).toLocaleDateString('ru-RU', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -86,15 +82,15 @@ export const BlogCard = ({
               />
             </motion.div>
             {post.isFeatured && (
-              <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground" role="status" aria-label={t("common.blog_card.aria.featured")}>
-                {t("common.blog_card.recommended")}
+              <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground" role="status" aria-label="Рекомендуемая статья">
+                Рекомендуем
               </Badge>
             )}
             <Badge
               className="absolute top-3 right-3"
               style={{ backgroundColor: post.category.color }}
               role="status"
-              aria-label={t("common.blog_card.aria.category", { name: post.category.name })}
+              aria-label={`Категория: ${post.category.name}`}
             >
               {post.category.name}
             </Badge>
@@ -113,7 +109,7 @@ export const BlogCard = ({
             {showReadingTime && (
               <div className="flex items-center gap-1">
                 <Clock className="w-4 h-4" aria-hidden="true" />
-                <span>{post.readingTime} {t("common.blog_card.reading_time")}</span>
+                <span>{post.readingTime} мин</span>
               </div>
             )}
           </div>
@@ -124,7 +120,7 @@ export const BlogCard = ({
               to={`/blog/${post.slug}`}
               className="block"
               onMouseEnter={() => prefetchOnHover(post.slug)}
-              aria-label={t("common.blog_card.aria.read_article", { title: post.title })}
+              aria-label={`Читать статью: ${post.title}`}
             >
               {post.title}
             </Link>
@@ -138,7 +134,7 @@ export const BlogCard = ({
             </p>
 
             {post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-4" role="list" aria-label={t("common.blog_card.aria.tags")}>
+              <div className="flex flex-wrap gap-2 mt-4" role="list" aria-label="Теги статьи">
                 {post.tags.slice(0, 3).map((tag) => (
                   <Badge key={tag} variant="secondary" className="text-sm" role="listitem">
                     {tag}
@@ -167,9 +163,9 @@ export const BlogCard = ({
               to={`/blog/${post.slug}`}
               className="inline-flex items-center gap-1 text-base font-semibold text-primary hover:text-primary/80 transition-colors ml-auto"
               onMouseEnter={() => prefetchOnHover(post.slug)}
-              aria-label={t("common.blog_card.aria.read_more", { title: post.title })}
+              aria-label={`Читать далее: ${post.title}`}
             >
-              {t("common.blog_card.read_more")}
+              Читать далее
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
           </div>

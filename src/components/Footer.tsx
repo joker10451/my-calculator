@@ -1,32 +1,29 @@
-import { useTranslation } from "react-i18next";
 import { Calculator } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const { t } = useTranslation();
-
   const categoriesList = [
-    { name: t("common.categories.finance.name"), href: "/category/finance" },
-    { name: t("common.categories.salary.name"), href: "/category/salary" },
-    { name: t("common.categories.housing.name"), href: "/category/housing" },
-    { name: t("common.categories.auto.name"), href: "/category/auto" },
-    { name: t("common.categories.health.name"), href: "/category/health" },
-    { name: t("common.categories.family.name"), href: "/category/family" },
+    { name: "Кредиты и ипотека", href: "/category/finance" },
+    { name: "Зарплата и налоги", href: "/category/salary" },
+    { name: "ЖКХ и коммуналка", href: "/category/housing" },
+    { name: "Авто", href: "/category/auto" },
+    { name: "Здоровье", href: "/category/health" },
+    { name: "Семья", href: "/category/family" },
   ];
 
   const popular = [
-    { name: t("common.popular_calculators.items.mortgage.name"), href: "/calculator/mortgage" },
-    { name: t("common.popular_calculators.items.salary.name"), href: "/calculator/salary" },
-    { name: t("common.popular_calculators.items.bmi.name"), href: "/calculator/bmi" },
-    { name: t("common.popular_calculators.items.fuel.name"), href: "/calculator/fuel" },
-    { name: t("common.popular_calculators.items.utilities.name"), href: "/calculator/utilities" },
+    { name: "Калькулятор ипотеки", href: "/calculator/mortgage" },
+    { name: "Зарплата на руки", href: "/calculator/salary" },
+    { name: "Индекс массы тела", href: "/calculator/bmi" },
+    { name: "Расход топлива", href: "/calculator/fuel" },
+    { name: "Расчёт ЖКХ", href: "/calculator/utilities" },
   ];
 
   const legal = [
-    { name: t("common.header.about"), href: "/about" },
-    { name: t("common.footer.privacy"), href: "/privacy" },
-    { name: t("common.footer.terms"), href: "/terms" },
-    { name: t("common.footer.contact"), href: "/contacts" },
+    { name: "О проекте", href: "/about" },
+    { name: "Политика конфиденциальности", href: "/privacy" },
+    { name: "Условия использования", href: "/terms" },
+    { name: "Контакты", href: "/contacts" },
   ];
 
   return (
@@ -40,17 +37,17 @@ const Footer = () => {
                 <Calculator className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-bold uppercase">
-                {t('common.title')}
+                Считай.RU
               </span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              {t('common.description')}
+              Бесплатные онлайн-калькуляторы для России и СНГ. Точные расчёты по актуальным данным.
             </p>
           </div>
 
           {/* Категории */}
           <div>
-            <h4 className="font-semibold mb-4">{t('common.footer.categories')}</h4>
+            <h4 className="font-semibold mb-4">Категории</h4>
             <ul className="space-y-2">
               {categoriesList.map((item) => (
                 <li key={item.name}>
@@ -67,7 +64,7 @@ const Footer = () => {
 
           {/* Популярное */}
           <div>
-            <h4 className="font-semibold mb-4">{t('common.footer.popular')}</h4>
+            <h4 className="font-semibold mb-4">Популярное</h4>
             <ul className="space-y-2">
               {popular.map((item) => (
                 <li key={item.name}>
@@ -84,7 +81,7 @@ const Footer = () => {
 
           {/* Информация */}
           <div>
-            <h4 className="font-semibold mb-4">{t('common.footer.info')}</h4>
+            <h4 className="font-semibold mb-4">Информация</h4>
             <ul className="space-y-2">
               {legal.map((item) => (
                 <li key={item.name}>
@@ -101,10 +98,10 @@ const Footer = () => {
 
           {/* Контакты */}
           <div>
-            <h4 className="font-semibold mb-4">{t('common.footer.contacts')}</h4>
+            <h4 className="font-semibold mb-4">Контакты</h4>
             <div className="space-y-2">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">{t('common.footer.contact_us')}</p>
+                <p className="text-sm text-muted-foreground mb-1">Для связи:</p>
                 <a
                   href="mailto:joker104_97@mail.ru"
                   className="text-sm text-primary hover:text-primary/80 transition-colors"
@@ -114,7 +111,7 @@ const Footer = () => {
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">
-                  {t('common.footer.contact_hint')}
+                  Вопросы, предложения, сообщения об ошибках
                 </p>
               </div>
             </div>
@@ -124,10 +121,10 @@ const Footer = () => {
         {/* Нижняя часть */}
         <div className="pt-8 border-t border-border/20 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <p className="text-sm text-muted-foreground">
-            {t('common.footer.copyright')}
+            © 2026 Считай.ru — Все права защищены
           </p>
           <p className="text-[10px] md:text-xs text-muted-foreground max-w-md">
-            {t('common.footer.disclaimer')}
+            Информация носит справочный характер и не является публичной офертой
           </p>
         </div>
       </div>

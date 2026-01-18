@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
@@ -10,7 +9,6 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 
 const Index = () => {
-  const { t } = useTranslation();
   const location = useLocation();
 
   // Обработка скроллинга к якорям (например, /#categories)
@@ -28,12 +26,12 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>{t('common.home.seo.title')}</title>
+        <title>Считай.RU — Онлайн калькуляторы для России и СНГ</title>
         <meta
           name="description"
-          content={t('common.home.seo.description')}
+          content="Бесплатные онлайн калькуляторы: ипотека, кредит, зарплата, ЖКХ, налоги, здоровье. Точные расчёты по актуальным данным РФ за 10 секунд."
         />
-        <meta name="keywords" content={t('common.home.seo.keywords')} />
+        <meta name="keywords" content="калькулятор онлайн, ипотека калькулятор, расчёт кредита, зарплата на руки, ЖКХ калькулятор" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col">

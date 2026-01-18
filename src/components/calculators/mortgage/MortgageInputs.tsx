@@ -1,6 +1,5 @@
 import { Home } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
-import { useTranslation } from "react-i18next";
 
 interface MortgageInputsProps {
   price: number;
@@ -39,8 +38,6 @@ export const MortgageInputs = ({
   formatCurrency,
   MAT_CAPITAL,
 }: MortgageInputsProps) => {
-  const { t } = useTranslation();
-
   return (
     <div className="glass-card p-6 space-y-8">
       {/* Price */}
@@ -48,7 +45,7 @@ export const MortgageInputs = ({
         <div className="flex justify-between items-center">
           <label className="font-semibold text-lg flex items-center gap-2">
             <Home className="w-5 h-5 text-primary" />
-            {t('common.mortgage_calc.inputs.price')}
+            Стоимость недвижимости
           </label>
           <div className="relative">
             <input
@@ -65,7 +62,7 @@ export const MortgageInputs = ({
       {/* Initial Payment */}
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <label className="font-medium text-slate-600">{t('common.mortgage_calc.inputs.initial')}</label>
+          <label className="font-medium text-slate-600">Первоначальный взнос</label>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsInitialPercent(!isInitialPercent)}
@@ -91,14 +88,14 @@ export const MortgageInputs = ({
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-4">
           <div className="flex justify-between items-center text-sm">
-            <label className="font-medium text-slate-600">{t('common.mortgage_calc.inputs.term')}</label>
+            <label className="font-medium text-slate-600">Срок (лет)</label>
             <span className="font-bold">{term}</span>
           </div>
           <Slider value={[term]} onValueChange={v => setTerm(v[0])} min={1} max={30} step={1} />
         </div>
         <div className="space-y-4">
           <div className="flex justify-between items-center text-sm">
-            <label className="font-medium text-slate-600">{t('common.mortgage_calc.inputs.rate')}</label>
+            <label className="font-medium text-slate-600">Ставка (%)</label>
             <span className="font-bold">{rate}%</span>
           </div>
           <Slider value={[rate]} onValueChange={v => setRate(v[0])} min={0.1} max={40} step={0.1} />
@@ -114,7 +111,7 @@ export const MortgageInputs = ({
               onChange={() => setPaymentType("annuity")}
               className="w-4 h-4 text-primary focus:ring-primary"
             />
-            <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('common.mortgage_calc.inputs.annuity')}</span>
+            <span className="text-sm font-medium group-hover:text-primary transition-colors">Аннуитетный</span>
           </label>
           <label className="flex items-center gap-2 cursor-pointer group">
             <input
@@ -123,7 +120,7 @@ export const MortgageInputs = ({
               onChange={() => setPaymentType("differentiated")}
               className="w-4 h-4 text-primary focus:ring-primary"
             />
-            <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('common.mortgage_calc.inputs.differentiated')}</span>
+            <span className="text-sm font-medium group-hover:text-primary transition-colors">Дифференцированный</span>
           </label>
         </div>
 
@@ -135,8 +132,8 @@ export const MortgageInputs = ({
             className="w-5 h-5 rounded border-primary text-primary"
           />
           <div>
-            <p className="font-bold text-sm">{t('common.mortgage_calc.inputs.mat_capital')}</p>
-            <p className="text-xs text-muted-foreground">{t('common.mortgage_calc.inputs.mat_capital_hint', { amount: formatCurrency(MAT_CAPITAL) })}</p>
+            <p className="font-bold text-sm">Использовать материнский капитал</p>
+            <p className="text-xs text-muted-foreground">Вычесть {formatCurrency(MAT_CAPITAL)} из суммы долга</p>
           </div>
         </label>
       </div>
