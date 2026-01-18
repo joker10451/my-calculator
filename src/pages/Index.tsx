@@ -28,12 +28,12 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>{t('home.seo.title')}</title>
+        <title>{t('common.home.seo.title')}</title>
         <meta
           name="description"
-          content={t('home.seo.description')}
+          content={t('common.home.seo.description')}
         />
-        <meta name="keywords" content={t('home.seo.keywords')} />
+        <meta name="keywords" content={t('common.home.seo.keywords')} />
       </Helmet>
 
       <div className="min-h-screen flex flex-col">
