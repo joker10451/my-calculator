@@ -22,18 +22,18 @@ import { parseMarkdown } from '@/utils/markdown';
 import { FadeInUp, StaggerContainer, StaggerItem } from '@/components/animations';
 
 // Lazy load комментариев
-const BlogComments = lazy(() => import('@/components/blog/BlogComments').then(module => ({ default: module.BlogComments })));
+const BlogComments = lazy(() => import('@/components/blog/BlogComments'));
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  
+
   const post = blogPosts.find(p => p.slug === slug && p.isPublished);
-  
+
   // Scroll to top при загрузке страницы
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
-  
+
   if (!post) {
     return <Navigate to="/blog" replace />;
   }
@@ -53,11 +53,11 @@ const BlogPostPage = () => {
   const allCalculators = categories.flatMap(cat => cat.calculators);
   const relatedCalculators = post.relatedCalculators
     ? allCalculators.filter(calc => {
-        // Ищем по href, так как у нас нет id в структуре калькуляторов
-        return post.relatedCalculators?.some(relatedId => 
-          calc.href.includes(relatedId)
-        );
-      })
+      // Ищем по href, так как у нас нет id в структуре калькуляторов
+      return post.relatedCalculators?.some(relatedId =>
+        calc.href.includes(relatedId)
+      );
+    })
     : [];
 
   // Находим похожие статьи (из той же категории, исключая текущую)
@@ -100,7 +100,7 @@ const BlogPostPage = () => {
           <meta name="keywords" content={post.seo.keywords.join(', ')} />
         )}
         <link rel="canonical" href={`/blog/${post.slug}`} />
-        
+
         {/* Open Graph */}
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
@@ -109,7 +109,7 @@ const BlogPostPage = () => {
         {post.featuredImage && (
           <meta property="og:image" content={post.featuredImage.url} />
         )}
-        
+
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
@@ -117,7 +117,7 @@ const BlogPostPage = () => {
         {post.featuredImage && (
           <meta name="twitter:image" content={post.featuredImage.url} />
         )}
-        
+
         {/* Structured Data */}
         {post.structuredData && (
           <script type="application/ld+json">
@@ -127,25 +127,25 @@ const BlogPostPage = () => {
       </Helmet>
 
       {/* Компонент прогресса чтения */}
-      <BlogProgress 
+      <BlogProgress
         articleTitle={post.title}
         wordCount={post.wordCount || 0}
       />
 
       {/* Компонент аналитики */}
-      <BlogAnalytics 
+      <BlogAnalytics
         articleId={post.id}
         articleTitle={post.title}
       />
 
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
         <Header />
-        
+
         <main id="main-content" className="container mx-auto px-4 py-8">
           {/* Навигация */}
           <div className="mb-8">
-            <Link 
-              to="/blog" 
+            <Link
+              to="/blog"
               className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -161,80 +161,80 @@ const BlogPostPage = () => {
                 {/* Заголовок статьи */}
                 <FadeInUp>
                   <header className="mb-8">
-              <div className="flex flex-wrap items-center gap-4 mb-4">
-                <Badge 
-                  className="text-sm"
-                  style={{ backgroundColor: post.category.color }}
-                  role="status"
-                  aria-label={`Категория: ${post.category.name}`}
-                >
-                  {post.category.name}
-                </Badge>
-                {post.isFeatured && (
-                  <Badge variant="secondary" role="status" aria-label="Рекомендуемая статья">
-                    Рекомендуем
-                  </Badge>
-                )}
-              </div>
+                    <div className="flex flex-wrap items-center gap-4 mb-4">
+                      <Badge
+                        className="text-sm"
+                        style={{ backgroundColor: post.category.color }}
+                        role="status"
+                        aria-label={`Категория: ${post.category.name}`}
+                      >
+                        {post.category.name}
+                      </Badge>
+                      {post.isFeatured && (
+                        <Badge variant="secondary" role="status" aria-label="Рекомендуемая статья">
+                          Рекомендуем
+                        </Badge>
+                      )}
+                    </div>
 
-              <h1 className="text-h1 md:text-hero font-extrabold leading-tight mb-8">
-                {post.title}
-              </h1>
+                    <h1 className="text-h1 md:text-hero font-extrabold leading-tight mb-8">
+                      {post.title}
+                    </h1>
 
-              <p className="text-body md:text-body-lg text-muted-foreground mb-8 leading-relaxed">
-                {post.excerpt}
-              </p>
+                    <p className="text-body md:text-body-lg text-muted-foreground mb-8 leading-relaxed">
+                      {post.excerpt}
+                    </p>
 
-              {/* Мета-информация */}
-              <div className="flex flex-wrap items-center gap-6 text-base text-muted-foreground mb-8">
-                <div className="flex items-center gap-2">
-                  <User className="w-5 h-5" aria-hidden="true" />
-                  <span>{post.author.name}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" aria-hidden="true" />
-                  <time dateTime={post.publishedAt}>
-                    {formatDate(post.publishedAt)}
-                  </time>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5" aria-hidden="true" />
-                  <span>{post.readingTime} мин чтения</span>
-                </div>
-                <div className="ml-auto flex items-center gap-2">
-                  <BlogReadabilitySettings />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleShare}
-                    aria-label="Поделиться статьей"
-                  >
-                    <Share2 className="w-5 h-5 mr-2" aria-hidden="true" />
-                    Поделиться
-                  </Button>
-                </div>
-              </div>
+                    {/* Мета-информация */}
+                    <div className="flex flex-wrap items-center gap-6 text-base text-muted-foreground mb-8">
+                      <div className="flex items-center gap-2">
+                        <User className="w-5 h-5" aria-hidden="true" />
+                        <span>{post.author.name}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-5 h-5" aria-hidden="true" />
+                        <time dateTime={post.publishedAt}>
+                          {formatDate(post.publishedAt)}
+                        </time>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-5 h-5" aria-hidden="true" />
+                        <span>{post.readingTime} мин чтения</span>
+                      </div>
+                      <div className="ml-auto flex items-center gap-2">
+                        <BlogReadabilitySettings />
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={handleShare}
+                          aria-label="Поделиться статьей"
+                        >
+                          <Share2 className="w-5 h-5 mr-2" aria-hidden="true" />
+                          Поделиться
+                        </Button>
+                      </div>
+                    </div>
 
-              {/* Изображение */}
-              {post.featuredImage && (
-                <div className="rounded-xl overflow-hidden mb-8">
-                  <OptimizedImage
-                    src={post.featuredImage.url}
-                    alt={post.featuredImage.alt}
-                    width={1200}
-                    height={600}
-                    className="w-full h-64 md:h-96"
-                    priority={true}
-                    sizes="(max-width: 768px) 100vw, 1200px"
-                  />
-                </div>
-              )}
-            </header>
-            </FadeInUp>
+                    {/* Изображение */}
+                    {post.featuredImage && (
+                      <div className="rounded-xl overflow-hidden mb-8">
+                        <OptimizedImage
+                          src={post.featuredImage.url}
+                          alt={post.featuredImage.alt}
+                          width={1200}
+                          height={600}
+                          className="w-full h-64 md:h-96"
+                          priority={true}
+                          sizes="(max-width: 768px) 100vw, 1200px"
+                        />
+                      </div>
+                    )}
+                  </header>
+                </FadeInUp>
 
-            {/* Содержание статьи */}
-            <FadeInUp delay={0.2}>
-            <div className="prose prose-lg max-w-none mb-16 
+                {/* Содержание статьи */}
+                <FadeInUp delay={0.2}>
+                  <div className="prose prose-lg max-w-none mb-16 
               prose-headings:font-bold prose-headings:text-foreground prose-headings:mt-12 prose-headings:mb-6
               prose-h1:text-h1 prose-h2:text-h2 prose-h3:text-h3 prose-h4:text-xl
               prose-p:text-body prose-p:leading-relaxed prose-p:mb-6
@@ -252,52 +252,52 @@ const BlogPostPage = () => {
               prose-th:border prose-th:border-border prose-th:bg-muted prose-th:p-4 prose-th:font-bold prose-th:text-base
               prose-td:border prose-td:border-border prose-td:p-4 prose-td:text-base
             ">
-              <div 
-                className="blog-content break-words"
-                style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
-                dangerouslySetInnerHTML={{ __html: getMarkdownContent(post.content) }}
-              />
+                    <div
+                      className="blog-content break-words"
+                      style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
+                      dangerouslySetInnerHTML={{ __html: getMarkdownContent(post.content) }}
+                    />
+                  </div>
+                </FadeInUp>
+
+                {/* Теги */}
+                <FadeInUp delay={0.3}>
+                  <div className="mb-12">
+                    <h2 className="text-h3 font-bold mb-6">Теги статьи:</h2>
+                    <div className="flex flex-wrap gap-3" role="list" aria-label="Теги статьи">
+                      {post.tags.map(tag => (
+                        <Badge key={tag} variant="secondary" className="text-base px-4 py-2" role="listitem">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </FadeInUp>
+
+                <Separator className="my-12" />
+
+                {/* Информация об авторе */}
+                <FadeInUp delay={0.4}>
+                  <div className="bg-muted/50 rounded-xl p-8 mb-12">
+                    <div className="flex items-start gap-6">
+                      <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center" aria-hidden="true">
+                        <User className="w-10 h-10 text-primary" />
+                      </div>
+                      <div>
+                        <h2 className="text-h3 font-bold mb-3">{post.author.name}</h2>
+                        <p className="text-body text-muted-foreground leading-relaxed">{post.author.bio}</p>
+                      </div>
+                    </div>
+                  </div>
+                </FadeInUp>
+              </article>
+
+              {/* Оглавление (Table of Contents) */}
+              <aside className="hidden lg:block">
+                <BlogTOC content={getMarkdownContent(post.content)} />
+              </aside>
             </div>
-            </FadeInUp>
-
-            {/* Теги */}
-            <FadeInUp delay={0.3}>
-              <div className="mb-12">
-              <h2 className="text-h3 font-bold mb-6">Теги статьи:</h2>
-              <div className="flex flex-wrap gap-3" role="list" aria-label="Теги статьи">
-                {post.tags.map(tag => (
-                  <Badge key={tag} variant="secondary" className="text-base px-4 py-2" role="listitem">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            </FadeInUp>
-
-            <Separator className="my-12" />
-
-            {/* Информация об авторе */}
-            <FadeInUp delay={0.4}>
-              <div className="bg-muted/50 rounded-xl p-8 mb-12">
-              <div className="flex items-start gap-6">
-                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center" aria-hidden="true">
-                  <User className="w-10 h-10 text-primary" />
-                </div>
-                <div>
-                  <h2 className="text-h3 font-bold mb-3">{post.author.name}</h2>
-                  <p className="text-body text-muted-foreground leading-relaxed">{post.author.bio}</p>
-                </div>
-              </div>
-            </div>
-            </FadeInUp>
-          </article>
-
-          {/* Оглавление (Table of Contents) */}
-          <aside className="hidden lg:block">
-            <BlogTOC content={getMarkdownContent(post.content)} />
-          </aside>
-        </div>
-      </div>
+          </div>
 
           {/* Навигация между статьями */}
           <div className="max-w-4xl mx-auto mb-12">
