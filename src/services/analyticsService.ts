@@ -107,12 +107,12 @@ function saveEvent(event: AnalyticsEvent): void {
     const stored = localStorage.getItem('blog_analytics_events');
     const data = stored ? JSON.parse(stored) : [];
     data.push(event);
-    
+
     // Оставляем только последние 100 событий
     if (data.length > 100) {
       data.shift();
     }
-    
+
     localStorage.setItem('blog_analytics_events', JSON.stringify(data));
   } catch (e) {
     console.error('Failed to store analytics event', e);
@@ -130,40 +130,8 @@ function saveEvent(event: AnalyticsEvent): void {
  * Отправка события на backend
  */
 async function sendEventToBackend(event: AnalyticsEvent): Promise<void> {
-  // В development режиме не отправляем на backend
-  if (process.env.NODE_ENV === 'development') {
-    return;
-  }
-
-  try {
-    // TODO: Заменить на реальный endpoint
-    const endpoint = '/api/blog/analytics';
-    
-    // Проверяем доступность API с коротким timeout
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 секунды timeout
-    
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(event),
-      signal: controller.signal,
-    });
-    
-    clearTimeout(timeoutId);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-  } catch (e) {
-    // Тихий fail - аналитика не должна ломать приложение
-    // В production режиме не логируем ошибки в консоль
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('Analytics API unavailable, events stored locally only');
-    }
-  }
+  // Временно отключено т.к. бэкенда нет
+  return Promise.resolve();
 }
 
 /**
@@ -241,7 +209,7 @@ export function endReadingSession(articleId: string): void {
   if (!session) return;
 
   const duration = Math.floor((Date.now() - session.startTime) / 1000); // в секундах
-  
+
   // Отправляем только если пользователь был активен (не просто открыл вкладку)
   if (duration > 5) {
     trackReadingTime(articleId, duration);
@@ -261,7 +229,7 @@ export function trackScrollDepth(articleId: string, depth: number): void {
   // Проверяем, не отправляли ли мы уже это событие
   const key = `scroll_${articleId}_${threshold}`;
   const sent = sessionStorage.getItem(key);
-  
+
   if (sent) return;
 
   const event: AnalyticsEvent = {
@@ -278,7 +246,7 @@ export function trackScrollDepth(articleId: string, depth: number): void {
   };
 
   saveEvent(event);
-  
+
   // Обновляем активность чтения
   updateReadingActivity(articleId);
 
@@ -339,14 +307,14 @@ export function trackCompletion(articleId: string): void {
   if (!session) return;
 
   const timeOnPage = Math.floor((Date.now() - session.startTime) / 1000);
-  
+
   // Проверяем условия completion
   if (timeOnPage < 5) return;
 
   // Проверяем, не отправляли ли уже completion
   const key = `completion_${articleId}`;
   const sent = sessionStorage.getItem(key);
-  
+
   if (sent) return;
 
   const event: AnalyticsEvent = {
@@ -379,11 +347,11 @@ export function getArticleMetrics(articleId: string): ArticleMetrics {
   const articleEvents = events.filter(e => e.articleId === articleId);
 
   const pageViews = articleEvents.filter(e => e.type === 'page_view').length;
-  
+
   const readingTimeEvents = articleEvents.filter(e => e.type === 'reading_time');
-  const totalReadingTime = readingTimeEvents.reduce((sum, e) => sum + (e.data.duration || 0), 0);
-  const averageReadingTime = readingTimeEvents.length > 0 
-    ? totalReadingTime / readingTimeEvents.length 
+  const totalReadingTime = readingTimeEvents.reduce((sum, e) => sum + ((e.data.duration as number) || 0), 0);
+  const averageReadingTime = readingTimeEvents.length > 0
+    ? totalReadingTime / readingTimeEvents.length
     : 0;
 
   const completions = articleEvents.filter(e => e.type === 'completion').length;
