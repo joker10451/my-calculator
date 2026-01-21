@@ -13,7 +13,6 @@ export const blogCategories: BlogCategory[] = [
       metaDescription: 'Экспертные статьи об ипотеке, кредитах, рефинансировании. Как выбрать выгодный кредит, рассчитать переплату, получить одобрение банка.'
     },
     language: 'ru',
-    translations: {}
   },
   {
     id: 'taxes-salary',
@@ -27,7 +26,6 @@ export const blogCategories: BlogCategory[] = [
       metaDescription: 'Все о НДФЛ, налоговых вычетах, расчете зарплаты. Изменения в налоговом законодательстве 2026 года, примеры расчетов.'
     },
     language: 'ru',
-    translations: {}
   },
   {
     id: 'utilities-housing',
@@ -41,22 +39,8 @@ export const blogCategories: BlogCategory[] = [
       metaDescription: 'Актуальные тарифы ЖКХ, как рассчитать коммунальные платежи, получить субсидии. Права потребителей коммунальных услуг.'
     },
     language: 'ru',
-    translations: {}
   },
-  {
-    id: 'health-fitness',
-    name: 'Здоровье и фитнес',
-    slug: 'health-fitness',
-    description: 'ИМТ, калории, питание и здоровый образ жизни',
-    color: '#EF4444',
-    icon: 'Heart',
-    seo: {
-      metaTitle: 'Здоровье и фитнес - расчеты и советы | Считай.RU',
-      metaDescription: 'Расчет ИМТ, калорий, нормы воды. Советы по здоровому питанию, похудению, поддержанию формы от экспертов.'
-    },
-    language: 'ru',
-    translations: {}
-  },
+
   {
     id: 'family-law',
     name: 'Семейное право',
@@ -69,7 +53,6 @@ export const blogCategories: BlogCategory[] = [
       metaDescription: 'Расчет алиментов, размер материнского капитала 2026, семейные пособия. Юридические консультации по семейному праву.'
     },
     language: 'ru',
-    translations: {}
   },
   {
     id: 'auto-transport',
@@ -83,7 +66,6 @@ export const blogCategories: BlogCategory[] = [
       metaDescription: 'Расчет расхода топлива, автокредиты, ОСАГО, КАСКО. Советы по экономии на автомобиле, выбору шин и запчастей.'
     },
     language: 'ru',
-    translations: {}
   },
   {
     id: 'investments-deposits',
@@ -97,7 +79,6 @@ export const blogCategories: BlogCategory[] = [
       metaDescription: 'Сравнение банковских вкладов, инвестиционные стратегии, расчет доходности. Как сохранить и приумножить капитал.'
     },
     language: 'ru',
-    translations: {}
   },
   {
     id: 'legal-court',
@@ -111,6 +92,5 @@ export const blogCategories: BlogCategory[] = [
       metaDescription: 'Размеры госпошлин, судебные расходы, юридическая помощь. Как защитить свои права, подать в суд, рассчитать расходы.'
     },
     language: 'ru',
-    translations: {}
   }
 ];

@@ -61,22 +61,8 @@ export const categories = [
             { name: "Калькулятор ОСАГО", href: "/calculator/osago" },
             { name: "Калькулятор КАСКО", href: "/calculator/kasko" },
             { name: "Расход топлива", href: "/calculator/fuel" },
-            { name: "Размер шин", href: "/calculator/tire-size" },
         ],
         href: "/category/auto",
-    },
-    {
-        id: "health",
-        name: "Здоровье",
-        icon: Heart,
-        color: "bg-health/10 text-health border-health/20 hover:bg-health/20",
-        description: "ИМТ, калории, вода",
-        calculators: [
-            { name: "Индекс массы тела", href: "/calculator/bmi" },
-            { name: "Калькулятор калорий", href: "/calculator/calories" },
-            { name: "Норма воды", href: "/calculator/water" }
-        ],
-        href: "/category/health",
     },
     {
         id: "family",

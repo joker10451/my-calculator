@@ -34,16 +34,7 @@ const popularCalculators = [
     href: "/calculator/court-fee",
     statsCount: "2 100",
   },
-  {
-    id: "bmi",
-    name: "Индекс массы тела",
-    description: "ИМТ по формуле ВОЗ с рекомендациями",
-    icon: Heart,
-    color: "text-health",
-    bgColor: "bg-health/10",
-    href: "/calculator/bmi",
-    statsCount: "5 700",
-  },
+
   {
     id: "utilities",
     name: "Расчёт ЖКХ",

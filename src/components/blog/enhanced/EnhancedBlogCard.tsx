@@ -42,8 +42,8 @@ const categoryColors: Record<string, string> = {
   'legal-court': '#6B7280',        // Gray
 };
 
-export const EnhancedBlogCard = ({ 
-  post, 
+export const EnhancedBlogCard = ({
+  post,
   variant = 'default',
   showExcerpt = true,
   showAuthor = true,
@@ -77,25 +77,25 @@ export const EnhancedBlogCard = ({
   // Конфигурация для разных вариантов
   const variantConfig = {
     default: {
-      imageHeight: 'h-[200px] sm:h-[240px] lg:h-[280px]',
-      padding: 'p-6 sm:p-8',  // Увеличиваем отступы
-      borderRadius: 'rounded-xl sm:rounded-2xl',
+      imageHeight: 'h-48 sm:h-52',
+      padding: 'p-4 sm:p-5',
+      borderRadius: 'rounded-xl',
       border: '',
-      titleSize: '', // Убираем, используем typography классы
+      titleSize: '',
     },
     featured: {
-      imageHeight: 'h-[280px] sm:h-[320px] lg:h-[360px]',
-      padding: 'p-8 sm:p-10 lg:p-12',  // Увеличиваем отступы
-      borderRadius: 'rounded-2xl sm:rounded-3xl',
+      imageHeight: 'h-52 sm:h-64',
+      padding: 'p-5 sm:p-6',
+      borderRadius: 'rounded-xl sm:rounded-2xl',
       border: 'border-2',
-      titleSize: '', // Убираем, используем typography классы
+      titleSize: '',
     },
     hero: {
-      imageHeight: 'h-[360px] sm:h-[440px] lg:h-[500px]',
-      padding: 'p-8 sm:p-10 lg:p-12',  // Увеличиваем отступы
-      borderRadius: 'rounded-2xl sm:rounded-3xl',
+      imageHeight: 'h-64 sm:h-80',
+      padding: 'p-6 sm:p-8',
+      borderRadius: 'rounded-xl sm:rounded-2xl',
       border: 'border-2',
-      titleSize: '', // Убираем, используем typography классы
+      titleSize: '',
     },
   };
 
@@ -113,7 +113,7 @@ export const EnhancedBlogCard = ({
       className="h-full typography-animate-fade-in"
       style={willChangeStyles.transform}
     >
-      <Card 
+      <Card
         className={`
           h-full overflow-hidden
           ${config.borderRadius}
@@ -141,7 +141,7 @@ export const EnhancedBlogCard = ({
                 alt={post.featuredImage.alt}
                 width={post.featuredImage.width}
                 height={post.featuredImage.height}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 priority={variant === 'featured' || variant === 'hero'}
               />
             </motion.div>
@@ -151,9 +151,9 @@ export const EnhancedBlogCard = ({
 
             {/* Бейдж "Рекомендуем" */}
             {post.isFeatured && (
-              <Badge 
+              <Badge
                 className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 shadow-lg text-sm sm:text-base font-semibold px-3 py-2"
-                role="status" 
+                role="status"
                 aria-label="Рекомендуемая статья"
               >
                 ⭐ Рекомендуем
@@ -161,39 +161,30 @@ export const EnhancedBlogCard = ({
             )}
 
             {/* Бейдж категории с иконкой (справа сверху) */}
-            <Badge 
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 flex items-center gap-1 sm:gap-1.5 text-white border-0 shadow-lg font-semibold px-3 py-2 sm:px-4 sm:py-2.5 text-sm sm:text-base"
+            <Badge
+              className="absolute top-3 right-3 flex items-center gap-1.5 text-white border-0 shadow-lg font-semibold px-2.5 py-1 text-xs sm:text-sm"
               style={{ backgroundColor: categoryColor }}
               role="status"
               aria-label={`Категория: ${post.category.name}`}
             >
-              <CategoryIcon className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+              <CategoryIcon className="w-3.5 h-3.5" aria-hidden="true" />
               <span className="hidden sm:inline">{post.category.name}</span>
             </Badge>
           </div>
         )}
-        
+
         <CardHeader className={`${config.padding} typography-spacing-card-padding`}>
-          <div className="flex items-center gap-3 sm:gap-4 text-base md:text-lg font-medium text-gray-600 dark:text-gray-400 mb-6">
-            <div className="flex items-center gap-1 sm:gap-1.5">
-              <Calendar className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-              <time dateTime={post.publishedAt}>
-                {formatDate(post.publishedAt)}
-              </time>
+          {showReadingTime && (
+            <div className="flex items-center gap-1 mb-2 text-sm text-muted-foreground">
+              <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>{post.readingTime} мин</span>
             </div>
-            
-            {showReadingTime && (
-              <div className="flex items-center gap-1 sm:gap-1.5">
-                <Clock className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                <span>{post.readingTime} мин</span>
-              </div>
-            )}
-          </div>
-          
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white hover:text-primary transition-colors duration-200 hover:-translate-y-0.5">
-            <Link 
-              to={`/blog/${post.slug}`} 
-              className="block min-h-[44px] flex items-center"
+          )}
+
+          <h3 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white hover:text-primary transition-colors duration-200">
+            <Link
+              to={`/blog/${post.slug}`}
+              className="block"
               onMouseEnter={() => prefetchOnHover(post.slug)}
               aria-label={`Читать статью: ${post.title}`}
             >
@@ -204,16 +195,16 @@ export const EnhancedBlogCard = ({
 
         {showExcerpt && (
           <CardContent className={`${config.padding} typography-spacing-card-padding pt-0`}>
-            <p className="text-xl md:text-2xl leading-relaxed text-gray-700 dark:text-gray-300 line-clamp-3 max-w-[65ch]">
+            <p className="text-sm md:text-base leading-relaxed text-muted-foreground line-clamp-3">
               {post.excerpt}
             </p>
-            
+
             {post.tags.length > 0 && (
               <div className="flex flex-wrap gap-1.5 sm:gap-2 typography-spacing-excerpt-to-meta" role="list" aria-label="Теги статьи">
                 {post.tags.slice(0, 3).map((tag) => (
-                  <Badge 
-                    key={tag} 
-                    variant="secondary" 
+                  <Badge
+                    key={tag}
+                    variant="secondary"
                     className="text-sm md:text-base font-medium px-3 py-2 rounded-full min-h-[36px] sm:min-h-[40px] inline-flex items-center cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-md"
                     role="listitem"
                   >
@@ -221,8 +212,8 @@ export const EnhancedBlogCard = ({
                   </Badge>
                 ))}
                 {post.tags.length > 3 && (
-                  <Badge 
-                    variant="secondary" 
+                  <Badge
+                    variant="secondary"
                     className="text-sm md:text-base font-medium px-3 py-2 rounded-full min-h-[36px] sm:min-h-[40px] inline-flex items-center"
                     role="listitem"
                   >
@@ -242,13 +233,13 @@ export const EnhancedBlogCard = ({
                 <span className="truncate">{post.author.name}</span>
               </div>
             )}
-            
+
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="ml-auto"
             >
-              <Link 
+              <Link
                 to={`/blog/${post.slug}`}
                 className="inline-flex items-center gap-1.5 sm:gap-2 text-base md:text-lg font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200 min-h-[44px] px-2 sm:px-0"
                 onMouseEnter={() => prefetchOnHover(post.slug)}
