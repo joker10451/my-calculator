@@ -40,6 +40,19 @@ export const blogCategories: BlogCategory[] = [
     },
     language: 'ru',
   },
+  {
+    id: 'health-fitness',
+    name: 'Здоровье и фитнес',
+    slug: 'health-fitness',
+    description: 'ИМТ, калории, питание и здоровый образ жизни',
+    color: '#EF4444',
+    icon: 'Heart',
+    seo: {
+      metaTitle: 'Здоровье и фитнес - расчеты и советы | Считай.RU',
+      metaDescription: 'Расчет ИМТ, калорий, нормы воды. Советы по здоровому питанию, похудению, поддержанию формы от экспертов.'
+    },
+    language: 'ru',
+  },
 
   {
     id: 'family-law',
