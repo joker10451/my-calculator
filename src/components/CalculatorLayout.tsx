@@ -76,7 +76,7 @@ const CalculatorLayout = ({
             <div className="min-h-screen flex flex-col">
                 <Header />
 
-                <main className={`flex-1 ${bgClass}`}>
+                <main id="main-content" className={`flex-1 ${bgClass}`}>
                     {/* Hero Section */}
                     <div className="relative py-6 md:py-8 lg:py-10 overflow-hidden">
                         {/* Background decoration */}

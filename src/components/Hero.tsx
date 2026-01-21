@@ -11,14 +11,14 @@ const Hero = () => {
 
   return (
     <div className="relative w-full">
-      <BackgroundBeamsWithCollision className="h-auto py-20 md:py-32">
+      <BackgroundBeamsWithCollision className="h-auto py-12 md:py-32">
         <div className="container relative z-20 px-4 mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 text-sm font-medium border rounded-full bg-background/50 backdrop-blur-sm border-primary/20 text-primary">
+          <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 md:mb-8 text-sm font-medium border rounded-full bg-background/50 backdrop-blur-sm border-primary/20 text-primary">
             <Calculator className="w-4 h-4" />
             <span>Универсальный помощник</span>
           </div>
 
-          <h1 className="mb-6 text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
+          <h1 className="mb-4 md:mb-6 text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
             <span className="block mb-2 text-foreground dark:text-neutral-100">
               Посчитайте
             </span>
@@ -27,11 +27,11 @@ const Hero = () => {
             </div>
           </h1>
 
-          <p className="max-w-2xl mx-auto mb-10 text-lg md:text-xl text-muted-foreground">
+          <p className="max-w-2xl mx-auto mb-6 md:mb-10 text-lg md:text-xl text-muted-foreground">
             Бесплатные онлайн-калькуляторы для России и СНГ. Кредиты, налоги, ЖКХ, здоровье — всё точно и по закону.
           </p>
 
-          <div className="flex flex-col items-center justify-center gap-4 mb-12 sm:flex-row">
+          <div className="flex flex-col items-center justify-center gap-4 mb-8 md:mb-12 sm:flex-row">
             <Link to="/#categories">
               <Button size="lg" className="h-12 px-8 text-lg rounded-full group">
                 Выбрать калькулятор
