@@ -1,0 +1,21 @@
+# Redirects для Считай.RU
+# Формат: старый_путь новый_путь код_статуса
+
+# Редиректы для старых URL блога (если были изменения)
+# /old-blog-url /blog/new-blog-url 301
+
+# Редиректы для калькуляторов (если были переименования)
+# /old-calculator /calculator/new-calculator 301
+
+# Редиректы для категорий
+# /old-category /category/new-category 301
+
+# Общие редиректы
+/index.html / 301
+/home / 301
+
+# Редиректы для блога
+/blog/index.html /blog 301
+
+# SPA fallback - все остальные запросы на index.html
+/* /index.html 200

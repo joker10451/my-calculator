@@ -1,0 +1,25 @@
+{
+  "testFile": "src/test/crossCalculatorIntegration.property.test.ts",
+  "property": "Property 5: Cross-Calculator Recommendation Integration",
+  "requirement": "2.4",
+  "status": "passing",
+  "lastRun": "2026-01-14T11:57:29.000Z",
+  "totalTests": 6,
+  "passingCount": 6,
+  "failingCount": 0,
+  "passingTests": [
+    "should detect when user has used multiple calculators",
+    "should provide recommendations covering all used calculator types",
+    "should provide diverse recommendation types",
+    "should provide complete explanations for all recommendations",
+    "should provide actionable steps for each recommendation",
+    "should order recommendations by relevance score"
+  ],
+  "notes": [
+    "All tests passing after fixing date generation and adding proper product mocks",
+    "Test validates that system correctly handles multiple calculator usage",
+    "Test validates comprehensive recommendations across calculator types",
+    "Test validates explanation completeness and action steps",
+    "Test validates proper ordering by relevance score"
+  ]
+}

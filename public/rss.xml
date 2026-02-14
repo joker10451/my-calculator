@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Считай.RU - Финансовый блог</title>
+    <description>Экспертные статьи о финансах, налогах, ипотеке и экономии. Актуальная информация для принятия правильных финансовых решений.</description>
+    <link>https://считай.ru/blog</link>
+    <atom:link href="https://считай.ru/rss.xml" rel="self" type="application/rss+xml" />
+    <language>ru-RU</language>
+    <lastBuildDate>Tue, 13 Jan 2026 16:25:05 GMT</lastBuildDate>
+    <managingEditor>noreply@считай.ru (Команда Считай.RU)</managingEditor>
+    <webMaster>noreply@считай.ru (Команда Считай.RU)</webMaster>
+    <category>Финансы</category>
+    <category>Калькуляторы</category>
+    <category>Налоги</category>
+    <category>Ипотека</category>
+    <category>ЖКХ</category>
+    <ttl>60</ttl>
+    <image>
+      <url>https://считай.ru/icon-192.png</url>
+      <title>Считай.RU</title>
+      <link>https://считай.ru</link>
+      <width>192</width>
+      <height>192</height>
+    </image>
+    <item>
+      <title><![CDATA[Ипотека в 2026 году: новые условия и льготные программы]]></title>
+      <description><![CDATA[Разбираем актуальные ставки по ипотеке, государственные программы поддержки и изменения в законодательстве. Как получить ипотеку на выгодных условиях.]]></description>
+      <link>https://считай.ru/blog/ipoteka-2026-novye-usloviya</link>
+      <guid isPermaLink="true">https://считай.ru/blog/ipoteka-2026-novye-usloviya</guid>
+      <pubDate>Tue, 13 Jan 2026 10:00:00 GMT</pubDate>
+      <author>noreply@считай.ru (Анна Финансова)</author>
+      <category><![CDATA[Ипотека и кредиты]]></category>
+      <category><![CDATA[ипотека]]></category><category><![CDATA[кредит]]></category><category><![CDATA[2026]]></category><category><![CDATA[льготы]]></category><category><![CDATA[ставки]]></category>
+      <enclosure url="https://считай.ru/blog/ipoteka-2026.jpg" type="image/jpeg" />
+    </item>
+    <item>
+      <title><![CDATA[НДФЛ в 2026 году: как работает прогрессивная шкала налогообложения]]></title>
+      <description><![CDATA[Подробный разбор изменений в подоходном налоге. Кто и сколько будет платить, как рассчитать налог с зарплаты, примеры расчетов.]]></description>
+      <link>https://считай.ru/blog/ndfl-2026-progressivnaya-shkala</link>
+      <guid isPermaLink="true">https://считай.ru/blog/ndfl-2026-progressivnaya-shkala</guid>
+      <pubDate>Mon, 12 Jan 2026 14:30:00 GMT</pubDate>
+      <author>noreply@считай.ru (Михаил Налогов)</author>
+      <category><![CDATA[Налоги и зарплата]]></category>
+      <category><![CDATA[НДФЛ]]></category><category><![CDATA[налоги]]></category><category><![CDATA[зарплата]]></category><category><![CDATA[прогрессивная шкала]]></category><category><![CDATA[2026]]></category>
+      
+    </item>
+    <item>
+      <title><![CDATA[Тарифы ЖКХ в 2026 году: как экономить на коммунальных платежах]]></title>
+      <description><![CDATA[Актуальные тарифы на электричество, газ, воду и отопление. Способы экономии, льготы и субсидии, нормативы потребления по регионам.]]></description>
+      <link>https://считай.ru/blog/tarify-zhkh-2026-kak-ekonomit</link>
+      <guid isPermaLink="true">https://считай.ru/blog/tarify-zhkh-2026-kak-ekonomit</guid>
+      <pubDate>Sun, 11 Jan 2026 09:15:00 GMT</pubDate>
+      <author>noreply@считай.ru (Елена Коммунальная)</author>
+      <category><![CDATA[ЖКХ и коммунальные услуги]]></category>
+      <category><![CDATA[ЖКХ]]></category><category><![CDATA[тарифы]]></category><category><![CDATA[коммунальные услуги]]></category><category><![CDATA[экономия]]></category><category><![CDATA[льготы]]></category><category><![CDATA[2026]]></category>
+      
+    </item>
+  </channel>
+</rss>

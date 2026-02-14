@@ -1,0 +1,51 @@
+<svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" rx="24" fill="#3B82F6"/>
+  
+  
+  
+  <!-- Calculator body -->
+  <rect x="38" y="48" width="115" height="115" rx="8" fill="white"/>
+  
+  <!-- Display -->
+  <rect x="48" y="58" width="96" height="19" rx="4" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="96" y="71" fill="#374151" font-family="monospace" font-size="8" text-anchor="middle">123.45</text>
+  
+  <!-- Button grid -->
+  <g fill="#f3f4f6" stroke="#e2e8f0" stroke-width="1">
+    <!-- Row 1 -->
+    <rect x="48" y="86" width="15" height="12" rx="2"/>
+    <rect x="67" y="86" width="15" height="12" rx="2"/>
+    <rect x="86" y="86" width="15" height="12" rx="2"/>
+    <rect x="106" y="86" width="38" height="12" rx="2" fill="#3B82F6"/>
+    
+    <!-- Row 2 -->
+    <rect x="48" y="102" width="15" height="12" rx="2"/>
+    <rect x="67" y="102" width="15" height="12" rx="2"/>
+    <rect x="86" y="102" width="15" height="12" rx="2"/>
+    <rect x="106" y="102" width="38" height="12" rx="2" fill="#3B82F6"/>
+    
+    <!-- Row 3 -->
+    <rect x="48" y="117" width="35" height="12" rx="2"/>
+    <rect x="86" y="117" width="15" height="12" rx="2"/>
+    <rect x="106" y="117" width="38" height="12" rx="2" fill="#3B82F6"/>
+  </g>
+  
+  <!-- Button labels -->
+  <g fill="#374151" font-family="Arial, sans-serif" font-size="5" text-anchor="middle" font-weight="bold">
+    <text x="56" y="94">7</text>
+    <text x="75" y="94">8</text>
+    <text x="94" y="94">9</text>
+    <text x="56" y="109">4</text>
+    <text x="75" y="109">5</text>
+    <text x="94" y="109">6</text>
+    <text x="65" y="125">0</text>
+    <text x="94" y="125">.</text>
+  </g>
+  
+  <!-- Operation symbols -->
+  <g fill="white" font-family="Arial, sans-serif" font-size="6" text-anchor="middle" font-weight="bold">
+    <text x="125" y="94">÷</text>
+    <text x="125" y="109">×</text>
+    <text x="125" y="125">=</text>
+  </g>
+</svg>
