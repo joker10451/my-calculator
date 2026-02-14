@@ -34,11 +34,31 @@ const routes = [
   { path: '/calculator/tire-size', folder: 'calculator/tire-size', title: 'Калькулятор размера шин — Подбор шин для авто', description: 'Подберите шины для автомобиля по размеру. Калькулятор совместимости шин, сравнение размеров, расчет клиренса.' },
 ];
 
+// Получаем entry point файл из assets
+function getEntryPoint() {
+  const assetsPath = path.join(process.cwd(), 'dist', 'assets');
+  const files = fs.readdirSync(assetsPath);
+  const indexFile = files.find(f => f.startsWith('index-') && f.endsWith('.js'));
+  return indexFile ? `/assets/${indexFile}` : '/assets/index.js';
+}
+
+// Получаем CSS файл
+function getCSSFile() {
+  const assetsPath = path.join(process.cwd(), 'dist', 'assets');
+  const files = fs.readdirSync(assetsPath);
+  const cssFile = files.find(f => f.startsWith('index-') && f.endsWith('.css'));
+  return cssFile ? `/assets/${cssFile}` : null;
+}
+
 // Базовый HTML шаблон
 function generateHTML(route) {
   const baseUrl = 'https://schitay-online.ru';
   const fullUrl = `${baseUrl}${route.path}`;
   const canonicalUrl = route.path === '/' ? baseUrl : fullUrl;
+  const entryPoint = getEntryPoint();
+  const cssFile = getCSSFile();
+  
+  const cssLink = cssFile ? `  <link rel="stylesheet" crossorigin href="${cssFile}">\n` : '';
   
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -81,7 +101,7 @@ function generateHTML(route) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+${cssLink}  
   <!-- SPA Redirect Script -->
   <script type="text/javascript">
     (function(l) {
@@ -98,7 +118,7 @@ function generateHTML(route) {
 </head>
 <body>
   <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
+  <script type="module" src="${entryPoint}"></script>
   
   <!-- NoScript Content for SEO -->
   <noscript>
