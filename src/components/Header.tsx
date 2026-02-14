@@ -32,15 +32,15 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border">
-      <div className="container mx-auto px-2 md:px-4 relative">
-        <div className="flex items-center justify-between h-9 md:h-10">
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border/50">
+      <div className="container mx-auto px-2 md:px-3 relative">
+        <div className="flex items-center justify-between h-7 md:h-8">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
-            <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
-              <Calculator className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary-foreground" />
+            <div className="w-6 h-6 md:w-7 md:h-7 rounded-md bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
+              <Calculator className="w-3 h-3 md:w-3.5 md:h-3.5 text-primary-foreground" />
             </div>
-            <span className="text-sm md:text-base font-bold tracking-tight hidden xs:inline uppercase">
+            <span className="text-xs md:text-sm font-bold tracking-tight hidden xs:inline uppercase">
               Считай.RU
             </span>
           </Link>
@@ -87,59 +87,59 @@ const Header = () => {
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center">
             {categories.slice(0, 4).map((cat) => (
               <Link
                 key={cat.name}
                 to={cat.href}
-                className="px-2 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted whitespace-nowrap"
+                className="px-1.5 py-1 text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded hover:bg-muted whitespace-nowrap"
               >
                 {cat.name}
               </Link>
             ))}
             <Link
               to="/blog"
-              className="px-2 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
+              className="px-1.5 py-1 text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded hover:bg-muted"
             >
               Блог
             </Link>
-            <Link to="/compare" className="relative p-1.5 text-muted-foreground hover:text-primary transition-colors">
-              <Scale className="w-4 h-4" />
+            <Link to="/compare" className="relative p-1 text-muted-foreground hover:text-primary transition-colors">
+              <Scale className="w-3.5 h-3.5" />
               {items.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-[8px] font-bold w-3 h-3 rounded-full flex items-center justify-center">
                   {items.length}
                 </span>
               )}
             </Link>
-            <div className="scale-90">
+            <div className="scale-75">
               <ThemeToggle />
             </div>
           </nav>
 
           {/* Mobile Actions */}
-          <div className="flex lg:hidden items-center gap-0.5">
-            <Link to="/compare" className="relative p-1.5 text-muted-foreground hover:text-primary transition-colors">
-              <Scale className="w-4 h-4" />
+          <div className="flex lg:hidden items-center">
+            <Link to="/compare" className="relative p-1 text-muted-foreground hover:text-primary transition-colors">
+              <Scale className="w-3.5 h-3.5" />
               {items.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-[8px] font-bold w-3 h-3 rounded-full flex items-center justify-center">
                   {items.length}
                 </span>
               )}
             </Link>
             <button
-              className="p-1.5"
+              className="p-1"
               onClick={() => {
                 setIsSearchOpen(!isSearchOpen);
                 setIsMenuOpen(false);
               }}
             >
-              <Search className="w-4 h-4" />
+              <Search className="w-3.5 h-3.5" />
             </button>
-            <div className="scale-90">
+            <div className="scale-75">
               <ThemeToggle />
             </div>
             <button
-              className="p-1.5 rounded-lg hover:bg-muted transition-colors"
+              className="p-1 rounded hover:bg-muted transition-colors"
               onClick={() => {
                 setIsMenuOpen(!isMenuOpen);
                 setIsSearchOpen(false);
