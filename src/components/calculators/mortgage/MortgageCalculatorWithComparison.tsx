@@ -1,4 +1,4 @@
-import MortgageCalculator from "./MortgageCalculator";
+import MortgageCalculator from "../MortgageCalculator";
 import { MortgageScenarioComparison } from "./MortgageScenarioComparison";
 
 export const MortgageCalculatorWithComparison = () => {
