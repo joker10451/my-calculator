@@ -29,7 +29,11 @@ const CalculatorLayout = ({
         calc => calc.href !== currentPath
     ) || [];
 
-    const canonicalUrl = `https://schitay-online.ru${currentPath}`;
+    // Add trailing slash for canonical URL (GitHub Pages adds it automatically)
+    const canonicalPath = currentPath.endsWith('/') || currentPath === '/' 
+        ? currentPath 
+        : `${currentPath}/`;
+    const canonicalUrl = `https://schitay-online.ru${canonicalPath}`;
 
     return (
         <>

@@ -54,7 +54,8 @@ function getCSSFile() {
 function generateHTML(route) {
   const baseUrl = 'https://schitay-online.ru';
   const fullUrl = `${baseUrl}${route.path}`;
-  const canonicalUrl = route.path === '/' ? baseUrl : fullUrl;
+  // GitHub Pages adds trailing slash, so we include it in canonical
+  const canonicalUrl = route.path === '/' ? baseUrl : `${fullUrl}/`;
   const entryPoint = getEntryPoint();
   const cssFile = getCSSFile();
   
