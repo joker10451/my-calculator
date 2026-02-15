@@ -155,6 +155,7 @@ const AnimatedRoutes = () => {
           <Route path="/:lang/blog/category/:slug" element={<PageTransition><BlogCategoryPage /></PageTransition>} />
           {/* Sitemap for SEO */}
           <Route path="/sitemap" element={<PageTransition><SitemapPage /></PageTransition>} />
+          <Route path="/sitemap/" element={<PageTransition><SitemapPage /></PageTransition>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
