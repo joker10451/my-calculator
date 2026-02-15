@@ -25,3 +25,14 @@ dist-ssr
 .vercel
 # Backup folders
 backup-blog-data-*
+# Documentation files (not needed for production)
+.kiro/
+BLOG_*.md
+SEO_*.md
+AUDIT_*.md
+*.todo.md
+*.audit.md
+*.kiro.md
+DEPLOYMENT_*.md
+TODO_*.md
+CHANGELOG_*.md
