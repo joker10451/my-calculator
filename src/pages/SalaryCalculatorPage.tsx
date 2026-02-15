@@ -1,6 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
-import SalaryCalculator from "@/components/calculators/SalaryCalculator";
-import { Calculator, TrendingDown, Users, FileText, BarChart3, DollarSign } from "lucide-react";
+import SalaryCalculatorWithComparison from "@/components/calculators/SalaryCalculatorWithComparison";
+import { Calculator, TrendingDown, Users, FileText, BarChart3, DollarSign, GitCompare } from "lucide-react";
 
 const SalaryCalculatorPage = () => {
     const faqItems = [
@@ -30,9 +30,10 @@ const SalaryCalculatorPage = () => {
         { icon: Calculator, text: "Расчет зарплаты на руки с учетом НДФЛ по прогрессивной шкале", color: 'blue' as const },
         { icon: TrendingDown, text: "Обратный расчет: от суммы на руки к начисленной зарплате", color: 'green' as const },
         { icon: Users, text: "Учет стандартных налоговых вычетов на детей", color: 'purple' as const },
-        { icon: DollarSign, text: "Расчет страховых взносов работодателя", color: 'orange' as const },
-        { icon: FileText, text: "Детальная разбивка всех начислений и удержаний", color: 'pink' as const },
-        { icon: BarChart3, text: "Актуальные ставки налогов и взносов 2026 года", color: 'indigo' as const }
+        { icon: GitCompare, text: "Сравнение двух предложений о работе", color: 'orange' as const },
+        { icon: DollarSign, text: "Расчет страховых взносов работодателя", color: 'pink' as const },
+        { icon: FileText, text: "Детальная разбивка всех начислений и удержаний", color: 'indigo' as const },
+        { icon: BarChart3, text: "Актуальные ставки налогов и взносов 2026 года", color: 'blue' as const }
     ];
 
     const howToUseSteps = [
@@ -56,7 +57,7 @@ const SalaryCalculatorPage = () => {
             category="Финансы"
             categoryHref="/category/financial"
             faqItems={faqItems}
-            calculator={<SalaryCalculator />}
+            calculator={<SalaryCalculatorWithComparison />}
             aboutTitle="О калькуляторе зарплаты"
             aboutDescription="Калькулятор зарплаты поможет вам точно рассчитать сумму, которую вы получите на руки после вычета НДФЛ и других налогов. Инструмент учитывает актуальную прогрессивную шкалу налогообложения 2026 года, стандартные налоговые вычеты на детей и позволяет рассчитать как зарплату на руки от начисленной, так и начисленную от желаемой суммы на руки."
             features={features}

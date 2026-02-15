@@ -1,6 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
-import CreditCalculator from "@/components/calculators/CreditCalculator";
-import { Calculator, TrendingUp, FileText, BarChart3, PieChart, DollarSign } from "lucide-react";
+import CreditCalculatorWithComparison from "@/components/calculators/CreditCalculatorWithComparison";
+import { Calculator, TrendingUp, FileText, BarChart3, PieChart, DollarSign, GitCompare } from "lucide-react";
 
 const CreditCalculatorPage = () => {
     const faqItems = [
@@ -30,9 +30,10 @@ const CreditCalculatorPage = () => {
         { icon: Calculator, text: "Точный расчет ежемесячного аннуитетного платежа", color: 'blue' as const },
         { icon: DollarSign, text: "Расчет полной стоимости кредита (ПСК)", color: 'green' as const },
         { icon: TrendingUp, text: "Определение общей переплаты по процентам", color: 'purple' as const },
-        { icon: FileText, text: "Детальный график платежей с разбивкой на проценты и основной долг", color: 'orange' as const },
-        { icon: BarChart3, text: "Сравнение различных вариантов кредитования", color: 'pink' as const },
-        { icon: PieChart, text: "Экспорт результатов для анализа", color: 'indigo' as const }
+        { icon: GitCompare, text: "Сравнение кредитов от разных банков", color: 'orange' as const },
+        { icon: FileText, text: "Детальный график платежей с разбивкой на проценты и основной долг", color: 'pink' as const },
+        { icon: BarChart3, text: "Сравнение различных вариантов кредитования", color: 'indigo' as const },
+        { icon: PieChart, text: "Экспорт результатов для анализа", color: 'blue' as const }
     ];
 
     const howToUseSteps = [
@@ -57,7 +58,7 @@ const CreditCalculatorPage = () => {
             category="Финансы"
             categoryHref="/category/financial"
             faqItems={faqItems}
-            calculator={<CreditCalculator />}
+            calculator={<CreditCalculatorWithComparison />}
             features={features}
             howToUseSteps={howToUseSteps}
         />
