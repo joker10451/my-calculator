@@ -242,47 +242,47 @@ export const MortgageScenarioComparison = () => {
         {/* Results */}
         <div className="grid md:grid-cols-2 gap-4">
           {/* Result A */}
-          <div className="p-4 bg-blue-50/30 dark:bg-blue-900/5 rounded-lg border border-blue-100 dark:border-blue-800/30">
-            <h4 className="font-semibold mb-3 text-blue-700 dark:text-blue-400 text-center">Сценарий А</h4>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Сумма кредита:</span>
-                <span className="font-medium">{formatCurrency(resultA.loanAmount)}</span>
+          <div className="p-3 md:p-4 bg-blue-50/30 dark:bg-blue-900/5 rounded-lg border border-blue-100 dark:border-blue-800/30 overflow-hidden">
+            <h4 className="font-semibold mb-3 text-blue-700 dark:text-blue-400 text-center text-sm md:text-base">Сценарий А</h4>
+            <div className="space-y-1.5 md:space-y-2 text-xs md:text-sm">
+              <div className="flex justify-between gap-2">
+                <span className="text-muted-foreground">Кредит:</span>
+                <span className="font-medium text-right break-all">{formatCurrency(resultA.loanAmount)}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Ежемесячный:</span>
-                <span className="font-medium">{formatCurrency(resultA.monthlyPayment)}</span>
+              <div className="flex justify-between gap-2">
+                <span className="text-muted-foreground">В месяц:</span>
+                <span className="font-medium text-right break-all">{formatCurrency(resultA.monthlyPayment)}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-2">
                 <span className="text-muted-foreground">Переплата:</span>
-                <span className="font-medium text-red-500">{formatCurrency(resultA.totalInterest)}</span>
+                <span className="font-medium text-red-500 text-right break-all">{formatCurrency(resultA.totalInterest)}</span>
               </div>
-              <div className="flex justify-between border-t pt-2">
-                <span className="text-muted-foreground">Общая:</span>
-                <span className="font-bold">{formatCurrency(resultA.totalPayment)}</span>
+              <div className="flex justify-between border-t pt-1.5 md:pt-2 gap-2">
+                <span className="text-muted-foreground">Всего:</span>
+                <span className="font-bold text-right break-all">{formatCurrency(resultA.totalPayment)}</span>
               </div>
             </div>
           </div>
 
           {/* Result B */}
-          <div className="p-4 bg-green-50/30 dark:bg-green-900/5 rounded-lg border border-green-100 dark:border-green-800/30">
-            <h4 className="font-semibold mb-3 text-green-700 dark:text-green-400 text-center">Сценарий Б</h4>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Сумма кредита:</span>
-                <span className="font-medium">{formatCurrency(resultB.loanAmount)}</span>
+          <div className="p-3 md:p-4 bg-green-50/30 dark:bg-green-900/5 rounded-lg border border-green-100 dark:border-green-800/30 overflow-hidden">
+            <h4 className="font-semibold mb-3 text-green-700 dark:text-green-400 text-center text-sm md:text-base">Сценарий Б</h4>
+            <div className="space-y-1.5 md:space-y-2 text-xs md:text-sm">
+              <div className="flex justify-between gap-2">
+                <span className="text-muted-foreground">Кредит:</span>
+                <span className="font-medium text-right break-all">{formatCurrency(resultB.loanAmount)}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Ежемесячный:</span>
-                <span className="font-medium">{formatCurrency(resultB.monthlyPayment)}</span>
+              <div className="flex justify-between gap-2">
+                <span className="text-muted-foreground">В месяц:</span>
+                <span className="font-medium text-right break-all">{formatCurrency(resultB.monthlyPayment)}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-2">
                 <span className="text-muted-foreground">Переплата:</span>
-                <span className="font-medium text-red-500">{formatCurrency(resultB.totalInterest)}</span>
+                <span className="font-medium text-red-500 text-right break-all">{formatCurrency(resultB.totalInterest)}</span>
               </div>
-              <div className="flex justify-between border-t pt-2">
-                <span className="text-muted-foreground">Общая:</span>
-                <span className="font-bold">{formatCurrency(resultB.totalPayment)}</span>
+              <div className="flex justify-between border-t pt-1.5 md:pt-2 gap-2">
+                <span className="text-muted-foreground">Всего:</span>
+                <span className="font-bold text-right break-all">{formatCurrency(resultB.totalPayment)}</span>
               </div>
             </div>
           </div>
@@ -297,32 +297,32 @@ export const MortgageScenarioComparison = () => {
             </h4>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div>
-              <div className="text-2xl font-bold text-green-600">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+            <div className="p-2">
+              <div className="text-lg md:text-xl font-bold text-green-600 break-all">
                 {formatCurrency(Math.abs(diff.monthlyPayment))}
               </div>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-xs text-muted-foreground mt-1">
                 {diff.monthlyPayment > 0 ? 'меньше в месяц' : 'больше в месяц'}
               </div>
             </div>
-            <div>
-              <div className="text-2xl font-bold text-green-600">
+            <div className="p-2">
+              <div className="text-lg md:text-xl font-bold text-green-600 break-all">
                 {formatCurrency(Math.abs(diff.totalInterest))}
               </div>
-              <div className="text-xs text-muted-foreground">экономия на %</div>
+              <div className="text-xs text-muted-foreground mt-1">экономия на %</div>
             </div>
-            <div>
-              <div className="text-2xl font-bold text-green-600">
+            <div className="p-2">
+              <div className="text-lg md:text-xl font-bold text-green-600 break-all">
                 {formatCurrency(Math.abs(diff.totalPayment))}
               </div>
-              <div className="text-xs text-muted-foreground">общая экономия</div>
+              <div className="text-xs text-muted-foreground mt-1">общая экономия</div>
             </div>
-            <div>
-              <div className="text-2xl font-bold text-green-600">
+            <div className="p-2">
+              <div className="text-lg md:text-xl font-bold text-green-600">
                 {Math.abs(diff.years)} лет
               </div>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-xs text-muted-foreground mt-1">
                 {diff.years > 0 ? 'раньше свободны' : 'дольше кредит'}
               </div>
             </div>
