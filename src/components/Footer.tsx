@@ -21,6 +21,7 @@ const Footer = () => {
 
   const legal = [
     { name: "О проекте", href: "/about" },
+    { name: "Карта сайта", href: "/sitemap" },
     { name: "Политика конфиденциальности", href: "/privacy" },
     { name: "Условия использования", href: "/terms" },
     { name: "Контакты", href: "/contacts" },
@@ -118,7 +119,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Нижняя часть */}
+          {/* Нижняя часть */}
         <div className="pt-8 border-t border-border/20 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <p className="text-sm text-muted-foreground">
             © 2026 Считай.ru — Все права защищены
@@ -126,6 +127,27 @@ const Footer = () => {
           <p className="text-[10px] md:text-xs text-muted-foreground max-w-md">
             Информация носит справочный характер и не является публичной офертой
           </p>
+        </div>
+
+        {/* HTML ссылки для поисковых ботов */}
+        <div className="sr-only" aria-hidden="true">
+          <h2>Все калькуляторы</h2>
+          <nav>
+            <ul>
+              <li><a href="/calculator/mortgage/">Ипотечный калькулятор</a></li>
+              <li><a href="/calculator/salary/">Калькулятор зарплаты</a></li>
+              <li><a href="/calculator/credit/">Кредитный калькулятор</a></li>
+              <li><a href="/calculator/bmi/">Калькулятор ИМТ</a></li>
+              <li><a href="/calculator/fuel/">Калькулятор топлива</a></li>
+              <li><a href="/calculator/utilities/">Калькулятор ЖКХ</a></li>
+              <li><a href="/calculator/deposit/">Депозитный калькулятор</a></li>
+              <li><a href="/calculator/currency/">Конвертер валют</a></li>
+              <li><a href="/calculator/court-fee/">Калькулятор госпошлины</a></li>
+              <li><a href="/calculator/alimony/">Калькулятор алиментов</a></li>
+              <li><a href="/calculator/maternity-capital/">Материнский капитал</a></li>
+              <li><a href="/blog/">Блог</a></li>
+            </ul>
+          </nav>
         </div>
       </div>
     </footer>

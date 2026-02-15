@@ -55,6 +55,7 @@ const ColourfulTextDemo = lazy(() => import("./pages/ColourfulTextDemo"));
 const EnhancedBlogCardDemo = lazy(() => import("./pages/EnhancedBlogCardDemo"));
 const ColorSystemDemo = lazy(() => import("./pages/ColorSystemDemo"));
 const GlassmorphismDemo = lazy(() => import("./pages/GlassmorphismDemo"));
+const SitemapPage = lazy(() => import("./pages/SitemapPage"));
 
 // Blog components with lazy loading (loaded on demand)
 export const BlogComments = lazy(() => import("./components/blog/BlogComments"));
@@ -152,6 +153,8 @@ const AnimatedRoutes = () => {
           <Route path="/:lang/blog" element={<PageTransition><BlogPage /></PageTransition>} />
           <Route path="/:lang/blog/:slug" element={<PageTransition><BlogPostPage /></PageTransition>} />
           <Route path="/:lang/blog/category/:slug" element={<PageTransition><BlogCategoryPage /></PageTransition>} />
+          {/* Sitemap for SEO */}
+          <Route path="/sitemap" element={<PageTransition><SitemapPage /></PageTransition>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
