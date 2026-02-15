@@ -29,8 +29,9 @@ const CalculatorLayout = ({
         calc => calc.href !== currentPath
     ) || [];
 
-    // Canonical URL without trailing slash (for .html files)
-    const canonicalUrl = `https://schitay-online.ru${currentPath}`;
+    // Canonical URL со слэшем (для GitHub Pages)
+    const canonicalPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+    const canonicalUrl = `https://schitay-online.ru${canonicalPath}`;
 
     return (
         <>
