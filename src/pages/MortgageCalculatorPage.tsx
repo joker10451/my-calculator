@@ -1,6 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
-import MortgageCalculator from "@/components/calculators/MortgageCalculator";
-import { Home, Calculator, TrendingDown, Calendar, FileText, BarChart3 } from "lucide-react";
+import MortgageCalculatorWithComparison from "@/components/calculators/mortgage/MortgageCalculatorWithComparison";
+import { Home, Calculator, TrendingDown, Calendar, FileText, BarChart3, GitCompare } from "lucide-react";
 
 const MortgageCalculatorPage = () => {
   const faqItems = [
@@ -30,9 +30,10 @@ const MortgageCalculatorPage = () => {
     { icon: Calculator, text: "Расчет аннуитетных платежей с точностью до рубля", color: 'blue' as const },
     { icon: TrendingDown, text: "Учет досрочного погашения (единовременного и регулярного)", color: 'green' as const },
     { icon: Calendar, text: "Два режима досрочного погашения: сокращение срока или уменьшение платежа", color: 'purple' as const },
-    { icon: FileText, text: "Детальный график платежей с разбивкой на проценты и основной долг", color: 'orange' as const },
-    { icon: BarChart3, text: "Визуализация динамики остатка долга", color: 'pink' as const },
-    { icon: Home, text: "Экспорт результатов в PDF для банка", color: 'indigo' as const }
+    { icon: GitCompare, text: "Сравнение двух сценариев ипотеки (разные ставки/сроки)", color: 'orange' as const },
+    { icon: FileText, text: "Детальный график платежей с разбивкой на проценты и основной долг", color: 'pink' as const },
+    { icon: BarChart3, text: "Визуализация динамики остатка долга", color: 'indigo' as const },
+    { icon: Home, text: "Экспорт результатов в PDF для банка", color: 'blue' as const }
   ];
 
   const howToUseSteps = [
@@ -57,7 +58,7 @@ const MortgageCalculatorPage = () => {
       category="Финансы"
       categoryHref="/category/financial"
       faqItems={faqItems}
-      calculator={<MortgageCalculator />}
+      calculator={<MortgageCalculatorWithComparison />}
       aboutTitle="О калькуляторе ипотеки"
       aboutDescription="Наш ипотечный калькулятор поможет вам рассчитать все параметры ипотечного кредита: ежемесячный платеж, общую сумму выплат, переплату по процентам и построить детальный график платежей. Калькулятор учитывает актуальные ставки 2026 года и позволяет моделировать различные сценарии досрочного погашения."
       features={features}
