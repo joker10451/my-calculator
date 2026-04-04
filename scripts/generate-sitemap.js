@@ -105,6 +105,9 @@ const pages = [
   { url: '/compare-banks', priority: 0.9, changefreq: 'weekly' },
   { url: '/courier-yandex', priority: 0.8, changefreq: 'monthly' },
   { url: '/joy-money', priority: 0.8, changefreq: 'monthly' },
+  { url: '/widgets', priority: 0.7, changefreq: 'monthly' },
+  { url: '/compare-banks', priority: 0.9, changefreq: 'weekly' },
+  { url: '/calculator/overpayment', priority: 0.9, changefreq: 'weekly' },
   
   // Юридические страницы
   { url: '/privacy', priority: 0.3, changefreq: 'yearly' },
