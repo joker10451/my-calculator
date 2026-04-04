@@ -26,48 +26,31 @@ const OverpaymentCalculatorPage = () => {
     ];
 
     const features = [
-        { icon: AlertTriangle, text: "Шокирующая правда о переплате", color: 'red' as const },
-        { icon: TrendingDown, text: "Сравнение ставок банков", color: 'blue' as const },
-        { icon: PiggyBank, text: "Сколько сэкономите при выборе лучшего банка", color: 'green' as const },
-        { icon: Shield, text: "Эквивалент переплаты в понятных вещах", color: 'purple' as const },
-        { icon: Percent, text: "Реальная стоимость кредита", color: 'orange' as const },
-        { icon: Home, text: "Сколько квартир вы покупаете", color: 'pink' as const }
-    ];
-
-    const howToUseSteps = [
-        "Введите сумму кредита — сколько хотите взять в банке",
-        "Укажите ставку — текущую или ту, что предлагает банк",
-        "Выберите срок — на сколько лет берёте ипотеку",
-        "Нажмите «Узнать правду» — увидите реальную переплату",
-        "Сравните предложения банков и узнайте, сколько сэкономите"
+        { icon: AlertTriangle, title: "Шокирующая правда", desc: "Узнайте реальную переплату" },
+        { icon: TrendingDown, title: "Сравнение банков", desc: "Лучшие и худшие ставки" },
+        { icon: PiggyBank, title: "Экономия", desc: "Сколько сэкономите" },
+        { icon: Shield, title: "Эквивалент", desc: "Переплата в понятных вещах" },
+        { icon: Percent, title: "Реальная стоимость", desc: "Скрытые расходы" },
+        { icon: Home, title: "Квартиры", desc: "Сколько покупаете" },
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-16">
+        <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 md:py-20">
             <div className="container mx-auto px-4">
                 <OverpaymentCalculator />
 
                 {/* Features */}
                 <div className="max-w-5xl mx-auto mt-20">
-                    <h2 className="text-3xl font-black text-slate-900 mb-10 text-center">Что вы узнаете</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <h2 className="text-3xl font-black text-slate-900 mb-3 text-center">Что вы узнаете</h2>
+                    <p className="text-slate-500 text-center mb-10 max-w-xl mx-auto">Калькулятор покажет скрытые расходы, о которых банки не рассказывают</p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                         {features.map((f, i) => (
-                            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-6 flex items-center gap-4 hover:shadow-lg transition-all">
-                                <f.icon className={`w-8 h-8 text-${f.color}-500 flex-shrink-0`} />
-                                <span className="text-slate-700 font-semibold text-sm">{f.text}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* How to use */}
-                <div className="max-w-5xl mx-auto mt-20">
-                    <h2 className="text-3xl font-black text-slate-900 mb-10 text-center">Как пользоваться</h2>
-                    <div className="grid md:grid-cols-5 gap-4">
-                        {howToUseSteps.map((step, i) => (
-                            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-6 text-center">
-                                <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-4">{i + 1}</div>
-                                <p className="text-slate-600 text-sm font-medium">{step}</p>
+                            <div key={i} className="bg-white rounded-2xl border border-slate-100 p-6 hover:shadow-md hover:border-slate-200 transition-all">
+                                <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center mb-4">
+                                    <f.icon className="w-5 h-5 text-red-500" />
+                                </div>
+                                <h3 className="font-bold text-slate-900 text-sm mb-1">{f.title}</h3>
+                                <p className="text-slate-500 text-xs">{f.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -75,15 +58,16 @@ const OverpaymentCalculatorPage = () => {
 
                 {/* FAQ */}
                 <div className="max-w-5xl mx-auto mt-20 mb-16">
-                    <h2 className="text-3xl font-black text-slate-900 mb-10 text-center">Частые вопросы</h2>
-                    <div className="space-y-4">
+                    <h2 className="text-3xl font-black text-slate-900 mb-3 text-center">Частые вопросы</h2>
+                    <p className="text-slate-500 text-center mb-10">Ответы на главные вопросы об ипотеке</p>
+                    <div className="space-y-3">
                         {faqItems.map((item, i) => (
-                            <details key={i} className="bg-white rounded-2xl border border-slate-200 group">
-                                <summary className="p-6 cursor-pointer font-bold text-slate-900 text-lg flex items-center gap-3 list-none">
+                            <details key={i} className="bg-white rounded-2xl border border-slate-200 overflow-hidden group">
+                                <summary className="p-5 cursor-pointer font-bold text-slate-900 flex items-center gap-3 list-none hover:bg-slate-50 transition-colors">
                                     <Calculator className="w-5 h-5 text-blue-600 flex-shrink-0" />
                                     {item.question}
                                 </summary>
-                                <div className="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                                <div className="px-5 pb-5 text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
                                     {item.answer}
                                 </div>
                             </details>
