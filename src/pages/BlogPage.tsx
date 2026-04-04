@@ -217,7 +217,7 @@ const BlogPage = () => {
 
                   {/* Теги */}
                   <div className="flex flex-wrap gap-2 mt-6" role="group" aria-label="Фильтр по тегам">
-                    {allTags.slice(0, 10).map(tag => (
+                    {allTags.map(tag => (
                       <Badge
                         key={tag}
                         variant={filters.tags?.includes(tag) ? 'default' : 'secondary'}

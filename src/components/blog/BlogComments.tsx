@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import DOMPurify from 'dompurify';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -152,8 +153,10 @@ function BlogComments({ articleId }: BlogCommentsProps) {
 
   // Simple CAPTCHA simulation (in production, use reCAPTCHA or similar)
   const handleCaptchaVerify = () => {
-    const answer = prompt('Сколько будет 2 + 2?');
-    if (answer === '4') {
+    const a = Math.floor(Math.random() * 10) + 1;
+    const b = Math.floor(Math.random() * 10) + 1;
+    const answer = prompt(`Сколько будет ${a} + ${b}?`);
+    if (answer === String(a + b)) {
       setCaptchaVerified(true);
       setErrors(prev => {
         const newErrors = { ...prev };
@@ -351,7 +354,7 @@ function CommentItem({ comment, onReply, level }: CommentItemProps) {
       </div>
 
       {/* Comment Content */}
-      <p className="text-sm mb-3 whitespace-pre-wrap">{comment.content}</p>
+      <p className="text-sm mb-3 whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(comment.content).replace(/\n/g, '<br>') }} />
 
       {/* Reply Button */}
       {canReply && (
