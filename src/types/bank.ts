@@ -4,7 +4,7 @@
  */
 
 // Базовые типы
-export type ProductType = 'mortgage' | 'deposit' | 'credit' | 'insurance' | 'debit';
+export type ProductType = 'mortgage' | 'deposit' | 'credit' | 'insurance' | 'card';
 export type RiskTolerance = 'low' | 'medium' | 'high';
 export type EmploymentType = 'employee' | 'self_employed' | 'unemployed' | 'retired' | 'student';
 export type RecommendationType = 'automatic' | 'manual' | 'promoted';

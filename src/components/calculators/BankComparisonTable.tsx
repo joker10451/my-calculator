@@ -3,11 +3,33 @@ import { BankProductRepository, BankRepository } from '@/lib/database/bankReposi
 import type { Bank, BankProduct, ProductType } from '@/types/bank';
 import { Building2, Star, ArrowUpRight, ChevronDown, ChevronUp, Filter, Trophy, TrendingDown, Shield, Percent, Calendar, Wallet } from 'lucide-react';
 
+const BANK_COLORS: Record<string, string> = {
+  'Сбербанк': 'bg-green-100 text-green-700',
+  'ВТБ': 'bg-blue-100 text-blue-700',
+  'Альфа-Банк': 'bg-red-100 text-red-700',
+  'Т-Банк': 'bg-yellow-100 text-yellow-700',
+  'Газпромбанк': 'bg-sky-100 text-sky-700',
+  'Росбанк': 'bg-red-100 text-red-700',
+};
+
+function BankLogo({ bank, size = 'w-12 h-12' }: { bank: Bank | undefined; size?: string }) {
+  const [imgError, setImgError] = useState(false);
+  if (!bank) {
+    return <div className={`${size} bg-slate-200 rounded-xl flex items-center justify-center`}><Building2 className="w-6 h-6 text-slate-400" /></div>;
+  }
+  if (imgError || !bank.logo_url) {
+    const initials = bank.name.split(' ').map(w => w[0]).join('').substring(0, 2);
+    const color = BANK_COLORS[bank.name] || 'bg-slate-100 text-slate-700';
+    return <div className={`${size} ${color} rounded-xl flex items-center justify-center font-black text-xs`}>{initials}</div>;
+  }
+  return <img src={bank.logo_url} alt={bank.name} className={`${size} rounded-xl object-cover`} onError={() => setImgError(true)} />;
+}
+
 const PRODUCT_TYPES: { value: ProductType; label: string; icon: typeof Wallet }[] = [
   { value: 'mortgage', label: 'Ипотека', icon: Building2 },
   { value: 'deposit', label: 'Вклады', icon: Wallet },
   { value: 'credit', label: 'Кредиты', icon: TrendingDown },
-  { value: 'debit', label: 'Дебетовые карты', icon: Shield },
+  { value: 'card', label: 'Дебетовые карты', icon: Shield },
 ];
 
 interface ComparisonRow {
@@ -172,7 +194,7 @@ export function BankComparisonTable() {
         }),
         icon: Calendar,
       });
-    } else if (selectedType === 'debit') {
+    } else if (selectedType === 'card') {
       rows.push({
         label: 'Кэшбэк',
         values: filteredProducts.map(p => p.features?.cashback ? '✅ Да' : '—'),
@@ -296,13 +318,7 @@ export function BankComparisonTable() {
                           Лучшее
                         </div>
                       )}
-                      {bank?.logo_url ? (
-                        <img src={bank.logo_url} alt={bank.name} className="w-12 h-12 rounded-xl object-cover mb-2" />
-                      ) : (
-                        <div className="w-12 h-12 bg-slate-200 rounded-xl flex items-center justify-center mb-2">
-                          <Building2 className="w-6 h-6 text-slate-400" />
-                        </div>
-                      )}
+                      <BankLogo bank={bank} />
                       <span className="font-black text-slate-900 text-sm">{bank?.name ?? product.name}</span>
                       <div className="flex items-center gap-1 mt-1">
                         <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
@@ -364,13 +380,7 @@ export function BankComparisonTable() {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    {bank?.logo_url ? (
-                      <img src={bank.logo_url} alt={bank.name} className="w-12 h-12 rounded-xl object-cover" />
-                    ) : (
-                      <div className="w-12 h-12 bg-slate-200 rounded-xl flex items-center justify-center">
-                        <Building2 className="w-6 h-6 text-slate-400" />
-                      </div>
-                    )}
+                    <BankLogo bank={bank} />
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-black text-slate-900">{bank?.name ?? product.name}</span>
@@ -427,7 +437,7 @@ export function BankComparisonTable() {
           {selectedType === 'mortgage' && 'Обращайте внимание не только на ставку, но и на наличие досрочного погашения, онлайн-заявки и дополнительных комиссий. Разница в 0.5% может сэкономить сотни тысяч за весь срок.'}
           {selectedType === 'deposit' && 'Сравнивайте не только ставку, но и условия пополнения, капитализации и досрочного снятия. Вклад с капитализацией может дать больший доход при той же ставке.'}
           {selectedType === 'credit' && 'Потребительский кредит — это не только ставка. Учитывайте страховку, комиссии за обслуживание и возможность досрочного погашения без штрафов.'}
-          {selectedType === 'debit' && 'Обращайте внимание на кэшбэк, бесплатное обслуживание и процент на остаток. Иногда карта с меньшим кэшбэком, но без платы за обслуживание выгоднее.'}
+          {selectedType === 'card' && 'Обращайте внимание на кэшбэк, бесплатное обслуживание и процент на остаток. Иногда карта с меньшим кэшбэком, но без платы за обслуживание выгоднее.'}
         </p>
       </div>
     </div>
