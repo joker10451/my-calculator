@@ -22,9 +22,9 @@ const MaternityCapitalCalculator = () => {
     useEffect(() => {
         const params = parseShareableLink();
         if (params) {
-            if (params.firstChildYear) setFirstChildYear(params.firstChildYear);
-            if (params.secondChildYear) setSecondChildYear(params.secondChildYear);
-            if (params.hasSecondChild !== undefined) setHasSecondChild(params.hasSecondChild);
+            if (params.firstChildYear) setFirstChildYear(params.firstChildYear as number);
+            if (params.secondChildYear) setSecondChildYear(params.secondChildYear as number);
+            if (params.hasSecondChild !== undefined) setHasSecondChild(params.hasSecondChild as boolean);
         }
     }, []);
 
@@ -129,7 +129,7 @@ const MaternityCapitalCalculator = () => {
                     <div className="bg-muted/50 p-4 rounded-xl flex gap-3 text-sm text-muted-foreground">
                         <Info className="w-5 h-5 flex-shrink-0 text-primary" />
                         <p>
-                            Материнский капитал проиндексирован с 1 февраля 2025 и 2026 года. Расчет актуален на весь 2026 год.
+                            Материнский капитал проиндексирован с 1 февраля 2026 года. Расчет актуален на весь 2026 год.
                         </p>
                     </div>
                 </div>

@@ -628,11 +628,12 @@ const legacyBlogPosts: Partial<BlogPost>[] = [
 ];
 
 // Мигрируем все посты к новой структуре с поддержкой мультиязычности
-export const blogPosts: BlogPost[] = migrateBlogPosts([
-  ...legacyBlogPosts,
-  ...newBlogPosts,
-  ...additionalBlogPosts,
-  ...moreBlogPosts,
-  ...generatedArticles,
-  ...allGeneratedArticles
-]);
+// Дедупликация по ID — legacyBlogPosts уже содержит все посты
+const allPosts = legacyBlogPosts as Partial<BlogPost>[];
+const uniqueById = new Map<string, Partial<BlogPost>>();
+for (const post of allPosts) {
+  if (post.id && !uniqueById.has(post.id)) {
+    uniqueById.set(post.id, post);
+  }
+}
+export const blogPosts: BlogPost[] = migrateBlogPosts([...uniqueById.values()]);

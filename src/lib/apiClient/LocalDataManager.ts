@@ -71,14 +71,14 @@ export class LocalDataManager {
       const feeScheduleData: FeeScheduleApiData = {
         version: this.dataVersion,
         lastModified: this.lastUpdateDate,
-        generalJurisdiction: GENERAL_JURISDICTION_RULES,
-        arbitrationCourts: ARBITRATION_RULES,
-        exemptions: EXEMPTION_CATEGORIES,
+        generalJurisdiction: GENERAL_JURISDICTION_RULES as any[],
+        arbitrationCourts: ARBITRATION_RULES as any[],
+        exemptions: EXEMPTION_CATEGORIES as any[],
         metadata: {
           source: 'local',
           legalBasis: 'НК РФ статьи 333.19, 333.21, 333.36, 333.37',
           effectiveDate: this.lastUpdateDate,
-          nextReviewDate: new Date('2025-01-01')
+          nextReviewDate: new Date('2027-01-01')
         }
       };
 
@@ -191,7 +191,7 @@ export class LocalDataManager {
       version: this.dataVersion,
       lastUpdate: this.lastUpdateDate,
       source: 'Локальные данные (НК РФ)',
-      nextReviewDate: new Date('2025-01-01')
+      nextReviewDate: new Date('2027-01-01')
     };
   }
 
@@ -224,7 +224,7 @@ export class LocalDataManager {
    * Получить статистику кэша
    */
   getCacheStatistics(): Record<string, unknown> {
-    const cacheWithStats = this.cache as Record<string, unknown>;
+    const cacheWithStats = (this.cache as unknown) as Record<string, unknown>;
     
     if ('getStatistics' in this.cache && typeof cacheWithStats.getStatistics === 'function') {
       return (cacheWithStats.getStatistics as () => Record<string, unknown>)();

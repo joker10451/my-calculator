@@ -83,7 +83,7 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     bankId: 'tbank',
     productType: 'debit',
     erid: '2SDnjeBaaR6',
-    description: 'Дебетовая карта ALL Airlines Т-Банк с промокодом LETIM2025'
+    description: 'Дебетовая карта ALL Airlines Т-Банк с промокодом LETIM2026'
   },
   
   // Добавьте свои партнерские ссылки здесь

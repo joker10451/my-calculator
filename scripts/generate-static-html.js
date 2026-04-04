@@ -18,18 +18,18 @@ const routes = [
   { path: '/terms/', folder: 'terms', title: 'Условия использования — Считай.RU', description: 'Пользовательское соглашение сервиса Считай.RU. Правила использования бесплатных онлайн калькуляторов.' },
   { path: '/blog/', folder: 'blog', title: 'Блог — Полезные статьи о финансах и расчетах', description: 'Статьи о том, как правильно рассчитывать ипотеку, налоги, пособия. Советы по финансовому планированию от Считай.RU.' },
   { path: '/sitemap/', folder: 'sitemap', title: 'Карта сайта — Все калькуляторы | Считай.RU', description: 'Полный список всех калькуляторов и страниц сайта Считай.RU. Ипотека, кредит, зарплата, налоги, ЖКХ и другие.' },
-  { path: '/calculator/mortgage/', folder: 'calculator/mortgage', title: 'Ипотечный калькулятор онлайн — Расчет платежа 2025', description: 'Рассчитайте ипотеку онлайн: ежемесячный платеж, переплату, график платежей. Учитываем ставки 2025 года, первоначальный взнос, срок кредита.' },
-  { path: '/calculator/salary/', folder: 'calculator/salary', title: 'Калькулятор зарплаты онлайн — Расчет НДФЛ и на руки', description: 'Рассчитайте зарплату с учетом НДФЛ 13%. Переводим зарплату до вычета налогов в зарплату на руки и наоборот. Актуальные ставки 2025.' },
+  { path: '/calculator/mortgage/', folder: 'calculator/mortgage', title: 'Ипотечный калькулятор онлайн — Расчет платежа 2026', description: 'Рассчитайте ипотеку онлайн: ежемесячный платеж, переплату, график платежей. Учитываем ставки 2026 года, первоначальный взнос, срок кредита.' },
+  { path: '/calculator/salary/', folder: 'calculator/salary', title: 'Калькулятор зарплаты онлайн — Расчет НДФЛ и на руки', description: 'Рассчитайте зарплату с учетом НДФЛ 13%. Переводим зарплату до вычета налогов в зарплату на руки и наоборот. Актуальные ставки 2026.' },
   { path: '/calculator/credit/', folder: 'calculator/credit', title: 'Кредитный калькулятор онлайн — Расчет платежей', description: 'Калькулятор потребительского кредита: расчет ежемесячного платежа, процентов, переплаты. Аннуитетные и дифференцированные платежи.' },
   { path: '/calculator/bmi/', folder: 'calculator/bmi', title: 'Калькулятор ИМТ онлайн — Индекс массы тела', description: 'Рассчитайте индекс массы тела (ИМТ) бесплатно. Узнайте свою норму веса, ожирение или дефицит массы тела по формуле ВОЗ.' },
   { path: '/calculator/fuel/', folder: 'calculator/fuel', title: 'Калькулятор расхода топлива — Расчет стоимости поездки', description: 'Рассчитайте расход бензина на 100 км и стоимость поездки. Учитываем расход автомобиля, цену топлива, расстояние.' },
-  { path: '/calculator/utilities/', folder: 'calculator/utilities', title: 'Калькулятор ЖКХ онлайн — Расчет коммунальных платежей', description: 'Рассчитайте коммунальные услуги: отопление, вода, электричество, газ. Тарифы ЖКХ 2025 по регионам России.' },
-  { path: '/calculator/court-fee/', folder: 'calculator/court-fee', title: 'Калькулятор госпошлины в суд 2025 — Расчет онлайн', description: 'Рассчитайте госпошлину для суда общей юрисдикции и арбитражного суда. Тарифы 2025, льготы, калькулятор искового заявления.' },
+  { path: '/calculator/utilities/', folder: 'calculator/utilities', title: 'Калькулятор ЖКХ онлайн — Расчет коммунальных платежей', description: 'Рассчитайте коммунальные услуги: отопление, вода, электричество, газ. Тарифы ЖКХ 2026 по регионам России.' },
+  { path: '/calculator/court-fee/', folder: 'calculator/court-fee', title: 'Калькулятор госпошлины в суд 2026 — Расчет онлайн', description: 'Рассчитайте госпошлину для суда общей юрисдикции и арбитражного суда. Тарифы 2026, льготы, калькулятор искового заявления.' },
   { path: '/calculator/deposit/', folder: 'calculator/deposit', title: 'Депозитный калькулятор онлайн — Расчет доходности вклада', description: 'Рассчитайте доходность банковского вклада с капитализацией и без. Проценты, сумма в конце срока, сравнение условий.' },
   { path: '/calculator/currency/', folder: 'calculator/currency', title: 'Конвертер валют онлайн — Курс ЦБ РФ', description: 'Конвертер валют по курсу Центробанка России. Перевод рублей в доллары, евро, юани и обратно. Актуальный курс на сегодня.' },
   { path: '/calculator/refinancing/', folder: 'calculator/refinancing', title: 'Калькулятор рефинансирования — Выгодно ли перекредитоваться', description: 'Рассчитайте выгоду от рефинансирования кредита или ипотеки. Сравните старые и новые условия, экономию на процентах.' },
-  { path: '/calculator/alimony/', folder: 'calculator/alimony', title: 'Калькулятор алиментов 2025 — Расчет размера выплат', description: 'Рассчитайте размер алиментов на ребенка в 2025 году. Процент от зарплаты, фиксированная сумма, МРОТ. Онлайн калькулятор.' },
-  { path: '/calculator/maternity-capital/', folder: 'calculator/maternity-capital', title: 'Калькулятор материнского капитала 2025', description: 'Рассчитайте размер материнского капитала в 2025 году. Индексация, региональные выплаты, на что потратить.' },
+  { path: '/calculator/alimony/', folder: 'calculator/alimony', title: 'Калькулятор алиментов 2026 — Расчет размера выплат', description: 'Рассчитайте размер алиментов на ребенка в 2026 году. Процент от зарплаты, фиксированная сумма, МРОТ. Онлайн калькулятор.' },
+  { path: '/calculator/maternity-capital/', folder: 'calculator/maternity-capital', title: 'Калькулятор материнского капитала 2026', description: 'Рассчитайте размер материнского капитала в 2026 году. Индексация, региональные выплаты, на что потратить.' },
   { path: '/calculator/calories/', folder: 'calculator/calories', title: 'Калькулятор калорий онлайн — Суточная норма', description: 'Рассчитайте суточную норму калорий для похудения, набора массы или поддержания веса. Формулы Миффлина-Сан Жеора и Харриса-Бенедикта.' },
   { path: '/calculator/water/', folder: 'calculator/water', title: 'Калькулятор воды онлайн — Сколько пить воды в день', description: 'Рассчитайте дневную норму воды исходя из веса и активности. Сколько нужно пить воды в день для здоровья.' },
   { path: '/calculator/tire-size/', folder: 'calculator/tire-size', title: 'Калькулятор размера шин — Подбор шин для авто', description: 'Подберите шины для автомобиля по размеру. Калькулятор совместимости шин, сравнение размеров, расчет клиренса.' },
@@ -68,7 +68,7 @@ function generateHTML(route) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${route.title}</title>
   <meta name="description" content="${route.description}" />
-  <meta name="keywords" content="калькулятор онлайн, расчет, бесплатно, 2025" />
+  <meta name="keywords" content="калькулятор онлайн, расчет ипотеки, калькулятор зарплаты, НДФЛ, ЖКХ, алименты, бесплатно, 2026" />
   <meta name="author" content="Считай.RU" />
   <meta name="robots" content="index, follow" />
   
@@ -80,7 +80,10 @@ function generateHTML(route) {
   <meta property="og:url" content="${fullUrl}" />
   <meta property="og:title" content="${route.title}" />
   <meta property="og:description" content="${route.description}" />
-  <meta property="og:image" content="${baseUrl}/og-image.svg" />
+  <meta property="og:image" content="${baseUrl}/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:site_name" content="Считай.RU" />
   <meta property="og:locale" content="ru_RU" />
   
@@ -89,7 +92,7 @@ function generateHTML(route) {
   <meta name="twitter:url" content="${fullUrl}" />
   <meta name="twitter:title" content="${route.title}" />
   <meta name="twitter:description" content="${route.description}" />
-  <meta name="twitter:image" content="${baseUrl}/og-image.svg" />
+  <meta name="twitter:image" content="${baseUrl}/og-image.png" />
   
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -121,15 +124,55 @@ ${cssLink}
   <div id="root"></div>
   <script type="module" src="${entryPoint}"></script>
   
-  <!-- NoScript Content for SEO -->
+  <!-- Rich SEO Content for Search Engines -->
   <noscript>
     <div style="font-family: system-ui, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px;">
       <h1>${route.title}</h1>
       <p>${route.description}</p>
-      <p>Для использования калькулятора необходимо включить JavaScript.</p>
-      <p><a href="/" style="color: #3B82F6;">← На главную</a></p>
+      <nav>
+        <h2>Популярные калькуляторы</h2>
+        <ul>
+          <li><a href="/calculator/mortgage/">Ипотечный калькулятор — расчет платежа 2026</a></li>
+          <li><a href="/calculator/salary/">Калькулятор зарплаты — НДФЛ, на руки</a></li>
+          <li><a href="/calculator/credit/">Кредитный калькулятор — аннуитет и дифференцированный</a></li>
+          <li><a href="/calculator/bmi/">Калькулятор ИМТ — индекс массы тела</a></li>
+          <li><a href="/calculator/utilities/">Калькулятор ЖКХ — коммунальные платежи 2026</a></li>
+          <li><a href="/calculator/alimony/">Калькулятор алиментов 2026</a></li>
+          <li><a href="/calculator/court-fee/">Калькулятор госпошлины в суд</a></li>
+          <li><a href="/calculator/fuel/">Калькулятор расхода топлива</a></li>
+          <li><a href="/calculator/deposit/">Калькулятор вкладов — доходность депозита</a></li>
+          <li><a href="/calculator/maternity-capital/">Калькулятор материнского капитала 2026</a></li>
+          <li><a href="/calculator/osago/">Калькулятор ОСАГО онлайн</a></li>
+          <li><a href="/calculator/calories/">Калькулятор калорий — суточная норма</a></li>
+        </ul>
+        <h2>Разделы</h2>
+        <ul>
+          <li><a href="/blog/">Блог — финансовые статьи 2026</a></li>
+          <li><a href="/all/">Все калькуляторы</a></li>
+          <li><a href="/about/">О проекте</a></li>
+        </ul>
+      </nav>
+      <p>© 2026 Считай.RU — Бесплатные онлайн калькуляторы для России и СНГ. Все расчёты без регистрации.</p>
     </div>
   </noscript>
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Считай.RU",
+    "alternateName": "Schitay Online",
+    "url": "https://schitay-online.ru",
+    "description": "Бесплатные онлайн калькуляторы для России и СНГ: ипотека, кредит, зарплата, ЖКХ, налоги",
+    "inLanguage": "ru",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://schitay-online.ru/all?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 </body>
 </html>`;
 }
