@@ -49,6 +49,7 @@ const JoyMoneyPage = lazy(() => import("./pages/JoyMoneyPage"));
 const EmbedWidgetPage = lazy(() => import("./pages/EmbedWidgetPage"));
 const BankMortgagePage = lazy(() => import("./pages/BankMortgagePage"));
 const MFOPage = lazy(() => import("./pages/MFOPage"));
+const FinancialLiteracyQuiz = lazy(() => import("./pages/FinancialLiteracyQuiz"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllCalculatorsPage = lazy(() => import("./pages/AllCalculatorsPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -141,6 +142,7 @@ const AnimatedRoutes = () => {
           <Route path="/widgets" element={<PageTransition><EmbedWidgetPage /></PageTransition>} />
           <Route path="/bank/:bank/mortgage" element={<PageTransition><BankMortgagePage /></PageTransition>} />
           <Route path="/mfo/:mfo" element={<PageTransition><MFOPage /></PageTransition>} />
+          <Route path="/quiz/financial-literacy" element={<PageTransition><FinancialLiteracyQuiz /></PageTransition>} />
           <Route path="/category/:id" element={<PageTransition><CategoryPage /></PageTransition>} />
           <Route path="/calculator/maternity-capital" element={<PageTransition><MaternityCapitalCalculatorPage /></PageTransition>} />
           <Route path="/calculator/calories" element={<PageTransition><CalorieCalculatorPage /></PageTransition>} />

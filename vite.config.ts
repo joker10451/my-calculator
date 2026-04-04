@@ -102,73 +102,12 @@ export default defineConfig(({ mode }) => ({
     })
   ].filter(Boolean),
   build: {
-    target: 'es2020',
-    minify: 'esbuild',
-    sourcemap: mode === 'development',
     rollupOptions: {
       output: {
         manualChunks: {
-          // Основные библиотеки
-          'react-vendor': ['react', 'react-dom'],
-
-          // UI библиотеки
-          'ui-vendor': [
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-alert-dialog',
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-popover',
-            '@radix-ui/react-select',
-            '@radix-ui/react-slider',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-toast',
-            '@radix-ui/react-tooltip'
-          ],
-
-          // Графики и визуализация
-          'charts-vendor': ['recharts'],
-
-          // PDF и экспорт
-          'export-vendor': ['jspdf', 'html2canvas'],
-
-          // Роутинг
-          'router-vendor': ['react-router-dom'],
-
-          // Утилиты
-          'utils-vendor': [
-            'clsx',
-            'tailwind-merge',
-            'date-fns',
-            'zod'
-          ],
-
-          // Калькуляторы - группируем по типам
-          'calculators-financial': [
-            './src/components/calculators/MortgageCalculator.tsx',
-            './src/components/calculators/CreditCalculator.tsx',
-            './src/components/calculators/DepositCalculator.tsx',
-            './src/components/calculators/RefinancingCalculator.tsx'
-          ],
-
-          'calculators-personal': [
-            './src/components/calculators/SalaryCalculator.tsx',
-            './src/components/calculators/BMICalculator.tsx',
-            './src/components/calculators/CalorieCalculator.tsx'
-          ],
-
-          'calculators-utility': [
-            './src/components/calculators/UtilitiesCalculator.tsx',
-            './src/components/calculators/FuelCalculator.tsx',
-            './src/components/calculators/WaterCalculator.tsx'
-          ],
-
-          'calculators-other': [
-            './src/components/calculators/CourtFeeCalculator.tsx',
-            './src/components/calculators/CurrencyConverter.tsx',
-            './src/components/calculators/TireSizeCalculator.tsx',
-            './src/components/calculators/AlimonyCalculator.tsx',
-            './src/components/calculators/MaternityCapitalCalculator.tsx'
-          ]
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['lucide-react', 'framer-motion'],
+          'form-vendor': ['react-hook-form', '@hookform/resolvers', 'zod'],
         },
         chunkFileNames: (chunkInfo) => {
           const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/').pop()?.replace('.tsx', '').replace('.ts', '') : 'chunk';
