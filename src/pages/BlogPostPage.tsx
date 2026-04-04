@@ -8,8 +8,6 @@ import {
   MessageSquare, 
   ArrowLeft,
   ChevronUp,
-  Heart,
-  Bookmark,
   Copy
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -17,6 +15,7 @@ import { blogPosts } from '@/data/blogPosts';
 import { generatedArticles } from '@/data/blogArticlesGenerated';
 import { allGeneratedArticles } from '@/data/blogArticlesGenerated2';
 import { parseMarkdown } from '@/utils/markdown';
+import DOMPurify from 'dompurify';
 import { AuthorBio } from '@/components/blog/AuthorBio';
 import '@/styles/blog.css';
 
@@ -169,7 +168,7 @@ export default function BlogPostPage() {
 
             {/* Основной контент */}
             <article className="blog-content px-8 md:px-14 py-12 md:py-20 max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: parseMarkdown(post.content) }} />
+              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(parseMarkdown(post.content)) }} />
             </article>
 
             {/* Теги */}

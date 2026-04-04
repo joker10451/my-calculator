@@ -3,13 +3,21 @@ import { type MortgageCalculationResult } from "@/lib/mortgageCalculations";
 import { Button } from "@/components/ui/button";
 import { X, Pin } from "lucide-react";
 
+interface MortgageInputs {
+    price: number;
+    rate: number;
+    term: number;
+    initialPayment: number;
+    paymentType: string;
+}
+
 interface MortgageComparisonProps {
     pinned: {
         calculations: MortgageCalculationResult;
-        inputs: any;
+        inputs: MortgageInputs;
     } | null;
     current: MortgageCalculationResult;
-    currentInputs: any;
+    currentInputs: MortgageInputs;
     formatCurrency: (val: number) => string;
     onClear: () => void;
     onPin: () => void;
@@ -45,7 +53,7 @@ export const MortgageComparison = ({
     }: {
         title: string;
         data: MortgageCalculationResult;
-        inputs: any;
+        inputs: MortgageInputs;
         isCurrent?: boolean
     }) => (
         <div className={`p-4 h-full flex flex-col justify-between ${isCurrent ? 'bg-primary/5' : 'bg-muted/50'}`}>

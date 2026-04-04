@@ -229,7 +229,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                       variant="ghost" 
                       size="sm" 
                       className="ml-2 h-8 w-8 p-0"
-                      onClick={() => window.open(ref.url, '_blank')}
+                      onClick={() => window.open(ref.url, '_blank', 'noopener,noreferrer')}
                     >
                       <ExternalLink className="w-3 h-3" />
                     </Button>

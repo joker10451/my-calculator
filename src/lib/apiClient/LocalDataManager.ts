@@ -71,9 +71,9 @@ export class LocalDataManager {
       const feeScheduleData: FeeScheduleApiData = {
         version: this.dataVersion,
         lastModified: this.lastUpdateDate,
-        generalJurisdiction: GENERAL_JURISDICTION_RULES as any[],
-        arbitrationCourts: ARBITRATION_RULES as any[],
-        exemptions: EXEMPTION_CATEGORIES as any[],
+        generalJurisdiction: GENERAL_JURISDICTION_RULES as unknown as Array<Record<string, unknown>>,
+        arbitrationCourts: ARBITRATION_RULES as unknown as Array<Record<string, unknown>>,
+        exemptions: EXEMPTION_CATEGORIES as unknown as Array<Record<string, unknown>>,
         metadata: {
           source: 'local',
           legalBasis: 'НК РФ статьи 333.19, 333.21, 333.36, 333.37',
@@ -111,7 +111,7 @@ export class LocalDataManager {
   /**
    * Получить правовой документ (заглушка для совместимости)
    */
-  async getLegalDocument(documentId: string): Promise<ApiResponse<LegalDocumentData>> {
+  async getLegalDocument(_documentId: string): Promise<ApiResponse<LegalDocumentData>> {
     console.warn('Получение правовых документов недоступно в локальном режиме');
     return {
       success: false,
@@ -125,7 +125,7 @@ export class LocalDataManager {
   /**
    * Поиск документов (заглушка для совместимости)
    */
-  async searchDocuments(query: string): Promise<ApiResponse<LegalDocumentData[]>> {
+  async searchDocuments(_query: string): Promise<ApiResponse<LegalDocumentData[]>> {
     console.warn('Поиск документов недоступен в локальном режиме');
     return {
       success: false,

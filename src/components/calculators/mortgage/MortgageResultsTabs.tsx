@@ -2,8 +2,10 @@ import { Table as TableIcon, LineChart as LineChartIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as ChartTooltip, Legend } from 'recharts';
 
+import type { MortgageCalculationResult } from '@/lib/mortgageCalculations';
+
 interface MortgageResultsTabsProps {
-    calculations: any;
+    calculations: MortgageCalculationResult;
     formatCurrency: (v: number) => string;
 }
 
@@ -37,7 +39,7 @@ export const MortgageResultsTabs = ({
                                 </tr>
                             </thead>
                             <tbody>
-                                {calculations.schedule.slice(0, 100).map((item: any) => (
+                                {calculations.schedule.slice(0, 100).map((item) => (
                                     <tr key={item.month} className={`border-b last:border-0 hover:bg-slate-50 transition-colors ${item.isEarly ? 'bg-green-50/50' : ''}`}>
                                         <td className="py-2 text-muted-foreground">{item.month}</td>
                                         <td className="py-2 font-semibold">

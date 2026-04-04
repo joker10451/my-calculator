@@ -5,7 +5,8 @@ import {
     Heart,
     Users,
     TrendingUp,
-    Scale
+    Scale,
+    Bike
 } from "lucide-react";
 
 export const categories = [
@@ -21,7 +22,10 @@ export const categories = [
             { name: "Рефинансирование", href: "/calculator/refinancing" },
             { name: "Калькулятор вкладов", href: "/calculator/deposit" },
             { name: "Конвертер валют", href: "/calculator/currency" },
-            { name: "Доходность инвестиций", href: "/calculator/investment" }
+            { name: "Доходность инвестиций", href: "/calculator/investment" },
+            { name: "Сколько вы переплатите банку", href: "/calculator/overpayment" },
+            { name: "Сравнение банков", href: "/compare-banks" },
+            { name: "Займ в JoyMoney", href: "/joy-money" }
         ],
         href: "/category/finance",
     },
@@ -36,7 +40,8 @@ export const categories = [
             { name: "Калькулятор отпускных", href: "/calculator/vacation" },
             { name: "Калькулятор больничного", href: "/calculator/sick-leave" },
             { name: "Налоги для ИП/самозанятых", href: "/calculator/self-employed" },
-            { name: "Калькулятор пенсии", href: "/calculator/pension" }
+            { name: "Калькулятор пенсии", href: "/calculator/pension" },
+            { name: "Курьер Яндекс.Еда/Лавка", href: "/courier-yandex" }
         ],
         href: "/category/salary",
     },

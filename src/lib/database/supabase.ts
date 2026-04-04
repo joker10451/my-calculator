@@ -359,22 +359,28 @@ export interface Database {
   };
 }
 
-// Конфигурация Supabase
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'http://localhost:54321';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key';
+// Конфигурация Supabase — безопасная инициализация
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
-  },
-  realtime: {
-    params: {
-      eventsPerSecond: 10
-    }
-  }
-});
+const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
+
+export const supabase = isSupabaseConfigured
+  ? createClient<Database>(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+      },
+      realtime: {
+        params: {
+          eventsPerSecond: 10
+        }
+      }
+    })
+  : null as unknown as ReturnType<typeof createClient<Database>>;
+
+export { isSupabaseConfigured };
 
 // Утилиты для работы с базой данных
 export class DatabaseError extends Error {
@@ -387,9 +393,11 @@ export class DatabaseError extends Error {
 export const handleDatabaseError = (error: unknown): never => {
   console.error('Database error:', error);
   
-  const err = error as { code?: string };
-  if (err.code) {
-    switch (err.code) {
+  const err = error instanceof Error ? error : new Error(String(error));
+  const code = (error as { code?: string })?.code;
+  
+  if (code) {
+    switch (code) {
       case 'PGRST116':
         throw new DatabaseError('Запись не найдена', 'NOT_FOUND', error);
       case '23505':
@@ -399,11 +407,11 @@ export const handleDatabaseError = (error: unknown): never => {
       case '23514':
         throw new DatabaseError('Нарушение ограничения', 'CHECK_VIOLATION', error);
       default:
-        throw new DatabaseError(error.message || 'Ошибка базы данных', error.code, error);
+        throw new DatabaseError(err.message || 'Ошибка базы данных', code, error);
     }
   }
   
-  throw new DatabaseError(error.message || 'Неизвестная ошибка базы данных', 'UNKNOWN', error);
+  throw new DatabaseError(err.message || 'Неизвестная ошибка базы данных', 'UNKNOWN', error);
 };
 
 // Типы для экспорта

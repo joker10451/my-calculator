@@ -97,7 +97,7 @@ const BlogPage = () => {
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
         <Header />
 
-        <main id="main-content">
+        <main id="main-content" className="pt-16">
           {/* Hero секция с AuroraBackground */}
           <section className="relative overflow-hidden bg-slate-900 border-b border-white/5">
             <div className="absolute inset-0 z-0">

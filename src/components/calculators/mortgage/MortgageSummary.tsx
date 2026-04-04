@@ -2,8 +2,10 @@ import { TrendingDown, Download, Share2, Scale, TrendingDown as SavingsIcon } fr
 import { Button } from "@/components/ui/button";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip as ChartTooltip, Legend } from 'recharts';
 
+import type { MortgageCalculationResult } from '@/lib/mortgageCalculations';
+
 interface MortgageSummaryProps {
-    calculations: any;
+    calculations: MortgageCalculationResult;
     formatCurrency: (v: number) => string;
     handleDownload: () => void;
     handleShare: () => void;

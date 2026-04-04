@@ -98,7 +98,7 @@ export function printElement(elementId: string, title?: string) {
     return;
   }
 
-  const printWindow = window.open('', '_blank');
+  const printWindow = window.open('', '_blank', 'noopener,noreferrer');
   if (!printWindow) {
     console.error('Failed to open print window');
     return;

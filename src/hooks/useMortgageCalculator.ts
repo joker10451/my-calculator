@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
-import { calculateMortgage, type ExtraPayment, type MortgageCalculationResult } from "@/lib/mortgageCalculations";
+import { calculateMortgage, type ExtraPayment, type MortgageCalculationResult, type ScheduleItem } from "@/lib/mortgageCalculations";
 import { parseShareableLink } from "@/utils/exportUtils";
 import { STAMP_BASE64 } from "@/lib/assets";
 import { exportToPDF } from "@/lib/pdfService";
@@ -17,9 +17,17 @@ export const useMortgageCalculator = () => {
     const [withMatCapital, setWithMatCapital] = useState(false);
     const [paymentType, setPaymentType] = useState<"annuity" | "differentiated">("annuity");
     const [extraPayments, setExtraPayments] = useLocalStorage<ExtraPayment[]>("mortgage_extra_payments", []);
+    interface MortgageInputs {
+        price: number;
+        initialPayment: number;
+        term: number;
+        rate: number;
+        paymentType: "annuity" | "differentiated";
+    }
+
     const [pinnedCalculation, setPinnedCalculation] = useState<{
         calculations: MortgageCalculationResult;
-        inputs: any;
+        inputs: MortgageInputs;
     } | null>(null);
 
     const MAT_CAPITAL = 934058; // Official for 2026 (first child)
@@ -127,7 +135,18 @@ export const useMortgageCalculator = () => {
         setExtraPayments(extraPayments.map(p => p.id === id ? { ...p, ...updates } : p));
     };
 
-    const handleLoadFromHistory = (item: any) => {
+    interface HistoryItem {
+        inputs: {
+            price?: number;
+            initialPayment?: number;
+            term?: number;
+            rate?: number;
+            withMatCapital?: boolean;
+            paymentType?: "annuity" | "differentiated";
+        };
+    }
+
+    const handleLoadFromHistory = (item: HistoryItem) => {
         if (item.inputs.price) setPrice(item.inputs.price);
         if (item.inputs.initialPayment) setInitialPayment(item.inputs.initialPayment);
         if (item.inputs.term) setTerm(item.inputs.term);
@@ -136,7 +155,7 @@ export const useMortgageCalculator = () => {
         if (item.inputs.paymentType) setPaymentType(item.inputs.paymentType);
     };
 
-    const exportData = useMemo(() => calculations.schedule.map(item => ({
+    const exportData = useMemo(() => calculations.schedule.map((item: ScheduleItem) => ({
         'Месяц': item.month,
         'Платеж': formatCurrency(item.payment),
         'Основной долг': formatCurrency(item.principal),

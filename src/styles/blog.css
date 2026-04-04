@@ -68,3 +68,91 @@
   .standard-li { font-size: 1.25rem !important; }
   .premium-data-grid .inner-list { @apply grid-cols-1 gap-6; }
 }
+/* БЛОК ОФФЕРА (Pampadu / Affiliate) */
+.offer-box-modern { 
+  @apply bg-emerald-50/40 p-10 md:p-14 my-24 rounded-[3.5rem] border-4 border-emerald-500/20 relative overflow-hidden backdrop-blur-sm;
+  box-shadow: 0 40px 100px -20px hsla(150, 70%, 45%, 0.15);
+}
+
+.offer-tag {
+  @apply absolute top-0 right-0 bg-emerald-500 text-white font-black uppercase text-[0.65rem] tracking-[0.2em] py-3 px-8 rounded-bl-[2rem] shadow-lg;
+}
+
+.offer-title {
+  @apply text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tighter leading-tight;
+}
+
+.offer-description {
+  @apply text-xl text-slate-600 font-medium mb-12 leading-relaxed max-w-2xl;
+}
+
+.offer-cta {
+  @apply inline-flex items-center justify-center bg-emerald-600 text-white font-black text-xl py-6 px-14 rounded-[2.5rem] hover:bg-emerald-700 hover:scale-105 hover:shadow-[0_20px_50px_rgba(5,150,105,0.4)] transition-all duration-500 cursor-pointer no-underline;
+}
+
+.offer-footer {
+  @apply mt-8 text-sm text-emerald-700/60 font-bold uppercase tracking-widest flex items-center gap-2;
+}
+
+/* Mobile Optimizations for Offers */
+@media (max-width: 768px) {
+  .offer-box-modern { @apply p-8 my-16 rounded-[2.5rem]; }
+  .offer-title { font-size: 1.75rem !important; }
+  .offer-cta { @apply w-full py-5 text-lg; }
+}
+
+/* БЛОК ПРИМЕРА РАСЧЁТА */
+.calc-example {
+  @apply bg-white border-2 border-blue-100 rounded-[2rem] my-16 p-8 md:p-12 shadow-lg relative overflow-hidden;
+}
+
+.calc-example::before {
+  content: '';
+  @apply absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-500 to-blue-600;
+}
+
+.calc-title {
+  @apply text-xl md:text-2xl font-black text-slate-900 mb-8 flex items-center gap-3 tracking-tight;
+}
+
+.calc-title::before {
+  content: '📊';
+  font-size: 1.5rem;
+}
+
+.calc-body {
+  @apply space-y-4;
+}
+
+.calc-row {
+  @apply flex items-center justify-between py-4 px-6 rounded-xl bg-slate-50 border border-slate-100;
+}
+
+.calc-row:last-child {
+  @apply bg-blue-50 border-blue-200;
+}
+
+.calc-label {
+  @apply text-slate-600 font-semibold text-base md:text-lg;
+}
+
+.calc-value {
+  @apply text-slate-900 font-black text-lg md:text-xl tabular-nums;
+}
+
+.calc-row:last-child .calc-value {
+  @apply text-blue-700 text-xl md:text-2xl;
+}
+
+.calc-text {
+  @apply text-slate-600 text-base font-medium leading-relaxed;
+}
+
+@media (max-width: 768px) {
+  .calc-example { @apply p-6 my-12 rounded-[1.5rem]; }
+  .calc-title { @apply text-lg mb-6; }
+  .calc-row { @apply flex-col items-start gap-2 py-3 px-4; }
+  .calc-label { @apply text-sm; }
+  .calc-value { @apply text-base; }
+  .calc-row:last-child .calc-value { @apply text-lg; }
+}

@@ -176,7 +176,7 @@ export default defineConfig(({ mode }) => ({
         }
       },
     },
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500,
   },
   resolve: {
     alias: {
@@ -198,6 +198,6 @@ export default defineConfig(({ mode }) => ({
     exclude: ['@vite/client', '@vite/env']
   },
   esbuild: {
-    logOverride: { 'this-is-undefined-in-esm': 'silent' }
+    drop: mode === 'production' ? ['console', 'debugger'] : [],
   }
 }));

@@ -49,11 +49,67 @@ function parseInnerMarkdown(md: string): string {
 export function parseMarkdown(content: string): string {
   let html = content;
 
-  // 1. Кастомные блоки (Grid, Expert, Fact, Quote)
-  html = html.replace(/:::grid\s+([\s\S]*?):::/g, (match, p1) => `<div class="premium-data-grid">${parseInnerMarkdown(p1)}</div>`);
-  html = html.replace(/:::expert\s+([\s\S]*?):::/g, (match, p1) => `<div class="expert-box-modern"><div class="expert-header">💡 Совет эксперта</div><div class="expert-content">${parseInnerMarkdown(p1)}</div></div>`);
-  html = html.replace(/:::fact\s+([\s\S]*?):::/g, (match, p1) => `<div class="fact-box-modern"><div class="fact-icon">📝</div><div class="fact-body"><div class="fact-title font-black text-black text-xl mb-1 uppercase tracking-tight">Важный факт</div><div class="fact-text text-lg text-slate-700 font-semibold leading-relaxed">${parseInnerMarkdown(p1)}</div></div></div>`);
-  html = html.replace(/:::quote\s+([\s\S]*?):::/g, (match, p1) => `<blockquote class="modern-pull-quote">${p1.trim()}</blockquote>`);
+  // 1. Кастомные блоки (Offer, Grid, Expert, Fact, Quote)
+  html = html.replace(/:::offer\s+([\s\S]*?):::/g, (_match, p1) => {
+    const lines = p1.split('\n').map((l: string) => l.trim()).filter((l: string) => l);
+    let title = 'Специальное предложение';
+    let description = '';
+    let link = '#';
+    let cta = 'Подробнее';
+
+    for(const line of lines) {
+      if(line.startsWith('### ')) title = line.substring(4);
+      else if(line.includes('|') && line.includes('http')) {
+        const [l, c] = line.split('|');
+        link = l.trim();
+        cta = c.trim();
+      }
+      else description = line;
+    }
+
+    return `<div class="offer-box-modern">
+      <div class="offer-tag">Рекомендация Считай.RU</div>
+      <h3 class="offer-title">${title}</h3>
+      <p class="offer-description">${description}</p>
+      <a href="${link}" target="_blank" rel="nofollow" class="offer-cta">${cta}</a>
+      <div class="offer-footer">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Безопасная сделка через официального партнера
+      </div>
+    </div>`;
+  });
+
+  html = html.replace(/:::grid\s+([\s\S]*?):::/g, (_match, p1) => `<div class="premium-data-grid">${parseInnerMarkdown(p1)}</div>`);
+  html = html.replace(/:::expert\s+([\s\S]*?):::/g, (_match, p1) => `<div class="expert-box-modern"><div class="expert-header">💡 Совет эксперта</div><div class="expert-content">${parseInnerMarkdown(p1)}</div></div>`);
+  html = html.replace(/:::fact\s+([\s\S]*?):::/g, (_match, p1) => `<div class="fact-box-modern"><div class="fact-icon">📝</div><div class="fact-body"><div class="fact-title font-black text-black text-xl mb-1 uppercase tracking-tight">Важный факт</div><div class="fact-text text-lg text-slate-700 font-semibold leading-relaxed">${parseInnerMarkdown(p1)}</div></div></div>`);
+  html = html.replace(/:::quote\s+([\s\S]*?):::/g, (_match, p1) => {
+    const lines = p1.split('\n').map((l: string) => l.trim()).filter((l: string) => l);
+    let title = '';
+    const items: string[] = [];
+
+    for (const line of lines) {
+      if (line.startsWith('### ')) {
+        title = line.substring(4);
+      } else if (line.startsWith('- ') || line.startsWith('* ')) {
+        const content = line.replace(/^[-*]\s+/, '');
+        if (content.includes(':')) {
+          const colonIdx = content.indexOf(':');
+          const label = content.substring(0, colonIdx);
+          const value = content.substring(colonIdx + 1).trim();
+          items.push(`<div class="calc-row"><span class="calc-label">${applyInlineFormatting(label)}:</span><span class="calc-value">${applyInlineFormatting(value)}</span></div>`);
+        } else {
+          items.push(`<div class="calc-row"><span class="calc-value">${applyInlineFormatting(content)}</span></div>`);
+        }
+      } else {
+        items.push(`<p class="calc-text">${applyInlineFormatting(line)}</p>`);
+      }
+    }
+
+    return `<div class="calc-example">
+      ${title ? `<h4 class="calc-title">${applyInlineFormatting(title)}</h4>` : ''}
+      <div class="calc-body">${items.join('')}</div>
+    </div>`;
+  });
 
   // 2. Структурные элементы (Заголовки и Списки)
   html = html.replace(/^\s*###\s+(.*$)/gim, '<h3 class="modern-h3">$1</h3>');

@@ -41,6 +41,10 @@ const SelfEmployedCalculatorPage = lazy(() => import("./pages/SelfEmployedCalcul
 const PensionCalculatorPage = lazy(() => import("./pages/PensionCalculatorPage"));
 const KASKOCalculatorPage = lazy(() => import("./pages/KASKOCalculatorPage"));
 const InvestmentCalculatorPage = lazy(() => import("./pages/InvestmentCalculatorPage"));
+const OverpaymentCalculatorPage = lazy(() => import("./pages/OverpaymentCalculatorPage"));
+const BankComparisonPage = lazy(() => import("./pages/BankComparisonPage"));
+const YandexCourierPage = lazy(() => import("./pages/YandexCourierPage"));
+const JoyMoneyPage = lazy(() => import("./pages/JoyMoneyPage"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllCalculatorsPage = lazy(() => import("./pages/AllCalculatorsPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -125,6 +129,10 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/pension" element={<PageTransition><PensionCalculatorPage /></PageTransition>} />
           <Route path="/calculator/kasko" element={<PageTransition><KASKOCalculatorPage /></PageTransition>} />
           <Route path="/calculator/investment" element={<PageTransition><InvestmentCalculatorPage /></PageTransition>} />
+          <Route path="/calculator/overpayment" element={<PageTransition><OverpaymentCalculatorPage /></PageTransition>} />
+          <Route path="/compare-banks" element={<PageTransition><BankComparisonPage /></PageTransition>} />
+          <Route path="/courier-yandex" element={<PageTransition><YandexCourierPage /></PageTransition>} />
+          <Route path="/joy-money" element={<PageTransition><JoyMoneyPage /></PageTransition>} />
           <Route path="/category/:id" element={<PageTransition><CategoryPage /></PageTransition>} />
           <Route path="/calculator/maternity-capital" element={<PageTransition><MaternityCapitalCalculatorPage /></PageTransition>} />
           <Route path="/calculator/calories" element={<PageTransition><CalorieCalculatorPage /></PageTransition>} />

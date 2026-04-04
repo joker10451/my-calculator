@@ -73,7 +73,7 @@ const BlogCategoryPage = () => {
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
         <Header />
         
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto px-4 py-8 pt-16">
           {/* Навигация */}
           <div className="mb-8">
             <Link 

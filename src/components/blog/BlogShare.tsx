@@ -43,21 +43,21 @@ const BlogShare = ({ post, shareCount = 0 }: BlogShareProps) => {
 
   const shareToVK = () => {
     const vkUrl = `https://vk.com/share.php?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareTitle)}&description=${encodeURIComponent(shareText)}`;
-    window.open(vkUrl, '_blank', 'width=600,height=400');
+    window.open(vkUrl, '_blank', 'width=600,height=400,noopener,noreferrer');
     shareTrackingService.trackShare(post.id, post.slug, 'vk');
     setIsOpen(false);
   };
 
   const shareToTelegram = () => {
     const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
-    window.open(telegramUrl, '_blank', 'width=600,height=400');
+    window.open(telegramUrl, '_blank', 'width=600,height=400,noopener,noreferrer');
     shareTrackingService.trackShare(post.id, post.slug, 'telegram');
     setIsOpen(false);
   };
 
   const shareToWhatsApp = () => {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${shareTitle} ${shareUrl}`)}`;
-    window.open(whatsappUrl, '_blank', 'width=600,height=400');
+    window.open(whatsappUrl, '_blank', 'width=600,height=400,noopener,noreferrer');
     shareTrackingService.trackShare(post.id, post.slug, 'whatsapp');
     setIsOpen(false);
   };
