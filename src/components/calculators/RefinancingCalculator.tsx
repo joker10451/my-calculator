@@ -1,343 +1,338 @@
-import { useState, useMemo, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Calculator, Percent, Info, Share2, Wallet, ArrowRight, Download } from "lucide-react";
-import { exportToPDF } from "@/lib/pdfService";
-import { STAMP_BASE64 } from "@/lib/assets";
-import { PSBCardWidget } from "@/components/PSBCardWidget";
-import { CalculatorActions } from "@/components/CalculatorActions";
-import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { parseShareableLink } from "@/utils/exportUtils";
-import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
+import { useState, useMemo } from 'react';
+import { TrendingDown, PiggyBank, Calendar, Percent, ArrowDown, ArrowRight, Download, Share2, Building2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { jsPDF } from 'jspdf';
 
-const RefinancingCalculator = () => {
-    const { formatCurrency, saveCalculation, showToast } = useCalculatorCommon('refinancing', 'Калькулятор рефинансирования');
-    // Current Loan
-    const [currentBalance, setCurrentBalance] = useState(1500000);
-    const [currentRate, setCurrentRate] = useState(16);
-    const [currentTerm, setCurrentTerm] = useState(36); // months left
+interface RefiResult {
+  oldMonthly: number;
+  newMonthly: number;
+  monthlySaving: number;
+  totalOldPayment: number;
+  totalNewPayment: number;
+  totalSaving: number;
+  oldRate: number;
+  newRate: number;
+}
 
-    // New Loan
-    const [newRate, setNewRate] = useState(12);
-    const [newTerm, setNewTerm] = useState(36);
+function formatMoney(v: number): string {
+  return Math.round(v).toLocaleString('ru-RU');
+}
 
-    useEffect(() => {
-        const params = parseShareableLink();
-        if (params) {
-            if (params.currentBalance) setCurrentBalance(params.currentBalance);
-            if (params.currentRate) setCurrentRate(params.currentRate);
-            if (params.currentTerm) setCurrentTerm(params.currentTerm);
-            if (params.newRate) setNewRate(params.newRate);
-            if (params.newTerm) setNewTerm(params.newTerm);
-        }
-    }, []);
+function calcMonthlyPayment(amount: number, annualRate: number, months: number): number {
+  if (annualRate === 0) return amount / months;
+  const r = annualRate / 100 / 12;
+  return amount * (r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
+}
 
-    const calculatePayment = (principal: number, rate: number, months: number) => {
-        if (rate === 0) return principal / months;
-        const monthlyRate = rate / 12 / 100;
-        const factor = Math.pow(1 + monthlyRate, months);
-        return Math.round(principal * (monthlyRate * factor) / (factor - 1));
+export function RefinancingCalculator() {
+  const { toast } = useToast();
+  const [balance, setBalance] = useState(2000000);
+  const [oldRate, setOldRate] = useState(18);
+  const [newRate, setNewRate] = useState(14);
+  const [remainingMonths, setRemainingMonths] = useState(180);
+  const [showResult, setShowResult] = useState(false);
+
+  const result = useMemo<RefiResult | null>(() => {
+    if (balance <= 0 || oldRate <= 0 || newRate <= 0 || remainingMonths <= 0) return null;
+    if (newRate >= oldRate) return null;
+
+    const oldMonthly = calcMonthlyPayment(balance, oldRate, remainingMonths);
+    const newMonthly = calcMonthlyPayment(balance, newRate, remainingMonths);
+    const monthlySaving = oldMonthly - newMonthly;
+    const totalOldPayment = oldMonthly * remainingMonths;
+    const totalNewPayment = newMonthly * remainingMonths;
+    const totalSaving = totalOldPayment - totalNewPayment;
+
+    return {
+      oldMonthly,
+      newMonthly,
+      monthlySaving,
+      totalOldPayment,
+      totalNewPayment,
+      totalSaving,
+      oldRate,
+      newRate,
     };
+  }, [balance, oldRate, newRate, remainingMonths]);
 
-    const oldMonthly = useMemo(() => calculatePayment(currentBalance, currentRate, currentTerm), [currentBalance, currentRate, currentTerm]);
-    const newMonthly = useMemo(() => calculatePayment(currentBalance, newRate, newTerm), [currentBalance, newRate, newTerm]);
+  const handleDownload = () => {
+    if (!result) return;
+    const doc = new jsPDF();
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.setTextColor(16, 185, 129);
+    doc.text('Расчёт выгоды рефинансирования', 20, 25);
 
-    const oldTotal = oldMonthly * currentTerm;
-    const newTotal = newMonthly * newTerm;
+    doc.setFontSize(14);
+    doc.setTextColor(30);
+    doc.text(`Ставка: ${result.oldRate}% → ${result.newRate}%`, 20, 45);
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text(`Остаток долга: ${formatMoney(balance)} ₽`, 20, 58);
+    doc.text(`Срок: ${Math.round(remainingMonths / 12)} лет (${remainingMonths} мес.)`, 20, 68);
 
-    const monthlySavings = oldMonthly - newMonthly;
-    const totalSavings = oldTotal - newTotal;
+    doc.setDrawColor(200);
+    doc.line(20, 78, 190, 78);
 
-    const handleDownload = async () => {
-        showToast("Генерация PDF", "Пожалуйста, подождите...");
-        const success = await exportToPDF("refinancing-report-template", `рефинансирование_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
-        if (success) {
-            showToast("Успех!", "PDF-отчет успешно сформирован.");
-        } else {
-            showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
-        }
-    };
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(30);
+    doc.text('Результат', 20, 95);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.text(`Старый платёж: ${formatMoney(result.oldMonthly)} ₽/мес`, 20, 110);
+    doc.text(`Новый платёж: ${formatMoney(result.newMonthly)} ₽/мес`, 20, 120);
+    doc.text(`Экономия в месяц: ${formatMoney(result.monthlySaving)} ₽`, 20, 130);
+    doc.text(`Общая экономия: ${formatMoney(result.totalSaving)} ₽`, 20, 140);
 
-    const handleLoadFromHistory = (item: { inputs: { currentBalance?: number; currentRate?: number; currentTerm?: number; newRate?: number; newTerm?: number } }) => {
-        if (item.inputs.currentBalance) setCurrentBalance(item.inputs.currentBalance);
-        if (item.inputs.currentRate) setCurrentRate(item.inputs.currentRate);
-        if (item.inputs.currentTerm) setCurrentTerm(item.inputs.currentTerm);
-        if (item.inputs.newRate) setNewRate(item.inputs.newRate);
-        if (item.inputs.newTerm) setNewTerm(item.inputs.newTerm);
-    };
+    doc.setFontSize(9);
+    doc.setTextColor(150);
+    doc.text(`Сформировано на Schitay.ru — ${new Date().toLocaleDateString('ru-RU')}`, 20, 280);
+    doc.save(`рефинансирование_${new Date().toISOString().split('T')[0]}.pdf`);
+    toast({ title: 'Успех!', description: 'PDF-отчёт сформирован.' });
+  };
 
-    useEffect(() => {
-        if (currentBalance > 0 && totalSavings !== 0) {
-            saveCalculation(
-                { currentBalance, currentRate, currentTerm, newRate, newTerm },
-                {
-                    'Старый платеж': formatCurrency(oldMonthly),
-                    'Новый платеж': formatCurrency(newMonthly),
-                    'Экономия': formatCurrency(totalSavings)
-                }
-            );
-        }
-    }, [currentBalance, currentRate, currentTerm, newRate, newTerm, oldMonthly, newMonthly, totalSavings, saveCalculation, formatCurrency]);
+  const handleShare = async () => {
+    if (!result) return;
+    const text = `Сэкономлю ${formatMoney(result.totalSaving)} ₽ на рефинансировании! Посчитай свою выгоду на Считай.RU`;
+    if (navigator.share) {
+      await navigator.share({ title: 'Рефинансирование', text, url: window.location.href });
+    } else {
+      await navigator.clipboard.writeText(text);
+      toast({ title: 'Скопировано!', description: 'Текст скопирован в буфер обмена' });
+    }
+  };
 
-    const exportData = [{
-        'Остаток долга': formatCurrency(currentBalance),
-        'Старая ставка': `${currentRate}%`,
-        'Новая ставка': `${newRate}%`,
-        'Старый платеж': formatCurrency(oldMonthly),
-        'Новый платеж': formatCurrency(newMonthly),
-        'Экономия в месяц': formatCurrency(oldMonthly - newMonthly),
-        'Общая экономия': formatCurrency(totalSavings)
-    }];
+  const rateDiff = oldRate - newRate;
+  const isProfitable = result && result.totalSaving > 0;
 
-    return (
-        <div className="max-w-4xl mx-auto">
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Калькулятор рефинансирования</h2>
-                <div className="flex gap-2">
-                    <CalculatorHistory
-                        calculatorType="refinancing"
-                        onLoadCalculation={handleLoadFromHistory}
-                    />
-                    <CalculatorActions
-                        calculatorId="refinancing"
-                        calculatorName="Калькулятор рефинансирования"
-                        data={exportData}
-                        printElementId="refinancing-results"
-                        shareParams={{ currentBalance, currentRate, currentTerm, newRate, newTerm }}
-                    />
-                </div>
-            </div>
-
-            <div className="grid lg:grid-cols-5 gap-8">
-                {/* Input Form */}
-                <div className="lg:col-span-3 space-y-8">
-
-                    {/* Current Loan */}
-                    <div className="space-y-4 p-4 border rounded-xl bg-card/50">
-                        <h3 className="font-semibold text-muted-foreground mb-4">Текущий кредит</h3>
-                        <div className="space-y-4">
-                            <div>
-                                <label className="text-sm font-medium mb-1 block">Остаток долга</label>
-                                <input
-                                    type="number"
-                                    value={currentBalance}
-                                    onChange={(e) => setCurrentBalance(Number(e.target.value))}
-                                    className="calc-input w-full h-10"
-                                />
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="text-sm font-medium mb-1 block">Ставка (%)</label>
-                                    <input
-                                        type="number"
-                                        value={currentRate}
-                                        onChange={(e) => setCurrentRate(Number(e.target.value))}
-                                        className="calc-input w-full h-10"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="text-sm font-medium mb-1 block">Осталось (мес)</label>
-                                    <input
-                                        type="number"
-                                        value={currentTerm}
-                                        onChange={(e) => setCurrentTerm(Number(e.target.value))}
-                                        className="calc-input w-full h-10"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* New Loan */}
-                    <div className="space-y-4 p-4 border rounded-xl bg-card shadow-sm border-primary/20">
-                        <h3 className="font-semibold text-primary mb-4 flex items-center gap-2">
-                            <Percent className="w-4 h-4" />
-                            Новые условия
-                        </h3>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="text-sm font-medium mb-1 block">Новая ставка (%)</label>
-                                <input
-                                    type="number"
-                                    value={newRate}
-                                    onChange={(e) => setNewRate(Number(e.target.value))}
-                                    className="calc-input w-full h-10"
-                                />
-                            </div>
-                            <div>
-                                <label className="text-sm font-medium mb-1 block">Срок (мес)</label>
-                                <input
-                                    type="number"
-                                    value={newTerm}
-                                    onChange={(e) => setNewTerm(Number(e.target.value))}
-                                    className="calc-input w-full h-10"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Info Block */}
-                    <div className="bg-muted/50 p-4 rounded-xl flex gap-3 text-sm text-muted-foreground">
-                        <Info className="w-5 h-5 flex-shrink-0 text-primary" />
-                        <p>
-                            Рефинансирование выгодно, если новая ставка ниже текущей минимум на 1.5-2%.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Results */}
-                <div id="refinancing-results" className="lg:col-span-2">
-                    <div className="glass-card p-6">
-                        <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                            <Wallet className="w-5 h-5 text-primary" />
-                            Ваша выгода
-                        </h3>
-
-                        {/* Total Savings */}
-                        <div className="mb-6">
-                            <div className="text-sm text-muted-foreground mb-1">
-                                Экономия на переплате
-                            </div>
-                            <div className={`calc-result animate-count-up ${totalSavings >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                                {formatCurrency(totalSavings)}
-                            </div>
-                            <div className="text-xs text-muted-foreground mt-2">
-                                за весь срок
-                            </div>
-                        </div>
-
-                        {/* Monthly Diff */}
-                        <div className="p-4 bg-muted/50 rounded-lg mb-6 flex items-center justify-between">
-                            <div className="text-sm">
-                                <div className="text-muted-foreground">Платеж</div>
-                                <div className="font-medium line-through text-muted-foreground text-xs">{formatCurrency(oldMonthly)}</div>
-                                <div className="font-bold">{formatCurrency(newMonthly)}</div>
-                            </div>
-                            <div className={`text-sm font-semibold flex items-center gap-1 ${monthlySavings >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                                {monthlySavings >= 0 ? '-' : '+'}{formatCurrency(Math.abs(monthlySavings))}
-                            </div>
-                        </div>
-
-                        {/* Actions */}
-                        <div className="space-y-3 pt-4 border-t border-border">
-                            <Button variant="hero" className="w-full gap-2" onClick={handleDownload}>
-                                <Download className="w-5 h-5" />
-                                Скачать PDF
-                            </Button>
-                            <Button variant="outline" className="w-full gap-2">
-                                <Share2 className="w-5 h-5" />
-                                Поделиться расчетом
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Hidden PDF Template */}
-            <div className="fixed -left-[9999px] top-0">
-                <div id="refinancing-report-template" className="bg-white p-12 w-[800px] text-slate-900 font-sans">
-                    <div className="flex justify-between items-start mb-12 border-b-2 border-primary/20 pb-8">
-                        <div>
-                            <h1 className="text-3xl font-bold text-slate-900 mb-2">Рефинансирование кредита</h1>
-                            <p className="text-slate-600">Расчет выгоды • Калькулятор Считай.RU</p>
-                        </div>
-                        <div className="text-right text-sm text-slate-500">
-                            <p>Дата: {new Date().toLocaleDateString('ru-RU')}</p>
-                            <p>schitay.ru</p>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <h3 className="font-bold text-lg mb-4 text-slate-800">Текущий кредит</h3>
-                            <div className="space-y-3">
-                                <div className="flex justify-between">
-                                    <span className="text-slate-600">Остаток долга:</span>
-                                    <span className="font-semibold">{formatCurrency(currentBalance)}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-slate-600">Процентная ставка:</span>
-                                    <span className="font-semibold">{currentRate}%</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-slate-600">Осталось месяцев:</span>
-                                    <span className="font-semibold">{currentTerm}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-slate-600">Ежемесячный платеж:</span>
-                                    <span className="font-semibold">{formatCurrency(oldMonthly)}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 className="font-bold text-lg mb-4 text-slate-800">Новые условия</h3>
-                            <div className="space-y-3">
-                                <div className="flex justify-between">
-                                    <span className="text-slate-600">Сумма кредита:</span>
-                                    <span className="font-semibold">{formatCurrency(currentBalance)}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-slate-600">Новая ставка:</span>
-                                    <span className="font-semibold text-green-600">{newRate}%</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-slate-600">Срок кредита:</span>
-                                    <span className="font-semibold">{newTerm} мес</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-slate-600">Новый платеж:</span>
-                                    <span className="font-semibold text-green-600">{formatCurrency(newMonthly)}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-slate-50 p-6 rounded-lg mb-8">
-                        <h3 className="font-bold text-lg mb-4 text-slate-800">Выгода от рефинансирования</h3>
-                        <div className="grid grid-cols-2 gap-6">
-                            <div className="text-center">
-                                <p className="text-sm text-slate-600 mb-1">Экономия в месяц</p>
-                                <p className={`text-2xl font-bold ${monthlySavings >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                                    {monthlySavings >= 0 ? '+' : ''}{formatCurrency(monthlySavings)}
-                                </p>
-                            </div>
-                            <div className="text-center">
-                                <p className="text-sm text-slate-600 mb-1">Общая экономия</p>
-                                <p className={`text-2xl font-bold ${totalSavings >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                                    {totalSavings >= 0 ? '+' : ''}{formatCurrency(totalSavings)}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-200">
-                        <h3 className="font-bold text-lg mb-3 text-blue-800">Рекомендации</h3>
-                        <div className="text-sm text-blue-700 space-y-2">
-                            <p>• Рефинансирование выгодно при снижении ставки минимум на 1.5-2%</p>
-                            <p>• Учитывайте комиссии и расходы на оформление нового кредита</p>
-                            <p>• Сравните предложения нескольких банков</p>
-                            <p>• Обратите внимание на дополнительные условия и требования</p>
-                        </div>
-                    </div>
-
-                    <div className="text-center text-xs text-slate-400 border-t pt-4">
-                        <p>Расчет является предварительным. Окончательные условия уточняйте в банке.</p>
-                        <p className="mt-2">Сформировано на schitay.ru • Дата: {new Date().toLocaleString('ru-RU')}</p>
-                    </div>
-
-                    {/* PSB Card Widget */}
-                    <div className="mt-8 animate-fade-in relative z-0">
-                        <PSBCardWidget 
-                            source="calculator"
-                            variant="full"
-                            showDetails={true}
-                            className="relative z-0"
-                        />
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="max-w-6xl mx-auto">
+      {/* Hero */}
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full text-sm font-bold mb-6">
+          <TrendingDown className="w-4 h-4" />
+          Снизьте переплату по кредиту
         </div>
-    );
-};
+        <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tighter">
+          Сколько <span className="text-emerald-600">сэкономите</span> на рефинансировании?
+        </h1>
+        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          При ставках 22%+ рефинансирование может сэкономить сотни тысяч рублей. Посчитайте свою выгоду.
+        </p>
+      </div>
 
-export default RefinancingCalculator;
+      <div className="grid lg:grid-cols-5 gap-8">
+        {/* Input Form */}
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm sticky top-24">
+            <h2 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-3">
+              <Building2 className="w-5 h-5 text-blue-600" />
+              Параметры кредита
+            </h2>
+
+            {/* Balance */}
+            <div className="space-y-3 mb-6">
+              <div className="flex justify-between items-center">
+                <label className="text-sm font-bold text-slate-700">Остаток долга</label>
+                <span className="text-sm font-black text-blue-600">{formatMoney(balance)} ₽</span>
+              </div>
+              <input
+                type="range"
+                min={100000}
+                max={20000000}
+                step={50000}
+                value={balance}
+                onChange={(e) => setBalance(Number(e.target.value))}
+                className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-blue-600"
+              />
+            </div>
+
+            {/* Old Rate */}
+            <div className="space-y-3 mb-6">
+              <div className="flex justify-between items-center">
+                <label className="text-sm font-bold text-slate-700">Текущая ставка</label>
+                <span className="text-sm font-black text-red-600 bg-red-50 px-3 py-1 rounded-lg">{oldRate}%</span>
+              </div>
+              <input
+                type="range"
+                min={5}
+                max={30}
+                step={0.1}
+                value={oldRate}
+                onChange={(e) => setOldRate(Number(e.target.value))}
+                className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-red-500"
+              />
+            </div>
+
+            {/* New Rate */}
+            <div className="space-y-3 mb-6">
+              <div className="flex justify-between items-center">
+                <label className="text-sm font-bold text-slate-700">Новая ставка</label>
+                <span className="text-sm font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg">{newRate}%</span>
+              </div>
+              <input
+                type="range"
+                min={1}
+                max={25}
+                step={0.1}
+                value={newRate}
+                onChange={(e) => setNewRate(Number(e.target.value))}
+                className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-emerald-500"
+              />
+              {rateDiff > 0 && (
+                <div className="flex items-center gap-1 text-emerald-600 text-xs font-bold bg-emerald-50 rounded-lg px-3 py-2">
+                  <ArrowDown className="w-3 h-3" />
+                  Снижение на {rateDiff.toFixed(1)} п.п.
+                </div>
+              )}
+              {rateDiff <= 0 && (
+                <div className="text-amber-600 text-xs font-bold bg-amber-50 rounded-lg px-3 py-2">
+                  ⚠️ Новая ставка должна быть ниже текущей
+                </div>
+              )}
+            </div>
+
+            {/* Remaining Months */}
+            <div className="space-y-3 mb-8">
+              <div className="flex justify-between items-center">
+                <label className="text-sm font-bold text-slate-700">Осталось месяцев</label>
+                <span className="text-sm font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">{remainingMonths} ({Math.round(remainingMonths / 12)} лет)</span>
+              </div>
+              <input
+                type="range"
+                min={12}
+                max={360}
+                step={12}
+                value={remainingMonths}
+                onChange={(e) => setRemainingMonths(Number(e.target.value))}
+                className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-blue-600"
+              />
+            </div>
+
+            <button
+              onClick={() => isProfitable && setShowResult(true)}
+              disabled={!isProfitable}
+              className={`w-full h-14 font-black text-lg rounded-2xl transition-all flex items-center justify-center gap-2 ${
+                isProfitable
+                  ? 'bg-gradient-to-r from-emerald-600 to-emerald-700 text-white hover:from-emerald-700 hover:to-emerald-800 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-emerald-200/50'
+                  : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+              }`}
+            >
+              <TrendingDown className="w-5 h-5" />
+              Рассчитать выгоду
+            </button>
+          </div>
+        </div>
+
+        {/* Results */}
+        <div className="lg:col-span-3">
+          {!showResult || !result ? (
+            <div className="flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl border-2 border-dashed border-slate-200 min-h-[500px]">
+              <div className="text-center p-8">
+                <div className="w-20 h-20 bg-slate-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <TrendingDown className="w-10 h-10 text-slate-400" />
+                </div>
+                <h3 className="text-xl font-black text-slate-700 mb-2">Введите параметры</h3>
+                <p className="text-slate-500 font-medium">Укажите остаток долга, текущую и новую ставку</p>
+              </div>
+            </div>
+          ) : (
+            <div id="refinancing-report" className="space-y-4">
+              {/* Main Result */}
+              <div className="bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-700 rounded-3xl p-8 text-white shadow-2xl shadow-emerald-200/50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                      <PiggyBank className="w-5 h-5" />
+                    </div>
+                    <span className="font-black uppercase tracking-widest text-xs">Ваша экономия</span>
+                  </div>
+                  <div className="text-5xl md:text-6xl font-black mb-2 tracking-tight">
+                    {formatMoney(result.totalSaving)} ₽
+                  </div>
+                  <p className="text-emerald-100 text-lg font-medium mb-6">
+                    — сэкономите за весь срок
+                  </p>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
+                      <div className="text-xs text-emerald-100 font-medium mb-1">В месяц</div>
+                      <div className="text-2xl font-black">{formatMoney(result.monthlySaving)} ₽</div>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
+                      <div className="text-xs text-emerald-100 font-medium mb-1">Ставка</div>
+                      <div className="text-2xl font-black">{result.oldRate}% → {result.newRate}%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { icon: Percent, value: `${result.oldRate}% → ${result.newRate}%`, label: 'Ставка', color: 'text-blue-500', bg: 'bg-blue-50' },
+                  { icon: TrendingDown, value: `${formatMoney(result.oldMonthly)} ₽`, label: 'Старый платёж', color: 'text-red-500', bg: 'bg-red-50' },
+                  { icon: ArrowDown, value: `${formatMoney(result.newMonthly)} ₽`, label: 'Новый платёж', color: 'text-emerald-500', bg: 'bg-emerald-50' },
+                  { icon: Calendar, value: `${remainingMonths} мес.`, label: 'Срок', color: 'text-purple-500', bg: 'bg-purple-50' },
+                ].map((stat, i) => (
+                  <div key={i} className="bg-white rounded-2xl border border-slate-100 p-5 hover:border-slate-200 hover:shadow-sm transition-all">
+                    <div className={`w-8 h-8 ${stat.bg} rounded-lg flex items-center justify-center mb-3`}>
+                      <stat.icon className={`w-4 h-4 ${stat.color}`} />
+                    </div>
+                    <div className="text-sm font-black text-slate-900">{stat.value}</div>
+                    <div className="text-xs text-slate-500 font-medium mt-1">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Comparison */}
+              <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                <div className="p-5 border-b border-slate-100">
+                  <h3 className="font-bold text-slate-900">Сравнение платежей</h3>
+                </div>
+                <div className="p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-xs text-slate-500 font-medium">Старый кредит</div>
+                      <div className="text-lg font-black text-red-600">{formatMoney(result.totalOldPayment)} ₽</div>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-slate-400" />
+                    <div className="text-right">
+                      <div className="text-xs text-slate-500 font-medium">Новый кредит</div>
+                      <div className="text-lg font-black text-emerald-600">{formatMoney(result.totalNewPayment)} ₽</div>
+                    </div>
+                  </div>
+                  <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-emerald-900 font-bold">Экономия</span>
+                      <span className="text-emerald-900 font-black text-xl">{formatMoney(result.totalSaving)} ₽</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={handleShare}
+                  className="flex-1 h-14 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+                >
+                  <Share2 className="w-5 h-5" />
+                  Поделиться
+                </button>
+                <button
+                  onClick={handleDownload}
+                  className="flex-1 h-14 bg-white border-2 border-slate-200 text-slate-900 font-bold rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                >
+                  <Download className="w-5 h-5" />
+                  PDF
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
