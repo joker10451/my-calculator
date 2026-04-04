@@ -11,7 +11,7 @@ const Hero = () => {
 
   return (
     <div className="relative w-full">
-      <BackgroundBeamsWithCollision className="h-auto py-12 md:py-32">
+      <BackgroundBeamsWithCollision className="h-auto py-8 md:py-16">
         <div className="container relative z-20 px-4 mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 md:mb-8 text-sm font-medium border rounded-full bg-background/50 backdrop-blur-sm border-primary/20 text-primary">
             <Calculator className="w-4 h-4" />

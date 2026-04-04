@@ -32,27 +32,27 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background">
-      <div className="w-full px-1 md:px-2 relative">
-        <div className="flex items-center justify-between h-6">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50">
+      <div className="container mx-auto px-4 relative">
+        <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
-            <div className="w-5 h-5 rounded bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
-              <Calculator className="w-2.5 h-2.5 text-primary-foreground" />
+          <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
+              <Calculator className="w-4 h-4 text-primary-foreground" />
             </div>
-            <span className="text-[10px] font-bold tracking-tight hidden xs:inline uppercase">
+            <span className="text-sm font-bold tracking-tight hidden xs:inline uppercase">
               СЧИТАЙ.RU
             </span>
           </Link>
 
           {/* Search Bar (Desktop) */}
-          <div className="hidden lg:flex flex-1 max-w-sm relative mx-2">
+          <div className="hidden lg:flex flex-1 max-w-md relative mx-6">
             <div className="relative w-full">
-              <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Поиск..."
-                className="w-full h-5 pl-6 pr-2 rounded border bg-muted/50 focus:bg-background transition-colors focus:ring-1 focus:ring-primary/20 outline-none text-xs"
+                placeholder="Поиск калькулятора..."
+                className="w-full h-9 pl-10 pr-4 rounded-lg border bg-muted/50 focus:bg-background transition-colors focus:ring-2 focus:ring-primary/20 outline-none text-sm"
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -71,14 +71,14 @@ const Header = () => {
                     <button
                       key={calc.name}
                       onClick={() => handleSearchSelect(calc.href)}
-                      className="w-full text-left px-4 py-2 hover:bg-muted rounded-lg text-sm flex items-center gap-2"
+                      className="w-full text-left px-4 py-2.5 hover:bg-muted rounded-lg text-sm flex items-center gap-2"
                     >
-                      <Search className="w-3 h-3 text-muted-foreground" />
+                      <Search className="w-4 h-4 text-muted-foreground" />
                       {calc.name}
                     </button>
                   ))
                 ) : (
-                  <div className="px-4 py-2 text-sm text-muted-foreground">
+                  <div className="px-4 py-2.5 text-sm text-muted-foreground">
                     Ничего не найдено
                   </div>
                 )}
@@ -87,65 +87,61 @@ const Header = () => {
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center">
+          <nav className="hidden lg:flex items-center gap-1">
             {categories.slice(0, 4).map((cat) => (
               <Link
                 key={cat.name}
                 to={cat.href}
-                className="px-1 py-0.5 text-[10px] font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted whitespace-nowrap"
+                className="px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md whitespace-nowrap"
               >
                 {cat.name}
               </Link>
             ))}
             <Link
               to="/blog"
-              className="px-1 py-0.5 text-[10px] font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted"
+              className="px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
               Блог
             </Link>
-            <Link to="/compare" className="relative p-0.5 text-muted-foreground hover:text-primary transition-colors">
-              <Scale className="w-3 h-3" />
+            <Link to="/compare" className="relative p-2 text-muted-foreground hover:text-primary transition-colors">
+              <Scale className="w-4 h-4" />
               {items.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-[7px] font-bold w-2.5 h-2.5 rounded-full flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {items.length}
                 </span>
               )}
             </Link>
-            <div className="scale-[0.6]">
-              <ThemeToggle />
-            </div>
+            <ThemeToggle />
           </nav>
 
           {/* Mobile Actions */}
-          <div className="flex lg:hidden items-center">
-            <Link to="/compare" className="relative p-0.5 text-muted-foreground hover:text-primary transition-colors">
-              <Scale className="w-3 h-3" />
+          <div className="flex lg:hidden items-center gap-1">
+            <Link to="/compare" className="relative p-2 text-muted-foreground hover:text-primary transition-colors">
+              <Scale className="w-5 h-5" />
               {items.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-[7px] font-bold w-2.5 h-2.5 rounded-full flex items-center justify-center">
+                <span className="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {items.length}
                 </span>
               )}
             </Link>
             <button
-              className="p-0.5"
+              className="p-2"
               onClick={() => {
                 setIsSearchOpen(!isSearchOpen);
                 setIsMenuOpen(false);
               }}
             >
-              <Search className="w-3 h-3" />
+              <Search className="w-5 h-5" />
             </button>
-            <div className="scale-[0.6]">
-              <ThemeToggle />
-            </div>
+            <ThemeToggle />
             <button
-              className="p-0.5 hover:bg-muted transition-colors"
+              className="p-2 hover:bg-muted rounded-md transition-colors"
               onClick={() => {
                 setIsMenuOpen(!isMenuOpen);
                 setIsSearchOpen(false);
               }}
             >
-              {isMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>

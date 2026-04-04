@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { resolveImageUrl } from '@/utils/blogImageMap';
 
 interface OptimizedImageProps {
   src: string;
@@ -18,12 +19,15 @@ export const OptimizedImage = ({
   width,
   height,
   className,
-  priority = false, // Not using lazy loading logic for now to debug
+  priority = false,
   sizes,
   onLoad,
 }: OptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+
+  // Подменяем SVG-заглушки на реальные фотографии
+  const resolvedSrc = resolveImageUrl(src);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -32,28 +36,34 @@ export const OptimizedImage = ({
 
   const handleError = () => {
     setHasError(true);
-    // Could set a fallback here if needed
   };
 
   return (
     <div className={cn('relative overflow-hidden bg-muted', className)}>
       {!isLoaded && !hasError && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-muted to-primary/5 animate-pulse" />
       )}
 
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={priority ? 'eager' : 'lazy'}
-        onLoad={handleLoad}
-        onError={handleError}
-        className={cn(
-          'w-full h-full object-cover transition-opacity duration-300',
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        )}
-      />
+      {hasError ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 via-muted to-primary/10">
+          <span className="text-sm text-muted-foreground font-medium">{alt}</span>
+        </div>
+      ) : (
+        <img
+          src={resolvedSrc}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={priority ? 'eager' : 'lazy'}
+          onLoad={handleLoad}
+          onError={handleError}
+          sizes={sizes}
+          className={cn(
+            'w-full h-full object-cover transition-opacity duration-300',
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          )}
+        />
+      )}
     </div>
   );
 };
