@@ -13,17 +13,19 @@ export const creditCardsArticle = createArticle({
   title: 'Кредитные карты в 2026 году: лучшие предложения, как выбрать, льготный период',
   excerpt: 'Обзор кредитных карт 2026. Сравнение условий банков, льготный период, кэшбэк, как получить одобрение. Топ-10 карт для разных целей.',
   author: {
-    name: 'Анна Финансова',
-    bio: 'Эксперт по банковским продуктам и кредитованию'
+    name: 'Александр Смирнов',
+    avatar: '/authors/alexander-smirnov.png',
+    specialization: 'Финансовый аналитик',
+    bio: 'Эксперт по банковским продуктам и кредитным стратегиям с 12-летним опытом.'
   },
   publishedAt: '2026-01-22T10:00:00Z',
   category: blogCategories[0], // mortgage-credit
   tags: ['кредитные карты', 'кредит', 'кэшбэк', 'льготный период', 'банки'],
   featuredImage: {
-    url: '/blog/kreditnye-karty-2026.svg',
-    alt: 'Кредитные карты 2026 - лучшие предложения',
+    url: '/blog/credit-hero.png',
+    alt: 'Кредитные карты 2026 - лучшие предложения и стратегии использования',
     width: 1200,
-    height: 630
+    height: 675
   },
   relatedCalculators: ['credit']
 })
@@ -246,17 +248,19 @@ export const maternityCapitalArticle = createArticle({
   title: 'Материнский капитал в 2026 году: размер, как получить, на что потратить',
   excerpt: 'Актуальный размер материнского капитала 2026. Кто имеет право, как оформить, на что можно использовать. Изменения в законодательстве.',
   author: {
-    name: 'Ольга Семейная',
-    bio: 'Юрист по семейному праву, эксперт по социальным выплатам'
+    name: 'Елена Иванова',
+    avatar: '/authors/elena-ivanova.png',
+    specialization: 'Юрист по гражданскому праву',
+    bio: 'Специалист по семейному законодательству и государственной поддержке семей.'
   },
   publishedAt: '2026-01-23T10:00:00Z',
   category: blogCategories[4], // family-law
   tags: ['материнский капитал', 'маткапитал', 'пособия', 'семья', 'дети'],
   featuredImage: {
-    url: '/blog/materinskij-kapital-2026.svg',
-    alt: 'Материнский капитал 2026 - размер и использование',
+    url: '/blog/alimony-hero.png',
+    alt: 'Материнский капитал 2026 - государственная поддержка семей',
     width: 1200,
-    height: 630
+    height: 675
   },
   relatedCalculators: ['maternity-capital']
 })
@@ -464,17 +468,19 @@ export const refinancingArticle = createArticle({
   title: 'Рефинансирование кредитов в 2026 году: как снизить ставку и уменьшить платеж',
   excerpt: 'Полный гайд по рефинансированию. Когда выгодно, как оформить, какие банки предлагают лучшие условия. Калькулятор экономии.',
   author: {
-    name: 'Анна Финансова',
-    bio: 'Эксперт по кредитованию и рефинансированию'
+    name: 'Александр Смирнов',
+    avatar: '/authors/alexander-smirnov.png',
+    specialization: 'Финансовый аналитик',
+    bio: 'Эксперт по оптимизации кредитной нагрузки и рефинансированию.'
   },
   publishedAt: '2026-01-24T10:00:00Z',
   category: blogCategories[0], // mortgage-credit
   tags: ['рефинансирование', 'кредит', 'ипотека', 'снижение ставки', 'банки'],
   featuredImage: {
-    url: '/blog/refinansirovanie-2026.svg',
-    alt: 'Рефинансирование кредитов 2026 - как снизить ставку',
+    url: '/blog/credit-hero.png',
+    alt: 'Рефинансирование кредитов 2026 - способы снижения долговой нагрузки',
     width: 1200,
-    height: 630
+    height: 675
   },
   relatedCalculators: ['refinancing', 'credit', 'mortgage']
 })
@@ -702,17 +708,19 @@ export const calorieArticle = createArticle({
   title: 'Расчет калорий в 2026 году: норма для похудения, набора массы, поддержания веса',
   excerpt: 'Как рассчитать суточную норму калорий. Формулы для похудения и набора массы, БЖУ, примеры рационов. Калькулятор калорий онлайн.',
   author: {
-    name: 'Елена Здоровье',
-    bio: 'Врач-диетолог, специалист по здоровому питанию'
+    name: 'Анна Петрова',
+    avatar: '/authors/anna-petrova.png',
+    specialization: 'Врач-диетолог, нутрициолог',
+    bio: 'Кандидат медицинских наук, эксперт по здоровому образу жизни и расчету нутриентов.'
   },
   publishedAt: '2026-01-25T10:00:00Z',
   category: blogCategories[3], // health-fitness
   tags: ['калории', 'похудение', 'диета', 'питание', 'БЖУ'],
   featuredImage: {
-    url: '/blog/raschet-kalorij-2026.svg',
-    alt: 'Расчет калорий 2026 - норма для похудения',
+    url: '/blog/bmi-hero.png',
+    alt: 'Расчет калорий и БЖУ в 2026 году - научный подход к питанию',
     width: 1200,
-    height: 630
+    height: 675
   },
   relatedCalculators: ['calorie', 'bmi']
 })

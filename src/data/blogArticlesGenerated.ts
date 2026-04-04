@@ -13,17 +13,19 @@ export const investmentArticle = createArticle({
   title: 'Инвестиции в 2026 году: куда вложить деньги, чтобы заработать',
   excerpt: 'Обзор инвестиционных инструментов 2026. Акции, облигации, фонды, недвижимость. Стратегии для начинающих и опытных инвесторов.',
   author: {
-    name: 'Сергей Финансист',
-    bio: 'Финансовый аналитик, эксперт по инвестициям'
+    name: 'Александр Смирнов',
+    avatar: '/authors/alexander-smirnov.png',
+    specialization: 'Финансовый аналитик',
+    bio: 'Эксперт по инвестиционным стратегиям и управлению капиталом.'
   },
   publishedAt: '2026-01-20T10:00:00Z',
   category: blogCategories[6], // investments-deposits
   tags: ['инвестиции', 'акции', 'облигации', 'фонды', 'доходность'],
   featuredImage: {
-    url: '/blog/investicii-2026.svg',
-    alt: 'Инвестиции 2026 - куда вложить деньги',
+    url: '/blog/credit-hero.png',
+    alt: 'Инвестиции 2026 - стратегии приумножения капитала',
     width: 1200,
-    height: 630
+    height: 675
   },
   relatedCalculators: ['investment', 'deposit']
 })
@@ -236,17 +238,19 @@ export const courtFeeArticle = createArticle({
   title: 'Госпошлины в 2026 году: размеры, как рассчитать, кто освобожден',
   excerpt: 'Актуальные размеры госпошлин за судебные, нотариальные и регистрационные действия. Калькулятор госпошлин, льготы, порядок оплаты.',
   author: {
-    name: 'Ольга Семейная',
-    bio: 'Юрист по семейному и гражданскому праву'
+    name: 'Елена Иванова',
+    avatar: '/authors/elena-ivanova.png',
+    specialization: 'Юрист по гражданскому праву',
+    bio: 'Эксперт в области судебных пошлин и правового сопровождения сделок.'
   },
   publishedAt: '2026-01-21T10:00:00Z',
   category: blogCategories[7], // legal-court
   tags: ['госпошлина', 'суд', 'нотариус', 'регистрация', 'юридические услуги'],
   featuredImage: {
-    url: '/blog/gosposhliny-2026.svg',
-    alt: 'Госпошлины 2026 - размеры и расчет',
+    url: '/blog/court-fee-hero.png',
+    alt: 'Госпошлины 2026 - актуальные размеры и способы оплаты',
     width: 1200,
-    height: 630
+    height: 675
   },
   relatedCalculators: ['court-fee']
 })

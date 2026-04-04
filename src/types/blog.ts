@@ -10,6 +10,7 @@ export interface BlogPost {
   author: {
     name: string;
     avatar?: string;
+    specialization?: string;
     bio?: string;
   };
   publishedAt: string;
@@ -66,7 +67,9 @@ export interface BlogAuthor {
   id: string;
   name: string;
   slug: string;
+  specialization: string; // Должность/специализация для отображения
   bio: string;
+  education?: string; // Образование для E-E-A-T
   avatar?: string;
   social?: {
     twitter?: string;

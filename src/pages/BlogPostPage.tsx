@@ -14,6 +14,7 @@ import { BlogResourcePreloader } from '@/components/blog/BlogResourcePreloader';
 import { BlogNavigation } from '@/components/blog/BlogNavigation';
 import { OptimizedImage } from '@/components/blog/OptimizedImage';
 import { BlogSEO } from '@/components/blog/BlogSEO';
+import { AuthorBio } from '@/components/blog/AuthorBio';
 import { EnhancedBlogCard } from '@/components/blog/enhanced/EnhancedBlogCard';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -252,19 +253,9 @@ const BlogPostPage = () => {
 
                 <Separator className="my-12" />
 
-                {/* Информация об авторе */}
+                {/* Информация об авторе (E-E-A-T) */}
                 <FadeInUp delay={0.4}>
-                  <div className="bg-muted/50 rounded-xl p-8 mb-12">
-                    <div className="flex items-start gap-6">
-                      <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center" aria-hidden="true">
-                        <User className="w-10 h-10 text-primary" />
-                      </div>
-                      <div>
-                        <h2 className="text-h3 font-bold mb-3">{post.author.name}</h2>
-                        <p className="text-body text-muted-foreground leading-relaxed">{post.author.bio}</p>
-                      </div>
-                    </div>
-                  </div>
+                  <AuthorBio author={post.author} />
                 </FadeInUp>
               </article>
 

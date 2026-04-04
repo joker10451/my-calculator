@@ -222,11 +222,30 @@ export const EnhancedBlogCard = ({
         <CardFooter className={`${config.padding} mt-auto pt-4 pb-6`}>
           <div className="flex items-center justify-between w-full">
             {showAuthor && (
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 flex items-center justify-center border border-white/50 dark:border-gray-800 shadow-sm">
-                  <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white dark:border-gray-800 shadow-sm transition-transform duration-300 group-hover:scale-110">
+                  {post.author.avatar ? (
+                    <img 
+                      src={post.author.avatar} 
+                      alt={post.author.name} 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                      <User className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    </div>
+                  )}
                 </div>
-                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{post.author.name}</span>
+                <div className="flex flex-col">
+                  <span className="text-sm font-bold text-gray-900 dark:text-white leading-tight">
+                    {post.author.name}
+                  </span>
+                  {post.author.specialization && (
+                    <span className="text-[10px] sm:text-xs text-blue-600 dark:text-blue-400 font-medium">
+                      {post.author.specialization}
+                    </span>
+                  )}
+                </div>
               </div>
             )}
 

@@ -14,10 +14,10 @@ export const newBlogPosts: BlogPost[] = [
     title: 'ОСАГО в 2026 году: стоимость, как оформить онлайн, что изменилось',
     excerpt: 'Полный гайд по обязательному страхованию автогражданской ответственности. Как рассчитать стоимость ОСАГО, оформить полис онлайн, получить выплату при ДТП.',
     featuredImage: {
-      url: '/blog/osago-2026.svg',
+      url: '/blog/fuel-hero.png',
       alt: 'ОСАГО 2026 - обязательное страхование автогражданской ответственности',
       width: 1200,
-      height: 630
+      height: 675
     },
     content: `# ОСАГО в 2026 году: всё, что нужно знать водителю
 
@@ -206,8 +206,10 @@ export const newBlogPosts: BlogPost[] = [
 
 **Рассчитайте стоимость ОСАГО** с помощью нашего калькулятора и найдите самое выгодное предложение!`,
     author: {
-      name: 'Дмитрий Морозов',
-      bio: 'Специалист по автострахованию с 12-летним стажем'
+      name: 'Александр Смирнов',
+      avatar: '/authors/alexander-smirnov.png',
+      specialization: 'Финансовый аналитик',
+      bio: 'Специалист по страховым и банковским продуктам с 12-летним стажем. Помогает водителям оптимизировать расходы на содержание авто.'
     },
     publishedAt: '2026-01-14T10:00:00Z',
     category: blogCategories[5], // auto-transport
@@ -220,7 +222,7 @@ export const newBlogPosts: BlogPost[] = [
     },
     readingTime: 12,
     isPublished: true,
-    isFeatured: true,
+    isFeatured: true, language: 'ru', translations: {},
     relatedCalculators: ['osago'],
     structuredData: {
       "@context": "https://schema.org",
@@ -245,10 +247,10 @@ export const newBlogPosts: BlogPost[] = [
     title: 'КАСКО в 2026 году: что покрывает, стоит ли оформлять, как выбрать',
     excerpt: 'Полный обзор добровольного автострахования. Что входит в КАСКО, сколько стоит, как выбрать оптимальный пакет. Сравнение с ОСАГО.',
     featuredImage: {
-      url: '/blog/kasko-2026.svg',
-      alt: 'КАСКО 2026 - добровольное автострахование',
+      url: '/blog/fuel-hero.png',
+      alt: 'КАСКО 2026 - добровольное автострахование и защита имущества',
       width: 1200,
-      height: 630
+      height: 675
     },
     content: `# КАСКО в 2026 году: полный гайд по добровольному автострахованию
 
@@ -525,8 +527,10 @@ export const newBlogPosts: BlogPost[] = [
 
 **Рассчитайте стоимость КАСКО** с помощью нашего калькулятора и найдите оптимальное предложение!`,
     author: {
-      name: 'Дмитрий Морозов',
-      bio: 'Специалист по автострахованию с 12-летним стажем'
+      name: 'Александр Смирнов',
+      avatar: '/authors/alexander-smirnov.png',
+      specialization: 'Финансовый аналитик',
+      bio: 'Эксперт по страхованию и минимизации финансовых рисков.'
     },
     publishedAt: '2026-01-15T11:00:00Z',
     category: blogCategories[5], // auto-transport
@@ -539,7 +543,7 @@ export const newBlogPosts: BlogPost[] = [
     },
     readingTime: 15,
     isPublished: true,
-    isFeatured: false,
+    isFeatured: false, language: 'ru', translations: {},
     relatedCalculators: ['kasko'],
     structuredData: {
       "@context": "https://schema.org",

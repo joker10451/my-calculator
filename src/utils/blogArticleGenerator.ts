@@ -18,7 +18,15 @@ interface ArticleMetadata {
   excerpt: string;
   author: {
     name: string;
+    avatar?: string;
+    specialization?: string;
     bio: string;
+    socialLinks?: {
+      vk?: string;
+      telegram?: string;
+      ok?: string;
+    };
+    education?: string;
   };
   publishedAt: string;
   category: BlogCategory;
@@ -272,7 +280,12 @@ export class BlogArticleBuilder {
       isPublished: true,
       isFeatured: metadata.isFeatured || false,
       relatedCalculators: metadata.relatedCalculators,
-      structuredData: this.generateStructuredData(metadata)
+      structuredData: this.generateStructuredData(metadata),
+      language: 'ru',
+      translations: {
+        ru: metadata.slug,
+        en: ''
+      }
     };
   }
 }
