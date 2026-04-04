@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { Share2, Download, TrendingUp, PiggyBank, AlertTriangle, Calculator, Building2, ChevronDown, ChevronUp, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { jsPDF } from 'jspdf';
+import { generateShareableLink, parseShareableLink } from '@/utils/exportUtils';
 
 interface OverpaymentResult {
   totalPaid: number;
@@ -41,6 +42,15 @@ export function OverpaymentCalculator() {
   const [term, setTerm] = useState(20);
   const [showResult, setShowResult] = useState(false);
   const [expandedSection, setExpandedSection] = useState<string | null>('shock');
+
+  useEffect(() => {
+    const params = parseShareableLink();
+    if (params) {
+      if (typeof params.amount === 'number') setAmount(params.amount);
+      if (typeof params.rate === 'number') setRate(params.rate);
+      if (typeof params.term === 'number') setTerm(params.term);
+    }
+  }, []);
 
   useEffect(() => {
     setShowResult(false);
@@ -163,12 +173,12 @@ export function OverpaymentCalculator() {
 
   const handleShare = async () => {
     if (!result) return;
-    const text = `Я переплачу банку ${formatMoney(result.totalInterest)} ₽ по ипотеке 😱 Посчитай свою переплату на Считай.RU`;
+    const link = generateShareableLink('overpayment', { amount, rate, term });
     if (navigator.share) {
-      await navigator.share({ title: 'Переплата банку', text, url: window.location.href });
+      await navigator.share({ title: 'Переплата банку', text: `Моя переплата: ${formatMoney(result.totalInterest)} ₽`, url: link });
     } else {
-      await navigator.clipboard.writeText(text);
-      toast({ title: 'Скопировано!', description: 'Текст для шеринга скопирован в буфер обмена' });
+      await navigator.clipboard.writeText(link);
+      toast({ title: 'Скопировано!', description: 'Ссылка на расчёт скопирована в буфер обмена' });
     }
   };
 
