@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import { Search, Filter, Calendar, TrendingUp } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { BlogCard } from '@/components/blog/BlogCard';
 import { EnhancedBlogCard } from '@/components/blog/enhanced/EnhancedBlogCard';
 import { BlogResourcePreloader } from '@/components/blog/BlogResourcePreloader';
 import { HeroSection } from '@/components/blog/HeroSection';
@@ -93,6 +92,9 @@ const BlogPage = () => {
         title="Блог о финансах и калькуляторах | Считай.RU"
         description="Экспертные статьи о финансах, налогах, ипотеке, ЖКХ. Актуальная информация 2026 года, советы по экономии, расчеты и примеры."
       />
+      <Helmet>
+        <link rel="alternate" type="application/rss+xml" title="Считай.RU RSS" href="/rss.xml" />
+      </Helmet>
 
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
         <Header />

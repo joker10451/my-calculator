@@ -1,59 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Считай.RU - Финансовый блог</title>
-    <description>Экспертные статьи о финансах, налогах, ипотеке и экономии. Актуальная информация для принятия правильных финансовых решений.</description>
-    <link>https://считай.ru/blog</link>
-    <atom:link href="https://считай.ru/rss.xml" rel="self" type="application/rss+xml" />
+    <title>Считай.RU — Финансовый блог</title>
+    <description>Экспертные статьи о финансах, налогах, ипотеке и экономии</description>
+    <link>https://schitay-online.ru/blog</link>
+    <atom:link href="https://schitay-online.ru/rss.xml" rel="self" type="application/rss+xml" />
     <language>ru-RU</language>
-    <lastBuildDate>Tue, 13 Jan 2026 16:25:05 GMT</lastBuildDate>
-    <managingEditor>noreply@считай.ru (Команда Считай.RU)</managingEditor>
-    <webMaster>noreply@считай.ru (Команда Считай.RU)</webMaster>
-    <category>Финансы</category>
-    <category>Калькуляторы</category>
-    <category>Налоги</category>
-    <category>Ипотека</category>
-    <category>ЖКХ</category>
+    <lastBuildDate>Sat, 04 Apr 2026 16:11:09 GMT</lastBuildDate>
     <ttl>60</ttl>
-    <image>
-      <url>https://считай.ru/icon-192.png</url>
-      <title>Считай.RU</title>
-      <link>https://считай.ru</link>
-      <width>192</width>
-      <height>192</height>
-    </image>
+    <item>
+      <title><![CDATA[Расчет калорий в 2026 году: норма для похудения, набора массы, поддержания веса]]></title>
+      <description><![CDATA[Как рассчитать суточную норму калорий. Формулы для похудения и набора массы, БЖУ, примеры рационов. Калькулятор калорий онлайн.]]></description>
+      <link>https://schitay-online.ru/blog/raschet-kalorij-2026-norma-dlya-pokhudeniya</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/raschet-kalorij-2026-norma-dlya-pokhudeniya</guid>
+      <pubDate>Sun, 25 Jan 2026 10:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Рефинансирование кредитов в 2026 году: как снизить ставку и уменьшить платеж]]></title>
+      <description><![CDATA[Полный гайд по рефинансированию. Когда выгодно, как оформить, какие банки предлагают лучшие условия. Калькулятор экономии.]]></description>
+      <link>https://schitay-online.ru/blog/refinansirovanie-kreditov-2026-kak-snizit-stavku</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/refinansirovanie-kreditov-2026-kak-snizit-stavku</guid>
+      <pubDate>Sat, 24 Jan 2026 10:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Материнский капитал в 2026 году: размер, как получить, на что потратить]]></title>
+      <description><![CDATA[Актуальный размер материнского капитала 2026. Кто имеет право, как оформить, на что можно использовать. Изменения в законодательстве.]]></description>
+      <link>https://schitay-online.ru/blog/materinskij-kapital-2026-razmer-kak-poluchit</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/materinskij-kapital-2026-razmer-kak-poluchit</guid>
+      <pubDate>Fri, 23 Jan 2026 10:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Кредитные карты в 2026 году: лучшие предложения, как выбрать, льготный период]]></title>
+      <description><![CDATA[Обзор кредитных карт 2026. Сравнение условий банков, льготный период, кэшбэк, как получить одобрение. Топ-10 карт для разных целей.]]></description>
+      <link>https://schitay-online.ru/blog/kreditnye-karty-2026-luchshie-predlozheniya</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/kreditnye-karty-2026-luchshie-predlozheniya</guid>
+      <pubDate>Thu, 22 Jan 2026 10:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Госпошлины в 2026 году: размеры, как рассчитать, кто освобожден]]></title>
+      <description><![CDATA[Актуальные размеры госпошлин за судебные, нотариальные и регистрационные действия. Калькулятор госпошлин, льготы, порядок оплаты.]]></description>
+      <link>https://schitay-online.ru/blog/gosposhliny-2026-razmery-kak-rasschitat</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/gosposhliny-2026-razmery-kak-rasschitat</guid>
+      <pubDate>Wed, 21 Jan 2026 10:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Инвестиции в 2026 году: куда вложить деньги, чтобы заработать]]></title>
+      <description><![CDATA[Обзор инвестиционных инструментов 2026. Акции, облигации, фонды, недвижимость. Стратегии для начинающих и опытных инвесторов.]]></description>
+      <link>https://schitay-online.ru/blog/investicii-2026-kuda-vlozhit-dengi</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/investicii-2026-kuda-vlozhit-dengi</guid>
+      <pubDate>Tue, 20 Jan 2026 10:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Банковские вклады в 2026 году: лучшие предложения, ставки, как выбрать]]></title>
+      <description><![CDATA[Обзор банковских вкладов 2026. Актуальные ставки, виды вкладов, страхование, налогообложение. Как выбрать выгодный вклад и не потерять деньги.]]></description>
+      <link>https://schitay-online.ru/blog/vklady-2026-luchshie-predlozheniya</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/vklady-2026-luchshie-predlozheniya</guid>
+      <pubDate>Mon, 19 Jan 2026 10:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Индекс массы тела (ИМТ) в 2026: норма, как рассчитать, что означает]]></title>
+      <description><![CDATA[Полный гайд по ИМТ. Как рассчитать индекс массы тела, что означают результаты, нормы для мужчин и женщин. Как привести вес в норму.]]></description>
+      <link>https://schitay-online.ru/blog/imt-2026-norma-kak-rasschitat</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/imt-2026-norma-kak-rasschitat</guid>
+      <pubDate>Sun, 18 Jan 2026 09:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Больничный в 2026 году: расчет, оформление, сроки выплаты]]></title>
+      <description><![CDATA[Полный гайд по больничным листам. Как рассчитывается пособие, как оформить электронный больничный, сроки выплаты. Минимальные и максимальные суммы.]]></description>
+      <link>https://schitay-online.ru/blog/bolnichnyj-2026-raschet-oformlenie</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/bolnichnyj-2026-raschet-oformlenie</guid>
+      <pubDate>Sat, 17 Jan 2026 10:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Отпускные в 2026 году: как рассчитать, сроки выплаты, налоги]]></title>
+      <description><![CDATA[Полный гайд по расчету отпускных. Формулы, примеры, сроки выплаты, налогообложение. Что делать если отпускные не выплатили вовремя.]]></description>
+      <link>https://schitay-online.ru/blog/otpusknye-2026-raschet-sroki-vyplaty</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/otpusknye-2026-raschet-sroki-vyplaty</guid>
+      <pubDate>Fri, 16 Jan 2026 09:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[КАСКО в 2026 году: что покрывает, стоит ли оформлять, как выбрать]]></title>
+      <description><![CDATA[Полный обзор добровольного автострахования. Что входит в КАСКО, сколько стоит, как выбрать оптимальный пакет. Сравнение с ОСАГО.]]></description>
+      <link>https://schitay-online.ru/blog/kasko-2026-chto-pokryvaet-stoit-li-oformlyat</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/kasko-2026-chto-pokryvaet-stoit-li-oformlyat</guid>
+      <pubDate>Thu, 15 Jan 2026 11:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[ОСАГО в 2026 году: стоимость, как оформить онлайн, что изменилось]]></title>
+      <description><![CDATA[Полный гайд по обязательному страхованию автогражданской ответственности. Как рассчитать стоимость ОСАГО, оформить полис онлайн, получить выплату при ДТП.]]></description>
+      <link>https://schitay-online.ru/blog/osago-2026-stoimost-kak-oformit</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/osago-2026-stoimost-kak-oformit</guid>
+      <pubDate>Wed, 14 Jan 2026 10:00:00 GMT</pubDate>
+    </item>
     <item>
       <title><![CDATA[Ипотека в 2026 году: новые условия и льготные программы]]></title>
       <description><![CDATA[Разбираем актуальные ставки по ипотеке, государственные программы поддержки и изменения в законодательстве. Как получить ипотеку на выгодных условиях.]]></description>
-      <link>https://считай.ru/blog/ipoteka-2026-novye-usloviya</link>
-      <guid isPermaLink="true">https://считай.ru/blog/ipoteka-2026-novye-usloviya</guid>
+      <link>https://schitay-online.ru/blog/ipoteka-2026-novye-usloviya</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/ipoteka-2026-novye-usloviya</guid>
       <pubDate>Tue, 13 Jan 2026 10:00:00 GMT</pubDate>
-      <author>noreply@считай.ru (Анна Финансова)</author>
-      <category><![CDATA[Ипотека и кредиты]]></category>
-      <category><![CDATA[ипотека]]></category><category><![CDATA[кредит]]></category><category><![CDATA[2026]]></category><category><![CDATA[льготы]]></category><category><![CDATA[ставки]]></category>
-      <enclosure url="https://считай.ru/blog/ipoteka-2026.jpg" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[НДФЛ в 2026 году: как работает прогрессивная шкала налогообложения]]></title>
       <description><![CDATA[Подробный разбор изменений в подоходном налоге. Кто и сколько будет платить, как рассчитать налог с зарплаты, примеры расчетов.]]></description>
-      <link>https://считай.ru/blog/ndfl-2026-progressivnaya-shkala</link>
-      <guid isPermaLink="true">https://считай.ru/blog/ndfl-2026-progressivnaya-shkala</guid>
+      <link>https://schitay-online.ru/blog/ndfl-2026-progressivnaya-shkala</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/ndfl-2026-progressivnaya-shkala</guid>
       <pubDate>Mon, 12 Jan 2026 14:30:00 GMT</pubDate>
-      <author>noreply@считай.ru (Михаил Налогов)</author>
-      <category><![CDATA[Налоги и зарплата]]></category>
-      <category><![CDATA[НДФЛ]]></category><category><![CDATA[налоги]]></category><category><![CDATA[зарплата]]></category><category><![CDATA[прогрессивная шкала]]></category><category><![CDATA[2026]]></category>
-      
     </item>
     <item>
       <title><![CDATA[Тарифы ЖКХ в 2026 году: как экономить на коммунальных платежах]]></title>
       <description><![CDATA[Актуальные тарифы на электричество, газ, воду и отопление. Способы экономии, льготы и субсидии, нормативы потребления по регионам.]]></description>
-      <link>https://считай.ru/blog/tarify-zhkh-2026-kak-ekonomit</link>
-      <guid isPermaLink="true">https://считай.ru/blog/tarify-zhkh-2026-kak-ekonomit</guid>
-      <pubDate>Sun, 11 Jan 2026 09:15:00 GMT</pubDate>
-      <author>noreply@считай.ru (Елена Коммунальная)</author>
-      <category><![CDATA[ЖКХ и коммунальные услуги]]></category>
-      <category><![CDATA[ЖКХ]]></category><category><![CDATA[тарифы]]></category><category><![CDATA[коммунальные услуги]]></category><category><![CDATA[экономия]]></category><category><![CDATA[льготы]]></category><category><![CDATA[2026]]></category>
-      
+      <link>https://schitay-online.ru/blog/tarify-zhkh-2026-kak-ekonomit</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/tarify-zhkh-2026-kak-ekonomit</guid>
+      <pubDate>Sun, 11 Jan 2026 09:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Алименты в 2026 году: размеры, порядок взыскания и новые правила]]></title>
+      <description><![CDATA[Все об алиментах в 2026 году: минимальные и максимальные суммы, порядок расчета, индексация и способы взыскания задолженности.]]></description>
+      <link>https://schitay-online.ru/blog/alimenty-2026-razmery-poryadok-vzyskaniya</link>
+      <guid isPermaLink="true">https://schitay-online.ru/blog/alimenty-2026-razmery-poryadok-vzyskaniya</guid>
+      <pubDate>Sat, 10 Jan 2026 11:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
