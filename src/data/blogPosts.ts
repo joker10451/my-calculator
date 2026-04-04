@@ -2,7 +2,7 @@
 import { blogCategories } from './blogCategories';
 import { newBlogPosts } from './blogPostsNew3';
 import { additionalBlogPosts } from './blogPostsNew4';
-import { moreBlogPosts, depositArticle } from './blogPostsNew5';
+import { moreBlogPosts, depositArticle as _depositArticle } from './blogPostsNew5';
 import { generatedArticles } from './blogArticlesGenerated';
 import { allGeneratedArticles } from './blogArticlesGenerated2';
 import { migrateBlogPosts } from '@/utils/migrateBlogData';
@@ -354,7 +354,7 @@ https://pampadu.ru/microloans?partner=schitay | Оформить первый з
       bio: 'Практикующий адвокат, специалист в области семейного и гражданского права. Помогает решать сложные вопросы по алиментам и разделу имущества.'
     },
     publishedAt: '2026-01-10T11:00:00Z',
-    category: blogCategories[3], // family-social
+    category: blogCategories[4], // family-law
     tags: ['алименты', 'юрист', 'дети', 'закон', '2026'],
     featuredImage: {
       url: '/blog/alimony-2026.png',

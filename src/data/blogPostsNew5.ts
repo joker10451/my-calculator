@@ -321,7 +321,7 @@ export const moreBlogPosts: BlogPost[] = [
       "headline": "Индекс массы тела (ИМТ) в 2026: норма, как рассчитать, что означает",
       "author": {
         "@type": "Person",
-        "name": "Елена Здоровье"
+        "name": "Елена Смирнова"
       },
       "datePublished": "2026-01-18T09:00:00Z",
       "publisher": {
@@ -609,7 +609,7 @@ export const depositArticle: BlogPost = {
     "headline": "Банковские вклады в 2026 году: лучшие предложения, ставки, как выбрать",
     "author": {
       "@type": "Person",
-      "name": "Сергей Финансист"
+        "name": "Сергей Иванов"
     },
     "datePublished": "2026-01-19T10:00:00Z",
     "publisher": {
