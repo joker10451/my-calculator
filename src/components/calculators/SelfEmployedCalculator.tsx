@@ -1,450 +1,282 @@
-/**
- * Калькулятор налогов для ИП и самозанятых
- * Расчет налогов по разным системам налогообложения
- */
+import { useState, useMemo } from 'react';
+import { Calculator, Download, Share2, Shield, Wallet, Building2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { jsPDF } from 'jspdf';
 
-import { useState, useMemo, useEffect } from "react";
-import { Wallet, TrendingDown, Building2, Users, Calculator } from "lucide-react";
-import { CalculatorActions } from "@/components/CalculatorActions";
-import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
-import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
+function formatMoney(v: number): string {
+  return Math.round(v).toLocaleString('ru-RU');
+}
 
-type TaxSystem = 'self-employed' | 'usn-income' | 'usn-profit' | 'patent';
+export function SelfEmployedCalculator() {
+  const { toast } = useToast();
+  const [income, setIncome] = useState(100000);
+  const [regime, setRegime] = useState<'self-employed' | 'ip-usn' | 'ip-patent'>('self-employed');
+  const [hasEmployees, setHasEmployees] = useState(false);
+  const [showResult, setShowResult] = useState(false);
 
-const SelfEmployedCalculator = () => {
-  const { formatCurrency, saveCalculation } = useCalculatorCommon('self-employed', 'Калькулятор для самозанятых');
-  
-  const [taxSystem, setTaxSystem] = useState<TaxSystem>('self-employed');
-  const [monthlyIncome, setMonthlyIncome] = useState(100000);
-  const [expenses, setExpenses] = useState(30000);
-  const [clientType, setClientType] = useState<'individual' | 'legal'>('individual');
-  const [patentCost, setPatentCost] = useState(36000); // годовая стоимость патента
-
-  const calculation = useMemo(() => {
-    const yearlyIncome = monthlyIncome * 12;
-    const yearlyExpenses = expenses * 12;
-    const profit = yearlyIncome - yearlyExpenses;
-
+  const result = useMemo(() => {
     let tax = 0;
-    let pensionContribution = 0;
-    let medicalContribution = 0;
-    let totalContributions = 0;
+    let insurance = 0;
     let netIncome = 0;
     let effectiveRate = 0;
+    let details = '';
 
-    switch (taxSystem) {
-      case 'self-employed': {
-        // Налог на профессиональный доход (НПД)
-        // 4% с физлиц, 6% с юрлиц
-        const rate = clientType === 'individual' ? 0.04 : 0.06;
-        tax = yearlyIncome * rate;
-        // Взносы не платятся
-        pensionContribution = 0;
-        medicalContribution = 0;
-        totalContributions = 0;
-        netIncome = yearlyIncome - tax;
-        effectiveRate = (tax / yearlyIncome) * 100;
-        break;
+    if (regime === 'self-employed') {
+      if (hasEmployees) {
+        tax = income * 0.06;
+        details = '6% от дохода (как ИП на УСН)';
+      } else {
+        tax = income * 0.04;
+        details = '4% от дохода (самозанятый без сотрудников)';
       }
-
-      case 'usn-income':
-        // УСН Доходы 6%
-        tax = yearlyIncome * 0.06;
-        // Фиксированные взносы 2026
-        pensionContribution = 49500;
-        medicalContribution = 16500;
-        // Дополнительный взнос 1% с дохода свыше 300 000
-        if (yearlyIncome > 300000) {
-          pensionContribution += (yearlyIncome - 300000) * 0.01;
-        }
-        totalContributions = pensionContribution + medicalContribution;
-        // Налог можно уменьшить на взносы (до 100% для ИП без сотрудников)
-        tax = Math.max(0, tax - totalContributions);
-        netIncome = yearlyIncome - tax - totalContributions;
-        effectiveRate = ((tax + totalContributions) / yearlyIncome) * 100;
-        break;
-
-      case 'usn-profit': {
-        // УСН Доходы минус расходы 15%
-        tax = Math.max(0, profit * 0.15);
-        // Минимальный налог 1% от дохода
-        const minTax = yearlyIncome * 0.01;
-        tax = Math.max(tax, minTax);
-        // Фиксированные взносы
-        pensionContribution = 49500;
-        medicalContribution = 16500;
-        if (yearlyIncome > 300000) {
-          pensionContribution += (yearlyIncome - 300000) * 0.01;
-        }
-        totalContributions = pensionContribution + medicalContribution;
-        netIncome = yearlyIncome - yearlyExpenses - tax - totalContributions;
-        effectiveRate = ((tax + totalContributions) / yearlyIncome) * 100;
-        break;
-      }
-
-      case 'patent':
-        // Патентная система
-        tax = patentCost;
-        // Фиксированные взносы
-        pensionContribution = 49500;
-        medicalContribution = 16500;
-        if (yearlyIncome > 300000) {
-          pensionContribution += (yearlyIncome - 300000) * 0.01;
-        }
-        totalContributions = pensionContribution + medicalContribution;
-        netIncome = yearlyIncome - tax - totalContributions;
-        effectiveRate = ((tax + totalContributions) / yearlyIncome) * 100;
-        break;
+      insurance = 0;
+      netIncome = income - tax;
+      effectiveRate = (tax / income) * 100;
+    } else if (regime === 'ip-usn') {
+      tax = income * 0.06;
+      insurance = 49500 / 12;
+      netIncome = income - tax - insurance;
+      effectiveRate = ((tax + insurance) / income) * 100;
+      details = '6% от дохода + страховые взносы';
+    } else {
+      tax = income * 0.06;
+      insurance = 49500 / 12;
+      netIncome = income - tax - insurance;
+      effectiveRate = ((tax + insurance) / income) * 100;
+      details = 'Патентная система (стоимость патента зависит от региона)';
     }
 
     return {
-      yearlyIncome: Math.round(yearlyIncome),
-      yearlyExpenses: Math.round(yearlyExpenses),
-      profit: Math.round(profit),
       tax: Math.round(tax),
-      pensionContribution: Math.round(pensionContribution),
-      medicalContribution: Math.round(medicalContribution),
-      totalContributions: Math.round(totalContributions),
-      totalPayments: Math.round(tax + totalContributions),
+      insurance: Math.round(insurance),
       netIncome: Math.round(netIncome),
-      effectiveRate: effectiveRate.toFixed(2),
-      monthlyNet: Math.round(netIncome / 12)
+      effectiveRate: Math.round(effectiveRate * 10) / 10,
+      details,
+      totalPayments: Math.round(tax + insurance),
     };
-  }, [taxSystem, monthlyIncome, expenses, clientType, patentCost]);
+  }, [income, regime, hasEmployees]);
 
-  // Сохранение расчета в историю
-  useEffect(() => {
-    if (calculation.netIncome > 0) {
-      const taxSystemLabels = {
-        'self-employed': 'Самозанятый (НПД)',
-        'usn-income': 'УСН Доходы',
-        'usn-profit': 'УСН Доходы-Расходы',
-        'patent': 'Патент'
-      };
-      
-      saveCalculation(
-        { taxSystem, monthlyIncome, expenses, clientType, patentCost },
-        {
-          'Чистый доход': formatCurrency(calculation.netIncome),
-          'Система': taxSystemLabels[taxSystem],
-          'Доход в месяц': formatCurrency(monthlyIncome),
-          'Эффективная ставка': `${calculation.effectiveRate}%`
-        }
-      );
-    }
-  }, [calculation.netIncome, calculation.effectiveRate, taxSystem, monthlyIncome, expenses, clientType, patentCost, saveCalculation, formatCurrency]);
+  const handleDownload = () => {
+    const doc = new jsPDF();
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.setTextColor(16, 185, 129);
+    doc.text('Расчёт налогов для самозанятых/ИП', 20, 25);
 
-  // Данные для экспорта
-  const exportData = [
-    { Параметр: 'Система налогообложения', Значение: taxSystem === 'self-employed' ? 'Самозанятый (НПД)' : taxSystem === 'usn-income' ? 'УСН Доходы' : taxSystem === 'usn-profit' ? 'УСН Доходы-Расходы' : 'Патент' },
-    { Параметр: 'Ежемесячный доход', Значение: formatCurrency(monthlyIncome) },
-    { Параметр: 'Годовой доход', Значение: formatCurrency(calculation.yearlyIncome) },
-    ...(taxSystem === 'usn-profit' ? [{ Параметр: 'Расходы в год', Значение: formatCurrency(calculation.yearlyExpenses) }] : []),
-    { Параметр: 'Налог', Значение: formatCurrency(calculation.tax) },
-    ...(calculation.totalContributions > 0 ? [{ Параметр: 'Страховые взносы', Значение: formatCurrency(calculation.totalContributions) }] : []),
-    { Параметр: 'Чистый доход в год', Значение: formatCurrency(calculation.netIncome) },
-    { Параметр: 'Чистый доход в месяц', Значение: formatCurrency(calculation.monthlyNet) },
-    { Параметр: 'Эффективная ставка', Значение: `${calculation.effectiveRate}%` }
-  ];
+    doc.setFontSize(12);
+    doc.setTextColor(30);
+    doc.text(`Доход: ${formatMoney(income)} ₽/мес`, 20, 45);
+    doc.text(`Режим: ${regime === 'self-employed' ? 'Самозанятость' : regime === 'ip-usn' ? 'ИП на УСН' : 'ИП на патенте'}`, 20, 55);
 
-  // Параметры для share
-  const shareParams = {
-    taxSystem,
-    monthlyIncome,
-    expenses,
-    clientType,
-    patentCost
+    doc.setDrawColor(200);
+    doc.line(20, 65, 190, 65);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(30);
+    doc.text('Результат', 20, 80);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.text(`Налог: ${formatMoney(result.tax)} ₽/мес`, 20, 95);
+    doc.text(`Страховые взносы: ${formatMoney(result.insurance)} ₽/мес`, 20, 105);
+    doc.text(`Чистый доход: ${formatMoney(result.netIncome)} ₽/мес`, 20, 115);
+    doc.text(`Эффективная ставка: ${result.effectiveRate}%`, 20, 125);
+
+    doc.setFontSize(9);
+    doc.setTextColor(150);
+    doc.text(`Сформировано на Schitay.ru — ${new Date().toLocaleDateString('ru-RU')}`, 20, 280);
+    doc.save(`налоги_${regime}_${new Date().toISOString().split('T')[0]}.pdf`);
+    toast({ title: 'Успех!', description: 'PDF-отчёт сформирован.' });
   };
 
-  // Загрузка расчета из истории
-  const handleLoadCalculation = (item: CalculationHistoryItem) => {
-    const inputs = item.inputs;
-    setTaxSystem(inputs.taxSystem);
-    setMonthlyIncome(inputs.monthlyIncome);
-    setExpenses(inputs.expenses);
-    setClientType(inputs.clientType);
-    setPatentCost(inputs.patentCost);
+  const handleShare = async () => {
+    const text = `Мой чистый доход как ${regime === 'self-employed' ? 'самозанятого' : 'ИП'}: ${formatMoney(result.netIncome)} ₽/мес при доходе ${formatMoney(income)} ₽. Посчитай свой на Считай.RU`;
+    if (navigator.share) {
+      await navigator.share({ title: 'Налоги самозанятых', text, url: window.location.href });
+    } else {
+      await navigator.clipboard.writeText(text);
+      toast({ title: 'Скопировано!', description: 'Текст скопирован в буфер обмена' });
+    }
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Панель действий */}
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Расчет налогов ИП</h2>
-        <div className="flex items-center gap-2">
-          <CalculatorHistory 
-            calculatorType="self-employed"
-            onLoadCalculation={handleLoadCalculation}
-          />
-          <CalculatorActions
-            calculatorId="self-employed"
-            calculatorName="Налоги ИП"
-            data={exportData}
-            printElementId="self-employed-results"
-            shareParams={shareParams}
-          />
+    <div className="max-w-6xl mx-auto">
+      {/* Hero */}
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full text-sm font-bold mb-6">
+          <Shield className="w-4 h-4" />
+          Налоги 2026
         </div>
-      </div>
-      {/* Выбор системы налогообложения */}
-      <div className="glass-card p-6 space-y-4">
-        <h3 className="font-bold flex items-center gap-2">
-          <Building2 className="w-5 h-5 text-primary" />
-          Система налогообложения
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <button
-            onClick={() => setTaxSystem('self-employed')}
-            className={`p-4 rounded-xl border-2 transition-all text-left ${
-              taxSystem === 'self-employed'
-                ? 'border-primary bg-primary/10'
-                : 'border-border hover:border-primary/50'
-            }`}
-          >
-            <div className="font-semibold">Самозанятый (НПД)</div>
-            <div className="text-sm text-muted-foreground mt-1">4-6%, без взносов</div>
-          </button>
-          <button
-            onClick={() => setTaxSystem('usn-income')}
-            className={`p-4 rounded-xl border-2 transition-all text-left ${
-              taxSystem === 'usn-income'
-                ? 'border-primary bg-primary/10'
-                : 'border-border hover:border-primary/50'
-            }`}
-          >
-            <div className="font-semibold">УСН Доходы</div>
-            <div className="text-sm text-muted-foreground mt-1">6% + взносы</div>
-          </button>
-          <button
-            onClick={() => setTaxSystem('usn-profit')}
-            className={`p-4 rounded-xl border-2 transition-all text-left ${
-              taxSystem === 'usn-profit'
-                ? 'border-primary bg-primary/10'
-                : 'border-border hover:border-primary/50'
-            }`}
-          >
-            <div className="font-semibold">УСН Доходы-Расходы</div>
-            <div className="text-sm text-muted-foreground mt-1">15% от прибыли + взносы</div>
-          </button>
-          <button
-            onClick={() => setTaxSystem('patent')}
-            className={`p-4 rounded-xl border-2 transition-all text-left ${
-              taxSystem === 'patent'
-                ? 'border-primary bg-primary/10'
-                : 'border-border hover:border-primary/50'
-            }`}
-          >
-            <div className="font-semibold">Патент</div>
-            <div className="text-sm text-muted-foreground mt-1">Фикс. стоимость + взносы</div>
-          </button>
-        </div>
+        <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tighter">
+          Калькулятор налогов <span className="text-emerald-600">самозанятых</span> и ИП
+        </h1>
+        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          Рассчитайте налоги и страховые взносы. Сравните режимы: самозанятость, УСН, патент.
+        </p>
       </div>
 
-      {/* Доход */}
-      <div className="glass-card p-6 space-y-4">
-        <div className="flex justify-between items-center">
-          <label className="font-semibold flex items-center gap-2">
-            <Wallet className="w-5 h-5 text-primary" />
-            Ежемесячный доход
-          </label>
-          <input
-            type="number"
-            value={monthlyIncome}
-            onChange={(e) => setMonthlyIncome(Number(e.target.value))}
-            className="w-32 text-right text-xl font-bold text-primary bg-transparent border-b-2 border-primary focus:outline-none"
-          />
-        </div>
-        <input
-          type="range"
-          min="10000"
-          max="500000"
-          step="5000"
-          value={monthlyIncome}
-          onChange={(e) => setMonthlyIncome(Number(e.target.value))}
-          className="w-full"
-        />
-        <div className="flex justify-between text-xs text-muted-foreground">
-          <span>10 000 ₽</span>
-          <span>500 000 ₽</span>
-        </div>
-        <div className="text-sm text-muted-foreground">
-          В год: {formatCurrency(calculation.yearlyIncome)}
-        </div>
-      </div>
+      <div className="grid lg:grid-cols-5 gap-8">
+        {/* Input */}
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm sticky top-24">
+            <h2 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-3">
+              <Calculator className="w-5 h-5 text-blue-600" />
+              Параметры
+            </h2>
 
-      {/* Тип клиентов (для самозанятых) */}
-      {taxSystem === 'self-employed' && (
-        <div className="glass-card p-6 space-y-4">
-          <h3 className="font-semibold flex items-center gap-2">
-            <Users className="w-5 h-5 text-primary" />
-            Тип клиентов
-          </h3>
-          <div className="grid grid-cols-2 gap-3">
+            {/* Regime */}
+            <div className="space-y-2 mb-6">
+              <label className="text-sm font-bold text-slate-700">Режим налогообложения</label>
+              {[
+                { value: 'self-employed' as const, label: 'Самозанятость (НПД)', desc: '4-6% от дохода' },
+                { value: 'ip-usn' as const, label: 'ИП на УСН', desc: '6% + страховые взносы' },
+                { value: 'ip-patent' as const, label: 'ИП на патенте', desc: 'Фиксированная стоимость' },
+              ].map(r => (
+                <button
+                  key={r.value}
+                  onClick={() => setRegime(r.value)}
+                  className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+                    regime === r.value
+                      ? 'border-emerald-500 bg-emerald-50'
+                      : 'border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <div className="font-bold text-sm text-slate-900">{r.label}</div>
+                  <div className="text-xs text-slate-500">{r.desc}</div>
+                </button>
+              ))}
+            </div>
+
+            {/* Income */}
+            <div className="space-y-3 mb-6">
+              <div className="flex justify-between items-center">
+                <label className="text-sm font-bold text-slate-700">Доход в месяц</label>
+                <span className="text-sm font-black text-emerald-600">{formatMoney(income)} ₽</span>
+              </div>
+              <input
+                type="range"
+                min={10000}
+                max={1000000}
+                step={5000}
+                value={income}
+                onChange={(e) => setIncome(Number(e.target.value))}
+                className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-emerald-600"
+              />
+            </div>
+
+            {/* Employees */}
+            {regime === 'self-employed' && (
+              <div className="mb-6">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={hasEmployees}
+                    onChange={(e) => setHasEmployees(e.target.checked)}
+                    className="w-5 h-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                  />
+                  <span className="text-sm font-bold text-slate-700">Есть наёмные сотрудники</span>
+                </label>
+              </div>
+            )}
+
             <button
-              onClick={() => setClientType('individual')}
-              className={`p-4 rounded-xl border-2 transition-all ${
-                clientType === 'individual'
-                  ? 'border-primary bg-primary/10'
-                  : 'border-border hover:border-primary/50'
-              }`}
+              onClick={() => setShowResult(true)}
+              className="w-full h-14 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-black text-lg rounded-2xl hover:from-emerald-700 hover:to-emerald-800 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-emerald-200/50"
             >
-              <div className="font-semibold">Физлица</div>
-              <div className="text-sm text-muted-foreground mt-1">Налог 4%</div>
-            </button>
-            <button
-              onClick={() => setClientType('legal')}
-              className={`p-4 rounded-xl border-2 transition-all ${
-                clientType === 'legal'
-                  ? 'border-primary bg-primary/10'
-                  : 'border-border hover:border-primary/50'
-              }`}
-            >
-              <div className="font-semibold">Юрлица</div>
-              <div className="text-sm text-muted-foreground mt-1">Налог 6%</div>
+              Рассчитать налоги
             </button>
           </div>
         </div>
-      )}
 
-      {/* Расходы (для УСН Доходы-Расходы) */}
-      {taxSystem === 'usn-profit' && (
-        <div className="glass-card p-6 space-y-4">
-          <div className="flex justify-between items-center">
-            <label className="font-semibold flex items-center gap-2">
-              <TrendingDown className="w-5 h-5 text-primary" />
-              Ежемесячные расходы
-            </label>
-            <input
-              type="number"
-              value={expenses}
-              onChange={(e) => setExpenses(Number(e.target.value))}
-              className="w-32 text-right text-xl font-bold text-primary bg-transparent border-b-2 border-primary focus:outline-none"
-            />
-          </div>
-          <input
-            type="range"
-            min="0"
-            max={monthlyIncome}
-            step="1000"
-            value={expenses}
-            onChange={(e) => setExpenses(Number(e.target.value))}
-            className="w-full"
-          />
-          <div className="text-sm text-muted-foreground">
-            В год: {formatCurrency(calculation.yearlyExpenses)}
-          </div>
-        </div>
-      )}
-
-      {/* Стоимость патента */}
-      {taxSystem === 'patent' && (
-        <div className="glass-card p-6 space-y-4">
-          <div className="flex justify-between items-center">
-            <label className="font-semibold flex items-center gap-2">
-              <Calculator className="w-5 h-5 text-primary" />
-              Стоимость патента в год
-            </label>
-            <input
-              type="number"
-              value={patentCost}
-              onChange={(e) => setPatentCost(Number(e.target.value))}
-              className="w-32 text-right text-xl font-bold text-primary bg-transparent border-b-2 border-primary focus:outline-none"
-            />
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Зависит от вида деятельности и региона
-          </p>
-        </div>
-      )}
-
-      {/* Результат */}
-      <div id="self-employed-results" className="glass-card p-6 bg-primary/5 border-primary/20 space-y-6">
-        <h3 className="text-xl font-bold">Расчет налогов</h3>
-        
-        <div className="space-y-4">
-          <div className="p-4 bg-background rounded-lg">
-            <div className="text-sm text-muted-foreground mb-1">Годовой доход</div>
-            <div className="text-2xl font-bold">
-              {formatCurrency(calculation.yearlyIncome)}
+        {/* Results */}
+        <div className="lg:col-span-3">
+          {!showResult ? (
+            <div className="flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl border-2 border-dashed border-slate-200 min-h-[500px]">
+              <div className="text-center p-8">
+                <div className="w-20 h-20 bg-slate-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Building2 className="w-10 h-10 text-slate-400" />
+                </div>
+                <h3 className="text-xl font-black text-slate-700 mb-2">Введите параметры</h3>
+                <p className="text-slate-500 font-medium">Выберите режим налогообложения и укажите доход</p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="space-y-4">
+              {/* Main Result */}
+              <div className="bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-700 rounded-3xl p-8 text-white shadow-2xl shadow-emerald-200/50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                      <Wallet className="w-5 h-5" />
+                    </div>
+                    <span className="font-black uppercase tracking-widest text-xs">Чистый доход</span>
+                  </div>
+                  <div className="text-5xl md:text-6xl font-black mb-2 tracking-tight">
+                    {formatMoney(result.netIncome)} ₽
+                  </div>
+                  <p className="text-emerald-100 text-lg font-medium mb-6">
+                    в месяц после налогов
+                  </p>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
+                      <div className="text-xs text-emerald-100 font-medium mb-1">Налог</div>
+                      <div className="text-2xl font-black">{formatMoney(result.tax)} ₽</div>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
+                      <div className="text-xs text-emerald-100 font-medium mb-1">Эфф. ставка</div>
+                      <div className="text-2xl font-black">{result.effectiveRate}%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-          {taxSystem === 'usn-profit' && (
-            <>
-              <div className="p-4 bg-background rounded-lg">
-                <div className="text-sm text-muted-foreground mb-1">Расходы</div>
-                <div className="text-xl font-bold text-red-500">
-                  -{formatCurrency(calculation.yearlyExpenses)}
+              {/* Details */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <h3 className="font-bold text-slate-900 mb-4">Детализация</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center py-3 border-b border-slate-100">
+                    <span className="text-slate-600 font-medium">Доход</span>
+                    <span className="font-black text-slate-900">{formatMoney(income)} ₽</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-slate-100">
+                    <span className="text-slate-600 font-medium">Налог ({result.details})</span>
+                    <span className="font-black text-red-600">-{formatMoney(result.tax)} ₽</span>
+                  </div>
+                  {result.insurance > 0 && (
+                    <div className="flex justify-between items-center py-3 border-b border-slate-100">
+                      <span className="text-slate-600 font-medium">Страховые взносы</span>
+                      <span className="font-black text-red-600">-{formatMoney(result.insurance)} ₽</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between items-center py-3">
+                    <span className="text-slate-900 font-bold">Итого к оплате</span>
+                    <span className="font-black text-emerald-600">{formatMoney(result.totalPayments)} ₽</span>
+                  </div>
                 </div>
               </div>
-              <div className="p-4 bg-background rounded-lg">
-                <div className="text-sm text-muted-foreground mb-1">Прибыль</div>
-                <div className="text-xl font-bold">
-                  {formatCurrency(calculation.profit)}
-                </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={handleShare}
+                  className="flex-1 h-14 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+                >
+                  <Share2 className="w-5 h-5" />
+                  Поделиться
+                </button>
+                <button
+                  onClick={handleDownload}
+                  className="flex-1 h-14 bg-white border-2 border-slate-200 text-slate-900 font-bold rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                >
+                  <Download className="w-5 h-5" />
+                  PDF
+                </button>
               </div>
-            </>
+            </div>
           )}
-
-          <div className="p-4 bg-background rounded-lg">
-            <div className="text-sm text-muted-foreground mb-1">Налог</div>
-            <div className="text-xl font-bold text-red-500">
-              -{formatCurrency(calculation.tax)}
-            </div>
-          </div>
-
-          {calculation.totalContributions > 0 && (
-            <>
-              <div className="p-4 bg-background rounded-lg">
-                <div className="text-sm text-muted-foreground mb-1">Пенсионные взносы</div>
-                <div className="text-lg font-bold text-red-500">
-                  -{formatCurrency(calculation.pensionContribution)}
-                </div>
-              </div>
-              <div className="p-4 bg-background rounded-lg">
-                <div className="text-sm text-muted-foreground mb-1">Медицинские взносы</div>
-                <div className="text-lg font-bold text-red-500">
-                  -{formatCurrency(calculation.medicalContribution)}
-                </div>
-              </div>
-              <div className="p-4 bg-background rounded-lg border-2 border-red-200">
-                <div className="text-sm text-muted-foreground mb-1">Всего платежей</div>
-                <div className="text-xl font-bold text-red-500">
-                  -{formatCurrency(calculation.totalPayments)}
-                </div>
-              </div>
-            </>
-          )}
-
-          <div className="p-4 bg-primary/10 rounded-lg border-2 border-primary">
-            <div className="text-sm text-muted-foreground mb-1">Чистый доход в год</div>
-            <div className="text-3xl font-bold text-primary">
-              {formatCurrency(calculation.netIncome)}
-            </div>
-            <div className="text-sm text-muted-foreground mt-2">
-              В месяц: {formatCurrency(calculation.monthlyNet)}
-            </div>
-          </div>
-
-          <div className="p-4 bg-background rounded-lg">
-            <div className="text-sm text-muted-foreground mb-1">Эффективная ставка</div>
-            <div className="text-2xl font-bold">
-              {calculation.effectiveRate}%
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-4 p-4 bg-background/50 rounded-lg">
-          <p className="text-xs text-muted-foreground">
-            ℹ️ Расчет учитывает актуальные ставки и взносы 2026 года. 
-            {taxSystem === 'self-employed' && ' Самозанятые не платят страховые взносы.'}
-            {taxSystem === 'usn-income' && ' Налог УСН можно уменьшить на сумму взносов до 100%.'}
-            {taxSystem === 'usn-profit' && ' Минимальный налог составляет 1% от дохода.'}
-          </p>
         </div>
       </div>
     </div>
   );
-};
-
-export default SelfEmployedCalculator;
+}
