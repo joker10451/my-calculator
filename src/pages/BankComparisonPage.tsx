@@ -1,6 +1,7 @@
 import { BankComparisonTable } from "@/components/calculators/BankComparisonTable";
 import { SEO, generateFAQSchema, generateCalculatorSchema } from "@/components/SEO";
 import { generateHowToSchema } from "@/utils/seoSchemas";
+import { RateAlertButton } from "@/components/RateAlertButton";
 import { Building2, TrendingDown, Wallet, Shield, Star, ArrowRight, CheckCircle } from "lucide-react";
 
 const SITE_URL = 'https://schitay-online.ru';
@@ -84,6 +85,9 @@ const BankComparisonPage = () => {
                     <p className="text-xl text-slate-600 max-w-2xl mx-auto">
                         Все ставки, условия и рейтинги — в одной таблице. Найдите лучшее предложение без визита в каждый банк.
                     </p>
+                    <div className="mt-6">
+                        <RateAlertButton />
+                    </div>
                 </div>
 
                 {/* Table */}
