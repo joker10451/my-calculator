@@ -165,7 +165,7 @@ const TBANK_ALL_AIRLINES_CARD_INTERNAL: TBankAllAirlinesCardInternalConfig = {
   affiliate: {
     link: 'https://trk.ppdu.ru/click/AxwkY87N?erid=2SDnjeBaaR6',
     erid: '2SDnjeBaaR6',
-    promoCode: 'LETIM2025',
+    promoCode: 'LETIM2026',
     cookieTTL: 90,
     holdPeriod: 30,
     maxProcessingTime: 145,
