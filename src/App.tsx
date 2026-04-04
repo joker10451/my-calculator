@@ -52,6 +52,7 @@ const BankMortgagePage = lazy(() => import("./pages/BankMortgagePage"));
 const MFOPage = lazy(() => import("./pages/MFOPage"));
 const FinancialLiteracyQuiz = lazy(() => import("./pages/FinancialLiteracyQuiz"));
 const TaxDeductionCalculatorPage = lazy(() => import("./pages/TaxDeductionCalculatorPage"));
+const ZettaOSGOPPage = lazy(() => import("./pages/ZettaOSGOPPage"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllCalculatorsPage = lazy(() => import("./pages/AllCalculatorsPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -151,6 +152,7 @@ const AnimatedRoutes = () => {
           <Route path="/mfo/:mfo" element={<PageTransition><MFOPage /></PageTransition>} />
           <Route path="/quiz/financial-literacy" element={<PageTransition><FinancialLiteracyQuiz /></PageTransition>} />
           <Route path="/calculator/tax-deduction" element={<PageTransition><TaxDeductionCalculatorPage /></PageTransition>} />
+          <Route path="/insurance/osgop-taxi" element={<PageTransition><ZettaOSGOPPage /></PageTransition>} />
           <Route path="/category/:id" element={<PageTransition><CategoryPage /></PageTransition>} />
           <Route path="/calculator/maternity-capital" element={<PageTransition><MaternityCapitalCalculatorPage /></PageTransition>} />
           <Route path="/calculator/calories" element={<PageTransition><CalorieCalculatorPage /></PageTransition>} />

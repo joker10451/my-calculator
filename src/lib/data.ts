@@ -67,6 +67,7 @@ export const categories = [
             { name: "Калькулятор ОСАГО", href: "/calculator/osago" },
             { name: "Калькулятор КАСКО", href: "/calculator/kasko" },
             { name: "Расход топлива", href: "/calculator/fuel" },
+            { name: "ОСГОП для такси", href: "/insurance/osgop-taxi" }
         ],
         href: "/category/auto",
     },

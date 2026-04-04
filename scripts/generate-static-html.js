@@ -73,6 +73,7 @@ const routes = [
   { path: '/blog/kuda-vlozhit-dengi-2026-top-strategii/', folder: 'blog/kuda-vlozhit-dengi-2026-top-strategii', title: 'Куда вложить деньги в 2026 году: 7 стратегий | Считай.RU', description: 'Подробный обзор инвестиционных инструментов 2026. Вклады, облигации, акции, недвижимость.' },
   { path: '/blog/otpusknye-2026-kalkulyator-kogda-vygodnee-idti/', folder: 'blog/otpusknye-2026-kalkulyator-kogda-vygodnee-idti', title: 'Отпускные 2026: калькулятор и когда выгоднее идти в отпуск | Считай.RU', description: 'Как рассчитать отпускные в 2026 году. Формула, примеры, в каком месяце выгоднее отдыхать.' },
   { path: '/calculator/tax-deduction/', folder: 'calculator/tax-deduction', title: 'Калькулятор налогового вычета 2026 — сколько вернёт государство | Считай.RU', description: 'Рассчитайте налоговый вычет 13% за покупку жилья, лечение, обучение. Имущественный, социальный, стандартный вычеты.' },
+  { path: '/insurance/osgop-taxi/', folder: 'insurance/osgop-taxi', title: 'ОСГОП для такси онлайн — обязательная страховка от 3 392 ₽ | Зетта Страхование', description: 'Оформите ОСГОП для такси за 3 минуты. Штрафы до 1 млн ₽ без полиса. Выплаты до 2 млн ₽ пассажирам.' },
   // Google verification
   { path: '/google110b9cc8d3bca8f9.html', folder: '.', title: '', description: '', isGoogleVerification: true },
 ];
