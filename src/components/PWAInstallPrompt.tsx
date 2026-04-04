@@ -1,0 +1,70 @@
+import { useState, useEffect } from 'react';
+import { Download, X } from 'lucide-react';
+
+export function PWAInstallPrompt() {
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showPrompt, setShowPrompt] = useState(false);
+
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      // Show after 5 seconds on first visit
+      const hasSeen = localStorage.getItem('pwa_install_seen');
+      if (!hasSeen) {
+        setTimeout(() => setShowPrompt(true), 5000);
+        localStorage.setItem('pwa_install_seen', 'true');
+      }
+    };
+
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setShowPrompt(false);
+    }
+    setDeferredPrompt(null);
+  };
+
+  const handleDismiss = () => {
+    setShowPrompt(false);
+    localStorage.setItem('pwa_install_dismissed', 'true');
+  };
+
+  if (!showPrompt || !deferredPrompt) return null;
+
+  return (
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:w-96 z-50 animate-fade-in-up">
+      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 p-5 relative">
+        <button
+          onClick={handleDismiss}
+          className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <Download className="w-6 h-6 text-blue-600" />
+          </div>
+          <div>
+            <h3 className="font-bold text-slate-900 text-base mb-1">Установить Считай.RU</h3>
+            <p className="text-slate-500 text-sm mb-4">
+              Добавьте приложение на главный экран для быстрого доступа к калькуляторам
+            </p>
+            <button
+              onClick={handleInstall}
+              className="w-full h-11 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all text-sm"
+            >
+              Установить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

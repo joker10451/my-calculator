@@ -41,6 +41,7 @@ export const categories = [
             { name: "Калькулятор больничного", href: "/calculator/sick-leave" },
             { name: "Налоги для ИП/самозанятых", href: "/calculator/self-employed" },
             { name: "Калькулятор пенсии", href: "/calculator/pension" },
+            { name: "Налоговый вычет", href: "/calculator/tax-deduction" },
             { name: "Курьер Яндекс.Еда/Лавка", href: "/courier-yandex" }
         ],
         href: "/category/salary",

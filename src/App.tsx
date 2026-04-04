@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { PWAInstallPrompt } from "./components/PWAInstallPrompt";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
@@ -50,6 +51,7 @@ const EmbedWidgetPage = lazy(() => import("./pages/EmbedWidgetPage"));
 const BankMortgagePage = lazy(() => import("./pages/BankMortgagePage"));
 const MFOPage = lazy(() => import("./pages/MFOPage"));
 const FinancialLiteracyQuiz = lazy(() => import("./pages/FinancialLiteracyQuiz"));
+const TaxDeductionCalculatorPage = lazy(() => import("./pages/TaxDeductionCalculatorPage"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllCalculatorsPage = lazy(() => import("./pages/AllCalculatorsPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -98,6 +100,7 @@ const App = () => (
             <SkipToContent />
             <Toaster />
             <Sonner />
+            <PWAInstallPrompt />
             <Router>
               <YandexMetrikaTracker />
               <GoogleAnalyticsTracker />
@@ -147,6 +150,7 @@ const AnimatedRoutes = () => {
           <Route path="/bank/:bank/mortgage" element={<PageTransition><BankMortgagePage /></PageTransition>} />
           <Route path="/mfo/:mfo" element={<PageTransition><MFOPage /></PageTransition>} />
           <Route path="/quiz/financial-literacy" element={<PageTransition><FinancialLiteracyQuiz /></PageTransition>} />
+          <Route path="/calculator/tax-deduction" element={<PageTransition><TaxDeductionCalculatorPage /></PageTransition>} />
           <Route path="/category/:id" element={<PageTransition><CategoryPage /></PageTransition>} />
           <Route path="/calculator/maternity-capital" element={<PageTransition><MaternityCapitalCalculatorPage /></PageTransition>} />
           <Route path="/calculator/calories" element={<PageTransition><CalorieCalculatorPage /></PageTransition>} />
