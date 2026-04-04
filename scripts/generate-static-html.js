@@ -60,6 +60,10 @@ const routes = [
   { path: '/blog/materinskij-kapital-2026-razmer-kak-poluchit/', folder: 'blog/materinskij-kapital-2026-razmer-kak-poluchit', title: 'Материнский капитал 2026: размер и как получить | Считай.RU', description: 'Материнский капитал 2026. Размер выплат, порядок получения, на что потратить.' },
   { path: '/blog/refinansirovanie-kreditov-2026-kak-snizit-stavku/', folder: 'blog/refinansirovanie-kreditov-2026-kak-snizit-stavku', title: 'Рефинансирование кредитов 2026: как снизить ставку | Считай.RU', description: 'Рефинансирование кредитов в 2026 году. Как снизить ставку, условия банков, выгода.' },
   { path: '/blog/raschet-kalorij-2026-norma-dlya-pokhudeniya/', folder: 'blog/raschet-kalorij-2026-norma-dlya-pokhudeniya', title: 'Расчёт калорий 2026: норма для похудения | Считай.RU', description: 'Как рассчитать суточную норму калорий в 2026 году. Формулы, примеры, советы.' },
+  // SEO articles
+  { path: '/blog/kalkulyator-ndfl-raschet-nalogov-s-zarplaty-2026/', folder: 'blog/kalkulyator-ndfl-raschet-nalogov-s-zarplaty-2026', title: 'Калькулятор НДФЛ 2026: как рассчитать налог с зарплаты онлайн | Считай.RU', description: 'Подробный гайд по расчёту НДФЛ в 2026 году. Прогрессивная шкала, налоговые вычеты, примеры расчёта. Бесплатный онлайн-калькулятор.' },
+  { path: '/blog/refinansirovanie-ipoteki-2026-kalkulyator-vygoda/', folder: 'blog/refinansirovanie-ipoteki-2026-kalkulyator-vygoda', title: 'Рефинансирование ипотеки 2026: калькулятор выгоды | Считай.RU', description: 'Полный гайд по рефинансированию ипотеки в 2026 году. Калькулятор выгоды, условия банков, подводные камни.' },
+  { path: '/blog/materinskij-kapital-2026-razmer-kak-poluchit-na-chto-potratit/', folder: 'blog/materinskij-kapital-2026-razmer-kak-poluchit-na-chto-potratit', title: 'Материнский капитал 2026: размер, как получить, на что потратить | Считай.RU', description: 'Полный гайд по материнскому капиталу 2026. Размер выплат, индексация, условия получения, направления использования.' },
   // Google verification
   { path: '/google110b9cc8d3bca8f9.html', folder: '.', title: '', description: '', isGoogleVerification: true },
 ];

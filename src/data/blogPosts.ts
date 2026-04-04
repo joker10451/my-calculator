@@ -3,6 +3,7 @@ import { blogCategories } from './blogCategories';
 import { newBlogPosts } from './blogPostsNew3';
 import { additionalBlogPosts } from './blogPostsNew4';
 import { moreBlogPosts, depositArticle as _depositArticle } from './blogPostsNew5';
+import { seoArticles } from './seoArticles';
 import { generatedArticles } from './blogArticlesGenerated';
 import { allGeneratedArticles } from './blogArticlesGenerated2';
 import { migrateBlogPosts } from '@/utils/migrateBlogData';
@@ -391,7 +392,8 @@ https://pampadu.ru/microloans?partner=schitay | Оформить первый з
   ...additionalBlogPosts,
   ...moreBlogPosts,
   ...generatedArticles,
-  ...allGeneratedArticles
+  ...allGeneratedArticles,
+  ...seoArticles
 ];
 
 const allPosts = legacyBlogPosts as Partial<BlogPost>[];
