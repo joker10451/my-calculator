@@ -1,6 +1,9 @@
 import { useState, useMemo } from 'react';
 import { Bike, Wallet, Clock, MapPin, Shield, TrendingUp, CheckCircle, ArrowRight, Star, Phone, ChevronRight } from 'lucide-react';
+import { SEO, generateFAQSchema } from '@/components/SEO';
+import { generateHowToSchema } from '@/utils/seoSchemas';
 
+const SITE_URL = 'https://schitay-online.ru';
 const REFERRAL_LINK = 'https://trk.ppdu.ru/click/o6eCET0k?erid=CQH36pWzJqVGXC5oLP8WVVNCNqJmbhiUPijGiu4zpwPd7G';
 
 interface IncomeResult {
@@ -148,8 +151,34 @@ function CourierIncomeCalculator() {
 }
 
 export default function YandexCourierPage() {
+  const faqSchema = generateFAQSchema([
+    { question: 'Как закрепляется курьер за мной?', answer: 'Кандидат закрепляется за ссылкой на 7 дней при условии первой регистрации. Если за 7 дней не активировался — можно зарегистрировать снова.' },
+    { question: 'Кто считается новым курьером?', answer: 'Новым считается курьер, который выполнил последний заказ в Яндекс.Еде не менее 60 дней назад.' },
+    { question: 'Что такое целевое действие (ЦД)?', answer: 'ЦД считается выполненным, если с момента регистрации и выполнения 5 заказов прошло не более 14 дней.' },
+    { question: 'Курьер не появился в личном кабинете, что делать?', answer: 'Вероятно, кандидат уже проходил регистрацию ранее. Если «лид зарегистрирован», то 7 дней он закреплён за вашим источником.' },
+  ]);
+
+  const howToSchema = generateHowToSchema(
+    'Как стать курьером Яндекс.Еда',
+    'Пошаговая инструкция по регистрации курьером в Яндекс.Еда / Яндекс.Лавка',
+    `${SITE_URL}/courier-yandex`,
+    [
+      { name: 'Перейдите на сайт', text: 'Нажмите «Стать курьером» и перейдите на сайт Яндекс.Еда', url: `${SITE_URL}/courier-yandex#start` },
+      { name: 'Зарегистрируйтесь', text: 'Заполните заявку и выберите тип доставки (пеший, вело, авто)', url: `${SITE_URL}/courier-yandex#register` },
+      { name: 'Заберите сумку', text: 'Придите в курьерский центр и получите термосумку', url: `${SITE_URL}/courier-yandex#bag` },
+      { name: 'Начните зарабатывать', text: 'Выполняйте заказы и получайте ежедневные выплаты', url: `${SITE_URL}/courier-yandex#earn` },
+    ]
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <SEO
+        title="Курьер Яндекс.Еда / Яндекс.Лавка — доход до 8 500 ₽/день"
+        description="Станьте курьером Яндекс.Еда или Яндекс.Лавка. Доход до 8 500 ₽ в день, свободное расписание, ежедневные выплаты. Регистрация через партнёра за 5 минут."
+        keywords="курьер яндекс еда, работа курьером, яндекс лавка курьер, доход курьера, работа с ежедневной оплатой, курьер доставка 2026"
+        canonical={`${SITE_URL}/courier-yandex`}
+        structuredData={[faqSchema, howToSchema]}
+      />
       {/* Hero */}
       <div className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-500 text-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">

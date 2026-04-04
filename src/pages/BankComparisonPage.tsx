@@ -1,7 +1,52 @@
 import { BankComparisonTable } from "@/components/calculators/BankComparisonTable";
+import { SEO, generateFAQSchema, generateCalculatorSchema } from "@/components/SEO";
+import { generateHowToSchema } from "@/utils/seoSchemas";
 import { Building2, TrendingDown, Wallet, Shield, Star, ArrowRight, CheckCircle } from "lucide-react";
 
+const SITE_URL = 'https://schitay-online.ru';
+
+const faqItems = [
+    {
+        question: "Как сравнить ставки по ипотеке в разных банках?",
+        answer: "На странице сравнения банков выберите категорию «Ипотека» и отсортируйте по ставке. Обращайте внимание не только на процент, но и на наличие досрочного погашения, онлайн-заявки и дополнительных комиссий. Разница в 0.5% может сэкономить сотни тысяч за весь срок."
+    },
+    {
+        question: "Какой банк лучше для вклада в 2026 году?",
+        answer: "Выберите категорию «Вклады» и сравните ставки. Учитывайте не только процент, но и условия пополнения, капитализации и досрочного снятия. Вклад с капитализацией может дать больший доход при той же ставке."
+    },
+    {
+        question: "Что значит пометка «Партнёр» у банка?",
+        answer: "Пометка «Партнёр» означает, что банк является партнёром нашей площадки. Это не влияет на объективность сравнения — ставки и условия показываются такие же, как на сайте банка."
+    },
+    {
+        question: "Как часто обновляются ставки?",
+        answer: "Ставки обновляются автоматически при изменении условий банками. Рекомендуем проверять актуальные предложения перед оформлением кредита или вклада."
+    }
+];
+
+const howToSteps = [
+    { name: 'Выберите категорию', text: 'Ипотека, Вклады, Кредиты или Дебетовые карты', url: `${SITE_URL}/compare-banks#category` },
+    { name: 'Отсортируйте по ставке', text: 'Нажмите «По ставке» для сортировки от меньшей к большей', url: `${SITE_URL}/compare-banks#sort` },
+    { name: 'Сравните условия', text: 'Обратите внимание на комиссии, сроки и лимиты', url: `${SITE_URL}/compare-banks#conditions` },
+    { name: 'Выберите лучший банк', text: 'Лучшее предложение подсвечено зелёным значком', url: `${SITE_URL}/compare-banks#result` },
+];
+
 const BankComparisonPage = () => {
+    const calculatorSchema = generateCalculatorSchema(
+        'Сравнение банков — ипотека, вклады, кредиты',
+        'Сравните ставки и условия банков России. Найдите лучшее предложение по ипотеке, вкладам, кредитам и дебетовым картам.',
+        `${SITE_URL}/compare-banks`,
+        'FinanceApplication'
+    );
+
+    const faqSchema = generateFAQSchema(faqItems);
+    const howToSchema = generateHowToSchema(
+        'Как сравнить банки',
+        'Пошаговая инструкция по сравнению ставок и условий банков России',
+        `${SITE_URL}/compare-banks`,
+        howToSteps
+    );
+
     const features = [
         { icon: Star, title: "Рейтинги банков", desc: "Оценки реальных клиентов", color: 'amber' },
         { icon: TrendingDown, title: "Ставки", desc: "Сравнение в реальном времени", color: 'blue' },
@@ -19,6 +64,13 @@ const BankComparisonPage = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 md:py-20">
+            <SEO
+                title="Сравнение банков — ставки по ипотеке, вкладам, кредитам 2026"
+                description="Сравните ставки и условия банков России в одной таблице. Найдите лучшее предложение по ипотеке, вкладам, кредитам и дебетовым картам. Актуальные данные на апрель 2026."
+                keywords="сравнение банков, ставки по ипотеке, лучшие вклады 2026, сравнение кредитов, рейтинг банков, лучшие ставки ипотеки"
+                canonical={`${SITE_URL}/compare-banks`}
+                structuredData={[calculatorSchema, faqSchema, howToSchema]}
+            />
             <div className="container mx-auto px-4">
                 {/* Hero */}
                 <div className="max-w-4xl mx-auto text-center mb-16">
@@ -70,6 +122,24 @@ const BankComparisonPage = () => {
                                 </div>
                             ))}
                         </div>
+                    </div>
+                </div>
+
+                {/* FAQ */}
+                <div className="max-w-5xl mx-auto mb-20">
+                    <h2 className="text-3xl font-black text-slate-900 mb-3 text-center">Частые вопросы</h2>
+                    <p className="text-slate-500 text-center mb-10">Ответы на главные вопросы о сравнении банков</p>
+                    <div className="space-y-3">
+                        {faqItems.map((item, i) => (
+                            <details key={i} className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                                <summary className="p-5 cursor-pointer font-bold text-slate-900 flex items-center gap-3 list-none hover:bg-slate-50 transition-colors">
+                                    {item.question}
+                                </summary>
+                                <div className="px-5 pb-5 text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                                    {item.answer}
+                                </div>
+                            </details>
+                        ))}
                     </div>
                 </div>
 

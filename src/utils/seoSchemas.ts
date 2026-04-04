@@ -55,6 +55,85 @@ export function generateFAQSchema(faqs: Array<{ question: string; answer: string
 }
 
 /**
+ * Генератор HowTo структурированных данных
+ */
+export function generateHowToSchema(
+  name: string,
+  description: string,
+  url: string,
+  steps: Array<{ name: string; text: string; url?: string }>
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    'name': name,
+    'description': description,
+    'url': url,
+    'step': steps.map((step, i) => ({
+      '@type': 'HowToStep',
+      'position': i + 1,
+      'name': step.name,
+      'text': step.text,
+      ...(step.url && { 'url': step.url })
+    }))
+  };
+}
+
+/**
+ * Генератор Product структурированных данных (для банковских продуктов)
+ */
+export function generateProductSchema(
+  name: string,
+  description: string,
+  url: string,
+  provider: string,
+  interestRate: number,
+  minAmount: number,
+  maxAmount: number
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FinancialProduct',
+    'name': name,
+    'description': description,
+    'url': url,
+    'provider': {
+      '@type': 'Organization',
+      'name': provider
+    },
+    'interestRate': {
+      '@type': 'QuantitativeValue',
+      'value': interestRate,
+      'unitText': '% годовых'
+    },
+    'amount': {
+      '@type': 'MonetaryAmount',
+      'minValue': minAmount,
+      'maxValue': maxAmount,
+      'currency': 'RUB'
+    },
+    'inLanguage': 'ru',
+    'isAccessibleForFree': true
+  };
+}
+
+/**
+ * Генератор BreadcrumbList структурированных данных
+ */
+export function generateBreadcrumbSchema(items: Array<{ name: string; url: string }>) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': items.map((item, i) => ({
+      '@type': 'ListItem',
+      'position': i + 1,
+      'name': item.name,
+      'item': item.url
+    }))
+  };
+}
+
+/**
  * Генератор структурированных данных для статьи
  */
 export function generateArticleSchema(

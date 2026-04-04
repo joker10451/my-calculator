@@ -1,6 +1,9 @@
 import { useState, useMemo } from 'react';
 import { Wallet, Clock, Shield, CreditCard, Zap, CheckCircle, ArrowRight, Star, Gift, Percent, Phone, AlertTriangle, ChevronRight } from 'lucide-react';
+import { SEO, generateFAQSchema } from '@/components/SEO';
+import { generateHowToSchema } from '@/utils/seoSchemas';
 
+const SITE_URL = 'https://schitay-online.ru';
 const REFERRAL_LINK = 'https://trk.ppdu.ru/click/ZaiOEayY?erid=Kra23k98b';
 
 const PROMO_CODES = [
@@ -186,8 +189,35 @@ function LoanCalculator() {
 }
 
 export default function JoyMoneyPage() {
+  const faqSchema = generateFAQSchema([
+    { question: 'Что такое «Первый займ 0%»?', answer: 'При первом займе в JoyMoney вы не платите проценты, если погасите займ за 14 дней. При погашении на 22+ день начисляется процент за весь срок по ставке 0,8% в день.' },
+    { question: 'Какие документы нужны?', answer: 'Паспорт РФ и СНИЛС. Никаких справок о доходах, поручителей или визитов в офис.' },
+    { question: 'Можно ли получить займ с плохой кредитной историей?', answer: 'Да, JoyMoney одобряет займы даже при наличии открытых кредитов или займов в других МФО.' },
+    { question: 'Что делать, если не успеваю погасить?', answer: 'Вы можете бесплатно продлить займ или получить индивидуальную схему погашения при просрочке.' },
+    { question: 'Как быстро приходят деньги?', answer: 'После одобрения заявки деньги поступают на банковскую карту в течение нескольких минут.' },
+  ]);
+
+  const howToSchema = generateHowToSchema(
+    'Как получить займ в JoyMoney',
+    'Пошаговая инструкция по получению онлайн займа в JoyMoney за 5 минут',
+    `${SITE_URL}/joy-money`,
+    [
+      { name: 'Перейдите на сайт JoyMoney', text: 'Нажмите «Получить займ» и перейдите на сайт', url: `${SITE_URL}/joy-money#start` },
+      { name: 'Заполните заявку', text: 'Укажите паспортные данные и СНИЛС', url: `${SITE_URL}/joy-money#apply` },
+      { name: 'Получите решение', text: 'Решение принимается за 2 минуты автоматически', url: `${SITE_URL}/joy-money#decision` },
+      { name: 'Получите деньги', text: 'Деньги поступят на банковскую карту', url: `${SITE_URL}/joy-money#receive` },
+    ]
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <SEO
+        title="JoyMoney — займ за 5 минут, первый займ 0% до 30 000 ₽"
+        description="Получите займ в JoyMoney за 5 минут. Первый займ под 0% до 30 000 ₽. Без справок, поручителей и визитов в офис. Деньги на карту мгновенно."
+        keywords="займ онлайн, первый займ 0%, joymoney займ, микрозайм на карту, займ без отказа, быстрые деньги 2026"
+        canonical={`${SITE_URL}/joy-money`}
+        structuredData={[faqSchema, howToSchema]}
+      />
       {/* Hero */}
       <div className="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-600 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">

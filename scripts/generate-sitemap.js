@@ -101,7 +101,10 @@ const pages = [
   { url: '/calculator/alimony', priority: 0.7, changefreq: 'monthly' },
   { url: '/calculator/currency', priority: 0.8, changefreq: 'daily' },
   { url: '/calculator/court-fee', priority: 0.7, changefreq: 'monthly' },
-  { url: '/calculator/tire-size', priority: 0.6, changefreq: 'monthly' },
+  { url: '/calculator/overpayment', priority: 0.9, changefreq: 'weekly' },
+  { url: '/compare-banks', priority: 0.9, changefreq: 'weekly' },
+  { url: '/courier-yandex', priority: 0.8, changefreq: 'monthly' },
+  { url: '/joy-money', priority: 0.8, changefreq: 'monthly' },
   
   // Юридические страницы
   { url: '/privacy', priority: 0.3, changefreq: 'yearly' },
