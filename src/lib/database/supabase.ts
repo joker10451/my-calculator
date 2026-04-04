@@ -378,7 +378,7 @@ export const supabase = isSupabaseConfigured
         }
       }
     })
-  : null as unknown as ReturnType<typeof createClient<Database>>;
+  : createClient<Database>('https://placeholder.supabase.co', 'placeholder-key');
 
 export { isSupabaseConfigured };
 

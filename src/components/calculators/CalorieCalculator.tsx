@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Utensils, Info, Share2, Flame, User, Activity, Download } from "lucide-react";
+import { Flame, Info, Share2, Download } from "lucide-react";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
@@ -25,8 +25,7 @@ const CalorieCalculator = () => {
     const [height, setHeight] = useState(170);
     const [activity, setActivity] = useState<ActivityLevel>("sedentary");
 
-    const calculateCalories = () => {
-        // Harris-Benedict Equation (Revised)
+    const calories = useMemo(() => {
         let bmr = 0;
         if (gender === "male") {
             bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
@@ -34,10 +33,7 @@ const CalorieCalculator = () => {
             bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
         }
         return Math.round(bmr * ACTIVITY_MULTIPLIERS[activity]);
-    };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const calories = useMemo(() => calculateCalories(), [gender, age, weight, height, activity]);
+    }, [gender, age, weight, height, activity]);
 
     const handleDownload = async () => {
         showToast("Генерация PDF", "Пожалуйста, подождите...");

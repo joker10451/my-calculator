@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -39,17 +39,16 @@ function BlogComments({ articleId }: BlogCommentsProps) {
   );
   const [captchaVerified, setCaptchaVerified] = useState(false);
 
-  // Load comments on mount
-  useEffect(() => {
-    loadComments();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [articleId]);
-
-  const loadComments = () => {
+  const loadComments = useCallback(() => {
     const approvedComments = getApprovedComments(articleId);
     setComments(approvedComments);
     setCommentCount(countApprovedComments(articleId));
-  };
+  }, [articleId]);
+
+  // Load comments on mount
+  useEffect(() => {
+    loadComments();
+  }, [loadComments]);
 
   const handleInputChange = (field: keyof CommentFormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));

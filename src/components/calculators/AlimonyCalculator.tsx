@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Calculator, Users, Info, Share2, Wallet, UserMinus, Download } from "lucide-react";
+import { Users, Info, Share2, Wallet, UserMinus, Download } from "lucide-react";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
@@ -12,18 +12,13 @@ const AlimonyCalculator = () => {
     const [method, setMethod] = useState<"percent" | "fixed">("percent");
     const [fixedAmount, setFixedAmount] = useState(15000);
 
-    const calculateAlimony = () => {
+    const alimony = useMemo(() => {
         if (method === "fixed") return fixedAmount;
-
         let percent = 0.25;
         if (children === 2) percent = 0.3333;
         if (children >= 3) percent = 0.50;
-
         return Math.round(income * percent);
-    };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const alimony = useMemo(() => calculateAlimony(), [income, children, method, fixedAmount]);
+    }, [income, children, method, fixedAmount]);
     const netIncome = Math.max(0, income - alimony);
 
     const handleDownload = async () => {

@@ -168,24 +168,8 @@ const getSessionId = (): string => {
 /**
  * Send conversion to backend
  */
-const sendConversionToBackend = async (event: ConversionEvent) => {
-  try {
-    // TODO: Replace with actual backend endpoint
-    const endpoint = '/api/conversions';
-    
-    await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(event),
-    });
-  } catch (e) {
-    // Silently fail - analytics should not break the app
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Failed to send conversion to backend', e);
-    }
-  }
+const sendConversionToBackend = async (_event: ConversionEvent) => {
+  // Backend endpoint not yet configured — conversions stored locally only
 };
 
 /**

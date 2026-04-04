@@ -10,10 +10,11 @@ import { AnimatePresence } from "framer-motion";
 import { ComparisonProvider } from "./context/ComparisonContext";
 import { useYandexMetrika } from "./hooks/useYandexMetrika";
 import { trackPageView } from "./lib/analytics/googleAnalytics";
-import { CalculatorLoadingSkeleton, PageLoadingSkeleton } from "./components/LoadingSkeleton";
+import { CalculatorLoadingSkeleton } from "./components/LoadingSkeleton";
 import { SkipToContent } from "./components/SkipToContent";
 import { PageTransition } from "./components/animations/PageTransition";
 import { ThemeInitializer } from "./components/ThemeInitializer";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 // Lazy loading для страниц
 const Index = lazy(() => import("./pages/Index"));
@@ -111,8 +112,9 @@ const AnimatedRoutes = () => {
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <Suspense fallback={<CalculatorLoadingSkeleton />}>
-        <Routes location={location} key={location.pathname}>
+      <ErrorBoundary>
+        <Suspense fallback={<CalculatorLoadingSkeleton />}>
+          <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />
           <Route path="/calculator/mortgage" element={<PageTransition><MortgageCalculatorPage /></PageTransition>} />
           <Route path="/calculator/salary" element={<PageTransition><SalaryCalculatorPage /></PageTransition>} />
@@ -168,6 +170,7 @@ const AnimatedRoutes = () => {
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </Suspense>
+      </ErrorBoundary>
     </AnimatePresence>
   );
 };

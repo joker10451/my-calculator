@@ -79,13 +79,13 @@ export default function GlassmorphismDemo() {
               <div className="flex items-center gap-4">
                 <h3 className="text-xl font-bold text-white">Навигация</h3>
                 <nav className="flex gap-4">
-                  <a href="#" className="text-white/80 hover:text-white transition-colors">
+                  <a href="/" className="text-white/80 hover:text-white transition-colors">
                     Главная
                   </a>
-                  <a href="#" className="text-white/80 hover:text-white transition-colors">
+                  <a href="/about" className="text-white/80 hover:text-white transition-colors">
                     О нас
                   </a>
-                  <a href="#" className="text-white/80 hover:text-white transition-colors">
+                  <a href="/contacts" className="text-white/80 hover:text-white transition-colors">
                     Контакты
                   </a>
                 </nav>

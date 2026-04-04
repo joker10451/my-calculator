@@ -52,7 +52,7 @@ export const HoverEffect = ({
                             />
                         )}
                     </AnimatePresence>
-                    <Card>
+                    <HoverCard>
                         <div className="flex items-start gap-4">
                             {item.icon && (
                                 <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0", item.bgColor)}>
@@ -60,19 +60,19 @@ export const HoverEffect = ({
                                 </div>
                             )}
                             <div className="flex-1">
-                                <CardTitle>{item.title}</CardTitle>
+                                <HoverCardTitle>{item.title}</HoverCardTitle>
                                 <CardDescription>{item.description}</CardDescription>
                                 {item.extra && <div className="mt-4">{item.extra}</div>}
                             </div>
                         </div>
-                    </Card>
+                    </HoverCard>
                 </Link>
             ))}
         </div>
     );
 };
 
-export const Card = ({
+export const HoverCard = ({
     className,
     children,
 }: {
@@ -93,7 +93,7 @@ export const Card = ({
     );
 };
 
-export const CardTitle = ({
+export const HoverCardTitle = ({
     className,
     children,
 }: {
