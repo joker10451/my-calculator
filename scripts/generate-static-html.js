@@ -68,12 +68,24 @@ const routes = [
   { path: '/google110b9cc8d3bca8f9.html', folder: '.', title: '', description: '', isGoogleVerification: true },
 ];
 
-// Получаем entry point файл из assets
+// Получаем entry point файл из assets (берём самый большой index-*.js — это главный бандл)
 function getEntryPoint() {
   const assetsPath = path.join(process.cwd(), 'dist', 'assets');
   const files = fs.readdirSync(assetsPath);
-  const indexFile = files.find(f => f.startsWith('index-') && f.endsWith('.js'));
-  return indexFile ? `/assets/${indexFile}` : '/assets/index.js';
+  const indexFiles = files.filter(f => f.startsWith('index-') && f.endsWith('.js'));
+  if (indexFiles.length === 0) return '/assets/index.js';
+  
+  // Находим самый большой файл — это главный бандл приложения
+  let largestFile = '';
+  let largestSize = 0;
+  for (const file of indexFiles) {
+    const stats = fs.statSync(path.join(assetsPath, file));
+    if (stats.size > largestSize) {
+      largestSize = stats.size;
+      largestFile = file;
+    }
+  }
+  return `/assets/${largestFile}`;
 }
 
 // Получаем CSS файл
