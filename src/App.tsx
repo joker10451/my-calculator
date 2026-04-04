@@ -46,6 +46,7 @@ const OverpaymentCalculatorPage = lazy(() => import("./pages/OverpaymentCalculat
 const BankComparisonPage = lazy(() => import("./pages/BankComparisonPage"));
 const YandexCourierPage = lazy(() => import("./pages/YandexCourierPage"));
 const JoyMoneyPage = lazy(() => import("./pages/JoyMoneyPage"));
+const EmbedWidgetPage = lazy(() => import("./pages/EmbedWidgetPage"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllCalculatorsPage = lazy(() => import("./pages/AllCalculatorsPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -135,6 +136,7 @@ const AnimatedRoutes = () => {
           <Route path="/compare-banks" element={<PageTransition><BankComparisonPage /></PageTransition>} />
           <Route path="/courier-yandex" element={<PageTransition><YandexCourierPage /></PageTransition>} />
           <Route path="/joy-money" element={<PageTransition><JoyMoneyPage /></PageTransition>} />
+          <Route path="/widgets" element={<PageTransition><EmbedWidgetPage /></PageTransition>} />
           <Route path="/category/:id" element={<PageTransition><CategoryPage /></PageTransition>} />
           <Route path="/calculator/maternity-capital" element={<PageTransition><MaternityCapitalCalculatorPage /></PageTransition>} />
           <Route path="/calculator/calories" element={<PageTransition><CalorieCalculatorPage /></PageTransition>} />
