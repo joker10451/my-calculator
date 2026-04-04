@@ -114,11 +114,15 @@ const App = () => (
 const AnimatedRoutes = () => {
   const location = useLocation();
 
+  // GitHub Pages adds trailing slashes, but our routes don't have them
+  // Normalize: remove trailing slash (except for root)
+  const normalizedPathname = location.pathname.replace(/\/$/, '') || '/';
+
   return (
     <AnimatePresence mode="wait" initial={false}>
       <ErrorBoundary>
         <Suspense fallback={<CalculatorLoadingSkeleton />}>
-          <Routes location={location} key={location.pathname}>
+          <Routes location={{ ...location, pathname: normalizedPathname }} key={normalizedPathname}>
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />
           <Route path="/calculator/mortgage" element={<PageTransition><MortgageCalculatorPage /></PageTransition>} />
           <Route path="/calculator/salary" element={<PageTransition><SalaryCalculatorPage /></PageTransition>} />
