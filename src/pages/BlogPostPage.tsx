@@ -13,6 +13,8 @@ import { BlogAnalytics } from '@/components/blog/BlogAnalytics';
 import { BlogResourcePreloader } from '@/components/blog/BlogResourcePreloader';
 import { BlogNavigation } from '@/components/blog/BlogNavigation';
 import { OptimizedImage } from '@/components/blog/OptimizedImage';
+import { BlogSEO } from '@/components/blog/BlogSEO';
+import { EnhancedBlogCard } from '@/components/blog/enhanced/EnhancedBlogCard';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -93,38 +95,7 @@ const BlogPostPage = () => {
   return (
     <>
       <BlogResourcePreloader />
-      <Helmet>
-        <title>{post.seo.metaTitle || post.title}</title>
-        <meta name="description" content={post.seo.metaDescription || post.excerpt} />
-        {post.seo.keywords && (
-          <meta name="keywords" content={post.seo.keywords.join(', ')} />
-        )}
-        <link rel="canonical" href={`/blog/${post.slug}`} />
-
-        {/* Open Graph */}
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt} />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={`/blog/${post.slug}`} />
-        {post.featuredImage && (
-          <meta property="og:image" content={post.featuredImage.url} />
-        )}
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.excerpt} />
-        {post.featuredImage && (
-          <meta name="twitter:image" content={post.featuredImage.url} />
-        )}
-
-        {/* Structured Data */}
-        {post.structuredData && (
-          <script type="application/ld+json">
-            {JSON.stringify(post.structuredData)}
-          </script>
-        )}
-      </Helmet>
+      <BlogSEO post={post} type="article" />
 
       {/* Компонент прогресса чтения */}
       <BlogProgress
@@ -138,22 +109,27 @@ const BlogPostPage = () => {
         articleTitle={post.title}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
         <Header />
 
-        <main id="main-content" className="container mx-auto px-4 py-8">
-          {/* Навигация */}
-          <div className="mb-8">
-            <Link
-              to="/blog"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Вернуться к блогу
+        {/* Хлебные крошки (SEO-friendly) */}
+        <nav className="bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-slate-800" aria-label="Breadcrumb">
+          <div className="container mx-auto px-4 py-3 flex items-center gap-2 text-sm font-medium">
+            <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Главная</Link>
+            <span className="text-slate-300">/</span>
+            <Link to="/blog" className="text-muted-foreground hover:text-primary transition-colors">Блог</Link>
+            <span className="text-slate-300">/</span>
+            <Link to={`/blog?category=${post.category.slug}`} className="text-muted-foreground hover:text-primary transition-colors">
+              {post.category.name}
             </Link>
+            <span className="text-slate-300">/</span>
+            <span className="text-slate-900 dark:text-slate-100 truncate max-w-[200px] sm:max-w-none">{post.title}</span>
           </div>
+        </nav>
 
-          {/* Основной контент с TOC */}
+        <main id="main-content" className="pb-20">
+          <div className="container mx-auto px-4 py-12">
+            {/* Основной контент с TOC */}
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
               {/* Основная статья */}
@@ -348,7 +324,7 @@ const BlogPostPage = () => {
                 <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="list">
                   {relatedPosts.map(relatedPost => (
                     <StaggerItem key={relatedPost.id} role="listitem">
-                      <BlogCard post={relatedPost} />
+                      <EnhancedBlogCard post={relatedPost} />
                     </StaggerItem>
                   ))}
                 </StaggerContainer>
@@ -369,6 +345,7 @@ const BlogPostPage = () => {
               <BlogComments articleId={post.id} />
             </Suspense>
           </section>
+          </div>
         </main>
 
         <Footer />

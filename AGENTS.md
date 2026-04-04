@@ -218,6 +218,16 @@ npm run optimize:images
 npm run optimize:bundle
 ```
 
+## Custom Agent Skills
+
+This project uses local Antigravity skills to automate quality control. Always refer to these skills when performing relevant tasks:
+
+- **seo-guardian**: Run after UI or content changes to ensure search engine visibility.
+- **content-janitor-2026**: Run to verify data consistency and remove legacy "2025" references.
+- **calculator-tester**: Run to validate math accuracy and test coverage for calculators.
+
+Skills are located in `.agents/skills/[skill-name]/SKILL.md`.
+
 ## Notes
 
 - This is a Russian financial calculators project (Считай.RU)

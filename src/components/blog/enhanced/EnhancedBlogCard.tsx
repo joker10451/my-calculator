@@ -110,23 +110,31 @@ export const EnhancedBlogCard = ({
       variants={cardHover}
       initial="initial"
       whileHover="hover"
-      className="h-full typography-animate-fade-in"
+      className="h-full relative group"
       style={willChangeStyles.transform}
     >
+      {/* Эффект свечения для рекомендуемых статей */}
+      {post.isFeatured && (
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
+      )}
+
       <Card
         className={`
-          h-full overflow-hidden
+          h-full overflow-hidden relative
           ${config.borderRadius}
           ${config.border}
-          shadow-[0_10px_30px_rgba(0,0,0,0.15)]
-          hover:shadow-[0_20px_40px_rgba(0,0,0,0.25)]
-          transition-shadow duration-300
-          group
+          bg-white/80 dark:bg-gray-900/80 backdrop-blur-md 
+          border-white/20 dark:border-white/10
+          shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]
+          hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.15)]
+          transition-all duration-500
         `}
-        style={variant === 'featured' || variant === 'hero' ? {
-          borderImage: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%) 1'
-        } : undefined}
       >
+        {/* Эффект блика при наведении */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none overflow-hidden transition-opacity duration-700">
+          <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-to-br from-white/10 via-transparent to-transparent rotate-12 -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+        </div>
+
         {post.featuredImage && (
           <div className={`relative overflow-hidden ${config.imageHeight}`}>
             {/* Изображение с эффектом зума при наведении */}
@@ -141,20 +149,19 @@ export const EnhancedBlogCard = ({
                 alt={post.featuredImage.alt}
                 width={post.featuredImage.width}
                 height={post.featuredImage.height}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 priority={variant === 'featured' || variant === 'hero'}
               />
             </motion.div>
 
             {/* Градиентный оверлей */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
             {/* Бейдж "Рекомендуем" */}
             {post.isFeatured && (
               <Badge
-                className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 shadow-lg text-sm sm:text-base font-semibold px-3 py-2"
+                className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-0 shadow-xl text-xs sm:text-sm font-bold px-3 py-1.5 rounded-full"
                 role="status"
-                aria-label="Рекомендуемая статья"
               >
                 ⭐ Рекомендуем
               </Badge>
@@ -162,29 +169,27 @@ export const EnhancedBlogCard = ({
 
             {/* Бейдж категории с иконкой (справа сверху) */}
             <Badge
-              className="absolute top-3 right-3 flex items-center gap-1.5 text-white border-0 shadow-lg font-semibold px-2.5 py-1 text-xs sm:text-sm"
-              style={{ backgroundColor: categoryColor }}
+              className="absolute top-3 right-3 flex items-center gap-1.5 text-white border-0 shadow-lg font-bold px-3 py-1.5 text-xs sm:text-sm rounded-full backdrop-blur-md opacity-90 hover:opacity-100 transition-opacity"
+              style={{ backgroundColor: `${categoryColor}CC` }}
               role="status"
-              aria-label={`Категория: ${post.category.name}`}
             >
               <CategoryIcon className="w-3.5 h-3.5" aria-hidden="true" />
-              <span className="hidden sm:inline">{post.category.name}</span>
+              <span>{post.category.name}</span>
             </Badge>
+
+            {/* Индикатор времени чтения (снизу слева на картинке) */}
+            <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-white/90 text-xs font-medium">
+              <Clock className="w-3 h-3" />
+              <span>{post.readingTime} мин чтения</span>
+            </div>
           </div>
         )}
 
-        <CardHeader className={`${config.padding} typography-spacing-card-padding`}>
-          {showReadingTime && (
-            <div className="flex items-center gap-1 mb-2 text-sm text-muted-foreground">
-              <Clock className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>{post.readingTime} мин</span>
-            </div>
-          )}
-
-          <h3 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white hover:text-primary transition-colors duration-200">
+        <CardHeader className={`${config.padding} pt-6 pb-2`}>
+          <h3 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
             <Link
               to={`/blog/${post.slug}`}
-              className="block"
+              className="line-clamp-2"
               onMouseEnter={() => prefetchOnHover(post.slug)}
               aria-label={`Читать статью: ${post.title}`}
             >
@@ -194,62 +199,45 @@ export const EnhancedBlogCard = ({
         </CardHeader>
 
         {showExcerpt && (
-          <CardContent className={`${config.padding} typography-spacing-card-padding pt-0`}>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground line-clamp-3">
+          <CardContent className={`${config.padding} py-2`}>
+            <p className="text-sm md:text-base leading-relaxed text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
               {post.excerpt}
             </p>
 
             {post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 typography-spacing-excerpt-to-meta" role="list" aria-label="Теги статьи">
-                {post.tags.slice(0, 3).map((tag) => (
-                  <Badge
+              <div className="flex flex-wrap gap-2" role="list">
+                {post.tags.slice(0, 2).map((tag) => (
+                  <span
                     key={tag}
-                    variant="secondary"
-                    className="text-sm md:text-base font-medium px-3 py-2 rounded-full min-h-[36px] sm:min-h-[40px] inline-flex items-center cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-md"
-                    role="listitem"
+                    className="text-[10px] uppercase tracking-wider font-bold text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-800 px-2 py-0.5 rounded"
                   >
-                    {tag}
-                  </Badge>
+                    #{tag}
+                  </span>
                 ))}
-                {post.tags.length > 3 && (
-                  <Badge
-                    variant="secondary"
-                    className="text-sm md:text-base font-medium px-3 py-2 rounded-full min-h-[36px] sm:min-h-[40px] inline-flex items-center"
-                    role="listitem"
-                  >
-                    +{post.tags.length - 3}
-                  </Badge>
-                )}
               </div>
             )}
           </CardContent>
         )}
 
-        <CardFooter className={`${config.padding} typography-spacing-card-padding pt-0`}>
-          <div className="flex items-center justify-between w-full gap-2">
+        <CardFooter className={`${config.padding} mt-auto pt-4 pb-6`}>
+          <div className="flex items-center justify-between w-full">
             {showAuthor && (
-              <div className="flex items-center gap-1.5 sm:gap-2 text-base md:text-lg font-medium text-gray-600 dark:text-gray-400">
-                <User className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                <span className="truncate">{post.author.name}</span>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 flex items-center justify-center border border-white/50 dark:border-gray-800 shadow-sm">
+                  <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                </div>
+                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{post.author.name}</span>
               </div>
             )}
 
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="ml-auto"
+            <Link
+              to={`/blog/${post.slug}`}
+              className="inline-flex items-center gap-1 text-sm font-bold text-blue-600 dark:text-blue-400 hover:gap-2 transition-all duration-300"
+              aria-label={`Читать: ${post.title}`}
             >
-              <Link
-                to={`/blog/${post.slug}`}
-                className="inline-flex items-center gap-1.5 sm:gap-2 text-base md:text-lg font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200 min-h-[44px] px-2 sm:px-0"
-                onMouseEnter={() => prefetchOnHover(post.slug)}
-                aria-label={`Читать далее: ${post.title}`}
-              >
-                <span className="hidden sm:inline">Читать далее</span>
-                <span className="sm:hidden">Читать</span>
-                <ArrowRight className="w-5 h-5" aria-hidden="true" />
-              </Link>
-            </motion.div>
+              <span>Читать</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </CardFooter>
       </Card>

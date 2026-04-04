@@ -7,6 +7,7 @@ import { BlogCard } from '@/components/blog/BlogCard';
 import { EnhancedBlogCard } from '@/components/blog/enhanced/EnhancedBlogCard';
 import { BlogResourcePreloader } from '@/components/blog/BlogResourcePreloader';
 import { HeroSection } from '@/components/blog/HeroSection';
+import { BlogSEO } from '@/components/blog/BlogSEO';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -88,28 +89,33 @@ const BlogPage = () => {
   return (
     <>
       <BlogResourcePreloader />
-      <Helmet>
-        <title>Блог о финансах и калькуляторах | Считай.RU</title>
-        <meta
-          name="description"
-          content="Экспертные статьи о финансах, налогах, ипотеке, ЖКХ. Актуальная информация 2026 года, советы по экономии, расчеты и примеры."
-        />
-        <meta name="keywords" content="финансовый блог, налоги 2026, ипотека, ЖКХ, калькуляторы, экономия" />
-        <link rel="canonical" href="/blog" />
-      </Helmet>
+      <BlogSEO 
+        title="Блог о финансах и калькуляторах | Считай.RU"
+        description="Экспертные статьи о финансах, налогах, ипотеке, ЖКХ. Актуальная информация 2026 года, советы по экономии, расчеты и примеры."
+      />
 
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
         <Header />
 
         <main id="main-content">
-          {/* Hero секция с анимацией */}
-          <HeroSection
-            title="Лучшие"
-            highlightedText="финансовые"
-            titleSuffix="калькуляторы России"
-            description="Экспертные статьи о финансах, налогах, ипотеке и экономии. Актуальная информация и практические советы для 2026 года."
-            height="large"
-          />
+          {/* Hero секция с AuroraBackground */}
+          <section className="relative overflow-hidden bg-slate-900 border-b border-white/5">
+            <div className="absolute inset-0 z-0">
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-600/20 to-transparent opacity-50" />
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
+            </div>
+
+            <div className="relative z-10">
+              <HeroSection
+                title="База знаний"
+                highlightedText="Считай.RU"
+                titleSuffix="2026"
+                description="Разбираемся в сложных финансах простым языком. Путеводитель по налогам, льготам и экономии в 2026 году."
+                height="medium"
+              />
+            </div>
+          </section>
 
           <div className="container mx-auto px-4 py-12 md:py-16">
 

@@ -94,12 +94,26 @@ function generateHTML(route) {
   <meta name="twitter:description" content="${route.description}" />
   <meta name="twitter:image" content="${baseUrl}/og-image.png" />
   
-  <!-- Favicon -->
-  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <!-- Favicon & PWA -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
+  
+  <!-- Apple Touch Icon Settings -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Считай.RU">
+  
+  <!-- Safari Pin Tab -->
+  <link rel="mask-icon" href="/icon.svg" color="#3B82F6">
+  
+  <!-- Theme Color -->
   <meta name="theme-color" content="#3B82F6" />
+  
+  <!-- Additional PNG Icons for Desktop -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
   
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
