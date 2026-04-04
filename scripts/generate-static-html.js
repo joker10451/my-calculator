@@ -60,6 +60,8 @@ const routes = [
   { path: '/blog/materinskij-kapital-2026-razmer-kak-poluchit/', folder: 'blog/materinskij-kapital-2026-razmer-kak-poluchit', title: 'Материнский капитал 2026: размер и как получить | Считай.RU', description: 'Материнский капитал 2026. Размер выплат, порядок получения, на что потратить.' },
   { path: '/blog/refinansirovanie-kreditov-2026-kak-snizit-stavku/', folder: 'blog/refinansirovanie-kreditov-2026-kak-snizit-stavku', title: 'Рефинансирование кредитов 2026: как снизить ставку | Считай.RU', description: 'Рефинансирование кредитов в 2026 году. Как снизить ставку, условия банков, выгода.' },
   { path: '/blog/raschet-kalorij-2026-norma-dlya-pokhudeniya/', folder: 'blog/raschet-kalorij-2026-norma-dlya-pokhudeniya', title: 'Расчёт калорий 2026: норма для похудения | Считай.RU', description: 'Как рассчитать суточную норму калорий в 2026 году. Формулы, примеры, советы.' },
+  // Google verification
+  { path: '/google110b9cc8d3bca8f9.html', folder: '.', title: '', description: '', isGoogleVerification: true },
 ];
 
 // Получаем entry point файл из assets
@@ -233,6 +235,18 @@ function generateStaticFiles() {
   let generatedCount = 0;
   
   routes.forEach(route => {
+    // Google verification file - copy as-is instead of generating HTML
+    if (route.isGoogleVerification) {
+      const srcPath = path.resolve(process.cwd(), 'public', path.basename(route.path));
+      const destPath = path.join(distPath, path.basename(route.path));
+      if (fs.existsSync(srcPath)) {
+        fs.copyFileSync(srcPath, destPath);
+        console.log(`✅ ${route.path} → ${path.relative(distPath, destPath)} (copied)`);
+        generatedCount++;
+      }
+      return;
+    }
+    
     const htmlContent = generateHTML(route);
     
     // Создаем папку с index.html
