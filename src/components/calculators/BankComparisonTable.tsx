@@ -48,6 +48,7 @@ export function BankComparisonTable() {
   const [sortBy, setSortBy] = useState<'rate' | 'bank' | 'rating'>('rate');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
   const [expandedBank, setExpandedBank] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadData();
@@ -55,14 +56,24 @@ export function BankComparisonTable() {
 
   const loadData = async () => {
     setLoading(true);
+    setError(null);
     try {
       const [banksData, productsData] = await Promise.all([
         BankRepository.getBanks(),
         BankProductRepository.getProducts({ product_type: selectedType, is_active: true }),
       ]);
-      setBanks(banksData);
-      setProducts(productsData);
-    } catch {
+      
+      if (!Array.isArray(banksData) || banksData.length === 0) {
+        setError('Данные банков не загружены');
+        setBanks([]);
+        setProducts([]);
+      } else {
+        setBanks(banksData);
+        setProducts(Array.isArray(productsData) ? productsData : []);
+      }
+    } catch (e) {
+      console.error('Ошибка загрузки данных банков:', e);
+      setError('Не удалось загрузить данные банков');
       setBanks([]);
       setProducts([]);
     } finally {
@@ -240,6 +251,16 @@ export function BankComparisonTable() {
           <div className="animate-spin w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
           <p className="text-slate-500 font-medium">Загрузка предложений банков...</p>
         </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-20 bg-slate-50 rounded-3xl">
+        <div className="text-5xl mb-4">⚠️</div>
+        <p className="text-slate-600 font-bold text-lg mb-2">{error}</p>
+        <button onClick={loadData} className="text-blue-600 font-bold hover:underline">Попробовать снова</button>
       </div>
     );
   }
