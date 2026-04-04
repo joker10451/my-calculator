@@ -3,6 +3,7 @@
  */
 function applyInlineFormatting(text: string): string {
   return text
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:underline font-medium">$1</a>')
     .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-black">$1</strong>')
     .replace(/\*(.*?)\*/g, '<em class="italic text-slate-800">$1</em>')
     .trim();
