@@ -43,6 +43,24 @@ const routes = [
   { path: '/joy-money/', folder: 'joy-money', title: 'JoyMoney — займ за 5 минут, первый займ 0% до 30 000 ₽', description: 'Получите займ в JoyMoney за 5 минут. Первый займ под 0% до 30 000 ₽. Без справок, поручителей и визитов в офис.' },
   { path: '/widgets/', folder: 'widgets', title: 'Виджеты калькуляторов для встраивания на сайт', description: 'Встройте наши калькуляторы на свой сайт. Бесплатные виджеты для ипотеки, кредитов, вкладов и других расчётов.' },
   { path: '/quiz/financial-literacy/', folder: 'quiz/financial-literacy', title: 'Тест на финансовую грамотность — проверьте свои знания', description: 'Пройдите бесплатный тест на финансовую грамотность. 10 вопросов по кредитам, инвестициям, налогам и сбережениям.' },
+  
+  // Категории калькуляторов
+  { path: '/category/financial/', folder: 'category/financial', title: 'Финансовые калькуляторы онлайн — расчет ипотеки, кредитов, вкладов', description: 'Полный набор финансовых калькуляторов: ипотека, потребительские кредиты, расчет НДФЛ, вклады и рефинансирование.' },
+  { path: '/category/personal/', folder: 'category/personal', title: 'Личные калькуляторы онлайн — здоровье, ИМТ, калории', description: 'Калькуляторы для личного использования: расчет ИМТ, суточная норма калорий, норма воды, Идеальный вес.' },
+  { path: '/category/transport/', folder: 'category/transport', title: 'Транспортные калькуляторы онлайн — ОСАГО, топливо, КАСКО', description: 'Все калькуляторы для автовладельцев: расчет ОСАГО, КАСКО, транспортный налог, расход топлива и стоимость поездки.' },
+  { path: '/category/utilities/', folder: 'category/utilities', title: 'Калькуляторы ЖКХ — расчет коммунальных услуг онлайн', description: 'Удобные калькуляторы для расчета коммунальных платежей: электроэнергия, вода, газ, отопление. Тарифы и льготы.' },
+  { path: '/category/legal/', folder: 'category/legal', title: 'Юридические калькуляторы — госпошлина, алименты, сроки', description: 'Расчет госпошлины в суды, алиментов на детей, сроков исковой давности и других юридических параметров.' },
+  { path: '/category/family/', folder: 'category/family', title: 'Семейные калькуляторы — пособия, маткапитал, дети', description: 'Калькуляторы для всей семьи: материнский капитал, детские пособия, алименты, декретные и отпускные.' },
+
+  // Категории блога
+  { path: '/blog/category/mortgage-credit/', folder: 'blog/category/mortgage-credit', title: 'Ипотека и кредиты — полезные статьи | Считай.RU', description: 'Читайте экспертные статьи об ипотеке, кредитах и рефинансировании. Как выбрать банк и снизить переплату.' },
+  { path: '/blog/category/taxes-salary/', folder: 'blog/category/taxes-salary', title: 'Налоги и зарплата — советы экспертов | Считай.RU', description: 'Все о налогах в России: НДФЛ, налоговые вычеты, расчет зарплаты и изменения в законодательстве 2026.' },
+  { path: '/blog/category/utilities-housing/', folder: 'blog/category/utilities-housing', title: 'ЖКХ и недвижимость — как платить меньше | Считай.RU', description: 'Актуальные советы по экономии на услугах ЖКХ, правила перерасчета и новые тарифы 2026 года.' },
+  { path: '/blog/category/auto-transport/', folder: 'blog/category/auto-transport', title: 'Авто и транспорт — советы для водителей | Считай.RU', description: 'Статьи об ОСАГО, КАСКО, автокредитах и экономии на топливе. Все для автовладельцев.' },
+  { path: '/blog/category/health-fitness/', folder: 'blog/category/health-fitness', title: 'Здоровье и фитнес — калькуляторы и статьи | Считай.RU', description: 'Как поддерживать форму, рассчитывать калории и ИМТ. Советы по здоровому образу жизни и питанию.' },
+  { path: '/blog/category/investments-deposits/', folder: 'blog/category/investments-deposits', title: 'Инвестиции и вклады — куда вложить деньги | Считай.RU', description: 'Обзоры банковских вкладов, стратегии инвестирования и пассивного дохода в 2026 году.' },
+  { path: '/blog/category/legal-issues/', folder: 'blog/category/legal-issues', title: 'Юридические вопросы — права и обязанности | Считай.RU', description: 'Просто о сложных юридических вопросах: суды, госпошлины, права потребителей и семейное право.' },
+  { path: '/blog/category/family-children/', folder: 'blog/category/family-children', title: 'Семья и дети — пособия и выплаты | Считай.RU', description: 'Все о материнском капитале, детских пособиях и поддержке семей в 2026 году.' },
   // Blog posts
   { path: '/blog/ipoteka-2026-novye-usloviya/', folder: 'blog/ipoteka-2026-novye-usloviya', title: 'Ипотека 2026: новые условия и ставки | Считай.RU', description: 'Обзор изменений в ипотечном кредитовании 2026 года. Новые ставки, условия, льготные программы.' },
   { path: '/blog/ndfl-2026-progressivnaya-shkala/', folder: 'blog/ndfl-2026-progressivnaya-shkala', title: 'НДФЛ 2026: прогрессивная шкала | Считай.RU', description: 'Как изменился НДФЛ в 2026 году. Прогрессивная шкала налогообложения, новые ставки, примеры расчёта.' },

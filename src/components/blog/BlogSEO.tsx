@@ -16,12 +16,12 @@ export const BlogSEO = ({
   description, 
   canonical 
 }: BlogSEOProps) => {
-  const siteUrl = 'https://schitay.ru';
+  const siteUrl = 'https://schitay-online.ru';
   const siteName = 'Считай.RU';
   
   const seoTitle = post?.seo.metaTitle || title || (post ? `${post.title} | ${siteName}` : siteName);
   const seoDescription = post?.seo.metaDescription || description || post?.excerpt || 'Экспертные статьи о финансах, налогах и экономии.';
-  const seoCanonical = canonical || post?.seo.canonical || (post ? `${siteUrl}/blog/${post.slug}` : `${siteUrl}/blog`);
+  const seoCanonical = canonical || (post ? `${siteUrl}/blog/${post.slug}/` : `${siteUrl}/blog/`);
   const seoImage = post?.seo.ogImage || post?.featuredImage?.url || `${siteUrl}/og-image-default.png`;
 
   // JSON-LD для статьи
@@ -48,7 +48,7 @@ export const BlogSEO = ({
     },
     'mainEntityOfPage': {
       '@type': 'WebPage',
-      '@id': `${siteUrl}/blog/${post.slug}`
+      '@id': `${siteUrl}/blog/${post.slug}/`
     }
   } : null;
 
@@ -67,18 +67,18 @@ export const BlogSEO = ({
         '@type': 'ListItem',
         'position': 2,
         'name': 'Блог',
-        'item': `${siteUrl}/blog`
+        'item': `${siteUrl}/blog/`
       },
       ...(post ? [{
         '@type': 'ListItem',
         'position': 3,
         'name': post.category.name,
-        'item': `${siteUrl}/blog?category=${post.category.slug}`
+        'item': `${siteUrl}/blog/category/${post.category.slug}/`
       }, {
         '@type': 'ListItem',
         'position': 4,
         'name': post.title,
-        'item': `${siteUrl}/blog/${post.slug}`
+        'item': `${siteUrl}/blog/${post.slug}/`
       }] : [])
     ]
   };

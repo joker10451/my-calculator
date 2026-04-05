@@ -32,7 +32,10 @@ export function SEO({
   language = 'ru'
 }: SEOProps) {
   const fullTitle = title.includes('Считай.RU') ? title : `${title} — Считай.RU`;
-  const url = canonical || `https://schitay-online.ru${window.location.pathname}`;
+  // Гарантируем слэш в конце для консистентности SEO
+  const pathname = window.location.pathname;
+  const normalizedPath = pathname === '/' ? '/' : (pathname.endsWith('/') ? pathname : `${pathname}/`);
+  const url = canonical || `https://schitay-online.ru${normalizedPath}`;
   const locale = language === 'en' ? 'en_US' : 'ru_RU';
 
   return (

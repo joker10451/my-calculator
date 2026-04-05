@@ -61,13 +61,13 @@ const BlogCategoryPage = () => {
           name="description" 
           content={category.seo.metaDescription || category.description} 
         />
-        <link rel="canonical" href={`/blog/category/${category.slug}`} />
+        <link rel="canonical" href={`https://schitay-online.ru/blog/category/${category.slug}/`} />
         
         {/* Open Graph */}
         <meta property="og:title" content={category.name} />
         <meta property="og:description" content={category.description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`/blog/category/${category.slug}`} />
+        <meta property="og:url" content={`https://schitay-online.ru/blog/category/${category.slug}/`} />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">

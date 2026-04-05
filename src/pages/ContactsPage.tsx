@@ -9,7 +9,7 @@ const ContactsPage = () => {
       <Helmet>
         <title>Контакты — Считай.RU</title>
         <meta name="description" content="Свяжитесь с нами по вопросам работы калькуляторов, предложениям и сообщениям об ошибках. Контактная информация Считай.RU" />
-        <link rel="canonical" href="https://schitay-online.ru/contacts" />
+        <link rel="canonical" href="https://schitay-online.ru/contacts/" />
       </Helmet>
 
       <div className="min-h-screen bg-background">

@@ -32,6 +32,7 @@ const Index = () => {
           content="Бесплатные онлайн калькуляторы: ипотека, кредит, зарплата, ЖКХ, налоги, здоровье. Точные расчёты по актуальным данным РФ за 10 секунд."
         />
         <meta name="keywords" content="калькулятор онлайн, ипотека калькулятор, расчёт кредита, зарплата на руки, ЖКХ калькулятор" />
+        <link rel="canonical" href="https://schitay-online.ru/" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col">

@@ -30,6 +30,7 @@ import '@/styles/blog.css';
 
 // Lazy load комментариев
 const BlogComments = lazy(() => import('@/components/blog/BlogComments'));
+import { Helmet } from 'react-helmet-async';
 
 // Объединяем все статьи для поиска
 const allPosts = [...blogPosts, ...generatedArticles, ...allGeneratedArticles];
@@ -51,6 +52,8 @@ export default function BlogPostPage() {
   const [isCopied, setIsCopied] = React.useState(false);
   const [commentCount, setCommentCount] = React.useState(0);
   const [showShareDialog, setShowShareDialog] = React.useState(false);
+
+  const canonicalUrl = `${SITE_URL}/blog/${post?.slug}/`;
 
   React.useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
@@ -82,7 +85,7 @@ export default function BlogPostPage() {
     return generateArticleSchema(
       post.title,
       post.excerpt,
-      `${SITE_URL}/blog/${post.slug}`,
+      canonicalUrl,
       post.publishedAt,
       post.updatedAt,
       post.featuredImage?.url
@@ -108,6 +111,17 @@ export default function BlogPostPage() {
   return (
     <div className="min-h-screen bg-slate-50/50">
       <Header />
+      
+      <Helmet>
+        <title>{post.title} | Считай.RU</title>
+        <meta name="description" content={post.excerpt} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={`${post.title} | Считай.RU`} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="article" />
+        {post.featuredImage && <meta property="og:image" content={post.featuredImage.url} />}
+      </Helmet>
 
       {/* SEO */}
       <script type="application/ld+json">

@@ -29,7 +29,7 @@ const SitemapPage = () => {
         <title>Карта сайта — Все калькуляторы | Считай.RU</title>
         <meta name="description" content="Полный список всех калькуляторов и страниц сайта Считай.RU. Ипотека, кредит, зарплата, налоги, ЖКХ и другие." />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://schitay-online.ru/sitemap" />
+        <link rel="canonical" href="https://schitay-online.ru/sitemap/" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
