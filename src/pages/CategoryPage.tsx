@@ -45,29 +45,29 @@ const CategoryPage = () => {
                 </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-wrap justify-center gap-6 pb-16">
                 {category.calculators.map((calc, index) => (
                     <Link
                         key={calc.name}
                         to={calc.href}
-                        className="group glass-card p-6 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 animate-fade-in"
+                        className="group glass-card p-6 h-full border border-border/50 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 animate-fade-in w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm flex flex-col"
                         style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                        <div className="flex items-start gap-4 mb-4">
-                            <div className={`w-12 h-12 rounded-xl bg-card border flex items-center justify-center`}>
+                        <div className="flex items-start gap-4 mb-4 flex-1">
+                            <div className={`w-12 h-12 rounded-xl bg-card border flex items-center justify-center shrink-0`}>
                                 <Calculator className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                             </div>
                             <div className="flex-1">
-                                <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">
+                                <h3 className="font-semibold text-lg group-hover:text-primary transition-colors leading-tight">
                                     {calc.name}
                                 </h3>
-                                <p className="text-sm text-muted-foreground mt-1">
+                                <p className="text-xs text-muted-foreground mt-1.5">
                                     Перейти к расчету
                                 </p>
                             </div>
                         </div>
-                        <div className="flex items-center justify-between mt-4 border-t pt-4">
-                            <span className="text-xs text-muted-foreground">
+                        <div className="flex items-center justify-between mt-6 border-t pt-4">
+                            <span className="text-[10px] uppercase tracking-wider font-medium text-muted-foreground/60">
                                 Онлайн калькулятор
                             </span>
                             <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />

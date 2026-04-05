@@ -50,7 +50,7 @@ const CalculatorLayout = ({
                 <main id="main-content" className="flex-1 pt-16 sm:pt-20">
                     {/* Title Section */}
                     <div className="container mx-auto px-4">
-                        <div className="text-center max-w-3xl mx-auto mb-6">
+                        <div className="text-center max-w-3xl mx-auto mb-10">
                             {currentCategory && (
                                 <div className="inline-flex items-center gap-1.5 px-2 py-0.5 mb-2 text-[10px] font-medium text-primary bg-primary/10 rounded">
                                     <Sparkles className="w-2.5 h-2.5" />
@@ -77,7 +77,7 @@ const CalculatorLayout = ({
                     </div>
 
                     {/* Calculator Content */}
-                    <div className="container mx-auto px-4">
+                    <div className="container mx-auto px-4 pb-20">
                         {children}
 
                         {/* Related Calculators */}
