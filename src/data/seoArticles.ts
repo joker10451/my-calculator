@@ -135,7 +135,7 @@ export const seoArticles: BlogPost[] = [
 `,
     author: {
       name: 'Алексей Петров',
-      avatar: '/authors/alexey-petrov.png',
+      avatar: '/authors/alexander-smirnov.png',
       specialization: 'Налоговый консультант',
       bio: 'Сертифицированный налоговый консультант с 10-летним опытом. Помогает оптимизировать налоги легальными способами.',
     },
@@ -286,7 +286,7 @@ export const seoArticles: BlogPost[] = [
 `,
     author: {
       name: 'Марина Козлова',
-      avatar: '/authors/marina-kozlova.png',
+      avatar: '/authors/elena-ivanova.png',
       specialization: 'Ипотечный брокер',
       bio: 'Ипотечный брокер с 8-летним опытом. Помогла более 500 семьям получить выгодные условия по ипотеке.',
     },
@@ -437,7 +437,7 @@ export const seoArticles: BlogPost[] = [
 `,
     author: {
       name: 'Елена Смирнова',
-      avatar: '/authors/elena-smirnova.png',
+      avatar: '/authors/anna-petrova.png',
       specialization: 'Специалист по социальным выплатам',
       bio: 'Эксперт по государственным пособиям и социальным выплатам. Консультирует семьи по вопросам материнского капитала.',
     },
@@ -521,7 +521,7 @@ export const seoArticles: BlogPost[] = [
 ### С какой суммы начинается досрочное погашение?
 Зависит от банка. Обычно от 10 000 ₽ или от суммы ежемесячного платежа.
 `,
-    author: { name: 'Марина Козлова', avatar: '/authors/marina-kozlova.png', specialization: 'Ипотечный брокер', bio: 'Ипотечный брокер с 8-летним опытом. Помогла более 500 семьям получить выгодные условия по ипотеке.' },
+    author: { name: 'Марина Козлова', avatar: '/authors/elena-ivanova.png', specialization: 'Ипотечный брокер', bio: 'Ипотечный брокер с 8-летним опытом. Помогла более 500 семьям получить выгодные условия по ипотеке.' },
     publishedAt: '2026-04-06T09:00:00Z', updatedAt: '2026-04-06T09:00:00Z',
     category: blogCategories[0],
     tags: ['досрочное погашение', 'ипотека', 'экономия', 'калькулятор', '2026'],
@@ -597,7 +597,7 @@ export const seoArticles: BlogPost[] = [
 ### Куда вложить деньги при высокой инфляции?
 При инфляции выше 8%: вклады с максимальной ставкой, ОФЗ с переменным купоном, акции экспортёров, золото.
 `,
-    author: { name: 'Сергей Иванов', avatar: '/authors/sergey-ivanov.png', specialization: 'Финансовый аналитик', bio: 'Финансовый аналитик с 12-летним опытом. Специализируется на защите капитала от инфляции.' },
+    author: { name: 'Сергей Иванов', avatar: '/authors/dmitry-kozlov.png', specialization: 'Финансовый аналитик', bio: 'Финансовый аналитик с 12-летним опытом. Специализируется на защите капитала от инфляции.' },
     publishedAt: '2026-04-06T10:00:00Z', updatedAt: '2026-04-06T10:00:00Z',
     category: blogCategories[5],
     tags: ['инфляция', 'калькулятор', 'сбережения', 'вклады', 'инвестиции', '2026'],
@@ -672,7 +672,7 @@ export const seoArticles: BlogPost[] = [
 ### Влияет ли кредитка на кредитную историю?
 Да, положительно — если вы гасите вовремя. Банки видят ответственного заёмщика.
 `,
-    author: { name: 'Алексей Петров', avatar: '/authors/alexey-petrov.png', specialization: 'Налоговый консультант', bio: 'Сертифицированный налоговый консультант с 10-летним опытом.' },
+    author: { name: 'Алексей Петров', avatar: '/authors/alexander-smirnov.png', specialization: 'Налоговый консультант', bio: 'Сертифицированный налоговый консультант с 10-летним опытом.' },
     publishedAt: '2026-04-06T11:00:00Z', updatedAt: '2026-04-06T11:00:00Z',
     category: blogCategories[0],
     tags: ['кредитные карты', 'сравнение', 'льготный период', 'кэшбэк', '2026'],
@@ -745,7 +745,7 @@ export const seoArticles: BlogPost[] = [
 ### Как проверить свои пенсионные баллы?
 Через Госуслуги или на сайте СФР (бывший ПФР).
 `,
-    author: { name: 'Елена Смирнова', avatar: '/authors/elena-smirnova.png', specialization: 'Специалист по социальным выплатам', bio: 'Эксперт по государственным пособиям и социальным выплатам.' },
+    author: { name: 'Елена Смирнова', avatar: '/authors/anna-petrova.png', specialization: 'Специалист по социальным выплатам', bio: 'Эксперт по государственным пособиям и социальным выплатам.' },
     publishedAt: '2026-04-06T12:00:00Z', updatedAt: '2026-04-06T12:00:00Z',
     category: blogCategories[1],
     tags: ['пенсия', 'калькулятор', 'пенсионные баллы', 'СФР', '2026'],
@@ -821,7 +821,7 @@ export const seoArticles: BlogPost[] = [
 ### Когда лучше продлевать ОСАГО?
 За 10-30 дней до окончания. Раньше — нельзя, позже — риск штрафа.
 `,
-    author: { name: 'Марина Козлова', avatar: '/authors/marina-kozlova.png', specialization: 'Ипотечный брокер', bio: 'Ипотечный брокер с 8-летним опытом.' },
+    author: { name: 'Марина Козлова', avatar: '/authors/elena-ivanova.png', specialization: 'Ипотечный брокер', bio: 'Ипотечный брокер с 8-летним опытом.' },
     publishedAt: '2026-04-06T13:00:00Z', updatedAt: '2026-04-06T13:00:00Z',
     category: blogCategories[2],
     tags: ['ОСАГО', 'калькулятор', 'коэффициенты', 'страхование', '2026'],
@@ -909,7 +909,7 @@ export const seoArticles: BlogPost[] = [
 ### Что лучше: вклад или инвестиции?
 Вклад — для短期 целей (до 3 лет). Инвестиции — для долгосрочных (от 5 лет).
 `,
-    author: { name: 'Сергей Иванов', avatar: '/authors/sergey-ivanov.png', specialization: 'Финансовый аналитик', bio: 'Финансовый аналитик с 12-летним опытом.' },
+    author: { name: 'Сергей Иванов', avatar: '/authors/dmitry-kozlov.png', specialization: 'Финансовый аналитик', bio: 'Финансовый аналитик с 12-летним опытом.' },
     publishedAt: '2026-04-06T14:00:00Z', updatedAt: '2026-04-06T14:00:00Z',
     category: blogCategories[5],
     tags: ['инвестиции', 'вклады', 'облигации', 'акции', '2026', 'калькулятор'],
@@ -983,7 +983,7 @@ export const seoArticles: BlogPost[] = [
 ### Что делать, если отпускные не заплатили вовремя?
 Обратитесь в трудовую инспекцию. Работодатель обязан выплатить компенсацию за задержку.
 `,
-    author: { name: 'Алексей Петров', avatar: '/authors/alexey-petrov.png', specialization: 'Налоговый консультант', bio: 'Сертифицированный налоговый консультант с 10-летним опытом.' },
+    author: { name: 'Алексей Петров', avatar: '/authors/alexander-smirnov.png', specialization: 'Налоговый консультант', bio: 'Сертифицированный налоговый консультант с 10-летним опытом.' },
     publishedAt: '2026-04-06T15:00:00Z', updatedAt: '2026-04-06T15:00:00Z',
     category: blogCategories[1],
     tags: ['отпускные', 'калькулятор', 'зарплата', 'отпуск', '2026'],

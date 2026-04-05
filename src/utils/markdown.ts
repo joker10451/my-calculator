@@ -127,6 +127,26 @@ export function parseMarkdown(content: string): string {
     // Применяем жирный/курсив ко ВСЕМ блокам
     trimmed = applyInlineFormatting(trimmed);
 
+    // Поддержка Markdown таблиц
+    if (trimmed.startsWith('|') && trimmed.includes('\n')) {
+      const rows = trimmed.split('\n');
+      // Проверяем, является ли вторая строка разделителем (типа |---|---|)
+      if (rows.length >= 2 && rows[1].match(/\|[-:\s]+\|/)) {
+        const parseRow = (row: string, isHead: boolean) => {
+          const cells = row.split('|').slice(1, -1); // Убираем пустые крайние элементы до / после пайпов
+          const tag = isHead ? 'th' : 'td';
+          return cells.map(c => `<${tag}>${c.trim()}</${tag}>`).join('');
+        };
+        
+        const thead = `<tr>${parseRow(rows[0], true)}</tr>`;
+        const tbody = rows.slice(2)
+                          .map(r => r.trim() ? `<tr>${parseRow(r, false)}</tr>` : '')
+                          .join('');
+                          
+        return `<div class="modern-table-wrapper overflow-x-auto my-6 rounded-xl border border-slate-200 shadow-sm"><table class="w-full text-left border-collapse bg-white"><thead class="bg-slate-50 border-b border-slate-200 text-slate-700">${thead}</thead><tbody class="divide-y divide-slate-100">${tbody.replace(/<td>/g, '<td class="py-3 px-4 text-slate-700">').replace(/<tr>/g, '<tr class="hover:bg-slate-50/50 transition-colors">')}</tbody></table></div>`.replace(/<th>/g, '<th class="py-3 px-4 font-semibold">');
+      }
+    }
+
     if (trimmed.startsWith('<li')) {
       return `<ul class="standard-ul">${trimmed}</ul>`;
     }
