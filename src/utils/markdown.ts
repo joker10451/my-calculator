@@ -48,7 +48,8 @@ function parseInnerMarkdown(md: string): string {
  * Основной парсер Markdown
  */
 export function parseMarkdown(content: string): string {
-  let html = content;
+  if (!content) return '';
+  let html = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
   // 1. Кастомные блоки (Offer, Grid, Expert, Fact, Quote)
   html = html.replace(/:::offer\s+([\s\S]*?):::/g, (_match, p1) => {
@@ -119,7 +120,7 @@ export function parseMarkdown(content: string): string {
   html = html.replace(/^\s*[-*—–]\s+(.*$)/gim, '<li class="standard-li">$1</li>');
 
   // 3. Финальная сборка и инлайновая очистка
-  const blocks = html.split('\n\n');
+  const blocks = html.split(/\n{2,}/);
   return blocks.map(block => {
     let trimmed = block.trim();
     if (!trimmed) return '';

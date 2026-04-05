@@ -1,16 +1,14 @@
 import { seoArticles } from './src/data/seoArticles.ts';
 import { parseMarkdown } from './src/utils/markdown.ts';
+import fs from 'fs';
 
 const refPost = seoArticles.find(a => a.id === 'seo-refinancing-2026');
 if (refPost) {
   const html = parseMarkdown(refPost.content);
-  console.log("HTML contains modern-table-wrapper:", html.includes('modern-table-wrapper'));
-  
-  if (!html.includes('modern-table-wrapper')) {
-    console.log("Here is the blocks split of the content:");
-    const blocks = refPost.content.split(/\n\s*\n/);
-    blocks.forEach((b, i) => {
-      console.log(`Block ${i}:`, JSON.stringify(b));
-    });
+  const match = html.match(/<table.*?<\/table>/s);
+  if (match) {
+    fs.writeFileSync('table_output.html', match[0]);
+  } else {
+    fs.writeFileSync('table_output.html', 'No table found');
   }
 }
