@@ -5,8 +5,7 @@ import {
     Heart,
     Users,
     TrendingUp,
-    Scale,
-    Bike
+    Scale
 } from "lucide-react";
 
 export const categories = [
@@ -70,6 +69,19 @@ export const categories = [
             { name: "ОСГОП для такси", href: "/insurance/osgop-taxi" }
         ],
         href: "/category/auto",
+    },
+    {
+        id: "health",
+        name: "Здоровье и фитнес",
+        icon: Heart,
+        color: "bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20",
+        description: "ИМТ, калории, вода",
+        calculators: [
+            { name: "Индекс массы тела", href: "/calculator/bmi" },
+            { name: "Калькулятор калорий", href: "/calculator/calorie" },
+            { name: "Норма воды", href: "/calculator/water" },
+        ],
+        href: "/category/health",
     },
     {
         id: "family",

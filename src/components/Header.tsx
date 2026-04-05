@@ -1,7 +1,6 @@
 import { Calculator, Menu, X, Search, Scale } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { categories } from "@/lib/data";
 import { useComparison } from "@/context/ComparisonContext";
@@ -98,6 +97,12 @@ const Header = () => {
               </Link>
             ))}
             <Link
+              to="/compare-banks"
+              className="px-3 py-1.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+            >
+              Банки
+            </Link>
+            <Link
               to="/blog"
               className="px-3 py-1.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
@@ -193,6 +198,13 @@ const Header = () => {
                   {cat.name}
                 </Link>
               ))}
+              <Link
+                to="/compare-banks"
+                className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Банки
+              </Link>
               <Link
                 to="/blog"
                 className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"

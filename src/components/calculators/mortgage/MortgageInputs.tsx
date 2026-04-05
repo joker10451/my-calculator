@@ -49,10 +49,14 @@ export const MortgageInputs = ({
           </label>
           <div className="relative">
             <input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
-              className="text-right text-xl font-bold text-primary bg-transparent border-none focus:outline-none w-40"
+              type="text"
+              inputMode="numeric"
+              value={price.toLocaleString('ru-RU')}
+              onChange={(e) => {
+                const raw = e.target.value.replace(/[^\d]/g, '');
+                if (raw) setPrice(Number(raw));
+              }}
+              className="text-right text-xl font-bold text-primary bg-transparent border-none focus:outline-none w-44"
             />
           </div>
         </div>

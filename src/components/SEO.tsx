@@ -24,7 +24,7 @@ export function SEO({
   description,
   keywords,
   canonical,
-  ogImage = 'https://schitay-online.ru/og-image.svg',
+  ogImage = 'https://schitay-online.ru/og-image.png',
   ogType = 'website',
   noindex = false,
   structuredData,
@@ -52,7 +52,7 @@ export function SEO({
       
       {/* Hreflang теги для мультиязычности */}
       {hreflangTags && hreflangTags.map((tag, index) => (
-        <link key={index} rel="alternate" hreflang={tag.lang} href={tag.href} />
+        <link key={index} rel="alternate" hrefLang={tag.lang} href={tag.href} />
       ))}
       
       {/* Open Graph */}

@@ -3,28 +3,31 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   const categoriesList = [
-    { name: "Кредиты и ипотека", href: "/category/finance" },
-    { name: "Зарплата и налоги", href: "/category/salary" },
-    { name: "ЖКХ и коммуналка", href: "/category/housing" },
-    { name: "Авто", href: "/category/auto" },
-    { name: "Здоровье", href: "/category/health" },
-    { name: "Семья", href: "/category/family" },
+    { name: "Кредиты и ипотека", href: "/category/finance/" },
+    { name: "Зарплата и налоги", href: "/category/salary/" },
+    { name: "ЖКХ и коммуналка", href: "/category/housing/" },
+    { name: "Авто и транспорт", href: "/category/auto/" },
+    { name: "Здоровье", href: "/calculator/bmi/" },
+    { name: "Семья и дети", href: "/category/family/" },
+    { name: "Юридические", href: "/category/legal/" },
   ];
 
   const popular = [
-    { name: "Калькулятор ипотеки", href: "/calculator/mortgage" },
-    { name: "Зарплата на руки", href: "/calculator/salary" },
-    { name: "Индекс массы тела", href: "/calculator/bmi" },
-    { name: "Расход топлива", href: "/calculator/fuel" },
-    { name: "Расчёт ЖКХ", href: "/calculator/utilities" },
+    { name: "Калькулятор ипотеки", href: "/calculator/mortgage/" },
+    { name: "Зарплата на руки", href: "/calculator/salary/" },
+    { name: "Индекс массы тела", href: "/calculator/bmi/" },
+    { name: "Расход топлива", href: "/calculator/fuel/" },
+    { name: "Расчёт ЖКХ", href: "/calculator/utilities/" },
+    { name: "Сравнение банков", href: "/compare-banks/" },
   ];
 
   const legal = [
-    { name: "О проекте", href: "/about" },
-    { name: "Карта сайта", href: "/sitemap" },
-    { name: "Политика конфиденциальности", href: "/privacy" },
-    { name: "Условия использования", href: "/terms" },
-    { name: "Контакты", href: "/contacts" },
+    { name: "О проекте", href: "/about/" },
+    { name: "Блог", href: "/blog/" },
+    { name: "Карта сайта", href: "/sitemap/" },
+    { name: "Политика конфиденциальности", href: "/privacy/" },
+    { name: "Условия использования", href: "/terms/" },
+    { name: "Контакты", href: "/contacts/" },
   ];
 
   return (

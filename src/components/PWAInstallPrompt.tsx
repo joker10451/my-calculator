@@ -9,11 +9,16 @@ export function PWAInstallPrompt() {
     const handler = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      // Show after 5 seconds on first visit
-      const hasSeen = localStorage.getItem('pwa_install_seen');
-      if (!hasSeen) {
-        setTimeout(() => setShowPrompt(true), 5000);
-        localStorage.setItem('pwa_install_seen', 'true');
+      // Show after 20 seconds on 3rd visit
+      const visitCount = parseInt(localStorage.getItem('pwa_visit_count') || '0', 10);
+      const isDismissed = localStorage.getItem('pwa_install_dismissed');
+      
+      if (!isDismissed) {
+        if (visitCount >= 2) {
+          setTimeout(() => setShowPrompt(true), 20000);
+        } else {
+          localStorage.setItem('pwa_visit_count', (visitCount + 1).toString());
+        }
       }
     };
 

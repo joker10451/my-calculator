@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Twitter, Linkedin, Mail, ExternalLink } from 'lucide-react';
 import type { BlogAuthor } from '@/types/blog';
+import { getAssetUrl } from '@/utils/blogImageMap';
 
 interface AuthorBioProps {
   author: Partial<BlogAuthor>;
@@ -25,9 +26,10 @@ export const AuthorBio: React.FC<AuthorBioProps> = ({ author }) => {
         <div className="relative shrink-0">
           <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
             <img
-              src={author.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=250'}
+              src={getAssetUrl(author.avatar) || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=250'}
               alt={author.name}
               className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+              onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=250'; }}
             />
           </div>
           <div className="absolute -bottom-2 -right-2 bg-blue-600 text-white p-1.5 rounded-full shadow-md">

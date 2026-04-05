@@ -64,38 +64,36 @@ export const BlogCard = ({
       className="h-full"
     >
       <Card className={cardClasses[variant]}>
-        {post.featuredImage && (
-          <div className="relative overflow-hidden rounded-t-lg">
-            <motion.div
-              variants={imageZoom}
-              initial="initial"
-              whileHover="hover"
-              className="w-full h-48"
-            >
-              <OptimizedImage
-                src={post.featuredImage.url}
-                alt={post.featuredImage.alt}
-                width={400}
-                height={192}
-                className="w-full h-full object-cover"
-                priority={variant === 'featured'}
-              />
-            </motion.div>
-            {post.isFeatured && (
-              <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground" role="status" aria-label="Рекомендуемая статья">
-                Рекомендуем
-              </Badge>
-            )}
-            <Badge
-              className="absolute top-3 right-3"
-              style={{ backgroundColor: post.category.color }}
-              role="status"
-              aria-label={`Категория: ${post.category.name}`}
-            >
-              {post.category.name}
+        <div className="relative overflow-hidden rounded-t-lg">
+          <motion.div
+            variants={imageZoom}
+            initial="initial"
+            whileHover="hover"
+            className="w-full h-48"
+          >
+            <OptimizedImage
+              src={post.featuredImage?.url || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'}
+              alt={post.featuredImage?.alt || post.title}
+              width={400}
+              height={192}
+              className="w-full h-full object-cover"
+              priority={variant === 'featured'}
+            />
+          </motion.div>
+          {post.isFeatured && (
+            <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground" role="status" aria-label="Рекомендуемая статья">
+              Рекомендуем
             </Badge>
-          </div>
-        )}
+          )}
+          <Badge
+            className="absolute top-3 right-3"
+            style={{ backgroundColor: post.category.color }}
+            role="status"
+            aria-label={`Категория: ${post.category.name}`}
+          >
+            {post.category.name}
+          </Badge>
+        </div>
 
         <CardHeader className={variant === 'compact' ? 'pb-2 p-0' : 'pb-4 p-0'}>
           <div className="flex items-center gap-4 text-base text-muted-foreground mb-3">

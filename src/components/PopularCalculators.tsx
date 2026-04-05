@@ -1,4 +1,4 @@
-import { ArrowRight, TrendingUp, Home, Calculator, Heart, Droplets, Car, Scale } from "lucide-react";
+import { ArrowRight, TrendingUp, Home, Calculator, CheckCircle2, Droplets, Car, Scale } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { HoverEffect } from "./ui/card-hover-effect";
@@ -77,8 +77,8 @@ const PopularCalculators = () => {
     bgColor: calc.bgColor,
     extra: (
       <div className="flex items-center gap-1 mt-auto pt-4 text-xs font-medium text-muted-foreground">
-        <TrendingUp className="w-3 h-3" />
-        <span>{calc.statsCount}+ расчётов сегодня</span>
+        <CheckCircle2 className="w-3 h-3 text-green-500" />
+        <span>Актуально на 2026 год</span>
       </div>
     ),
   }));

@@ -73,7 +73,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   titleSuffix,
   description,
   backgroundImage,
-  height = 'large',
+  height = 'medium',
   className,
 }) => {
   const shouldReduceMotion = useReducedMotion();

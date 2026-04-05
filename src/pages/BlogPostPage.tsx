@@ -26,6 +26,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { generateArticleSchema, generateFAQSchema } from '@/utils/seoSchemas';
 import { countApprovedComments } from '@/services/commentService';
+import { getAssetUrl } from '@/utils/blogImageMap';
 import '@/styles/blog.css';
 
 // Lazy load комментариев
@@ -163,10 +164,10 @@ export default function BlogPostPage() {
       <div className="relative h-[60vh] min-h-[450px] overflow-hidden">
         <div className="absolute inset-0 bg-slate-900">
           <img
-            src={post.featuredImage?.url || '/blog/default-hero.png'}
+            src={getAssetUrl(post.featuredImage?.url) || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'}
             alt={post.featuredImage?.alt || post.title}
             className="w-full h-full object-cover opacity-60 scale-105"
-            onError={(e) => { (e.target as HTMLImageElement).src = '/blog/default-hero.png'; }}
+            onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'; }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 opacity-90" />
         </div>
@@ -209,10 +210,10 @@ export default function BlogPostPage() {
                 <div className="flex items-center gap-3">
                   <div className="w-14 h-14 rounded-2xl border-2 border-white/20 overflow-hidden shadow-2xl bg-white/10">
                     <img
-                      src={post.author.avatar || '/authors/default.png'}
+                      src={getAssetUrl(post.author.avatar) || getAssetUrl('/authors/alexander-smirnov.png')}
                       alt={post.author.name}
                       className="w-full h-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).src = '/authors/default.png'; }}
+                      onError={(e) => { (e.target as HTMLImageElement).src = getAssetUrl('/authors/alexander-smirnov.png') || ''; }}
                     />
                   </div>
                   <div>

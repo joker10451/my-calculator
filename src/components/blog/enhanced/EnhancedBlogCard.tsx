@@ -135,7 +135,6 @@ export const EnhancedBlogCard = ({
           <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-to-br from-white/10 via-transparent to-transparent rotate-12 -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
         </div>
 
-        {post.featuredImage && (
           <div className={`relative overflow-hidden ${config.imageHeight}`}>
             {/* Изображение с эффектом зума при наведении */}
             <motion.div
@@ -145,10 +144,10 @@ export const EnhancedBlogCard = ({
               whileHover="hover"
             >
               <OptimizedImage
-                src={post.featuredImage.url}
-                alt={post.featuredImage.alt}
-                width={post.featuredImage.width}
-                height={post.featuredImage.height}
+                src={post.featuredImage?.url || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'}
+                alt={post.featuredImage?.alt || post.title}
+                width={post.featuredImage?.width || 800}
+                height={post.featuredImage?.height || 420}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 priority={variant === 'featured' || variant === 'hero'}
               />
@@ -183,8 +182,6 @@ export const EnhancedBlogCard = ({
               <span>{post.readingTime} мин чтения</span>
             </div>
           </div>
-        )}
-
         <CardHeader className={`${config.padding} pt-6 pb-2`}>
           <h3 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
             <Link
