@@ -26,7 +26,7 @@ export interface TwitterCardTags {
  */
 export const generateOpenGraphTags = (
   article: BlogPost,
-  baseUrl: string = typeof window !== 'undefined' ? window.location.origin : 'https://schitai.ru'
+  baseUrl: string = typeof window !== 'undefined' ? window.location.origin : 'https://schitay-online.ru'
 ): OpenGraphTags => {
   const url = `${baseUrl}/blog/${article.slug}`;
   const title = article.seo.metaTitle || article.title;
@@ -58,7 +58,7 @@ export const generateOpenGraphTags = (
  */
 export const generateTwitterCardTags = (
   article: BlogPost,
-  baseUrl: string = typeof window !== 'undefined' ? window.location.origin : 'https://schitai.ru'
+  baseUrl: string = typeof window !== 'undefined' ? window.location.origin : 'https://schitay-online.ru'
 ): TwitterCardTags => {
   const title = article.seo.metaTitle || article.title;
   const description = article.seo.metaDescription || article.excerpt;

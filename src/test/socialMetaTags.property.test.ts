@@ -47,7 +47,7 @@ describe('Property Tests: Social Meta Tags', () => {
           }),
           (articleData) => {
             const article = createBlogPost(articleData);
-            const baseUrl = 'https://schitai.ru';
+            const baseUrl = 'https://schitay-online.ru';
             const ogTags = generateOpenGraphTags(article, baseUrl);
 
             // Required Open Graph tags must be present
@@ -88,7 +88,7 @@ describe('Property Tests: Social Meta Tags', () => {
           }),
           (articleData) => {
             const article = createBlogPost(articleData);
-            const baseUrl = 'https://schitai.ru';
+            const baseUrl = 'https://schitay-online.ru';
             const ogTags = generateOpenGraphTags(article, baseUrl);
 
             expect(ogTags['og:image']).toBeDefined();
@@ -189,7 +189,7 @@ describe('Property Tests: Social Meta Tags', () => {
           }),
           (articleData) => {
             const article = createBlogPost(articleData);
-            const baseUrl = 'https://schitai.ru';
+            const baseUrl = 'https://schitay-online.ru';
             const twitterTags = generateTwitterCardTags(article, baseUrl);
 
             expect(twitterTags['twitter:image']).toBeDefined();

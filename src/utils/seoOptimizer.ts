@@ -266,10 +266,10 @@ export function calculateKeywordDensity(content: string, keywords: string[]): nu
 /**
  * Генерирует canonical URL для статьи
  * @param slug - Slug статьи
- * @param baseUrl - Базовый URL сайта (по умолчанию https://xn--80aqu.ru)
+ * @param baseUrl - Базовый URL сайта (по умолчанию https://schitay-online.ru)
  * @returns Canonical URL
  */
-export function generateCanonicalURL(slug: string, baseUrl: string = 'https://xn--80aqu.ru'): string {
+export function generateCanonicalURL(slug: string, baseUrl: string = 'https://schitay-online.ru'): string {
   // Убираем trailing slash из baseUrl
   const cleanBaseUrl = baseUrl.replace(/\/$/, '');
   
@@ -293,7 +293,7 @@ export function generateCanonicalURL(slug: string, baseUrl: string = 'https://xn
  * @returns Объект structured data в формате JSON-LD
  */
 export function generateStructuredData(article: BlogPost): Record<string, unknown> {
-  const baseUrl = 'https://xn--80aqu.ru';
+  const baseUrl = 'https://schitay-online.ru';
   
   const structuredData = {
     '@context': 'https://schema.org',
@@ -316,7 +316,7 @@ export function generateStructuredData(article: BlogPost): Record<string, unknow
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': generateCanonicalURL(article.slug),
+      '@id': generateCanonicalURL(article.slug, baseUrl),
     },
   };
   

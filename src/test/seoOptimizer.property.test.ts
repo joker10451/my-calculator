@@ -107,7 +107,7 @@ describe('SEO Optimizer Property Tests', () => {
             const canonicalURL = generateCanonicalURL(slug);
             
             // Проверяем формат URL
-            expect(canonicalURL).toMatch(/^https:\/\/xn--80aqu\.ru\/blog\/[a-z0-9-]+$/);
+            expect(canonicalURL).toMatch(/^https:\/\/schitay-online\.ru\/blog\/[a-z0-9-]+$/);
             
             // Проверяем, что slug присутствует в URL
             expect(canonicalURL).toContain(slug);

@@ -17,7 +17,7 @@ export interface HreflangTag {
  */
 export function generateHreflangTags(
   post: BlogPost,
-  baseUrl: string = 'https://schitai.ru'
+  baseUrl: string = 'https://schitay-online.ru'
 ): HreflangTag[] {
   const tags: HreflangTag[] = [];
   
@@ -94,7 +94,7 @@ export function getLanguageSpecificSeo(
 export function generateCanonicalUrl(
   slug: string,
   language: SupportedLanguage,
-  baseUrl: string = 'https://schitai.ru'
+  baseUrl: string = 'https://schitay-online.ru'
 ): string {
   const path = buildLocalizedUrl(`/blog/${slug}`, language);
   return `${baseUrl}${path}`;
