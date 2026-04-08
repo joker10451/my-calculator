@@ -3,6 +3,7 @@ import { SEO, generateFAQSchema } from '@/components/SEO';
 import { generateHowToSchema } from '@/utils/seoSchemas';
 import { BANKS, generateBankSEOTemplate } from '@/lib/seoPages';
 import { Building2, Star, ArrowRight, CheckCircle, TrendingDown } from 'lucide-react';
+import { AffiliateCTA } from '@/components/AffiliateCTA';
 
 const SITE_URL = 'https://schitay-online.ru';
 
@@ -80,15 +81,18 @@ export default function BankMortgagePage() {
               </div>
             </div>
 
-            <a
-              href={bankData.referralLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-black text-lg py-4 rounded-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-blue-200/50"
-            >
-              Оформить ипотеку
-              <ArrowRight className="w-5 h-5" />
-            </a>
+            <div className="w-full">
+              <AffiliateCTA
+                href={bankData.referralLink}
+                partnerName={bankData.bankSlug}
+                productType="mortgage"
+                offerId={`bank-${bankData.bankSlug}-mortgage`}
+                placement="hero"
+                label="Оформить ипотеку"
+                variant="primary"
+                showAdLabel={false}
+              />
+            </div>
           </div>
 
           {/* Calculator Link */}

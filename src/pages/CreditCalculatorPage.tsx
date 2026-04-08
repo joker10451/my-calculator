@@ -1,4 +1,5 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import CreditCalculatorWithComparison from "@/components/calculators/CreditCalculatorWithComparison";
 import { Calculator, TrendingUp, FileText, BarChart3, PieChart, DollarSign, GitCompare } from "lucide-react";
 
@@ -59,6 +60,7 @@ const CreditCalculatorPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<CreditCalculatorWithComparison />}
+            afterCalculator={<OffersBlock product="credit" placement="result_block" />}
             features={features}
             howToUseSteps={howToUseSteps}
         />

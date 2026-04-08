@@ -3,6 +3,8 @@
  */
 
 import type { BankProduct } from '@/types/bank';
+import { trackEvent } from '@/lib/analytics/googleAnalytics';
+import { trackYandexGoal } from '@/hooks/useYandexMetrika';
 
 export interface ReferralClickEvent {
   productId: string;
@@ -11,6 +13,18 @@ export interface ReferralClickEvent {
   referralLink: string;
   userId?: string;
   source: 'calculator' | 'comparison' | 'recommendation' | 'blog';
+  /**
+   * Позиция/плейсмент на странице, чтобы мерить CTR по месту показа
+   */
+  placement?: 'result_block' | 'sidebar' | 'hero' | 'footer' | 'blog_inline' | 'widget' | 'unknown';
+  /**
+   * Человекочитаемый/стабильный ID оффера (для разрезов аналитики)
+   */
+  offerId?: string;
+  /**
+   * URL страницы, где произошёл клик (удобно для выгрузок)
+   */
+  page?: string;
   timestamp: Date;
 }
 
@@ -176,21 +190,20 @@ export class ReferralTracker {
   }
 
   private static sendToAnalytics(eventName: string, data: Record<string, unknown>): void {
-    // Интеграция с Yandex Metrika (если настроена)
-    if (typeof window !== 'undefined' && (window as Window & { ym?: (id: number, method: string, event: string, data: Record<string, unknown>) => void; YM_COUNTER_ID?: number }).ym) {
-      const w = window as Window & { ym: (id: number, method: string, event: string, data: Record<string, unknown>) => void; YM_COUNTER_ID?: number };
-      w.ym(
-        w.YM_COUNTER_ID || 0,
-        'reachGoal',
-        eventName,
-        data
-      );
+    if (typeof window === 'undefined') return;
+
+    // Яндекс.Метрика (единая точка, с корректным counter id из useYandexMetrika)
+    try {
+      trackYandexGoal(eventName, data);
+    } catch {
+      // ignore
     }
 
-    // Интеграция с Google Analytics (если настроена)
-    if (typeof window !== 'undefined' && (window as Window & { gtag?: (command: string, event: string, data: Record<string, unknown>) => void }).gtag) {
-      const w = window as Window & { gtag: (command: string, event: string, data: Record<string, unknown>) => void };
-      w.gtag('event', eventName, data);
+    // GA4 (единая точка)
+    try {
+      trackEvent(eventName, data);
+    } catch {
+      // ignore
     }
 
     // Можно добавить отправку на ваш сервер
@@ -210,7 +223,8 @@ export function useReferralTracking() {
     product: BankProduct,
     referralLink: string,
     source: ReferralClickEvent['source'],
-    userId?: string
+    userId?: string,
+    extras?: Pick<ReferralClickEvent, 'placement' | 'offerId' | 'page'>
   ) => {
     ReferralTracker.trackClick({
       productId: product.id,
@@ -218,7 +232,10 @@ export function useReferralTracking() {
       productType: product.product_type,
       referralLink,
       source,
-      userId
+      userId,
+      placement: extras?.placement,
+      offerId: extras?.offerId,
+      page: extras?.page
     });
   };
 

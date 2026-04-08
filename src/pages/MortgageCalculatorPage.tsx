@@ -1,4 +1,5 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import MortgageCalculatorWithComparison from "@/components/calculators/mortgage/MortgageCalculatorWithComparison";
 import { Home, Calculator, TrendingDown, Calendar, FileText, BarChart3, GitCompare } from "lucide-react";
 
@@ -59,6 +60,7 @@ const MortgageCalculatorPage = () => {
       categoryHref="/category/financial"
       faqItems={faqItems}
       calculator={<MortgageCalculatorWithComparison />}
+      afterCalculator={<OffersBlock product="mortgage" placement="result_block" />}
       aboutTitle="О калькуляторе ипотеки"
       aboutDescription="Наш ипотечный калькулятор поможет вам рассчитать все параметры ипотечного кредита: ежемесячный платеж, общую сумму выплат, переплату по процентам и построить детальный график платежей. Калькулятор учитывает актуальные ставки 2026 года и позволяет моделировать различные сценарии досрочного погашения."
       features={features}

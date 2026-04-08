@@ -133,7 +133,13 @@ export function VTBCreditCardWidget({
       trackClick(
         vtbCreditCardProduct,
         VTB_CREDIT_CARD_DATA.affiliate.link!,
-        source
+        source,
+        undefined,
+        {
+          placement: 'widget',
+          offerId: VTB_CREDIT_CARD_DATA.id,
+          page: window.location.href,
+        }
       );
 
       // Открываем партнерскую ссылку в новой вкладке

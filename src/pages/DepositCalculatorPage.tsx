@@ -1,4 +1,5 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import DepositCalculator from "@/components/calculators/DepositCalculator";
 import { TrendingUp, PiggyBank, Calendar, BarChart3, Calculator, LineChart } from "lucide-react";
 
@@ -58,6 +59,7 @@ const DepositCalculatorPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<DepositCalculator />}
+            afterCalculator={<OffersBlock product="deposit" placement="result_block" />}
             features={features}
             howToUseSteps={howToUseSteps}
         />

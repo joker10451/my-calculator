@@ -10,6 +10,10 @@ export interface AffiliateLink {
   commission?: number; // потенциальная комиссия в рублях
   description?: string;
   erid?: string; // идентификатор рекламы для соответствия требованиям
+  title?: string; // заголовок для витрины
+  category?: 'mortgage' | 'credit' | 'debit' | 'deposit' | 'loan' | 'insurance' | 'other';
+  badges?: string[];
+  priority?: number; // ручная сортировка: больше = выше
 }
 
 /**
@@ -23,49 +27,75 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     bankId: 'partner', // Укажите ID банка
     productType: 'mortgage', // Укажите тип продукта: 'mortgage', 'deposit', 'credit'
     commission: 0, // Укажите вашу комиссию в рублях
-    description: 'Партнерская ссылка #1'
+    description: 'Партнерская ссылка #1',
+    title: 'Подобрать ипотеку онлайн',
+    category: 'mortgage',
+    badges: ['Онлайн', 'Подбор предложений'],
+    priority: 80,
   },
   
   // Пример: Сбербанк
   'sberbank': {
     url: 'https://www.sberbank.ru',
     bankId: 'sberbank',
-    description: 'Общая ссылка на Сбербанк'
+    description: 'Общая ссылка на Сбербанк',
+    title: 'Сбербанк — официальный сайт',
+    category: 'other',
+    priority: 10,
   },
   'sberbank-mortgage': {
     url: 'https://www.sberbank.ru/ru/person/credits/home/buying_complete_house?utm_source=schitay&utm_medium=referral&utm_campaign=mortgage',
     bankId: 'sberbank',
     productType: 'mortgage',
     commission: 3000,
-    description: 'Ипотека Сбербанк'
+    description: 'Ипотека Сбербанк',
+    title: 'Ипотека в Сбербанке',
+    category: 'mortgage',
+    badges: ['Онлайн-заявка'],
+    priority: 90,
   },
   'sberbank-deposit': {
     url: 'https://www.sberbank.ru/ru/person/contributions?utm_source=schitay&utm_medium=referral&utm_campaign=deposit',
     bankId: 'sberbank',
     productType: 'deposit',
     commission: 500,
-    description: 'Вклады Сбербанк'
+    description: 'Вклады Сбербанк',
+    title: 'Вклады в Сбербанке',
+    category: 'deposit',
+    badges: ['Накопления'],
+    priority: 70,
   },
   
   // Пример: ВТБ
   'vtb': {
     url: 'https://www.vtb.ru',
     bankId: 'vtb',
-    description: 'Общая ссылка на ВТБ'
+    description: 'Общая ссылка на ВТБ',
+    title: 'ВТБ — официальный сайт',
+    category: 'other',
+    priority: 10,
   },
   'vtb-mortgage': {
     url: 'https://www.vtb.ru/personal/ipoteka/?utm_source=schitay&utm_medium=referral&utm_campaign=mortgage',
     bankId: 'vtb',
     productType: 'mortgage',
     commission: 2500,
-    description: 'Ипотека ВТБ'
+    description: 'Ипотека ВТБ',
+    title: 'Ипотека в ВТБ',
+    category: 'mortgage',
+    badges: ['Онлайн-заявка'],
+    priority: 85,
   },
   'vtb-credit-card': {
     url: 'https://trk.ppdu.ru/click/q3zhF1ow?erid=2SDnjeGCc2T',
     bankId: 'vtb',
     productType: 'credit',
     erid: '2SDnjeGCc2T',
-    description: 'Кредитная карта ВТБ'
+    description: 'Кредитная карта ВТБ',
+    title: 'Кредитная карта ВТБ',
+    category: 'credit',
+    badges: ['Онлайн', 'Льготный период'],
+    priority: 95,
   },
   
   // ПСБ - Дебетовая карта "Зарплатные привилегии"
@@ -74,7 +104,11 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     bankId: 'psb',
     productType: 'debit',
     commission: 1633,
-    description: 'Дебетовая карта "Зарплатные привилегии" ПСБ'
+    description: 'Дебетовая карта "Зарплатные привилегии" ПСБ',
+    title: 'Дебетовая карта ПСБ с кэшбэком',
+    category: 'debit',
+    badges: ['Кэшбэк'],
+    priority: 75,
   },
   
   // Т-Банк - Дебетовая карта ALL Airlines
@@ -83,7 +117,45 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     bankId: 'tbank',
     productType: 'debit',
     erid: '2SDnjeBaaR6',
-    description: 'Дебетовая карта ALL Airlines Т-Банк с промокодом LETIM2026'
+    description: 'Дебетовая карта ALL Airlines Т-Банк с промокодом LETIM2026',
+    title: 'Т‑Банк ALL Airlines (дебетовая)',
+    category: 'debit',
+    badges: ['Мили', 'Промокод'],
+    priority: 70,
+  },
+
+  // Pampadu (страхование)
+  'pampadu-osago': {
+    url: 'https://pampadu.ru/osago?partner=schitay',
+    bankId: 'pampadu',
+    productType: 'insurance',
+    description: 'ОСАГО онлайн через Pampadu (партнёрская ссылка)',
+    title: 'Рассчитать ОСАГО онлайн',
+    category: 'insurance',
+    badges: ['ОСАГО', 'Онлайн-расчёт'],
+    priority: 88,
+  },
+  'pampadu-kasko': {
+    url: 'https://pampadu.ru/kasko?partner=schitay',
+    bankId: 'pampadu',
+    productType: 'insurance',
+    description: 'КАСКО онлайн через Pampadu (партнёрская ссылка)',
+    title: 'Рассчитать КАСКО онлайн',
+    category: 'insurance',
+    badges: ['КАСКО', 'Онлайн-расчёт'],
+    priority: 80,
+  },
+
+  // Pampadu offer (из кабинета)
+  'pampadu-offer-31ba9c13': {
+    url: 'https://agents.pampadu.ru/app/offer/view/31ba9c13-4847-41f9-bc4a-1f4a1fbced43',
+    bankId: 'pampadu',
+    productType: 'insurance',
+    description: 'Оффер Pampadu (ссылка из кабинета)',
+    title: 'Оффер Pampadu (страница оффера)',
+    category: 'insurance',
+    badges: ['Pampadu'],
+    priority: 60,
   },
   
   // Добавьте свои партнерские ссылки здесь

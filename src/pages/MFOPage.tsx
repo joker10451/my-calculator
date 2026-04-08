@@ -4,6 +4,7 @@ import { generateHowToSchema } from '@/utils/seoSchemas';
 import { MFO_OFFERS, generateMFOSEOTemplate } from '@/lib/seoPages';
 import { useParams, Navigate } from 'react-router-dom';
 import { Wallet, Clock, CheckCircle, ArrowRight, Star, Shield, TrendingDown } from 'lucide-react';
+import { AffiliateCTA } from '@/components/AffiliateCTA';
 
 const SITE_URL = 'https://schitay-online.ru';
 
@@ -86,15 +87,18 @@ export default function MFOPage() {
               </div>
             </div>
 
-            <a
-              href={mfoData.referralLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-black text-lg py-4 rounded-2xl hover:from-emerald-700 hover:to-emerald-800 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-emerald-200/50"
-            >
-              Получить займ
-              <ArrowRight className="w-5 h-5" />
-            </a>
+            <div className="w-full">
+              <AffiliateCTA
+                href={mfoData.referralLink}
+                partnerName={mfoData.slug}
+                productType="loan"
+                offerId={`mfo-${mfoData.slug}`}
+                placement="hero"
+                label="Получить займ"
+                variant="primary"
+                showAdLabel={false}
+              />
+            </div>
           </div>
 
           {/* Requirements */}

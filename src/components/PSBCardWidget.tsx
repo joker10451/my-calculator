@@ -133,7 +133,13 @@ export function PSBCardWidget({
       trackClick(
         psbCardProduct,
         PSB_CARD_DATA.affiliate.link,
-        source
+        source,
+        undefined,
+        {
+          placement: 'widget',
+          offerId: PSB_CARD_DATA.id,
+          page: window.location.href,
+        }
       );
 
       // Открываем партнерскую ссылку в новой вкладке

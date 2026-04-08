@@ -33,6 +33,7 @@ interface CalculatorPageWrapperProps {
   
   // Контент
   calculator: ReactNode;
+  afterCalculator?: ReactNode;
   
   // Опциональные секции
   aboutTitle?: string;
@@ -87,6 +88,7 @@ const CalculatorPageWrapper = ({
   categoryHref,
   faqItems,
   calculator,
+  afterCalculator,
   aboutTitle,
   aboutDescription,
   features,
@@ -119,6 +121,12 @@ const CalculatorPageWrapper = ({
         <Breadcrumbs items={breadcrumbs} />
         
         {calculator}
+
+        {afterCalculator && (
+          <div className="mt-8">
+            {afterCalculator}
+          </div>
+        )}
         
         <div className="mt-16">
           <FAQ items={faqItems} />

@@ -44,7 +44,11 @@ export function ReferralButton({
 
   const handleClick = () => {
     // Отслеживаем клик
-    trackClick(product, referralLink, source, userId);
+    trackClick(product, referralLink, source, userId, {
+      placement: 'unknown',
+      offerId: product.id,
+      page: window.location.href,
+    });
 
     // Открываем ссылку в новой вкладке
     window.open(referralLink, '_blank', 'noopener,noreferrer');
@@ -121,7 +125,11 @@ export function ReferralLink({
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    trackClick(product, referralLink, source, userId);
+    trackClick(product, referralLink, source, userId, {
+      placement: 'unknown',
+      offerId: product.id,
+      page: window.location.href,
+    });
     window.open(referralLink, '_blank', 'noopener,noreferrer');
   };
 

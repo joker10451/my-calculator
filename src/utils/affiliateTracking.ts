@@ -9,29 +9,35 @@ export interface AffiliateClickEvent {
   linkUrl: string;
   source: string;
   pageUrl: string;
+  offerId?: string;
+  placement?: 'result_block' | 'sidebar' | 'hero' | 'footer' | 'blog_inline' | 'widget' | 'unknown';
 }
 
 /**
  * Отправить событие клика по affiliate ссылке
  */
 export function trackAffiliateClick(event: AffiliateClickEvent): void {
-  // GA4
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', 'affiliate_click', {
-      partner_name: event.partnerName,
-      product_type: event.productType,
-      link_url: event.linkUrl,
-      source: event.source,
-    });
-  }
-
-  // Yandex Metrika
-  if (typeof window !== 'undefined' && (window as any).ym) {
-    (window as any).ym(98634609, 'reachGoal', 'affiliate_click', {
-      partner: event.partnerName,
-      product: event.productType,
-      url: event.linkUrl,
-    });
+  // В проекте используем единое событие `referral_click` через ReferralTracker
+  // (Метрика/GA4 конфигурируются в одном месте).
+  if (typeof window !== 'undefined') {
+    try {
+      // Lazy import to avoid circular deps in non-browser contexts
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      import('@/lib/analytics/referralTracking').then(({ ReferralTracker }) => {
+        ReferralTracker.trackClick({
+          productId: event.offerId || `${event.partnerName}-${event.productType}`,
+          offerId: event.offerId || `${event.partnerName}-${event.productType}`,
+          bankId: event.partnerName,
+          productType: event.productType,
+          referralLink: event.linkUrl,
+          source: 'recommendation',
+          placement: event.placement || 'unknown',
+          page: event.pageUrl,
+        });
+      });
+    } catch {
+      // ignore
+    }
   }
 
   // localStorage для аналитики
