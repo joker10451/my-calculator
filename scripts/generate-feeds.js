@@ -103,40 +103,6 @@ const generateRSSFeed = () => {
   return rssXml;
 };
 
-const generateSitemap = () => {
-  const siteUrl = 'https://считай.ru';
-  const publishedPosts = blogPosts.filter(post => post.isPublished);
-  
-  const blogUrls = publishedPosts.map(post => {
-    const lastmod = post.updatedAt || post.publishedAt;
-    return `
-  <url>
-    <loc>${siteUrl}/blog/${post.slug}</loc>
-    <lastmod>${new Date(lastmod).toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>`;
-  }).join('');
-
-  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>${siteUrl}</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${siteUrl}/blog</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>${blogUrls}
-</urlset>`;
-
-  return sitemapXml;
-};
-
 // Генерируем файлы
 const publicDir = path.join(__dirname, '..', 'public');
 
@@ -144,10 +110,5 @@ const publicDir = path.join(__dirname, '..', 'public');
 const rssContent = generateRSSFeed();
 fs.writeFileSync(path.join(publicDir, 'rss.xml'), rssContent, 'utf8');
 console.log('✅ RSS feed сгенерирован: public/rss.xml');
-
-// Sitemap
-const sitemapContent = generateSitemap();
-fs.writeFileSync(path.join(publicDir, 'sitemap-blog.xml'), sitemapContent, 'utf8');
-console.log('✅ Sitemap блога сгенерирован: public/sitemap-blog.xml');
 
 console.log('🎉 Все файлы успешно сгенерированы!');

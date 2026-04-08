@@ -12,18 +12,20 @@ const TIMEOUT = 10000; // 10 секунд
 // Список страниц для проверки
 const pagesToCheck = [
   { path: '/', name: 'Главная страница' },
-  { path: '/blog', name: 'Блог' },
-  { path: '/all', name: 'Все калькуляторы' },
-  { path: '/calculator/mortgage', name: 'Калькулятор ипотеки' },
-  { path: '/calculator/salary', name: 'Калькулятор зарплаты' },
+  // Для GitHub Pages (папка/index.html) предпочитаем URL со слэшем,
+  // чтобы не получать 301 и не путать SEO-валидаторы
+  { path: '/blog/', name: 'Блог' },
+  { path: '/all/', name: 'Все калькуляторы' },
+  { path: '/calculator/mortgage/', name: 'Калькулятор ипотеки' },
+  { path: '/calculator/salary/', name: 'Калькулятор зарплаты' },
   { path: '/sitemap.xml', name: 'Sitemap' },
   { path: '/robots.txt', name: 'Robots.txt' },
 ];
 
 // Список статей блога для проверки
 const blogPostsToCheck = [
-  { path: '/blog/ipoteka-2026-novye-usloviya', name: 'Статья: Ипотека 2026' },
-  { path: '/blog/ndfl-2026-progressivnaya-shkala', name: 'Статья: НДФЛ 2026' },
+  { path: '/blog/ipoteka-2026-novye-usloviya/', name: 'Статья: Ипотека 2026' },
+  { path: '/blog/ndfl-2026-progressivnaya-shkala/', name: 'Статья: НДФЛ 2026' },
 ];
 
 let totalChecks = 0;
@@ -100,11 +102,13 @@ async function checkSitemap() {
           if (data.includes('<?xml') && data.includes('<urlset')) {
             // Подсчитываем количество URL
             const urlCount = (data.match(/<url>/g) || []).length;
+            const hasTrailingSlashUrls = /<loc>https?:\/\/[^<]+\/<\/loc>/.test(data);
             
             passedChecks++;
             console.log(`✅ Sitemap валиден`);
             console.log(`   URL: ${url}`);
             console.log(`   Количество страниц: ${urlCount}`);
+            console.log(`   URL со слэшем в конце: ${hasTrailingSlashUrls ? 'да' : 'нет'}`);
             console.log('');
             resolve({ success: true, urlCount });
           } else {

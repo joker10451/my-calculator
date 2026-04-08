@@ -170,7 +170,6 @@ Disallow: /node_modules/
 
 # Sitemap
 Sitemap: ${SITE_URL}/sitemap.xml
-Sitemap: ${SITE_URL}/sitemap-blog.xml
 
 # Yandex
 User-agent: Yandex

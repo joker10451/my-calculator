@@ -9,7 +9,6 @@ Disallow: /node_modules/
 
 # Sitemap
 Sitemap: https://schitay-online.ru/sitemap.xml
-Sitemap: https://schitay-online.ru/sitemap-blog.xml
 
 # Yandex
 User-agent: Yandex

@@ -134,10 +134,7 @@ function generateSitemap(posts) {
 
 // Write files
 const rssXml = generateRSS(allPosts);
-const sitemapXml = generateSitemap(allPosts);
 
 fs.writeFileSync(path.resolve(__dirname, '../public/rss.xml'), rssXml);
-fs.writeFileSync(path.resolve(__dirname, '../public/sitemap-blog.xml'), sitemapXml);
 
 console.log('✅ RSS feed generated: public/rss.xml');
-console.log('✅ Blog sitemap generated: public/sitemap-blog.xml');
