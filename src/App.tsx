@@ -68,6 +68,7 @@ const EnhancedBlogCardDemo = lazy(() => import("./pages/EnhancedBlogCardDemo"));
 const ColorSystemDemo = lazy(() => import("./pages/ColorSystemDemo"));
 const GlassmorphismDemo = lazy(() => import("./pages/GlassmorphismDemo"));
 const SitemapPage = lazy(() => import("./pages/SitemapPage"));
+const OffersCatalogPage = lazy(() => import("./pages/OffersCatalogPage"));
 
 // Blog components with lazy loading (loaded on demand)
 export const BlogComments = lazy(() => import("./components/blog/BlogComments"));
@@ -164,6 +165,8 @@ const AnimatedRoutes = () => {
           <Route path="/privacy" element={<PageTransition><LegalPage type="privacy" /></PageTransition>} />
           <Route path="/terms" element={<PageTransition><LegalPage type="terms" /></PageTransition>} />
           <Route path="/contacts" element={<PageTransition><ContactsPage /></PageTransition>} />
+          <Route path="/offers" element={<PageTransition><OffersCatalogPage /></PageTransition>} />
+          <Route path="/offers/" element={<PageTransition><OffersCatalogPage /></PageTransition>} />
           <Route path="/admin/analytics" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
           <Route path="/blog" element={<PageTransition><BlogPage /></PageTransition>} />
           <Route path="/blog/category/:slug" element={<PageTransition><BlogCategoryPage /></PageTransition>} />

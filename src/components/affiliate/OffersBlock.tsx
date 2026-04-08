@@ -24,6 +24,11 @@ const OFFERS_BY_PRODUCT: Record<string, OfferKeyConfig[]> = {
   deposit: [
     { key: 'sberbank-deposit', label: 'Открыть вклад (Сбер)', partnerName: 'sberbank', productType: 'deposit' },
   ],
+  insurance: [
+    { key: 'renlife-guaranteed-income', label: 'НСЖ “Гарантированный доход”', partnerName: 'renlife', productType: 'insurance' },
+    { key: 'pampadu-osago', label: 'Рассчитать ОСАГО онлайн', partnerName: 'pampadu', productType: 'insurance' },
+    { key: 'pampadu-kasko', label: 'Рассчитать КАСКО онлайн', partnerName: 'pampadu', productType: 'insurance' },
+  ],
 };
 
 export interface OffersBlockProps {

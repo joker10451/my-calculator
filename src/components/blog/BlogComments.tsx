@@ -25,7 +25,7 @@ interface CommentFormData {
   parentId?: string;
 }
 
-function BlogComments({ articleId }: BlogCommentsProps) {
+export function BlogComments({ articleId }: BlogCommentsProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentCount, setCommentCount] = useState(0);
   const [formData, setFormData] = useState<CommentFormData>({

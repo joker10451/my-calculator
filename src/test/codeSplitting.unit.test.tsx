@@ -2,6 +2,21 @@ import { describe, test, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { Suspense, lazy } from 'react';
 import { MemoryRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { ComparisonProvider } from '@/context/ComparisonContext';
+
+function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <HelmetProvider>
+      <TooltipProvider>
+        <ComparisonProvider>
+          <MemoryRouter>{children}</MemoryRouter>
+        </ComparisonProvider>
+      </TooltipProvider>
+    </HelmetProvider>
+  );
+}
 
 // Тестируем что компоненты блога загружаются через lazy loading
 describe('Code Splitting for Blog Components', () => {
@@ -9,9 +24,11 @@ describe('Code Splitting for Blog Components', () => {
     const BlogComments = lazy(() => import('@/components/blog/BlogComments'));
 
     render(
-      <Suspense fallback={<div>Loading comments...</div>}>
-        <BlogComments articleId="test-article" />
-      </Suspense>
+      <Providers>
+        <Suspense fallback={<div>Loading comments...</div>}>
+          <BlogComments articleId="test-article" />
+        </Suspense>
+      </Providers>
     );
 
     // Сначала должен показаться fallback
@@ -27,9 +44,11 @@ describe('Code Splitting for Blog Components', () => {
     const BlogRecommendations = lazy(() => import('@/components/blog/BlogRecommendations'));
 
     render(
-      <Suspense fallback={<div>Loading recommendations...</div>}>
-        <BlogRecommendations articleId="test-article" />
-      </Suspense>
+      <Providers>
+        <Suspense fallback={<div>Loading recommendations...</div>}>
+          <BlogRecommendations articleId="test-article" />
+        </Suspense>
+      </Providers>
     );
 
     // Сначала должен показаться fallback
@@ -45,11 +64,11 @@ describe('Code Splitting for Blog Components', () => {
     const BlogPage = lazy(() => import('@/pages/BlogPage'));
 
     render(
-      <MemoryRouter>
+      <Providers>
         <Suspense fallback={<div>Loading blog page...</div>}>
           <BlogPage />
         </Suspense>
-      </MemoryRouter>
+      </Providers>
     );
 
     // Сначала должен показаться fallback
@@ -69,9 +88,11 @@ describe('Lazy Loading Performance', () => {
     const startTime = performance.now();
     
     render(
-      <Suspense fallback={<div>Loading...</div>}>
-        <BlogComments articleId="test" />
-      </Suspense>
+      <Providers>
+        <Suspense fallback={<div>Loading...</div>}>
+          <BlogComments articleId="test" />
+        </Suspense>
+      </Providers>
     );
 
     const renderTime = performance.now() - startTime;
@@ -87,14 +108,16 @@ describe('Lazy Loading Performance', () => {
     const startTime = performance.now();
 
     render(
-      <>
-        <Suspense fallback={<div>Loading comments...</div>}>
-          <BlogComments articleId="test" />
-        </Suspense>
-        <Suspense fallback={<div>Loading recommendations...</div>}>
-          <BlogRecommendations articleId="test" />
-        </Suspense>
-      </>
+      <Providers>
+        <>
+          <Suspense fallback={<div>Loading comments...</div>}>
+            <BlogComments articleId="test" />
+          </Suspense>
+          <Suspense fallback={<div>Loading recommendations...</div>}>
+            <BlogRecommendations articleId="test" />
+          </Suspense>
+        </>
+      </Providers>
     );
 
     await waitFor(() => {

@@ -161,6 +161,7 @@ export const EnhancedBlogCard = ({
               <Badge
                 className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-0 shadow-xl text-xs sm:text-sm font-bold px-3 py-1.5 rounded-full"
                 role="status"
+                aria-label="Рекомендуемая статья"
               >
                 ⭐ Рекомендуем
               </Badge>
@@ -171,6 +172,7 @@ export const EnhancedBlogCard = ({
               className="absolute top-3 right-3 flex items-center gap-1.5 text-white border-0 shadow-lg font-bold px-3 py-1.5 text-xs sm:text-sm rounded-full backdrop-blur-md opacity-90 hover:opacity-100 transition-opacity"
               style={{ backgroundColor: `${categoryColor}CC` }}
               role="status"
+              aria-label={`Категория: ${post.category.name}`}
             >
               <CategoryIcon className="w-3.5 h-3.5" aria-hidden="true" />
               <span>{post.category.name}</span>
@@ -178,11 +180,23 @@ export const EnhancedBlogCard = ({
 
             {/* Индикатор времени чтения (снизу слева на картинке) */}
             <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-white/90 text-xs font-medium">
-              <Clock className="w-3 h-3" />
+              <Clock className="w-3 h-3" aria-hidden="true" />
               <span>{post.readingTime} мин чтения</span>
             </div>
           </div>
         <CardHeader className={`${config.padding} pt-6 pb-2`}>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400 mb-3">
+            <div className="inline-flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
+              <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+            </div>
+            {showReadingTime && (
+              <div className="inline-flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>{post.readingTime} мин</span>
+              </div>
+            )}
+          </div>
           <h3 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
             <Link
               to={`/blog/${post.slug}`}
@@ -249,7 +263,7 @@ export const EnhancedBlogCard = ({
             <Link
               to={`/blog/${post.slug}`}
               className="inline-flex items-center gap-1 text-sm font-bold text-blue-600 dark:text-blue-400 hover:gap-2 transition-all duration-300"
-              aria-label={`Читать: ${post.title}`}
+              aria-label={`Читать далее: ${post.title}`}
             >
               <span>Читать</span>
               <ArrowRight className="w-4 h-4" />

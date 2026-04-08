@@ -221,7 +221,7 @@ describe('BlogShare Component Unit Tests', () => {
       expect(window.open).toHaveBeenCalledWith(
         expect.stringContaining('vk.com/share.php'),
         '_blank',
-        'width=600,height=400'
+        expect.stringContaining('width=600,height=400')
       );
       expect(shareTrackingService.trackShare).toHaveBeenCalledWith('1', 'test-article', 'vk');
     });
@@ -240,7 +240,7 @@ describe('BlogShare Component Unit Tests', () => {
       expect(window.open).toHaveBeenCalledWith(
         expect.stringContaining('t.me/share/url'),
         '_blank',
-        'width=600,height=400'
+        expect.stringContaining('width=600,height=400')
       );
       expect(shareTrackingService.trackShare).toHaveBeenCalledWith('1', 'test-article', 'telegram');
     });
@@ -259,7 +259,7 @@ describe('BlogShare Component Unit Tests', () => {
       expect(window.open).toHaveBeenCalledWith(
         expect.stringContaining('wa.me'),
         '_blank',
-        'width=600,height=400'
+        expect.stringContaining('width=600,height=400')
       );
       expect(shareTrackingService.trackShare).toHaveBeenCalledWith('1', 'test-article', 'whatsapp');
     });

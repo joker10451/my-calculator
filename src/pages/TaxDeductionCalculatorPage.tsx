@@ -2,6 +2,7 @@ import { PiggyBank, Calculator, Home, Heart, GraduationCap, ArrowRight } from "l
 import { SEO, generateFAQSchema } from "@/components/SEO";
 import { generateHowToSchema } from "@/utils/seoSchemas";
 import { TaxDeductionCalculator } from "@/components/calculators/TaxDeductionCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 
 const SITE_URL = 'https://schitay-online.ru';
 
@@ -62,6 +63,15 @@ export default function TaxDeductionCalculatorPage() {
             />
             <div className="container mx-auto px-4">
                 <TaxDeductionCalculator />
+
+                <div className="max-w-5xl mx-auto mt-10">
+                    <OffersBlock
+                        product="insurance"
+                        placement="result_block"
+                        title="Как увеличить выгоду после вычета"
+                        subtitle="Некоторые программы накоплений позволяют дополнительно использовать налоговые льготы. Перейдите на сайт партнёра, чтобы посмотреть условия."
+                    />
+                </div>
 
                 {/* Features */}
                 <div className="max-w-5xl mx-auto mt-20">

@@ -6,7 +6,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import fc from 'fast-check';
 import { localDB } from '../lib/database/local-storage';
-import { apiAdapter } from '../lib/api/client-adapter';
 
 // Генераторы для property-based тестирования
 const bankProductArbitrary = fc.record({
@@ -259,11 +258,11 @@ describe('Product Data Validation Properties', () => {
           
           await localDB.saveProducts(validProducts);
           
-          // Получаем продукты через API адаптер
-          const retrievedProducts = await apiAdapter.getProducts();
+          // Получаем продукты из локальной базы (для статического хостинга)
+          const retrievedProducts = await localDB.getProducts();
           
-          // Получаем банки через API адаптер
-          const retrievedBanks = await apiAdapter.getBanks();
+          // Получаем банки из локальной базы
+          const retrievedBanks = await localDB.getBanks();
           
           // Проверяем, что каждый продукт имеет валидный bank_id
           for (const product of retrievedProducts) {

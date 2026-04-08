@@ -10,7 +10,14 @@ interface BlogRecommendationsProps {
   /**
    * Похожие статьи для отображения
    */
-  relatedArticles: BlogPost[];
+  relatedArticles?: BlogPost[];
+
+  /**
+   * Идентификатор статьи (используется на страницах, где данные грузятся отдельно)
+   * Нужно для совместимости с lazy-loading тестами и местами, где компонент
+   * рендерится без заранее подготовленных рекомендаций.
+   */
+  articleId?: string;
 
   /**
    * Связанные калькуляторы для отображения
@@ -39,7 +46,7 @@ interface BlogRecommendationsProps {
  * Requirements: 4.1, 4.3
  */
 const BlogRecommendations = ({
-  relatedArticles,
+  relatedArticles = [],
   relatedCalculators = [],
   articlesTitle = 'Похожие статьи',
   calculatorsTitle = 'Полезные калькуляторы',

@@ -171,7 +171,7 @@ describe('Property Tests: Comment Count Accuracy', () => {
 
   test('Property 27: Comment Count Accuracy - count equals approved comments', async () => {
     // Feature: blog-development, Property 27: Comment Count Accuracy
-    fc.assert(
+    await fc.assert(
       fc.asyncProperty(
         fc.array(
           fc.record({
@@ -220,7 +220,7 @@ describe('Property Tests: Comment Count Accuracy', () => {
 
   test('Property 27: Comment Count Accuracy - count includes nested replies', async () => {
     // Feature: blog-development, Property 27: Comment Count Accuracy
-    fc.assert(
+    await fc.assert(
       fc.asyncProperty(
         fc.integer({ min: 1, max: 3 }), // number of top-level comments
         fc.integer({ min: 1, max: 2 }), // number of replies per comment
@@ -273,7 +273,7 @@ describe('Property Tests: Comment Count Accuracy', () => {
 
   test('Property 27: Comment Count Accuracy - only approved comments are counted', async () => {
     // Feature: blog-development, Property 27: Comment Count Accuracy
-    fc.assert(
+    await fc.assert(
       fc.asyncProperty(
         fc.array(
           fc.record({
@@ -322,7 +322,7 @@ describe('Property Tests: Comment Count Accuracy', () => {
 
   test('Property 27: Comment Count Accuracy - count is zero for articles with no approved comments', async () => {
     // Feature: blog-development, Property 27: Comment Count Accuracy
-    fc.assert(
+    await fc.assert(
       fc.asyncProperty(
         fc.array(
           fc.record({

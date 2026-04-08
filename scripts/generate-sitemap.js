@@ -60,6 +60,7 @@ const pages = [
   { url: '/about/', priority: 0.5, changefreq: 'monthly' },
   { url: '/contacts/', priority: 0.5, changefreq: 'monthly' },
   { url: '/blog/', priority: 0.8, changefreq: 'weekly' },
+  { url: '/offers/', priority: 0.8, changefreq: 'weekly' },
   
   // Категории блога
   { url: '/blog/category/mortgage-credit/', priority: 0.7, changefreq: 'weekly' },

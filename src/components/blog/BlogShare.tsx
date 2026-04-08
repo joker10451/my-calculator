@@ -18,7 +18,7 @@ interface BlogShareProps {
   shareCount?: number;
 }
 
-const BlogShare = ({ post, shareCount = 0 }: BlogShareProps) => {
+export const BlogShare = ({ post, shareCount = 0 }: BlogShareProps) => {
   const [copied, setCopied] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 

@@ -11,7 +11,7 @@ export interface AffiliateLink {
   description?: string;
   erid?: string; // идентификатор рекламы для соответствия требованиям
   title?: string; // заголовок для витрины
-  category?: 'mortgage' | 'credit' | 'debit' | 'deposit' | 'loan' | 'insurance' | 'other';
+  category?: 'mortgage' | 'credit' | 'debit' | 'deposit' | 'loan' | 'insurance' | 'vacancies' | 'other';
   badges?: string[];
   priority?: number; // ручная сортировка: больше = выше
 }
@@ -146,16 +146,30 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     priority: 80,
   },
 
+  // Ренессанс Жизнь (НСЖ)
+  'renlife-guaranteed-income': {
+    url: 'https://trk.ppdu.ru/click/Np9sj7AZ?erid=2SDnjcfxx7T',
+    bankId: 'renlife',
+    productType: 'insurance',
+    erid: '2SDnjcfxx7T',
+    description: 'НСЖ «Гарантированный доход» — от 19% в первый год, подходит для налоговых вычетов',
+    title: 'Ренессанс Жизнь — Гарантированный доход (НСЖ)',
+    category: 'insurance',
+    badges: ['НСЖ', 'Налоговый вычет', 'От 100 000 ₽'],
+    priority: 93,
+  },
+
   // Pampadu offer (из кабинета)
   'pampadu-offer-31ba9c13': {
-    url: 'https://agents.pampadu.ru/app/offer/view/31ba9c13-4847-41f9-bc4a-1f4a1fbced43',
+    url: 'https://trk.ppdu.ru/click/o6eCET0k?erid=CQH36pWzJqVGXC5oLP8WVVNCNqJmbhiUPijGiu4zpwPd7G',
     bankId: 'pampadu',
-    productType: 'insurance',
-    description: 'Оффер Pampadu (ссылка из кабинета)',
-    title: 'Оффер Pampadu (страница оффера)',
-    category: 'insurance',
-    badges: ['Pampadu'],
-    priority: 60,
+    productType: 'vacancy',
+    erid: 'CQH36pWzJqVGXC5oLP8WVVNCNqJmbhiUPijGiu4zpwPd7G',
+    description: 'Курьер в Яндекс.Еда/Яндекс.Лавка (РФ/РБ) — трудоустройство + активность',
+    title: 'Курьер Яндекс.Еда/Яндекс.Лавка — оффер Pampadu',
+    category: 'vacancies',
+    badges: ['Вакансии', 'РФ/РБ', 'До 9 750 ₽'],
+    priority: 92,
   },
   
   // Добавьте свои партнерские ссылки здесь

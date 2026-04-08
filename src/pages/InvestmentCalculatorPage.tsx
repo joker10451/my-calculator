@@ -1,4 +1,5 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import InvestmentCalculator from "@/components/calculators/InvestmentCalculator";
 import { TrendingUp, PiggyBank, LineChart, BarChart3, DollarSign, Calendar } from "lucide-react";
 
@@ -58,6 +59,14 @@ const InvestmentCalculatorPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<InvestmentCalculator />}
+            afterCalculator={
+                <OffersBlock
+                    product="insurance"
+                    placement="result_block"
+                    title="Страхование и накопления"
+                    subtitle="НСЖ и другие программы, которые могут подойти под вашу цель накоплений."
+                />
+            }
             features={features}
             howToUseSteps={howToUseSteps}
         />

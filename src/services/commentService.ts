@@ -80,14 +80,15 @@ export function validateComment(comment: CommentData): ValidationResult {
   }
 
   // Validate content: 10-1000 characters (after trimming)
-  const trimmedContent = comment.content ? comment.content.trim() : '';
+  const rawContent = comment.content ?? '';
+  const trimmedContent = rawContent.trim();
   if (!trimmedContent || trimmedContent.length < 10) {
     errors.push({
       field: 'content',
       message: 'Comment must be at least 10 characters',
       code: 'CONTENT_TOO_SHORT',
     });
-  } else if (trimmedContent.length > 1000) {
+  } else if (rawContent.length > 1000 || trimmedContent.length > 1000) {
     errors.push({
       field: 'content',
       message: 'Comment must be less than 1000 characters',

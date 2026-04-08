@@ -9,6 +9,15 @@ export default defineConfig({
     environment: 'happy-dom',
     setupFiles: ['./src/test/setup.ts'],
     testTimeout: 10000, // Увеличиваем timeout до 10 секунд
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/coverage/**',
+      // Playwright E2E tests should run via `npm run test:e2e`
+      'e2e/**',
+      'tests/e2e/**',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
