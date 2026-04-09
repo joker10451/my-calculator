@@ -45,7 +45,7 @@ const Header = () => {
           </Link>
 
           {/* Search Bar (Desktop) */}
-          <div className="hidden lg:flex w-56 xl:w-72 2xl:w-80 flex-none relative mx-4 xl:mx-6">
+          <div className="hidden lg:flex w-56 xl:w-72 2xl:w-80 flex-none relative mx-3 xl:mx-5">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
@@ -86,37 +86,39 @@ const Header = () => {
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {categories.slice(0, 4).map((cat) => (
+          <nav className="hidden lg:flex items-center gap-0.5">
+            {categories.slice(0, 4).map((cat, idx) => (
               <Link
                 key={cat.name}
                 to={cat.href}
-                className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md whitespace-nowrap"
+                className={`px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md whitespace-nowrap ${
+                  idx === 3 ? 'hidden 2xl:inline-flex' : ''
+                }`}
               >
                 {cat.name}
               </Link>
             ))}
             <Link
               to="/compare-banks"
-              className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="hidden xl:inline-flex px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
               Банки
             </Link>
             <Link
               to="/blog"
-              className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="hidden xl:inline-flex px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
               Блог
             </Link>
             <Link
               to="/offers"
-              className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
               Предложения
             </Link>
             <Link
               to="/jobs"
-              className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
               Вакансии
             </Link>

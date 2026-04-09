@@ -19,8 +19,8 @@ const JobsLandingPage = () => {
       <div className="min-h-screen flex flex-col bg-slate-50">
         <Header />
         <main id="main-content" className="flex-1 pt-16">
-          <section className="container mx-auto px-4 pt-4 pb-10 md:pt-6 md:pb-14">
-            <div className="max-w-6xl mx-auto rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 p-6 md:p-10 text-white shadow-xl">
+          <section className="section-shell pt-4 md:pt-6">
+            <div className="max-w-6xl mx-auto rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 p-6 md:p-10 text-white shadow-xl">
               <div className="flex items-center gap-2 text-blue-200 text-sm font-semibold">
                 <Briefcase className="w-4 h-4" />
                 Подбор вакансий 2026
@@ -52,17 +52,17 @@ const JobsLandingPage = () => {
 
           <section className="container mx-auto px-4 pb-12 md:pb-16">
             <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-4 mb-8">
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="surface-card p-5">
                 <Clock3 className="w-5 h-5 text-primary" />
                 <h2 className="mt-3 font-black text-slate-900">Быстрый старт</h2>
                 <p className="text-sm text-slate-600 mt-2">Понятный путь старта и быстрый выход в рабочий ритм.</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="surface-card p-5">
                 <ShieldCheck className="w-5 h-5 text-primary" />
                 <h2 className="mt-3 font-black text-slate-900">Прозрачные условия</h2>
                 <p className="text-sm text-slate-600 mt-2">Смотрите требования, ограничения и формат работы до отклика.</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="surface-card p-5">
                 <Wrench className="w-5 h-5 text-primary" />
                 <h2 className="mt-3 font-black text-slate-900">Формат под вас</h2>
                 <p className="text-sm text-slate-600 mt-2">Есть варианты для курьеров и мастеров с разной загрузкой.</p>
@@ -70,8 +70,8 @@ const JobsLandingPage = () => {
             </div>
 
             <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-5">
-              <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                <p className="inline-flex rounded-full bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1">Популярно</p>
+              <article className="surface-card p-6">
+                <p className="inline-flex rounded-full bg-primary/10 text-primary text-xs font-bold px-3 py-1">Популярно</p>
                 <h3 className="mt-3 text-2xl font-black text-slate-900">Курьер Яндекс.Еда / Яндекс.Лавка</h3>
                 <p className="text-slate-600 mt-2">
                   Подходит тем, кто хочет гибкий график и быстрый вход без долгого ожидания.
@@ -87,8 +87,8 @@ const JobsLandingPage = () => {
                 </div>
               </article>
 
-              <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                <p className="inline-flex rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1">Для мастеров</p>
+              <article className="surface-card p-6">
+                <p className="inline-flex rounded-full bg-primary/10 text-primary text-xs font-bold px-3 py-1">Для мастеров</p>
                 <h3 className="mt-3 text-2xl font-black text-slate-900">Сервис «Руки»</h3>
                 <p className="text-slate-600 mt-2">
                   Для мастеров по ремонту в Москве: понятные требования и стабильный поток заказов.

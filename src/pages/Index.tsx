@@ -43,8 +43,8 @@ const Index = () => {
           <Hero />
           <Categories />
           <PopularCalculators />
-          <section className="container mx-auto px-4 py-8 md:py-12">
-            <div className="max-w-5xl mx-auto rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+          <section className="section-shell">
+            <div className="max-w-5xl mx-auto surface-card p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900">Подбор предложений по вашим задачам</h2>
@@ -61,7 +61,7 @@ const Index = () => {
                 </div>
                 <Link
                   to="/offers"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-bold text-primary-foreground hover:opacity-90 transition-opacity"
+                  className="cta-primary"
                 >
                   Открыть каталог
                   <ArrowRight className="w-4 h-4" />
@@ -71,9 +71,9 @@ const Index = () => {
             <div className="max-w-5xl mx-auto mt-5 grid md:grid-cols-2 gap-4">
               <Link
                 to="/jobs"
-                className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-white p-5 shadow-sm hover:shadow-md transition-shadow"
+                className="surface-card surface-card-hover p-5"
               >
-                <p className="text-xs font-bold text-blue-700">Новая посадочная</p>
+                <p className="text-xs font-bold text-primary">Новая посадочная</p>
                 <h3 className="mt-2 text-xl font-black text-slate-900">Работа и подработка</h3>
                 <p className="mt-2 text-slate-600 text-sm">
                   Современная страница с быстрым выбором: курьерские вакансии и работа для мастеров.
@@ -85,9 +85,9 @@ const Index = () => {
               </Link>
               <Link
                 to="/tick-insurance"
-                className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-5 shadow-sm hover:shadow-md transition-shadow"
+                className="surface-card surface-card-hover p-5"
               >
-                <p className="text-xs font-bold text-emerald-700">Сезонный спрос</p>
+                <p className="text-xs font-bold text-primary">Сезонный спрос</p>
                 <h3 className="mt-2 text-xl font-black text-slate-900">Защита от клеща</h3>
                 <p className="mt-2 text-slate-600 text-sm">
                   Понятная посадочная со сценариями и переходом к релевантным страховым предложениям.

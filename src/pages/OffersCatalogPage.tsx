@@ -159,7 +159,7 @@ export default function OffersCatalogPage() {
         keywords="предложения, банки, ипотека, кредитные карты, вклады, ОСАГО, КАСКО, вакансии"
       />
 
-      <div className="container mx-auto px-4 pt-24 pb-16">
+      <div className="container mx-auto px-4 pt-24 pb-14">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
             <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
@@ -170,14 +170,14 @@ export default function OffersCatalogPage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl border border-slate-200 p-5 md:p-6 shadow-sm mb-6">
+          <div className="surface-card p-5 md:p-6 mb-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-bold text-slate-800 block mb-2">Категория</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value as Category | 'all')}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900"
                 >
                   {categories.map((c) => (
                     <option key={c} value={c}>
@@ -193,7 +193,7 @@ export default function OffersCatalogPage() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Например: ипотека, ВТБ, ОСАГО, курьер…"
-                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900"
                 />
               </div>
             </div>
@@ -212,7 +212,7 @@ export default function OffersCatalogPage() {
             {filtered.map((o) => (
               <article
                 key={o.id}
-                className="bg-white rounded-3xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow flex h-full flex-col"
+                className="surface-card surface-card-hover p-5 flex h-full flex-col"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
@@ -226,7 +226,7 @@ export default function OffersCatalogPage() {
                     )}
                   </div>
                   {typeof o.commission === 'number' && o.commission > 0 && (
-                    <div className="shrink-0 text-xs font-black bg-emerald-50 text-emerald-700 px-3 py-2 rounded-full border border-emerald-200">
+                    <div className="shrink-0 text-xs font-black bg-primary/10 text-primary px-3 py-2 rounded-full border border-primary/20">
                       до {o.commission.toLocaleString('ru-RU')} ₽
                     </div>
                   )}
@@ -246,7 +246,7 @@ export default function OffersCatalogPage() {
                 )}
 
                 {(o.eligibility?.length || o.restrictions?.length || o.publicDetails || o.updatedAt) && (
-                  <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-3 text-xs text-slate-700 space-y-2">
+                  <div className="mt-4 surface-muted p-3 text-xs text-slate-700 space-y-2">
                     {o.updatedAt && (
                       <div>
                         <span className="font-semibold text-slate-800">Актуализация:</span> {o.updatedAt}

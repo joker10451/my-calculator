@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run validate:affiliate-compliance && vite build && node scripts/generate-static-html.js && node scripts/generate-sitemap.js",
+    "build": "npm run validate:affiliate-compliance && vite build && node scripts/generate-static-html.js && node scripts/generate-sitemap.js && node scripts/generate-yandex-vacancies-yml.js",
     "generate:static-html": "node scripts/generate-static-html.js",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
@@ -25,6 +25,7 @@
     "generate:feeds": "node scripts/generate-feeds.js",
     "generate:spa-fallback": "node scripts/generate-spa-fallback.js",
     "generate:sitemap": "node scripts/generate-sitemap.js",
+    "generate:yandex-vacancies-yml": "node scripts/generate-yandex-vacancies-yml.js",
     "generate:blog-placeholders": "node scripts/generate-blog-placeholders.js",
     "validate:affiliate-compliance": "node scripts/validate-affiliate-compliance.js",
     "validate:favicon-headers": "node scripts/validateFaviconHeaders.js",

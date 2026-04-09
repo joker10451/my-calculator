@@ -245,8 +245,8 @@ export default function BlogPostPage() {
         <BlogShare post={post} shareCount={commentCount} />
       )}
 
-      {/* Имерсивный Hero Header */}
-      <div className="relative h-[60vh] min-h-[450px] overflow-hidden">
+      {/* Hero Header */}
+      <div className="relative h-[52vh] min-h-[420px] overflow-hidden">
         <div className="absolute inset-0 bg-slate-900">
           <img
             src={getAssetUrl(post.featuredImage?.url) || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'}
@@ -254,7 +254,7 @@ export default function BlogPostPage() {
             className="w-full h-full object-cover opacity-60 scale-105"
             onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'; }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 opacity-90" />
         </div>
 
         <div className="container mx-auto px-4 h-full relative flex flex-col justify-end pb-24">
@@ -312,12 +312,12 @@ export default function BlogPostPage() {
         </div>
       </div>
 
-      <main id="main-content" className="container mx-auto px-4 -mt-16 md:-mt-24 relative z-20 pb-24">
+      <main id="main-content" className="container mx-auto px-4 -mt-12 md:-mt-16 relative z-20 pb-20">
         {/* Одноколоночный макет по центру */}
         <div className="max-w-5xl mx-auto">
-          <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden">
+          <div className="surface-card overflow-hidden">
             {/* Тулбар */}
-            <div className="px-8 md:px-14 pt-12 pb-8 border-b border-slate-50 flex flex-wrap justify-between items-center gap-6">
+            <div className="px-6 md:px-10 pt-8 pb-6 border-b border-slate-100 flex flex-wrap justify-between items-center gap-4">
               <nav className="flex items-center gap-2 text-sm text-slate-400 font-medium">
                 <Link to="/blog" className="hover:text-blue-600 transition-colors">Блог</Link>
                 <ChevronRight size={14} />
@@ -347,15 +347,15 @@ export default function BlogPostPage() {
             </div>
 
             {/* Основной контент */}
-            <article className="blog-content px-8 md:px-14 py-12 md:py-20 max-w-none">
+            <article className="blog-content px-6 md:px-10 py-10 md:py-14 max-w-none">
               <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(parseMarkdown(post.content)) }} />
             </article>
 
             {/* Теги */}
-            <div className="px-8 md:px-14 py-10 bg-slate-50 border-t border-slate-100 flex flex-wrap gap-3">
+            <div className="px-6 md:px-10 py-8 bg-slate-50 border-t border-slate-100 flex flex-wrap gap-2.5">
               {post.tags.map(tag => (
                 <Link key={tag} to={`/blog?tag=${tag}`}>
-                  <span className="px-5 py-2.5 bg-white border border-slate-200 rounded-2xl text-sm text-slate-700 hover:border-blue-400 hover:text-blue-600 transition-all font-semibold shadow-sm">
+                  <span className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 hover:border-blue-400 hover:text-blue-600 transition-all font-semibold">
                     #{tag}
                   </span>
                 </Link>
@@ -441,9 +441,9 @@ export default function BlogPostPage() {
           )}
 
           {/* Секция комментариев */}
-          <div className="mt-16 bg-white rounded-[2.5rem] shadow-xl border border-slate-100 p-8 md:p-14">
-            <div className="flex items-center gap-4 mb-12">
-              <div className="bg-blue-600 p-4 rounded-3xl text-white shadow-xl shadow-blue-200">
+          <div className="mt-14 surface-card p-6 md:p-10">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="bg-blue-600 p-3 rounded-2xl text-white shadow-sm">
                 <MessageSquare size={28} />
               </div>
               <h2 className="text-3xl font-black text-slate-900 tracking-tight">Комментарии <span className="text-slate-400 font-normal ml-2">({commentCount})</span></h2>

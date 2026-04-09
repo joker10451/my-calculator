@@ -29,13 +29,13 @@ const Categories = () => {
   }));
 
   return (
-    <section id="categories" className="py-16 md:py-24 bg-card/30">
+    <section id="categories" className="section-shell bg-slate-50/60">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-10 md:mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 uppercase tracking-tight">
             Выбери категорию
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-base md:text-lg text-muted-foreground">
             {totalCalculators} качественных калькуляторов для жизни в России и СНГ
           </p>
         </div>

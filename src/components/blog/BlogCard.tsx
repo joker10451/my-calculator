@@ -51,9 +51,9 @@ export const BlogCard = ({
   const imageZoom = getAnimationVariants(imageZoomVariants);
 
   const cardClasses = {
-    default: 'h-full transition-shadow duration-300 p-lg',
-    featured: 'h-full transition-shadow duration-300 border-2 border-primary/20 p-2xl',
-    compact: 'transition-shadow duration-300 p-md'
+    default: 'h-full transition-shadow duration-300 p-5 rounded-3xl border-slate-200',
+    featured: 'h-full transition-shadow duration-300 border-2 border-primary/20 p-6 rounded-3xl',
+    compact: 'transition-shadow duration-300 p-4 rounded-2xl border-slate-200'
   };
 
   return (
@@ -96,7 +96,7 @@ export const BlogCard = ({
         </div>
 
         <CardHeader className={variant === 'compact' ? 'pb-2 p-0' : 'pb-4 p-0'}>
-          <div className="flex items-center gap-4 text-base text-muted-foreground mb-3">
+          <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground mb-3">
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4" aria-hidden="true" />
               <time dateTime={post.publishedAt}>
@@ -151,7 +151,7 @@ export const BlogCard = ({
         <CardFooter className="pt-0 p-0">
           <div className="flex items-center justify-between w-full">
             {showAuthor && (
-              <div className="flex items-center gap-2 text-base text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <User className="w-4 h-4" aria-hidden="true" />
                 <span>{post.author.name}</span>
               </div>
@@ -159,7 +159,7 @@ export const BlogCard = ({
 
             <Link
               to={`/blog/${post.slug}`}
-              className="inline-flex items-center gap-1 text-base font-semibold text-primary hover:text-primary/80 transition-colors ml-auto"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 transition-colors ml-auto"
               onMouseEnter={() => prefetchOnHover(post.slug)}
               aria-label={`Читать далее: ${post.title}`}
             >

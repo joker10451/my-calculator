@@ -34,9 +34,9 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-secondary text-secondary-foreground py-12 md:py-16">
+    <footer className="bg-slate-900 text-slate-100 py-12 md:py-14">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-7 md:gap-10 mb-10">
           {/* Бренд */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
@@ -47,7 +47,7 @@ const Footer = () => {
                 Считай.RU
               </span>
             </Link>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-slate-400">
               Бесплатные онлайн-калькуляторы для России и СНГ. Точные расчёты по актуальным данным.
             </p>
           </div>
@@ -60,7 +60,7 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -77,7 +77,7 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -94,7 +94,7 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -108,16 +108,16 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Контакты</h4>
             <div className="space-y-2">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Для связи:</p>
+                <p className="text-sm text-slate-400 mb-1">Для связи:</p>
                 <a
                   href="mailto:joker104_97@mail.ru"
-                  className="text-sm text-primary hover:text-primary/80 transition-colors"
+                  className="text-sm text-primary hover:text-blue-300 transition-colors"
                 >
                   joker104_97@mail.ru
                 </a>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-slate-500">
                   Вопросы, предложения, сообщения об ошибках
                 </p>
               </div>
@@ -126,11 +126,11 @@ const Footer = () => {
         </div>
 
           {/* Нижняя часть */}
-        <div className="pt-8 border-t border-border/20 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-          <p className="text-sm text-muted-foreground">
+        <div className="pt-7 border-t border-slate-700 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+          <p className="text-sm text-slate-400">
             © 2026 Считай.ru — Все права защищены
           </p>
-          <p className="text-[10px] md:text-xs text-muted-foreground max-w-md">
+          <p className="text-[10px] md:text-xs text-slate-500 max-w-md">
             Информация носит справочный характер и не является публичной офертой
           </p>
         </div>

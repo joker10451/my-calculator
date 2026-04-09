@@ -21,10 +21,10 @@ const BlogSection = () => {
   }
 
   return (
-    <section className="py-xl sm:py-2xl lg:py-3xl xl:py-4xl bg-gradient-to-br from-muted/30 via-background to-muted/20">
+    <section className="py-10 md:py-14 bg-slate-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl">
         {/* Заголовок секции */}
-        <div className="text-center mb-xl sm:mb-2xl lg:mb-3xl">
+        <div className="text-center mb-10 md:mb-14">
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4 lg:mb-6">
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center">
               <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
@@ -33,19 +33,19 @@ const BlogSection = () => {
               Финансовый блог
             </h2>
           </div>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Экспертные статьи о финансах, налогах и экономии. Актуальная информация для принятия правильных решений.
           </p>
         </div>
 
         {/* Рекомендуемые статьи */}
         {featuredPosts.length > 0 && (
-          <div className="mb-xl sm:mb-2xl lg:mb-3xl">
-            <div className="flex items-center gap-2 mb-lg sm:mb-xl lg:mb-2xl">
+          <div className="mb-10 md:mb-14">
+            <div className="flex items-center gap-2 mb-5 md:mb-8">
               <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold">Рекомендуем к прочтению</h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-md sm:gap-lg md:gap-xl lg:gap-2xl mb-xl sm:mb-2xl lg:mb-3xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-14">
               {featuredPosts.map(post => (
                 <BlogCard key={post.id} post={post} variant="featured" />
               ))}
@@ -54,9 +54,9 @@ const BlogSection = () => {
         )}
 
         {/* Последние статьи */}
-        <div className="mb-xl sm:mb-2xl lg:mb-3xl">
-          <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-lg sm:mb-xl lg:mb-2xl">Последние публикации</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md sm:gap-lg md:gap-xl lg:gap-2xl">
+        <div className="mb-10 md:mb-14">
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-5 md:mb-8">Последние публикации</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {latestPosts.map(post => (
               <BlogCard key={post.id} post={post} />
             ))}
@@ -82,20 +82,20 @@ const BlogSection = () => {
         </div>
 
         {/* Статистика блога */}
-        <div className="mt-xl sm:mt-2xl lg:mt-3xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-md sm:gap-lg lg:gap-xl">
-          <div className="text-center p-md sm:p-lg bg-card rounded-xl border">
+        <div className="mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+          <div className="text-center p-4 md:p-5 surface-card rounded-2xl">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {blogPosts.filter(p => p.isPublished).length}
             </div>
             <div className="text-sm sm:text-base text-muted-foreground">Статей опубликовано</div>
           </div>
-          <div className="text-center p-md sm:p-lg bg-card rounded-xl border">
+          <div className="text-center p-4 md:p-5 surface-card rounded-2xl">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {blogPosts.filter(p => p.isPublished && p.isFeatured).length}
             </div>
             <div className="text-sm sm:text-base text-muted-foreground">Рекомендуемых статей</div>
           </div>
-          <div className="text-center p-md sm:p-lg bg-card rounded-xl border sm:col-span-2 md:col-span-1">
+          <div className="text-center p-4 md:p-5 surface-card rounded-2xl sm:col-span-2 md:col-span-1">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {Math.round(
                 blogPosts
