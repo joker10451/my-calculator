@@ -168,6 +168,8 @@ const AnimatedRoutes = () => {
           <Route path="/offers" element={<PageTransition><OffersCatalogPage /></PageTransition>} />
           <Route path="/offers/" element={<PageTransition><OffersCatalogPage /></PageTransition>} />
           <Route path="/admin/analytics" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
+          <Route path="/analytics-dashboard" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
+          <Route path="/analytics-dashboard/" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
           <Route path="/blog" element={<PageTransition><BlogPage /></PageTransition>} />
           <Route path="/blog/category/:slug" element={<PageTransition><BlogCategoryPage /></PageTransition>} />
           <Route path="/blog/:slug" element={<PageTransition><BlogPostPage /></PageTransition>} />

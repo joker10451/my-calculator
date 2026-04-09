@@ -41,6 +41,47 @@ const allPosts = [...blogPosts, ...generatedArticles, ...allGeneratedArticles];
 
 const SITE_URL = 'https://schitay-online.ru';
 
+const CALCULATOR_BRIDGE_MAP: Record<
+  string,
+  Array<{ id: string; title: string; href: string; subtitle: string }>
+> = {
+  'mortgage-credit': [
+    { id: 'mortgage', title: 'Калькулятор ипотеки', href: '/calculator/mortgage/', subtitle: 'Платёж, переплата, срок' },
+    { id: 'credit', title: 'Кредитный калькулятор', href: '/calculator/credit/', subtitle: 'Сравнение сценариев' },
+    { id: 'refinancing', title: 'Рефинансирование', href: '/calculator/refinancing/', subtitle: 'Оценка экономии' },
+  ],
+  'taxes-salary': [
+    { id: 'salary', title: 'Калькулятор зарплаты', href: '/calculator/salary/', subtitle: 'НДФЛ и сумма на руки' },
+    { id: 'tax-deduction', title: 'Налоговый вычет', href: '/calculator/tax-deduction/', subtitle: 'Сколько можно вернуть' },
+  ],
+  'utilities-housing': [
+    { id: 'utilities', title: 'Калькулятор ЖКХ', href: '/calculator/utilities/', subtitle: 'Платежи и расход ресурсов' },
+    { id: 'overpayment', title: 'Калькулятор переплаты', href: '/calculator/overpayment/', subtitle: 'Оценка платежной нагрузки' },
+  ],
+  'health-fitness': [
+    { id: 'bmi', title: 'Калькулятор ИМТ', href: '/calculator/bmi/', subtitle: 'Индекс массы тела' },
+    { id: 'calories', title: 'Калькулятор калорий', href: '/calculator/calories/', subtitle: 'Суточная норма' },
+    { id: 'water', title: 'Калькулятор воды', href: '/calculator/water/', subtitle: 'Режим потребления' },
+  ],
+  'family-law': [
+    { id: 'alimony', title: 'Калькулятор алиментов', href: '/calculator/alimony/', subtitle: 'Доля или твердая сумма' },
+    { id: 'maternity-capital', title: 'Материнский капитал', href: '/calculator/maternity-capital/', subtitle: 'Проверка суммы и сценариев' },
+  ],
+  'auto-transport': [
+    { id: 'osago', title: 'Калькулятор ОСАГО', href: '/calculator/osago/', subtitle: 'Стоимость полиса по параметрам' },
+    { id: 'kasko', title: 'Калькулятор КАСКО', href: '/calculator/kasko/', subtitle: 'Оценка тарифа и рисков' },
+    { id: 'fuel', title: 'Калькулятор топлива', href: '/calculator/fuel/', subtitle: 'Расход и бюджет поездки' },
+  ],
+  'investments-deposits': [
+    { id: 'deposit', title: 'Калькулятор вкладов', href: '/calculator/deposit/', subtitle: 'Доход с капитализацией' },
+    { id: 'investment', title: 'Калькулятор инвестиций', href: '/calculator/investment/', subtitle: 'Прогноз капитала' },
+  ],
+  'legal-court': [
+    { id: 'court-fee', title: 'Калькулятор госпошлины', href: '/calculator/court-fee/', subtitle: 'Расходы по иску' },
+    { id: 'overpayment', title: 'Калькулятор переплаты', href: '/calculator/overpayment/', subtitle: 'Оценка долговой нагрузки' },
+  ],
+};
+
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = allPosts.find((p) => p.slug === slug);
@@ -83,6 +124,10 @@ export default function BlogPostPage() {
   const currentIndex = useMemo(() => allPosts.findIndex(p => p.slug === slug), [slug]);
   const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
   const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+  const calculatorBridge = useMemo(
+    () => CALCULATOR_BRIDGE_MAP[post?.category.id || ''] || [],
+    [post?.category.id]
+  );
 
   const articleSchema = useMemo(() => {
     if (!post) return null;
@@ -285,6 +330,32 @@ export default function BlogPostPage() {
           <div className="mt-16">
             <AuthorBio author={post.author} />
           </div>
+
+          {/* Навигационный мост: контент -> калькулятор */}
+          {calculatorBridge.length > 0 && (
+            <section className="mt-16 rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+              <div className="mb-5">
+                <h2 className="text-2xl md:text-3xl font-black text-slate-900">Сначала рассчитайте</h2>
+                <p className="text-slate-600 mt-1">
+                  Практический шаг после статьи: выберите калькулятор по теме и посмотрите ваши цифры.
+                </p>
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                {calculatorBridge.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={item.href}
+                    className="group rounded-2xl border border-slate-200 p-4 hover:border-blue-300 hover:shadow-sm transition-all"
+                  >
+                    <div className="font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                      {item.title}
+                    </div>
+                    <div className="text-sm text-slate-600 mt-1">{item.subtitle}</div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Рекомендации */}
           <div className="mt-16">
