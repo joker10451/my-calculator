@@ -12,11 +12,14 @@ import {
   exportConversionData,
   type ConversionMetrics,
 } from '@/lib/analytics/conversionTracking';
+import { getAbAssignments, getAbCtrReport, getUxBaselineSnapshot } from '@/lib/analytics/uxMetrics';
 import { Download, TrendingUp, MousePointerClick, DollarSign, Target } from 'lucide-react';
 
 export const AnalyticsDashboard = () => {
   const [metrics, setMetrics] = useState<ConversionMetrics[]>([]);
-  const [selectedPartner, setSelectedPartner] = useState<string>('all');
+  const [uxBaseline, setUxBaseline] = useState(() => getUxBaselineSnapshot());
+  const [abAssignments, setAbAssignments] = useState<Record<string, string>>({});
+  const [abCtr, setAbCtr] = useState(() => getAbCtrReport());
 
   useEffect(() => {
     loadMetrics();
@@ -28,6 +31,9 @@ export const AnalyticsDashboard = () => {
   const loadMetrics = () => {
     const data = getAllMetrics();
     setMetrics(data);
+    setUxBaseline(getUxBaselineSnapshot());
+    setAbAssignments(getAbAssignments());
+    setAbCtr(getAbCtrReport());
   };
 
   const handleExport = () => {
@@ -119,14 +125,14 @@ export const AnalyticsDashboard = () => {
       {/* Partner Metrics */}
       <Tabs defaultValue="all" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="all" onClick={() => setSelectedPartner('all')}>
+          <TabsTrigger value="all">
             Все партнеры
           </TabsTrigger>
+          <TabsTrigger value="ux">UX и A/B</TabsTrigger>
           {metrics.map(m => (
             <TabsTrigger
               key={m.partner}
               value={m.partner}
-              onClick={() => setSelectedPartner(m.partner)}
             >
               {m.partner}
             </TabsTrigger>
@@ -139,6 +145,78 @@ export const AnalyticsDashboard = () => {
               <PartnerMetricCard key={metric.partner} metric={metric} />
             ))}
           </div>
+        </TabsContent>
+
+        <TabsContent value="ux" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">UX-событий</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{uxBaseline.totalUxEvents}</div>
+                <p className="text-xs text-muted-foreground">Всего накоплено локально</p>
+              </CardContent>
+            </Card>
+            {Object.entries(uxBaseline.byName).slice(0, 3).map(([name, count]) => (
+              <Card key={name}>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">{name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{count}</div>
+                  <p className="text-xs text-muted-foreground">Срабатываний</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>A/B назначения CTA</CardTitle>
+              <CardDescription>Закрепленные варианты в текущем браузере</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {Object.keys(abAssignments).length === 0 ? (
+                <p className="text-sm text-muted-foreground">Назначений пока нет</p>
+              ) : (
+                <div className="space-y-2">
+                  {Object.entries(abAssignments).map(([product, variant]) => (
+                    <div key={product} className="flex items-center justify-between text-sm">
+                      <span className="capitalize">{product}</span>
+                      <span className="font-semibold">Вариант {variant.toUpperCase()}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>A/B мини-отчёт CTR (A vs B)</CardTitle>
+              <CardDescription>CTR = клики / показы варианта</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-3 md:grid-cols-2">
+                <div className="rounded-lg border p-3">
+                  <div className="text-sm text-muted-foreground">Вариант A</div>
+                  <div className="font-semibold">
+                    Показы: {abCtr.a.impressions} • Клики: {abCtr.a.clicks} • CTR: {abCtr.a.ctr.toFixed(2)}%
+                  </div>
+                </div>
+                <div className="rounded-lg border p-3">
+                  <div className="text-sm text-muted-foreground">Вариант B</div>
+                  <div className="font-semibold">
+                    Показы: {abCtr.b.impressions} • Клики: {abCtr.b.clicks} • CTR: {abCtr.b.ctr.toFixed(2)}%
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mt-3">
+                Лидер: {abCtr.winner === 'draw' ? 'ничья' : `вариант ${abCtr.winner.toUpperCase()}`}
+              </p>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         {metrics.map(metric => (

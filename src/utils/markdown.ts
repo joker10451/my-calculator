@@ -2,8 +2,20 @@
  * Универсальная обработка инлайнового форматирования (жирный, курсив, ссылки)
  */
 function applyInlineFormatting(text: string): string {
+  const normalizeHref = (href: string): string => {
+    // Легаси-ссылки вида "#/calculator/..." переводим в обычные роуты
+    if (href.startsWith('#/')) return href.slice(1);
+    return href;
+  };
+
   return text
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:underline font-medium">$1</a>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, href) => {
+      const normalizedHref = normalizeHref(String(href));
+      const isExternal = /^https?:\/\//i.test(normalizedHref);
+      const rel = isExternal ? ' rel="noopener noreferrer"' : '';
+      const target = isExternal ? ' target="_blank"' : '';
+      return `<a href="${normalizedHref}" class="text-blue-600 hover:underline font-medium"${target}${rel}>${label}</a>`;
+    })
     .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-black">$1</strong>')
     .replace(/\*(.*?)\*/g, '<em class="italic text-slate-800">$1</em>')
     .trim();

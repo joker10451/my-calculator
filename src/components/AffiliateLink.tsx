@@ -11,10 +11,11 @@ interface AffiliateLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
    * По умолчанию включено.
    */
   addUtm?: boolean;
+  abVariant?: 'a' | 'b';
 }
 
 export const AffiliateLink = forwardRef<HTMLAnchorElement, AffiliateLinkProps>(
-  ({ partnerName, productType, offerId, placement = 'unknown', addUtm = true, children, onClick, ...props }, ref) => {
+  ({ partnerName, productType, offerId, placement = 'unknown', addUtm = true, abVariant, children, onClick, ...props }, ref) => {
     const href = props.href || '';
 
     const trackedHref = (() => {
@@ -56,6 +57,7 @@ export const AffiliateLink = forwardRef<HTMLAnchorElement, AffiliateLinkProps>(
         pageUrl: window.location.href,
         offerId,
         placement,
+        abVariant,
       });
       onClick?.(e);
     };

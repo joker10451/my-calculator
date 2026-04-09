@@ -105,6 +105,16 @@ export default function OffersCatalogPage() {
     }
   }, [query]);
 
+  const clearFilters = () => {
+    setCategory('all');
+    setQuery('');
+    trackUxEvent('filter_used', {
+      page: '/offers',
+      section: 'reset',
+      value: 'clear_all',
+    });
+  };
+
   useEffect(() => {
     if (filtered.length === 0) {
       trackUxEvent('empty_state_seen', {
@@ -164,6 +174,15 @@ export default function OffersCatalogPage() {
                   className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900"
                 />
               </div>
+            </div>
+            <div className="mt-4 flex justify-end">
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+              >
+                Сбросить фильтры
+              </button>
             </div>
           </div>
 

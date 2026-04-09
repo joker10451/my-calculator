@@ -5,6 +5,7 @@
 
 import { trackConversion as trackGAConversion } from './googleAnalytics';
 import { trackYandexGoal } from '@/hooks/useYandexMetrika';
+import { getAbAssignments, getAbCtrReport, getUxBaselineSnapshot } from './uxMetrics';
 
 export interface ConversionEvent {
   partner: 'tinkoff' | 'vtb' | 'alfabank' | 'sberbank' | 'raiffeisen' | 'other';
@@ -203,6 +204,9 @@ export const exportConversionData = () => {
     conversions: conversions,
     clicks: clicks,
     metrics: getAllMetrics(),
+    uxBaseline: getUxBaselineSnapshot(),
+    abAssignments: getAbAssignments(),
+    abCtrReport: getAbCtrReport(),
     exportedAt: new Date().toISOString(),
   };
 };

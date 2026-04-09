@@ -182,7 +182,7 @@ const BlogPage = () => {
                     <TrendingUp className="w-6 h-6 text-primary" aria-hidden="true" />
                     <h2 id="featured-posts-heading" className="text-3xl md:text-4xl font-bold leading-tight text-gray-900 dark:text-white">Рекомендуемые статьи</h2>
                   </div>
-                  <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 md:gap-6" role="list">
+                  <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-7 md:gap-8" role="list">
                     {featuredPosts.map(post => (
                       <StaggerItem key={post.id} role="listitem">
                         <EnhancedBlogCard post={post} variant="featured" />
@@ -322,7 +322,7 @@ const BlogPage = () => {
             {/* Список статей */}
             {sortedPosts.length > 0 ? (
               <FadeInUp delay={0.4}>
-                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 md:gap-6" role="list" aria-label="Список статей">
+                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-7 md:gap-8" role="list" aria-label="Список статей">
                   {sortedPosts.map(post => (
                     <StaggerItem key={post.id} role="listitem">
                       <EnhancedBlogCard post={post} />
@@ -347,7 +347,7 @@ const BlogPage = () => {
             {!searchQuery && Object.keys(filters).length === 0 && (
               <section className="mt-24" aria-labelledby="recent-posts-heading">
                 <h2 id="recent-posts-heading" className="text-3xl md:text-4xl font-bold leading-tight text-gray-900 dark:text-white mb-12">Последние публикации</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 md:gap-6" role="list">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-7 md:gap-8" role="list">
                   {recentPosts.map(post => (
                     <div key={post.id} role="listitem">
                       <EnhancedBlogCard post={post} variant="default" />

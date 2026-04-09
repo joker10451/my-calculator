@@ -7,7 +7,7 @@ import type { BlogPost } from '@/types/blog';
 import { prefetchOnHover } from '@/utils/prefetch';
 import { OptimizedImage } from '../OptimizedImage';
 import { EnhancedBlogCardSkeleton } from './EnhancedBlogCardSkeleton';
-import { cardHoverVariants, imageZoomVariants, getAnimationVariants, willChangeStyles } from '@/lib/motion-config';
+import { imageZoomVariants, getAnimationVariants, willChangeStyles } from '@/lib/motion-config';
 
 interface EnhancedBlogCardProps {
   post: BlogPost;
@@ -102,7 +102,14 @@ export const EnhancedBlogCard = ({
   const config = variantConfig[variant];
 
   // Получаем варианты анимаций с поддержкой prefers-reduced-motion
-  const cardHover = getAnimationVariants(cardHoverVariants);
+  // Более мягкий hover, чтобы карточки не наезжали на соседние в плотной сетке
+  const cardHover = getAnimationVariants({
+    initial: { transform: 'translateY(0px)' },
+    hover: {
+      transform: 'translateY(-3px)',
+      transition: { duration: 0.25, ease: [0, 0, 0.2, 1] },
+    },
+  });
   const imageZoom = getAnimationVariants(imageZoomVariants);
 
   return (

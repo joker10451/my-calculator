@@ -22,6 +22,10 @@ export interface ReferralClickEvent {
    */
   offerId?: string;
   /**
+   * Вариант A/B для CTA в момент клика
+   */
+  abVariant?: 'a' | 'b';
+  /**
    * URL страницы, где произошёл клик (удобно для выгрузок)
    */
   page?: string;
@@ -224,7 +228,7 @@ export function useReferralTracking() {
     referralLink: string,
     source: ReferralClickEvent['source'],
     userId?: string,
-    extras?: Pick<ReferralClickEvent, 'placement' | 'offerId' | 'page'>
+    extras?: Pick<ReferralClickEvent, 'placement' | 'offerId' | 'page' | 'abVariant'>
   ) => {
     ReferralTracker.trackClick({
       productId: product.id,
@@ -235,7 +239,8 @@ export function useReferralTracking() {
       userId,
       placement: extras?.placement,
       offerId: extras?.offerId,
-      page: extras?.page
+      page: extras?.page,
+      abVariant: extras?.abVariant,
     });
   };
 

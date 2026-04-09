@@ -14,6 +14,7 @@ export interface AffiliateCTAProps extends Omit<AnchorHTMLAttributes<HTMLAnchorE
   variant?: 'primary' | 'secondary';
   showAdLabel?: boolean;
   showPartnerDisclosure?: boolean;
+  abVariant?: 'a' | 'b';
 }
 
 export const AffiliateCTA = forwardRef<HTMLAnchorElement, AffiliateCTAProps>(function AffiliateCTA(
@@ -28,6 +29,7 @@ export const AffiliateCTA = forwardRef<HTMLAnchorElement, AffiliateCTAProps>(fun
     variant = 'primary',
     showAdLabel = true,
     showPartnerDisclosure = true,
+    abVariant,
     className,
     ...rest
   },
@@ -52,6 +54,7 @@ export const AffiliateCTA = forwardRef<HTMLAnchorElement, AffiliateCTAProps>(fun
         productType={productType}
         offerId={offerId}
         placement={placement}
+        abVariant={abVariant}
         className={`${base} ${styles} px-5 py-3 w-full`}
         {...rest}
       >

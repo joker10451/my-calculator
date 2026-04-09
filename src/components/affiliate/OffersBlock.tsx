@@ -1,5 +1,5 @@
 import { Star } from 'lucide-react';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
 import { trackUxEvent } from '@/lib/analytics/uxMetrics';
@@ -75,6 +75,15 @@ export function OffersBlock({
     return [...offers.slice(1), offers[0]];
   }, [offers, ctaVariant]);
 
+  useEffect(() => {
+    trackUxEvent('ab_variant_assigned', {
+      page: typeof window !== 'undefined' ? window.location.pathname : '/unknown',
+      section: 'offers_block_impression',
+      value: `${product}:${ctaVariant}`,
+      extra: { type: 'impression' },
+    });
+  }, [product, ctaVariant]);
+
   if (offers.length === 0) return null;
 
   return (
@@ -110,6 +119,7 @@ export function OffersBlock({
                 label={ctaVariant === 'a' ? 'Перейти' : 'Смотреть условия'}
                 variant="primary"
                 showAdLabel={Boolean(link.erid)}
+                abVariant={ctaVariant}
               />
             </div>
           </div>

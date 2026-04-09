@@ -11,6 +11,7 @@ export interface AffiliateClickEvent {
   pageUrl: string;
   offerId?: string;
   placement?: 'result_block' | 'sidebar' | 'hero' | 'footer' | 'blog_inline' | 'widget' | 'unknown';
+  abVariant?: 'a' | 'b';
 }
 
 /**
@@ -33,6 +34,7 @@ export function trackAffiliateClick(event: AffiliateClickEvent): void {
           source: 'recommendation',
           placement: event.placement || 'unknown',
           page: event.pageUrl,
+          abVariant: event.abVariant,
         });
       });
     } catch {
