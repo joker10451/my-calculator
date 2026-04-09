@@ -60,7 +60,7 @@ export function generateEmbedCode(widget: EmbedWidgetConfig): string {
   const width = widget.width || '100%';
   const height = widget.height || '500px';
   const theme = widget.theme || 'light';
-  const url = `${SITE_URL}/embed/${widget.calculatorId}?theme=${theme}`;
+  const url = `${SITE_URL}/calculator/${widget.calculatorId}/?embed=1&theme=${theme}`;
 
   return `<div style="max-width: 800px; margin: 0 auto;">
   <iframe
@@ -86,7 +86,7 @@ export function generateJSEmbedCode(widget: EmbedWidgetConfig): string {
   const width = widget.width || '100%';
   const height = widget.height || '500px';
   const theme = widget.theme || 'light';
-  const url = `${SITE_URL}/embed/${widget.calculatorId}?theme=${theme}`;
+  const url = `${SITE_URL}/calculator/${widget.calculatorId}/?embed=1&theme=${theme}`;
 
   return `<div id="schitay-widget-${widget.calculatorId}"></div>
 <script>

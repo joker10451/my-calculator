@@ -96,16 +96,16 @@ const BlogPage = () => {
         <link rel="alternate" type="application/rss+xml" title="Считай.RU RSS" href="/rss.xml" />
       </Helmet>
 
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 via-slate-50 to-slate-100/60 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900">
         <Header />
 
         <main id="main-content" className="pt-16">
           {/* Hero секция с AuroraBackground */}
-          <section className="relative overflow-hidden bg-slate-900 border-b border-white/5">
+          <section className="relative overflow-hidden bg-gradient-to-b from-slate-900 to-slate-800 border-b border-white/10">
             <div className="absolute inset-0 z-0">
-              <div className="absolute inset-0 bg-gradient-to-b from-blue-600/20 to-transparent opacity-50" />
-              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-              <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-500/20 via-indigo-500/10 to-transparent" />
+              <div className="absolute top-0 right-0 w-[560px] h-[560px] bg-purple-600/15 rounded-full blur-[140px] -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-[560px] h-[560px] bg-blue-600/15 rounded-full blur-[140px] translate-y-1/2 -translate-x-1/2" />
             </div>
 
             <div className="relative z-10">
@@ -119,7 +119,8 @@ const BlogPage = () => {
             </div>
           </section>
 
-          <div className="container mx-auto px-4 py-12 md:py-16">
+          <div className="container mx-auto px-4 py-10 md:py-14">
+            <div className="max-w-[1500px] mx-auto">
 
             {/* Рекомендуемые статьи */}
             {featuredPosts.length > 0 && (
@@ -129,7 +130,7 @@ const BlogPage = () => {
                     <TrendingUp className="w-6 h-6 text-primary" aria-hidden="true" />
                     <h2 id="featured-posts-heading" className="text-3xl md:text-4xl font-bold leading-tight text-gray-900 dark:text-white">Рекомендуемые статьи</h2>
                   </div>
-                  <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" role="list">
+                  <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 md:gap-6" role="list">
                     {featuredPosts.map(post => (
                       <StaggerItem key={post.id} role="listitem">
                         <EnhancedBlogCard post={post} variant="featured" />
@@ -269,7 +270,7 @@ const BlogPage = () => {
             {/* Список статей */}
             {sortedPosts.length > 0 ? (
               <FadeInUp delay={0.4}>
-                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" role="list" aria-label="Список статей">
+                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 md:gap-6" role="list" aria-label="Список статей">
                   {sortedPosts.map(post => (
                     <StaggerItem key={post.id} role="listitem">
                       <EnhancedBlogCard post={post} />
@@ -294,7 +295,7 @@ const BlogPage = () => {
             {!searchQuery && Object.keys(filters).length === 0 && (
               <section className="mt-24" aria-labelledby="recent-posts-heading">
                 <h2 id="recent-posts-heading" className="text-3xl md:text-4xl font-bold leading-tight text-gray-900 dark:text-white mb-12">Последние публикации</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8" role="list">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 md:gap-6" role="list">
                   {recentPosts.map(post => (
                     <div key={post.id} role="listitem">
                       <EnhancedBlogCard post={post} variant="default" />
@@ -303,6 +304,7 @@ const BlogPage = () => {
                 </div>
               </section>
             )}
+            </div>
           </div>
         </main>
 

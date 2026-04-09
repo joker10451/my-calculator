@@ -73,7 +73,7 @@ export default function EmbedWidgetPage() {
                 <p className="text-sm text-slate-500">{selectedWidget.description}</p>
               </div>
               <a
-                href={`/calculator/${selectedWidget.calculatorId}`}
+                href={`/calculator/${selectedWidget.calculatorId}/`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 text-blue-600 font-bold text-sm hover:underline"
@@ -84,7 +84,7 @@ export default function EmbedWidgetPage() {
             </div>
             <div className="p-6 bg-slate-50">
               <iframe
-                src={`${SITE_URL}/embed/${selectedWidget.calculatorId}`}
+                src={`${SITE_URL}/calculator/${selectedWidget.calculatorId}/?embed=1`}
                 width="100%"
                 height={selectedWidget.height || '500px'}
                 frameBorder="0"
