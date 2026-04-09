@@ -20,6 +20,50 @@ declare global {
 const YANDEX_METRIKA_ID = 106217699;
 
 /**
+ * Инициализация счётчика Яндекс Метрики
+ * Добавляет официальный скрипт и вызывает ym(..., 'init', ...)
+ */
+export const initYandexMetrika = () => {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+  if (typeof window.ym === 'function' || document.getElementById('yandex-metrika')) {
+    return;
+  }
+
+  (function (m: Window, e: Document, t: string, r: string, i: string) {
+    type YMWithCallbacks = Window['ym'] & { a?: unknown[]; l?: number };
+    (m as Window & { [key: string]: unknown })[i] = (m as Window & { [key: string]: unknown })[i] || function (...args: unknown[]) {
+      const ymFn = (m as Window & { [key: string]: YMWithCallbacks })[i];
+      if (ymFn?.a) {
+        ymFn.a.push(args);
+      }
+    };
+    const ymFn = (m as Window & { [key: string]: YMWithCallbacks })[i];
+    ymFn.l = 1 * new Date().getTime();
+    for (let j = 0; j < e.scripts.length; j++) {
+      if (e.scripts[j].src === r) {
+        return;
+      }
+    }
+    const k = e.createElement(t);
+    const a = e.getElementsByTagName(t)[0];
+    k.async = true;
+    k.src = r;
+    k.id = 'yandex-metrika';
+    a.parentNode?.insertBefore(k, a);
+  })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+  if (typeof window.ym === 'function') {
+    window.ym(YANDEX_METRIKA_ID, 'init', {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true,
+    });
+  }
+};
+
+/**
  * Хук для отслеживания переходов между страницами в Яндекс Метрике
  */
 export const useYandexMetrika = () => {
