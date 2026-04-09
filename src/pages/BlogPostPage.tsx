@@ -195,7 +195,7 @@ export default function BlogPostPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/50">
+    <div className="min-h-screen bg-slate-950">
       <Header />
       
       <Helmet>
@@ -247,14 +247,14 @@ export default function BlogPostPage() {
 
       {/* Hero Header */}
       <div className="relative h-[52vh] min-h-[420px] overflow-hidden">
-        <div className="absolute inset-0 bg-slate-900">
+        <div className="absolute inset-0 bg-slate-950">
           <img
             src={getAssetUrl(post.featuredImage?.url) || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'}
             alt={post.featuredImage?.alt || post.title}
             className="w-full h-full object-cover opacity-60 scale-105"
             onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'; }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 opacity-90" />
         </div>
 
         <div className="container mx-auto px-4 h-full relative flex flex-col justify-end pb-24">
@@ -317,11 +317,11 @@ export default function BlogPostPage() {
         <div className="max-w-5xl mx-auto">
           <div className="surface-card overflow-hidden">
             {/* Тулбар */}
-            <div className="px-6 md:px-10 pt-8 pb-6 border-b border-slate-100 flex flex-wrap justify-between items-center gap-4">
+            <div className="px-6 md:px-10 pt-8 pb-6 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap justify-between items-center gap-4">
               <nav className="flex items-center gap-2 text-sm text-slate-400 font-medium">
-                <Link to="/blog" className="hover:text-blue-600 transition-colors">Блог</Link>
+                <Link to="/blog" className="hover:text-primary transition-colors">Блог</Link>
                 <ChevronRight size={14} />
-                <span className="text-slate-600">{post.category.name}</span>
+                <span className="text-slate-600 dark:text-slate-300">{post.category.name}</span>
               </nav>
 
               <div className="flex items-center gap-2">
@@ -329,7 +329,7 @@ export default function BlogPostPage() {
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowShareDialog(true)}
-                  className="rounded-xl text-slate-400 hover:text-blue-600 hover:bg-blue-50"
+                  className="rounded-xl text-slate-400 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800"
                 >
                   <Share2 size={18} className="mr-2" />
                   Поделиться
@@ -338,7 +338,7 @@ export default function BlogPostPage() {
                   variant="ghost"
                   size="sm"
                   onClick={copyToClipboard}
-                  className="rounded-xl text-slate-400 hover:text-blue-600 hover:bg-blue-50 relative"
+                  className="rounded-xl text-slate-400 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800 relative"
                 >
                   <Copy size={18} className="mr-2" />
                   {isCopied ? "Скопировано" : "Копировать ссылку"}
@@ -352,10 +352,10 @@ export default function BlogPostPage() {
             </article>
 
             {/* Теги */}
-            <div className="px-6 md:px-10 py-8 bg-slate-50 border-t border-slate-100 flex flex-wrap gap-2.5">
+            <div className="px-6 md:px-10 py-8 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-2.5">
               {post.tags.map(tag => (
                 <Link key={tag} to={`/blog?tag=${tag}`}>
-                  <span className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 hover:border-blue-400 hover:text-blue-600 transition-all font-semibold">
+                  <span className="px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-700 dark:text-slate-200 hover:border-primary/50 hover:text-primary transition-all font-semibold">
                     #{tag}
                   </span>
                 </Link>
@@ -370,10 +370,10 @@ export default function BlogPostPage() {
 
           {/* Навигационный мост: контент -> калькулятор */}
           {calculatorBridge.length > 0 && (
-            <section className="mt-16 rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+            <section className="mt-16 surface-card p-6 md:p-8">
               <div className="mb-5">
-                <h2 className="text-2xl md:text-3xl font-black text-slate-900">Сначала рассчитайте</h2>
-                <p className="text-slate-600 mt-1">
+                <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100">Сначала рассчитайте</h2>
+                <p className="text-slate-600 dark:text-slate-300 mt-1">
                   Практический шаг после статьи: выберите калькулятор по теме и посмотрите ваши цифры.
                 </p>
               </div>
@@ -382,12 +382,12 @@ export default function BlogPostPage() {
                   <Link
                     key={item.id}
                     to={item.href}
-                    className="group rounded-2xl border border-slate-200 p-4 hover:border-blue-300 hover:shadow-sm transition-all"
+                    className="group rounded-2xl border border-slate-200 dark:border-slate-700 p-4 hover:border-primary/50 hover:shadow-sm transition-all"
                   >
-                    <div className="font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                    <div className="font-bold text-slate-900 dark:text-slate-100 group-hover:text-primary transition-colors">
                       {item.title}
                     </div>
-                    <div className="text-sm text-slate-600 mt-1">{item.subtitle}</div>
+                    <div className="text-sm text-slate-600 dark:text-slate-300 mt-1">{item.subtitle}</div>
                   </Link>
                 ))}
               </div>
@@ -395,12 +395,12 @@ export default function BlogPostPage() {
           )}
 
           {offersBridge && (
-            <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-              <h2 className="text-2xl md:text-3xl font-black text-slate-900">Подходящие предложения</h2>
-              <p className="text-slate-600 mt-1 mb-4">{offersBridge.subtitle}</p>
+            <section className="mt-10 surface-card p-6 md:p-8">
+              <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100">Подходящие предложения</h2>
+              <p className="text-slate-600 dark:text-slate-300 mt-1 mb-4">{offersBridge.subtitle}</p>
               <Link
                 to={offersBridge.href}
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-4 py-2 font-semibold text-slate-800 hover:border-blue-400 hover:text-blue-700 transition-colors"
+                className="cta-secondary"
               >
                 {offersBridge.label}
                 <ArrowRight className="w-4 h-4" />
@@ -420,21 +420,21 @@ export default function BlogPostPage() {
           {(prevPost || nextPost) && (
             <div className="mt-16 grid md:grid-cols-2 gap-6">
               {prevPost ? (
-                <Link to={`/blog/${prevPost.slug}`} className="bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-md hover:border-slate-300 transition-all group">
+                <Link to={`/blog/${prevPost.slug}`} className="surface-card p-6 hover:shadow-md transition-all group">
                   <div className="flex items-center gap-2 text-slate-400 text-sm mb-2">
                     <ArrowLeftIcon className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     Предыдущая статья
                   </div>
-                  <div className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2">{prevPost.title}</div>
+                  <div className="font-bold text-slate-900 dark:text-slate-100 group-hover:text-primary transition-colors line-clamp-2">{prevPost.title}</div>
                 </Link>
               ) : <div />}
               {nextPost ? (
-                <Link to={`/blog/${nextPost.slug}`} className="bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-md hover:border-slate-300 transition-all group text-right">
+                <Link to={`/blog/${nextPost.slug}`} className="surface-card p-6 hover:shadow-md transition-all group text-right">
                   <div className="flex items-center justify-end gap-2 text-slate-400 text-sm mb-2">
                     Следующая статья
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <div className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2">{nextPost.title}</div>
+                  <div className="font-bold text-slate-900 dark:text-slate-100 group-hover:text-primary transition-colors line-clamp-2">{nextPost.title}</div>
                 </Link>
               ) : <div />}
             </div>
@@ -443,10 +443,10 @@ export default function BlogPostPage() {
           {/* Секция комментариев */}
           <div className="mt-14 surface-card p-6 md:p-10">
             <div className="flex items-center gap-4 mb-8">
-              <div className="bg-blue-600 p-3 rounded-2xl text-white shadow-sm">
+              <div className="bg-primary p-3 rounded-2xl text-white shadow-sm">
                 <MessageSquare size={28} />
               </div>
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight">Комментарии <span className="text-slate-400 font-normal ml-2">({commentCount})</span></h2>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Комментарии <span className="text-slate-400 font-normal ml-2">({commentCount})</span></h2>
             </div>
             <Suspense fallback={<div className="h-64 animate-pulse bg-slate-50 rounded-3xl" />}>
               <BlogComments articleId={post.id} />

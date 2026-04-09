@@ -391,15 +391,15 @@
 
   /* Unified neutral surfaces for key pages */
   .surface-card {
-    @apply rounded-3xl border border-slate-200 bg-white shadow-sm;
+    @apply rounded-3xl border border-slate-200/80 bg-white/95 shadow-sm dark:border-slate-800 dark:bg-slate-900/85;
   }
 
   .surface-card-hover {
-    @apply transition-shadow hover:shadow-md;
+    @apply transition-all duration-200 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700;
   }
 
   .surface-muted {
-    @apply rounded-2xl border border-slate-200 bg-slate-50;
+    @apply rounded-2xl border border-slate-200/80 bg-slate-50/90 dark:border-slate-800 dark:bg-slate-950/60;
   }
 
   .section-shell {
@@ -407,11 +407,35 @@
   }
 
   .cta-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-bold text-primary-foreground transition-opacity hover:opacity-90;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60;
   }
 
   .cta-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-800 transition-colors hover:bg-slate-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-800 transition-all duration-200 hover:bg-slate-50 hover:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800;
+  }
+
+  .field-control {
+    @apply h-11 w-full rounded-xl border border-slate-300 bg-white/95 px-3 text-sm text-slate-900 outline-none transition-all duration-200 placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:border-primary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400;
+  }
+
+  .field-control-lg {
+    @apply h-12 rounded-2xl px-4;
+  }
+
+  .chip-muted {
+    @apply inline-flex items-center rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200;
+  }
+
+  .chip-accent {
+    @apply inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-slate-50;
+  }
+
+  .section-subtitle {
+    @apply mt-2 text-slate-600 dark:text-slate-300;
   }
 }
 

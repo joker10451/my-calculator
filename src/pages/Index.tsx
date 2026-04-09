@@ -43,15 +43,15 @@ const Index = () => {
           <Hero />
           <Categories />
           <PopularCalculators />
-          <section className="section-shell">
+          <section className="section-shell bg-slate-950">
             <div className="max-w-5xl mx-auto surface-card p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-black text-slate-900">Подбор предложений по вашим задачам</h2>
-                  <p className="text-slate-600 mt-2">
+                  <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100">Подбор предложений по вашим задачам</h2>
+                  <p className="text-slate-600 dark:text-slate-300 mt-2">
                     Собрали актуальные предложения в одном месте: карты, займы, страхование и вакансии.
                   </p>
-                  <p className="text-sm text-slate-500 mt-2">
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
                     Для мастеров по ремонту есть отдельная подборка:{" "}
                     <Link to="/offers?category=vacancies&q=руки" className="font-semibold text-primary hover:underline">
                       вакансии «Сервис Руки»
@@ -74,8 +74,8 @@ const Index = () => {
                 className="surface-card surface-card-hover p-5"
               >
                 <p className="text-xs font-bold text-primary">Новая посадочная</p>
-                <h3 className="mt-2 text-xl font-black text-slate-900">Работа и подработка</h3>
-                <p className="mt-2 text-slate-600 text-sm">
+                <h3 className="mt-2 text-xl font-black text-slate-900 dark:text-slate-100">Работа и подработка</h3>
+                <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm">
                   Современная страница с быстрым выбором: курьерские вакансии и работа для мастеров.
                 </p>
                 <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
@@ -88,8 +88,8 @@ const Index = () => {
                 className="surface-card surface-card-hover p-5"
               >
                 <p className="text-xs font-bold text-primary">Сезонный спрос</p>
-                <h3 className="mt-2 text-xl font-black text-slate-900">Защита от клеща</h3>
-                <p className="mt-2 text-slate-600 text-sm">
+                <h3 className="mt-2 text-xl font-black text-slate-900 dark:text-slate-100">Защита от клеща</h3>
+                <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm">
                   Понятная посадочная со сценариями и переходом к релевантным страховым предложениям.
                 </p>
                 <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">

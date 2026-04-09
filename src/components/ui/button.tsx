@@ -11,14 +11,14 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-button hover:shadow-lg active:scale-[0.98]",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border-2 border-input bg-background hover:bg-accent hover:text-accent-foreground hover:border-primary/50",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-slate-300 bg-white text-slate-800 hover:bg-slate-50 hover:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800",
+        secondary: "bg-slate-900 text-slate-100 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700",
+        ghost: "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100",
         link: "text-primary underline-offset-4 hover:underline",
         // Кастомные варианты для калькуляторов
         hero: "bg-primary text-primary-foreground text-lg px-8 py-6 shadow-button hover:shadow-lg hover:bg-primary/90 active:scale-[0.98]",
-        calculate: "bg-secondary text-secondary-foreground text-lg px-8 py-5 hover:bg-secondary/90 active:scale-[0.98]",
-        category: "bg-card text-card-foreground border-2 border-border hover:border-primary/50 hover:bg-accent",
+        calculate: "bg-slate-900 text-slate-100 text-lg px-8 py-5 hover:bg-slate-800 active:scale-[0.98] dark:bg-slate-800 dark:hover:bg-slate-700",
+        category: "border border-slate-300 bg-white text-slate-900 hover:border-primary/50 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800",
       },
       size: {
         default: "h-12 px-6 py-3",

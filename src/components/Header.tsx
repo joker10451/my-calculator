@@ -31,7 +31,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-slate-800/80 bg-slate-950/90 text-slate-100 backdrop-blur-xl">
       <div className="container mx-auto px-4 relative">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -39,7 +39,7 @@ const Header = () => {
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
               <Calculator className="w-4 h-4 text-primary-foreground" />
             </div>
-            <span className="text-lg font-bold tracking-tight hidden xs:inline uppercase">
+            <span className="text-lg font-bold tracking-tight hidden xs:inline uppercase text-slate-100">
               СЧИТАЙ.RU
             </span>
           </Link>
@@ -47,11 +47,11 @@ const Header = () => {
           {/* Search Bar (Desktop) */}
           <div className="hidden lg:flex w-56 xl:w-72 2xl:w-80 flex-none relative mx-3 xl:mx-5">
             <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Поиск калькулятора..."
-                className="w-full h-9 pl-10 pr-4 rounded-lg border bg-muted/50 focus:bg-background transition-colors focus:ring-2 focus:ring-primary/20 outline-none text-sm"
+                className="w-full h-9 pl-10 pr-4 rounded-lg border border-slate-700 bg-slate-900/90 text-slate-100 placeholder:text-slate-500 transition-colors focus:ring-2 focus:ring-primary/30 outline-none text-sm"
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -64,20 +64,20 @@ const Header = () => {
 
             {/* Search Results Dropdown */}
             {isSearchOpen && searchQuery && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-card border rounded-xl shadow-lg p-2 max-h-80 overflow-y-auto animate-fade-in z-50">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900 border border-slate-800 rounded-xl shadow-lg p-2 max-h-80 overflow-y-auto animate-fade-in z-50">
                 {filteredCalculators.length > 0 ? (
                   filteredCalculators.map(calc => (
                     <button
                       key={calc.name}
                       onClick={() => handleSearchSelect(calc.href)}
-                      className="w-full text-left px-4 py-2.5 hover:bg-muted rounded-lg text-sm flex items-center gap-2"
+                      className="w-full text-left px-4 py-2.5 hover:bg-slate-800 rounded-lg text-sm flex items-center gap-2"
                     >
-                      <Search className="w-4 h-4 text-muted-foreground" />
+                      <Search className="w-4 h-4 text-slate-400" />
                       {calc.name}
                     </button>
                   ))
                 ) : (
-                  <div className="px-4 py-2.5 text-sm text-muted-foreground">
+                  <div className="px-4 py-2.5 text-sm text-slate-400">
                     Ничего не найдено
                   </div>
                 )}
@@ -91,7 +91,7 @@ const Header = () => {
               <Link
                 key={cat.name}
                 to={cat.href}
-                className={`px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md whitespace-nowrap ${
+                className={`px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors hover:bg-slate-800 rounded-md whitespace-nowrap ${
                   idx === 3 ? 'hidden 2xl:inline-flex' : ''
                 }`}
               >
@@ -100,29 +100,29 @@ const Header = () => {
             ))}
             <Link
               to="/compare-banks"
-              className="hidden xl:inline-flex px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="hidden xl:inline-flex px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors hover:bg-slate-800 rounded-md"
             >
               Банки
             </Link>
             <Link
               to="/blog"
-              className="hidden xl:inline-flex px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="hidden xl:inline-flex px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors hover:bg-slate-800 rounded-md"
             >
               Блог
             </Link>
             <Link
               to="/offers"
-              className="px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors hover:bg-slate-800 rounded-md"
             >
               Предложения
             </Link>
             <Link
               to="/jobs"
-              className="px-2 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors hover:bg-slate-800 rounded-md"
             >
               Вакансии
             </Link>
-            <Link to="/compare" className="relative p-2 text-muted-foreground hover:text-primary transition-colors">
+            <Link to="/compare" className="relative p-2 text-slate-300 hover:text-primary transition-colors">
               <Scale className="w-4 h-4" />
               {items.length > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
@@ -135,7 +135,7 @@ const Header = () => {
 
           {/* Mobile Actions */}
           <div className="flex lg:hidden items-center gap-1">
-            <Link to="/compare" className="relative p-2 text-muted-foreground hover:text-primary transition-colors">
+            <Link to="/compare" className="relative p-2 text-slate-300 hover:text-primary transition-colors">
               <Scale className="w-5 h-5" />
               {items.length > 0 && (
                 <span className="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
@@ -144,7 +144,7 @@ const Header = () => {
               )}
             </Link>
             <button
-              className="p-2"
+              className="p-2 text-slate-300 hover:text-white"
               onClick={() => {
                 setIsSearchOpen(!isSearchOpen);
                 setIsMenuOpen(false);
@@ -154,7 +154,7 @@ const Header = () => {
             </button>
             <ThemeToggle />
             <button
-              className="p-2 hover:bg-muted rounded-md transition-colors"
+              className="p-2 hover:bg-slate-800 rounded-md transition-colors text-slate-300 hover:text-white"
               onClick={() => {
                 setIsMenuOpen(!isMenuOpen);
                 setIsSearchOpen(false);
@@ -167,12 +167,12 @@ const Header = () => {
 
         {/* Mobile Search Overlay */}
         {isSearchOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-background border-b p-2 animate-fade-in shadow-lg z-40">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-slate-950 border-b border-slate-800 p-2 animate-fade-in shadow-lg z-40">
             <input
               ref={inputRef}
               type="text"
               placeholder="Поиск калькулятора..."
-              className="w-full h-9 px-3 rounded-md border bg-muted focus:bg-background outline-none mb-1 text-sm"
+              className="w-full h-9 px-3 rounded-md border border-slate-700 bg-slate-900 text-slate-100 outline-none mb-1 text-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -183,13 +183,13 @@ const Header = () => {
                     <button
                       key={calc.name}
                       onClick={() => handleSearchSelect(calc.href)}
-                      className="w-full text-left px-4 py-3 hover:bg-muted rounded-lg text-sm border-b border-border/50 last:border-0"
+                      className="w-full text-left px-4 py-3 hover:bg-slate-800 rounded-lg text-sm border-b border-slate-800 last:border-0"
                     >
                       {calc.name}
                     </button>
                   ))
                 ) : (
-                  <div className="px-4 py-3 text-sm text-muted-foreground">
+                  <div className="px-4 py-3 text-sm text-slate-400">
                     Ничего не найдено
                   </div>
                 )}
@@ -200,13 +200,13 @@ const Header = () => {
 
         {/* Mobile Nav */}
         {isMenuOpen && (
-          <div className="lg:hidden py-2 border-t border-border animate-fade-in bg-background absolute top-full left-0 right-0 shadow-lg z-40">
+          <div className="lg:hidden py-2 border-t border-slate-800 animate-fade-in bg-slate-950 absolute top-full left-0 right-0 shadow-lg z-40">
             <nav className="flex flex-col gap-0.5 px-2">
               {categories.map((cat) => (
                 <Link
                   key={cat.name}
                   to={cat.href}
-                  className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                  className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-md transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {cat.name}
@@ -214,28 +214,28 @@ const Header = () => {
               ))}
               <Link
                 to="/compare-banks"
-                className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Банки
               </Link>
               <Link
                 to="/blog"
-                className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Блог
               </Link>
               <Link
                 to="/offers"
-                className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Предложения
               </Link>
               <Link
                 to="/jobs"
-                className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Вакансии

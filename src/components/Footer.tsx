@@ -34,7 +34,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-slate-900 text-slate-100 py-12 md:py-14">
+    <footer className="bg-slate-950 text-slate-100 py-12 md:py-14 border-t border-slate-800">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-7 md:gap-10 mb-10">
           {/* Бренд */}
@@ -54,7 +54,7 @@ const Footer = () => {
 
           {/* Категории */}
           <div>
-            <h4 className="font-semibold mb-4">Категории</h4>
+            <h4 className="font-semibold mb-4 text-slate-200">Категории</h4>
             <ul className="space-y-2">
               {categoriesList.map((item) => (
                 <li key={item.name}>
@@ -71,7 +71,7 @@ const Footer = () => {
 
           {/* Популярное */}
           <div>
-            <h4 className="font-semibold mb-4">Популярное</h4>
+            <h4 className="font-semibold mb-4 text-slate-200">Популярное</h4>
             <ul className="space-y-2">
               {popular.map((item) => (
                 <li key={item.name}>
@@ -88,7 +88,7 @@ const Footer = () => {
 
           {/* Информация */}
           <div>
-            <h4 className="font-semibold mb-4">Информация</h4>
+            <h4 className="font-semibold mb-4 text-slate-200">Информация</h4>
             <ul className="space-y-2">
               {legal.map((item) => (
                 <li key={item.name}>
@@ -105,7 +105,7 @@ const Footer = () => {
 
           {/* Контакты */}
           <div>
-            <h4 className="font-semibold mb-4">Контакты</h4>
+            <h4 className="font-semibold mb-4 text-slate-200">Контакты</h4>
             <div className="space-y-2">
               <div>
                 <p className="text-sm text-slate-400 mb-1">Для связи:</p>

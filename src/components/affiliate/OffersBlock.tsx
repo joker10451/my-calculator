@@ -91,16 +91,16 @@ export function OffersBlock({
   if (offers.length === 0) return null;
 
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+    <section className="surface-card p-6 md:p-8">
       <div className="flex items-start justify-between gap-4 mb-5">
         <div>
-          <h3 className="text-xl md:text-2xl font-black text-slate-900">{title}</h3>
-          <p className="text-slate-600 mt-1">{subtitle}</p>
-          <p className="text-xs text-slate-500 mt-2">
+          <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-slate-100">{title}</h3>
+          <p className="text-slate-600 dark:text-slate-300 mt-1">{subtitle}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
             Подборка обновляется регулярно. Стоимость для пользователя не меняется.
           </p>
         </div>
-        <div className="hidden md:flex items-center gap-2 text-slate-500 text-sm">
+        <div className="hidden md:flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
           <Star className="w-4 h-4 text-amber-400 fill-amber-400" aria-hidden="true" />
           Подбор из популярных предложений
         </div>
@@ -108,11 +108,11 @@ export function OffersBlock({
 
       <div className="grid md:grid-cols-3 gap-4">
         {orderedOffers.slice(0, 3).map(({ cfg, link }) => (
-          <div key={cfg.key} className="rounded-2xl border border-slate-200 p-4 flex flex-col">
-            <div className="font-bold text-slate-900">{cfg.label}</div>
-            {link.description && <div className="text-sm text-slate-600 mt-1">{link.description}</div>}
+          <div key={cfg.key} className="rounded-2xl border border-slate-200 dark:border-slate-800 p-4 flex flex-col bg-white/60 dark:bg-slate-900/60">
+            <div className="font-bold text-slate-900 dark:text-slate-100">{cfg.label}</div>
+            {link.description && <div className="text-sm text-slate-600 dark:text-slate-300 mt-1">{link.description}</div>}
             {link.updatedAt && (
-              <div className="mt-2 text-xs text-slate-500 space-y-1">
+              <div className="mt-2 text-xs text-slate-500 dark:text-slate-400 space-y-1">
                 {link.updatedAt && <div>Актуально: {link.updatedAt}</div>}
               </div>
             )}

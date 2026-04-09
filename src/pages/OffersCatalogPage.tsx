@@ -151,7 +151,7 @@ export default function OffersCatalogPage() {
   }, [filtered.length]);
 
   return (
-    <div className="min-h-screen bg-slate-50/40">
+    <div className="min-h-screen bg-slate-950">
       <SEO
         title="Каталог предложений"
         description="Подборка актуальных предложений: карты, страхование, займы и вакансии."
@@ -162,10 +162,10 @@ export default function OffersCatalogPage() {
       <div className="container mx-auto px-4 pt-24 pb-14">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-black text-slate-100 tracking-tight">
               Каталог предложений
             </h1>
-            <p className="text-slate-600 mt-2">
+            <p className="text-slate-300 mt-2">
               Выберите категорию и изучите доступные предложения.
             </p>
           </div>
@@ -173,11 +173,11 @@ export default function OffersCatalogPage() {
           <div className="surface-card p-5 md:p-6 mb-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-bold text-slate-800 block mb-2">Категория</label>
+                <label className="text-sm font-bold text-slate-800 dark:text-slate-200 block mb-2">Категория</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value as Category | 'all')}
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900"
+                  className="field-control field-control-lg"
                 >
                   {categories.map((c) => (
                     <option key={c} value={c}>
@@ -188,12 +188,12 @@ export default function OffersCatalogPage() {
               </div>
 
               <div>
-                <label className="text-sm font-bold text-slate-800 block mb-2">Поиск</label>
+                <label className="text-sm font-bold text-slate-800 dark:text-slate-200 block mb-2">Поиск</label>
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Например: ипотека, ВТБ, ОСАГО, курьер…"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900"
+                  className="field-control field-control-lg"
                 />
               </div>
             </div>
@@ -201,7 +201,7 @@ export default function OffersCatalogPage() {
               <button
                 type="button"
                 onClick={clearFilters}
-                className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+                className="text-sm font-semibold text-slate-400 hover:text-slate-200 transition-colors"
               >
                 Сбросить фильтры
               </button>
@@ -216,11 +216,11 @@ export default function OffersCatalogPage() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <h2 className="text-base md:text-lg font-black text-slate-900 leading-tight">
+                    <h2 className="text-base md:text-lg font-black text-slate-900 dark:text-slate-100 leading-tight">
                       {o.title}
                     </h2>
                     {o.description && (
-                      <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                      <p className="text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
                         {o.description}
                       </p>
                     )}
@@ -237,7 +237,7 @@ export default function OffersCatalogPage() {
                     {o.badges.slice(0, 5).map((b) => (
                       <span
                         key={b}
-                        className="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full"
+                        className="chip-muted"
                       >
                         {b}
                       </span>
@@ -246,32 +246,32 @@ export default function OffersCatalogPage() {
                 )}
 
                 {(o.eligibility?.length || o.restrictions?.length || o.publicDetails || o.updatedAt) && (
-                  <div className="mt-4 surface-muted p-3 text-xs text-slate-700 space-y-2">
+                  <div className="mt-4 surface-muted p-3 text-xs text-slate-700 dark:text-slate-300 space-y-2">
                     {o.updatedAt && (
                       <div>
-                        <span className="font-semibold text-slate-800">Актуализация:</span> {o.updatedAt}
+                        <span className="font-semibold text-slate-800 dark:text-slate-100">Актуализация:</span> {o.updatedAt}
                       </div>
                     )}
                     {o.eligibility && o.eligibility.length > 0 && (
                       <div>
-                        <span className="font-semibold text-slate-800">Кому подходит:</span>{' '}
+                        <span className="font-semibold text-slate-800 dark:text-slate-100">Кому подходит:</span>{' '}
                         {o.eligibility.slice(0, 2).join(' • ')}
                       </div>
                     )}
                     {o.restrictions && o.restrictions.length > 0 && (
                       <div>
-                        <span className="font-semibold text-slate-800">Ограничения:</span> {o.restrictions[0]}
+                        <span className="font-semibold text-slate-800 dark:text-slate-100">Ограничения:</span> {o.restrictions[0]}
                       </div>
                     )}
                     {o.publicDetails && (
                       <div>
-                        <span className="font-semibold text-slate-800">Условия:</span> {o.publicDetails}
+                        <span className="font-semibold text-slate-800 dark:text-slate-100">Условия:</span> {o.publicDetails}
                       </div>
                     )}
                   </div>
                 )}
 
-                <div className="mt-5 border-t border-slate-100 pt-4">
+                <div className="mt-5 border-t border-slate-200/80 dark:border-slate-800 pt-4">
                   <AffiliateCTA
                     href={o.url}
                     partnerName={o.bankId}
@@ -289,7 +289,7 @@ export default function OffersCatalogPage() {
           </div>
 
           {filtered.length === 0 && (
-            <div className="text-center text-slate-600 mt-10">
+            <div className="text-center text-slate-300 mt-10">
               Ничего не найдено. Попробуйте другую категорию или запрос.
             </div>
           )}

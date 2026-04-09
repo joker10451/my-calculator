@@ -23,7 +23,7 @@ export const HoverEffect = ({
     return (
         <div
             className={cn(
-                "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10",
+                "grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 py-6",
                 className
             )}
         >
@@ -31,14 +31,14 @@ export const HoverEffect = ({
                 <Link
                     to={item?.link}
                     key={item?.link}
-                    className="relative group block p-2 h-full w-full"
+                    className="relative group block p-1.5 h-full w-full"
                     onMouseEnter={() => setHoveredIndex(idx)}
                     onMouseLeave={() => setHoveredIndex(null)}
                 >
                     <AnimatePresence>
                         {hoveredIndex === idx && (
                             <motion.span
-                                className="absolute inset-0 h-full w-full bg-primary/10 dark:bg-slate-800/[0.8] block rounded-3xl"
+                                className="absolute inset-0 h-full w-full bg-primary/10 block rounded-3xl"
                                 layoutId="hoverBackground"
                                 initial={{ opacity: 0 }}
                                 animate={{
@@ -82,7 +82,7 @@ export const HoverCard = ({
     return (
         <div
             className={cn(
-                "rounded-2xl h-full w-full p-4 overflow-hidden bg-background border border-border group-hover:border-primary/50 relative z-20 transition-colors duration-300",
+                "rounded-2xl h-full w-full p-4 overflow-hidden border border-slate-800 bg-slate-900/80 group-hover:border-primary/40 relative z-20 transition-colors duration-300",
                 className
             )}
         >
@@ -101,7 +101,7 @@ export const HoverCardTitle = ({
     children: React.ReactNode;
 }) => {
     return (
-        <h4 className={cn("text-foreground font-bold tracking-wide", className)}>
+        <h4 className={cn("text-slate-100 font-bold tracking-wide", className)}>
             {children}
         </h4>
     );
@@ -117,7 +117,7 @@ export const CardDescription = ({
     return (
         <p
             className={cn(
-                "mt-2 text-muted-foreground tracking-wide leading-relaxed text-sm line-clamp-2",
+                "mt-2 text-slate-300 tracking-wide leading-relaxed text-sm line-clamp-2",
                 className
             )}
         >
