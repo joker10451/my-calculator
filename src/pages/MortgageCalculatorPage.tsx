@@ -64,6 +64,20 @@ const MortgageCalculatorPage = () => {
       afterCalculator={
         <div className="space-y-4">
           <OffersBlock product="mortgage" placement="result_block" />
+          <div className="surface-muted rounded-2xl p-4 md:p-5">
+            <h3 className="text-base font-semibold text-slate-900">Что обычно ищут перед оформлением ипотеки</h3>
+            <div className="mt-3 flex flex-wrap gap-2 text-sm">
+              <Link to="/blog/?q=ипотека" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                Ипотека или аренда
+              </Link>
+              <Link to="/blog/?q=досрочное+погашение+ипотеки" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                Как снизить переплату
+              </Link>
+              <Link to="/compare-banks/" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                Сравнение банков
+              </Link>
+            </div>
+          </div>
           <div className="text-sm text-slate-600">
             Нужны дополнительные варианты?{" "}
             <Link to="/offers?category=mortgage" className="font-semibold text-primary hover:underline">

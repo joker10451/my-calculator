@@ -1,6 +1,8 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import SalaryCalculatorWithComparison from "@/components/calculators/SalaryCalculatorWithComparison";
 import { Calculator, TrendingDown, Users, FileText, BarChart3, DollarSign, GitCompare } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const SalaryCalculatorPage = () => {
     const faqItems = [
@@ -58,6 +60,25 @@ const SalaryCalculatorPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<SalaryCalculatorWithComparison />}
+            afterCalculator={
+                <div className="space-y-4">
+                    <OffersBlock product="vacancies" placement="result_block" title="Предложения по работе и подработке" subtitle="Если сравниваете офферы по зарплате, посмотрите актуальные вакансии и форматы занятости." />
+                    <div className="surface-muted rounded-2xl p-4 md:p-5">
+                        <h3 className="text-base font-semibold text-slate-900">Куда перейти после расчета зарплаты</h3>
+                        <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                            <Link to="/jobs/" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Вакансии и подработка
+                            </Link>
+                            <Link to="/ruki-masters/" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Работа мастером
+                            </Link>
+                            <Link to="/blog/?q=зарплата+ндфл" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Гайды по НДФЛ и зарплате
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            }
             aboutTitle="О калькуляторе зарплаты"
             aboutDescription="Калькулятор зарплаты поможет вам точно рассчитать сумму, которую вы получите на руки после вычета НДФЛ и других налогов. Инструмент учитывает актуальную прогрессивную шкалу налогообложения 2026 года, стандартные налоговые вычеты на детей и позволяет рассчитать как зарплату на руки от начисленной, так и начисленную от желаемой суммы на руки."
             features={features}

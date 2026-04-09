@@ -68,6 +68,20 @@ const OSAGOCalculatorPage = () => {
                         title="Подходящие страховые предложения"
                         subtitle="Сравните предложения по ОСАГО/КАСКО и изучите условия программ."
                     />
+                    <div className="surface-muted rounded-2xl p-4 md:p-5">
+                        <h3 className="text-base font-semibold text-slate-900">Что проверить перед покупкой полиса</h3>
+                        <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                            <Link to="/calculator/kasko/" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Рассчитать КАСКО
+                            </Link>
+                            <Link to="/blog/?q=осаго" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Разборы по ОСАГО
+                            </Link>
+                            <Link to="/offers?category=insurance" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Все страховые программы
+                            </Link>
+                        </div>
+                    </div>
                     <div className="text-sm text-slate-600">
                         Нужны дополнительные варианты?{" "}
                         <Link to="/offers?category=insurance" className="font-semibold text-primary hover:underline">

@@ -64,6 +64,20 @@ const DepositCalculatorPage = () => {
             afterCalculator={
                 <div className="space-y-6">
                     <OffersBlock product="deposit" placement="result_block" />
+                    <div className="surface-muted rounded-2xl p-4 md:p-5">
+                        <h3 className="text-base font-semibold text-slate-900">Дополнительно к расчету вклада</h3>
+                        <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                            <Link to="/blog/?q=вклад" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Статьи про вклады
+                            </Link>
+                            <Link to="/calculator/investment/" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Калькулятор инвестиций
+                            </Link>
+                            <Link to="/offers?category=debit" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Карты и накопительные продукты
+                            </Link>
+                        </div>
+                    </div>
                     <div className="text-sm text-slate-600">
                         Подберите альтернативные варианты в каталоге{" "}
                         <Link to="/offers?category=debit" className="font-semibold text-primary hover:underline">
