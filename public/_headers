@@ -76,18 +76,5 @@
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
 
-# Сжатие для текстовых файлов (SVG, JSON, CSS, JS)
-/*.svg
-  Content-Encoding: gzip
-
-/*.json
-  Content-Encoding: gzip
-
-/*.css
-  Content-Encoding: gzip
-
-/*.js
-  Content-Encoding: gzip
-
-/*.html
-  Content-Encoding: gzip
+# Важно: не задаём Content-Encoding вручную.
+# Сжатие должен выставлять сервер/CDN автоматически.
