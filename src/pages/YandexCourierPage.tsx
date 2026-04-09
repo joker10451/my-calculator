@@ -407,6 +407,12 @@ export default function YandexCourierPage() {
               Смотреть вакансию «Сервис Руки»
             </Link>
           </p>
+          <p className="mt-1">
+            Отдельная страница:{" "}
+            <Link to="/ruki-masters" className="text-slate-500 hover:text-slate-300 underline">
+              /ruki-masters
+            </Link>
+          </p>
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ const CalculatorLayout = ({
             <div className="min-h-screen flex flex-col bg-background">
                 <Header />
 
-                <main id="main-content" className="flex-1 pt-16 sm:pt-20">
+                <main id="main-content" className="flex-1 pt-16">
                     {/* Title Section */}
                     <div className="container mx-auto px-4">
                         <div className="text-center max-w-4xl mx-auto mb-10 md:mb-12">

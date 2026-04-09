@@ -8,6 +8,7 @@ const ROOT = process.cwd();
 const COMPLIANCE_COPY_FILES = [
   'src/pages/YandexCourierPage.tsx',
   'src/pages/JobsLandingPage.tsx',
+  'src/pages/RukiVacancyPage.tsx',
   'src/pages/OffersCatalogPage.tsx',
   'src/components/affiliate/OffersBlock.tsx',
 ];

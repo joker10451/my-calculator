@@ -18,8 +18,8 @@ const JobsLandingPage = () => {
 
       <div className="min-h-screen flex flex-col bg-slate-50">
         <Header />
-        <main id="main-content" className="flex-1 pt-20">
-          <section className="container mx-auto px-4 py-10 md:py-14">
+        <main id="main-content" className="flex-1 pt-16">
+          <section className="container mx-auto px-4 pt-4 pb-10 md:pt-6 md:pb-14">
             <div className="max-w-6xl mx-auto rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 p-6 md:p-10 text-white shadow-xl">
               <div className="flex items-center gap-2 text-blue-200 text-sm font-semibold">
                 <Briefcase className="w-4 h-4" />
@@ -95,10 +95,10 @@ const JobsLandingPage = () => {
                 </p>
                 <div className="mt-5">
                   <Link
-                    to="/offers?category=vacancies&q=руки"
+                    to="/ruki-masters"
                     className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-4 py-2.5 font-bold hover:opacity-90 transition-opacity"
                   >
-                    Смотреть условия работы
+                    Открыть страницу вакансии
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

@@ -62,6 +62,7 @@ const pages = [
   { url: '/blog/', priority: 0.8, changefreq: 'weekly' },
   { url: '/offers/', priority: 0.8, changefreq: 'weekly' },
   { url: '/jobs/', priority: 0.8, changefreq: 'weekly' },
+  { url: '/ruki-masters/', priority: 0.8, changefreq: 'weekly' },
   { url: '/tick-insurance/', priority: 0.8, changefreq: 'weekly' },
   
   // Категории блога

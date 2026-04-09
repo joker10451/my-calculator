@@ -71,6 +71,7 @@ const SitemapPage = lazy(() => import("./pages/SitemapPage"));
 const OffersCatalogPage = lazy(() => import("./pages/OffersCatalogPage"));
 const JobsLandingPage = lazy(() => import("./pages/JobsLandingPage"));
 const TickInsuranceLandingPage = lazy(() => import("./pages/TickInsuranceLandingPage"));
+const RukiVacancyPage = lazy(() => import("./pages/RukiVacancyPage"));
 
 // Blog components with lazy loading (loaded on demand)
 export const BlogComments = lazy(() => import("./components/blog/BlogComments"));
@@ -171,6 +172,8 @@ const AnimatedRoutes = () => {
           <Route path="/offers/" element={<PageTransition><OffersCatalogPage /></PageTransition>} />
           <Route path="/jobs" element={<PageTransition><JobsLandingPage /></PageTransition>} />
           <Route path="/jobs/" element={<PageTransition><JobsLandingPage /></PageTransition>} />
+          <Route path="/ruki-masters" element={<PageTransition><RukiVacancyPage /></PageTransition>} />
+          <Route path="/ruki-masters/" element={<PageTransition><RukiVacancyPage /></PageTransition>} />
           <Route path="/tick-insurance" element={<PageTransition><TickInsuranceLandingPage /></PageTransition>} />
           <Route path="/tick-insurance/" element={<PageTransition><TickInsuranceLandingPage /></PageTransition>} />
           <Route path="/admin/analytics" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
