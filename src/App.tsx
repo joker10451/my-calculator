@@ -44,7 +44,6 @@ const PensionCalculatorPage = lazy(() => import("./pages/PensionCalculatorPage")
 const KASKOCalculatorPage = lazy(() => import("./pages/KASKOCalculatorPage"));
 const InvestmentCalculatorPage = lazy(() => import("./pages/InvestmentCalculatorPage"));
 const OverpaymentCalculatorPage = lazy(() => import("./pages/OverpaymentCalculatorPage"));
-const BankComparisonPage = lazy(() => import("./pages/BankComparisonPage"));
 const YandexCourierPage = lazy(() => import("./pages/YandexCourierPage"));
 const JoyMoneyPage = lazy(() => import("./pages/JoyMoneyPage"));
 const EmbedWidgetPage = lazy(() => import("./pages/EmbedWidgetPage"));
@@ -72,6 +71,7 @@ const OffersCatalogPage = lazy(() => import("./pages/OffersCatalogPage"));
 const JobsLandingPage = lazy(() => import("./pages/JobsLandingPage"));
 const TickInsuranceLandingPage = lazy(() => import("./pages/TickInsuranceLandingPage"));
 const RukiVacancyPage = lazy(() => import("./pages/RukiVacancyPage"));
+const GoldapplePage = lazy(() => import("./pages/GoldapplePage"));
 
 // Blog components with lazy loading (loaded on demand)
 export const BlogComments = lazy(() => import("./components/blog/BlogComments"));
@@ -144,7 +144,6 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/kasko" element={<PageTransition><KASKOCalculatorPage /></PageTransition>} />
           <Route path="/calculator/investment" element={<PageTransition><InvestmentCalculatorPage /></PageTransition>} />
           <Route path="/calculator/overpayment" element={<PageTransition><OverpaymentCalculatorPage /></PageTransition>} />
-          <Route path="/compare-banks" element={<PageTransition><BankComparisonPage /></PageTransition>} />
           <Route path="/courier-yandex" element={<PageTransition><YandexCourierPage /></PageTransition>} />
           <Route path="/joy-money" element={<PageTransition><JoyMoneyPage /></PageTransition>} />
           <Route path="/widgets" element={<PageTransition><EmbedWidgetPage /></PageTransition>} />
@@ -176,6 +175,8 @@ const AnimatedRoutes = () => {
           <Route path="/ruki-masters/" element={<PageTransition><RukiVacancyPage /></PageTransition>} />
           <Route path="/tick-insurance" element={<PageTransition><TickInsuranceLandingPage /></PageTransition>} />
           <Route path="/tick-insurance/" element={<PageTransition><TickInsuranceLandingPage /></PageTransition>} />
+          <Route path="/goldapple" element={<PageTransition><GoldapplePage /></PageTransition>} />
+          <Route path="/goldapple/" element={<PageTransition><GoldapplePage /></PageTransition>} />
           <Route path="/admin/analytics" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
           <Route path="/analytics-dashboard" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
           <Route path="/analytics-dashboard/" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />

@@ -99,12 +99,6 @@ const Header = () => {
               </Link>
             ))}
             <Link
-              to="/compare-banks"
-              className="hidden xl:inline-flex px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors hover:bg-slate-800 rounded-md"
-            >
-              Банки
-            </Link>
-            <Link
               to="/blog"
               className="hidden xl:inline-flex px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors hover:bg-slate-800 rounded-md"
             >
@@ -212,13 +206,6 @@ const Header = () => {
                   {cat.name}
                 </Link>
               ))}
-              <Link
-                to="/compare-banks"
-                className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Банки
-              </Link>
               <Link
                 to="/blog"
                 className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-md transition-colors"

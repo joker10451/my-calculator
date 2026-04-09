@@ -18,10 +18,10 @@ const Footer = () => {
     { name: "Индекс массы тела", href: "/calculator/bmi/" },
     { name: "Расход топлива", href: "/calculator/fuel/" },
     { name: "Расчёт ЖКХ", href: "/calculator/utilities/" },
-    { name: "Сравнение банков", href: "/compare-banks/" },
     { name: "Каталог предложений", href: "/offers/" },
     { name: "Работа и подработка", href: "/jobs/" },
     { name: "Страхование от клеща", href: "/tick-insurance/" },
+    { name: "Золотое Яблоко", href: "/goldapple/" },
   ];
 
   const legal = [

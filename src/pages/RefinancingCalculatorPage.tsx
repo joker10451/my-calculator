@@ -103,15 +103,15 @@ export default function RefinancingCalculatorPage() {
                 {/* CTA */}
                 <div className="max-w-4xl mx-auto mb-16">
                     <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-3xl p-10 md:p-14 text-center text-white">
-                        <h2 className="text-2xl md:text-3xl font-black mb-4">Хотите сравнить ставки банков?</h2>
+                        <h2 className="text-2xl md:text-3xl font-black mb-4">Хотите посмотреть актуальные предложения?</h2>
                         <p className="text-emerald-100 text-lg mb-8 max-w-xl mx-auto">
-                            Найдите банк с самой низкой ставкой для рефинансирования
+                            Откройте подборку предложений и выберите подходящий вариант для рефинансирования
                         </p>
                         <a
-                            href="/compare-banks"
+                            href="/offers?category=mortgage"
                             className="inline-flex items-center gap-2 bg-white text-emerald-700 font-black text-lg py-4 px-10 rounded-2xl hover:bg-emerald-50 hover:scale-105 transition-all"
                         >
-                            Сравнить банки
+                            Открыть предложения
                             <ArrowRight className="w-5 h-5" />
                         </a>
                     </div>

@@ -68,7 +68,7 @@ const Index = () => {
                 </Link>
               </div>
             </div>
-            <div className="max-w-5xl mx-auto mt-5 grid md:grid-cols-2 gap-4">
+            <div className="max-w-5xl mx-auto mt-5 grid md:grid-cols-3 gap-4">
               <Link
                 to="/jobs"
                 className="surface-card surface-card-hover p-5"
@@ -94,6 +94,20 @@ const Index = () => {
                 </p>
                 <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
                   Открыть страницу страхования
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </Link>
+              <Link
+                to="/goldapple"
+                className="surface-card surface-card-hover p-5"
+              >
+                <p className="text-xs font-bold text-primary">E-com оффер</p>
+                <h3 className="mt-2 text-xl font-black text-slate-900 dark:text-slate-100">Золотое Яблоко</h3>
+                <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm">
+                  Переход к актуальным акциям и ассортименту косметики и парфюмерии.
+                </p>
+                <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
+                  Открыть предложения
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </Link>

@@ -65,6 +65,7 @@ const pages = [
   { url: '/jobs/', priority: 0.8, changefreq: 'weekly' },
   { url: '/ruki-masters/', priority: 0.8, changefreq: 'weekly' },
   { url: '/tick-insurance/', priority: 0.8, changefreq: 'weekly' },
+  { url: '/goldapple/', priority: 0.8, changefreq: 'weekly' },
   
   // Категории блога
   { url: '/blog/category/mortgage-credit/', priority: 0.7, changefreq: 'weekly' },
@@ -107,7 +108,6 @@ const pages = [
   { url: '/calculator/currency/', priority: 0.8, changefreq: 'daily' },
   { url: '/calculator/court-fee/', priority: 0.7, changefreq: 'monthly' },
   { url: '/calculator/overpayment/', priority: 0.9, changefreq: 'weekly' },
-  { url: '/compare-banks/', priority: 0.9, changefreq: 'weekly' },
   { url: '/courier-yandex/', priority: 0.8, changefreq: 'monthly' },
   { url: '/joy-money/', priority: 0.8, changefreq: 'monthly' },
   { url: '/widgets/', priority: 0.7, changefreq: 'monthly' },

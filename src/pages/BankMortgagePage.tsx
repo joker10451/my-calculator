@@ -11,7 +11,7 @@ export default function BankMortgagePage() {
   const { bank } = useParams<{ bank: string }>();
   const bankData = BANKS.find(b => b.bankSlug === bank);
 
-  if (!bankData) return <Navigate to="/compare-banks" replace />;
+  if (!bankData) return <Navigate to="/offers?category=mortgage" replace />;
 
   const seo = generateBankSEOTemplate(bankData);
   const faqSchema = generateFAQSchema(seo.faq);

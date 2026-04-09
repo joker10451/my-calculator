@@ -23,7 +23,6 @@ export const categories = [
             { name: "Конвертер валют", href: "/calculator/currency" },
             { name: "Доходность инвестиций", href: "/calculator/investment" },
             { name: "Сколько вы переплатите банку", href: "/calculator/overpayment" },
-            { name: "Сравнение банков", href: "/compare-banks" },
             { name: "Займ в JoyMoney", href: "/joy-money" }
         ],
         href: "/category/finance",

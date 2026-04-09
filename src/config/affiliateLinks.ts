@@ -138,6 +138,22 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     publicDetails: 'Оформление и оплата полиса онлайн на сайте страховой компании',
     priority: 91,
   },
+  'goldapple-ecom': {
+    url: 'https://trk.ppdu.ru/click/5uc2AHXO?erid=2SDnjdg2ZZk',
+    bankId: 'goldapple',
+    productType: 'ecom',
+    erid: '2SDnjdg2ZZk',
+    description: 'Интернет-магазин косметики и парфюмерии с регулярными акциями и доставкой по России.',
+    title: 'Золотое Яблоко — косметика и парфюмерия',
+    category: 'other',
+    badges: ['E-com', 'Красота', 'Акции'],
+    updatedAt: '2026-04-09',
+    eligibility: ['Подходит для онлайн-покупок косметики и парфюмерии', 'Доставка по России'],
+    restrictions: ['Заказы с промокодами сторонних площадок не учитываются', 'Заказы из мобильного приложения могут не учитываться'],
+    publicDetails: 'Скидки, ассортимент и условия доставки зависят от текущей акции магазина.',
+    internalNotes: 'Cookie TTL 30 дней, холд до 60 дней, учитывать ограничения оффера по промокодам и источникам.',
+    priority: 88,
+  },
 
   // Pampadu offer (из кабинета)
   'pampadu-offer-31ba9c13': {

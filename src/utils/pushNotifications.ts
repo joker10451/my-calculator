@@ -104,7 +104,7 @@ export function showRateChangeNotification(bankName: string, oldRate: number, ne
       icon: '/icon.svg',
       badge: '/icon.svg',
       tag: `rate-${bankName}`,
-      data: { url: '/compare-banks' },
+      data: { url: '/offers?category=mortgage' },
     });
   }
 }

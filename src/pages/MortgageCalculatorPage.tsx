@@ -73,8 +73,8 @@ const MortgageCalculatorPage = () => {
               <Link to="/blog/?q=досрочное+погашение+ипотеки" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
                 Как снизить переплату
               </Link>
-              <Link to="/compare-banks/" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
-                Сравнение банков
+              <Link to="/offers?category=mortgage" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                Ипотечные предложения
               </Link>
             </div>
           </div>
