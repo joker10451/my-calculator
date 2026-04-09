@@ -44,13 +44,13 @@ const CalculatorLayout = ({
                 <link rel="canonical" href={canonicalUrl} />
             </Helmet>
 
-            <div className="min-h-screen flex flex-col bg-background">
+            <div className="min-h-screen flex flex-col bg-slate-950">
                 <Header />
 
                 <main id="main-content" className="flex-1 pt-16">
                     {/* Title Section */}
                     <div className="container mx-auto px-4">
-                        <div className="text-center max-w-4xl mx-auto mb-10 md:mb-12">
+                        <div className="text-center max-w-4xl mx-auto mb-10 md:mb-12 surface-card p-4 md:p-6">
                             {currentCategory && (
                                 <div className="inline-flex items-center gap-1.5 px-2 py-0.5 mb-2 text-[10px] font-medium text-primary bg-primary/10 rounded">
                                     <Sparkles className="w-2.5 h-2.5" />
@@ -58,17 +58,17 @@ const CalculatorLayout = ({
                                 </div>
                             )}
 
-                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 text-balance">
+                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 text-balance text-slate-900 dark:text-slate-100">
                                 {title.split('—')[0]}
                             </h1>
-                            <p className="text-xs sm:text-sm text-muted-foreground">
+                            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                                 {description}
                             </p>
 
                             {/* Print Button */}
                             <button
                                 onClick={() => window.print()}
-                                className="no-print absolute top-20 right-4 p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded hidden lg:flex items-center gap-1"
+                                className="no-print absolute top-20 right-4 p-1.5 text-slate-500 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded hidden lg:flex items-center gap-1"
                                 title="Распечатать"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9" /><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><rect width="12" height="8" x="6" y="14" /></svg>
@@ -84,7 +84,7 @@ const CalculatorLayout = ({
                             {/* Related Calculators */}
                             {relatedCalculators.length > 0 && (
                                 <div className="mt-12 max-w-4xl mx-auto no-print">
-                                    <h3 className="text-lg font-semibold mb-4 text-center">
+                                    <h3 className="text-lg font-semibold mb-4 text-center text-slate-100">
                                         Ещё в категории «{currentCategory?.name}»
                                     </h3>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -92,7 +92,7 @@ const CalculatorLayout = ({
                                             <Link
                                                 key={calc.name}
                                                 to={calc.href}
-                                                className="group bg-muted/30 hover:bg-muted border border-border/30 hover:border-primary/30 rounded-lg p-3 transition-all flex items-center justify-between text-sm"
+                                                className="group surface-card surface-card-hover rounded-lg p-3 transition-all flex items-center justify-between text-sm"
                                             >
                                                 <span className="group-hover:text-primary transition-colors">
                                                     {calc.name}

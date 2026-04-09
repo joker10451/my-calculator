@@ -76,7 +76,7 @@ const PopularCalculators = () => {
     color: calc.color,
     bgColor: calc.bgColor,
     extra: (
-      <div className="flex items-center gap-1 mt-auto pt-4 text-xs font-medium text-muted-foreground">
+      <div className="flex items-center gap-1 mt-auto pt-4 text-xs font-medium text-slate-300">
         <CheckCircle2 className="w-3 h-3 text-green-500" />
         <span>Актуально на 2026 год</span>
       </div>
@@ -84,19 +84,19 @@ const PopularCalculators = () => {
   }));
 
   return (
-    <section className="py-16 md:py-24 bg-card/30">
+    <section className="py-12 md:py-16 bg-slate-950">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12 text-center md:text-left">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 md:mb-10 text-center md:text-left">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2 uppercase tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2 uppercase tracking-tight text-slate-100">
               Популярные калькуляторы
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl">
+            <p className="text-lg text-slate-300 max-w-2xl">
               Самые востребованные расчёты прямо сейчас
             </p>
           </div>
           <Link to="/all">
-            <Button variant="outline" className="gap-2 rounded-full px-6">
+            <Button variant="outline" className="gap-2 rounded-full px-6 min-h-[44px]">
               Все калькуляторы
               <ArrowRight className="w-4 h-4" />
             </Button>

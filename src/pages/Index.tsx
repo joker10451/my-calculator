@@ -37,7 +37,7 @@ const Index = () => {
         <link rel="canonical" href="https://schitay-online.ru/" />
       </Helmet>
 
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-slate-950">
         <Header />
         <main id="main-content" className="flex-1">
           <Hero />
@@ -79,7 +79,7 @@ const Index = () => {
                   Современная страница с быстрым выбором: курьерские вакансии и работа для мастеров.
                 </p>
                 <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
-                  Открыть /jobs
+                  Открыть вакансии
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </Link>
@@ -93,13 +93,13 @@ const Index = () => {
                   Понятная посадочная со сценариями и переходом к релевантным страховым предложениям.
                 </p>
                 <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
-                  Открыть /tick-insurance
+                  Открыть страницу страхования
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </Link>
             </div>
           </section>
-          <Suspense fallback={<section className="container mx-auto px-4 py-12"><div className="h-40 rounded-3xl border border-slate-200 bg-slate-100/70 animate-pulse" /></section>}>
+          <Suspense fallback={<section className="container mx-auto px-4 py-12 bg-slate-950"><div className="h-40 rounded-3xl border border-slate-800 bg-slate-900/70 animate-pulse" /></section>}>
             <BlogSection />
           </Suspense>
         </main>

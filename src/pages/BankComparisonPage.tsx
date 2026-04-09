@@ -6,6 +6,13 @@ import { Building2, TrendingDown, Wallet, Shield, Star, ArrowRight, CheckCircle 
 
 const SITE_URL = 'https://schitay-online.ru';
 
+const featureColorClasses: Record<string, { box: string; icon: string }> = {
+    amber: { box: 'bg-amber-500/10', icon: 'text-amber-400' },
+    blue: { box: 'bg-blue-500/10', icon: 'text-blue-400' },
+    emerald: { box: 'bg-emerald-500/10', icon: 'text-emerald-400' },
+    purple: { box: 'bg-purple-500/10', icon: 'text-purple-400' },
+};
+
 const faqItems = [
     {
         question: "Как сравнить ставки по ипотеке в разных банках?",
@@ -64,7 +71,7 @@ const BankComparisonPage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 md:py-20">
+        <div className="min-h-screen bg-slate-950 py-12 md:py-20">
             <SEO
                 title="Сравнение банков — ставки по ипотеке, вкладам, кредитам 2026"
                 description="Сравните ставки и условия банков России в одной таблице. Найдите лучшее предложение по ипотеке, вкладам, кредитам и дебетовым картам. Актуальные данные на апрель 2026."
@@ -75,14 +82,14 @@ const BankComparisonPage = () => {
             <div className="container mx-auto px-4">
                 {/* Hero */}
                 <div className="max-w-4xl mx-auto text-center mb-16">
-                    <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-bold mb-6">
+                    <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-bold mb-6">
                         <Building2 className="w-4 h-4" />
                         Актуальные предложения 2026
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tighter">
-                        Сравните <span className="text-blue-600">банки</span> за минуту
+                    <h1 className="text-4xl md:text-6xl font-black text-slate-100 mb-4 tracking-tighter">
+                        Сравните <span className="text-primary">банки</span> за минуту
                     </h1>
-                    <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+                    <p className="text-xl text-slate-300 max-w-2xl mx-auto">
                         Все ставки, условия и рейтинги — в одной таблице. Найдите лучшее предложение без визита в каждый банк.
                     </p>
                     <div className="mt-6">
@@ -97,16 +104,16 @@ const BankComparisonPage = () => {
 
                 {/* Features */}
                 <div className="max-w-5xl mx-auto mb-20">
-                    <h2 className="text-3xl font-black text-slate-900 mb-3 text-center">Почему это удобно</h2>
-                    <p className="text-slate-500 text-center mb-10">Экономьте время и деньги, сравнивая всё в одном месте</p>
+                    <h2 className="text-3xl font-black text-slate-100 mb-3 text-center">Почему это удобно</h2>
+                    <p className="text-slate-400 text-center mb-10">Экономьте время и деньги, сравнивая всё в одном месте</p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {features.map((f, i) => (
-                            <div key={i} className="bg-white rounded-2xl border border-slate-100 p-6 text-center hover:shadow-md hover:border-slate-200 transition-all">
-                                <div className={`w-12 h-12 bg-${f.color}-50 rounded-xl flex items-center justify-center mx-auto mb-4`}>
-                                    <f.icon className={`w-6 h-6 text-${f.color}-500`} />
+                            <div key={i} className="surface-card p-6 text-center">
+                                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 ${featureColorClasses[f.color].box}`}>
+                                    <f.icon className={`w-6 h-6 ${featureColorClasses[f.color].icon}`} />
                                 </div>
-                                <h3 className="font-bold text-slate-900 text-sm mb-1">{f.title}</h3>
-                                <p className="text-slate-500 text-xs">{f.desc}</p>
+                                <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{f.title}</h3>
+                                <p className="text-slate-500 dark:text-slate-400 text-xs">{f.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -114,15 +121,15 @@ const BankComparisonPage = () => {
 
                 {/* Benefits */}
                 <div className="max-w-3xl mx-auto mb-20">
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl border-2 border-blue-100 p-8 md:p-10">
-                        <h2 className="text-2xl font-black text-slate-900 mb-6 text-center">Что вы получаете</h2>
+                    <div className="surface-card p-8 md:p-10">
+                        <h2 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-6 text-center">Что вы получаете</h2>
                         <div className="space-y-4">
                             {benefits.map((item, i) => (
                                 <div key={i} className="flex items-center gap-4">
-                                    <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
                                         <CheckCircle className="w-4 h-4 text-white" />
                                     </div>
-                                    <span className="text-slate-700 font-medium">{item}</span>
+                                    <span className="text-slate-700 dark:text-slate-300 font-medium">{item}</span>
                                 </div>
                             ))}
                         </div>
@@ -131,15 +138,15 @@ const BankComparisonPage = () => {
 
                 {/* FAQ */}
                 <div className="max-w-5xl mx-auto mb-20">
-                    <h2 className="text-3xl font-black text-slate-900 mb-3 text-center">Частые вопросы</h2>
-                    <p className="text-slate-500 text-center mb-10">Ответы на главные вопросы о сравнении банков</p>
+                    <h2 className="text-3xl font-black text-slate-100 mb-3 text-center">Частые вопросы</h2>
+                    <p className="text-slate-400 text-center mb-10">Ответы на главные вопросы о сравнении банков</p>
                     <div className="space-y-3">
                         {faqItems.map((item, i) => (
-                            <details key={i} className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                                <summary className="p-5 cursor-pointer font-bold text-slate-900 flex items-center gap-3 list-none hover:bg-slate-50 transition-colors">
+                            <details key={i} className="surface-card rounded-2xl overflow-hidden">
+                                <summary className="p-5 cursor-pointer font-bold text-slate-900 dark:text-slate-100 flex items-center gap-3 list-none hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                                     {item.question}
                                 </summary>
-                                <div className="px-5 pb-5 text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                                <div className="px-5 pb-5 text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4">
                                     {item.answer}
                                 </div>
                             </details>
@@ -149,14 +156,14 @@ const BankComparisonPage = () => {
 
                 {/* CTA */}
                 <div className="max-w-4xl mx-auto mb-16">
-                    <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-3xl p-10 md:p-14 text-center text-white">
+                    <div className="hero-premium p-10 md:p-14 text-center">
                         <h2 className="text-2xl md:text-3xl font-black mb-4">Не нашли нужный продукт?</h2>
-                        <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto">
+                        <p className="text-slate-300 text-lg mb-8 max-w-xl mx-auto">
                             Воспользуйтесь нашими калькуляторами для детального расчёта под ваши условия
                         </p>
                         <a
                             href="/all"
-                            className="inline-flex items-center gap-2 bg-white text-blue-700 font-black text-lg py-4 px-10 rounded-2xl hover:bg-blue-50 hover:scale-105 transition-all"
+                            className="inline-flex items-center gap-2 bg-white text-slate-900 font-black text-lg py-4 px-10 rounded-2xl hover:bg-slate-100 hover:scale-105 transition-all"
                         >
                             Все калькуляторы
                             <ArrowRight className="w-5 h-5" />

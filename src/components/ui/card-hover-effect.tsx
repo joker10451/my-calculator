@@ -23,7 +23,7 @@ export const HoverEffect = ({
     return (
         <div
             className={cn(
-                "grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 py-6",
+                "grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 py-4 md:py-6",
                 className
             )}
         >
@@ -52,7 +52,7 @@ export const HoverEffect = ({
                             />
                         )}
                     </AnimatePresence>
-                    <HoverCard>
+                    <HoverCard className="min-h-[210px]">
                         <div className="flex items-start gap-4">
                             {item.icon && (
                                 <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0", item.bgColor)}>

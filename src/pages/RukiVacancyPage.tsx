@@ -40,21 +40,21 @@ export default function RukiVacancyPage() {
         <link rel="canonical" href={`${SITE_URL}/ruki-masters/`} />
       </Helmet>
 
-      <div className="min-h-screen flex flex-col bg-slate-50">
+      <div className="min-h-screen flex flex-col bg-slate-950">
         <Header />
         <main id="main-content" className="flex-1 pt-16">
           <section className="section-shell pt-4 md:pt-6">
-            <div className="max-w-6xl mx-auto rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 p-6 md:p-10 text-white shadow-xl">
+            <div className="hero-premium">
               <p className="inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-bold">Для мастеров</p>
-              <h1 className="mt-3 text-3xl md:text-5xl font-black leading-tight">
+              <h1 className="hero-title">
                 {heroTitle}
               </h1>
-              <p className="mt-4 max-w-3xl text-slate-200 text-base md:text-lg">
+              <p className="hero-lead">
                 Подходит мастерам по межкомнатным дверям и сборке кухонь. Выбирайте комфортный формат и
                 подключайтесь к потоку заказов.
               </p>
 
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="hero-actions">
                 <AffiliateLink
                   href={OFFER.url}
                   partnerName={OFFER.bankId}
@@ -80,31 +80,31 @@ export default function RukiVacancyPage() {
             <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-4">
               <div className="surface-card p-5">
                 <Wrench className="w-5 h-5 text-primary" />
-                <h2 className="mt-3 font-black text-slate-900">Заказы по профилю</h2>
-                <p className="mt-2 text-sm text-slate-600">Работы по установке дверей и сборке кухонь.</p>
+                <h2 className="mt-3 font-black text-slate-900 dark:text-slate-100">Заказы по профилю</h2>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Работы по установке дверей и сборке кухонь.</p>
               </div>
               <div className="surface-card p-5">
                 <Clock3 className="w-5 h-5 text-primary" />
-                <h2 className="mt-3 font-black text-slate-900">Гибкий формат</h2>
-                <p className="mt-2 text-sm text-slate-600">Можно выбирать удобную загрузку и режим работы.</p>
+                <h2 className="mt-3 font-black text-slate-900 dark:text-slate-100">Гибкий формат</h2>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Можно выбирать удобную загрузку и режим работы.</p>
               </div>
               <div className="surface-card p-5">
                 <ShieldCheck className="w-5 h-5 text-primary" />
-                <h2 className="mt-3 font-black text-slate-900">Понятные условия</h2>
-                <p className="mt-2 text-sm text-slate-600">Прозрачные этапы оформления и правила сервиса.</p>
+                <h2 className="mt-3 font-black text-slate-900 dark:text-slate-100">Понятные условия</h2>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Прозрачные этапы оформления и правила сервиса.</p>
               </div>
             </div>
 
             <div className="max-w-6xl mx-auto mt-7 surface-card p-6 md:p-8">
-              <h3 className="text-2xl md:text-3xl font-black text-slate-900">Кому подойдёт</h3>
-              <div className="mt-4 grid md:grid-cols-2 gap-3 text-slate-700">
+              <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100">Кому подойдёт</h3>
+              <div className="mt-4 grid md:grid-cols-2 gap-3 text-slate-700 dark:text-slate-300">
                 {[
                   "Мастерам с опытом от 1 года",
                   "Тем, у кого есть рабочий смартфон и инструмент",
                   "Тем, кто ищет подработку или полную загрузку",
                   "Тем, кто работает по Москве",
                 ].map((item) => (
-                  <p key={item} className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm">
+                  <p key={item} className="surface-muted px-4 py-3 text-sm">
                     <CheckCircle2 className="inline-block w-4 h-4 mr-2 text-emerald-600" />
                     {item}
                   </p>
