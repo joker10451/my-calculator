@@ -49,15 +49,28 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
   
   // ПСБ - Дебетовая карта "Зарплатные привилегии"
   'psb-debit-cashback': {
+    url: 'https://trk.ppdu.ru/click/dvGuYeFM?erid=2SDnje44eET&siteId=15645',
+    bankId: 'psb',
+    productType: 'debit',
+    erid: '2SDnje44eET',
+    commission: 1633,
+    description: 'ПСБ «Твой кешбэк»: бесплатная дебетовая карта + сертификат Пятёрочка 1 000 ₽ по условиям акции',
+    title: 'ПСБ — дебетовая карта «Твой кешбэк»',
+    category: 'debit',
+    badges: ['25% кешбэк', 'Сертификат 1 000 ₽', 'Бесплатно'],
+    priority: 94,
+  },
+  'psb-debit-cashback-legacy': {
     url: 'https://trk.ppdu.ru/click/4wXDM0Um?erid=2SDnjehD1C8',
     bankId: 'psb',
     productType: 'debit',
+    erid: '2SDnjehD1C8',
     commission: 1633,
-    description: 'Дебетовая карта "Зарплатные привилегии" ПСБ',
-    title: 'Дебетовая карта ПСБ с кэшбэком',
+    description: 'ПСБ: дебетовая карта с кешбэком (предыдущий оффер)',
+    title: 'ПСБ — дебетовая карта (архивный оффер)',
     category: 'debit',
-    badges: ['Кэшбэк'],
-    priority: 75,
+    badges: ['Кешбэк', 'Legacy'],
+    priority: 83,
   },
   
   // Т-Банк - Дебетовая карта ALL Airlines

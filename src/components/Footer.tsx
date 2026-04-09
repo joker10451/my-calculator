@@ -19,6 +19,7 @@ const Footer = () => {
     { name: "Расход топлива", href: "/calculator/fuel/" },
     { name: "Расчёт ЖКХ", href: "/calculator/utilities/" },
     { name: "Сравнение банков", href: "/compare-banks/" },
+    { name: "Каталог предложений", href: "/offers/" },
   ];
 
   const legal = [

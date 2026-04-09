@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
@@ -39,8 +40,18 @@ function asOffers(): Offer[] {
 }
 
 export default function OffersCatalogPage() {
-  const [category, setCategory] = useState<Category | 'all'>('all');
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get('category');
+  const queryFromUrl = searchParams.get('q') || '';
+  const initialCategory: Category | 'all' = (
+    categoryFromUrl &&
+    ['mortgage', 'credit', 'debit', 'deposit', 'loan', 'insurance', 'vacancies', 'other'].includes(categoryFromUrl)
+  )
+    ? (categoryFromUrl as Category)
+    : 'all';
+
+  const [category, setCategory] = useState<Category | 'all'>(initialCategory);
+  const [query, setQuery] = useState(queryFromUrl);
   const [baseline] = useState(() => getUxBaselineSnapshot());
 
   const allOffers = useMemo(() => {
@@ -104,6 +115,13 @@ export default function OffersCatalogPage() {
       });
     }
   }, [query]);
+
+  useEffect(() => {
+    const nextParams = new URLSearchParams();
+    if (category !== 'all') nextParams.set('category', category);
+    if (query.trim()) nextParams.set('q', query.trim());
+    setSearchParams(nextParams, { replace: true });
+  }, [category, query, setSearchParams]);
 
   const clearFilters = () => {
     setCategory('all');

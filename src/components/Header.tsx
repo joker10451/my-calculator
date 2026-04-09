@@ -108,6 +108,12 @@ const Header = () => {
             >
               Блог
             </Link>
+            <Link
+              to="/offers"
+              className="px-3 py-1.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+            >
+              Предложения
+            </Link>
             <Link to="/compare" className="relative p-2 text-muted-foreground hover:text-primary transition-colors">
               <Scale className="w-4 h-4" />
               {items.length > 0 && (
@@ -211,6 +217,13 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Блог
+              </Link>
+              <Link
+                to="/offers"
+                className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Предложения
               </Link>
             </nav>
           </div>
