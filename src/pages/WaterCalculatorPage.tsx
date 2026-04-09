@@ -1,5 +1,7 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import WaterCalculator from "@/components/calculators/WaterCalculator";
+import { Link } from "react-router-dom";
 
 const WaterCalculatorPage = () => {
     const faqItems = [
@@ -27,6 +29,23 @@ const WaterCalculatorPage = () => {
             categoryHref="/category/personal"
             faqItems={faqItems}
             calculator={<WaterCalculator />}
+            afterCalculator={
+                <div className="space-y-4">
+                    <OffersBlock
+                        product="insurance"
+                        placement="result_block"
+                        title="Дополнительная защита здоровья"
+                        subtitle="Актуальные страховые программы для тех, кто часто проводит время на природе."
+                    />
+                    <div className="text-sm text-slate-600">
+                        Посмотреть целевой оффер:{" "}
+                        <Link to="/offers?category=insurance&q=клещ" className="font-semibold text-primary hover:underline">
+                            страхование от укуса клеща
+                        </Link>
+                        .
+                    </div>
+                </div>
+            }
         />
     );
 };

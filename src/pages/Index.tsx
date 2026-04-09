@@ -51,6 +51,13 @@ const Index = () => {
                   <p className="text-slate-600 mt-2">
                     Собрали актуальные партнёрские предложения в одном месте: карты, займы, страхование и вакансии.
                   </p>
+                  <p className="text-sm text-slate-500 mt-2">
+                    Для мастеров по ремонту есть отдельная подборка:{" "}
+                    <Link to="/offers?category=vacancies&q=руки" className="font-semibold text-primary hover:underline">
+                      вакансии «Сервис Руки»
+                    </Link>
+                    .
+                  </p>
                 </div>
                 <Link
                   to="/offers"

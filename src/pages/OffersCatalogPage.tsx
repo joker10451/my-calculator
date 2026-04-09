@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
-import { getUxBaselineSnapshot, trackUxEvent } from '@/lib/analytics/uxMetrics';
+import { trackUxEvent } from '@/lib/analytics/uxMetrics';
 
 type Category = NonNullable<(typeof AFFILIATE_LINKS)[string]['category']>;
 
@@ -23,7 +23,7 @@ type Offer = {
   updatedAt?: string;
   eligibility?: string[];
   restrictions?: string[];
-  payoutTerms?: string;
+  publicDetails?: string;
   priority?: number;
 };
 
@@ -42,7 +42,7 @@ function asOffers(): Offer[] {
     updatedAt: o.updatedAt,
     eligibility: o.eligibility,
     restrictions: o.restrictions,
-    payoutTerms: o.payoutTerms,
+    publicDetails: o.publicDetails,
     priority: o.priority,
   }));
 }
@@ -61,7 +61,6 @@ export default function OffersCatalogPage() {
   const [category, setCategory] = useState<Category | 'all'>(initialCategory);
   const [query, setQuery] = useState(queryFromUrl);
   const deferredQuery = useDeferredValue(query);
-  const [baseline] = useState(() => getUxBaselineSnapshot());
 
   const allOffers = useMemo(() => {
     const offers = asOffers()
@@ -171,10 +170,6 @@ export default function OffersCatalogPage() {
             </p>
           </div>
 
-          <div className="mb-6 rounded-2xl border border-slate-200 bg-white/80 p-4 text-xs text-slate-600">
-            Baseline UX: событий {baseline.totalUxEvents}, зафиксировано {baseline.capturedAt.slice(0, 10)}.
-          </div>
-
           <div className="bg-white rounded-3xl border border-slate-200 p-5 md:p-6 shadow-sm mb-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
@@ -213,16 +208,25 @@ export default function OffersCatalogPage() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filtered.map((o) => (
-              <div key={o.id} className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col">
+              <article
+                key={o.id}
+                className="bg-white rounded-3xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow flex h-full flex-col"
+              >
                 <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="text-lg font-black text-slate-900">{o.title}</div>
-                    {o.description && <div className="text-slate-600 mt-1">{o.description}</div>}
+                  <div className="min-w-0">
+                    <h2 className="text-base md:text-lg font-black text-slate-900 leading-tight">
+                      {o.title}
+                    </h2>
+                    {o.description && (
+                      <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                        {o.description}
+                      </p>
+                    )}
                   </div>
                   {typeof o.commission === 'number' && o.commission > 0 && (
-                    <div className="text-xs font-black bg-emerald-50 text-emerald-700 px-3 py-2 rounded-full border border-emerald-200">
+                    <div className="shrink-0 text-xs font-black bg-emerald-50 text-emerald-700 px-3 py-2 rounded-full border border-emerald-200">
                       до {o.commission.toLocaleString('ru-RU')} ₽
                     </div>
                   )}
@@ -233,7 +237,7 @@ export default function OffersCatalogPage() {
                     {o.badges.slice(0, 5).map((b) => (
                       <span
                         key={b}
-                        className="text-xs font-bold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full"
+                        className="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full"
                       >
                         {b}
                       </span>
@@ -241,24 +245,33 @@ export default function OffersCatalogPage() {
                   </div>
                 )}
 
-                {(o.eligibility?.length || o.restrictions?.length || o.payoutTerms || o.updatedAt) && (
-                  <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs text-slate-600 space-y-2">
+                {(o.eligibility?.length || o.restrictions?.length || o.publicDetails || o.updatedAt) && (
+                  <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-3 text-xs text-slate-700 space-y-2">
                     {o.updatedAt && (
-                      <div>Актуализация: {o.updatedAt}</div>
+                      <div>
+                        <span className="font-semibold text-slate-800">Актуализация:</span> {o.updatedAt}
+                      </div>
                     )}
                     {o.eligibility && o.eligibility.length > 0 && (
-                      <div>Кому подходит: {o.eligibility.slice(0, 2).join(' • ')}</div>
+                      <div>
+                        <span className="font-semibold text-slate-800">Кому подходит:</span>{' '}
+                        {o.eligibility.slice(0, 2).join(' • ')}
+                      </div>
                     )}
                     {o.restrictions && o.restrictions.length > 0 && (
-                      <div>Ограничения: {o.restrictions[0]}</div>
+                      <div>
+                        <span className="font-semibold text-slate-800">Ограничения:</span> {o.restrictions[0]}
+                      </div>
                     )}
-                    {o.payoutTerms && (
-                      <div>Условия: {o.payoutTerms}</div>
+                    {o.publicDetails && (
+                      <div>
+                        <span className="font-semibold text-slate-800">Условия:</span> {o.publicDetails}
+                      </div>
                     )}
                   </div>
                 )}
 
-                <div className="mt-6">
+                <div className="mt-5 border-t border-slate-100 pt-4">
                   <AffiliateCTA
                     href={o.url}
                     partnerName={o.bankId}
@@ -271,7 +284,7 @@ export default function OffersCatalogPage() {
                     showAdLabel={Boolean(o.erid)}
                   />
                 </div>
-              </div>
+              </article>
             ))}
           </div>
 

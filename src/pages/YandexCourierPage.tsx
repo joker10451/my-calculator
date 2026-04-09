@@ -4,6 +4,7 @@ import { AffiliateLink } from '@/components/AffiliateLink';
 import { SEO, generateFAQSchema } from '@/components/SEO';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
 import { generateHowToSchema } from '@/utils/seoSchemas';
+import { Link } from 'react-router-dom';
 
 const SITE_URL = 'https://schitay-online.ru';
 const OFFER_KEY = 'pampadu-offer-31ba9c13';
@@ -400,6 +401,12 @@ export default function YandexCourierPage() {
         <div className="max-w-4xl mx-auto text-center text-xs text-slate-400 pb-8">
           <p>Набор ведётся к партнёру сервиса Яндекс.Еда/Яндекс.Лавка, а не в сервис напрямую.</p>
           {OFFER.erid && <p className="mt-1">Реклама • erid: {OFFER.erid}</p>}
+          <p className="mt-2">
+            Ищете другую вакансию?{" "}
+            <Link to="/offers?category=vacancies&q=руки" className="text-slate-500 hover:text-slate-300 underline">
+              Смотреть оффер «Сервис Руки»
+            </Link>
+          </p>
         </div>
       </div>
     </div>

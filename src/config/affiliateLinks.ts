@@ -16,7 +16,8 @@ export interface AffiliateLink {
   updatedAt?: string; // дата последней актуализации условий
   eligibility?: string[]; // ключевые требования/кому подходит
   restrictions?: string[]; // важные ограничения
-  payoutTerms?: string; // краткие условия/срок выплаты
+  publicDetails?: string; // краткие условия для пользователя (показываются на сайте)
+  internalNotes?: string; // служебные заметки для аналитики (не показываются в UI)
   priority?: number; // ручная сортировка: больше = выше
 }
 
@@ -32,13 +33,13 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     productType: 'mortgage', // Укажите тип продукта: 'mortgage', 'deposit', 'credit'
     erid: '2SDnjehD1C8',
     commission: 0, // Укажите вашу комиссию в рублях
-    description: 'Подбор ипотечных предложений от партнёров в одном месте',
+    description: 'Подбор ипотечных программ в одном месте',
     title: 'Подобрать ипотеку онлайн',
     category: 'mortgage',
     badges: ['Онлайн', 'Подбор предложений'],
     updatedAt: '2026-04-08',
     eligibility: ['Подходит для подбора ипотечных программ', 'Онлайн-оформление'],
-    payoutTerms: 'Условия зависят от выбранного партнёра',
+    publicDetails: 'Условия зависят от выбранной программы',
     priority: 80,
   },
   
@@ -53,7 +54,7 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     badges: ['Онлайн', 'Льготный период'],
     updatedAt: '2026-04-08',
     eligibility: ['Для клиентов 18+', 'Требуется подтверждение банком'],
-    payoutTerms: 'Решение и выдача по правилам банка-партнёра',
+    publicDetails: 'Решение и выдача по правилам банка',
     priority: 95,
   },
   
@@ -71,7 +72,7 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     updatedAt: '2026-04-08',
     eligibility: ['18+', 'Резиденты РФ', 'Новые клиенты ПСБ по условиям акции'],
     restrictions: ['Сертификат при выполнении условий акции', 'Ограничения по MCC и СБП'],
-    payoutTerms: 'ЦД: выдача карты + транзакция по условиям оффера',
+    publicDetails: 'Бонусы и акции действуют при выполнении условий банка',
     priority: 94,
   },
   'psb-debit-cashback-legacy': {
@@ -80,13 +81,13 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     productType: 'debit',
     erid: '2SDnjehD1C8',
     commission: 1633,
-    description: 'ПСБ: дебетовая карта с кешбэком (предыдущий оффер)',
-    title: 'ПСБ — дебетовая карта (архивный оффер)',
+    description: 'ПСБ: дебетовая карта с кешбэком (предыдущее предложение)',
+    title: 'ПСБ — дебетовая карта (архивное предложение)',
     category: 'debit',
     badges: ['Кешбэк', 'Legacy'],
     updatedAt: '2026-04-08',
     eligibility: ['18+', 'Резиденты РФ'],
-    payoutTerms: 'Архивный оффер, условия уточняются в карточке партнёра',
+    publicDetails: 'Архивное предложение, актуальные условия — на странице оформления',
     priority: 83,
   },
   
@@ -102,7 +103,7 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     badges: ['Мили', 'Промокод'],
     updatedAt: '2026-04-08',
     eligibility: ['18+', 'Онлайн-заявка'],
-    payoutTerms: 'Условия начисления бонусов по правилам партнёра',
+    publicDetails: 'Условия начисления бонусов — по правилам банка',
     priority: 70,
   },
 
@@ -119,8 +120,23 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     updatedAt: '2026-04-08',
     eligibility: ['Подходит для долгосрочных накоплений', 'Взнос от 100 000 ₽'],
     restrictions: ['Срок программы от 5 лет'],
-    payoutTerms: 'Выплата в конце срока договора',
+    publicDetails: 'Выплата по программе производится в конце срока договора',
     priority: 93,
+  },
+  'pari-tick-insurance': {
+    url: 'https://trk.ppdu.ru/click/59pVcHwy?erid=2SDnjd4N5RD',
+    bankId: 'pari',
+    productType: 'insurance',
+    erid: '2SDnjd4N5RD',
+    description: 'СК ПАРИ «КлещOff»: страхование от укуса клеща с покрытием до 1 млн ₽',
+    title: 'СК ПАРИ — страхование от укуса клеща',
+    category: 'insurance',
+    badges: ['Здоровье', 'РФ', 'Покрытие 1 млн ₽'],
+    updatedAt: '2026-04-08',
+    eligibility: ['Возраст от 1 до 80 лет', 'ГЕО: Россия'],
+    restrictions: ['Не покрываются услуги без медицинских показаний и иные исключения программы'],
+    publicDetails: 'Оформление и оплата полиса онлайн на сайте страховой компании',
+    priority: 91,
   },
 
   // Pampadu offer (из кабинета)
@@ -130,14 +146,31 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     productType: 'vacancies',
     erid: 'CQH36pWzJqVGXC5oLP8WVVNCNqJmbhiUPijGiu4zpwPd7G',
     description: 'Курьер в Яндекс.Еда/Яндекс.Лавка (РФ/РБ) — трудоустройство + активность',
-    title: 'Курьер Яндекс.Еда/Яндекс.Лавка — оффер Pampadu',
+    title: 'Курьер Яндекс.Еда/Яндекс.Лавка',
     category: 'vacancies',
     badges: ['Вакансии', 'РФ/РБ', 'До 9 750 ₽'],
     updatedAt: '2026-04-08',
     eligibility: ['Возраст и условия зависят от города', 'Android/iOS с актуальной версией'],
-    restrictions: ['Оплачиваются только целевые действия по правилам оффера'],
-    payoutTerms: 'ЦД: трудоустройство + активность по условиям партнёра',
+    restrictions: ['Условия трудоустройства и активностей зависят от города'],
+    publicDetails: 'Оформление и дальнейшие этапы — по правилам сервиса',
+    internalNotes: 'Конверсии выгружаются вручную: пн/ср/пт',
     priority: 92,
+  },
+  'ruki-vacancy-moscow': {
+    url: 'https://trk.ppdu.ru/click/zWDbY2Cd?erid=2SDnjceSYW1',
+    bankId: 'ruki',
+    productType: 'vacancies',
+    erid: '2SDnjceSYW1',
+    description: 'Сервис «Руки»: вакансии мастеров по ремонту (двери/кухни), Москва',
+    title: 'Сервис «Руки» — подключение мастеров',
+    category: 'vacancies',
+    badges: ['Вакансии', 'Москва', 'Трудоустройство', 'До 6 400 ₽'],
+    updatedAt: '2026-04-08',
+    eligibility: ['Мужчины 18+', 'Опыт от 1 года', 'Смартфон и инструменты'],
+    restrictions: ['ГЕО: Москва', 'Необходимо записаться на собеседование'],
+    publicDetails: 'После заявки нужно пройти собеседование и подключение к сервису',
+    internalNotes: 'ГЕО: Москва, холд 30 дней',
+    priority: 90,
   },
 
   // JoyMoney
@@ -152,8 +185,8 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     badges: ['Первый займ 0%', 'Онлайн'],
     updatedAt: '2026-04-08',
     eligibility: ['Паспорт РФ', 'Совершеннолетние клиенты'],
-    restrictions: ['Условия одобрения определяются партнером'],
-    payoutTerms: 'Срок и сумма зависят от анкеты клиента',
+    restrictions: ['Условия одобрения определяются компанией'],
+    publicDetails: 'Срок и сумма зависят от анкеты клиента',
     priority: 89,
   },
   

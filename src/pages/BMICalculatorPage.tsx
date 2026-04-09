@@ -1,5 +1,7 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import BMICalculator from "@/components/calculators/BMICalculator";
+import { Link } from "react-router-dom";
 
 const BMICalculatorPage = () => {
     const faqItems = [
@@ -27,6 +29,23 @@ const BMICalculatorPage = () => {
             categoryHref="/category/personal"
             faqItems={faqItems}
             calculator={<BMICalculator />}
+            afterCalculator={
+                <div className="space-y-4">
+                    <OffersBlock
+                        product="insurance"
+                        placement="result_block"
+                        title="Полезные страховые предложения"
+                        subtitle="Если часто бываете на природе, посмотрите актуальные программы защиты здоровья."
+                    />
+                    <div className="text-sm text-slate-600">
+                        Точечная подборка по теме:{" "}
+                        <Link to="/offers?category=insurance&q=клещ" className="font-semibold text-primary hover:underline">
+                            офферы по защите от укуса клеща
+                        </Link>
+                        .
+                    </div>
+                </div>
+            }
         />
     );
 };

@@ -1,5 +1,7 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import CalorieCalculator from "@/components/calculators/CalorieCalculator";
+import { Link } from "react-router-dom";
 
 const CalorieCalculatorPage = () => {
     const faqItems = [
@@ -27,6 +29,23 @@ const CalorieCalculatorPage = () => {
             categoryHref="/category/personal"
             faqItems={faqItems}
             calculator={<CalorieCalculator />}
+            afterCalculator={
+                <div className="space-y-4">
+                    <OffersBlock
+                        product="insurance"
+                        placement="result_block"
+                        title="Страхование здоровья"
+                        subtitle="Подберите программы страховой защиты для активного отдыха и путешествий."
+                    />
+                    <div className="text-sm text-slate-600">
+                        Быстрый переход:{" "}
+                        <Link to="/offers?category=insurance&q=клещ" className="font-semibold text-primary hover:underline">
+                            защита от укуса клеща
+                        </Link>
+                        .
+                    </div>
+                </div>
+            }
         />
     );
 };

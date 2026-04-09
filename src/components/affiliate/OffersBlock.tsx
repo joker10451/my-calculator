@@ -26,12 +26,14 @@ const OFFERS_BY_PRODUCT: Record<string, OfferKeyConfig[]> = {
   ],
   insurance: [
     { key: 'renlife-guaranteed-income', label: 'НСЖ “Гарантированный доход”', partnerName: 'renlife', productType: 'insurance' },
+    { key: 'pari-tick-insurance', label: 'СК ПАРИ — защита от клеща', partnerName: 'pari', productType: 'insurance' },
   ],
   loan: [
     { key: 'joymoney-loan', label: 'JoyMoney — займ онлайн', partnerName: 'joymoney', productType: 'loan' },
   ],
   vacancies: [
     { key: 'pampadu-offer-31ba9c13', label: 'Курьер Яндекс.Еда/Лавка', partnerName: 'pampadu', productType: 'vacancies' },
+    { key: 'ruki-vacancy-moscow', label: 'Сервис «Руки» — мастера по ремонту', partnerName: 'ruki', productType: 'vacancies' },
   ],
 };
 
@@ -109,10 +111,9 @@ export function OffersBlock({
           <div key={cfg.key} className="rounded-2xl border border-slate-200 p-4 flex flex-col">
             <div className="font-bold text-slate-900">{cfg.label}</div>
             {link.description && <div className="text-sm text-slate-600 mt-1">{link.description}</div>}
-            {(link.updatedAt || link.payoutTerms) && (
+            {link.updatedAt && (
               <div className="mt-2 text-xs text-slate-500 space-y-1">
                 {link.updatedAt && <div>Актуально: {link.updatedAt}</div>}
-                {link.payoutTerms && <div>Условия: {link.payoutTerms}</div>}
               </div>
             )}
 

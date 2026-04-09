@@ -99,9 +99,9 @@ const OFFERS_BRIDGE_MAP: Record<string, { href: string; label: string; subtitle:
     subtitle: 'Инструменты для оптимизации расходов',
   },
   'health-fitness': {
-    href: '/offers?category=insurance',
-    label: 'Страховые предложения',
-    subtitle: 'Подборка по тематике здоровья и защиты',
+    href: '/offers?category=insurance&q=клещ',
+    label: 'Страхование от укуса клеща',
+    subtitle: 'Целевая подборка для поездок, природы и активного отдыха',
   },
   'auto-transport': {
     href: '/offers?category=insurance',
