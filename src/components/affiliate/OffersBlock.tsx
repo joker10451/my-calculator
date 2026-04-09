@@ -15,21 +15,14 @@ interface OfferKeyConfig {
 
 const OFFERS_BY_PRODUCT: Record<string, OfferKeyConfig[]> = {
   mortgage: [
-    { key: 'sberbank-mortgage', label: 'Подобрать ипотеку (Сбер)', partnerName: 'sberbank', productType: 'mortgage' },
-    { key: 'vtb-mortgage', label: 'Подобрать ипотеку (ВТБ)', partnerName: 'vtb', productType: 'mortgage' },
     { key: 'partner-promo-1', label: 'Подобрать предложения', partnerName: 'partner', productType: 'mortgage' },
   ],
   credit: [
     { key: 'vtb-credit-card', label: 'Оформить карту (ВТБ)', partnerName: 'vtb', productType: 'credit' },
-    { key: 'psb-debit-cashback', label: 'Карта с кэшбэком (ПСБ)', partnerName: 'psb', productType: 'debit' },
   ],
-  deposit: [
-    { key: 'sberbank-deposit', label: 'Открыть вклад (Сбер)', partnerName: 'sberbank', productType: 'deposit' },
-  ],
+  deposit: [],
   insurance: [
     { key: 'renlife-guaranteed-income', label: 'НСЖ “Гарантированный доход”', partnerName: 'renlife', productType: 'insurance' },
-    { key: 'pampadu-osago', label: 'Рассчитать ОСАГО онлайн', partnerName: 'pampadu', productType: 'insurance' },
-    { key: 'pampadu-kasko', label: 'Рассчитать КАСКО онлайн', partnerName: 'pampadu', productType: 'insurance' },
   ],
 };
 
@@ -44,7 +37,7 @@ export function OffersBlock({
   product,
   placement = 'result_block',
   title = 'Предложения по вашему расчёту',
-  subtitle = 'Выберите подходящий вариант и продолжите оформление на сайте партнёра.',
+  subtitle = 'Выберите подходящий вариант среди партнёрских предложений.',
 }: OffersBlockProps) {
   const ctaVariant = useMemo<'a' | 'b'>(() => {
     const key = `ab_cta_${product}`;
@@ -116,7 +109,7 @@ export function OffersBlock({
                 offerId={cfg.key}
                 placement={placement}
                 erid={link.erid}
-                label={ctaVariant === 'a' ? 'Перейти' : 'Смотреть условия'}
+                label={ctaVariant === 'a' ? 'Подробнее' : 'Смотреть условия'}
                 variant="primary"
                 showAdLabel={Boolean(link.erid)}
                 abVariant={ctaVariant}

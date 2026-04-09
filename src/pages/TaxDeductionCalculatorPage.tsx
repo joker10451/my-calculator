@@ -72,7 +72,7 @@ export default function TaxDeductionCalculatorPage() {
                             product="insurance"
                             placement="result_block"
                             title="Как увеличить выгоду после вычета"
-                            subtitle="Некоторые программы накоплений позволяют дополнительно использовать налоговые льготы. Перейдите на сайт партнёра, чтобы посмотреть условия."
+                            subtitle="Некоторые программы накоплений позволяют дополнительно использовать налоговые льготы. Изучите условия партнёрских предложений."
                         />
                         <TrustInfoBlock
                             page="/calculator/tax-deduction"

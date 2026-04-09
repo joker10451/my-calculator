@@ -1,4 +1,5 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import OSAGOCalculator from "@/components/calculators/OSAGOCalculator";
 import { Car, Calculator, TrendingDown, MapPin, Zap, Shield } from "lucide-react";
 
@@ -58,6 +59,14 @@ const OSAGOCalculatorPage = () => {
             categoryHref="/category/transport"
             faqItems={faqItems}
             calculator={<OSAGOCalculator />}
+            afterCalculator={
+                <OffersBlock
+                    product="insurance"
+                    placement="result_block"
+                    title="Подходящие страховые офферы"
+                    subtitle="Сравните предложения по ОСАГО/КАСКО и изучите условия партнёров."
+                />
+            }
             features={features}
             howToUseSteps={howToUseSteps}
         />

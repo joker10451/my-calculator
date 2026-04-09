@@ -40,7 +40,7 @@ const BANKS: BankOffer[] = [
     features: ['Онлайн-заявка', 'Досрочное погашение', 'Материнский капитал', 'Военная ипотека'],
     description: 'Крупнейший банк России с разветвлённой сетью отделений и онлайн-сервисами.',
     rating: 4.2,
-    referralLink: 'https://www.sberbank.ru/ru/credits/mortgage',
+    referralLink: '',
   },
   {
     bankName: 'ВТБ',
@@ -54,7 +54,7 @@ const BANKS: BankOffer[] = [
     features: ['Ипотека без первоначального взноса', 'Семейная ипотека', 'Онлайн-заявка'],
     description: 'Второй по величине банк России с выгодными программами ипотеки.',
     rating: 4.0,
-    referralLink: 'https://www.vtb.ru/personal/ipoteka/',
+    referralLink: '',
   },
   {
     bankName: 'Альфа-Банк',
@@ -68,7 +68,7 @@ const BANKS: BankOffer[] = [
     features: ['Быстрое одобрение', 'Онлайн-заявка', 'Без справок о доходах'],
     description: 'Крупнейший частный банк России с быстрым одобрением заявок.',
     rating: 4.3,
-    referralLink: 'https://alfabank.ru/mortgage/',
+    referralLink: '',
   },
   {
     bankName: 'Т-Банк',
@@ -82,7 +82,7 @@ const BANKS: BankOffer[] = [
     features: ['Полностью онлайн', 'Без визита в офис', 'Кэшбэк на покупки'],
     description: 'Цифровой банк без отделений — всё оформляется онлайн.',
     rating: 4.5,
-    referralLink: 'https://www.tbank.ru/mortgage/',
+    referralLink: '',
   },
   {
     bankName: 'Газпромбанк',
@@ -96,7 +96,7 @@ const BANKS: BankOffer[] = [
     features: ['Семейная ипотека', 'IT-ипотека', 'Военная ипотека'],
     description: 'Универсальный банк с льготными программами ипотеки.',
     rating: 4.1,
-    referralLink: 'https://www.gazprombank.ru/personal/credits/mortgage/',
+    referralLink: '',
   },
 ];
 

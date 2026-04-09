@@ -1,10 +1,13 @@
 import { useState, useMemo } from 'react';
 import { Bike, Wallet, Clock, MapPin, Shield, TrendingUp, CheckCircle, ArrowRight, Star, Phone, ChevronRight } from 'lucide-react';
+import { AffiliateLink } from '@/components/AffiliateLink';
 import { SEO, generateFAQSchema } from '@/components/SEO';
+import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
 import { generateHowToSchema } from '@/utils/seoSchemas';
 
 const SITE_URL = 'https://schitay-online.ru';
-const REFERRAL_LINK = 'https://trk.ppdu.ru/click/o6eCET0k?erid=CQH36pWzJqVGXC5oLP8WVVNCNqJmbhiUPijGiu4zpwPd7G';
+const OFFER_KEY = 'pampadu-offer-31ba9c13';
+const OFFER = AFFILIATE_LINKS[OFFER_KEY];
 
 interface IncomeResult {
   dailyIncome: number;
@@ -136,15 +139,19 @@ function CourierIncomeCalculator() {
           )}
         </div>
 
-        <a
-          href={REFERRAL_LINK}
+        <AffiliateLink
+          href={OFFER.url}
+          partnerName={OFFER.bankId}
+          productType={OFFER.productType || 'vacancies'}
+          offerId={OFFER_KEY}
+          placement="result_block"
           target="_blank"
           rel="noopener noreferrer"
           className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-black text-lg py-4 rounded-2xl hover:from-blue-700 hover:to-blue-800 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-blue-200/50"
         >
           Стать курьером
           <ArrowRight className="w-5 h-5" />
-        </a>
+        </AffiliateLink>
       </div>
     </div>
   );
@@ -163,7 +170,7 @@ export default function YandexCourierPage() {
     'Пошаговая инструкция по регистрации курьером в Яндекс.Еда / Яндекс.Лавка',
     `${SITE_URL}/courier-yandex`,
     [
-      { name: 'Перейдите на сайт', text: 'Нажмите «Стать курьером» и перейдите на сайт Яндекс.Еда', url: `${SITE_URL}/courier-yandex#start` },
+      { name: 'Откройте форму', text: 'Нажмите «Стать курьером» и заполните анкету', url: `${SITE_URL}/courier-yandex#start` },
       { name: 'Зарегистрируйтесь', text: 'Заполните заявку и выберите тип доставки (пеший, вело, авто)', url: `${SITE_URL}/courier-yandex#register` },
       { name: 'Заберите сумку', text: 'Придите в курьерский центр и получите термосумку', url: `${SITE_URL}/courier-yandex#bag` },
       { name: 'Начните зарабатывать', text: 'Выполняйте заказы и получайте ежедневные выплаты', url: `${SITE_URL}/courier-yandex#earn` },
@@ -197,15 +204,19 @@ export default function YandexCourierPage() {
             <p className="text-xl md:text-2xl font-medium mb-8 max-w-2xl mx-auto opacity-90">
               Доход до 8 500 ₽ в день. Свободное расписание. Ежедневные выплаты.
             </p>
-            <a
-              href={REFERRAL_LINK}
+            <AffiliateLink
+              href={OFFER.url}
+              partnerName={OFFER.bankId}
+              productType={OFFER.productType || 'vacancies'}
+              offerId={OFFER_KEY}
+              placement="hero"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-slate-900 text-white font-black text-xl py-5 px-12 rounded-2xl hover:bg-slate-800 hover:scale-105 transition-all shadow-2xl"
             >
               Стать курьером
               <ArrowRight className="w-6 h-6" />
-            </a>
+            </AffiliateLink>
             <p className="text-sm mt-4 opacity-70">Регистрация через партнёра сервиса</p>
           </div>
         </div>
@@ -244,7 +255,7 @@ export default function YandexCourierPage() {
               <h3 className="text-xl font-black text-slate-900 mb-6">Как начать?</h3>
               <div className="space-y-4">
                 {[
-                  'Нажмите «Стать курьером» и перейдите на сайт',
+                  'Нажмите «Стать курьером» и заполните анкету',
                   'Зарегистрируйтесь и выберите тип доставки',
                   'Заберите сумку в курьерском центре',
                   'Начните выполнять заказы и зарабатывать',
@@ -280,15 +291,19 @@ export default function YandexCourierPage() {
                 </div>
               </div>
 
-              <a
-                href={REFERRAL_LINK}
+              <AffiliateLink
+                href={OFFER.url}
+                partnerName={OFFER.bankId}
+                productType={OFFER.productType || 'vacancies'}
+                offerId={OFFER_KEY}
+                placement="result_block"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-6 w-full flex items-center justify-center gap-2 bg-amber-500 text-white font-black text-lg py-4 rounded-2xl hover:bg-amber-600 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-amber-200/50"
               >
                 Начать сейчас
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </AffiliateLink>
             </div>
           </div>
         </div>
@@ -361,15 +376,19 @@ export default function YandexCourierPage() {
             <p className="text-slate-300 text-lg mb-8 max-w-xl mx-auto">
               Зарегистрируйтесь через партнёра и начните доставлять уже сегодня
             </p>
-            <a
-              href={REFERRAL_LINK}
+            <AffiliateLink
+              href={OFFER.url}
+              partnerName={OFFER.bankId}
+              productType={OFFER.productType || 'vacancies'}
+              offerId={OFFER_KEY}
+              placement="footer"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-yellow-500 text-slate-900 font-black text-xl py-5 px-12 rounded-2xl hover:bg-yellow-400 hover:scale-105 transition-all shadow-2xl"
             >
               Стать курьером Яндекс.Еда
               <ArrowRight className="w-6 h-6" />
-            </a>
+            </AffiliateLink>
             <div className="mt-6 flex items-center justify-center gap-2 text-sm text-slate-400">
               <Phone className="w-4 h-4" />
               КЦ Яндекс.Еды: 8 (800) 770-04-11
@@ -380,6 +399,7 @@ export default function YandexCourierPage() {
         {/* Disclaimer */}
         <div className="max-w-4xl mx-auto text-center text-xs text-slate-400 pb-8">
           <p>Набор ведётся к партнёру сервиса Яндекс.Еда/Яндекс.Лавка, а не в сервис напрямую.</p>
+          {OFFER.erid && <p className="mt-1">Реклама • erid: {OFFER.erid}</p>}
         </div>
       </div>
     </div>

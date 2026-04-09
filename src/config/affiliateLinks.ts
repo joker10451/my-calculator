@@ -26,66 +26,15 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     url: 'https://trk.ppdu.ru/click/4wXDM0Um?erid=2SDnjehD1C8',
     bankId: 'partner', // Укажите ID банка
     productType: 'mortgage', // Укажите тип продукта: 'mortgage', 'deposit', 'credit'
+    erid: '2SDnjehD1C8',
     commission: 0, // Укажите вашу комиссию в рублях
-    description: 'Партнерская ссылка #1',
+    description: 'Подбор ипотечных предложений от партнёров в одном месте',
     title: 'Подобрать ипотеку онлайн',
     category: 'mortgage',
     badges: ['Онлайн', 'Подбор предложений'],
     priority: 80,
   },
   
-  // Пример: Сбербанк
-  'sberbank': {
-    url: 'https://www.sberbank.ru',
-    bankId: 'sberbank',
-    description: 'Общая ссылка на Сбербанк',
-    title: 'Сбербанк — официальный сайт',
-    category: 'other',
-    priority: 10,
-  },
-  'sberbank-mortgage': {
-    url: 'https://www.sberbank.ru/ru/person/credits/home/buying_complete_house?utm_source=schitay&utm_medium=referral&utm_campaign=mortgage',
-    bankId: 'sberbank',
-    productType: 'mortgage',
-    commission: 3000,
-    description: 'Ипотека Сбербанк',
-    title: 'Ипотека в Сбербанке',
-    category: 'mortgage',
-    badges: ['Онлайн-заявка'],
-    priority: 90,
-  },
-  'sberbank-deposit': {
-    url: 'https://www.sberbank.ru/ru/person/contributions?utm_source=schitay&utm_medium=referral&utm_campaign=deposit',
-    bankId: 'sberbank',
-    productType: 'deposit',
-    commission: 500,
-    description: 'Вклады Сбербанк',
-    title: 'Вклады в Сбербанке',
-    category: 'deposit',
-    badges: ['Накопления'],
-    priority: 70,
-  },
-  
-  // Пример: ВТБ
-  'vtb': {
-    url: 'https://www.vtb.ru',
-    bankId: 'vtb',
-    description: 'Общая ссылка на ВТБ',
-    title: 'ВТБ — официальный сайт',
-    category: 'other',
-    priority: 10,
-  },
-  'vtb-mortgage': {
-    url: 'https://www.vtb.ru/personal/ipoteka/?utm_source=schitay&utm_medium=referral&utm_campaign=mortgage',
-    bankId: 'vtb',
-    productType: 'mortgage',
-    commission: 2500,
-    description: 'Ипотека ВТБ',
-    title: 'Ипотека в ВТБ',
-    category: 'mortgage',
-    badges: ['Онлайн-заявка'],
-    priority: 85,
-  },
   'vtb-credit-card': {
     url: 'https://trk.ppdu.ru/click/q3zhF1ow?erid=2SDnjeGCc2T',
     bankId: 'vtb',
@@ -124,28 +73,6 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     priority: 70,
   },
 
-  // Pampadu (страхование)
-  'pampadu-osago': {
-    url: 'https://pampadu.ru/osago?partner=schitay',
-    bankId: 'pampadu',
-    productType: 'insurance',
-    description: 'ОСАГО онлайн через Pampadu (партнёрская ссылка)',
-    title: 'Рассчитать ОСАГО онлайн',
-    category: 'insurance',
-    badges: ['ОСАГО', 'Онлайн-расчёт'],
-    priority: 88,
-  },
-  'pampadu-kasko': {
-    url: 'https://pampadu.ru/kasko?partner=schitay',
-    bankId: 'pampadu',
-    productType: 'insurance',
-    description: 'КАСКО онлайн через Pampadu (партнёрская ссылка)',
-    title: 'Рассчитать КАСКО онлайн',
-    category: 'insurance',
-    badges: ['КАСКО', 'Онлайн-расчёт'],
-    priority: 80,
-  },
-
   // Ренессанс Жизнь (НСЖ)
   'renlife-guaranteed-income': {
     url: 'https://trk.ppdu.ru/click/Np9sj7AZ?erid=2SDnjcfxx7T',
@@ -163,13 +90,26 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
   'pampadu-offer-31ba9c13': {
     url: 'https://trk.ppdu.ru/click/o6eCET0k?erid=CQH36pWzJqVGXC5oLP8WVVNCNqJmbhiUPijGiu4zpwPd7G',
     bankId: 'pampadu',
-    productType: 'vacancy',
+    productType: 'vacancies',
     erid: 'CQH36pWzJqVGXC5oLP8WVVNCNqJmbhiUPijGiu4zpwPd7G',
     description: 'Курьер в Яндекс.Еда/Яндекс.Лавка (РФ/РБ) — трудоустройство + активность',
     title: 'Курьер Яндекс.Еда/Яндекс.Лавка — оффер Pampadu',
     category: 'vacancies',
     badges: ['Вакансии', 'РФ/РБ', 'До 9 750 ₽'],
     priority: 92,
+  },
+
+  // JoyMoney
+  'joymoney-loan': {
+    url: 'https://trk.ppdu.ru/click/ZaiOEayY?erid=Kra23k98b',
+    bankId: 'joymoney',
+    productType: 'loan',
+    erid: 'Kra23k98b',
+    description: 'Займ JoyMoney: первый займ 0% до 30 000 ₽',
+    title: 'JoyMoney — онлайн займ',
+    category: 'loan',
+    badges: ['Первый займ 0%', 'Онлайн'],
+    priority: 89,
   },
   
   // Добавьте свои партнерские ссылки здесь

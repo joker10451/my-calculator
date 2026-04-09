@@ -1,10 +1,13 @@
 import { useState, useMemo } from 'react';
 import { Wallet, Clock, Shield, CreditCard, Zap, CheckCircle, ArrowRight, Star, Gift, Percent, Phone, AlertTriangle, ChevronRight } from 'lucide-react';
+import { AffiliateLink } from '@/components/AffiliateLink';
 import { SEO, generateFAQSchema } from '@/components/SEO';
+import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
 import { generateHowToSchema } from '@/utils/seoSchemas';
 
 const SITE_URL = 'https://schitay-online.ru';
-const REFERRAL_LINK = 'https://trk.ppdu.ru/click/ZaiOEayY?erid=Kra23k98b';
+const OFFER_KEY = 'joymoney-loan';
+const OFFER = AFFILIATE_LINKS[OFFER_KEY];
 
 const PROMO_CODES = [
   { code: 'JOYMONEY10', discount: 10, color: 'blue' },
@@ -174,15 +177,19 @@ function LoanCalculator() {
           )}
         </div>
 
-        <a
-          href={REFERRAL_LINK}
+        <AffiliateLink
+          href={OFFER.url}
+          partnerName={OFFER.bankId}
+          productType={OFFER.productType || 'loan'}
+          offerId={OFFER_KEY}
+          placement="result_block"
           target="_blank"
           rel="noopener noreferrer"
           className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-black text-lg py-4 rounded-2xl hover:from-emerald-700 hover:to-emerald-800 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-emerald-200/50"
         >
           Получить займ
           <ArrowRight className="w-5 h-5" />
-        </a>
+        </AffiliateLink>
       </div>
     </div>
   );
@@ -202,7 +209,7 @@ export default function JoyMoneyPage() {
     'Пошаговая инструкция по получению онлайн займа в JoyMoney за 5 минут',
     `${SITE_URL}/joy-money`,
     [
-      { name: 'Перейдите на сайт JoyMoney', text: 'Нажмите «Получить займ» и перейдите на сайт', url: `${SITE_URL}/joy-money#start` },
+      { name: 'Откройте форму JoyMoney', text: 'Нажмите «Получить займ» и заполните заявку', url: `${SITE_URL}/joy-money#start` },
       { name: 'Заполните заявку', text: 'Укажите паспортные данные и СНИЛС', url: `${SITE_URL}/joy-money#apply` },
       { name: 'Получите решение', text: 'Решение принимается за 2 минуты автоматически', url: `${SITE_URL}/joy-money#decision` },
       { name: 'Получите деньги', text: 'Деньги поступят на банковскую карту', url: `${SITE_URL}/joy-money#receive` },
@@ -236,15 +243,19 @@ export default function JoyMoneyPage() {
             <p className="text-xl md:text-2xl font-medium mb-8 max-w-2xl mx-auto opacity-90">
               Первый займ под 0% до 30 000 ₽. Без справок, поручителей и визитов в офис.
             </p>
-            <a
-              href={REFERRAL_LINK}
+            <AffiliateLink
+              href={OFFER.url}
+              partnerName={OFFER.bankId}
+              productType={OFFER.productType || 'loan'}
+              offerId={OFFER_KEY}
+              placement="hero"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-white text-emerald-700 font-black text-xl py-5 px-12 rounded-2xl hover:bg-emerald-50 hover:scale-105 transition-all shadow-2xl"
             >
               Получить займ
               <ArrowRight className="w-6 h-6" />
-            </a>
+            </AffiliateLink>
             <p className="text-sm mt-4 opacity-70">Решение за 2 минуты • Деньги на карту</p>
           </div>
         </div>
@@ -283,7 +294,7 @@ export default function JoyMoneyPage() {
               <h3 className="text-xl font-black text-slate-900 mb-6">Как получить займ?</h3>
               <div className="space-y-4">
                 {[
-                  'Нажмите «Получить займ» и перейдите на сайт JoyMoney',
+                  'Нажмите «Получить займ» и заполните заявку JoyMoney',
                   'Заполните заявку — паспорт РФ и СНИЛС',
                   'Получите решение за 2 минуты',
                   'Деньги поступят на банковскую карту',
@@ -319,15 +330,19 @@ export default function JoyMoneyPage() {
                 </div>
               </div>
 
-              <a
-                href={REFERRAL_LINK}
+              <AffiliateLink
+                href={OFFER.url}
+                partnerName={OFFER.bankId}
+                productType={OFFER.productType || 'loan'}
+                offerId={OFFER_KEY}
+                placement="result_block"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-6 w-full flex items-center justify-center gap-2 bg-emerald-600 text-white font-black text-lg py-4 rounded-2xl hover:bg-emerald-700 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-emerald-200/50"
               >
                 Получить займ
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </AffiliateLink>
             </div>
           </div>
         </div>
@@ -418,21 +433,26 @@ export default function JoyMoneyPage() {
             <p className="text-emerald-100 text-lg mb-8 max-w-xl mx-auto">
               Первый займ до 30 000 ₽ без процентов. Решение за 2 минуты, деньги на карту.
             </p>
-            <a
-              href={REFERRAL_LINK}
+            <AffiliateLink
+              href={OFFER.url}
+              partnerName={OFFER.bankId}
+              productType={OFFER.productType || 'loan'}
+              offerId={OFFER_KEY}
+              placement="footer"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-white text-emerald-700 font-black text-xl py-5 px-12 rounded-2xl hover:bg-emerald-50 hover:scale-105 transition-all shadow-2xl"
             >
               Получить займ в JoyMoney
               <ArrowRight className="w-6 h-6" />
-            </a>
+            </AffiliateLink>
           </div>
         </div>
 
         {/* Disclaimer */}
         <div className="max-w-4xl mx-auto text-center text-xs text-slate-400 pb-8">
           <p>Не является офертой. Займы выдаются ООО МКК «Джой Мани». Подробности на сайте joy.money.</p>
+          {OFFER.erid && <p className="mt-1">Реклама • erid: {OFFER.erid}</p>}
         </div>
       </div>
     </div>

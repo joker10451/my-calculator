@@ -1,4 +1,5 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import KASKOCalculator from "@/components/calculators/KASKOCalculator";
 import { Shield, Calculator, TrendingDown, Car, DollarSign, FileText } from "lucide-react";
 
@@ -58,6 +59,14 @@ const KASKOCalculatorPage = () => {
             categoryHref="/category/transport"
             faqItems={faqItems}
             calculator={<KASKOCalculator />}
+            afterCalculator={
+                <OffersBlock
+                    product="insurance"
+                    placement="result_block"
+                    title="Подходящие страховые офферы"
+                    subtitle="Сравните предложения по КАСКО/ОСАГО и выберите подходящий вариант."
+                />
+            }
             features={features}
             howToUseSteps={howToUseSteps}
         />

@@ -45,7 +45,7 @@ export default function OffersCatalogPage() {
 
   const allOffers = useMemo(() => {
     const offers = asOffers()
-      .filter((o) => o.url && o.title)
+      .filter((o) => o.url && o.title && o.url.includes('trk.ppdu.ru'))
       .sort((a, b) => (b.priority || 0) - (a.priority || 0));
     return offers;
   }, []);
@@ -128,7 +128,7 @@ export default function OffersCatalogPage() {
     <div className="min-h-screen bg-slate-50/40">
       <SEO
         title="Каталог офферов"
-        description="Подборка партнёрских офферов: банки, карты, вклады, страхование и вакансии. Переходите по ссылкам и оформляйте на стороне партнёра."
+        description="Подборка партнёрских офферов с вашими реферальными ссылками: карты, страхование, займы и вакансии."
         canonical={`${SITE_URL}/offers/`}
         keywords="офферы, партнерские ссылки, банки, ипотека, кредитные карты, вклады, ОСАГО, КАСКО, вакансии"
       />
@@ -140,7 +140,7 @@ export default function OffersCatalogPage() {
               Каталог офферов
             </h1>
             <p className="text-slate-600 mt-2">
-              Выберите категорию и перейдите на сайт партнёра. Ссылки могут быть партнёрскими.
+              Выберите категорию и изучите доступные офферы с реферальными ссылками.
             </p>
           </div>
 
@@ -222,7 +222,7 @@ export default function OffersCatalogPage() {
                     offerId={o.id}
                     placement="hero"
                     erid={o.erid}
-                    label="Перейти"
+                    label="Подробнее"
                     variant="primary"
                     showAdLabel={Boolean(o.erid)}
                   />

@@ -20,7 +20,7 @@ export default function ZettaOSGOPPage() {
     'Пошаговая инструкция по оформлению обязательного страхования перевозчика в Зетта Страхование',
     `${SITE_URL}/insurance/osgop-taxi`,
     [
-      { name: 'Перейдите на сайт', text: 'Нажмите кнопку «Оформить полис»', url: REFERRAL_LINK },
+      { name: 'Откройте форму', text: 'Нажмите кнопку «Оформить полис»', url: REFERRAL_LINK },
       { name: 'Рассчитайте стоимость', text: 'Укажите данные автомобиля и количество мест', url: REFERRAL_LINK },
       { name: 'Оплатите онлайн', text: 'Оплата картой или по счету для юрлиц', url: REFERRAL_LINK },
       { name: 'Получите полис', text: 'Документ придет на email за 5 дней', url: REFERRAL_LINK },
