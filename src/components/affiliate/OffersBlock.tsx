@@ -48,7 +48,7 @@ export function OffersBlock({
   product,
   placement = 'result_block',
   title = 'Предложения по вашему расчёту',
-  subtitle = 'Выберите подходящий вариант среди партнёрских предложений.',
+  subtitle = 'Выберите подходящий вариант среди доступных предложений.',
 }: OffersBlockProps) {
   const ctaVariant = useMemo<'a' | 'b'>(() => {
     const key = `ab_cta_${product}`;
@@ -97,12 +97,12 @@ export function OffersBlock({
           <h3 className="text-xl md:text-2xl font-black text-slate-900">{title}</h3>
           <p className="text-slate-600 mt-1">{subtitle}</p>
           <p className="text-xs text-slate-500 mt-2">
-            Мы можем получать вознаграждение от партнёров. Это не влияет на стоимость для пользователя.
+            Подборка обновляется регулярно. Стоимость для пользователя не меняется.
           </p>
         </div>
         <div className="hidden md:flex items-center gap-2 text-slate-500 text-sm">
           <Star className="w-4 h-4 text-amber-400 fill-amber-400" aria-hidden="true" />
-          Подбор из популярных офферов
+          Подбор из популярных предложений
         </div>
       </div>
 

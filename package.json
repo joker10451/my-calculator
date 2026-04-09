@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-static-html.js && node scripts/generate-sitemap.js",
+    "build": "npm run validate:affiliate-compliance && vite build && node scripts/generate-static-html.js && node scripts/generate-sitemap.js",
     "generate:static-html": "node scripts/generate-static-html.js",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
@@ -26,6 +26,7 @@
     "generate:spa-fallback": "node scripts/generate-spa-fallback.js",
     "generate:sitemap": "node scripts/generate-sitemap.js",
     "generate:blog-placeholders": "node scripts/generate-blog-placeholders.js",
+    "validate:affiliate-compliance": "node scripts/validate-affiliate-compliance.js",
     "validate:favicon-headers": "node scripts/validateFaviconHeaders.js",
     "validate:favicon-headers:prod": "node scripts/validateFaviconHeaders.js https://schitay-online.ru",
     "audit:performance": "node scripts/performance-audit.js",

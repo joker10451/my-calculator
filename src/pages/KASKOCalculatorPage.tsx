@@ -65,11 +65,11 @@ const KASKOCalculatorPage = () => {
                     <OffersBlock
                         product="insurance"
                         placement="result_block"
-                        title="Подходящие страховые офферы"
+                        title="Подходящие страховые предложения"
                         subtitle="Сравните предложения по КАСКО/ОСАГО и выберите подходящий вариант."
                     />
                     <div className="text-sm text-slate-600">
-                        Хотите посмотреть больше офферов?{" "}
+                        Хотите посмотреть больше предложений?{" "}
                         <Link to="/offers?category=insurance" className="font-semibold text-primary hover:underline">
                             Открыть каталог страховых предложений
                         </Link>

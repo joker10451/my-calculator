@@ -38,7 +38,7 @@ const WaterCalculatorPage = () => {
                         subtitle="Актуальные страховые программы для тех, кто часто проводит время на природе."
                     />
                     <div className="text-sm text-slate-600">
-                        Посмотреть целевой оффер:{" "}
+                        Посмотреть целевое предложение:{" "}
                         <Link to="/offers?category=insurance&q=клещ" className="font-semibold text-primary hover:underline">
                             страхование от укуса клеща
                         </Link>

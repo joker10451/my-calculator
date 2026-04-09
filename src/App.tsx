@@ -69,6 +69,8 @@ const ColorSystemDemo = lazy(() => import("./pages/ColorSystemDemo"));
 const GlassmorphismDemo = lazy(() => import("./pages/GlassmorphismDemo"));
 const SitemapPage = lazy(() => import("./pages/SitemapPage"));
 const OffersCatalogPage = lazy(() => import("./pages/OffersCatalogPage"));
+const JobsLandingPage = lazy(() => import("./pages/JobsLandingPage"));
+const TickInsuranceLandingPage = lazy(() => import("./pages/TickInsuranceLandingPage"));
 
 // Blog components with lazy loading (loaded on demand)
 export const BlogComments = lazy(() => import("./components/blog/BlogComments"));
@@ -167,6 +169,10 @@ const AnimatedRoutes = () => {
           <Route path="/contacts" element={<PageTransition><ContactsPage /></PageTransition>} />
           <Route path="/offers" element={<PageTransition><OffersCatalogPage /></PageTransition>} />
           <Route path="/offers/" element={<PageTransition><OffersCatalogPage /></PageTransition>} />
+          <Route path="/jobs" element={<PageTransition><JobsLandingPage /></PageTransition>} />
+          <Route path="/jobs/" element={<PageTransition><JobsLandingPage /></PageTransition>} />
+          <Route path="/tick-insurance" element={<PageTransition><TickInsuranceLandingPage /></PageTransition>} />
+          <Route path="/tick-insurance/" element={<PageTransition><TickInsuranceLandingPage /></PageTransition>} />
           <Route path="/admin/analytics" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
           <Route path="/analytics-dashboard" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
           <Route path="/analytics-dashboard/" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />

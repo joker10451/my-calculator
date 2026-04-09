@@ -65,8 +65,8 @@ const OSAGOCalculatorPage = () => {
                     <OffersBlock
                         product="insurance"
                         placement="result_block"
-                        title="Подходящие страховые офферы"
-                        subtitle="Сравните предложения по ОСАГО/КАСКО и изучите условия партнёров."
+                        title="Подходящие страховые предложения"
+                        subtitle="Сравните предложения по ОСАГО/КАСКО и изучите условия программ."
                     />
                     <div className="text-sm text-slate-600">
                         Нужны дополнительные варианты?{" "}

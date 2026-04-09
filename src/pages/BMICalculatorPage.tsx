@@ -40,7 +40,7 @@ const BMICalculatorPage = () => {
                     <div className="text-sm text-slate-600">
                         Точечная подборка по теме:{" "}
                         <Link to="/offers?category=insurance&q=клещ" className="font-semibold text-primary hover:underline">
-                            офферы по защите от укуса клеща
+                            предложения по защите от укуса клеща
                         </Link>
                         .
                     </div>

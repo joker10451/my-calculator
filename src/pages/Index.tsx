@@ -49,7 +49,7 @@ const Index = () => {
                 <div>
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900">Подбор предложений по вашим задачам</h2>
                   <p className="text-slate-600 mt-2">
-                    Собрали актуальные партнёрские предложения в одном месте: карты, займы, страхование и вакансии.
+                    Собрали актуальные предложения в одном месте: карты, займы, страхование и вакансии.
                   </p>
                   <p className="text-sm text-slate-500 mt-2">
                     Для мастеров по ремонту есть отдельная подборка:{" "}
@@ -67,6 +67,36 @@ const Index = () => {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
+            </div>
+            <div className="max-w-5xl mx-auto mt-5 grid md:grid-cols-2 gap-4">
+              <Link
+                to="/jobs"
+                className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-white p-5 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <p className="text-xs font-bold text-blue-700">Новая посадочная</p>
+                <h3 className="mt-2 text-xl font-black text-slate-900">Работа и подработка</h3>
+                <p className="mt-2 text-slate-600 text-sm">
+                  Современная страница с быстрым выбором: курьерские вакансии и работа для мастеров.
+                </p>
+                <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
+                  Открыть /jobs
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </Link>
+              <Link
+                to="/tick-insurance"
+                className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-5 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <p className="text-xs font-bold text-emerald-700">Сезонный спрос</p>
+                <h3 className="mt-2 text-xl font-black text-slate-900">Защита от клеща</h3>
+                <p className="mt-2 text-slate-600 text-sm">
+                  Понятная посадочная со сценариями и переходом к релевантным страховым предложениям.
+                </p>
+                <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
+                  Открыть /tick-insurance
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </Link>
             </div>
           </section>
           <Suspense fallback={<section className="container mx-auto px-4 py-12"><div className="h-40 rounded-3xl border border-slate-200 bg-slate-100/70 animate-pulse" /></section>}>

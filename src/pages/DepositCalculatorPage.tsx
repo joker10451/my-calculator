@@ -67,7 +67,7 @@ const DepositCalculatorPage = () => {
                     <div className="text-sm text-slate-600">
                         Подберите альтернативные варианты в каталоге{" "}
                         <Link to="/offers?category=debit" className="font-semibold text-primary hover:underline">
-                            (карты и накопительные офферы)
+                            (карты и накопительные предложения)
                         </Link>
                         .
                     </div>

@@ -86,7 +86,7 @@ const OFFERS_BRIDGE_MAP: Record<string, { href: string; label: string; subtitle:
   'mortgage-credit': {
     href: '/offers?category=mortgage',
     label: 'Ипотечные и кредитные предложения',
-    subtitle: 'Подбор офферов по теме статьи',
+    subtitle: 'Подбор предложений по теме статьи',
   },
   'taxes-salary': {
     href: '/offers?category=insurance',
@@ -105,7 +105,7 @@ const OFFERS_BRIDGE_MAP: Record<string, { href: string; label: string; subtitle:
   },
   'auto-transport': {
     href: '/offers?category=insurance',
-    label: 'Страховые офферы для автомобилистов',
+    label: 'Страховые предложения для автомобилистов',
     subtitle: 'ОСАГО/КАСКО и смежные продукты',
   },
   'investments-deposits': {

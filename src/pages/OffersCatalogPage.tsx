@@ -153,20 +153,20 @@ export default function OffersCatalogPage() {
   return (
     <div className="min-h-screen bg-slate-50/40">
       <SEO
-        title="Каталог офферов"
-        description="Подборка партнёрских офферов с вашими реферальными ссылками: карты, страхование, займы и вакансии."
+        title="Каталог предложений"
+        description="Подборка актуальных предложений: карты, страхование, займы и вакансии."
         canonical={`${SITE_URL}/offers/`}
-        keywords="офферы, партнерские ссылки, банки, ипотека, кредитные карты, вклады, ОСАГО, КАСКО, вакансии"
+        keywords="предложения, банки, ипотека, кредитные карты, вклады, ОСАГО, КАСКО, вакансии"
       />
 
       <div className="container mx-auto px-4 pt-24 pb-16">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
             <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-              Каталог офферов
+              Каталог предложений
             </h1>
             <p className="text-slate-600 mt-2">
-              Выберите категорию и изучите доступные офферы с реферальными ссылками.
+              Выберите категорию и изучите доступные предложения.
             </p>
           </div>
 
