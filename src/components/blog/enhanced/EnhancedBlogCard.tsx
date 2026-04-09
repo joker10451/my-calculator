@@ -81,21 +81,21 @@ export const EnhancedBlogCard = ({
       padding: 'p-4 sm:p-5',
       borderRadius: 'rounded-xl',
       border: '',
-      titleSize: '',
+      titleSize: 'min-h-[3.5rem]',
     },
     featured: {
       imageHeight: 'h-52 sm:h-64',
       padding: 'p-5 sm:p-6',
       borderRadius: 'rounded-xl sm:rounded-2xl',
       border: 'border-2',
-      titleSize: '',
+      titleSize: 'min-h-[4rem]',
     },
     hero: {
       imageHeight: 'h-64 sm:h-80',
       padding: 'p-6 sm:p-8',
       borderRadius: 'rounded-xl sm:rounded-2xl',
       border: 'border-2',
-      titleSize: '',
+      titleSize: 'min-h-[4rem]',
     },
   };
 
@@ -123,10 +123,10 @@ export const EnhancedBlogCard = ({
           h-full overflow-hidden relative
           ${config.borderRadius}
           ${config.border}
-          bg-white/80 dark:bg-gray-900/80 backdrop-blur-md 
+          bg-white/95 dark:bg-gray-900/85 backdrop-blur-sm
           border-white/20 dark:border-white/10
-          shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]
-          hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.15)]
+          shadow-[0_8px_20px_0_rgba(15,23,42,0.08)]
+          hover:shadow-[0_12px_28px_0_rgba(15,23,42,0.14)]
           transition-all duration-500
         `}
       >
@@ -178,11 +178,6 @@ export const EnhancedBlogCard = ({
               <span>{post.category.name}</span>
             </Badge>
 
-            {/* Индикатор времени чтения (снизу слева на картинке) */}
-            <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-white/90 text-xs font-medium">
-              <Clock className="w-3 h-3" aria-hidden="true" />
-              <span>{post.readingTime} мин чтения</span>
-            </div>
           </div>
         <CardHeader className={`${config.padding} pt-6 pb-2`}>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400 mb-3">
@@ -197,7 +192,7 @@ export const EnhancedBlogCard = ({
               </div>
             )}
           </div>
-          <h3 className="text-xl md:text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+          <h3 className={`text-xl md:text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 ${config.titleSize}`}>
             <Link
               to={`/blog/${post.slug}`}
               className="line-clamp-2"

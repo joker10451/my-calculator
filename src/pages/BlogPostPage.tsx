@@ -21,7 +21,7 @@ import { parseMarkdown } from '@/utils/markdown';
 import DOMPurify from 'dompurify';
 import { AuthorBio } from '@/components/blog/AuthorBio';
 import BlogRecommendations from '@/components/blog/BlogRecommendations';
-import BlogShare from '@/components/blog/BlogShare';
+import { BlogShare } from '@/components/blog/BlogShare';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { generateArticleSchema, generateFAQSchema } from '@/utils/seoSchemas';
@@ -30,7 +30,10 @@ import { getAssetUrl } from '@/utils/blogImageMap';
 import '@/styles/blog.css';
 
 // Lazy load комментариев
-const BlogComments = lazy(() => import('@/components/blog/BlogComments'));
+const BlogComments = lazy(async () => {
+  const module = await import('@/components/blog/BlogComments');
+  return { default: module.BlogComments ?? module.default };
+});
 import { Helmet } from 'react-helmet-async';
 
 // Объединяем все статьи для поиска

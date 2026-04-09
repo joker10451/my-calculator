@@ -13,6 +13,7 @@ export interface AffiliateCTAProps extends Omit<AnchorHTMLAttributes<HTMLAnchorE
   label?: string;
   variant?: 'primary' | 'secondary';
   showAdLabel?: boolean;
+  showPartnerDisclosure?: boolean;
 }
 
 export const AffiliateCTA = forwardRef<HTMLAnchorElement, AffiliateCTAProps>(function AffiliateCTA(
@@ -26,6 +27,7 @@ export const AffiliateCTA = forwardRef<HTMLAnchorElement, AffiliateCTAProps>(fun
     label = 'Перейти',
     variant = 'primary',
     showAdLabel = true,
+    showPartnerDisclosure = true,
     className,
     ...rest
   },
@@ -57,11 +59,10 @@ export const AffiliateCTA = forwardRef<HTMLAnchorElement, AffiliateCTAProps>(fun
         <ExternalLink className="w-4 h-4" aria-hidden="true" />
       </AffiliateLink>
 
-      {showAdLabel && erid && (
-        <div className="mt-2 text-[11px] text-slate-500">
-          Реклама • erid: {erid}
-        </div>
-      )}
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
+        {showPartnerDisclosure && <span>Партнёрская ссылка</span>}
+        {showAdLabel && erid && <span>Реклама • erid: {erid}</span>}
+      </div>
     </div>
   );
 });

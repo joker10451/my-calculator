@@ -3,6 +3,8 @@ import { SEO, generateFAQSchema } from "@/components/SEO";
 import { generateHowToSchema } from "@/utils/seoSchemas";
 import { TaxDeductionCalculator } from "@/components/calculators/TaxDeductionCalculator";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
+import { TrustInfoBlock } from "@/components/TrustInfoBlock";
+import { trackUxEvent } from "@/lib/analytics/uxMetrics";
 
 const SITE_URL = 'https://schitay-online.ru';
 
@@ -65,12 +67,21 @@ export default function TaxDeductionCalculatorPage() {
                 <TaxDeductionCalculator />
 
                 <div className="max-w-5xl mx-auto mt-10">
-                    <OffersBlock
-                        product="insurance"
-                        placement="result_block"
-                        title="Как увеличить выгоду после вычета"
-                        subtitle="Некоторые программы накоплений позволяют дополнительно использовать налоговые льготы. Перейдите на сайт партнёра, чтобы посмотреть условия."
-                    />
+                    <div className="space-y-6">
+                        <OffersBlock
+                            product="insurance"
+                            placement="result_block"
+                            title="Как увеличить выгоду после вычета"
+                            subtitle="Некоторые программы накоплений позволяют дополнительно использовать налоговые льготы. Перейдите на сайт партнёра, чтобы посмотреть условия."
+                        />
+                        <TrustInfoBlock
+                            page="/calculator/tax-deduction"
+                            updatedAt="Апрель 2026"
+                            sourceLabel="Лимиты и правила ФНС России"
+                            methodology="Калькулятор применяет действующие лимиты вычетов и ставку НДФЛ 13% к указанным расходам."
+                            forWho="Для тех, кто платит НДФЛ и хочет оценить ориентировочную сумму возврата до подачи документов."
+                        />
+                    </div>
                 </div>
 
                 {/* Features */}
@@ -96,7 +107,20 @@ export default function TaxDeductionCalculatorPage() {
                     <p className="text-slate-500 text-center mb-10">Ответы на вопросы о налоговых вычетах</p>
                     <div className="space-y-3">
                         {faqItems.map((item, i) => (
-                            <details key={i} className="bg-white rounded-2xl border border-slate-200 overflow-hidden group">
+                            <details
+                                key={i}
+                                className="bg-white rounded-2xl border border-slate-200 overflow-hidden group"
+                                onToggle={(event) => {
+                                    const opened = (event.currentTarget as HTMLDetailsElement).open;
+                                    if (opened) {
+                                        trackUxEvent('faq_toggle', {
+                                            page: '/calculator/tax-deduction',
+                                            section: 'faq',
+                                            value: item.question,
+                                        });
+                                    }
+                                }}
+                            >
                                 <summary className="p-5 cursor-pointer font-bold text-slate-900 flex items-center gap-3 list-none hover:bg-slate-50 transition-colors">
                                     <Calculator className="w-5 h-5 text-emerald-600 flex-shrink-0" />
                                     {item.question}

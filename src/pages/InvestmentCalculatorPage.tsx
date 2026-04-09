@@ -1,6 +1,7 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import InvestmentCalculator from "@/components/calculators/InvestmentCalculator";
+import { TrustInfoBlock } from "@/components/TrustInfoBlock";
 import { TrendingUp, PiggyBank, LineChart, BarChart3, DollarSign, Calendar } from "lucide-react";
 
 const InvestmentCalculatorPage = () => {
@@ -60,12 +61,21 @@ const InvestmentCalculatorPage = () => {
             faqItems={faqItems}
             calculator={<InvestmentCalculator />}
             afterCalculator={
-                <OffersBlock
-                    product="insurance"
-                    placement="result_block"
-                    title="Страхование и накопления"
-                    subtitle="НСЖ и другие программы, которые могут подойти под вашу цель накоплений."
-                />
+                <div className="space-y-6">
+                    <OffersBlock
+                        product="insurance"
+                        placement="result_block"
+                        title="Страхование и накопления"
+                        subtitle="НСЖ и другие программы, которые могут подойти под вашу цель накоплений."
+                    />
+                    <TrustInfoBlock
+                        page="/calculator/investment"
+                        updatedAt="Апрель 2026"
+                        sourceLabel="Открытые рыночные данные и методика сложного процента"
+                        methodology="Прогноз строится на заданной доходности и регулярных взносах. Результат носит оценочный характер."
+                        forWho="Для долгосрочного планирования капитала, когда нужен ориентир по разным сценариям."
+                    />
+                </div>
             }
             features={features}
             howToUseSteps={howToUseSteps}

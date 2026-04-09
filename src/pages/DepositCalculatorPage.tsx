@@ -1,6 +1,7 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import DepositCalculator from "@/components/calculators/DepositCalculator";
+import { TrustInfoBlock } from "@/components/TrustInfoBlock";
 import { TrendingUp, PiggyBank, Calendar, BarChart3, Calculator, LineChart } from "lucide-react";
 
 const DepositCalculatorPage = () => {
@@ -59,7 +60,18 @@ const DepositCalculatorPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<DepositCalculator />}
-            afterCalculator={<OffersBlock product="deposit" placement="result_block" />}
+            afterCalculator={
+                <div className="space-y-6">
+                    <OffersBlock product="deposit" placement="result_block" />
+                    <TrustInfoBlock
+                        page="/calculator/deposit"
+                        updatedAt="Апрель 2026"
+                        sourceLabel="Публичные тарифы банков и рыночные ставки"
+                        methodology="Расчёт выполняется по формуле сложного процента с учётом капитализации и пополнений."
+                        forWho="Для тех, кто выбирает вклад и хочет сравнить сценарии по сроку, ставке и капитализации."
+                    />
+                </div>
+            }
             features={features}
             howToUseSteps={howToUseSteps}
         />

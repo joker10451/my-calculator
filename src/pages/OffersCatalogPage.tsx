@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { SEO } from '@/components/SEO';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
+import { getUxBaselineSnapshot, trackUxEvent } from '@/lib/analytics/uxMetrics';
 
 type Category = NonNullable<(typeof AFFILIATE_LINKS)[string]['category']>;
 
@@ -40,6 +41,7 @@ function asOffers(): Offer[] {
 export default function OffersCatalogPage() {
   const [category, setCategory] = useState<Category | 'all'>('all');
   const [query, setQuery] = useState('');
+  const [baseline] = useState(() => getUxBaselineSnapshot());
 
   const allOffers = useMemo(() => {
     const offers = asOffers()
@@ -85,6 +87,33 @@ export default function OffersCatalogPage() {
     });
   }, [allOffers, category, query]);
 
+  useEffect(() => {
+    trackUxEvent('filter_used', {
+      page: '/offers',
+      section: 'category',
+      value: category,
+    });
+  }, [category]);
+
+  useEffect(() => {
+    if (query.trim()) {
+      trackUxEvent('filter_used', {
+        page: '/offers',
+        section: 'search',
+        value: query.trim(),
+      });
+    }
+  }, [query]);
+
+  useEffect(() => {
+    if (filtered.length === 0) {
+      trackUxEvent('empty_state_seen', {
+        page: '/offers',
+        section: 'offers_list',
+      });
+    }
+  }, [filtered.length]);
+
   return (
     <div className="min-h-screen bg-slate-50/40">
       <SEO
@@ -95,7 +124,7 @@ export default function OffersCatalogPage() {
       />
 
       <div className="container mx-auto px-4 pt-24 pb-16">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-8">
             <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
               Каталог офферов
@@ -103,6 +132,10 @@ export default function OffersCatalogPage() {
             <p className="text-slate-600 mt-2">
               Выберите категорию и перейдите на сайт партнёра. Ссылки могут быть партнёрскими.
             </p>
+          </div>
+
+          <div className="mb-6 rounded-2xl border border-slate-200 bg-white/80 p-4 text-xs text-slate-600">
+            Baseline UX: событий {baseline.totalUxEvents}, зафиксировано {baseline.capturedAt.slice(0, 10)}.
           </div>
 
           <div className="bg-white rounded-3xl border border-slate-200 p-5 md:p-6 shadow-sm mb-6">
@@ -134,7 +167,7 @@ export default function OffersCatalogPage() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
             {filtered.map((o) => (
               <div key={o.id} className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col">
                 <div className="flex items-start justify-between gap-4">

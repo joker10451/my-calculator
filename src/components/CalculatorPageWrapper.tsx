@@ -123,17 +123,17 @@ const CalculatorPageWrapper = ({
         {calculator}
 
         {afterCalculator && (
-          <div className="mt-8">
+          <div className="mt-8 md:mt-10">
             {afterCalculator}
           </div>
         )}
         
-        <div className="mt-16">
+        <div className="mt-14 md:mt-16">
           <FAQ items={faqItems} />
         </div>
 
         {(aboutTitle || features || howToUseSteps) && (
-          <div className="mt-12 space-y-8">
+          <div className="mt-12 md:mt-14 space-y-8">
             {/* About Section */}
             {aboutTitle && aboutDescription && (
               <div className="text-center space-y-4">
@@ -152,7 +152,7 @@ const CalculatorPageWrapper = ({
                 <h3 className="text-2xl font-semibold mb-6 text-slate-800 dark:text-slate-100">
                   Возможности калькулятора
                 </h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                   {features.map((feature, index) => {
                     const Icon = feature.icon;
                     const colors = colorClasses[feature.color];

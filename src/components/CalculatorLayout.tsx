@@ -50,7 +50,7 @@ const CalculatorLayout = ({
                 <main id="main-content" className="flex-1 pt-16 sm:pt-20">
                     {/* Title Section */}
                     <div className="container mx-auto px-4">
-                        <div className="text-center max-w-3xl mx-auto mb-10">
+                        <div className="text-center max-w-4xl mx-auto mb-10 md:mb-12">
                             {currentCategory && (
                                 <div className="inline-flex items-center gap-1.5 px-2 py-0.5 mb-2 text-[10px] font-medium text-primary bg-primary/10 rounded">
                                     <Sparkles className="w-2.5 h-2.5" />
@@ -77,31 +77,33 @@ const CalculatorLayout = ({
                     </div>
 
                     {/* Calculator Content */}
-                    <div className="container mx-auto px-4 pb-20">
-                        {children}
+                    <div className="container mx-auto px-4 pb-16 md:pb-20">
+                        <div className="max-w-6xl mx-auto">
+                            {children}
 
-                        {/* Related Calculators */}
-                        {relatedCalculators.length > 0 && (
-                            <div className="mt-12 max-w-4xl mx-auto no-print">
-                                <h3 className="text-lg font-semibold mb-4 text-center">
-                                    Ещё в категории «{currentCategory?.name}»
-                                </h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                    {relatedCalculators.slice(0, 6).map((calc) => (
-                                        <Link
-                                            key={calc.name}
-                                            to={calc.href}
-                                            className="group bg-muted/30 hover:bg-muted border border-border/30 hover:border-primary/30 rounded-lg p-3 transition-all flex items-center justify-between text-sm"
-                                        >
-                                            <span className="group-hover:text-primary transition-colors">
-                                                {calc.name}
-                                            </span>
-                                            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
-                                        </Link>
-                                    ))}
+                            {/* Related Calculators */}
+                            {relatedCalculators.length > 0 && (
+                                <div className="mt-12 max-w-4xl mx-auto no-print">
+                                    <h3 className="text-lg font-semibold mb-4 text-center">
+                                        Ещё в категории «{currentCategory?.name}»
+                                    </h3>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                        {relatedCalculators.slice(0, 6).map((calc) => (
+                                            <Link
+                                                key={calc.name}
+                                                to={calc.href}
+                                                className="group bg-muted/30 hover:bg-muted border border-border/30 hover:border-primary/30 rounded-lg p-3 transition-all flex items-center justify-between text-sm"
+                                            >
+                                                <span className="group-hover:text-primary transition-colors">
+                                                    {calc.name}
+                                                </span>
+                                                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </main>
 

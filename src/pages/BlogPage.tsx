@@ -1,4 +1,4 @@
-import { useState, useMemo, Suspense, lazy } from 'react';
+import { useState, useMemo, Suspense, lazy, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Search, Filter, Calendar, TrendingUp } from 'lucide-react';
 import Header from '@/components/Header';
@@ -15,6 +15,7 @@ import { blogPosts } from '@/data/blogPosts';
 import { blogCategories } from '@/data/blogCategories';
 import type { BlogFilters } from '@/types/blog';
 import { FadeInUp, StaggerContainer, StaggerItem } from '@/components/animations';
+import { trackUxEvent } from '@/lib/analytics/uxMetrics';
 
 // Lazy load GlassCard component for better performance
 const GlassCard = lazy(() => import('@/components/ui/glass-card').then(module => ({ default: module.GlassCard })));
@@ -22,6 +23,7 @@ const GlassCard = lazy(() => import('@/components/ui/glass-card').then(module =>
 const BlogPage = () => {
   const [filters, setFilters] = useState<BlogFilters>({});
   const [searchQuery, setSearchQuery] = useState('');
+  const reachedDepth = useRef<Set<number>>(new Set());
 
   // Получаем все уникальные теги
   const allTags = useMemo(() => {
@@ -84,6 +86,56 @@ const BlogPage = () => {
     setFilters({});
     setSearchQuery('');
   };
+
+  useEffect(() => {
+    const handler = () => {
+      const doc = document.documentElement;
+      const max = Math.max(1, doc.scrollHeight - doc.clientHeight);
+      const depth = Math.round((window.scrollY / max) * 100);
+      [25, 50, 75, 90].forEach((threshold) => {
+        if (depth >= threshold && !reachedDepth.current.has(threshold)) {
+          reachedDepth.current.add(threshold);
+          trackUxEvent('scroll_depth', {
+            page: '/blog',
+            section: 'blog_page',
+            value: threshold,
+          });
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handler, { passive: true });
+    return () => window.removeEventListener('scroll', handler);
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      trackUxEvent('filter_used', {
+        page: '/blog',
+        section: 'search',
+        value: searchQuery.trim(),
+      });
+    }
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (filters.category || (filters.tags && filters.tags.length) || filters.featured) {
+      trackUxEvent('filter_used', {
+        page: '/blog',
+        section: 'filters',
+        extra: filters as Record<string, unknown>,
+      });
+    }
+  }, [filters]);
+
+  useEffect(() => {
+    if (sortedPosts.length === 0 && (searchQuery || Object.keys(filters).length > 0)) {
+      trackUxEvent('empty_state_seen', {
+        page: '/blog',
+        section: 'search_results',
+      });
+    }
+  }, [sortedPosts.length, searchQuery, filters]);
 
   return (
     <>
