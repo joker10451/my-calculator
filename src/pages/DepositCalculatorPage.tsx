@@ -3,6 +3,7 @@ import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import DepositCalculator from "@/components/calculators/DepositCalculator";
 import { TrustInfoBlock } from "@/components/TrustInfoBlock";
 import { TrendingUp, PiggyBank, Calendar, BarChart3, Calculator, LineChart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const DepositCalculatorPage = () => {
     const faqItems = [
@@ -63,6 +64,13 @@ const DepositCalculatorPage = () => {
             afterCalculator={
                 <div className="space-y-6">
                     <OffersBlock product="deposit" placement="result_block" />
+                    <div className="text-sm text-slate-600">
+                        Подберите альтернативные варианты в каталоге{" "}
+                        <Link to="/offers?category=debit" className="font-semibold text-primary hover:underline">
+                            (карты и накопительные офферы)
+                        </Link>
+                        .
+                    </div>
                     <TrustInfoBlock
                         page="/calculator/deposit"
                         updatedAt="Апрель 2026"

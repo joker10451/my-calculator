@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
@@ -20,6 +20,10 @@ type Offer = {
   title?: string;
   category?: Category;
   badges?: string[];
+  updatedAt?: string;
+  eligibility?: string[];
+  restrictions?: string[];
+  payoutTerms?: string;
   priority?: number;
 };
 
@@ -35,6 +39,10 @@ function asOffers(): Offer[] {
     title: o.title,
     category: o.category,
     badges: o.badges,
+    updatedAt: o.updatedAt,
+    eligibility: o.eligibility,
+    restrictions: o.restrictions,
+    payoutTerms: o.payoutTerms,
     priority: o.priority,
   }));
 }
@@ -52,6 +60,7 @@ export default function OffersCatalogPage() {
 
   const [category, setCategory] = useState<Category | 'all'>(initialCategory);
   const [query, setQuery] = useState(queryFromUrl);
+  const deferredQuery = useDeferredValue(query);
   const [baseline] = useState(() => getUxBaselineSnapshot());
 
   const allOffers = useMemo(() => {
@@ -89,14 +98,14 @@ export default function OffersCatalogPage() {
   }, [allOffers]);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = deferredQuery.trim().toLowerCase();
     return allOffers.filter((o) => {
       if (category !== 'all' && o.category !== category) return false;
       if (!q) return true;
       const hay = `${o.title || ''} ${o.description || ''} ${o.bankId} ${o.productType || ''}`.toLowerCase();
       return hay.includes(q);
     });
-  }, [allOffers, category, query]);
+  }, [allOffers, category, deferredQuery]);
 
   useEffect(() => {
     trackUxEvent('filter_used', {
@@ -229,6 +238,23 @@ export default function OffersCatalogPage() {
                         {b}
                       </span>
                     ))}
+                  </div>
+                )}
+
+                {(o.eligibility?.length || o.restrictions?.length || o.payoutTerms || o.updatedAt) && (
+                  <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs text-slate-600 space-y-2">
+                    {o.updatedAt && (
+                      <div>Актуализация: {o.updatedAt}</div>
+                    )}
+                    {o.eligibility && o.eligibility.length > 0 && (
+                      <div>Кому подходит: {o.eligibility.slice(0, 2).join(' • ')}</div>
+                    )}
+                    {o.restrictions && o.restrictions.length > 0 && (
+                      <div>Ограничения: {o.restrictions[0]}</div>
+                    )}
+                    {o.payoutTerms && (
+                      <div>Условия: {o.payoutTerms}</div>
+                    )}
                   </div>
                 )}
 

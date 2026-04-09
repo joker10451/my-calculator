@@ -82,6 +82,39 @@ const CALCULATOR_BRIDGE_MAP: Record<
   ],
 };
 
+const OFFERS_BRIDGE_MAP: Record<string, { href: string; label: string; subtitle: string }> = {
+  'mortgage-credit': {
+    href: '/offers?category=mortgage',
+    label: 'Ипотечные и кредитные предложения',
+    subtitle: 'Подбор офферов по теме статьи',
+  },
+  'taxes-salary': {
+    href: '/offers?category=insurance',
+    label: 'Программы накоплений и страхования',
+    subtitle: 'Варианты с учетом налоговых сценариев',
+  },
+  'utilities-housing': {
+    href: '/offers?category=debit',
+    label: 'Карты и кешбэк для повседневных расходов',
+    subtitle: 'Инструменты для оптимизации расходов',
+  },
+  'health-fitness': {
+    href: '/offers?category=insurance',
+    label: 'Страховые предложения',
+    subtitle: 'Подборка по тематике здоровья и защиты',
+  },
+  'auto-transport': {
+    href: '/offers?category=insurance',
+    label: 'Страховые офферы для автомобилистов',
+    subtitle: 'ОСАГО/КАСКО и смежные продукты',
+  },
+  'investments-deposits': {
+    href: '/offers?category=debit',
+    label: 'Финансовые предложения и карты',
+    subtitle: 'Подбор вариантов для управления деньгами',
+  },
+};
+
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = allPosts.find((p) => p.slug === slug);
@@ -126,6 +159,10 @@ export default function BlogPostPage() {
   const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
   const calculatorBridge = useMemo(
     () => CALCULATOR_BRIDGE_MAP[post?.category.id || ''] || [],
+    [post?.category.id]
+  );
+  const offersBridge = useMemo(
+    () => OFFERS_BRIDGE_MAP[post?.category.id || ''],
     [post?.category.id]
   );
 
@@ -354,6 +391,20 @@ export default function BlogPostPage() {
                   </Link>
                 ))}
               </div>
+            </section>
+          )}
+
+          {offersBridge && (
+            <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+              <h2 className="text-2xl md:text-3xl font-black text-slate-900">Подходящие предложения</h2>
+              <p className="text-slate-600 mt-1 mb-4">{offersBridge.subtitle}</p>
+              <Link
+                to={offersBridge.href}
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-4 py-2 font-semibold text-slate-800 hover:border-blue-400 hover:text-blue-700 transition-colors"
+              >
+                {offersBridge.label}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </section>
           )}
 

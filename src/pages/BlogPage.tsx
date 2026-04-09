@@ -1,4 +1,5 @@
 import { useState, useMemo, Suspense, lazy, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Search, Filter, Calendar, TrendingUp } from 'lucide-react';
 import Header from '@/components/Header';
@@ -317,6 +318,16 @@ const BlogPage = () => {
                 <Calendar className="w-4 h-4" aria-hidden="true" />
                 <span aria-label="Сортировка по дате публикации">Сортировка по дате</span>
               </div>
+            </div>
+
+            <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 md:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+              <div>
+                <div className="font-bold text-slate-900">После статьи — к действию</div>
+                <div className="text-sm text-slate-600">Собрали релевантные предложения в отдельном каталоге с фильтрами.</div>
+              </div>
+              <Button asChild variant="outline">
+                <Link to="/offers">Открыть каталог предложений</Link>
+              </Button>
             </div>
 
             {/* Список статей */}

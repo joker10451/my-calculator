@@ -5,6 +5,7 @@ import { TaxDeductionCalculator } from "@/components/calculators/TaxDeductionCal
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import { TrustInfoBlock } from "@/components/TrustInfoBlock";
 import { trackUxEvent } from "@/lib/analytics/uxMetrics";
+import { Link } from "react-router-dom";
 
 const SITE_URL = 'https://schitay-online.ru';
 
@@ -74,6 +75,13 @@ export default function TaxDeductionCalculatorPage() {
                             title="Как увеличить выгоду после вычета"
                             subtitle="Некоторые программы накоплений позволяют дополнительно использовать налоговые льготы. Изучите условия партнёрских предложений."
                         />
+                        <div className="text-sm text-slate-600">
+                            Подобрать больше программ можно в{" "}
+                            <Link to="/offers?category=insurance" className="font-semibold text-primary hover:underline">
+                                каталоге предложений
+                            </Link>
+                            .
+                        </div>
                         <TrustInfoBlock
                             page="/calculator/tax-deduction"
                             updatedAt="Апрель 2026"

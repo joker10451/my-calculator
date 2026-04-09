@@ -2,6 +2,7 @@ import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import KASKOCalculator from "@/components/calculators/KASKOCalculator";
 import { Shield, Calculator, TrendingDown, Car, DollarSign, FileText } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const KASKOCalculatorPage = () => {
     const faqItems = [
@@ -60,12 +61,20 @@ const KASKOCalculatorPage = () => {
             faqItems={faqItems}
             calculator={<KASKOCalculator />}
             afterCalculator={
-                <OffersBlock
-                    product="insurance"
-                    placement="result_block"
-                    title="Подходящие страховые офферы"
-                    subtitle="Сравните предложения по КАСКО/ОСАГО и выберите подходящий вариант."
-                />
+                <div className="space-y-4">
+                    <OffersBlock
+                        product="insurance"
+                        placement="result_block"
+                        title="Подходящие страховые офферы"
+                        subtitle="Сравните предложения по КАСКО/ОСАГО и выберите подходящий вариант."
+                    />
+                    <div className="text-sm text-slate-600">
+                        Хотите посмотреть больше офферов?{" "}
+                        <Link to="/offers?category=insurance" className="font-semibold text-primary hover:underline">
+                            Открыть каталог страховых предложений
+                        </Link>
+                    </div>
+                </div>
             }
             features={features}
             howToUseSteps={howToUseSteps}

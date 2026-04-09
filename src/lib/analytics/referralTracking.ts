@@ -137,6 +137,73 @@ export class ReferralTracker {
   }
 
   /**
+   * Сквозной отчет по воронке реферальных переходов
+   */
+  static getFunnelReport() {
+    const clicks = this.getClickEvents();
+    const conversions = this.getConversionEvents();
+
+    const byOffer = clicks.reduce<Record<string, number>>((acc, click) => {
+      const key = click.offerId || 'unknown_offer';
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+
+    const byPlacement = clicks.reduce<Record<string, number>>((acc, click) => {
+      const key = click.placement || 'unknown';
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+
+    const byPage = clicks.reduce<Record<string, number>>((acc, click) => {
+      const key = click.page || 'unknown_page';
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+
+    const now = Date.now();
+    const dayAgo = now - 24 * 60 * 60 * 1000;
+    const recentClicks = clicks.filter((click) => new Date(click.timestamp).getTime() >= dayAgo).length;
+
+    return {
+      totals: {
+        clicks: clicks.length,
+        conversions: conversions.length,
+        conversionRate: clicks.length > 0 ? (conversions.length / clicks.length) * 100 : 0,
+      },
+      recent: {
+        clicks24h: recentClicks,
+      },
+      byOffer,
+      byPlacement,
+      byPage,
+    };
+  }
+
+  /**
+   * Сигналы мониторинга качества трекинга
+   */
+  static getTrackingHealth() {
+    const report = this.getFunnelReport();
+    const issues: string[] = [];
+
+    if (report.recent.clicks24h === 0) {
+      issues.push('Нет кликов по реферальным CTA за последние 24 часа');
+    }
+    if (report.totals.clicks > 0 && report.totals.conversionRate < 0.2) {
+      issues.push('Низкая конверсия воронки (<0.2%)');
+    }
+    if (Object.keys(report.byPlacement).length <= 1) {
+      issues.push('Клики идут из одного placement — возможен перекос воронки');
+    }
+
+    return {
+      status: issues.length === 0 ? 'ok' as const : 'warning' as const,
+      issues,
+    };
+  }
+
+  /**
    * Очистить старые события (старше 90 дней)
    */
   static cleanupOldEvents(): void {
@@ -265,6 +332,8 @@ export function useReferralTracking() {
     trackClick,
     trackConversion,
     getStatistics: ReferralTracker.getClickStatistics,
-    getPotentialRevenue: ReferralTracker.getPotentialRevenue
+    getPotentialRevenue: ReferralTracker.getPotentialRevenue,
+    getFunnelReport: ReferralTracker.getFunnelReport,
+    getTrackingHealth: ReferralTracker.getTrackingHealth,
   };
 }

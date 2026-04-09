@@ -1,13 +1,14 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Categories from "@/components/Categories";
 import PopularCalculators from "@/components/PopularCalculators";
-import BlogSection from "@/components/blog/BlogSection";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight } from "lucide-react";
+
+const BlogSection = lazy(() => import("@/components/blog/BlogSection"));
 
 const Index = () => {
   const location = useLocation();
@@ -61,7 +62,9 @@ const Index = () => {
               </div>
             </div>
           </section>
-          <BlogSection />
+          <Suspense fallback={<section className="container mx-auto px-4 py-12"><div className="h-40 rounded-3xl border border-slate-200 bg-slate-100/70 animate-pulse" /></section>}>
+            <BlogSection />
+          </Suspense>
         </main>
         <Footer />
       </div>

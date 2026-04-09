@@ -65,12 +65,20 @@ const BlogSection = () => {
 
         {/* Кнопка "Все статьи" */}
         <div className="text-center">
-          <Button asChild size="lg" className="group min-h-[44px]">
-            <Link to="/blog">
-              Все статьи блога
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button asChild size="lg" className="group min-h-[44px]">
+              <Link to="/blog">
+                Все статьи блога
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="group min-h-[44px]">
+              <Link to="/offers">
+                Подобрать предложения
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Статистика блога */}

@@ -2,6 +2,7 @@ import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import CreditCalculatorWithComparison from "@/components/calculators/CreditCalculatorWithComparison";
 import { Calculator, TrendingUp, FileText, BarChart3, PieChart, DollarSign, GitCompare } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CreditCalculatorPage = () => {
     const faqItems = [
@@ -60,7 +61,17 @@ const CreditCalculatorPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<CreditCalculatorWithComparison />}
-            afterCalculator={<OffersBlock product="credit" placement="result_block" />}
+            afterCalculator={
+                <div className="space-y-4">
+                    <OffersBlock product="credit" placement="result_block" />
+                    <div className="text-sm text-slate-600">
+                        Хотите больше вариантов?{" "}
+                        <Link to="/offers?category=credit" className="font-semibold text-primary hover:underline">
+                            Смотреть все предложения по кредитам
+                        </Link>
+                    </div>
+                </div>
+            }
             features={features}
             howToUseSteps={howToUseSteps}
         />

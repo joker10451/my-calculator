@@ -13,6 +13,7 @@ import {
   type ConversionMetrics,
 } from '@/lib/analytics/conversionTracking';
 import { getAbAssignments, getAbCtrReport, getUxBaselineSnapshot } from '@/lib/analytics/uxMetrics';
+import { ReferralTracker } from '@/lib/analytics/referralTracking';
 import { Download, TrendingUp, MousePointerClick, DollarSign, Target } from 'lucide-react';
 
 export const AnalyticsDashboard = () => {
@@ -20,6 +21,8 @@ export const AnalyticsDashboard = () => {
   const [uxBaseline, setUxBaseline] = useState(() => getUxBaselineSnapshot());
   const [abAssignments, setAbAssignments] = useState<Record<string, string>>({});
   const [abCtr, setAbCtr] = useState(() => getAbCtrReport());
+  const [funnel, setFunnel] = useState(() => ReferralTracker.getFunnelReport());
+  const [health, setHealth] = useState(() => ReferralTracker.getTrackingHealth());
 
   useEffect(() => {
     loadMetrics();
@@ -34,6 +37,8 @@ export const AnalyticsDashboard = () => {
     setUxBaseline(getUxBaselineSnapshot());
     setAbAssignments(getAbAssignments());
     setAbCtr(getAbCtrReport());
+    setFunnel(ReferralTracker.getFunnelReport());
+    setHealth(ReferralTracker.getTrackingHealth());
   };
 
   const handleExport = () => {
@@ -148,6 +153,73 @@ export const AnalyticsDashboard = () => {
         </TabsContent>
 
         <TabsContent value="ux" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Сквозная воронка переходов</CardTitle>
+              <CardDescription>Отчёт по page / placement / offerId</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid gap-3 md:grid-cols-3">
+                <div className="rounded-lg border p-3">
+                  <div className="text-sm text-muted-foreground">Клики</div>
+                  <div className="text-2xl font-bold">{funnel.totals.clicks}</div>
+                </div>
+                <div className="rounded-lg border p-3">
+                  <div className="text-sm text-muted-foreground">Конверсии</div>
+                  <div className="text-2xl font-bold">{funnel.totals.conversions}</div>
+                </div>
+                <div className="rounded-lg border p-3">
+                  <div className="text-sm text-muted-foreground">CR воронки</div>
+                  <div className="text-2xl font-bold">{funnel.totals.conversionRate.toFixed(2)}%</div>
+                </div>
+              </div>
+
+              <div className="grid gap-3 md:grid-cols-3">
+                <div className="rounded-lg border p-3">
+                  <div className="text-sm text-muted-foreground mb-2">Топ страниц</div>
+                  {Object.entries(funnel.byPage).slice(0, 3).map(([page, clicks]) => (
+                    <div key={page} className="text-sm flex justify-between">
+                      <span className="truncate mr-2">{page}</span>
+                      <span className="font-semibold">{clicks}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="rounded-lg border p-3">
+                  <div className="text-sm text-muted-foreground mb-2">Топ placement</div>
+                  {Object.entries(funnel.byPlacement).slice(0, 3).map(([placement, clicks]) => (
+                    <div key={placement} className="text-sm flex justify-between">
+                      <span>{placement}</span>
+                      <span className="font-semibold">{clicks}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="rounded-lg border p-3">
+                  <div className="text-sm text-muted-foreground mb-2">Топ offerId</div>
+                  {Object.entries(funnel.byOffer).slice(0, 3).map(([offerId, clicks]) => (
+                    <div key={offerId} className="text-sm flex justify-between">
+                      <span className="truncate mr-2">{offerId}</span>
+                      <span className="font-semibold">{clicks}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-lg border p-3">
+                <div className="text-sm text-muted-foreground">Статус трекинга</div>
+                <div className="font-semibold">
+                  {health.status === 'ok' ? 'OK' : 'Warning'}
+                </div>
+                {health.issues.length > 0 && (
+                  <ul className="mt-2 text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                    {health.issues.map((issue) => (
+                      <li key={issue}>{issue}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader className="pb-2">

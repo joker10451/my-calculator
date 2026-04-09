@@ -20,9 +20,18 @@ const OFFERS_BY_PRODUCT: Record<string, OfferKeyConfig[]> = {
   credit: [
     { key: 'vtb-credit-card', label: 'Оформить карту (ВТБ)', partnerName: 'vtb', productType: 'credit' },
   ],
-  deposit: [],
+  deposit: [
+    { key: 'psb-debit-cashback', label: 'ПСБ «Твой кешбэк»', partnerName: 'psb', productType: 'debit' },
+    { key: 'tbank-all-airlines-debit', label: 'Т‑Банк ALL Airlines', partnerName: 'tbank', productType: 'debit' },
+  ],
   insurance: [
     { key: 'renlife-guaranteed-income', label: 'НСЖ “Гарантированный доход”', partnerName: 'renlife', productType: 'insurance' },
+  ],
+  loan: [
+    { key: 'joymoney-loan', label: 'JoyMoney — займ онлайн', partnerName: 'joymoney', productType: 'loan' },
+  ],
+  vacancies: [
+    { key: 'pampadu-offer-31ba9c13', label: 'Курьер Яндекс.Еда/Лавка', partnerName: 'pampadu', productType: 'vacancies' },
   ],
 };
 
@@ -100,6 +109,12 @@ export function OffersBlock({
           <div key={cfg.key} className="rounded-2xl border border-slate-200 p-4 flex flex-col">
             <div className="font-bold text-slate-900">{cfg.label}</div>
             {link.description && <div className="text-sm text-slate-600 mt-1">{link.description}</div>}
+            {(link.updatedAt || link.payoutTerms) && (
+              <div className="mt-2 text-xs text-slate-500 space-y-1">
+                {link.updatedAt && <div>Актуально: {link.updatedAt}</div>}
+                {link.payoutTerms && <div>Условия: {link.payoutTerms}</div>}
+              </div>
+            )}
 
             <div className="mt-4">
               <AffiliateCTA

@@ -3,6 +3,7 @@ import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import InvestmentCalculator from "@/components/calculators/InvestmentCalculator";
 import { TrustInfoBlock } from "@/components/TrustInfoBlock";
 import { TrendingUp, PiggyBank, LineChart, BarChart3, DollarSign, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const InvestmentCalculatorPage = () => {
     const faqItems = [
@@ -68,6 +69,13 @@ const InvestmentCalculatorPage = () => {
                         title="Страхование и накопления"
                         subtitle="НСЖ и другие программы, которые могут подойти под вашу цель накоплений."
                     />
+                    <div className="text-sm text-slate-600">
+                        Для выбора других вариантов откройте{" "}
+                        <Link to="/offers?category=insurance" className="font-semibold text-primary hover:underline">
+                            полный каталог предложений
+                        </Link>
+                        .
+                    </div>
                     <TrustInfoBlock
                         page="/calculator/investment"
                         updatedAt="Апрель 2026"
