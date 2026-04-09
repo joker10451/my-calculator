@@ -22,6 +22,8 @@
     AddType image/svg+xml .svg
     AddType image/png .png
     AddType application/json .json
+    AddType application/xml .xml
+    AddType application/xml .yml
 </IfModule>
 
 # Заголовки Cache-Control

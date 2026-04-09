@@ -53,6 +53,23 @@
   Cross-Origin-Resource-Policy: cross-origin
   Vary: Accept-Encoding
 
+# Yandex вакансии фид (важно для валидации в Вебмастере)
+/vacancies.yml
+  Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/feeds/vacancies.yml
+  Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/vacancies.xml
+  Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/feeds/vacancies.xml
+  Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=3600
+
 # Общие заголовки для всех статических ресурсов
 /*
   X-Frame-Options: DENY

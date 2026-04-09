@@ -113,12 +113,16 @@ function writeFeed(targetRoot) {
   const yml = buildYml();
   const outputPath = path.join(feedDir, 'vacancies.yml');
   fs.writeFileSync(outputPath, yml, 'utf8');
+  const outputXmlPath = path.join(feedDir, 'vacancies.xml');
+  fs.writeFileSync(outputXmlPath, yml, 'utf8');
 
   // Совместимость: часть систем ожидает фид в корне домена (/vacancies.yml)
   const rootOutputPath = path.join(targetRoot, 'vacancies.yml');
   fs.writeFileSync(rootOutputPath, yml, 'utf8');
+  const rootOutputXmlPath = path.join(targetRoot, 'vacancies.xml');
+  fs.writeFileSync(rootOutputXmlPath, yml, 'utf8');
 
-  return { outputPath, rootOutputPath };
+  return { outputPath, outputXmlPath, rootOutputPath, rootOutputXmlPath };
 }
 
 try {
@@ -130,9 +134,15 @@ try {
 
   console.log('✅ Yandex vacancies YML generated');
   console.log(`📍 public (feeds): ${publicPaths.outputPath}`);
+  console.log(`📍 public (feeds): ${publicPaths.outputXmlPath}`);
   console.log(`📍 public (root):  ${publicPaths.rootOutputPath}`);
+  console.log(`📍 public (root):  ${publicPaths.rootOutputXmlPath}`);
   console.log(`📍 dist (feeds):   ${distPaths.outputPath}`);
+  console.log(`📍 dist (feeds):   ${distPaths.outputXmlPath}`);
   console.log(`📍 dist (root):    ${distPaths.rootOutputPath}`);
+  console.log(`📍 dist (root):    ${distPaths.rootOutputXmlPath}`);
+  console.log(`🔗 URL: ${SITE_URL}/vacancies.xml`);
+  console.log(`🔗 URL: ${SITE_URL}/feeds/vacancies.xml`);
   console.log(`🔗 URL: ${SITE_URL}/vacancies.yml`);
   console.log(`🔗 URL: ${SITE_URL}/feeds/vacancies.yml`);
 } catch (error) {
