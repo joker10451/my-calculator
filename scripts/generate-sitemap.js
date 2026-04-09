@@ -24,6 +24,7 @@ function loadBlogPosts() {
       'src/data/blogPostsNew3.ts',
       'src/data/blogPostsNew4.ts', 
       'src/data/blogPostsNew5.ts',
+      'src/data/seoArticles.ts',
       'src/data/blogArticlesGenerated.ts',
       'src/data/blogArticlesGenerated2.ts'
     ];

@@ -45,7 +45,7 @@ const Header = () => {
           </Link>
 
           {/* Search Bar (Desktop) */}
-          <div className="hidden lg:flex flex-1 max-w-md relative mx-6">
+          <div className="hidden lg:flex w-56 xl:w-72 2xl:w-80 flex-none relative mx-4 xl:mx-6">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
@@ -91,32 +91,32 @@ const Header = () => {
               <Link
                 key={cat.name}
                 to={cat.href}
-                className="px-3 py-1.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md whitespace-nowrap"
+                className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md whitespace-nowrap"
               >
                 {cat.name}
               </Link>
             ))}
             <Link
               to="/compare-banks"
-              className="px-3 py-1.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
               Банки
             </Link>
             <Link
               to="/blog"
-              className="px-3 py-1.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
               Блог
             </Link>
             <Link
               to="/offers"
-              className="px-3 py-1.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
               Предложения
             </Link>
             <Link
               to="/jobs"
-              className="px-3 py-1.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
+              className="px-2.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover:bg-muted rounded-md"
             >
               Вакансии
             </Link>
