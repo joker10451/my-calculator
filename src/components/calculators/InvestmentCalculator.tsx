@@ -25,14 +25,12 @@ const InvestmentCalculator = () => {
     
     let balance = initialAmount;
     let totalContributions = initialAmount;
-    let totalIncome = 0;
     
     // Помесячный расчет с учетом пополнений
     for (let month = 1; month <= months; month++) {
       // Начисление процентов
       const monthlyIncome = balance * monthlyRate;
       balance += monthlyIncome;
-      totalIncome += monthlyIncome;
       
       // Пополнение
       balance += monthlyContribution;

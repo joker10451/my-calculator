@@ -1,6 +1,6 @@
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import { ImageValidator, ImageValidationResult } from "./ImageValidator";
+import { ImageValidator } from "./ImageValidator";
 
 export interface PdfGenerationOptions {
   quality: 'low' | 'medium' | 'high';
@@ -257,9 +257,9 @@ export class PdfService {
       } else {
         recommendations.push('PDF генерация недоступна: отсутствует поддержка Canvas');
       }
-    } catch (error) {
-      recommendations.push('PDF генерация недоступна: ошибка инициализации Canvas');
-    }
+} catch (_error) {
+    recommendations.push('PDF генерация недоступна: ошибка инициализации Canvas');
+  }
 
     // Проверяем доступность jsPDF
     try {
@@ -268,10 +268,10 @@ export class PdfService {
         recommendations.push('Библиотека jsPDF не загружена');
         canGeneratePdf = false;
       }
-    } catch (error) {
-      recommendations.push('Ошибка загрузки библиотеки jsPDF');
-      canGeneratePdf = false;
-    }
+} catch (_error) {
+    recommendations.push('Ошибка загрузки библиотеки jsPDF');
+    canGeneratePdf = false;
+  }
 
     if (!canGeneratePdf) {
       recommendations.push('Рекомендуется использовать HTML экспорт как альтернативу PDF');
@@ -303,14 +303,14 @@ export class PdfService {
 
       // Базовая проверка структуры пройдена
       return true;
-    } catch (error) {
-      return false;
-    }
+} catch (_error) {
+    return false;
   }
+}
 
-  /**
-   * Валидирует изображения в элементе
-   */
+/**
+ * Валидирует изображения в элементе
+ */
   private async validateElementImages(element: HTMLElement, skipCorrupted: boolean): Promise<{
     processed: number;
     skipped: number;

@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { blogPosts } from '@/data/blogPosts';
 import type { BlogPost } from '@/types/blog';
 import { prefetchOnHover } from '@/utils/prefetch';

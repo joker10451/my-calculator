@@ -12,9 +12,7 @@ import type {
   Bank,
   BankProduct,
   SyncStatus,
-  DataSourceConfig,
-  BankProductCreateData,
-  BankProductUpdateData
+  BankProductCreateData
 } from '../../types/bank';
 
 /**
@@ -776,7 +774,7 @@ export class DataSyncManager {
     for (const [key, group] of productGroups.entries()) {
       if (group.length > 1) {
         // Есть дубликаты - создаем конфликт
-        const [bankId, productName] = key.split('_');
+        const [_bankId, _productName] = key.split('_');
         
         // Проверяем различия в ключевых полях
         const rates = new Set(group.map(p => p.interest_rate));
@@ -1002,10 +1000,10 @@ export class DataSyncManager {
         for (const bank of data.banks) {
           try {
             await BankRepository.createBank(bank);
-          } catch (error) {
-            // Игнорируем ошибки дублирования
-            console.warn('Банк уже существует:', bank.name);
-          }
+} catch (_error) {
+        // Игнорируем ошибки дублирования
+        console.warn('Банк уже существует:', bank.name);
+      }
         }
       }
 
@@ -1013,10 +1011,10 @@ export class DataSyncManager {
         for (const product of data.products) {
           try {
             await BankProductRepository.createProduct(product);
-          } catch (error) {
-            // Игнорируем ошибки дублирования
-            console.warn('Продукт уже существует:', product.name);
-          }
+} catch (_error) {
+        // Игнорируем ошибки дублирования
+        console.warn('Продукт уже существует:', product.name);
+      }
         }
       }
 

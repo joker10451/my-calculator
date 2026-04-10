@@ -4,11 +4,18 @@
  */
 
 import { useState, useMemo, useEffect } from "react";
-import { Activity, Calendar, Wallet, TrendingDown } from "lucide-react";
+import { Activity, Calendar, Wallet } from "lucide-react";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
 import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
+
+// Коэффициенты в зависимости от стажа
+const EXPERIENCE_COEFFICIENTS = {
+  'less5': 0.6,   // менее 5 лет - 60%
+  '5to8': 0.8,    // 5-8 лет - 80%
+  'more8': 1.0    // более 8 лет - 100%
+};
 
 const SickLeaveCalculator = () => {
   const { formatCurrency, saveCalculation } = useCalculatorCommon('sick-leave', 'Калькулятор больничного');
@@ -17,13 +24,6 @@ const SickLeaveCalculator = () => {
   const [avgSalary, setAvgSalary] = useState(100000);
   const [experience, setExperience] = useState<'less5' | '5to8' | 'more8'>('more8');
   const [reason, setReason] = useState<'illness' | 'injury' | 'child'>('illness');
-
-  // Коэффициенты в зависимости от стажа
-  const EXPERIENCE_COEFFICIENTS = {
-    'less5': 0.6,   // менее 5 лет - 60%
-    '5to8': 0.8,    // 5-8 лет - 80%
-    'more8': 1.0    // более 8 лет - 100%
-  };
 
   // Максимальная база для расчета (2026)
   const MAX_DAILY_BENEFIT = 4039; // примерно

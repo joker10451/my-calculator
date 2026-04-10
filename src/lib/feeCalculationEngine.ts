@@ -1,16 +1,5 @@
-import { 
-  FeeCalculation, 
-  FeeCalculationEngine as IFeeCalculationEngine,
-  ExemptionCategory,
-  FeeBreakdownItem,
-  CourtType
-} from '@/types/courtFee';
-import { 
-  getFeeRules, 
-  findApplicableRule,
-  GENERAL_JURISDICTION_RULES,
-  ARBITRATION_RULES
-} from '@/data/courtFeeSchedule';
+import { FeeCalculation, FeeCalculationEngine as IFeeCalculationEngine, ExemptionCategory, FeeBreakdownItem } from '@/types/courtFee';
+import { findApplicableRule } from '@/data/courtFeeSchedule';
 import { exemptionManager } from './exemptionManager';
 
 /**

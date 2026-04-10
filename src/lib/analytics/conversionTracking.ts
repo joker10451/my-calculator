@@ -161,9 +161,9 @@ const getSessionId = (): string => {
       sessionStorage.setItem('session_id', sessionId);
     }
     return sessionId;
-  } catch (e) {
-    return `session_${Date.now()}`;
-  }
+} catch (_e) {
+  return `session_${Date.now()}`;
+}
 };
 
 /**

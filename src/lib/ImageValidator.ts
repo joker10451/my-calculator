@@ -92,10 +92,10 @@ export class ImageValidator {
   /**
    * Пытается восстановить поврежденные данные изображения
    */
-  async repairImageData(imageData: string, options?: Partial<ImageRepairOptions>): Promise<string | null> {
-    const opts = { ...this.defaultOptions, ...options };
-    
-    try {
+async repairImageData(imageData: string, options?: Partial<ImageRepairOptions>): Promise<string | null> {
+  const _opts = { ...this.defaultOptions, ...options };
+
+  try {
       // Попытка 1: Исправление base64 padding
       let repairedData = this.fixBase64Padding(imageData);
       let validation = await this.validateImageData(repairedData);
@@ -302,18 +302,18 @@ export class ImageValidator {
             ctx.drawImage(img, 0, 0);
             const pngData = canvas.toDataURL('image/png');
             resolve(pngData);
-          } catch (error) {
-            resolve(null);
-          }
-        };
-        
-        img.onerror = () => resolve(null);
-        
-        setTimeout(() => resolve(null), 5000);
-        
-        img.src = jpegData;
-      });
-    } catch (error) {
+} catch (_error) {
+  resolve(null);
+}
+};
+
+img.onerror = () => resolve(null);
+
+setTimeout(() => resolve(null), 5000);
+
+img.src = jpegData;
+});
+} catch (_error) {
       return null;
     }
   }

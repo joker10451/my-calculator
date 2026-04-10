@@ -1,9 +1,8 @@
-import { useState, useMemo } from 'react';
 import { SEO, generateFAQSchema } from '@/components/SEO';
 import { generateHowToSchema } from '@/utils/seoSchemas';
 import { MFO_OFFERS, generateMFOSEOTemplate } from '@/lib/seoPages';
 import { useParams, Navigate } from 'react-router-dom';
-import { Wallet, Clock, CheckCircle, ArrowRight, Star, Shield, TrendingDown } from 'lucide-react';
+import { Wallet, Clock, CheckCircle, Star, Shield, TrendingDown } from 'lucide-react';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
 
 const SITE_URL = 'https://schitay-online.ru';

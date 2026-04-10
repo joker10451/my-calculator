@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useRef } from 'react';
-import { Upload, Download, FileText, AlertCircle, CheckCircle, X } from 'lucide-react';
+import { Upload, Download, FileText, AlertCircle, CheckCircle } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Progress } from '../ui/progress';
@@ -12,7 +12,7 @@ import { Badge } from '../ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { useToast } from '../ui/use-toast';
 import { BankRepository, BankProductRepository } from '../../lib/database';
-import type { Bank, BankProduct, BankCreateData, BankProductCreateData } from '../../types/bank';
+import type { BankCreateData, BankProductCreateData } from '../../types/bank';
 
 interface ImportResult {
   success: boolean;

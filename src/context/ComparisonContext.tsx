@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useCallback, useMemo } from 'react';
 import { STORAGE_KEYS } from '@/shared/constants';
-import { storage } from '@/shared/utils/storage';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 export interface ComparisonItem {

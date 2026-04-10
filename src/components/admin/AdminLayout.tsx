@@ -9,8 +9,6 @@ import {
   CreditCard, 
   BarChart3, 
   Settings, 
-  Upload, 
-  Download,
   Database,
   Users,
   TrendingUp

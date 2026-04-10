@@ -105,9 +105,9 @@ export function CalculatorActions({
       } else {
         toast.error("Не удалось скопировать ссылку");
       }
-    } catch (error) {
-      toast.error("Ошибка при создании ссылки");
-    } finally {
+} catch (_error) {
+    toast.error("Ошибка при создании ссылки");
+  } finally {
       setIsSharing(false);
     }
   };

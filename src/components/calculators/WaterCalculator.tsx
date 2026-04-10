@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Dna, Info, Share2, Droplets, Activity, Download } from "lucide-react";
+import { Info, Droplets, Download } from "lucide-react";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
@@ -13,7 +13,7 @@ const WaterCalculator = () => {
     const [weight, setWeight] = useState(70);
     const [activity, setActivity] = useState<ActivityLevel>("medium");
 
-    const calculateWater = () => {
+    const waterNorm = useMemo(() => {
         let base = weight * 30; // 30ml per kg
 
         // Activity adjustments
@@ -21,9 +21,7 @@ const WaterCalculator = () => {
         if (activity === "high") base += 1000;
 
         return base;
-    };
-
-    const waterNorm = useMemo(() => calculateWater(), [weight, activity]);
+    }, [weight, activity]);
 
     const handleDownload = async () => {
         showToast("Генерация PDF", "Пожалуйста, подождите...");

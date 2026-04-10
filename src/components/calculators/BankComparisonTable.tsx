@@ -78,9 +78,9 @@ export function BankComparisonTable() {
 
   useEffect(() => {
     loadData();
-  }, [selectedType]);
+  }, [loadData]);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -100,7 +100,7 @@ export function BankComparisonTable() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedType]);
 
   const bankMap = useMemo(() => {
     const map = new Map<string, Bank>();

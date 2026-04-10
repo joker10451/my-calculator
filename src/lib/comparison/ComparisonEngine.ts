@@ -11,8 +11,7 @@ import type {
   ComparisonRow,
   ComparisonValue,
   ComparisonSummary,
-  ProductType,
-  Bank
+  ProductType
 } from '@/types/bank';
 
 export interface ComparisonResult {
@@ -85,10 +84,10 @@ export class ComparisonEngine {
    * Requirements 1.2: mortgage products comparison
    * Requirements 1.3: deposit products comparison
    */
-  getComparisonMatrix(
-    products: BankProduct[],
-    criteria: ComparisonCriteria
-  ): ComparisonMatrix {
+getComparisonMatrix(
+  products: BankProduct[],
+  _criteria: ComparisonCriteria
+): ComparisonMatrix {
     const productType = products[0]?.product_type;
     
     // Определяем заголовки в зависимости от типа продукта
@@ -707,11 +706,11 @@ export class ComparisonEngine {
   /**
    * Генерирует рекомендации на основе сравнения
    */
-  private generateRecommendations(
-    products: BankProduct[],
-    matrix: ComparisonMatrix,
-    criteria: ComparisonCriteria
-  ): string[] {
+private generateRecommendations(
+  _products: BankProduct[],
+  matrix: ComparisonMatrix,
+  _criteria: ComparisonCriteria
+): string[] {
     return matrix.summary.recommendations;
   }
 

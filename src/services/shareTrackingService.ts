@@ -142,7 +142,7 @@ class ShareTrackingService {
   /**
    * Отправляет событие на бэкенд (если доступен)
    */
-  private async sendToBackend(event: ShareEvent): Promise<void> {
+  private async sendToBackend(_event: ShareEvent): Promise<void> {
     try {
       // This would be implemented when backend is available
       // await fetch('/api/blog/share', {

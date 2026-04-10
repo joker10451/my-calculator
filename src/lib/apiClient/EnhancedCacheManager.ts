@@ -280,7 +280,7 @@ export class EnhancedCacheManager implements ApiCache {
               matchingKeys.push(originalKey);
             }
           }
-        } catch (parseError) {
+        } catch (_parseError) {
           // Пропускаем поврежденные записи
           continue;
         }
@@ -317,13 +317,13 @@ export class EnhancedCacheManager implements ApiCache {
               matchingKeys.push(originalKey);
             }
           }
-        } catch (parseError) {
-          continue;
+} catch (_parseError) {
+            continue;
+          }
         }
-      }
 
-      return matchingKeys;
-    } catch (error) {
+        return matchingKeys;
+      } catch (error) {
       console.error('Find by source error:', error);
       return [];
     }
@@ -383,12 +383,12 @@ export class EnhancedCacheManager implements ApiCache {
           for (const tag of metadata.tags) {
             entriesByTag[tag] = (entriesByTag[tag] || 0) + 1;
           }
-        } catch (parseError) {
-          expiredEntries++;
-        }
+} catch (_parseError) {
+        expiredEntries++;
       }
+    }
 
-      const totalRequests = this.statistics.hits + this.statistics.misses;
+    const totalRequests = this.statistics.hits + this.statistics.misses;
       const hitRate = totalRequests > 0 ? this.statistics.hits / totalRequests : 0;
       const missRate = totalRequests > 0 ? this.statistics.misses / totalRequests : 0;
       const averageAccessCount = cacheKeys.length > 0 ? totalAccessCount / cacheKeys.length : 0;
@@ -559,13 +559,13 @@ export class EnhancedCacheManager implements ApiCache {
           if (entry.metadata.expirationDate > 0 && now > entry.metadata.expirationDate) {
             keysToRemove.push(key);
           }
-        } catch (parseError) {
-          // Удаляем поврежденные записи
-          keysToRemove.push(key);
-        }
+} catch (_parseError) {
+        // Удаляем поврежденные записи
+        keysToRemove.push(key);
       }
+    }
 
-      // Удаляем найденные ключи
+    // Удаляем найденные ключи
       for (const key of keysToRemove) {
         localStorage.removeItem(key);
         removedCount++;

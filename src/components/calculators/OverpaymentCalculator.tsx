@@ -116,6 +116,7 @@ export function OverpaymentCalculator() {
     const paymentWorst = amount * (monthlyRateWorst * Math.pow(1 + monthlyRateWorst, months)) / (Math.pow(1 + monthlyRateWorst, months) - 1);
     const savings = Math.round((paymentWorst - paymentBest) * months);
     return { best, worst, savings };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, term]);
 
   const handleDownload = () => {

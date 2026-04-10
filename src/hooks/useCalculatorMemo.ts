@@ -13,7 +13,6 @@ export const useCalculatorMemo = <T>(
       return calculateFn();
     } catch (error) {
       console.error('Ошибка в расчетах:', error);
-      // Возвращаем безопасное значение по умолчанию
       return {} as T;
     }
   }, deps);

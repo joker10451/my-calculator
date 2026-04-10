@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Download, Share2, Info, User, Scale, Ruler } from "lucide-react";
+import { Calculator, Download, Share2, Info, Scale, Ruler } from "lucide-react";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";

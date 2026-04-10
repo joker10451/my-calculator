@@ -176,7 +176,7 @@ export default function BlogPostPage() {
       post.updatedAt,
       post.featuredImage?.url
     );
-  }, [post]);
+  }, [post, canonicalUrl]);
 
   const faqSchema = useMemo(() => {
     if (!post) return null;

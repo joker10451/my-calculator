@@ -36,7 +36,7 @@ export const BlogShare = ({ post, shareCount = 0 }: BlogShareProps) => {
       shareTrackingService.trackShare(post.id, post.slug, 'copy_link');
 
       setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
+    } catch {
       toast.error('Не удалось скопировать ссылку');
     }
   };

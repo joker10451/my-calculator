@@ -21,17 +21,16 @@ export function trackAffiliateClick(event: AffiliateClickEvent): void {
   // В проекте используем единое событие `referral_click` через ReferralTracker
   // (Метрика/GA4 конфигурируются в одном месте).
   if (typeof window !== 'undefined') {
-    try {
-      // Lazy import to avoid circular deps in non-browser contexts
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      import('@/lib/analytics/referralTracking').then(({ ReferralTracker }) => {
+try {
+    // Lazy import to avoid circular deps in non-browser contexts
+    import('@/lib/analytics/referralTracking').then(({ ReferralTracker }) => {
         ReferralTracker.trackClick({
           productId: event.offerId || `${event.partnerName}-${event.productType}`,
           offerId: event.offerId || `${event.partnerName}-${event.productType}`,
           bankId: event.partnerName,
           productType: event.productType,
           referralLink: event.linkUrl,
-          source: 'recommendation',
+          _source: 'recommendation',
           placement: event.placement || 'unknown',
           page: event.pageUrl,
           abVariant: event.abVariant,
@@ -75,8 +74,7 @@ export function getAffiliateStats(): Record<string, number> {
 export function createAffiliateLink(
   url: string,
   partnerName: string,
-  productType: string,
-  source: string = 'website'
+  productType: string
 ): string {
   return `javascript:void(0)`;
 }

@@ -5,7 +5,7 @@ import { Slider } from "@/components/ui/slider";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { 
   Scale, 
   Info, 
@@ -348,10 +348,10 @@ const CourtFeeCalculator = () => {
           title: 'Расчет госпошлины Считай.RU', 
           text 
         });
-        return;
-      } catch (e) {
-        // Fallback to clipboard
-      }
+return;
+} catch (_e) {
+  // Fallback to clipboard
+}
     }
     
     await navigator.clipboard.writeText(text);

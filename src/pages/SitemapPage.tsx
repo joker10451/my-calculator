@@ -6,11 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { categories } from "@/lib/data";
 
 const SitemapPage = () => {
-  const calculators = categories.flatMap(cat => 
-    cat.calculators.map(calc => ({
-      ...calc,
-      category: cat.name
-    }))
+  const _calculators = categories.flatMap(cat => 
+  cat.calculators.map(calc => ({
+    ...calc,
+    category: cat.name
+  }))
   );
 
   const pages = [

@@ -90,7 +90,7 @@ export function useCalculator<T extends Record<string, unknown>>(
         }, {} as Record<string, string>),
       };
     });
-  }, [config.calculations, validator, saveValue]);
+  }, [config, validator, saveValue]);
 
   // Обновление нескольких значений
   const updateValues = useCallback((newValues: Partial<T>) => {
@@ -114,7 +114,7 @@ export function useCalculator<T extends Record<string, unknown>>(
         }, {} as Record<string, string>),
       };
     });
-  }, [config.calculations, validator, saveValue]);
+  }, [config, validator, saveValue]);
 
   // Сброс к значениям по умолчанию
   const resetValues = useCallback(() => {
@@ -136,7 +136,7 @@ export function useCalculator<T extends Record<string, unknown>>(
         return acc;
       }, {} as Record<string, string>),
     });
-  }, [config.defaultValues, config.calculations, config.storagePrefix, validator]);
+  }, [config, validator]);
 
   // Валидация одного поля
   const validateField = useCallback((field: keyof T) => {
@@ -191,7 +191,7 @@ export function useCalculator<T extends Record<string, unknown>>(
         return acc;
       }, {} as Record<string, string>),
     });
-  }, [config.calculations, validator, saveValue]);
+  }, [config, validator, saveValue]);
 
   // Пересчет при изменении конфигурации
   useEffect(() => {
@@ -207,7 +207,7 @@ export function useCalculator<T extends Record<string, unknown>>(
         return acc;
       }, {} as Record<string, string>),
     }));
-  }, [config.calculations, validator, state.values]);
+  }, [config, validator, state.values]);
 
   return {
     values: state.values,

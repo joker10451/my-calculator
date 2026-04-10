@@ -35,7 +35,7 @@ export function BankManagement() {
       setLoading(true);
       const banksData = await BankRepository.getBanks();
       setBanks(banksData);
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: 'Ошибка',
         description: 'Не удалось загрузить список банков',
@@ -68,7 +68,7 @@ export function BankManagement() {
         title: 'Успешно',
         description: 'Банк удален'
       });
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: 'Ошибка',
         description: 'Не удалось удалить банк',

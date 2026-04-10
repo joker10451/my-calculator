@@ -154,7 +154,7 @@ export function getOrCreateSessionId(): string {
     }
     
     return sessionId;
-  } catch (error) {
+  } catch (_e) {
     // Fallback если sessionStorage недоступен
     return generateSessionId();
   }

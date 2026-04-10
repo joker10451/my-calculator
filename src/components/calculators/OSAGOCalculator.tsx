@@ -10,40 +10,40 @@ import { CalculatorHistory } from "@/components/CalculatorHistory";
 import { CalculationHistoryItem } from "@/hooks/useCalculatorHistory";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
+// Базовые ставки 2026 (примерные)
+const BASE_RATES = {
+  car: 5980,
+  truck: 7200,
+  motorcycle: 1850,
+  bus: 8100
+};
+
+// Коэффициенты
+const REGION_COEFFICIENTS: Record<string, number> = {
+  moscow: 2.0,
+  spb: 1.8,
+  ekb: 1.6,
+  nsk: 1.5,
+  kzn: 1.4,
+  other: 1.2
+};
+
+const AGE_EXPERIENCE_COEFFICIENTS: Record<string, number> = {
+  'young': 1.8,      // до 22 лет, стаж до 3 лет
+  'middle': 1.0,     // 22+ лет, стаж 3+ лет
+  'experienced': 0.95 // опытный водитель
+};
+
+const POWER_COEFFICIENTS: Record<string, number> = {
+  'low': 0.6,        // до 50 л.с.
+  'medium': 1.0,     // 50-100 л.с.
+  'high': 1.4,       // 100-150 л.с.
+  'very_high': 1.6   // более 150 л.с.
+};
+
 const OSAGOCalculator = () => {
   const { formatCurrency, saveCalculation } = useCalculatorCommon('osago', 'Калькулятор ОСАГО');
   
-  // Базовые ставки 2026 (примерные)
-  const BASE_RATES = {
-    car: 5980,
-    truck: 7200,
-    motorcycle: 1850,
-    bus: 8100
-  };
-
-  // Коэффициенты
-  const REGION_COEFFICIENTS: Record<string, number> = {
-    moscow: 2.0,
-    spb: 1.8,
-    ekb: 1.6,
-    nsk: 1.5,
-    kzn: 1.4,
-    other: 1.2
-  };
-
-  const AGE_EXPERIENCE_COEFFICIENTS: Record<string, number> = {
-    'young': 1.8,      // до 22 лет, стаж до 3 лет
-    'middle': 1.0,     // 22+ лет, стаж 3+ лет
-    'experienced': 0.95 // опытный водитель
-  };
-
-  const POWER_COEFFICIENTS: Record<string, number> = {
-    'low': 0.6,        // до 50 л.с.
-    'medium': 1.0,     // 50-100 л.с.
-    'high': 1.4,       // 100-150 л.с.
-    'very_high': 1.6   // более 150 л.с.
-  };
-
   const [vehicleType, setVehicleType] = useState<'car' | 'truck' | 'motorcycle' | 'bus'>('car');
   const [region, setRegion] = useState('moscow');
   const [power, setPower] = useState('medium');

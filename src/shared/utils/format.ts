@@ -75,7 +75,7 @@ export function formatCompactNumber(value: number, locale = 'ru-RU'): string {
       compactDisplay: 'short',
       maximumFractionDigits: 1,
     }).format(value);
-  } catch (error) {
+  } catch (_error) {
     // Fallback для старых браузеров
     if (value >= 1000000000) {
       return `${(value / 1000000000).toFixed(1)}Б`;

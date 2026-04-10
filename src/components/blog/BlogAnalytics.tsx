@@ -9,7 +9,6 @@ import {
 
 interface BlogAnalyticsProps {
   articleId: string;
-  articleTitle: string;
 }
 
 /**
@@ -20,7 +19,7 @@ interface BlogAnalyticsProps {
  * - Calculator clicks
  * - Completion events (100% scroll + 5s)
  */
-export const BlogAnalytics = ({ articleId, articleTitle }: BlogAnalyticsProps) => {
+export const BlogAnalytics = ({ articleId }: BlogAnalyticsProps) => {
   const scrollDepthTracked = useRef<Set<number>>(new Set());
   const completionTracked = useRef(false);
   const scrollTo100Ref = useRef(false);

@@ -1,10 +1,9 @@
 import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Calculator, Baby, Info, Share2, Wallet, Calendar, Download } from "lucide-react";
+import { Baby, Info, Share2, Calendar, Download } from "lucide-react";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
-import { CalculatorActions } from "@/components/CalculatorActions";
-import { CalculatorHistory } from "@/components/CalculatorHistory";
+// Calculator actions and history imports removed as unused
 import { parseShareableLink } from "@/utils/exportUtils";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
@@ -29,8 +28,6 @@ const MaternityCapitalCalculator = () => {
     }, []);
 
     const calculateCapital = () => {
-        const total = 0;
-
         // Logic simplification for MVP
         if (!hasSecondChild) {
             // Only 1 child
@@ -49,6 +46,7 @@ const MaternityCapitalCalculator = () => {
         }
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const totalAmount = useMemo(() => calculateCapital(), [firstChildYear, secondChildYear, hasSecondChild]);
 
     const handleDownload = async () => {

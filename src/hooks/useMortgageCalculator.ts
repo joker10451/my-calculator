@@ -89,9 +89,9 @@ export const useMortgageCalculator = () => {
             try {
                 await navigator.share({ title: 'Расчет ипотеки Считай.RU', text });
                 return;
-            } catch (e) {
-                // Ignore share errors
-            }
+} catch (_e) {
+    // Ignore share errors
+  }
         }
         await navigator.clipboard.writeText(text);
         showToast("Скопировано!");

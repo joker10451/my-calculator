@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Calculator, Share2, Info, Droplets, Zap, Flame, Home } from "lucide-react";
+import { Calculator, Share2, Info, Droplets, Zap } from "lucide-react";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const UtilitiesCalculator = () => {
@@ -41,7 +41,9 @@ const UtilitiesCalculator = () => {
         return calculateCost(waterCurr, waterPrev, waterRate);
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const elecCost = useMemo(() => calculateElecCost(), [elecCurr, elecPrev, elecRate, elecByNorm, residents]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const waterCost = useMemo(() => calculateWaterCost(), [waterCurr, waterPrev, waterRate, waterByNorm, residents]);
     const totalCost = useMemo(() => elecCost + waterCost, [elecCost, waterCost]);
 

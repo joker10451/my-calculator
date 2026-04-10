@@ -30,6 +30,7 @@ const DepositCalculator = () => {
             if (params.replenishment) setReplenishment(params.replenishment);
             if (params.indexation) setIndexation(params.indexation);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const { total, interest, history } = useMemo(() => {
@@ -109,7 +110,7 @@ const DepositCalculator = () => {
         try {
             await navigator.clipboard.writeText(text);
             showToast("Скопировано!", "Результат сохранен в буфер обмена.");
-        } catch (e) {
+        } catch (_e) {
             showToast("Ошибка", "Не удалось скопировать", "destructive");
         }
     };

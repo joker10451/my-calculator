@@ -249,7 +249,7 @@ export class ErrorHandler implements IErrorHandler {
    * @param context - Контекст запроса
    * @returns Кэшированный результат или null
    */
-  private getCachedResult(context: Record<string, unknown>): unknown {
+  private getCachedResult(_context: Record<string, unknown>): unknown {
     // В реальном приложении здесь была бы работа с localStorage или другим кэшем
     return null;
   }

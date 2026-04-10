@@ -48,6 +48,8 @@ export function useRecommendations(options: UseRecommendationsOptions): UseRecom
       return;
     }
 
+    const recommendationSystem = new RecommendationSystem();
+
     setIsLoading(true);
     setError(null);
 
@@ -76,6 +78,8 @@ export function useRecommendations(options: UseRecommendationsOptions): UseRecom
     feedback: 'clicked' | 'dismissed' | 'applied'
   ) => {
     if (!userId) return;
+
+    const recommendationSystem = new RecommendationSystem();
 
     try {
       await recommendationSystem.learnFromFeedback(userId, recommendationId, feedback);

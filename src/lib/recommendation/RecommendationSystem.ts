@@ -9,8 +9,6 @@
 import type {
   BankProduct,
   UserProfile,
-  Recommendation,
-  RecommendationCreateData,
   ProductType,
   RiskTolerance,
   CalculationHistoryItem

@@ -9,10 +9,9 @@ import type {
   UserProfileData,
   CalculationHistoryItem,
   ProductType,
-  EmploymentType,
   RiskTolerance
 } from '@/types/bank';
-import { supabase, handleDatabaseError } from '@/lib/database/supabase';
+import { supabase } from '@/lib/database/supabase';
 import { storage } from '@/shared/utils/storage';
 
 export interface CalculationData {

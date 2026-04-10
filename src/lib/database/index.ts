@@ -48,7 +48,7 @@ export class DatabaseUtils {
    */
   static async checkConnection(): Promise<boolean> {
     try {
-      const { data, error } = await supabase
+      const { data: _data, error } = await supabase
         .from('banks')
         .select('id')
         .limit(1);

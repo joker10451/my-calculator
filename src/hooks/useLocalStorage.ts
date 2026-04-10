@@ -17,7 +17,6 @@ function useLocalStorage<T>(
   } = {}
 ): [T, (value: T | ((val: T) => T)) => void, () => void] {
   const {
-    serialize = JSON.stringify,
     deserialize = JSON.parse,
     syncAcrossTabs = false
   } = options;

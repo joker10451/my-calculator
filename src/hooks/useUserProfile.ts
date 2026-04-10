@@ -41,6 +41,8 @@ export function useUserProfile(
     setIsLoading(true);
     setError(null);
 
+    const profileManager = new UserProfileManager();
+
     try {
       let userProfile: UserProfile | null;
 
@@ -72,6 +74,8 @@ export function useUserProfile(
   const loadBehavior = useCallback(async () => {
     if (!profile) return;
 
+    const profileManager = new UserProfileManager();
+
     try {
       const analysis = await profileManager.analyzeUserBehavior(profile.user_id);
       setBehavior(analysis);
@@ -88,6 +92,8 @@ export function useUserProfile(
       console.warn('Cannot track calculation: profile not loaded');
       return;
     }
+
+    const profileManager = new UserProfileManager();
 
     try {
       await profileManager.trackCalculation(profile.user_id, calculationData);
@@ -110,6 +116,8 @@ export function useUserProfile(
       console.warn('Cannot update profile: profile not loaded');
       return;
     }
+
+    const profileManager = new UserProfileManager();
 
     setIsLoading(true);
     setError(null);

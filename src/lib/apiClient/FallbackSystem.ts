@@ -2,13 +2,11 @@
  * Универсальная система fallback для API недоступности
  */
 
-import { 
-  ApiResponse, 
-  ApiSourceType, 
-  FeeScheduleApiData, 
-  LegalDocumentData,
-  CourtFeeApiRule,
-  ExemptionApiData
+import {
+  ApiResponse,
+  ApiSourceType,
+  FeeScheduleApiData,
+  LegalDocumentData
 } from '@/types/apiSources';
 
 export interface FallbackDataProvider<T> {
@@ -444,7 +442,7 @@ export class FallbackSystem {
   /**
    * Получение деградированных данных
    */
-  private getDegradedData(dataType: string, context?: Record<string, unknown>): unknown {
+  private getDegradedData(dataType: string, _context?: Record<string, unknown>): unknown {
     switch (dataType) {
       case 'fee_schedule':
         // Возвращаем минимальную структуру для расчета госпошлин

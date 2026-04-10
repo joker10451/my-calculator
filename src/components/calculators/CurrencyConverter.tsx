@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Calculator, ArrowRightLeft, Info, Share2, Coins, RefreshCw, Download } from "lucide-react";
+import { ArrowRightLeft, Info, Share2, Coins, RefreshCw, Download } from "lucide-react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { exportToPDF } from "@/lib/pdfService";
 import { STAMP_BASE64 } from "@/lib/assets";
@@ -28,7 +28,7 @@ const LABELS: Record<Currency, string> = {
 };
 
 const CurrencyConverter = () => {
-    const { formatCurrency, showToast } = useCalculatorCommon('currency', 'Конвертер валют');
+    const { showToast } = useCalculatorCommon('currency', 'Конвертер валют');
     const [amount, setAmount] = useLocalStorage<number>("calc_currency_amount", 100);
     const [from, setFrom] = useLocalStorage<Currency>("calc_currency_from", "USD");
     const [to, setTo] = useLocalStorage<Currency>("calc_currency_to", "RUB");
@@ -111,12 +111,12 @@ const CurrencyConverter = () => {
             } catch (err) { console.log(err); }
         }
 
-        try {
-            await navigator.clipboard.writeText(text);
-            showToast("Скопировано!", "Результат сохранен в буфер обмена.");
-        } catch (e) {
-            showToast("Ошибка", "Не удалось скопировать", "destructive");
-        }
+try {
+  await navigator.clipboard.writeText(text);
+  showToast("Скопировано!", "Результат сохранен в буфер обмена.");
+} catch (_e) {
+  showToast("Ошибка", "Не удалось скопировать", "destructive");
+}
     };
 
     return (

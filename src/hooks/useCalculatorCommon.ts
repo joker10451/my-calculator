@@ -84,11 +84,11 @@ export const useCalculatorCommon = (calculatorId: string, calculatorName: string
       await navigator.clipboard.writeText(text);
       showToast('Скопировано!', 'Результат сохранен в буфер обмена.');
       return true;
-    } catch (error) {
-      showToast('Ошибка', 'Не удалось скопировать', 'destructive');
-      return false;
-    }
-  }, [showToast]);
+} catch (_error) {
+    showToast('Ошибка', 'Не удалось скопировать', 'destructive');
+    return false;
+  }
+}, [showToast]);
 
   // Поделиться (Web Share API)
   const share = useCallback(async (data: { title: string; text: string; url?: string }) => {
@@ -96,7 +96,7 @@ export const useCalculatorCommon = (calculatorId: string, calculatorName: string
       try {
         await navigator.share(data);
         return true;
-      } catch (error) {
+      } catch (_error) {
         // Пользователь отменил или ошибка
         return false;
       }

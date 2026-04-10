@@ -42,6 +42,8 @@ export function useCrossCalculatorRecommendations(
     setIsLoading(true);
     setError(null);
 
+    const recommendationSystem = new RecommendationSystem();
+
     try {
       const results = await recommendationSystem.getCrossCalculatorRecommendations(userId, limit);
       setRecommendations(results);

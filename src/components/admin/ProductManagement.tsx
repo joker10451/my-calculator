@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Filter, Search, Upload, Download } from 'lucide-react';
+import { Plus, Edit, Trash2, Search, Upload, Download } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
@@ -57,7 +57,7 @@ export function ProductManagement() {
       ]);
       setProducts(productsData);
       setBanks(banksData);
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: 'Ошибка',
         description: 'Не удалось загрузить данные',
@@ -103,7 +103,7 @@ export function ProductManagement() {
         title: 'Успешно',
         description: 'Продукт удален'
       });
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: 'Ошибка',
         description: 'Не удалось удалить продукт',
@@ -158,16 +158,6 @@ export function ProductManagement() {
   const getBankName = (bankId: string) => {
     const bank = banks.find(b => b.id === bankId);
     return bank?.name || 'Неизвестный банк';
-  };
-
-  const getProductTypeLabel = (type: ProductType) => {
-    const labels = {
-      mortgage: 'Ипотека',
-      deposit: 'Вклад',
-      credit: 'Кредит',
-      insurance: 'Страхование'
-    };
-    return labels[type] || type;
   };
 
   if (loading) {

@@ -13,7 +13,6 @@ import type {
   BankProductCreateData,
   BankProductUpdateData,
   ProductFilters,
-  ProductSortOptions,
   ProductSearchResult,
   QueryOptions,
   ValidationResult,

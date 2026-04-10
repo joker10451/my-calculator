@@ -23,6 +23,7 @@ const SalaryCalculator = () => {
     if (sharedParams && sharedParams.salary) {
       setSalary(sharedParams.salary);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Определяем, нужно ли показывать карту ПСБ
@@ -115,13 +116,13 @@ const SalaryCalculator = () => {
       }
     }
 
-    // Fallback to clipboard
-    try {
-      await navigator.clipboard.writeText(text);
-      showToast("Скопировано!", "Расчет сохранен в буфер обмена.");
-    } catch (err) {
-      showToast("Ошибка", "Не удалось скопировать.", "destructive");
-    }
+// Fallback to clipboard
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast("Скопировано!", "Расчет сохранен в буфер обмена.");
+  } catch (_err) {
+    showToast("Ошибка", "Не удалось скопировать.", "destructive");
+  }
   };
 
   const handleCompare = () => {

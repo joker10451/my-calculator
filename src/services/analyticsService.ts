@@ -75,7 +75,7 @@ export function getSessionId(): string {
       sessionStorage.setItem('blog_session_id', sessionId);
     }
     return sessionId;
-  } catch (e) {
+  } catch (_e) {
     return `session_${Date.now()}`;
   }
 }
@@ -91,9 +91,9 @@ function getUserId(): string | undefined {
       localStorage.setItem('blog_user_id', userId);
     }
     return userId;
-  } catch (e) {
-    return undefined;
-  }
+} catch (_e) {
+  return undefined;
+}
 }
 
 /**
@@ -129,7 +129,7 @@ function saveEvent(event: AnalyticsEvent): void {
 /**
  * Отправка события на backend
  */
-async function sendEventToBackend(event: AnalyticsEvent): Promise<void> {
+async function sendEventToBackend(_event: AnalyticsEvent): Promise<void> {
   // Временно отключено т.к. бэкенда нет
   return Promise.resolve();
 }
@@ -253,7 +253,7 @@ export function trackScrollDepth(articleId: string, depth: number): void {
   // Отмечаем, что событие отправлено
   try {
     sessionStorage.setItem(key, 'true');
-  } catch (e) {
+  } catch (_e) {
     // Игнорируем ошибки
   }
 }
@@ -335,7 +335,7 @@ export function trackCompletion(articleId: string): void {
   // Отмечаем, что completion отправлен
   try {
     sessionStorage.setItem(key, 'true');
-  } catch (e) {
+  } catch (_e) {
     // Игнорируем ошибки
   }
 }

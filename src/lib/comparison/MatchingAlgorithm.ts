@@ -6,8 +6,7 @@
 import type {
   BankProduct,
   UserFinancialProfile,
-  ProductType,
-  RiskTolerance
+  ProductType
 } from '@/types/bank';
 
 export interface UserRequirements {
@@ -334,7 +333,7 @@ export class MatchingAlgorithm {
     products: BankProduct[],
     criteria: RankingCriteria
   ): RankedProduct[] {
-    const rankedProducts = products.map((product, index) => {
+    const rankedProducts = products.map((product) => {
       // Вычисляем баллы по каждому критерию
       const rateScore = this.calculateRateScore(product, products);
       const feesScore = this.calculateFeesScore(product, products);
@@ -798,10 +797,10 @@ export class MatchingAlgorithm {
   /**
    * Оценивает риски продукта
    */
-  private assessRisk(
-    primary: RankedProduct,
-    requirements: UserRequirements
-  ): RiskLevel {
+private assessRisk(
+  primary: RankedProduct,
+  _requirements: UserRequirements
+): RiskLevel {
     let riskScore = 0;
     
     // Высокая процентная ставка
@@ -970,11 +969,11 @@ export class MatchingAlgorithm {
   async suggestAlternatives(
     requirements: UserRequirements,
     availableProducts: BankProduct[]
-  ): Promise<Alternative[]> {
-    const alternatives: Alternative[] = [];
-    
-    // Попробуем ослабить ограничения
-    const relaxedRequirements = { ...requirements };
+): Promise<Alternative[]> {
+  const alternatives: Alternative[] = [];
+
+  // Попробуем ослабить ограничения
+  const _relaxedRequirements = { ...requirements };
     
     // Увеличиваем диапазон суммы на 20%
     const amountAdjustment = requirements.amount * 0.2;
@@ -1191,11 +1190,11 @@ export class MatchingAlgorithm {
   /**
    * Генерирует сводку сравнения
    */
-  private generateComparisonSummary(
-    primary: RankedProduct,
-    alternatives: RankedProduct[],
-    comparisons: ProductComparison[]
-  ): string {
+private generateComparisonSummary(
+  primary: RankedProduct,
+  _alternatives: RankedProduct[],
+  _comparisons: ProductComparison[]
+): string {
     const advantages = primary.pros.length;
     const disadvantages = primary.cons.length;
     
@@ -1280,10 +1279,10 @@ export class MatchingAlgorithm {
   /**
    * Вычисляет преимущества комбинации
    */
-  private calculateCombinationBenefits(
-    products: BankProduct[],
-    requirements: UserRequirements
-  ): string[] {
+private calculateCombinationBenefits(
+  products: BankProduct[],
+  _requirements: UserRequirements
+): string[] {
     const benefits: string[] = [];
     
     if (products.length > 1) {
@@ -1408,11 +1407,11 @@ export class MatchingAlgorithm {
    * Генерирует динамические рекомендации на основе изменений
    * Requirements 4.5: dynamic recommendations
    */
-  async generateDynamicRecommendations(
-    previousSolution: OptimalSolution,
-    currentProducts: BankProduct[],
-    requirements: UserRequirements
-  ): Promise<DynamicUpdate> {
+async generateDynamicRecommendations(
+  previousSolution: OptimalSolution,
+  currentProducts: BankProduct[],
+  _requirements: UserRequirements
+): Promise<DynamicUpdate> {
     const changes: ProductChange[] = [];
     
     // Проверяем, изменился ли первичный продукт

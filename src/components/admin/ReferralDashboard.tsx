@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { ReferralTracker } from '@/lib/analytics/referralTracking';
 import type { ReferralClickEvent } from '@/lib/analytics/referralTracking';
 import { TrendingUp, MousePointerClick, Building2, Package, ExternalLink, Trash2 } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
 
@@ -172,7 +172,7 @@ export function ReferralDashboard() {
       <Card className="p-6">
         <h3 className="text-lg font-bold mb-4">Источники трафика</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {sourceChartData.map((source, index) => (
+          {sourceChartData.map((source) => (
             <div key={source.name} className="p-4 bg-muted rounded-lg">
               <p className="text-sm text-muted-foreground capitalize">{source.name}</p>
               <p className="text-2xl font-bold">{source.value}</p>

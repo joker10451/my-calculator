@@ -329,7 +329,7 @@ class LocalDatabase {
   private clearOldData(): void {
     try {
       const keys = Object.keys(localStorage);
-      const dbKeys = keys.filter(key => key.startsWith(this.dbName));
+      const _dbKeys = keys.filter(key => key.startsWith(this.dbName));
       
       // Удаляем аналитику (самые объемные данные)
       const analyticsKey = `${this.dbName}_analytics`;
@@ -338,7 +338,7 @@ class LocalDatabase {
       }
       
       // Удаляем старые сравнения
-      const comparisonsKey = `${this.dbName}_comparisons`;
+      const _comparisonsKey = `${this.dbName}_comparisons`;
       const comparisons = this.getFromLocalStorage('comparisons', []);
       if (comparisons.length > 50) {
         const recent = comparisons.slice(-50);

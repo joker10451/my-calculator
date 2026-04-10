@@ -92,6 +92,7 @@ export function useAutoSync(enabled: boolean = true): DataSyncHookResult {
         console.error('Ошибка автоматической синхронизации:', error);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled, syncHook.dataFreshness]);
 
   return syncHook;

@@ -49,7 +49,7 @@ export interface PlacementContext {
  * @returns true если карту нужно показать
  */
 export function shouldShowPSBCard(context: PlacementContext): boolean {
-  const { pageType, calculatorType, hasOtherBankProducts, userHasSalary } = context;
+  const { pageType, calculatorType, hasOtherBankProducts, userHasSalary: _userHasSalary } = context;
   
   // На главной странице не показываем (слишком общая)
   if (pageType === 'home') {
