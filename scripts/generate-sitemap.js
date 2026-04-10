@@ -78,10 +78,11 @@ const pages = [
   { url: '/blog/category/family-children/', priority: 0.7, changefreq: 'weekly' },
   
   // Категории калькуляторов
-  { url: '/category/financial/', priority: 0.8, changefreq: 'weekly' },
-  { url: '/category/personal/', priority: 0.8, changefreq: 'weekly' },
-  { url: '/category/transport/', priority: 0.7, changefreq: 'weekly' },
-  { url: '/category/utilities/', priority: 0.7, changefreq: 'weekly' },
+  { url: '/category/finance/', priority: 0.8, changefreq: 'weekly' },
+  { url: '/category/salary/', priority: 0.8, changefreq: 'weekly' },
+  { url: '/category/auto/', priority: 0.7, changefreq: 'weekly' },
+  { url: '/category/housing/', priority: 0.7, changefreq: 'weekly' },
+  { url: '/category/health/', priority: 0.7, changefreq: 'weekly' },
   { url: '/category/legal/', priority: 0.7, changefreq: 'weekly' },
   { url: '/category/family/', priority: 0.8, changefreq: 'weekly' },
   

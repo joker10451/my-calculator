@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   const categoriesList = [
-    { name: "Кредиты и ипотека", href: "/category/financial/" },
-    { name: "Зарплата и налоги", href: "/category/personal/" },
-    { name: "ЖКХ и коммуналка", href: "/category/utilities/" },
-    { name: "Авто и транспорт", href: "/category/transport/" },
-    { name: "Здоровье", href: "/calculator/bmi/" },
+    { name: "Кредиты и ипотека", href: "/category/finance/" },
+    { name: "Зарплата и налоги", href: "/category/salary/" },
+    { name: "ЖКХ и коммуналка", href: "/category/housing/" },
+    { name: "Авто и транспорт", href: "/category/auto/" },
+    { name: "Здоровье", href: "/category/health/" },
     { name: "Семья и дети", href: "/category/family/" },
     { name: "Юридические", href: "/category/legal/" },
   ];

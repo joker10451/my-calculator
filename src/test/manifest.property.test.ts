@@ -158,8 +158,12 @@ describe('Web App Manifest Property Tests', () => {
             expect(typeof icon.sizes).toBe('string');
             expect(typeof icon.type).toBe('string');
             
-            // Проверяем формат sizes
-            expect(icon.sizes).toMatch(/^\d+x\d+$/);
+            // Для SVG разрешаем "any", для растровых форматов ожидаем WxH
+            if (icon.type === 'image/svg+xml') {
+              expect(icon.sizes).toBe('any');
+            } else {
+              expect(icon.sizes).toMatch(/^\d+x\d+$/);
+            }
             
             // Проверяем MIME тип
             expect(icon.type).toMatch(/^image\//);
@@ -202,11 +206,13 @@ describe('Web App Manifest Property Tests', () => {
           expect(manifest.start_url).toMatch(/^\/.*$/);
           
           // Проверяем иконки для PWA
-          const iconSizes = manifest.icons.map((icon: any) => {
-            const [width, height] = icon.sizes.split('x').map(Number);
-            expect(width).toBe(height); // Квадратные иконки
-            return width;
-          });
+          const iconSizes = manifest.icons
+            .filter((icon: any) => icon.type === 'image/png')
+            .map((icon: any) => {
+              const [width, height] = icon.sizes.split('x').map(Number);
+              expect(width).toBe(height); // Квадратные иконки
+              return width;
+            });
           
           // Проверяем наличие минимальных размеров
           for (const minSize of minIconSizes) {

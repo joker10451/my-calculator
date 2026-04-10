@@ -109,7 +109,7 @@ export function BankComparisonTable() {
   }, [banks]);
 
   const filteredProducts = useMemo(() => {
-    let filtered = products.filter(p => p.is_active);
+    const filtered = products.filter(p => p.is_active);
     if (sortBy === 'rate') {
       filtered.sort((a, b) => sortDir === 'asc' ? a.interest_rate - b.interest_rate : b.interest_rate - a.interest_rate);
     } else if (sortBy === 'rating') {

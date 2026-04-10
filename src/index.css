@@ -300,6 +300,11 @@
   section {
     @apply py-10 md:py-14;
   }
+
+  /* Do not apply layout spacing to toast/notification container sections */
+  section[aria-label^="Notifications"] {
+    @apply py-0 md:py-0;
+  }
 }
 
 @layer components {

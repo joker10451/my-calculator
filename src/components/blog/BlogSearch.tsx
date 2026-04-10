@@ -121,6 +121,7 @@ export const BlogSearch = ({
               variant="ghost"
               size="sm"
               onClick={handleClear}
+              aria-label="Очистить поиск"
               className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 p-0 hover:bg-white/10 text-white/80"
             >
               <X className="w-5 h-5" />

@@ -38,6 +38,10 @@ export const OptimizedImage = ({
     setHasError(true);
   };
 
+  const generatedSrcSet = width
+    ? `${resolvedSrc} ${Math.max(320, Math.round(width / 2))}w, ${resolvedSrc} ${width}w`
+    : undefined;
+
   return (
     <div className={cn('relative overflow-hidden bg-muted', className)}>
       {!isLoaded && !hasError && (
@@ -51,10 +55,12 @@ export const OptimizedImage = ({
       ) : (
         <img
           src={resolvedSrc}
+          srcSet={generatedSrcSet}
           alt={alt}
           width={width}
           height={height}
           loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
           onLoad={handleLoad}
           onError={handleError}
           sizes={sizes}

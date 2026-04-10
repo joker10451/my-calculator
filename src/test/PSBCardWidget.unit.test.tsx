@@ -642,7 +642,12 @@ describe('PSBCardWidget Component', () => {
           product_type: 'debit'
         }),
         PSB_CARD_DATA.affiliate.link,
-        'calculator'
+        'calculator',
+        undefined,
+        expect.objectContaining({
+          placement: 'widget',
+          offerId: PSB_CARD_DATA.id
+        })
       );
     });
 
@@ -664,7 +669,9 @@ describe('PSBCardWidget Component', () => {
         expect(mockTrackClick).toHaveBeenCalledWith(
           expect.any(Object),
           expect.any(String),
-          source
+          source,
+          undefined,
+          expect.any(Object)
         );
         
         unmount();

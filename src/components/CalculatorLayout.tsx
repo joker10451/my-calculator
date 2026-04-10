@@ -50,7 +50,7 @@ const CalculatorLayout = ({
                 <main id="main-content" className="flex-1 pt-16">
                     {/* Title Section */}
                     <div className="container mx-auto px-4">
-                        <div className="text-center max-w-4xl mx-auto mb-10 md:mb-12 surface-card p-4 md:p-6">
+                        <div className="text-center max-w-4xl mx-auto mb-10 md:mb-12 rounded-3xl border border-slate-800 bg-slate-900/90 p-4 md:p-6 shadow-sm">
                             {currentCategory && (
                                 <div className="inline-flex items-center gap-1.5 px-2 py-0.5 mb-2 text-[10px] font-medium text-primary bg-primary/10 rounded">
                                     <Sparkles className="w-2.5 h-2.5" />
@@ -58,10 +58,10 @@ const CalculatorLayout = ({
                                 </div>
                             )}
 
-                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 text-balance text-slate-900 dark:text-slate-100">
+                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 text-balance text-slate-100">
                                 {title.split('—')[0]}
                             </h1>
-                            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                            <p className="text-xs sm:text-sm text-slate-300">
                                 {description}
                             </p>
 
@@ -94,10 +94,10 @@ const CalculatorLayout = ({
                                                 to={calc.href}
                                                 className="group surface-card surface-card-hover rounded-lg p-3 transition-all flex items-center justify-between text-sm"
                                             >
-                                                <span className="group-hover:text-primary transition-colors">
+                                                <span className="text-slate-100 group-hover:text-primary transition-colors">
                                                     {calc.name}
                                                 </span>
-                                                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
+                                                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-primary" />
                                             </Link>
                                         ))}
                                     </div>

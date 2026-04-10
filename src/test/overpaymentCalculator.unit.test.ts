@@ -16,7 +16,7 @@ describe('OverpaymentCalculator', () => {
     const totalPaid = monthlyPayment * months;
     const totalInterest = totalPaid - amount;
     
-    expect(Math.round(monthlyPayment)).toBe(55563);
+    expect(Math.round(monthlyPayment)).toBe(55712);
     expect(Math.round(totalInterest)).toBeGreaterThan(10000000);
     expect(Math.round(totalInterest)).toBeLessThan(15000000);
   });

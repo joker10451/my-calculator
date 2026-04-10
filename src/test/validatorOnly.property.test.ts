@@ -359,7 +359,7 @@ describe('Data Validation Property Tests (Validator Only)', () => {
 
     it('should validate correct product data and accept all valid inputs', () => {
       fc.assert(fc.property(
-        fc.string({ minLength: 1, maxLength: 50 }), // bank_id
+        fc.string({ minLength: 1, maxLength: 50 }).filter((s) => s.trim().length > 0), // bank_id
         validProductArbitrary('test-bank-id'),
         (bankId, productData) => {
           // Feature: comparison-recommendation-system, Property 14: Data Source Prioritization

@@ -13,15 +13,6 @@ import { render, cleanup } from '@testing-library/react';
 import { PSBCardWidget } from '@/components/PSBCardWidget';
 import type { PSBCardWidgetProps } from '@/components/PSBCardWidget';
 
-// Мокаем ReferralButton
-vi.mock('@/components/ReferralButton', () => ({
-  ReferralButton: ({ children, onClick, className }: any) => (
-    <button onClick={onClick} className={className} data-testid="referral-button">
-      {children}
-    </button>
-  )
-}));
-
 // Мокаем useReferralTracking
 vi.mock('@/lib/analytics/referralTracking', () => ({
   useReferralTracking: () => ({
@@ -220,7 +211,9 @@ describe('PSBCardWidget Property-Based Tests', () => {
 
           // Проверяем наличие основных элементов
           expect(container.querySelector('[role="region"]')).toBeTruthy();
-          expect(container.querySelector('button[data-testid="referral-button"]')).toBeTruthy();
+          expect(
+            container.querySelector('button[aria-label*="Оформить дебетовую карту"]')
+          ).toBeTruthy();
 
           cleanup();
         }).not.toThrow();

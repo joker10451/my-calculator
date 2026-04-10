@@ -156,9 +156,15 @@ describe('Favicon Integration Property Tests', () => {
             
             const iconBuffer = readFileSync(iconPath);
             expect(iconBuffer.length).toBeGreaterThan(0);
-            
-            // Проверяем PNG сигнатуру
-            expect(iconBuffer.slice(0, 4)).toEqual(Buffer.from([0x89, 0x50, 0x4E, 0x47]));
+
+            if (icon.type === 'image/png') {
+              // Проверяем PNG сигнатуру только для PNG-иконок
+              expect(iconBuffer.slice(0, 4)).toEqual(Buffer.from([0x89, 0x50, 0x4E, 0x47]));
+            } else if (icon.type === 'image/svg+xml') {
+              const svgContent = iconBuffer.toString('utf8');
+              expect(svgContent).toMatch(/^<\?xml|^<svg/);
+              expect(svgContent).toContain('</svg>');
+            }
           }
           
           // Для iOS устройств проверяем Apple Touch Icon

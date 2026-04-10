@@ -248,8 +248,14 @@ describe('Cache Management Property Tests', () => {
               /^[a-zA-Z0-9_-]+$/.test(entry.key.trim()) // Только буквы, цифры, подчеркивания и дефисы
             );
             
+            const latestByKey = new Map<string, typeof validEntries[number]>();
+            for (const entry of validEntries) {
+              latestByKey.set(entry.key, entry);
+            }
+            const uniqueEntries = [...latestByKey.values()];
+
             // Если нет валидных записей, пропускаем тест
-            if (validEntries.length === 0) {
+            if (uniqueEntries.length === 0) {
               return;
             }
             
@@ -265,15 +271,15 @@ describe('Cache Management Property Tests', () => {
             const stats = enhancedCache.getStatistics();
             
             // Проверяем корректность статистики
-            expect(stats.totalEntries).toBe(validEntries.length);
-            if (validEntries.length > 0) {
+            expect(stats.totalEntries).toBe(uniqueEntries.length);
+            if (uniqueEntries.length > 0) {
               expect(stats.totalSize).toBeGreaterThan(0);
             }
             expect(stats.expiredEntries).toBe(0); // Записи не должны быть просроченными
             
             // Проверяем группировку по источникам
             const expectedSourceCounts: Record<string, number> = {};
-            for (const entry of validEntries) {
+            for (const entry of uniqueEntries) {
               expectedSourceCounts[entry.source] = (expectedSourceCounts[entry.source] || 0) + 1;
             }
             
@@ -285,7 +291,7 @@ describe('Cache Management Property Tests', () => {
             
             // Проверяем группировку по тегам
             const expectedTagCounts: Record<string, number> = {};
-            for (const entry of validEntries) {
+            for (const entry of uniqueEntries) {
               for (const tag of entry.tags) {
                 expectedTagCounts[tag] = (expectedTagCounts[tag] || 0) + 1;
               }

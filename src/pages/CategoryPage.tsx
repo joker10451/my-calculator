@@ -40,7 +40,7 @@ const CategoryPage = () => {
                     <PSBCardWidget 
                         source={psbCardSource}
                         variant={psbCardVariant}
-                        className="max-w-md"
+                        className="max-w-md border-slate-800 bg-slate-900/90 text-slate-100 [&_.text-muted-foreground]:!text-slate-300 [&_.text-foreground]:!text-slate-100 [&_.border-t]:!border-slate-700"
                     />
                 </div>
             )}
@@ -50,27 +50,27 @@ const CategoryPage = () => {
                     <Link
                         key={calc.name}
                         to={calc.href}
-                        className="group glass-card p-6 h-full border border-border/50 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 animate-fade-in w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm flex flex-col"
+                        className="group rounded-2xl border border-slate-800 bg-slate-900/90 p-6 h-full hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 animate-fade-in w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm flex flex-col"
                         style={{ animationDelay: `${index * 0.1}s` }}
                     >
                         <div className="flex items-start gap-4 mb-4 flex-1">
-                            <div className={`w-12 h-12 rounded-xl bg-card border flex items-center justify-center shrink-0`}>
-                                <Calculator className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                            <div className={`w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0`}>
+                                <Calculator className="w-6 h-6 text-slate-300 group-hover:text-primary transition-colors" />
                             </div>
                             <div className="flex-1">
-                                <h3 className="font-semibold text-lg group-hover:text-primary transition-colors leading-tight">
+                                <h3 className="font-semibold text-lg text-slate-100 group-hover:text-primary transition-colors leading-tight">
                                     {calc.name}
                                 </h3>
-                                <p className="text-xs text-muted-foreground mt-1.5">
+                                <p className="text-xs text-slate-300 mt-1.5">
                                     Перейти к расчету
                                 </p>
                             </div>
                         </div>
                         <div className="flex items-center justify-between mt-6 border-t pt-4">
-                            <span className="text-[10px] uppercase tracking-wider font-medium text-muted-foreground/60">
+                            <span className="text-[10px] uppercase tracking-wider font-medium text-slate-400">
                                 Онлайн калькулятор
                             </span>
-                            <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                            <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                         </div>
                     </Link>
                 ))}

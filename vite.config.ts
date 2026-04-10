@@ -2,13 +2,15 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { VitePWA } from "vite-plugin-pwa";
+import type { IncomingMessage, ServerResponse } from "http";
+import type { ViteDevServer } from "vite";
 
 // Middleware для настройки HTTP заголовков favicon файлов
 const faviconHeadersMiddleware = () => {
   return {
     name: 'favicon-headers',
-    configureServer(server: any) {
-      server.middlewares.use((req: any, res: any, next: () => void) => {
+    configureServer(server: ViteDevServer) {
+      server.middlewares.use((req: IncomingMessage, res: ServerResponse<IncomingMessage>, next: () => void) => {
         const url = req.url;
 
         // Настройка заголовков для favicon файлов
@@ -109,8 +111,7 @@ export default defineConfig(({ mode }) => ({
           'ui-vendor': ['lucide-react', 'framer-motion'],
           'form-vendor': ['react-hook-form', '@hookform/resolvers', 'zod'],
         },
-        chunkFileNames: (chunkInfo) => {
-          const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/').pop()?.replace('.tsx', '').replace('.ts', '') : 'chunk';
+        chunkFileNames: (_chunkInfo) => {
           return `assets/[name]-[hash].js`;
         }
       },

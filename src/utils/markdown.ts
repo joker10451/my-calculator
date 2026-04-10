@@ -27,7 +27,7 @@ function applyInlineFormatting(text: string): string {
 function parseInnerMarkdown(md: string): string {
   const lines = md.split('\n').map(l => l.trim()).filter(l => l);
   let result = '';
-  let listItems = [];
+  const listItems: string[] = [];
 
   for (const line of lines) {
     if (line.startsWith('- ') || line.startsWith('* ')) {

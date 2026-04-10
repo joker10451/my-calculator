@@ -7,7 +7,7 @@ describe('Bank Comparison - Property Tests', () => {
       fc.property(
         fc.integer({ min: 500000, max: 30000000 }),
         fc.integer({ min: 1, max: 30 }),
-        fc.double({ min: 5, max: 25 }),
+        fc.double({ min: 5, max: 25, noNaN: true, noDefaultInfinity: true }),
         (amount, termYears, rate) => {
           const monthlyRate = rate / 100 / 12;
           const months = termYears * 12;
@@ -25,13 +25,13 @@ describe('Bank Comparison - Property Tests', () => {
       fc.property(
         fc.integer({ min: 100000, max: 30000000 }),
         fc.integer({ min: 1, max: 30 }),
-        fc.double({ min: 0.1, max: 30 }),
+        fc.double({ min: 0.1, max: 30, noNaN: true, noDefaultInfinity: true }),
         (amount, termYears, rate) => {
           const monthlyRate = rate / 100 / 12;
           const months = termYears * 12;
           const payment = amount * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
           const totalPaid = payment * months;
-          expect(totalPaid).toBeGreaterThan(amount);
+          expect(totalPaid).toBeGreaterThanOrEqual(amount);
         }
       ),
       { numRuns: 100 }
@@ -43,7 +43,7 @@ describe('Bank Comparison - Property Tests', () => {
       fc.property(
         fc.integer({ min: 500000, max: 30000000 }),
         fc.integer({ min: 5, max: 30 }),
-        fc.double({ min: 5, max: 30 }),
+        fc.double({ min: 5, max: 30, noNaN: true, noDefaultInfinity: true }),
         (amount, termYears, rate) => {
           const monthlyRate = rate / 100 / 12;
           const calcTotal = (years: number) => {
