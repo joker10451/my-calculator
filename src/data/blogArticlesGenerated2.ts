@@ -203,7 +203,7 @@ export const creditCardsArticle = createArticle({
   ])
   
   .addH2('Рассчитайте выгоду от кредитной карты')
-  .addParagraph('Используйте наш [калькулятор кредита](#/calculator/credit) для расчета:')
+  .addParagraph('Используйте наш [калькулятор кредита](/calculator/credit/) для расчета:')
   .addList([
     'Сколько сэкономите на процентах при использовании льготного периода',
     'Какой кэшбэк получите за месяц/год',
@@ -423,7 +423,7 @@ export const maternityCapitalArticle = createArticle({
   .addParagraph('**Важно**: Мошенничество с маткапиталом - уголовное преступление (до 10 лет лишения свободы).')
   
   .addH2('Рассчитайте использование маткапитала')
-  .addParagraph('Используйте наш [калькулятор материнского капитала](#/calculator/maternity-capital):')
+  .addParagraph('Используйте наш [калькулятор материнского капитала](/calculator/maternity-capital/):')
   .addList([
     'Рассчитайте остаток после ежемесячных выплат',
     'Узнайте сколько можно погасить ипотеки',
@@ -662,7 +662,7 @@ export const refinancingArticle = createArticle({
   )
   
   .addH2('Рассчитайте выгоду рефинансирования')
-  .addParagraph('Используйте наш [калькулятор рефинансирования](#/calculator/refinancing):')
+  .addParagraph('Используйте наш [калькулятор рефинансирования](/calculator/refinancing/):')
   .addList([
     'Сравните текущий и новый платеж',
     'Рассчитайте экономию за весь срок',
@@ -961,7 +961,7 @@ export const calorieArticle = createArticle({
   .addParagraph('**Неправда.** Частота приемов пищи не влияет на метаболизм. Важен общий баланс.')
   
   .addH2('Рассчитайте свою норму калорий')
-  .addParagraph('Используйте наш [калькулятор калорий](#/calculator/calorie):')
+  .addParagraph('Используйте наш [калькулятор калорий](/calculator/calories/):')
   .addList([
     'Рассчитайте базовый обмен (BMR)',
     'Определите суточную норму (TDEE)',

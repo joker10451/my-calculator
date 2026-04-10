@@ -63,10 +63,10 @@ const OSAGOCalculatorPage = () => {
             afterCalculator={
                 <div className="space-y-4">
                     <OffersBlock
-                        product="insurance"
+                        product="auto_insurance"
                         placement="result_block"
-                        title="Подходящие страховые предложения"
-                        subtitle="Сравните предложения по ОСАГО/КАСКО и изучите условия программ."
+                        title="Подходящие предложения по автострахованию"
+                        subtitle="Сравните варианты ОСАГО и КАСКО и выберите оптимальные условия."
                     />
                     <div className="surface-muted rounded-2xl p-4 md:p-5">
                         <h3 className="text-base font-semibold text-slate-900">Что проверить перед покупкой полиса</h3>
@@ -77,15 +77,15 @@ const OSAGOCalculatorPage = () => {
                             <Link to="/blog/?q=осаго" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
                                 Разборы по ОСАГО
                             </Link>
-                            <Link to="/offers?category=insurance" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
-                                Все страховые программы
+                            <Link to="/offers?category=insurance&q=осаго" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                                Предложения по ОСАГО
                             </Link>
                         </div>
                     </div>
                     <div className="text-sm text-slate-600">
                         Нужны дополнительные варианты?{" "}
-                        <Link to="/offers?category=insurance" className="font-semibold text-primary hover:underline">
-                            Смотреть все страховые предложения
+                        <Link to="/offers?category=insurance&q=осаго" className="font-semibold text-primary hover:underline">
+                            Смотреть предложения по ОСАГО
                         </Link>
                     </div>
                 </div>
