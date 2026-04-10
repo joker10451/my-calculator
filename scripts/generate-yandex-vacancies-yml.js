@@ -77,17 +77,18 @@ function buildYml() {
       return `    <offer id="${escapeXml(item.id)}" available="true">
       <name>${escapeXml(item.name)}</name>
       <url>${escapeXml(item.url)}</url>
-      <category>${escapeXml(item.category)}</category>
+      <categoryId>1</categoryId>
       <description>${escapeXml(item.description)}</description>
-      <region>${escapeXml(item.region)}</region>
-      <city>${escapeXml(item.city)}</city>
-      <employer>${escapeXml(item.employer)}</employer>
-      <employment>${escapeXml(item.employment)}</employment>
-      <schedule>${escapeXml(item.schedule)}</schedule>
-      <experience>${escapeXml(item.experience)}</experience>
-      <salary_from>${item.salaryFrom}</salary_from>
-      <salary_to>${item.salaryTo}</salary_to>
-      <currency>${escapeXml(item.currency)}</currency>
+      <price>${item.salaryFrom}</price>
+      <currencyId>${escapeXml(item.currency)}</currencyId>
+      <param name="Регион">${escapeXml(item.region)}</param>
+      <param name="Город">${escapeXml(item.city)}</param>
+      <param name="Работодатель">${escapeXml(item.employer)}</param>
+      <param name="Тип занятости">${escapeXml(item.employment)}</param>
+      <param name="График">${escapeXml(item.schedule)}</param>
+      <param name="Опыт">${escapeXml(item.experience)}</param>
+      <param name="Зарплата от">${item.salaryFrom}</param>
+      <param name="Зарплата до">${item.salaryTo}</param>
     </offer>`;
     })
     .join('\n');
@@ -98,7 +99,12 @@ function buildYml() {
     <name>Считай.RU</name>
     <company>Считай.RU</company>
     <url>${SITE_URL}</url>
-    <platform>schitay-online</platform>
+    <currencies>
+      <currency id="RUR" rate="1"/>
+    </currencies>
+    <categories>
+      <category id="1">Вакансии</category>
+    </categories>
     <offers>
 ${offersXml}
     </offers>

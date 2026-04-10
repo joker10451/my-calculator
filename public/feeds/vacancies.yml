@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<yml_catalog date="2026-04-09 17:40:11">
+<yml_catalog date="2026-04-10 14:56:17">
   <shop>
     <name>Считай.RU</name>
     <company>Считай.RU</company>
     <url>https://schitay-online.ru</url>
-    <platform>schitay-online</platform>
+    <currencies>
+      <currency id="RUR" rate="1"/>
+    </currencies>
+    <categories>
+      <category id="1">Вакансии</category>
+    </categories>
     <offers>
     <offer id="courier-yandex" available="true">
       <name>Курьер Яндекс.Еда / Яндекс.Лавка</name>
       <url>https://schitay-online.ru/courier-yandex/</url>
-      <category>Вакансии</category>
+      <categoryId>1</categoryId>
       <description>Подработка и работа курьером в Москве. Гибкий график, быстрый старт и понятные условия по этапам оформления.</description>
-      <region>Москва</region>
-      <city>Москва</city>
-      <employer>Партнерский сервис доставки</employer>
-      <employment>Частичная занятость</employment>
-      <schedule>Гибкий график</schedule>
-      <experience>Без опыта</experience>
-      <salary_from>90000</salary_from>
-      <salary_to>180000</salary_to>
-      <currency>RUR</currency>
+      <price>90000</price>
+      <currencyId>RUR</currencyId>
+      <param name="Регион">Москва</param>
+      <param name="Город">Москва</param>
+      <param name="Работодатель">Партнерский сервис доставки</param>
+      <param name="Тип занятости">Частичная занятость</param>
+      <param name="График">Гибкий график</param>
+      <param name="Опыт">Без опыта</param>
+      <param name="Зарплата от">90000</param>
+      <param name="Зарплата до">180000</param>
     </offer>
     <offer id="ruki-masters" available="true">
       <name>Мастер по сборке кухонь и установке дверей</name>
       <url>https://schitay-online.ru/ruki-masters/</url>
-      <category>Вакансии</category>
+      <categoryId>1</categoryId>
       <description>Вакансии для мастеров по ремонту в Москве: заказы по профилю, гибкий формат работы и прозрачные требования.</description>
-      <region>Москва</region>
-      <city>Москва</city>
-      <employer>Сервис «Руки»</employer>
-      <employment>Полная занятость</employment>
-      <schedule>Гибкий график</schedule>
-      <experience>От 1 года</experience>
-      <salary_from>120000</salary_from>
-      <salary_to>220000</salary_to>
-      <currency>RUR</currency>
+      <price>120000</price>
+      <currencyId>RUR</currencyId>
+      <param name="Регион">Москва</param>
+      <param name="Город">Москва</param>
+      <param name="Работодатель">Сервис «Руки»</param>
+      <param name="Тип занятости">Полная занятость</param>
+      <param name="График">Гибкий график</param>
+      <param name="Опыт">От 1 года</param>
+      <param name="Зарплата от">120000</param>
+      <param name="Зарплата до">220000</param>
     </offer>
     <offer id="jobs-overview" available="true">
       <name>Работа и подработка в Москве</name>
       <url>https://schitay-online.ru/jobs/</url>
-      <category>Вакансии</category>
+      <categoryId>1</categoryId>
       <description>Подбор актуальных вакансий: курьерские направления и работа для мастеров. Удобный выбор формата под ваш график.</description>
-      <region>Москва</region>
-      <city>Москва</city>
-      <employer>Считай.RU</employer>
-      <employment>Смешанный формат</employment>
-      <schedule>Гибкий график</schedule>
-      <experience>Разный уровень</experience>
-      <salary_from>80000</salary_from>
-      <salary_to>220000</salary_to>
-      <currency>RUR</currency>
+      <price>80000</price>
+      <currencyId>RUR</currencyId>
+      <param name="Регион">Москва</param>
+      <param name="Город">Москва</param>
+      <param name="Работодатель">Считай.RU</param>
+      <param name="Тип занятости">Смешанный формат</param>
+      <param name="График">Гибкий график</param>
+      <param name="Опыт">Разный уровень</param>
+      <param name="Зарплата от">80000</param>
+      <param name="Зарплата до">220000</param>
     </offer>
     </offers>
   </shop>
