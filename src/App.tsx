@@ -32,6 +32,7 @@ const WaterCalculatorPage = lazy(() => import("./pages/WaterCalculatorPage"));
 const AlimonyCalculatorPage = lazy(() => import("./pages/AlimonyCalculatorPage"));
 const RefinancingCalculatorPage = lazy(() => import("./pages/RefinancingCalculatorPage"));
 const DepositCalculatorPage = lazy(() => import("./pages/DepositCalculatorPage"));
+const DepositTaxCalculatorPage = lazy(() => import("./pages/DepositTaxCalculatorPage"));
 const CurrencyConverterPage = lazy(() => import("./pages/CurrencyConverterPage"));
 const ComparisonPage = lazy(() => import("./pages/ComparisonPage"));
 const TireSizeCalculatorPage = lazy(() => import("./pages/TireSizeCalculatorPage"));
@@ -159,6 +160,7 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/alimony" element={<PageTransition><AlimonyCalculatorPage /></PageTransition>} />
           <Route path="/calculator/refinancing" element={<PageTransition><RefinancingCalculatorPage /></PageTransition>} />
           <Route path="/calculator/deposit" element={<PageTransition><DepositCalculatorPage /></PageTransition>} />
+          <Route path="/calculator/deposit-tax" element={<PageTransition><DepositTaxCalculatorPage /></PageTransition>} />
           <Route path="/calculator/currency" element={<PageTransition><CurrencyConverterPage /></PageTransition>} />
           <Route path="/compare" element={<PageTransition><ComparisonPage /></PageTransition>} />
           <Route path="/search" element={<PageTransition><SearchPage /></PageTransition>} />
