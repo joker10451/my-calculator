@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<yml_catalog date="2026-04-11 12:43:21">
+<yml_catalog date="2026-04-11 12:49:05">
   <shop>
     <name>Считай.RU</name>
     <company>Считай.RU</company>
@@ -22,10 +22,11 @@
       <param name="Город">Москва</param>
       <param name="Работодатель">Партнерский сервис доставки</param>
       <param name="Тип занятости">Частичная занятость</param>
-      <param name="График">Гибкий график</param>
-      <param name="Опыт">Без опыта</param>
+      <param name="График работы">Гибкий график</param>
+      <param name="Опыт работы">Без опыта</param>
       <param name="Зарплата от">90000</param>
       <param name="Зарплата до">180000</param>
+      <param name="конверсия">Высокая</param>
     </offer>
     <offer id="ruki-masters" available="true">
       <name>Мастер по сборке кухонь и установке дверей</name>
@@ -38,10 +39,11 @@
       <param name="Город">Москва</param>
       <param name="Работодатель">Сервис «Руки»</param>
       <param name="Тип занятости">Полная занятость</param>
-      <param name="График">Гибкий график</param>
-      <param name="Опыт">От 1 года</param>
+      <param name="График работы">Гибкий график</param>
+      <param name="Опыт работы">От 1 года до 3 лет</param>
       <param name="Зарплата от">120000</param>
       <param name="Зарплата до">220000</param>
+      <param name="конверсия">Высокая</param>
     </offer>
     <offer id="jobs-overview" available="true">
       <name>Работа и подработка в Москве</name>
@@ -53,11 +55,12 @@
       <param name="Регион">Москва</param>
       <param name="Город">Москва</param>
       <param name="Работодатель">Считай.RU</param>
-      <param name="Тип занятости">Смешанный формат</param>
-      <param name="График">Гибкий график</param>
-      <param name="Опыт">Разный уровень</param>
+      <param name="Тип занятости">Полная занятость</param>
+      <param name="График работы">Гибкий график</param>
+      <param name="Опыт работы">Без опыта</param>
       <param name="Зарплата от">80000</param>
       <param name="Зарплата до">220000</param>
+      <param name="конверсия">Высокая</param>
     </offer>
     </offers>
   </shop>

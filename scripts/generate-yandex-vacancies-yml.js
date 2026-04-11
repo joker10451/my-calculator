@@ -25,6 +25,7 @@ const vacancies = [
     salaryFrom: 90000,
     salaryTo: 180000,
     currency: 'RUR',
+    conversion: 'Высокая',
   },
   {
     id: 'ruki-masters',
@@ -38,10 +39,11 @@ const vacancies = [
     employer: 'Сервис «Руки»',
     employment: 'Полная занятость',
     schedule: 'Гибкий график',
-    experience: 'От 1 года',
+    experience: 'От 1 года до 3 лет',
     salaryFrom: 120000,
     salaryTo: 220000,
     currency: 'RUR',
+    conversion: 'Высокая',
   },
   {
     id: 'jobs-overview',
@@ -53,12 +55,13 @@ const vacancies = [
     region: 'Москва',
     city: 'Москва',
     employer: 'Считай.RU',
-    employment: 'Смешанный формат',
+    employment: 'Полная занятость',
     schedule: 'Гибкий график',
-    experience: 'Разный уровень',
+    experience: 'Без опыта',
     salaryFrom: 80000,
     salaryTo: 220000,
     currency: 'RUR',
+    conversion: 'Высокая',
   },
 ];
 
@@ -85,10 +88,11 @@ function buildYml() {
       <param name="Город">${escapeXml(item.city)}</param>
       <param name="Работодатель">${escapeXml(item.employer)}</param>
       <param name="Тип занятости">${escapeXml(item.employment)}</param>
-      <param name="График">${escapeXml(item.schedule)}</param>
-      <param name="Опыт">${escapeXml(item.experience)}</param>
+      <param name="График работы">${escapeXml(item.schedule)}</param>
+      <param name="Опыт работы">${escapeXml(item.experience)}</param>
       <param name="Зарплата от">${item.salaryFrom}</param>
       <param name="Зарплата до">${item.salaryTo}</param>
+      <param name="конверсия">${escapeXml(item.conversion)}</param>
     </offer>`;
     })
     .join('\n');
