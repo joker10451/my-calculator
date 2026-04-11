@@ -26,23 +26,6 @@ export interface AffiliateLink {
  * Формат: 'bankId-productType' или 'bankId' для общей ссылки банка
  */
 export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
-  // Реальная партнерская ссылка (первая)
-  'partner-promo-1': {
-    url: 'https://trk.ppdu.ru/click/4wXDM0Um?erid=2SDnjehD1C8',
-    bankId: 'partner', // Укажите ID банка
-    productType: 'mortgage', // Укажите тип продукта: 'mortgage', 'deposit', 'credit'
-    erid: '2SDnjehD1C8',
-    commission: 0, // Укажите вашу комиссию в рублях
-    description: 'Подбор ипотечных программ в одном месте',
-    title: 'Подобрать ипотеку онлайн',
-    category: 'mortgage',
-    badges: ['Онлайн', 'Подбор предложений'],
-    updatedAt: '2026-04-08',
-    eligibility: ['Подходит для подбора ипотечных программ', 'Онлайн-оформление'],
-    publicDetails: 'Условия зависят от выбранной программы',
-    priority: 80,
-  },
-  
   'vtb-credit-card': {
     url: 'https://trk.ppdu.ru/click/q3zhF1ow?erid=2SDnjeGCc2T',
     bankId: 'vtb',
@@ -75,22 +58,6 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     publicDetails: 'Бонусы и акции действуют при выполнении условий банка',
     priority: 94,
   },
-  'psb-debit-cashback-legacy': {
-    url: 'https://trk.ppdu.ru/click/4wXDM0Um?erid=2SDnjehD1C8',
-    bankId: 'psb',
-    productType: 'debit',
-    erid: '2SDnjehD1C8',
-    commission: 1633,
-    description: 'ПСБ: дебетовая карта с кешбэком (предыдущее предложение)',
-    title: 'ПСБ — дебетовая карта (архивное предложение)',
-    category: 'debit',
-    badges: ['Кешбэк', 'Legacy'],
-    updatedAt: '2026-04-08',
-    eligibility: ['18+', 'Резиденты РФ'],
-    publicDetails: 'Архивное предложение, актуальные условия — на странице оформления',
-    priority: 83,
-  },
-  
   // Т-Банк - Дебетовая карта ALL Airlines
   'tbank-all-airlines-debit': {
     url: 'https://trk.ppdu.ru/click/AxwkY87N?erid=2SDnjeBaaR6',
@@ -286,6 +253,34 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     publicDetails: 'Дистанционное оформление. При звонке скажите, что с сайта Считай.RU',
     priority: 96,
   },
+  'joymoney-loan': {
+    url: 'https://trk.ppdu.ru/click/ZaiOEayY?erid=Kra23k98b',
+    erid: 'Kra23k98b',
+    bankId: 'joymoney',
+    productType: 'loan',
+    description: 'Получите займ за 5 минут. При погашении займа в первые 14 дней проценты не начисляются.',
+    title: 'JoyMoney — первый займ 0%',
+    category: 'loan',
+    badges: ['0% первый займ', 'Без отказа'],
+    updatedAt: '2026-04-10',
+    eligibility: ['Гражданство РФ, от 18 лет', 'Только по паспорту и СНИЛС'],
+    publicDetails: 'Одобрение даже с плохой кредитной историей или открытыми займами',
+    priority: 95,
+  },
+  'zetta-vzr': {
+    url: 'https://trk.ppdu.ru/click/6OxyALMQ?erid=2SDnjd5PFg5',
+    erid: '2SDnjd5PFg5',
+    bankId: 'zetta',
+    productType: 'insurance',
+    description: 'Медицинская туристическая страховка (ВЗР) с покрытием активного отдыха. Оплата врачей, госпитализации и транспортировки.',
+    title: 'Zetta Страхование — ВЗР',
+    category: 'insurance',
+    badges: ['Туристам', 'Весь мир'],
+    updatedAt: '2026-04-10',
+    eligibility: ['Любое гражданство', 'Полисы от 2 до 365 дней'],
+    publicDetails: 'Медицинская защита за границей, включая активный и экстремальный спорт.',
+    priority: 94,
+  },
   'goldapple-ecom': {
     url: 'https://trk.ppdu.ru/click/5uc2AHXO?erid=2SDnjdg2ZZk',
     bankId: 'goldapple',
@@ -336,24 +331,6 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     internalNotes: 'ГЕО: Москва, холд 30 дней',
     priority: 90,
   },
-
-  // JoyMoney
-  'joymoney-loan': {
-    url: 'https://trk.ppdu.ru/click/ZaiOEayY?erid=Kra23k98b',
-    bankId: 'joymoney',
-    productType: 'loan',
-    erid: 'Kra23k98b',
-    description: 'Займ JoyMoney: первый займ 0% до 30 000 ₽',
-    title: 'JoyMoney — онлайн займ',
-    category: 'loan',
-    badges: ['Первый займ 0%', 'Онлайн'],
-    updatedAt: '2026-04-08',
-    eligibility: ['Паспорт РФ', 'Совершеннолетние клиенты'],
-    restrictions: ['Условия одобрения определяются компанией'],
-    publicDetails: 'Срок и сумма зависят от анкеты клиента',
-    priority: 89,
-  },
-  
   // Добавьте свои партнерские ссылки здесь
 };
 
