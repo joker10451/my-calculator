@@ -1,4 +1,5 @@
 import { blogPosts } from '@/data/blogPosts';
+import { getAssetUrl } from './blogImageMap';
 
 export const generateRSSFeed = () => {
   const siteUrl = 'https://считай.ru';
@@ -20,7 +21,11 @@ export const generateRSSFeed = () => {
       <author>noreply@считай.ru (${post.author.name})</author>
       <category><![CDATA[${post.category.name}]]></category>
       ${post.tags.map(tag => `<category><![CDATA[${tag}]]></category>`).join('')}
-      ${post.featuredImage ? `<enclosure url="${post.featuredImage.url}" type="image/jpeg" />` : ''}
+      ${post.featuredImage ? (() => {
+        const resolvedImage = getAssetUrl(post.featuredImage.url);
+        const absoluteImageUrl = resolvedImage.startsWith('http') ? resolvedImage : `${siteUrl}${resolvedImage.startsWith('/') ? '' : '/'}${resolvedImage}`;
+        return `<enclosure url="${absoluteImageUrl}" type="image/jpeg" />`;
+      })() : ''}
     </item>`;
     }).join('');
 

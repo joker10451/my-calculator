@@ -1,4 +1,5 @@
 import type { BlogPost } from '@/types/blog';
+import { getAssetUrl } from './blogImageMap';
 
 /**
  * SEO Optimizer Utilities
@@ -322,10 +323,13 @@ export function generateStructuredData(article: BlogPost): Record<string, unknow
   
   // Добавляем изображение, если есть
   if (article.featuredImage) {
+    const resolvedUrl = getAssetUrl(article.featuredImage.url);
+    const absoluteUrl = resolvedUrl.startsWith('http') ? resolvedUrl : `${baseUrl}${resolvedUrl.startsWith('/') ? '' : '/'}${resolvedUrl}`;
+    
     Object.assign(structuredData, {
       image: {
         '@type': 'ImageObject',
-        url: article.featuredImage.url,
+        url: absoluteUrl,
         width: article.featuredImage.width,
         height: article.featuredImage.height,
       },

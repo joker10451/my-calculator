@@ -181,7 +181,15 @@ export default function OffersCatalogPage() {
                 >
                   {categories.map((c) => (
                     <option key={c} value={c}>
-                      {c === 'all' ? 'Все' : c === 'vacancies' ? 'Вакансии' : c}
+                      {c === 'all' && 'Все'}
+                      {c === 'mortgage' && 'Ипотека'}
+                      {c === 'credit' && 'Кредиты'}
+                      {c === 'debit' && 'Карты'}
+                      {c === 'deposit' && 'Вклады'}
+                      {c === 'loan' && 'Займы'}
+                      {c === 'insurance' && 'Страхование'}
+                      {c === 'vacancies' && 'Вакансии'}
+                      {c === 'other' && 'Другое'}
                     </option>
                   ))}
                 </select>

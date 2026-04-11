@@ -4,6 +4,7 @@
  */
 
 import { blogPosts } from '@/data/blogPosts';
+import { getAssetUrl } from '@/utils/blogImageMap';
 
 /**
  * Prefetch статьи по slug
@@ -16,7 +17,7 @@ export const prefetchArticle = (slug: string): void => {
   // Prefetch изображения статьи
   if (article.featuredImage) {
     const img = new Image();
-    img.src = article.featuredImage.url;
+    img.src = getAssetUrl(article.featuredImage.url);
   }
 
   // Prefetch связанных статей
@@ -25,7 +26,7 @@ export const prefetchArticle = (slug: string): void => {
       // Prefetch будет выполнен браузером автоматически
       const link = document.createElement('link');
       link.rel = 'prefetch';
-      link.href = `/calculator/${calcId}`;
+      link.href = `/calculator/${calcId}/`;
       document.head.appendChild(link);
     });
   }

@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { cn } from '@/lib/utils';
 import { fadeInUpVariants, fadeVariants } from '@/lib/motion-config';
+import { getAssetUrl } from '@/utils/blogImageMap';
 
 // Lazy load ColourfulText component for better performance
 const ColourfulText = lazy(() => import('@/components/ui/colourful-text').then(module => ({ default: module.ColourfulText })));
@@ -105,7 +106,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div 
             className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `url(${backgroundImage})`,
+              backgroundImage: `url(${getAssetUrl(backgroundImage)})`,
               maskImage: 'radial-gradient(circle, transparent 0%, black 80%)',
               WebkitMaskImage: 'radial-gradient(circle, transparent 0%, black 80%)',
             }}

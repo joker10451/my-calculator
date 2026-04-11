@@ -1,4 +1,5 @@
 import type { BlogPost } from '@/types/blog';
+import { getAssetUrl } from './blogImageMap';
 
 export interface OpenGraphTags {
   'og:title': string;
@@ -31,7 +32,7 @@ export const generateOpenGraphTags = (
   const url = `${baseUrl}/blog/${article.slug}`;
   const title = article.seo.metaTitle || article.title;
   const description = article.seo.metaDescription || article.excerpt;
-  const image = article.seo.ogImage || article.featuredImage?.url;
+  const image = article.seo.ogImage || getAssetUrl(article.featuredImage?.url);
 
   const tags: OpenGraphTags = {
     'og:title': title,
@@ -44,7 +45,7 @@ export const generateOpenGraphTags = (
 
   if (image) {
     // Ensure image URL is absolute
-    tags['og:image'] = image.startsWith('http') ? image : `${baseUrl}${image}`;
+    tags['og:image'] = image.startsWith('http') ? image : `${baseUrl}${image.startsWith('/') ? '' : '/'}${image}`;
   }
 
   return tags;
@@ -62,7 +63,7 @@ export const generateTwitterCardTags = (
 ): TwitterCardTags => {
   const title = article.seo.metaTitle || article.title;
   const description = article.seo.metaDescription || article.excerpt;
-  const image = article.seo.ogImage || article.featuredImage?.url;
+  const image = article.seo.ogImage || getAssetUrl(article.featuredImage?.url);
 
   const tags: TwitterCardTags = {
     'twitter:card': 'summary_large_image',
@@ -72,7 +73,7 @@ export const generateTwitterCardTags = (
 
   if (image) {
     // Ensure image URL is absolute
-    tags['twitter:image'] = image.startsWith('http') ? image : `${baseUrl}${image}`;
+    tags['twitter:image'] = image.startsWith('http') ? image : `${baseUrl}${image.startsWith('/') ? '' : '/'}${image}`;
   }
 
   return tags;

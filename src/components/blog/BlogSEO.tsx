@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import type { BlogPost } from '@/types/blog';
+import { getAssetUrl } from '@/utils/blogImageMap';
 
 interface BlogSEOProps {
   post?: BlogPost;
@@ -22,7 +23,10 @@ export const BlogSEO = ({
   const seoTitle = post?.seo.metaTitle || title || (post ? `${post.title} | ${siteName}` : siteName);
   const seoDescription = post?.seo.metaDescription || description || post?.excerpt || 'Экспертные статьи о финансах, налогах и экономии.';
   const seoCanonical = canonical || (post ? `${siteUrl}/blog/${post.slug}/` : `${siteUrl}/blog/`);
-  const seoImage = post?.seo.ogImage || post?.featuredImage?.url || `${siteUrl}/og-image-default.png`;
+  
+  // Resolve image URL with fallback and siteUrl prefix for absolute URL
+  const resolvedImage = post?.seo.ogImage || getAssetUrl(post?.featuredImage?.url) || `${siteUrl}/og-image-default.png`;
+  const seoImage = resolvedImage.startsWith('http') ? resolvedImage : `${siteUrl}${resolvedImage.startsWith('/') ? '' : '/'}${resolvedImage}`;
 
   // JSON-LD для статьи
   const articleSchema = post ? {
@@ -30,7 +34,7 @@ export const BlogSEO = ({
     '@type': 'BlogPosting',
     'headline': post.title,
     'description': post.excerpt,
-    'image': [post.featuredImage?.url || seoImage],
+    'image': [seoImage],
     'datePublished': post.publishedAt,
     'dateModified': post.updatedAt || post.publishedAt,
     'author': [{

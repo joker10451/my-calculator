@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { BlogPost } from '@/types/blog';
 import type { Calculator as RecCalculator } from '@/services/recommendationService';
+import { getAssetUrl } from '@/utils/blogImageMap';
 
 interface BlogRecommendationsProps {
   /**
@@ -79,7 +80,7 @@ const BlogRecommendations = ({
                 {article.featuredImage && (
                   <div className="relative overflow-hidden rounded-t-lg">
                     <img
-                      src={article.featuredImage.url}
+                      src={getAssetUrl(article.featuredImage.url)}
                       alt={article.featuredImage.alt}
                       className="w-full h-40 object-cover transition-transform duration-300 hover:scale-105"
                       loading="lazy"

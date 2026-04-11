@@ -86,7 +86,7 @@ const CALCULATOR_BRIDGE_MAP: Record<
 const OFFERS_BRIDGE_MAP: Record<string, { href: string; label: string; subtitle: string }> = {
   'mortgage-credit': {
     href: '/offers?category=mortgage',
-    label: 'Ипотечные предложения',
+    label: 'Ипотечные и кредитные предложения',
     subtitle: 'Подбор предложений по теме статьи',
   },
   'taxes-salary': {
@@ -242,7 +242,7 @@ export default function BlogPostPage() {
       canonicalUrl,
       post.publishedAt,
       post.updatedAt,
-      post.featuredImage?.url,
+      getAssetUrl(post.featuredImage?.url),
       articleRating
     );
   }, [post, articleRating]);
@@ -275,7 +275,7 @@ export default function BlogPostPage() {
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
-        {post.featuredImage && <meta property="og:image" content={post.featuredImage.url} />}
+        {post.featuredImage && <meta property="og:image" content={getAssetUrl(post.featuredImage.url).startsWith('http') ? getAssetUrl(post.featuredImage.url) : `${SITE_URL}${getAssetUrl(post.featuredImage.url).startsWith('/') ? '' : '/'}${getAssetUrl(post.featuredImage.url)}`} />}
       </Helmet>
 
       {/* SEO */}

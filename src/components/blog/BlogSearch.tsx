@@ -8,6 +8,8 @@ import { search, getPopularArticles, suggestAlternatives } from '@/services/sear
 import type { SearchResult } from '@/services/searchService';
 import type { BlogPost } from '@/types/blog';
 
+import { getAssetUrl } from '@/utils/blogImageMap';
+
 // Lazy load GlassCard component for better performance
 const GlassCard = lazy(() => import('@/components/ui/glass-card').then(module => ({ default: module.GlassCard })));
 
@@ -161,7 +163,7 @@ export const BlogSearch = ({
                       {/* Изображение статьи */}
                       {result.article.featuredImage && (
                         <img
-                          src={result.article.featuredImage.url}
+                          src={getAssetUrl(result.article.featuredImage.url)}
                           alt={result.article.featuredImage.alt}
                           className="w-16 h-16 object-cover rounded"
                         />

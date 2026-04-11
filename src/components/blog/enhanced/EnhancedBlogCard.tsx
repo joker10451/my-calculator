@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge';
 import type { BlogPost } from '@/types/blog';
 import { prefetchOnHover } from '@/utils/prefetch';
+import { getAssetUrl } from '@/utils/blogImageMap';
 import { OptimizedImage } from '../OptimizedImage';
 import { EnhancedBlogCardSkeleton } from './EnhancedBlogCardSkeleton';
 import { imageZoomVariants, getAnimationVariants, willChangeStyles } from '@/lib/motion-config';
@@ -151,7 +152,7 @@ export const EnhancedBlogCard = ({
               whileHover="hover"
             >
               <OptimizedImage
-                src={post.featuredImage?.url || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'}
+                src={getAssetUrl(post.featuredImage?.url) || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'}
                 alt={post.featuredImage?.alt || post.title}
                 width={post.featuredImage?.width || 800}
                 height={post.featuredImage?.height || 420}
@@ -239,7 +240,7 @@ export const EnhancedBlogCard = ({
                 <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white dark:border-gray-800 shadow-sm transition-transform duration-300 group-hover:scale-110">
                   {post.author.avatar ? (
                     <img 
-                      src={post.author.avatar} 
+                      src={getAssetUrl(post.author.avatar)} 
                       alt={post.author.name} 
                       className="w-full h-full object-cover"
                     />
