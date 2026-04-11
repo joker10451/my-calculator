@@ -2,7 +2,7 @@ import CalculatorPageWrapper from '@/components/CalculatorPageWrapper';
 import DepositTaxCalculator from '@/components/calculators/DepositTaxCalculator';
 import { FAQ } from '@/components/FAQ';
 import { TrustInfoBlock } from '@/components/TrustInfoBlock';
-import { AffiliateCTA } from '@/components/AffiliateCTA';
+import { OffersBlock } from '@/components/affiliate/OffersBlock';
 export default function DepositTaxCalculatorPage() {
   const faqItems = [
     {
@@ -37,7 +37,7 @@ export default function DepositTaxCalculatorPage() {
         <DepositTaxCalculator />
         
         <div className="mt-12 space-y-8">
-          <AffiliateCTA category="debit" />
+          <OffersBlock category="debit" limit={3} />
           
           <TrustInfoBlock />
           
