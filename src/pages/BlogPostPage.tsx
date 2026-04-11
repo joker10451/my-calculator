@@ -85,8 +85,8 @@ const CALCULATOR_BRIDGE_MAP: Record<
 
 const OFFERS_BRIDGE_MAP: Record<string, { href: string; label: string; subtitle: string }> = {
   'mortgage-credit': {
-    href: '/offers?category=credit',
-    label: 'Кредитные предложения',
+    href: '/offers?category=mortgage',
+    label: 'Ипотечные предложения',
     subtitle: 'Подбор предложений по теме статьи',
   },
   'taxes-salary': {
