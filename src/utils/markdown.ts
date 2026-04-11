@@ -63,26 +63,31 @@ export function parseMarkdown(content: string): string {
   if (!content) return '';
   let html = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
-  // 1. Кастомные блоки (Offer, Grid, Expert, Fact, Quote)
+  // 1. Кастомные блоки (Offer, Grid, Expert, Fact, Quote, Calculator, TOC)
   html = html.replace(/:::offer\s+([\s\S]*?):::/g, (_match, p1) => {
     const lines = p1.split('\n').map((l: string) => l.trim()).filter((l: string) => l);
     let title = 'Специальное предложение';
     let description = '';
     let link = '#';
     let cta = 'Подробнее';
+    let badge = '';
 
     for(const line of lines) {
       if(line.startsWith('### ')) title = line.substring(4);
+      else if(line.startsWith('[badge] ')) badge = line.substring(8);
       else if(line.includes('|') && line.includes('http')) {
         const [l, c] = line.split('|');
         link = l.trim();
         cta = c.trim();
       }
-      else description = line;
+      else if (!line.startsWith('###') && !line.startsWith('[badge]')) {
+        description = line;
+      }
     }
 
-    return `<div class="offer-box-modern">
+    return `<div class="offer-box-modern ${badge ? 'is-highlighted' : ''}">
       <div class="offer-tag">Рекомендация Считай.RU</div>
+      ${badge ? `<span class="offer-badge">${badge}</span>` : ''}
       <h3 class="offer-title">${title}</h3>
       <p class="offer-description">${description}</p>
       <a href="${link}" target="_blank" rel="nofollow" class="offer-cta">${cta}</a>
@@ -93,37 +98,41 @@ export function parseMarkdown(content: string): string {
     </div>`;
   });
 
-  html = html.replace(/:::grid\s+([\s\S]*?):::/g, (_match, p1) => `<div class="premium-data-grid">${parseInnerMarkdown(p1)}</div>`);
-  html = html.replace(/:::expert\s+([\s\S]*?):::/g, (_match, p1) => `<div class="expert-box-modern"><div class="expert-header">💡 Совет эксперта</div><div class="expert-content">${parseInnerMarkdown(p1)}</div></div>`);
-  html = html.replace(/:::fact\s+([\s\S]*?):::/g, (_match, p1) => `<div class="fact-box-modern"><div class="fact-icon">📝</div><div class="fact-body"><div class="fact-title font-black text-black text-xl mb-1 uppercase tracking-tight">Важный факт</div><div class="fact-text text-lg text-slate-700 font-semibold leading-relaxed">${parseInnerMarkdown(p1)}</div></div></div>`);
-  html = html.replace(/:::quote\s+([\s\S]*?):::/g, (_match, p1) => {
+  html = html.replace(/:::calculator\s+([\s\S]*?):::/g, (_match, p1) => {
     const lines = p1.split('\n').map((l: string) => l.trim()).filter((l: string) => l);
-    let title = '';
-    const items: string[] = [];
+    let title = 'Умный калькулятор';
+    let description = '';
+    let link = '/calculator/';
+    let cta = 'Перейти к расчету';
 
-    for (const line of lines) {
-      if (line.startsWith('### ')) {
-        title = line.substring(4);
-      } else if (line.startsWith('- ') || line.startsWith('* ')) {
-        const content = line.replace(/^[-*]\s+/, '');
-        if (content.includes(':')) {
-          const colonIdx = content.indexOf(':');
-          const label = content.substring(0, colonIdx);
-          const value = content.substring(colonIdx + 1).trim();
-          items.push(`<div class="calc-row"><span class="calc-label">${applyInlineFormatting(label)}:</span><span class="calc-value">${applyInlineFormatting(value)}</span></div>`);
-        } else {
-          items.push(`<div class="calc-row"><span class="calc-value">${applyInlineFormatting(content)}</span></div>`);
-        }
-      } else {
-        items.push(`<p class="calc-text">${applyInlineFormatting(line)}</p>`);
+    for(const line of lines) {
+      if(line.startsWith('### ')) title = line.substring(4);
+      else if(line.includes('|') && (line.includes('/') || line.includes('calc'))) {
+        const [l, c] = line.split('|');
+        link = l.trim();
+        cta = c.trim();
+      }
+      else if (!line.startsWith('###')) {
+        description = line;
       }
     }
 
-    return `<div class="calc-example">
-      ${title ? `<h4 class="calc-title">${applyInlineFormatting(title)}</h4>` : ''}
-      <div class="calc-body">${items.join('')}</div>
+    return `<div class="calculator-bridge-card">
+      <div class="calc-bridge-icon">
+        <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>
+      </div>
+      <div class="calc-bridge-content">
+        <h3 class="calc-bridge-title">${title}</h3>
+        <p class="calc-bridge-desc">${description}</p>
+        <a href="${link}" class="calc-bridge-btn">
+          ${cta}
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
     </div>`;
   });
+
+  html = html.replace(/:::toc:::/g, '<div id="article-toc-placeholder" class="toc-container"></div>');
 
   // 2. Структурные элементы (Заголовки и Списки)
   html = html.replace(/^\s*###\s+(.*$)/gim, '<h3 class="modern-h3">$1</h3>');

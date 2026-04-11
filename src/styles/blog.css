@@ -270,3 +270,67 @@
 .dark .calc-value {
   @apply text-slate-100;
 }
+/* БЛОК ПЕРЕХОДА К КАЛЬКУЛЯТОРУ (Inline Bridge) */
+.calculator-bridge-card {
+  @apply bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 md:p-12 my-20 flex flex-col md:flex-row items-center gap-10 shadow-2xl relative overflow-hidden;
+}
+
+.calculator-bridge-card::after {
+  content: '';
+  @apply absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full -mr-16 -mt-16 blur-3xl;
+}
+
+.calc-bridge-icon {
+  @apply w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center text-white text-4xl shadow-[0_0_40px_rgba(37,99,235,0.4)];
+}
+
+.calc-bridge-content { @apply flex-1; }
+.calc-bridge-title { @apply text-2xl md:text-3xl font-black text-white mb-3 tracking-tight; }
+.calc-bridge-desc { @apply text-slate-400 text-lg font-medium mb-8; }
+.calc-bridge-btn {
+  @apply inline-flex items-center gap-2 bg-blue-600 text-white font-black py-4 px-10 rounded-2xl hover:bg-blue-700 hover:scale-105 transition-all shadow-lg;
+}
+
+/* ОГЛАВЛЕНИЕ (TOC) */
+.toc-container {
+  @apply bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 mb-16 border border-slate-100 dark:border-slate-800;
+}
+
+.toc-title {
+  @apply text-xl font-black text-slate-900 dark:text-slate-100 mb-6 flex items-center gap-3 uppercase tracking-wider;
+}
+
+.toc-list { @apply space-y-3 list-none p-0 !important; }
+.toc-item { @apply flex items-start gap-3; }
+.toc-link {
+  @apply text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-bold transition-colors no-underline text-lg;
+}
+
+.toc-link-h2 { @apply pl-0; }
+.toc-link-h3 { @apply pl-6 text-base font-semibold opacity-80; }
+
+/* УЛУЧШЕНИЯ OFFERS */
+.offer-box-modern.is-highlighted {
+  @apply border-emerald-500 bg-emerald-50/60 shadow-[0_40px_100px_-20px_rgba(5,150,105,0.3)];
+}
+
+.offer-badge {
+  @apply bg-amber-400 text-amber-950 px-3 py-1 rounded-full text-[0.65rem] font-black uppercase tracking-widest mb-4 inline-block shadow-sm;
+}
+
+/* ЭКСПЕРТНЫЕ ЭЛЕМЕНТЫ */
+.trust-badge-inline {
+  @apply inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg text-sm font-bold border border-blue-100 dark:border-blue-800/50 mb-6;
+}
+
+.dark .calculator-bridge-card {
+  @apply bg-slate-900/80 border-slate-700;
+}
+
+.dark .calc-bridge-title {
+  @apply text-slate-100;
+}
+
+.dark .calc-bridge-desc {
+  @apply text-slate-400;
+}

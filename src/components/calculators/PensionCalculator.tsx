@@ -52,7 +52,7 @@ const PensionCalculator = () => {
     const minExperience = 15;
     const hasMinExperience = workExperience >= minExperience;
     
-    // Минимальные баллы для пенсии (30 баллов с 2025 года)
+    // Минимальные баллы для пенсии (30 баллов в 2026 году)
     const minPoints = 30;
     const hasMinPoints = futurePoints >= minPoints;
     

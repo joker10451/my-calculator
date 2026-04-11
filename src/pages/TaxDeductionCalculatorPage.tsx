@@ -56,7 +56,7 @@ export default function TaxDeductionCalculatorPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 md:py-20">
+        <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-24 pb-12 md:pt-28 md:pb-20">
             <SEO
                 title="Калькулятор налогового вычета 2026 — сколько вернёт государство"
                 description="Рассчитайте налоговый вычет 13% за покупку жилья, лечение, обучение. Имущественный, социальный, стандартный вычеты. Актуальные лимиты 2026."

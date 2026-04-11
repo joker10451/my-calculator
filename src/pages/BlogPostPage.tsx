@@ -140,6 +140,62 @@ export default function BlogPostPage() {
   }, []);
 
   React.useEffect(() => {
+    if (!contentRef.current) return;
+
+    // 1. Находим все заголовки h2 и h3
+    const headers = contentRef.current.querySelectorAll('h2, h3');
+    const tocPlaceholder = document.getElementById('article-toc-placeholder');
+    
+    if (headers.length > 0 && tocPlaceholder) {
+      const tocItems = Array.from(headers).map((header, index) => {
+        const id = `section-${index}`;
+        header.id = id;
+        const text = header.textContent || '';
+        const level = header.tagName.toLowerCase();
+        
+        return `<li class="toc-item">
+          <a href="#${id}" class="toc-link toc-link-${level}">${text}</a>
+        </li>`;
+      });
+
+      tocPlaceholder.innerHTML = `
+        <div class="toc-title">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          Содержание статьи
+        </div>
+        <ul class="toc-list">
+          ${tocItems.join('')}
+        </ul>
+      `;
+
+      // Добавляем плавный скролл для ссылок оглавления
+      const tocLinks = tocPlaceholder.querySelectorAll('a');
+      tocLinks.forEach(link => {
+        link.onclick = (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href')?.slice(1);
+          const target = document.getElementById(targetId || '');
+          if (target) {
+            const offset = 100; // Отступ сверху для фиксированной шапки
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = target.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+            
+            // Обновляем URL без перезагрузки
+            window.history.pushState(null, '', `#${targetId}`);
+          }
+        };
+      });
+    }
+  }, [post?.content, post?.id]);
+
+  React.useEffect(() => {
     if (post) {
       const count = countApprovedComments(post.id);
       setCommentCount(count);
@@ -291,7 +347,7 @@ export default function BlogPostPage() {
                 {post.title}
               </h1>
 
-              <div className="flex items-center gap-6">
+              <div className="flex flex-wrap items-center gap-6">
                 <div className="flex items-center gap-3">
                   <div className="w-14 h-14 rounded-2xl border-2 border-white/20 overflow-hidden shadow-2xl bg-white/10">
                     <img
@@ -303,7 +359,18 @@ export default function BlogPostPage() {
                   </div>
                   <div>
                     <div className="text-white font-bold text-lg">{post.author.name}</div>
-                    <div className="text-white/60 text-sm font-medium">{post.author.specialization || 'Эксперт'}</div>
+                    <div className="text-white/60 text-sm font-medium uppercase tracking-widest">{post.author.specialization || 'Финансовый эксперт'}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-xl text-xs font-black flex items-center gap-2 border border-emerald-500/30 backdrop-blur-md">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    2026 АКТУАЛЬНО
+                  </div>
+                  <div className="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-xl text-xs font-black flex items-center gap-2 border border-blue-500/30 backdrop-blur-md">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    ПРОВЕРЕНО
                   </div>
                 </div>
               </div>
@@ -348,7 +415,17 @@ export default function BlogPostPage() {
 
             {/* Основной контент */}
             <article className="blog-content px-6 md:px-10 py-10 md:py-14 max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(parseMarkdown(post.content)) }} />
+              <div 
+                dangerouslySetInnerHTML={{ 
+                  __html: DOMPurify.sanitize(
+                    parseMarkdown(
+                      post.content.includes(':::toc:::') 
+                        ? post.content 
+                        : `:::toc:::\n\n${post.content}`
+                    )
+                  ) 
+                }} 
+              />
             </article>
 
             {/* Теги */}
