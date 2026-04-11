@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run validate:affiliate-compliance && vite build && node scripts/generate-static-html.js && node scripts/generate-sitemap.js && node scripts/generate-yandex-vacancies-yml.js",
+    "build": "npm run validate:affiliate-compliance && vite build && node scripts/generate-static-html.js && node scripts/generate-sitemap.js && node scripts/generate-yandex-vacancies-yml.js && npx tsx scripts/generate-yandex-turbo.ts",
     "generate:static-html": "node scripts/generate-static-html.js",
+    "generate:turbo": "npx tsx scripts/generate-yandex-turbo.ts",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
