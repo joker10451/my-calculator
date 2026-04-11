@@ -9,7 +9,7 @@ const Hero = () => {
   const features = ["Точные алгоритмы", "Всегда бесплатно", "Без регистрации"];
 
   return (
-    <section className="section-shell pt-6 md:pt-10">
+    <section className="section-shell pt-20 md:pt-24 lg:pt-28">
       <div className="max-w-6xl mx-auto rounded-3xl border border-slate-800 bg-slate-950 p-6 md:p-10 text-center shadow-2xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 md:mb-6 text-sm font-medium border rounded-full bg-slate-900 border-slate-700 text-primary">
           <Calculator className="w-4 h-4" />

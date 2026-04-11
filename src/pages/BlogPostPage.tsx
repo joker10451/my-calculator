@@ -257,7 +257,7 @@ export default function BlogPostPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 opacity-90" />
         </div>
 
-        <div className="container mx-auto px-4 h-full relative flex flex-col justify-end pb-24">
+        <div className="container mx-auto px-4 h-full relative flex flex-col justify-end pb-24 pt-20">
           <Link to="/blog" className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-12 group">
             <div className="bg-white/10 p-2 rounded-full backdrop-blur-md group-hover:bg-white/20">
               <ArrowLeft size={18} />
