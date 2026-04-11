@@ -118,6 +118,7 @@ const CalculatorPageWrapper = ({
       <SEO {...seoData} structuredData={structuredData} />
       
       <CalculatorLayout title={title} description={description}>
+        <h1 className="sr-only">{title}</h1>
         <Breadcrumbs items={breadcrumbs} />
         
         {calculator}

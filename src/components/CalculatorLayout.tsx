@@ -84,9 +84,10 @@ const CalculatorLayout = ({
                             {/* Related Calculators */}
                             {relatedCalculators.length > 0 && (
                                 <div className="mt-12 max-w-4xl mx-auto no-print">
-                                    <h3 className="text-lg font-semibold mb-4 text-center text-slate-100">
+                                    <h2 className="text-xl font-bold mb-6 text-slate-100 flex items-center gap-2">
+                                        <Calculator className="w-5 h-5 text-primary" />
                                         Ещё в категории «{currentCategory?.name}»
-                                    </h3>
+                                    </h2>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                         {relatedCalculators.slice(0, 6).map((calc) => (
                                             <Link

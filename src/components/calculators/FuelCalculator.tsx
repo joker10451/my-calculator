@@ -38,13 +38,15 @@ const FuelCalculator = () => {
                     {/* Distance */}
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <label className="text-base font-medium">Расстояние (км)</label>
+                            <label htmlFor="distance-input" className="text-base font-medium">Расстояние (км)</label>
                             <div className="relative">
                                 <input
+                                    id="distance-input"
                                     type="number"
                                     value={distance}
                                     onChange={(e) => setDistance(Number(e.target.value))}
                                     className="text-right text-lg font-semibold bg-transparent border-none focus:outline-none w-32"
+                                    aria-label="Расстояние в километрах"
                                 />
                             </div>
                         </div>
@@ -55,14 +57,15 @@ const FuelCalculator = () => {
                             max={5000}
                             step={10}
                             className="py-4"
+                            aria-label="Слайдер расстояния"
                         />
                     </div>
 
                     {/* Consumption */}
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <label className="text-base font-medium">Расход (л/100км)</label>
-                            <span className="text-lg font-semibold">{formatNumber(consumption)} л</span>
+                            <label id="consumption-label" className="text-base font-medium">Расход (л/100км)</label>
+                            <span className="text-lg font-semibold" aria-live="polite">{formatNumber(consumption)} л</span>
                         </div>
                         <Slider
                             value={[consumption]}
@@ -71,8 +74,9 @@ const FuelCalculator = () => {
                             max={30}
                             step={0.1}
                             className="py-4"
+                            aria-labelledby="consumption-label"
                         />
-                        <div className="flex justify-between text-sm text-muted-foreground">
+                        <div className="flex justify-between text-sm text-muted-foreground" aria-hidden="true">
                             <span>2 л</span>
                             <span>30 л</span>
                         </div>
@@ -81,8 +85,8 @@ const FuelCalculator = () => {
                     {/* Price */}
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <label className="text-base font-medium">Цена топлива (₽/л)</label>
-                            <span className="text-lg font-semibold">{formatCurrency(price)}</span>
+                            <label id="price-label" className="text-base font-medium">Цена топлива (₽/л)</label>
+                            <span className="text-lg font-semibold" aria-live="polite">{formatCurrency(price)}</span>
                         </div>
                         <Slider
                             value={[price]}
@@ -91,12 +95,13 @@ const FuelCalculator = () => {
                             max={100}
                             step={0.5}
                             className="py-4"
+                            aria-labelledby="price-label"
                         />
                     </div>
 
                     {/* Info Block */}
                     <div className="bg-muted/50 p-4 rounded-xl flex gap-3 text-sm text-muted-foreground">
-                        <Info className="w-5 h-5 flex-shrink-0 text-primary" />
+                        <Info className="w-5 h-5 flex-shrink-0 text-primary" aria-hidden="true" />
                         <p>
                             Расчет примерный и зависит от стиля вождения, пробок и погодных условий.
                         </p>
@@ -107,7 +112,7 @@ const FuelCalculator = () => {
                 <div className="lg:col-span-2">
                     <div className="glass-card p-6">
                         <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                            <Calculator className="w-5 h-5 text-primary" />
+                            <Calculator className="w-5 h-5 text-primary" aria-hidden="true" />
                             Стоимость поездки
                         </h3>
 
@@ -116,23 +121,23 @@ const FuelCalculator = () => {
                             <div className="text-sm text-muted-foreground mb-1">
                                 Итого
                             </div>
-                            <div className="calc-result animate-count-up">
+                            <div className="calc-result animate-count-up" aria-live="polite">
                                 {formatCurrency(tripCost)}
                             </div>
                         </div>
 
                         {/* Details */}
-                        <div className="space-y-4 py-4 border-t border-border">
+                        <div className="space-y-4 py-4 border-t border-border" role="region" aria-label="Детализация расчета">
                             <div className="flex items-center justify-between">
                                 <span className="text-muted-foreground flex items-center gap-2">
-                                    <Fuel className="w-4 h-4" />
+                                    <Fuel className="w-4 h-4" aria-hidden="true" />
                                     Потребуется топлива
                                 </span>
                                 <span className="font-semibold">{formatNumber(requiredFuel)} л</span>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-muted-foreground flex items-center gap-2">
-                                    <MapPin className="w-4 h-4" />
+                                    <MapPin className="w-4 h-4" aria-hidden="true" />
                                     Стоимость 1 км
                                 </span>
                                 <span className="font-semibold text-muted-foreground">
@@ -143,12 +148,12 @@ const FuelCalculator = () => {
 
                         {/* Actions */}
                         <div className="space-y-3 pt-4 border-t border-border">
-                            <Button variant="hero" className="w-full gap-2" onClick={handleDownload}>
-                                <Download className="w-5 h-5" />
+                            <Button variant="hero" className="w-full gap-2" onClick={handleDownload} aria-label="Скачать расчет в PDF">
+                                <Download className="w-5 h-5" aria-hidden="true" />
                                 Скачать PDF
                             </Button>
                             <Button variant="outline" className="w-full gap-2">
-                                <Share2 className="w-5 h-5" />
+                                <Share2 className="w-5 h-5" aria-hidden="true" />
                                 Поделиться расчетом
                             </Button>
                         </div>

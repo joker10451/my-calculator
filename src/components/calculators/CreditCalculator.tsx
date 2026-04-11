@@ -104,7 +104,7 @@ const CreditCalculator = () => {
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
                             <label className="text-base font-medium">Сумма кредита</label>
-                            <span className="text-lg font-semibold">{formatCurrency(loanAmount)}</span>
+                            <span className="text-lg font-semibold" aria-live="polite">{formatCurrency(loanAmount)}</span>
                         </div>
                         <Slider
                             value={[loanAmount]}
@@ -113,8 +113,9 @@ const CreditCalculator = () => {
                             max={5000000}
                             step={5000}
                             className="py-4"
+                            aria-label="Сумма кредита"
                         />
-                        <div className="flex justify-between text-sm text-muted-foreground">
+                        <div className="flex justify-between text-sm text-muted-foreground" aria-hidden="true">
                             <span>10 тыс</span>
                             <span>5 млн</span>
                         </div>
@@ -124,7 +125,7 @@ const CreditCalculator = () => {
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
                             <label className="text-base font-medium">Срок кредита</label>
-                            <span className="text-lg font-semibold">{formatTerm(loanTerm)}</span>
+                            <span className="text-lg font-semibold" aria-live="polite">{formatTerm(loanTerm)}</span>
                         </div>
                         <Slider
                             value={[loanTerm]}
@@ -133,8 +134,9 @@ const CreditCalculator = () => {
                             max={84} // 7 years
                             step={1}
                             className="py-4"
+                            aria-label="Срок кредита в месяцах"
                         />
-                        <div className="flex justify-between text-sm text-muted-foreground">
+                        <div className="flex justify-between text-sm text-muted-foreground" aria-hidden="true">
                             <span>1 мес</span>
                             <span>7 лет</span>
                         </div>
@@ -144,7 +146,7 @@ const CreditCalculator = () => {
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
                             <label className="text-base font-medium">Ставка</label>
-                            <span className="text-lg font-semibold">{interestRate}%</span>
+                            <span className="text-lg font-semibold" aria-live="polite">{interestRate}%</span>
                         </div>
                         <Slider
                             value={[interestRate]}
@@ -153,8 +155,9 @@ const CreditCalculator = () => {
                             max={50}
                             step={0.1}
                             className="py-4"
+                            aria-label="Процентная ставка"
                         />
-                        <div className="flex justify-between text-sm text-muted-foreground">
+                        <div className="flex justify-between text-sm text-muted-foreground" aria-hidden="true">
                             <span>1%</span>
                             <span>50%</span>
                         </div>

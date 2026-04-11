@@ -149,6 +149,8 @@ const PensionCalculator = () => {
           />
         </div>
       </div>
+
+      <div id="pension-calculator-form" aria-live="polite">
       {/* Пол */}
       <div className="glass-card p-6 space-y-4">
         <h3 className="font-bold flex items-center gap-2">
@@ -197,12 +199,14 @@ const PensionCalculator = () => {
         </div>
         <input
           type="range"
+          id="birth-year-slider"
           min="1950"
           max="2010"
           step="1"
           value={birthYear}
           onChange={(e) => setBirthYear(Number(e.target.value))}
           className="w-full"
+          aria-label="Выбор года рождения"
         />
         <div className="flex justify-between text-xs text-muted-foreground">
           <span>1950</span>
@@ -226,12 +230,14 @@ const PensionCalculator = () => {
         </div>
         <input
           type="range"
+          id="experience-slider"
           min="0"
           max="50"
           step="1"
           value={workExperience}
           onChange={(e) => setWorkExperience(Number(e.target.value))}
           className="w-full"
+          aria-label="Выбор трудового стажа"
         />
         <div className="flex justify-between text-xs text-muted-foreground">
           <span>0 лет</span>
@@ -255,12 +261,14 @@ const PensionCalculator = () => {
         </div>
         <input
           type="range"
+          id="salary-slider"
           min="15000"
           max="200000"
           step="5000"
           value={averageSalary}
           onChange={(e) => setAverageSalary(Number(e.target.value))}
           className="w-full"
+          aria-label="Выбор средней зарплаты"
         />
         <div className="flex justify-between text-xs text-muted-foreground">
           <span>15 000 ₽</span>
@@ -288,12 +296,14 @@ const PensionCalculator = () => {
         </div>
         <input
           type="range"
+          id="points-slider"
           min="0"
           max="300"
           step="1"
           value={pensionPoints}
           onChange={(e) => setPensionPoints(Number(e.target.value))}
           className="w-full"
+          aria-label="Выбор накопленных баллов"
         />
         <div className="flex justify-between text-xs text-muted-foreground">
           <span>0</span>

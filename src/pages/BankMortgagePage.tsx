@@ -98,7 +98,7 @@ export default function BankMortgagePage() {
           {/* Calculator Link */}
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl border-2 border-blue-100 p-8 mb-12 text-center">
             <TrendingDown className="w-10 h-10 text-blue-600 mx-auto mb-4" />
-            <h3 className="text-xl font-black text-slate-900 mb-2">Рассчитайте платёж</h3>
+            <h2 className="text-xl font-black text-slate-900 mb-2">Рассчитайте платёж</h2>
             <p className="text-slate-600 mb-6">Используйте ипотечный калькулятор для точного расчёта</p>
             <a
               href="/calculator/mortgage"

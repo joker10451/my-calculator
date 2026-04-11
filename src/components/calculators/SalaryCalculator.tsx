@@ -183,19 +183,21 @@ const SalaryCalculator = () => {
           {/* Salary Input */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-base font-medium">Зарплата (до вычета)</label>
+              <label htmlFor="salary-gross-input" className="text-base font-medium cursor-pointer">Зарплата (до вычета)</label>
               <div className="relative">
                 <input
+                  id="salary-gross-input"
                   type="number"
                   value={salary}
                   onChange={(e) => setSalary(Number(e.target.value))}
                   className="text-right text-lg font-semibold bg-transparent border-none focus:outline-none w-40"
+                  aria-label="Сумма зарплаты до вычета налогов в рублях"
                 />
                 <span className="absolute right-0 top-0 pointer-events-none text-muted-foreground opacity-0">₽</span>
               </div>
             </div>
             <div className="flex items-center justify-between p-4 border-2 border-primary/20 rounded-xl bg-card">
-              <span className="text-2xl font-bold">{formatCurrency(salary)}</span>
+              <span className="text-2xl font-bold" aria-live="polite">{formatCurrency(salary)}</span>
               <span className="text-sm text-muted-foreground">в месяц</span>
             </div>
             <Slider
@@ -205,8 +207,9 @@ const SalaryCalculator = () => {
               max={1000000}
               step={1000}
               className="py-4"
+              aria-label="Ползунок выбора зарплаты"
             />
-            <div className="flex justify-between text-sm text-muted-foreground">
+            <div className="flex justify-between text-sm text-muted-foreground" aria-hidden="true">
               <span>15 000 ₽</span>
               <span>1 000 000 ₽</span>
             </div>

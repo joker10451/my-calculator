@@ -8,14 +8,14 @@ import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 type Currency = "RUB" | "USD" | "EUR" | "CNY" | "KZT" | "BYN";
 
-// Fallback rates (Last known from Dec 31, 2025)
+// Базовые курсы (Данные на начало 2026 года)
 const DEFAULT_RATES: Record<Currency, number> = {
     RUB: 1,
-    USD: 90.18,
-    EUR: 99.19,
-    CNY: 12.51,
-    KZT: 0.198,
-    BYN: 28.20,
+    USD: 92.50,
+    EUR: 101.20,
+    CNY: 12.85,
+    KZT: 0.205,
+    BYN: 28.80,
 };
 
 const LABELS: Record<Currency, string> = {

@@ -18,6 +18,7 @@ const AnalyticsDashboardPage = () => {
         description="Внутренний дашборд для отслеживания конверсий и эффективности партнерских виджетов"
         noindex={true}
       />
+      <h1 className="sr-only">Дашборд аналитики</h1>
       <AnalyticsDashboard />
     </>
   );

@@ -142,6 +142,7 @@ function generateHTML(route) {
   const cssFile = getCSSFile();
   
   const cssLink = cssFile ? `  <link rel="stylesheet" crossorigin href="${cssFile}">\n` : '';
+  const gaId = 'G-K1W27063WG';
   
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -200,6 +201,8 @@ function generateHTML(route) {
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 ${cssLink}  
   <!-- SPA Redirect Script -->
@@ -236,7 +239,17 @@ ${cssLink}
     });
   </script>
   <!-- /Yandex.Metrika counter -->
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${gaId}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${gaId}', { 'page_path': '${route.path}' });
+  </script>
 </head>
+
 <body>
   <!-- Yandex.Metrika noscript -->
   <noscript><div><img src="https://mc.yandex.ru/watch/106217699" style="position:absolute; left:-9999px;" alt="" /></div></noscript>

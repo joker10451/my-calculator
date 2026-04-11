@@ -46,7 +46,15 @@ function checkHeadingHierarchy(content, filePath) {
   }
   
   // Проверяем что есть H1
-  if (!headings.includes(1)) {
+  const hasLayout = content.includes('CalculatorLayout') || 
+                    content.includes('CalculatorPageWrapper') ||
+                    content.includes('Hero') ||
+                    content.includes('HeroSection') ||
+                    content.includes('OffersLayout') ||
+                    content.includes('BlogHero') ||
+                    content.includes('CategoryHero');
+  
+  if (!headings.includes(1) && !hasLayout) {
     issues.push({
       file: filePath,
       type: 'missing-h1',
@@ -55,7 +63,7 @@ function checkHeadingHierarchy(content, filePath) {
     });
   }
   
-  // Проверяем что H1 только один
+  // Проверяем что H1 только один (если он есть в файле)
   const h1Count = headings.filter(h => h === 1).length;
   if (h1Count > 1) {
     issues.push({

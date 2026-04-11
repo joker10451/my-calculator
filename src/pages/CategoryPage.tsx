@@ -58,9 +58,9 @@ const CategoryPage = () => {
                                 <Calculator className="w-6 h-6 text-slate-300 group-hover:text-primary transition-colors" />
                             </div>
                             <div className="flex-1">
-                                <h3 className="font-semibold text-lg text-slate-100 group-hover:text-primary transition-colors leading-tight">
+                                <h2 className="font-semibold text-lg text-slate-100 group-hover:text-primary transition-colors leading-tight">
                                     {calc.name}
-                                </h3>
+                                </h2>
                                 <p className="text-xs text-slate-300 mt-1.5">
                                     Перейти к расчету
                                 </p>

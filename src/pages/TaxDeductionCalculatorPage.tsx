@@ -16,7 +16,7 @@ const faqItems = [
     },
     {
         question: "За какой период можно получить вычет?",
-        answer: "За последние 3 года. Например, в 2026 году можно подать декларации за 2025, 2024 и 2023 годы."
+        answer: "За последние 3 года. Например, в 2027 году можно подать декларации за 2026, 2025 и 2024 годы."
     },
     {
         question: "Сколько раз можно получить имущественный вычет?",
@@ -65,6 +65,7 @@ export default function TaxDeductionCalculatorPage() {
                 structuredData={[faqSchema, howToSchema]}
             />
             <div className="container mx-auto px-4">
+                <h1 className="sr-only">Калькулятор налогового вычета 2026</h1>
                 <TaxDeductionCalculator />
 
                 <div className="max-w-5xl mx-auto mt-10">

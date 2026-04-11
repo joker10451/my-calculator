@@ -53,13 +53,15 @@ const UtilitiesCalculator = () => {
 
                     {/* Residents Count */}
                     <div className="space-y-4">
-                        <label className="text-base font-medium">Количество проживающих</label>
-                        <div className="flex gap-3">
+                        <label id="residents-label" className="text-base font-medium">Количество проживающих</label>
+                        <div className="flex gap-3" role="group" aria-labelledby="residents-label">
                             {[1, 2, 3, 4, 5].map(num => (
                                 <button
                                     key={num}
                                     onClick={() => setResidents(num)}
                                     className={`w-12 h-12 rounded-xl border-2 flex items-center justify-center font-bold text-lg transition-all ${residents === num ? 'border-primary bg-primary/10' : 'border-border'}`}
+                                    aria-label={`${num} проживающих`}
+                                    aria-pressed={residents === num}
                                 >
                                     {num}
                                 </button>
@@ -93,50 +95,56 @@ const UtilitiesCalculator = () => {
                                 <p className="text-sm text-muted-foreground mb-2">
                                     Расчет по нормативу: {ELEC_NORM_PER_PERSON} кВт·ч на человека
                                 </p>
-                                <p className="font-semibold">
+                                <p className="font-semibold" aria-live="polite">
                                     {residents} × {ELEC_NORM_PER_PERSON} = {residents * ELEC_NORM_PER_PERSON} кВт·ч
                                 </p>
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
-                                    <label className="text-sm text-muted-foreground block mb-1">Тариф (руб/кВт)</label>
+                                    <label htmlFor="elecRate" className="text-sm text-muted-foreground block mb-1">Тариф (руб/кВт)</label>
                                     <input
+                                        id="elecRate"
                                         type="number"
                                         value={elecRate}
                                         onChange={(e) => setElecRate(Number(e.target.value))}
                                         className="calc-input w-full h-10 px-3 text-base"
+                                        aria-label="Тариф за электроэнергию"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-sm text-muted-foreground block mb-1">Предыдущие</label>
+                                    <label htmlFor="elecPrev" className="text-sm text-muted-foreground block mb-1">Предыдущие</label>
                                     <input
+                                        id="elecPrev"
                                         type="number"
                                         value={elecPrev}
                                         onChange={(e) => setElecBrev(Number(e.target.value))}
                                         className="calc-input w-full h-10 px-3 text-base"
+                                        aria-label="Предыдущие показания счетчика электроэнергии"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-sm text-muted-foreground block mb-1">Текущие</label>
+                                    <label htmlFor="elecCurr" className="text-sm text-muted-foreground block mb-1">Текущие</label>
                                     <input
+                                        id="elecCurr"
                                         type="number"
                                         value={elecCurr}
                                         onChange={(e) => setElecCurr(Number(e.target.value))}
                                         className="calc-input w-full h-10 px-3 text-base"
+                                        aria-label="Текущие показания счетчика электроэнергии"
                                     />
                                 </div>
                             </div>
                         )}
                         
                         {!elecByNorm && (
-                            <div className="text-right text-sm font-medium pt-2 text-muted-foreground">
+                            <div className="text-right text-sm font-medium pt-2 text-muted-foreground" aria-live="polite">
                                 Расход: {Math.max(0, elecCurr - elecPrev)} кВт • {formatCurrency(elecCost)}
                             </div>
                         )}
                         
                         {elecByNorm && (
-                            <div className="text-right text-sm font-medium pt-2 text-muted-foreground">
+                            <div className="text-right text-sm font-medium pt-2 text-muted-foreground" aria-live="polite">
                                 Тариф: {elecRate} руб/кВт • {formatCurrency(elecCost)}
                             </div>
                         )}
@@ -168,50 +176,56 @@ const UtilitiesCalculator = () => {
                                 <p className="text-sm text-muted-foreground mb-2">
                                     Расчет по нормативу: {WATER_NORM_PER_PERSON} м³ на человека
                                 </p>
-                                <p className="font-semibold">
+                                <p className="font-semibold" aria-live="polite">
                                     {residents} × {WATER_NORM_PER_PERSON} = {(residents * WATER_NORM_PER_PERSON).toFixed(2)} м³
                                 </p>
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
-                                    <label className="text-sm text-muted-foreground block mb-1">Тариф (руб/м³)</label>
+                                    <label htmlFor="waterRate" className="text-sm text-muted-foreground block mb-1">Тариф (руб/м³)</label>
                                     <input
+                                        id="waterRate"
                                         type="number"
                                         value={waterRate}
                                         onChange={(e) => setWaterRate(Number(e.target.value))}
                                         className="calc-input w-full h-10 px-3 text-base"
+                                        aria-label="Тариф за водоснабжение"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-sm text-muted-foreground block mb-1">Предыдущие</label>
+                                    <label htmlFor="waterPrev" className="text-sm text-muted-foreground block mb-1">Предыдущие</label>
                                     <input
+                                        id="waterPrev"
                                         type="number"
                                         value={waterPrev}
                                         onChange={(e) => setWaterPrev(Number(e.target.value))}
                                         className="calc-input w-full h-10 px-3 text-base"
+                                        aria-label="Предыдущие показания счетчика воды"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-sm text-muted-foreground block mb-1">Текущие</label>
+                                    <label htmlFor="waterCurr" className="text-sm text-muted-foreground block mb-1">Текущие</label>
                                     <input
+                                        id="waterCurr"
                                         type="number"
                                         value={waterCurr}
                                         onChange={(e) => setWaterCurr(Number(e.target.value))}
                                         className="calc-input w-full h-10 px-3 text-base"
+                                        aria-label="Текущие показания счетчика воды"
                                     />
                                 </div>
                             </div>
                         )}
                         
                         {!waterByNorm && (
-                            <div className="text-right text-sm font-medium pt-2 text-muted-foreground">
+                            <div className="text-right text-sm font-medium pt-2 text-muted-foreground" aria-live="polite">
                                 Расход: {Math.max(0, waterCurr - waterPrev)} м³ • {formatCurrency(waterCost)}
                             </div>
                         )}
                         
                         {waterByNorm && (
-                            <div className="text-right text-sm font-medium pt-2 text-muted-foreground">
+                            <div className="text-right text-sm font-medium pt-2 text-muted-foreground" aria-live="polite">
                                 Тариф: {waterRate} руб/м³ • {formatCurrency(waterCost)}
                             </div>
                         )}
@@ -219,7 +233,7 @@ const UtilitiesCalculator = () => {
 
                     {/* Info Block */}
                     <div className="bg-muted/50 p-4 rounded-xl flex gap-3 text-sm text-muted-foreground">
-                        <Info className="w-5 h-5 flex-shrink-0 text-primary" />
+                        <Info className="w-5 h-5 flex-shrink-0 text-primary" aria-hidden="true" />
                         <p>
                             Введите показания счетчиков или включите расчет по нормативу. Нормативы могут отличаться в зависимости от региона.
                         </p>
@@ -230,7 +244,7 @@ const UtilitiesCalculator = () => {
                 <div className="lg:col-span-2">
                     <div className="glass-card p-6">
                         <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                            <Calculator className="w-5 h-5 text-primary" />
+                            <Calculator className="w-5 h-5 text-primary" aria-hidden="true" />
                             К оплате
                         </h3>
 
@@ -239,23 +253,23 @@ const UtilitiesCalculator = () => {
                             <div className="text-sm text-muted-foreground mb-1">
                                 Итого за месяц
                             </div>
-                            <div className="calc-result animate-count-up">
+                            <div className="calc-result animate-count-up" aria-live="polite">
                                 {formatCurrency(totalCost)}
                             </div>
                         </div>
 
                         {/* Details */}
-                        <div className="space-y-4 py-4 border-t border-border">
+                        <div className="space-y-4 py-4 border-t border-border" role="region" aria-label="Детализация стоимости">
                             <div className="flex items-center justify-between">
                                 <span className="text-muted-foreground flex items-center gap-2">
-                                    <Zap className="w-4 h-4" />
+                                    <Zap className="w-4 h-4" aria-hidden="true" />
                                     Свет
                                 </span>
                                 <span className="font-semibold">{formatCurrency(elecCost)}</span>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-muted-foreground flex items-center gap-2">
-                                    <Droplets className="w-4 h-4" />
+                                    <Droplets className="w-4 h-4" aria-hidden="true" />
                                     Вода
                                 </span>
                                 <span className="font-semibold">
@@ -271,7 +285,7 @@ const UtilitiesCalculator = () => {
                         {/* Actions */}
                         <div className="space-y-3 pt-4 border-t border-border">
                             <Button variant="hero" className="w-full gap-2">
-                                <Share2 className="w-5 h-5" />
+                                <Share2 className="w-5 h-5" aria-hidden="true" />
                                 Отправить показания
                             </Button>
                         </div>
