@@ -405,7 +405,8 @@ const PensionCalculator = () => {
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default PensionCalculator;
