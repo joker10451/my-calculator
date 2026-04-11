@@ -5,6 +5,8 @@ import { SEO, generateFAQSchema } from '@/components/SEO';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
 import { generateHowToSchema } from '@/utils/seoSchemas';
 import { Link } from 'react-router-dom';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const SITE_URL = 'https://schitay-online.ru';
 const OFFER_KEY = 'pampadu-offer-31ba9c13';
@@ -179,14 +181,16 @@ export default function YandexCourierPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      <SEO
-        title="Курьер Яндекс.Еда / Яндекс.Лавка — доход до 8 500 ₽/день"
-        description="Работа курьером в Яндекс.Еда или Яндекс.Лавка: доход до 8 500 ₽ в день, свободное расписание и ежедневные выплаты."
-        keywords="курьер яндекс еда, работа курьером, яндекс лавка курьер, доход курьера, работа с ежедневной оплатой, курьер доставка 2026"
-        canonical={`${SITE_URL}/courier-yandex`}
-        structuredData={[faqSchema, howToSchema]}
-      />
+    <>
+      <Header />
+      <div className="min-h-screen bg-slate-950">
+        <SEO
+          title="Курьер Яндекс.Еда / Яндекс.Лавка — доход до 8 500 ₽/день"
+          description="Работа курьером в Яндекс.Еда или Яндекс.Лавка: доход до 8 500 ₽ в день, свободное расписание и ежедневные выплаты."
+          keywords="курьер яндекс еда, работа курьером, яндекс лавка курьер, доход курьера, работа с ежедневной оплатой, курьер доставка 2026"
+          canonical={`${SITE_URL}/courier-yandex`}
+          structuredData={[faqSchema, howToSchema]}
+        />
       {/* Hero */}
       <div className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-500 text-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -415,6 +419,7 @@ export default function YandexCourierPage() {
           </p>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

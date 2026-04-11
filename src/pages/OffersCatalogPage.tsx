@@ -1,5 +1,7 @@
 import { useDeferredValue, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
@@ -151,20 +153,22 @@ export default function OffersCatalogPage() {
   }, [filtered.length]);
 
   return (
-    <div className="min-h-screen bg-slate-950">
-      <SEO
-        title="Каталог предложений"
-        description="Подборка актуальных предложений: карты, страхование, займы и вакансии."
-        canonical={`${SITE_URL}/offers/`}
-        keywords="предложения, банки, ипотека, кредитные карты, вклады, ОСАГО, КАСКО, вакансии"
-      />
+    <>
+      <Header />
+      <div className="min-h-screen bg-slate-950">
+        <SEO
+          title="Каталог предложений"
+          description="Подборка актуальных предложений: карты, страхование, займы и вакансии."
+          canonical={`${SITE_URL}/offers/`}
+          keywords="предложения, банки, ипотека, кредитные карты, вклады, ОСАГО, КАСКО, вакансии"
+        />
 
-      <div className="container mx-auto px-4 pt-24 pb-14">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-black text-slate-100 tracking-tight">
-              Каталог предложений
-            </h1>
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-8">
+              <h1 className="text-3xl md:text-4xl font-black text-slate-100 tracking-tight">
+                Каталог предложений
+              </h1>
             <p className="text-slate-300 mt-2">
               Выберите категорию и изучите доступные предложения.
             </p>
@@ -295,7 +299,8 @@ export default function OffersCatalogPage() {
           )}
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
 
