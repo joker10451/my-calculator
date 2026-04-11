@@ -64,7 +64,7 @@ export default function OffersCatalogPage() {
 
   const allOffers = useMemo(() => {
     const offers = asOffers()
-      .filter((o) => o.url && o.title && o.url.includes('trk.ppdu.ru'))
+      .filter((o) => o.url && o.title && (o.url.includes('trk.ppdu.ru') || o.url.includes('pampadu.ru')))
       .sort((a, b) => (b.priority || 0) - (a.priority || 0));
     return offers;
   }, []);
@@ -225,11 +225,6 @@ export default function OffersCatalogPage() {
                       </p>
                     )}
                   </div>
-                  {typeof o.commission === 'number' && o.commission > 0 && (
-                    <div className="shrink-0 text-xs font-black bg-primary/10 text-primary px-3 py-2 rounded-full border border-primary/20">
-                      до {o.commission.toLocaleString('ru-RU')} ₽
-                    </div>
-                  )}
                 </div>
 
                 {o.badges && o.badges.length > 0 && (

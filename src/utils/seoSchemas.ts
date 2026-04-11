@@ -142,7 +142,8 @@ export function generateArticleSchema(
   url: string,
   datePublished: string,
   dateModified?: string,
-  imageUrl?: string
+  imageUrl?: string,
+  rating?: { value: number; count: number }
 ) {
   return {
     '@context': 'https://schema.org',
@@ -172,6 +173,16 @@ export function generateArticleSchema(
         'url': imageUrl
       }
     }),
+    ...(rating && {
+      'aggregateRating': {
+        '@type': 'AggregateRating',
+        'ratingValue': rating.value.toFixed(1),
+        'bestRating': '5',
+        'worstRating': '1',
+        'ratingCount': rating.count
+      }
+    }),
     'inLanguage': 'ru'
   };
 }
+

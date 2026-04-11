@@ -1,336 +1,456 @@
-/* Блог Считай.RU - PREMIUM FINISH */
+/* Блог Считай.RU - UNIFIED THEME (light + dark via surface-card) */
+/* Все цвета адаптивны через dark: prefix, чтобы работать с surface-card */
 
 .blog-content {
   line-height: 1.85;
-  color: #334155;
+  @apply text-slate-700 dark:text-slate-300;
   font-family: var(--font-sans);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 
 /* ЗАГОЛОВКИ */
-.modern-h1 { @apply text-5xl md:text-7xl font-black text-black mb-14 tracking-tighter mt-24 leading-[1.1]; }
-.modern-h2 { @apply text-3xl md:text-4xl font-extrabold text-black mb-12 mt-24 flex items-center gap-6 border-l-[8px] border-blue-600 pl-8; }
-.modern-h3 { @apply text-2xl md:text-3xl font-bold text-slate-900 mb-8 mt-16 leading-tight pb-2 border-b border-slate-100; }
+.modern-h1 { @apply text-4xl md:text-6xl font-black text-slate-900 dark:text-slate-50 mb-12 tracking-tighter mt-20 leading-[1.1]; }
+.modern-h2 { @apply text-2xl md:text-3xl font-extrabold text-slate-800 dark:text-slate-100 mb-10 mt-20 flex items-center gap-5 border-l-4 border-primary pl-6; }
+.modern-h3 { @apply text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 mt-14 leading-tight pb-2 border-b border-slate-200 dark:border-slate-800; }
 
 /* ПАРАГРАФЫ */
-.modern-p { @apply mb-12 text-slate-700 font-medium leading-relaxed; font-size: 1.25rem !important; }
+.modern-p { @apply mb-10 text-slate-700 dark:text-slate-300 font-medium leading-relaxed; font-size: 1.125rem !important; }
 
 /* СЕТКА ХАРАКТЕРИСТИК */
 .premium-data-grid .inner-list {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-8 my-20 list-none p-0 !important;
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6 my-16 list-none p-0 !important;
 }
 
 .data-card {
-  @apply bg-slate-50 border border-slate-200 p-10 rounded-[2.5rem] shadow-sm hover:shadow-2xl hover:bg-white hover:border-blue-400 transition-all duration-500 relative overflow-hidden list-none m-0;
+  @apply bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 p-8 rounded-2xl hover:bg-slate-200 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 relative overflow-hidden list-none m-0;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
 }
 
 .card-label {
-  @apply text-slate-400 font-black text-xs uppercase tracking-[0.2em] mb-3;
+  @apply text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-[0.15em] mb-2;
 }
 
 .card-value {
-  @apply text-slate-950 font-black text-3xl tracking-tight;
+  @apply text-slate-900 dark:text-slate-50 font-black text-2xl tracking-tight;
 }
 
-/* СТАНДАРТНЫЕ СПИСКИ (BLUE ACCENT) */
-.standard-ul { @apply space-y-8 my-14 list-none p-0; }
+/* СТАНДАРТНЫЕ СПИСКИ */
+.standard-ul { @apply space-y-6 my-12 list-none p-0; }
 .standard-li {
-  @apply relative pl-12 text-xl font-semibold text-slate-800 flex flex-col leading-relaxed;
+  @apply relative pl-10 text-lg font-medium text-slate-700 dark:text-slate-300 flex flex-col leading-relaxed;
 }
 .standard-li::before {
   content: '';
-  @apply absolute left-0 top-4 w-8 h-[3px] bg-blue-600 rounded-full;
-}
-
-/* ФОРМУЛА */
-.modern-pull-quote {
-  @apply bg-slate-950 text-white rounded-[3rem] my-24 py-20 px-12 text-center text-4xl md:text-5xl font-black leading-tight shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)];
+  @apply absolute left-0 top-3 w-6 h-[3px] bg-primary rounded-full;
 }
 
 /* СПЕЦИАЛЬНЫЕ БЛОКИ */
-.expert-box-modern { @apply bg-blue-50/50 p-12 my-20 rounded-[3rem] border border-blue-100 relative; }
-.expert-header { @apply flex items-center gap-3 text-blue-700 font-black uppercase tracking-widest text-[0.7rem] mb-6; }
-.expert-content { @apply text-2xl text-blue-900 font-bold italic leading-loose; }
+.expert-box-modern { @apply bg-blue-50 dark:bg-blue-950/30 p-10 my-16 rounded-2xl border border-blue-200 dark:border-blue-800/40 relative; }
+.expert-header { @apply flex items-center gap-3 text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest text-[0.7rem] mb-5; }
+.expert-content { @apply text-lg text-blue-800 dark:text-blue-200 font-medium italic leading-relaxed; }
 
-.fact-box-modern { @apply bg-white border border-slate-100 p-12 my-20 rounded-[3.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] flex gap-10 items-start; }
-.fact-icon { @apply text-6xl; }
-.fact-title { @apply font-black text-slate-950 text-2xl mb-2 uppercase tracking-tight; }
-.fact-text { @apply text-xl text-slate-700 font-medium leading-relaxed; }
+.fact-box-modern { @apply bg-amber-50 dark:bg-slate-800/50 border border-amber-200 dark:border-slate-700 p-10 my-16 rounded-2xl flex gap-8 items-start; }
+.fact-icon { @apply text-4xl; }
+.fact-title { @apply font-black text-slate-800 dark:text-slate-100 text-xl mb-2 uppercase tracking-tight; }
+.fact-text { @apply text-lg text-slate-700 dark:text-slate-300 font-medium leading-relaxed; }
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
-  .modern-h1 { font-size: 3.5rem !important; }
-  .modern-h2 { font-size: 2.2rem !important; }
-  .modern-h3 { font-size: 1.8rem !important; }
-  .standard-li { font-size: 1.25rem !important; }
-  .premium-data-grid .inner-list { @apply grid-cols-1 gap-6; }
+  .modern-h1 { font-size: 2.5rem !important; }
+  .modern-h2 { font-size: 1.75rem !important; }
+  .modern-h3 { font-size: 1.4rem !important; }
+  .standard-li { font-size: 1rem !important; }
+  .premium-data-grid .inner-list { @apply grid-cols-1 gap-4; }
 }
+
 /* БЛОК ОФФЕРА (Pampadu / Affiliate) */
-.offer-box-modern { 
-  @apply bg-emerald-50/40 p-10 md:p-14 my-24 rounded-[3.5rem] border-4 border-emerald-500/20 relative overflow-hidden backdrop-blur-sm;
-  box-shadow: 0 40px 100px -20px hsla(150, 70%, 45%, 0.15);
+.offer-box-modern {
+  @apply bg-emerald-50 dark:bg-emerald-950/30 p-8 md:p-12 my-20 rounded-2xl border border-emerald-200 dark:border-emerald-700/30 relative overflow-hidden;
 }
 
 .offer-tag {
-  @apply absolute top-0 right-0 bg-emerald-500 text-white font-black uppercase text-[0.65rem] tracking-[0.2em] py-3 px-8 rounded-bl-[2rem] shadow-lg;
+  @apply absolute top-0 right-0 bg-emerald-600 text-white font-bold uppercase text-[0.6rem] tracking-[0.15em] py-2.5 px-6 rounded-bl-2xl;
 }
 
 .offer-title {
-  @apply text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tighter leading-tight;
+  @apply text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100 mb-5 tracking-tight leading-tight;
 }
 
 .offer-description {
-  @apply text-xl text-slate-600 font-medium mb-12 leading-relaxed max-w-2xl;
+  @apply text-lg text-slate-600 dark:text-slate-400 font-medium mb-10 leading-relaxed max-w-2xl;
 }
 
 .offer-cta {
-  @apply inline-flex items-center justify-center bg-emerald-600 text-white font-black text-xl py-6 px-14 rounded-[2.5rem] hover:bg-emerald-700 hover:scale-105 hover:shadow-[0_20px_50px_rgba(5,150,105,0.4)] transition-all duration-500 cursor-pointer no-underline;
+  @apply inline-flex items-center justify-center bg-emerald-600 text-white font-bold text-lg py-4 px-10 rounded-xl hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-600/30 transition-all duration-300 cursor-pointer no-underline;
 }
 
 .offer-footer {
-  @apply mt-8 text-sm text-emerald-700/60 font-bold uppercase tracking-widest flex items-center gap-2;
+  @apply mt-6 text-sm text-emerald-600/60 dark:text-emerald-500/60 font-semibold uppercase tracking-wider flex items-center gap-2;
 }
 
 /* Mobile Optimizations for Offers */
 @media (max-width: 768px) {
-  .offer-box-modern { @apply p-8 my-16 rounded-[2.5rem]; }
-  .offer-title { font-size: 1.75rem !important; }
-  .offer-cta { @apply w-full py-5 text-lg; }
+  .offer-box-modern { @apply p-6 my-12 rounded-xl; }
+  .offer-title { font-size: 1.5rem !important; }
+  .offer-cta { @apply w-full py-4 text-base; }
 }
 
 /* БЛОК ПРИМЕРА РАСЧЁТА */
 .calc-example {
-  @apply bg-white border-2 border-blue-100 rounded-[2rem] my-16 p-8 md:p-12 shadow-lg relative overflow-hidden;
+  @apply bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl my-14 p-6 md:p-10 relative overflow-hidden;
 }
 
 .calc-example::before {
   content: '';
-  @apply absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-500 to-blue-600;
+  @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-blue-500;
 }
 
 .calc-title {
-  @apply text-xl md:text-2xl font-black text-slate-900 mb-8 flex items-center gap-3 tracking-tight;
+  @apply text-lg md:text-xl font-black text-slate-800 dark:text-slate-100 mb-6 flex items-center gap-3 tracking-tight;
 }
 
 .calc-title::before {
   content: '📊';
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .calc-body {
-  @apply space-y-4;
+  @apply space-y-3;
 }
 
 .calc-row {
-  @apply flex items-center justify-between py-4 px-6 rounded-xl bg-slate-50 border border-slate-100;
+  @apply flex items-center justify-between py-3 px-5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800;
 }
 
 .calc-row:last-child {
-  @apply bg-blue-50 border-blue-200;
+  @apply bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/40;
 }
 
 .calc-label {
-  @apply text-slate-600 font-semibold text-base md:text-lg;
+  @apply text-slate-500 dark:text-slate-400 font-semibold text-sm md:text-base;
 }
 
 .calc-value {
-  @apply text-slate-900 font-black text-lg md:text-xl tabular-nums;
+  @apply text-slate-900 dark:text-slate-100 font-black text-base md:text-lg tabular-nums;
 }
 
 .calc-row:last-child .calc-value {
-  @apply text-blue-700 text-xl md:text-2xl;
+  @apply text-blue-600 dark:text-blue-400 text-lg md:text-xl;
 }
 
 .calc-text {
-  @apply text-slate-600 text-base font-medium leading-relaxed;
+  @apply text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed;
 }
 
 @media (max-width: 768px) {
-  .calc-example { @apply p-6 my-12 rounded-[1.5rem]; }
-  .calc-title { @apply text-lg mb-6; }
-  .calc-row { @apply flex-col items-start gap-2 py-3 px-4; }
-  .calc-label { @apply text-sm; }
-  .calc-value { @apply text-base; }
-  .calc-row:last-child .calc-value { @apply text-lg; }
+  .calc-example { @apply p-5 my-10 rounded-xl; }
+  .calc-title { @apply text-base mb-5; }
+  .calc-row { @apply flex-col items-start gap-1 py-2.5 px-4; }
 }
 
-/* Dark mode readability overrides for blog article content */
-.dark .blog-content {
-  color: #cbd5e1;
-}
-
-.dark .modern-h1 {
-  @apply text-slate-100;
-}
-
-.dark .modern-h2 {
-  @apply text-slate-100 border-blue-400;
-}
-
-.dark .modern-h3 {
-  @apply text-slate-100 border-slate-700;
-}
-
-.dark .modern-p {
-  @apply text-slate-300;
-}
-
-.dark .blog-content a {
-  @apply text-blue-300 hover:text-blue-200;
-}
-
-.dark .blog-content strong {
-  @apply text-slate-100;
-}
-
-.dark .blog-content blockquote {
-  @apply border-slate-700 text-slate-200;
-}
-
-.dark .data-card {
-  @apply bg-slate-900 border-slate-700 hover:bg-slate-800 hover:border-blue-400;
-}
-
-.dark .card-label {
-  @apply text-slate-400;
-}
-
-.dark .card-value {
-  @apply text-slate-100;
-}
-
-.dark .standard-li {
-  @apply text-slate-200;
-}
-
-.dark .expert-box-modern {
-  @apply bg-slate-900 border-slate-700;
-}
-
-.dark .expert-header {
-  @apply text-blue-300;
-}
-
-.dark .expert-content {
-  @apply text-slate-100;
-}
-
-.dark .fact-box-modern {
-  @apply bg-slate-900 border-slate-700;
-}
-
-.dark .fact-title {
-  @apply text-slate-100;
-}
-
-.dark .fact-text {
-  @apply text-slate-300;
-}
-
-.dark .offer-box-modern {
-  @apply bg-emerald-950/40 border-emerald-700/40;
-}
-
-.dark .offer-title {
-  @apply text-slate-100;
-}
-
-.dark .offer-description {
-  @apply text-slate-300;
-}
-
-.dark .offer-footer {
-  @apply text-emerald-300/80;
-}
-
-.dark .calc-example {
-  @apply bg-slate-900 border-slate-700;
-}
-
-.dark .calc-title {
-  @apply text-slate-100;
-}
-
-.dark .calc-row {
-  @apply bg-slate-800 border-slate-700;
-}
-
-.dark .calc-row:last-child {
-  @apply bg-blue-950/40 border-blue-700/40;
-}
-
-.dark .calc-label,
-.dark .calc-text {
-  @apply text-slate-300;
-}
-
-.dark .calc-value {
-  @apply text-slate-100;
-}
 /* БЛОК ПЕРЕХОДА К КАЛЬКУЛЯТОРУ (Inline Bridge) */
 .calculator-bridge-card {
-  @apply bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 md:p-12 my-20 flex flex-col md:flex-row items-center gap-10 shadow-2xl relative overflow-hidden;
+  @apply bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 md:p-10 my-16 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden;
 }
 
 .calculator-bridge-card::after {
   content: '';
-  @apply absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full -mr-16 -mt-16 blur-3xl;
+  @apply absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full -mr-12 -mt-12 blur-2xl;
 }
 
 .calc-bridge-icon {
-  @apply w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center text-white text-4xl shadow-[0_0_40px_rgba(37,99,235,0.4)];
+  @apply w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary/30;
 }
 
 .calc-bridge-content { @apply flex-1; }
-.calc-bridge-title { @apply text-2xl md:text-3xl font-black text-white mb-3 tracking-tight; }
-.calc-bridge-desc { @apply text-slate-400 text-lg font-medium mb-8; }
+.calc-bridge-title { @apply text-xl md:text-2xl font-black text-slate-900 dark:text-slate-100 mb-2 tracking-tight; }
+.calc-bridge-desc { @apply text-slate-500 dark:text-slate-400 text-base font-medium mb-6; }
 .calc-bridge-btn {
-  @apply inline-flex items-center gap-2 bg-blue-600 text-white font-black py-4 px-10 rounded-2xl hover:bg-blue-700 hover:scale-105 transition-all shadow-lg;
+  @apply inline-flex items-center gap-2 bg-primary text-white font-bold py-3 px-8 rounded-xl hover:bg-primary/90 hover:shadow-lg transition-all;
 }
 
 /* ОГЛАВЛЕНИЕ (TOC) */
 .toc-container {
-  @apply bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 mb-16 border border-slate-100 dark:border-slate-800;
+  @apply bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-6 mb-12 border border-slate-200 dark:border-slate-700;
 }
 
 .toc-title {
-  @apply text-xl font-black text-slate-900 dark:text-slate-100 mb-6 flex items-center gap-3 uppercase tracking-wider;
+  @apply text-lg font-black text-slate-700 dark:text-slate-200 mb-5 flex items-center gap-3 uppercase tracking-wider;
 }
 
-.toc-list { @apply space-y-3 list-none p-0 !important; }
+.toc-list { @apply space-y-2.5 list-none p-0 !important; }
 .toc-item { @apply flex items-start gap-3; }
 .toc-link {
-  @apply text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-bold transition-colors no-underline text-lg;
+  @apply text-slate-500 dark:text-slate-400 hover:text-primary font-semibold transition-colors no-underline text-base;
 }
 
 .toc-link-h2 { @apply pl-0; }
-.toc-link-h3 { @apply pl-6 text-base font-semibold opacity-80; }
+.toc-link-h3 { @apply pl-5 text-sm opacity-80; }
 
 /* УЛУЧШЕНИЯ OFFERS */
 .offer-box-modern.is-highlighted {
-  @apply border-emerald-500 bg-emerald-50/60 shadow-[0_40px_100px_-20px_rgba(5,150,105,0.3)];
+  @apply border-emerald-400 dark:border-emerald-600/50 bg-emerald-100 dark:bg-emerald-950/40;
 }
 
 .offer-badge {
-  @apply bg-amber-400 text-amber-950 px-3 py-1 rounded-full text-[0.65rem] font-black uppercase tracking-widest mb-4 inline-block shadow-sm;
+  @apply bg-amber-500 text-amber-950 px-3 py-1 rounded-full text-[0.6rem] font-black uppercase tracking-widest mb-3 inline-block;
 }
 
-/* ЭКСПЕРТНЫЕ ЭЛЕМЕНТЫ */
-.trust-badge-inline {
-  @apply inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg text-sm font-bold border border-blue-100 dark:border-blue-800/50 mb-6;
+/* ============================================= */
+/* ТАБЛИЦА СРАВНЕНИЯ ПРОДУКТОВ                   */
+/* ============================================= */
+.product-comparison-wrapper {
+  @apply my-16 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-slate-900/60;
 }
 
-.dark .calculator-bridge-card {
-  @apply bg-slate-900/80 border-slate-700;
+.product-comparison-header {
+  @apply flex items-center gap-4 px-6 py-5 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700;
 }
 
-.dark .calc-bridge-title {
-  @apply text-slate-100;
+.product-comparison-icon {
+  @apply w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white;
 }
 
-.dark .calc-bridge-desc {
-  @apply text-slate-400;
+.product-comparison-title {
+  @apply text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight m-0;
+}
+
+.product-comparison-scroll {
+  @apply overflow-x-auto;
+}
+
+.product-comparison-table {
+  @apply w-full border-collapse;
+  min-width: 600px;
+}
+
+.product-comparison-table th,
+.product-comparison-table td {
+  @apply py-3.5 px-5 text-center border-b border-slate-100 dark:border-slate-800;
+}
+
+.product-comparison-feature-col {
+  @apply text-left font-bold text-slate-500 dark:text-slate-500 text-xs uppercase tracking-wider bg-slate-50 dark:bg-slate-800/30;
+  min-width: 140px;
+}
+
+.product-comparison-product-col {
+  @apply bg-white dark:bg-slate-900/60 pt-5 pb-3 border-l border-slate-100 dark:border-slate-800;
+}
+
+.product-comparison-product-col.is-best {
+  @apply bg-blue-50 dark:bg-blue-950/20 border-l-2 border-l-primary border-r-2 border-r-primary;
+}
+
+.product-comparison-badge {
+  @apply bg-amber-500 text-amber-950 px-2.5 py-0.5 rounded-full text-[0.55rem] font-black uppercase tracking-widest inline-block mb-2;
+}
+
+.product-comparison-name {
+  @apply block text-base font-black text-slate-800 dark:text-slate-100;
+}
+
+.product-comparison-stars {
+  @apply flex items-center justify-center gap-0.5 mt-1.5;
+}
+
+.product-comparison-stars .star-filled {
+  @apply text-amber-400;
+}
+
+.product-comparison-stars .star-empty {
+  @apply text-slate-300 dark:text-slate-600;
+}
+
+.product-comparison-feature-label {
+  @apply text-left font-semibold text-slate-600 dark:text-slate-400 text-sm bg-white dark:bg-slate-900/60;
+}
+
+.product-comparison-value {
+  @apply text-slate-700 dark:text-slate-200 font-bold text-sm border-l border-slate-100 dark:border-slate-800;
+}
+
+.product-comparison-value.is-best-col {
+  @apply bg-blue-50/50 dark:bg-blue-950/10;
+}
+
+.product-comparison-value svg {
+  @apply mx-auto;
+}
+
+.product-comparison-cta-row {
+  @apply flex border-t border-slate-100 dark:border-slate-800;
+}
+
+.product-comparison-cta-cell {
+  @apply flex-1 flex items-center justify-center py-5 px-4 border-l border-slate-100 dark:border-slate-800;
+}
+
+.product-comparison-cta-cell:first-child {
+  flex: 0 0 140px;
+}
+
+.product-comparison-cta {
+  @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm
+    bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all;
+}
+
+.product-comparison-cta.is-primary {
+  @apply bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20;
+}
+
+/* ============================================= */
+/* STICKY SIDEBAR                                */
+/* ============================================= */
+.sticky-sidebar-wrapper {
+  @apply hidden;
+  position: sticky;
+  top: 100px;
+}
+
+@media (min-width: 1280px) {
+  .sticky-sidebar-wrapper {
+    @apply block;
+  }
+}
+
+.sticky-sidebar-card {
+  @apply bg-white dark:bg-slate-900/80 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm mb-5;
+}
+
+.sticky-sidebar-badge {
+  @apply inline-flex items-center gap-1.5 bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-[0.55rem] font-black uppercase tracking-widest mb-3;
+}
+
+.sticky-sidebar-title {
+  @apply text-base font-black text-slate-800 dark:text-slate-100 mb-1.5 tracking-tight leading-tight;
+}
+
+.sticky-sidebar-subtitle {
+  @apply text-sm text-slate-500 dark:text-slate-500 mb-3 font-medium;
+}
+
+.sticky-sidebar-rating {
+  @apply flex items-center gap-1 mb-4;
+}
+
+.sticky-sidebar-rating-text {
+  @apply ml-2 text-sm font-black text-slate-700 dark:text-slate-300;
+}
+
+.sticky-sidebar-cta {
+  @apply w-full flex items-center justify-center gap-2 bg-primary text-white py-3 px-5 rounded-xl font-bold text-sm
+    hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all mb-3;
+}
+
+.sticky-sidebar-trust {
+  @apply flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500 font-semibold;
+}
+
+.sticky-sidebar-calcs {
+  @apply bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 p-4;
+}
+
+.sticky-sidebar-calcs-title {
+  @apply text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2;
+}
+
+.sticky-sidebar-calc-link {
+  @apply flex items-center justify-between py-2 px-3 rounded-lg
+    text-sm font-semibold text-slate-500 dark:text-slate-400
+    hover:bg-white dark:hover:bg-slate-800 hover:text-primary dark:hover:text-primary transition-all;
+}
+
+/* ============================================= */
+/* STAR RATING (Inline SEO widget)               */
+/* ============================================= */
+.article-rating-widget {
+  @apply bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-5 my-10 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-center gap-5;
+}
+
+.article-rating-label {
+  @apply text-slate-700 dark:text-slate-300 font-bold text-sm;
+}
+
+.article-rating-stars {
+  @apply flex items-center gap-1;
+}
+
+.article-rating-stars button {
+  @apply p-1 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors cursor-pointer;
+}
+
+.article-rating-stars .star-active {
+  @apply text-amber-400;
+}
+
+.article-rating-stars .star-inactive {
+  @apply text-slate-300 dark:text-slate-600;
+}
+
+.article-rating-count {
+  @apply text-xs text-slate-400 dark:text-slate-500 font-semibold mt-1;
+}
+
+/* ============================================= */
+/* ДВУХКОЛОНОЧНЫЙ МАКЕТ БЛОГА (Desktop)          */
+/* ============================================= */
+@media (min-width: 1280px) {
+  .blog-2col-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 1.5rem;
+    align-items: start;
+  }
+}
+
+/* ============================================= */
+/* INLINE FORMATTING OVERRIDES                   */
+/* ============================================= */
+.blog-content a {
+  @apply text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-semibold;
+}
+
+.blog-content strong {
+  @apply text-slate-900 dark:text-slate-100 font-bold;
+}
+
+.blog-content em {
+  @apply text-slate-700 dark:text-slate-200;
+}
+
+/* Modern table in dark mode */
+.modern-table-wrapper {
+  @apply border-slate-200 dark:border-slate-700 !important;
+}
+
+.modern-table-wrapper table {
+  @apply bg-white dark:bg-slate-900/60 !important;
+}
+
+.modern-table-wrapper thead {
+  @apply bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 !important;
+}
+
+.modern-table-wrapper tbody tr {
+  @apply hover:bg-slate-50 dark:hover:bg-slate-800/40 !important;
+}
+
+.modern-table-wrapper td {
+  @apply text-slate-700 dark:text-slate-300 !important;
+}
+
+/* Inner markdown content helpers */
+.inner-h3 {
+  @apply text-lg font-black text-slate-800 dark:text-slate-200 mb-3;
+}
+
+.inner-p {
+  @apply text-slate-600 dark:text-slate-300 font-medium mb-2;
+}
+
+.inner-list {
+  @apply list-none p-0;
 }

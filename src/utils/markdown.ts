@@ -75,7 +75,7 @@ export function parseMarkdown(content: string): string {
     for(const line of lines) {
       if(line.startsWith('### ')) title = line.substring(4);
       else if(line.startsWith('[badge] ')) badge = line.substring(8);
-      else if(line.includes('|') && line.includes('http')) {
+      else if(line.includes('|') && (line.includes('http') || line.trim().startsWith('/'))) {
         const [l, c] = line.split('|');
         link = l.trim();
         cta = c.trim();
@@ -85,16 +85,73 @@ export function parseMarkdown(content: string): string {
       }
     }
 
+    const isExternal = link.startsWith('http');
+    const linkAttrs = isExternal
+      ? `href="${link}" target="_blank" rel="nofollow noopener"`
+      : `href="${link}"`;
+
     return `<div class="offer-box-modern ${badge ? 'is-highlighted' : ''}">
       <div class="offer-tag">Рекомендация Считай.RU</div>
       ${badge ? `<span class="offer-badge">${badge}</span>` : ''}
       <h3 class="offer-title">${title}</h3>
       <p class="offer-description">${description}</p>
-      <a href="${link}" target="_blank" rel="nofollow" class="offer-cta">${cta}</a>
+      <a ${linkAttrs} class="offer-cta">${cta}</a>
       <div class="offer-footer">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        Безопасная сделка через официального партнера
+        ${isExternal ? 'Безопасная сделка через официального партнера' : 'Проверенные предложения от Считай.RU'}
       </div>
+    </div>`;
+  });
+
+  // :::grid — сетка данных/характеристик
+  html = html.replace(/:::grid\s+([\s\S]*?):::/g, (_match, p1) => {
+    return `<div class="premium-data-grid">${parseInnerMarkdown(p1)}</div>`;
+  });
+
+  // :::expert — блок экспертного совета
+  html = html.replace(/:::expert\s+([\s\S]*?):::/g, (_match, p1) => {
+    const lines = p1.split('\n').map((l: string) => l.trim()).filter((l: string) => l);
+    let title = 'Совет эксперта';
+    const contentLines: string[] = [];
+
+    for (const line of lines) {
+      if (line.startsWith('### ')) title = line.substring(4);
+      else contentLines.push(line);
+    }
+
+    return `<div class="expert-box-modern">
+      <div class="expert-header">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        ${title}
+      </div>
+      <div class="expert-content">${contentLines.map(l => applyInlineFormatting(l)).join('<br>')}</div>
+    </div>`;
+  });
+
+  // :::fact — блок с интересным фактом
+  html = html.replace(/:::fact\s+([\s\S]*?):::/g, (_match, p1) => {
+    const lines = p1.split('\n').map((l: string) => l.trim()).filter((l: string) => l);
+    let title = 'Важно знать';
+    const contentLines: string[] = [];
+
+    for (const line of lines) {
+      if (line.startsWith('### ')) title = line.substring(4);
+      else contentLines.push(line);
+    }
+
+    return `<div class="fact-box-modern">
+      <div class="fact-icon">💡</div>
+      <div>
+        <div class="fact-title">${title}</div>
+        <div class="fact-text">${contentLines.map(l => applyInlineFormatting(l)).join('<br>')}</div>
+      </div>
+    </div>`;
+  });
+
+  // :::quote — блок цитаты/расчёта
+  html = html.replace(/:::quote\s+([\s\S]*?):::/g, (_match, p1) => {
+    return `<div class="calc-example">
+      <div class="calc-body">${parseInnerMarkdown(p1)}</div>
     </div>`;
   });
 
@@ -133,6 +190,90 @@ export function parseMarkdown(content: string): string {
   });
 
   html = html.replace(/:::toc:::/g, '<div id="article-toc-placeholder" class="toc-container"></div>');
+
+  // Блок сравнения продуктов :::compare
+  html = html.replace(/:::compare\s+([\s\S]*?):::/g, (_match, p1) => {
+    const lines = p1.split('\n').map((l: string) => l.trim()).filter((l: string) => l);
+    let tableTitle = 'Сравнение продуктов';
+    const products: Array<{
+      name: string;
+      badge?: string;
+      rating?: number;
+      href?: string;
+      features: Record<string, string>;
+    }> = [];
+    let currentProduct: typeof products[0] | null = null;
+
+    for (const line of lines) {
+      if (line.startsWith('### ')) {
+        tableTitle = line.substring(4);
+      } else if (line.startsWith('## ')) {
+        // Новый продукт
+        if (currentProduct) products.push(currentProduct);
+        currentProduct = { name: line.substring(3), features: {} };
+      } else if (currentProduct) {
+        if (line.startsWith('[badge] ')) {
+          currentProduct.badge = line.substring(8);
+        } else if (line.startsWith('[rating] ')) {
+          currentProduct.rating = parseFloat(line.substring(9));
+        } else if (line.startsWith('[link] ')) {
+          currentProduct.href = line.substring(7);
+        } else if (line.includes(':')) {
+          const [key, ...valParts] = line.split(':');
+          currentProduct.features[key.replace(/^[-*]\s*/, '').trim()] = valParts.join(':').trim();
+        }
+      }
+    }
+    if (currentProduct) products.push(currentProduct);
+
+    if (products.length === 0) return '';
+
+    const featureKeys = Object.keys(products[0].features);
+    const headerCells = products.map(p =>
+      `<th class="product-comparison-product-col ${p.badge ? 'is-best' : ''}">
+        ${p.badge ? `<span class="product-comparison-badge">${p.badge}</span>` : ''}
+        <span class="product-comparison-name">${p.name}</span>
+        ${p.rating ? `<div class="product-comparison-stars">${[1,2,3,4,5].map(s => `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="${s <= p.rating! ? 'currentColor' : 'none'}" class="${s <= p.rating! ? 'star-filled' : 'star-empty'}"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('')}</div>` : ''}
+      </th>`
+    ).join('');
+
+    const bodyRows = featureKeys.map(key => {
+      const cells = products.map(p => {
+        const val = p.features[key] || '—';
+        const isPos = val === 'Да' || val === '✓' || val === 'Есть';
+        const isNeg = val === 'Нет' || val === '✗';
+        const content = isPos
+          ? '<svg viewBox="0 0 24 24" width="18" height="18" stroke="#10b981" stroke-width="3" fill="none"><polyline points="20 6 9 17 4 12"/></svg>'
+          : isNeg
+            ? '<svg viewBox="0 0 24 24" width="18" height="18" stroke="#f87171" stroke-width="3" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+            : val;
+        return `<td class="product-comparison-value ${p.badge ? 'is-best-col' : ''}">${content}</td>`;
+      }).join('');
+      return `<tr><td class="product-comparison-feature-label">${key}</td>${cells}</tr>`;
+    }).join('');
+
+    const ctaRow = products.some(p => p.href) 
+      ? `<div class="product-comparison-cta-row">${products.map(p => 
+          `<div class="product-comparison-cta-cell">${p.href 
+            ? `<a href="${p.href}" target="_blank" rel="nofollow noopener noreferrer" class="product-comparison-cta ${p.badge ? 'is-primary' : ''}">Оформить <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>` 
+            : ''}</div>`
+        ).join('')}</div>` 
+      : '';
+
+    return `<div class="product-comparison-wrapper">
+      <div class="product-comparison-header">
+        <div class="product-comparison-icon"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        <h3 class="product-comparison-title">${tableTitle}</h3>
+      </div>
+      <div class="product-comparison-scroll">
+        <table class="product-comparison-table">
+          <thead><tr><th class="product-comparison-feature-col">Параметр</th>${headerCells}</tr></thead>
+          <tbody>${bodyRows}</tbody>
+        </table>
+      </div>
+      ${ctaRow}
+    </div>`;
+  });
 
   // 2. Структурные элементы (Заголовки и Списки)
   html = html.replace(/^\s*###\s+(.*$)/gim, '<h3 class="modern-h3">$1</h3>');
