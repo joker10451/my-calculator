@@ -113,6 +113,10 @@ const pages = [
   { url: '/joy-money/', priority: 0.8, changefreq: 'monthly' },
   { url: '/widgets/', priority: 0.7, changefreq: 'monthly' },
   { url: '/favorites/', priority: 0.5, changefreq: 'monthly' },
+  { url: '/banks/', priority: 0.7, changefreq: 'weekly' },
+  { url: '/calculator/inflation/', priority: 0.8, changefreq: 'monthly' },
+  { url: '/how-much-you-lose/', priority: 0.9, changefreq: 'monthly' },
+  { url: '/key-rate/', priority: 0.9, changefreq: 'weekly' },
 ];
 
 // Банки для SEO-страниц
