@@ -3,7 +3,7 @@
  * Поддерживает как Supabase, так и локальное хранение
  */
 
-import { supabase, handleDatabaseError, isSupabaseConfigured } from './supabase';
+import { isSupabaseConfigured } from './supabase';
 import { localDB } from './local-storage';
 import type {
   Bank,

@@ -16,7 +16,7 @@ import type {
   CalculationHistoryItem
 } from '@/types/bank';
 import { UserProfileManager, type UserBehaviorAnalysis } from './UserProfileManager';
-import { supabase } from '@/lib/database/supabase';
+import { isSupabaseConfigured } from '@/lib/database/supabase';
 
 export interface RecommendationContext {
   calculationType: 'mortgage' | 'deposit' | 'credit' | 'insurance';

@@ -37,7 +37,7 @@ export default defineConfig({
   // Общие настройки для всех проектов
   use: {
     // Базовый URL приложения
-    baseURL: 'http://localhost:5173',
+    baseURL: 'http://localhost:8080',
     
     // Трейсинг при ошибках
     trace: 'on-first-retry',
@@ -90,7 +90,7 @@ export default defineConfig({
   // Веб-сервер для разработки
   webServer: {
     command: 'npm run dev',
-    url: 'http://localhost:5173',
+    url: 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

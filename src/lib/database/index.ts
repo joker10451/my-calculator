@@ -6,11 +6,13 @@
 // Основные репозитории
 export { BankRepository, BankProductRepository, BankDataValidator } from './bankRepository';
 
+import { isSupabaseConfigured } from './supabase';
+
 // Система синхронизации данных
 export { DataSyncManager, dataSyncManager, DataSourcePriority } from './dataSync';
 
 // Подключения к базам данных
-export { supabase, handleDatabaseError, DatabaseError } from './supabase';
+export { isSupabaseConfigured, getSupabase, handleDatabaseError, DatabaseError } from './supabase';
 export { localDB } from './local-storage';
 
 // Типы данных
@@ -47,8 +49,11 @@ export class DatabaseUtils {
    * Проверка доступности базы данных
    */
   static async checkConnection(): Promise<boolean> {
+    if (!isSupabaseConfigured) return false;
     try {
-      const { data, error } = await supabase
+      const client = (await import('./supabase')).getSupabase();
+      if (!client) return false;
+      const { error } = await client
         .from('banks')
         .select('id')
         .limit(1);
@@ -291,16 +296,5 @@ export class DatabaseUtils {
   }
 }
 
-// Автоматическая инициализация при первом импорте
-if (typeof window !== 'undefined') {
-  // Инициализируем базу данных с тестовыми данными при первом запуске
-  DatabaseUtils.checkConnection().then(isConnected => {
-    if (isConnected) {
-      console.log('Подключение к Supabase установлено');
-    } else {
-      console.log('Используется локальное хранилище');
-      // Инициализируем локальную базу с тестовыми данными
-      DatabaseUtils.initializeWithSampleData().catch(console.error);
-    }
-  });
-}
+// Автоматическая инициализация отключена — Supabase не сконфигурирован
+// Запуск только при явном вызове из админки

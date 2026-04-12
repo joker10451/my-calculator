@@ -12,7 +12,7 @@ import type {
   EmploymentType,
   RiskTolerance
 } from '@/types/bank';
-import { supabase, handleDatabaseError } from '@/lib/database/supabase';
+import { isSupabaseConfigured } from '@/lib/database/supabase';
 import { storage } from '@/shared/utils/storage';
 
 export interface CalculationData {
