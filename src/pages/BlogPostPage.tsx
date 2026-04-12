@@ -316,7 +316,7 @@ export default function BlogPostPage() {
       )}
 
       {/* Hero Header */}
-      <div className="relative h-[52vh] min-h-[420px] overflow-hidden">
+      <div className="relative min-h-[340px] md:min-h-[420px] overflow-hidden">
         <div className="absolute inset-0 bg-slate-950">
           <img
             src={getAssetUrl(post.featuredImage?.url) || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'}
@@ -324,11 +324,11 @@ export default function BlogPostPage() {
             className="w-full h-full object-cover opacity-60 scale-105"
             onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=420&fit=crop&q=80'; }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/40 opacity-90" />
         </div>
 
-        <div className="container mx-auto px-4 h-full relative flex flex-col justify-end pb-24 pt-20">
-          <Link to="/blog" className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-12 group">
+        <div className="container mx-auto px-4 h-full relative flex flex-col justify-end pb-20 pt-24">
+          <Link to="/blog" className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-8 group">
             <div className="bg-white/10 p-2 rounded-full backdrop-blur-md group-hover:bg-white/20">
               <ArrowLeft size={18} />
             </div>
@@ -341,7 +341,7 @@ export default function BlogPostPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="flex flex-wrap gap-4 mb-8">
+              <div className="flex flex-wrap gap-4 mb-6">
                 <span className="px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded-full tracking-wider uppercase">
                   {post.category.name}
                 </span>
@@ -357,13 +357,13 @@ export default function BlogPostPage() {
                 </div>
               </div>
 
-              <h1 className="text-4xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-[1.15] tracking-tight">
                 {post.title}
               </h1>
 
-              <div className="flex flex-wrap items-center gap-6">
+              <div className="flex flex-wrap items-center gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 rounded-2xl border-2 border-white/20 overflow-hidden shadow-2xl bg-white/10">
+                  <div className="w-12 h-12 rounded-2xl border-2 border-white/20 overflow-hidden shadow-2xl bg-white/10">
                     <img
                       src={getAssetUrl(post.author.avatar) || getAssetUrl('/authors/alexander-smirnov.png')}
                       alt={post.author.name}
@@ -372,8 +372,8 @@ export default function BlogPostPage() {
                     />
                   </div>
                   <div>
-                    <div className="text-white font-bold text-lg">{post.author.name}</div>
-                    <div className="text-white/60 text-sm font-medium uppercase tracking-widest">{post.author.specialization || 'Финансовый эксперт'}</div>
+                    <div className="text-white font-bold">{post.author.name}</div>
+                    <div className="text-white/60 text-xs font-medium uppercase tracking-widest">{post.author.specialization || 'Финансовый эксперт'}</div>
                   </div>
                 </div>
 
