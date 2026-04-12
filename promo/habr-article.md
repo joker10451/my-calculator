@@ -1,0 +1,140 @@
+# Сделал бесплатный калькулятор на React+Vite без бэкенда — вот что пришлось разгрести
+
+TL;DR: Сделал [Считай.RU](https://schitay-online.ru/) — 20+ финансовых калькуляторов для РФ. SPA на React, деплой на GitHub Pages, без сервера, без Supabase (спойлер: пришлось выпилить). Делюсь техническими граблями.
+
+## Что это
+
+[Считай.RU](https://schitay-online.ru/) — PWA с калькуляторами: ипотека, кредит, зарплата, НДФЛ, инфляция, госпошлина, ОСАГО, алименты и т.д. Актуальные данные 2026: ключевая ставка 15%, прогрессивная шкала НДФЛ, МРОТ 22 440 ₽.
+
+## Грабля №1: Supabase без Supabase
+
+Изначально проект был заточен под Supabase: хранение ставок банков, комментарии, фидбек, подписка на рассылку. Проблема: Supabase не настроен (нет env-переменных), а модуль `database/index.ts` при импорте **автоматически вызывал** `DatabaseUtils.checkConnection()`, который делал `supabase.from('banks').select()`.
+
+Результат: весь React-дерево крашилось при загрузке любой страницы. Пользователь видит белый экран.
+
+**Решение:**
+1. Отключил автозапуск в `database/index.ts`
+2. Сделал lazy-init через Proxy — Supabase создаётся только при первом обращении
+3. Все UI-компоненты перевёл на `fetch` API с graceful degradation
+4. Фидбек и подписка — через `localStorage` + `fetch` как fallback
+
+```typescript
+// До: при импорте модуля — краш
+export const db = DatabaseUtils.checkConnection(); // 💥
+
+// После: lazy Proxy
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(target, prop) {
+    if (!isSupabaseConfigured()) return undefined;
+    // init only on first access
+  }
+});
+```
+
+## Грабля №2: useLocalStorage — бесконечный рендер
+
+Хук `useLocalStorage` имел такой паттерн:
+
+```typescript
+useEffect(() => {
+  setStoredValue(readValue()); // 💥 триггерит ре-рендер
+}, [readValue, storedValue]);  // 💥 зависит от того, что меняет
+```
+
+`readValue` меняется при каждом рендере → `useEffect` срабатывает → `setStoredValue` → ре-рендер → `readValue` новый → бесконечный цикл.
+
+**Решение:** убрал проблемный `useEffect`, initialValue через `useRef`, только функциональное обновление `setState`:
+
+```typescript
+const initialValue = useRef(readValue()).current;
+const [storedValue, setStoredValue] = useState<T>(initialValue);
+```
+
+## Грабля №3: CookieConsent крашит вне Router
+
+Компонент `<CookieConsent>` рендерился **вне** `<Router>`, но использовал `<Link to="/privacy">`. React Router бросает ошибку, если `useNavigate`/`<Link>` вызывается вне контекста роутера.
+
+**Решение:** вне Router — только `<a href="/privacy">`. Звучит очевидно, но это третья по частоте ошибка в SPA-проектах на React Router.
+
+## Грабля №4: PWA Service Worker кэширует старые бандлы
+
+Vite + vite-plugin-pwa генерирует Service Worker, который кэширует все ассеты. Если в новой версии сломался импорт — пользователь видит старую ошибку бесконечно.
+
+**Решение:** Ctrl+Shift+Delete или Clear site data. Но лучше — добавить в ErrorBoundary кнопку «Сбросить кэш»:
+
+```typescript
+if (this.state.hasError) {
+  return (
+    <button onClick={() => {
+      caches.keys().then(names => names.forEach(n => caches.delete(n)));
+      window.location.reload();
+    }}>
+      Упс, калькулятор запутался в цифрах. Сбросить?
+    </button>
+  );
+}
+```
+
+## Грабля №5: SEO на SPA — Яндекс не видит контент
+
+SPA на GitHub Pages — для поисковиков это пустой `<div id="root"></div>`. Яндекс частично рендерит JS, но не всегда.
+
+**Что я сделал:**
+
+1. **Noscript-контент** в `index.html` — список всех калькуляторов с ссылками для ботов без JS
+2. **Prerender** — build-скрипт генерирует статический HTML для каждой страницы (57 HTML файлов)
+3. **Sitemap** — 119 URL, автогенерация при билде
+4. **IndexNow** — при деплое автоматически уведомляет Яндекс и Bing
+5. **Structured Data** — Schema.org для каждой страницы (SoftwareApplication, FAQ, HowTo)
+6. **robots.txt** — убрал `Crawl-delay` для Googlebot (Google его не поддерживает, но наличие директивы может замедлить краулинг)
+
+## Грабля №6: Canonical URL — дубли контента
+
+Оказалось, что canonical URLs были без trailing slash (`/calculator/mortgage`), а sitemap — со слэшем (`/calculator/mortgage/`). Google treats these as two different URLs.
+
+21 файл, 21 исправление. Автоматизировал через Node.js скрипт с regex.
+
+## Что работает без бэкенда
+
+| Фича | Реализация |
+|---|---|
+| Фидбек 👍👎 | `localStorage` + `fetch` API |
+| Подписка на рассылку | `fetch('/api/newsletter')` с fallback |
+| История расчётов | `localStorage` |
+| Избранное | `localStorage` + контекст |
+| Курсы валют | ЦБ РФ API (`cbr-xml-daily.ru`) — без ключа |
+| Ключевая ставка | Хардкод из данных ЦБ + API при доступности |
+| Геолокация/регион | Nominatim OpenStreetMap — без ключа |
+| Оффлайн | PWA Service Worker |
+
+## Архитектура
+
+```
+src/
+├── components/       # React-компоненты
+│   ├── calculators/  # Каждый калькулятор — отдельный компонент
+│   ├── affiliate/    # Офферы с A/B тестированием
+│   └── blog/         # Блог с Markdown-парсером
+├── pages/            # Страницы (lazy import)
+├── lib/              # Калькуляционная логика (pure functions)
+├── hooks/            # useLocalStorage, useFavorites, useCalculatorHistory
+├── services/         # cbrRates, rosstatCPI, regionDetection
+├── data/             # Статичные данные: ставки, банки, статьи
+└── utils/            # Markdown, PDF export, SEO schemas
+```
+
+Каждый калькулятор — pure function в `lib/` + React-обёртка в `components/calculators/`. Тестируется через Vitest + fast-check для property-based тестов.
+
+## Результаты
+
+- 57 статических HTML-страниц (prerender для SEO)
+- 20+ калькуляторов
+- PWA, работает офлайн
+- Деплой: GitHub Actions → GitHub Pages (0 рублей/мес)
+- Трафик: ...ну, про это как-нибудь в другой раз 😅
+
+Если интересно — welcome на [schitay-online.ru](https://schitay-online.ru/). Калькуляторы бесплатные, работают без регистрации, данные актуальные на 2026 год.
+
+---
+
+*P.S. Если у вас тоже SPA на GitHub Pages и нулевой трафик — проверьте canonical URLs, robots.txt и отправьте sitemap в GSC. Мне помогло (наверное, ещё проверяем).*

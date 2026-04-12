@@ -1,6 +1,7 @@
 const API_URL = 'https://www.cbr-xml-daily.ru/daily_json.js';
 const CACHE_KEY = 'cbr_rates';
 const CACHE_TTL = 4 * 60 * 60 * 1000;
+const CACHE_VERSION = 'v2';
 
 export interface CurrencyRate {
   charCode: string;
@@ -44,7 +45,7 @@ export async function fetchCBRRates(): Promise<CBRData> {
     const cached = localStorage.getItem(CACHE_KEY);
     if (cached) {
       const parsed = JSON.parse(cached);
-      if (Date.now() - parsed.timestamp < CACHE_TTL) {
+      if (parsed.version === CACHE_VERSION && Date.now() - parsed.timestamp < CACHE_TTL) {
         return parsed.data;
       }
     }
@@ -80,7 +81,7 @@ export async function fetchCBRRates(): Promise<CBRData> {
     };
 
     try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: result }));
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ version: CACHE_VERSION, timestamp: Date.now(), data: result }));
     } catch {}
 
     return result;
