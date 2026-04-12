@@ -53,22 +53,37 @@ const Index = () => {
           <PersonalizedRecommendations />
           <section className="section-shell bg-slate-950">
             <div className="max-w-5xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-black text-slate-100 mb-6 text-center">Полезные инструменты</h2>
+              <h2 className="text-2xl md:text-3xl font-black text-slate-100 mb-6 text-center">Сравнения</h2>
               <div className="grid md:grid-cols-3 gap-4">
-                <Link to="/checklist" className="surface-card surface-card-hover p-5 text-center">
-                  <span className="text-3xl">📋</span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-200">Чек-лист финансовой грамотности</h3>
-                  <p className="mt-1 text-xs text-slate-500">28 шагов к свободе. Отмечай прогресс!</p>
+                <Link to="/compare/mortgage-vs-credit/" className="surface-card surface-card-hover p-5 text-center">
+                  <span className="text-3xl">🏠 <span className="text-slate-500">VS</span> 💳</span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-200">Ипотека или кредит</h3>
+                  <p className="mt-1 text-xs text-slate-500">Что выгоднее для покупки жилья?</p>
                 </Link>
-                <Link to="/how-much-you-lose" className="surface-card surface-card-hover p-5 text-center">
-                  <span className="text-3xl">💸</span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-200">Сколько ты теряешь</h3>
-                  <p className="mt-1 text-xs text-slate-500">Налоги, инфляция, скрытые платежи</p>
+                <Link to="/compare/osago-vs-kasko/" className="surface-card surface-card-hover p-5 text-center">
+                  <span className="text-3xl">📜 <span className="text-slate-500">VS</span> 🛡️</span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-200">ОСАГО или КАСКО</h3>
+                  <p className="mt-1 text-xs text-slate-500">Какую страховку выбрать для авто?</p>
                 </Link>
-                <Link to="/key-rate" className="surface-card surface-card-hover p-5 text-center">
-                  <span className="text-3xl">📊</span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-200">Ключевая ставка ЦБ</h3>
-                  <p className="mt-1 text-xs text-slate-500">Сегодня, динамика, влияние на тебя</p>
+                <Link to="/compare/deposit-vs-investment/" className="surface-card surface-card-hover p-5 text-center">
+                  <span className="text-3xl">🏦 <span className="text-slate-500">VS</span> 📈</span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-200">Вклад или инвестиции</h3>
+                  <p className="mt-1 text-xs text-slate-500">Куда выгоднее положить деньги?</p>
+                </Link>
+                <Link to="/compare/salary-vs-self-employed/" className="surface-card surface-card-hover p-5 text-center">
+                  <span className="text-3xl">💼 <span className="text-slate-500">VS</span> 🧑‍💻</span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-200">Найм или самозанятость</h3>
+                  <p className="mt-1 text-xs text-slate-500">Где ты заработаешь больше?</p>
+                </Link>
+                <Link to="/compare/refinancing-vs-new-credit/" className="surface-card surface-card-hover p-5 text-center">
+                  <span className="text-3xl">🔄 <span className="text-slate-500">VS</span> 💳</span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-200">Рефинансирование или новый кредит</h3>
+                  <p className="mt-1 text-xs text-slate-500">Как сэкономить на процентах?</p>
+                </Link>
+                <Link to="/compare/vacation-vs-sick-leave/" className="surface-card surface-card-hover p-5 text-center">
+                  <span className="text-3xl">🏖️ <span className="text-slate-500">VS</span> 🤒</span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-200">Отпускные или больничный</h3>
+                  <p className="mt-1 text-xs text-slate-500">Сколько платят в каждом случае?</p>
                 </Link>
               </div>
             </div>

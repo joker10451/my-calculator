@@ -119,6 +119,12 @@ const pages = [
   { url: '/key-rate/', priority: 0.9, changefreq: 'weekly' },
   { url: '/checklist/', priority: 0.8, changefreq: 'monthly' },
   { url: '/quiz/financial-literacy/', priority: 0.7, changefreq: 'monthly' },
+  { url: '/compare/mortgage-vs-credit/', priority: 0.9, changefreq: 'monthly' },
+  { url: '/compare/osago-vs-kasko/', priority: 0.9, changefreq: 'monthly' },
+  { url: '/compare/deposit-vs-investment/', priority: 0.9, changefreq: 'monthly' },
+  { url: '/compare/salary-vs-self-employed/', priority: 0.9, changefreq: 'monthly' },
+  { url: '/compare/refinancing-vs-new-credit/', priority: 0.8, changefreq: 'monthly' },
+  { url: '/compare/vacation-vs-sick-leave/', priority: 0.8, changefreq: 'monthly' },
 ];
 
 // Банки для SEO-страниц
