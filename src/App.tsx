@@ -84,6 +84,7 @@ export const BlogRecommendations = lazy(() => import("./components/blog/BlogReco
 const AnalyticsDashboardPage = lazy(() => import("./pages/AnalyticsDashboardPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
 const BanksRatingPage = lazy(() => import("./pages/BanksRatingPage"));
+const InflationCalculatorPage = lazy(() => import("./pages/InflationCalculatorPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Конфигурация QueryClient с оптимизацией
@@ -167,6 +168,7 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/water" element={<PageTransition><WaterCalculatorPage /></PageTransition>} />
           <Route path="/calculator/alimony" element={<PageTransition><AlimonyCalculatorPage /></PageTransition>} />
           <Route path="/calculator/refinancing" element={<PageTransition><RefinancingCalculatorPage /></PageTransition>} />
+          <Route path="/calculator/inflation" element={<PageTransition><InflationCalculatorPage /></PageTransition>} />
           <Route path="/calculator/deposit" element={<PageTransition><DepositCalculatorPage /></PageTransition>} />
           <Route path="/calculator/deposit-tax" element={<PageTransition><DepositTaxCalculatorPage /></PageTransition>} />
           <Route path="/calculator/currency" element={<PageTransition><CurrencyConverterPage /></PageTransition>} />
