@@ -18,7 +18,7 @@ const TireSizeCalculatorPage = () => {
             seoTitle="Калькулятор размера шин 2026"
             seoDescription="Рассчитайте параметры шин и сравните размеры. Узнайте, какие шины подходят для вашего автомобиля."
             seoKeywords="калькулятор шин, размер шин, подбор шин, калькулятор дисков"
-            canonical="https://schitay-online.ru/calculator/tire-size"
+            canonical="https://schitay-online.ru/calculator/tire-size/"
             schemaName="Калькулятор шин"
             schemaDescription="Бесплатный онлайн калькулятор размера шин"
             title="Калькулятор размера шин"

@@ -20,7 +20,7 @@ const WaterCalculatorPage = () => {
             seoTitle="Калькулятор нормы воды 2026"
             seoDescription="Рассчитайте свою суточную норму воды с учетом веса, возраста и активности."
             seoKeywords="калькулятор воды, норма воды в день, сколько пить воды"
-            canonical="https://schitay-online.ru/calculator/water"
+            canonical="https://schitay-online.ru/calculator/water/"
             schemaName="Калькулятор воды"
             schemaDescription="Бесплатный онлайн калькулятор суточной нормы воды"
             title="Калькулятор нормы воды"

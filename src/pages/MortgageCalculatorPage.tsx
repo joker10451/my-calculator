@@ -52,7 +52,7 @@ const MortgageCalculatorPage = () => {
       seoTitle="Ипотечный калькулятор 2026"
       seoDescription="Рассчитайте ипотеку онлайн бесплатно: ежемесячный платеж, переплата, график платежей. Актуальные ставки 2026 года. Учет досрочного погашения."
       seoKeywords="ипотечный калькулятор, расчет ипотеки, калькулятор ипотеки онлайн, ипотека 2026, досрочное погашение ипотеки"
-      canonical="https://schitay-online.ru/calculator/mortgage"
+      canonical="https://schitay-online.ru/calculator/mortgage/"
       schemaName="Ипотечный калькулятор"
       schemaDescription="Бесплатный онлайн калькулятор для расчета ипотеки с учетом досрочного погашения"
       title="Ипотечный калькулятор"

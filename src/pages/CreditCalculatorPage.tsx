@@ -52,7 +52,7 @@ const CreditCalculatorPage = () => {
             seoTitle="Кредитный калькулятор 2026"
             seoDescription="Рассчитайте потребительский кредит онлайн: ежемесячный платеж, переплата, график платежей. Актуальные ставки 2026 года."
             seoKeywords="кредитный калькулятор, расчет кредита, калькулятор кредита онлайн, потребительский кредит 2026"
-            canonical="https://schitay-online.ru/calculator/credit"
+            canonical="https://schitay-online.ru/calculator/credit/"
             schemaName="Кредитный калькулятор"
             schemaDescription="Бесплатный онлайн калькулятор для расчета потребительского кредита"
             title="Кредитный калькулятор"

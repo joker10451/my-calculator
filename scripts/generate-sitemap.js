@@ -189,8 +189,8 @@ function generateRobotsTxt() {
   const robotsTxt = `# robots.txt для Считай.RU
 User-agent: *
 Allow: /
+Allow: /manifest.json
 Disallow: /admin/
-Disallow: /*.json$
 Disallow: /api/
 Disallow: /dist/
 Disallow: /node_modules/
@@ -201,17 +201,11 @@ Sitemap: ${SITE_URL}/sitemap.xml
 # Yandex
 User-agent: Yandex
 Allow: /
-Crawl-delay: 0.5
+Crawl-delay: 0.1
 
-# Google
+# Google — не поддерживает Crawl-delay
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0.5
-
-# Bing
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 0.5
 `;
   
   // Сохраняем в dist

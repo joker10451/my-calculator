@@ -2,7 +2,7 @@ import { blogPosts } from '@/data/blogPosts';
 import { getAssetUrl } from './blogImageMap';
 
 export const generateRSSFeed = () => {
-  const siteUrl = 'https://считай.ru';
+  const siteUrl = 'https://schitay-online.ru';
   const publishedPosts = blogPosts.filter(post => post.isPublished);
   
   const rssItems = publishedPosts
@@ -60,7 +60,7 @@ export const generateRSSFeed = () => {
 };
 
 export const generateSitemap = () => {
-  const siteUrl = 'https://считай.ru';
+  const siteUrl = 'https://schitay-online.ru';
   const publishedPosts = blogPosts.filter(post => post.isPublished);
   
   const blogUrls = publishedPosts.map(post => {

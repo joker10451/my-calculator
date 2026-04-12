@@ -147,7 +147,7 @@ const WaterCalculator = () => {
                         </div>
                         <div className="text-right text-sm text-slate-500">
                             <p>Дата: {new Date().toLocaleDateString('ru-RU')}</p>
-                            <p>schitay.ru</p>
+                            <p>schitay-online.ru</p>
                         </div>
                     </div>
 
@@ -201,7 +201,7 @@ const WaterCalculator = () => {
 
                     <div className="text-center text-xs text-slate-400 border-t pt-4">
                         <p>Норма рассчитана по рекомендациям ВОЗ. Индивидуальные потребности могут отличаться.</p>
-                        <p className="mt-2">Сформировано на schitay.ru • Дата: {new Date().toLocaleString('ru-RU')}</p>
+                        <p className="mt-2">Сформировано на schitay-online.ru • Дата: {new Date().toLocaleString('ru-RU')}</p>
                     </div>
                 </div>
             </div>

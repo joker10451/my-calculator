@@ -20,7 +20,7 @@ const BMICalculatorPage = () => {
             seoTitle="Калькулятор индекса массы тела (ИМТ) 2026"
             seoDescription="Рассчитайте свой индекс массы тела онлайн. Узнайте, соответствует ли ваш вес норме."
             seoKeywords="калькулятор ИМТ, индекс массы тела, расчет ИМТ, калькулятор веса"
-            canonical="https://schitay-online.ru/calculator/bmi"
+            canonical="https://schitay-online.ru/calculator/bmi/"
             schemaName="Калькулятор ИМТ"
             schemaDescription="Бесплатный онлайн калькулятор индекса массы тела"
             title="Индекс массы тела (ИМТ)"

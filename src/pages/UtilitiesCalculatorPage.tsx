@@ -18,7 +18,7 @@ const UtilitiesCalculatorPage = () => {
             seoTitle="Калькулятор коммунальных платежей 2026"
             seoDescription="Рассчитайте стоимость коммунальных услуг: электричество, вода, отопление, газ."
             seoKeywords="калькулятор ЖКХ, коммунальные платежи, расчет коммуналки"
-            canonical="https://schitay-online.ru/calculator/utilities"
+            canonical="https://schitay-online.ru/calculator/utilities/"
             schemaName="Калькулятор ЖКХ"
             schemaDescription="Бесплатный онлайн калькулятор коммунальных платежей"
             title="Калькулятор коммунальных платежей"

@@ -20,7 +20,7 @@ const CalorieCalculatorPage = () => {
             seoTitle="Калькулятор калорий 2026 - Расчет суточной нормы"
             seoDescription="Рассчитайте свою суточную норму калорий для похудения, поддержания или набора веса."
             seoKeywords="калькулятор калорий, суточная норма калорий, расчет калорий для похудения"
-            canonical="https://schitay-online.ru/calculator/calories"
+            canonical="https://schitay-online.ru/calculator/calories/"
             schemaName="Калькулятор калорий"
             schemaDescription="Бесплатный онлайн калькулятор суточной нормы калорий"
             title="Калькулятор калорий"

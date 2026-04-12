@@ -52,7 +52,7 @@ const DepositCalculatorPage = () => {
             seoTitle="Калькулятор вкладов 2026"
             seoDescription="Рассчитайте доходность вклада с капитализацией процентов и пополнением. Актуальные ставки банков 2026 года."
             seoKeywords="калькулятор вкладов, расчет процентов по вкладу, депозитный калькулятор, вклады 2026, капитализация процентов"
-            canonical="https://schitay-online.ru/calculator/deposit"
+            canonical="https://schitay-online.ru/calculator/deposit/"
             schemaName="Калькулятор вкладов"
             schemaDescription="Бесплатный онлайн калькулятор для расчета доходности банковских вкладов с капитализацией"
             title="Калькулятор вкладов"

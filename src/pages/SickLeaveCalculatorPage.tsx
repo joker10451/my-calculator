@@ -50,7 +50,7 @@ const SickLeaveCalculatorPage = () => {
             seoTitle="Калькулятор больничного 2026 - Расчет больничного листа онлайн"
             seoDescription="Рассчитайте пособие по временной нетрудоспособности с учетом стажа и среднего заработка. Актуальные правила ФСС 2026."
             seoKeywords="калькулятор больничного, расчет больничного 2026, больничный лист онлайн, пособие по нетрудоспособности"
-            canonical="https://schitay-online.ru/calculator/sick-leave"
+            canonical="https://schitay-online.ru/calculator/sick-leave/"
             schemaName="Калькулятор больничного"
             schemaDescription="Бесплатный онлайн калькулятор для расчета больничного листа"
             title="Калькулятор больничного"

@@ -19,7 +19,7 @@ const FuelCalculatorPage = () => {
             seoTitle="Калькулятор расхода топлива 2026"
             seoDescription="Рассчитайте расход топлива и стоимость поездки. Узнайте, сколько бензина нужно на поездку."
             seoKeywords="калькулятор топлива, расход бензина, расчет топлива на поездку"
-            canonical="https://schitay-online.ru/calculator/fuel"
+            canonical="https://schitay-online.ru/calculator/fuel/"
             schemaName="Калькулятор топлива"
             schemaDescription="Бесплатный онлайн калькулятор расхода топлива"
             title="Калькулятор расхода топлива"

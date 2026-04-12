@@ -49,7 +49,7 @@ const VacationCalculatorPage = () => {
             seoTitle="Калькулятор отпускных 2026 - Расчет отпускных онлайн"
             seoDescription="Рассчитайте отпускные с учетом среднего заработка, премий и НДФЛ. Актуальные правила расчета 2026 года."
             seoKeywords="калькулятор отпускных, расчет отпускных 2026, отпускные онлайн, средний заработок"
-            canonical="https://schitay-online.ru/calculator/vacation"
+            canonical="https://schitay-online.ru/calculator/vacation/"
             schemaName="Калькулятор отпускных"
             schemaDescription="Бесплатный онлайн калькулятор для расчета отпускных"
             title="Калькулятор отпускных"

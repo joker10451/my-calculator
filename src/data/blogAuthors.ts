@@ -10,7 +10,7 @@ export const blogAuthors: BlogAuthor[] = [
     education: 'МГУ им. Ломоносова, Экономический факультет; Сертификация CFA.',
     avatar: '/authors/alexander-smirnov.png',
     social: {
-      email: 'a.smirnov@schitay.ru'
+      email: 'a.smirnov@schitay-online.ru'
     },
     expertise: ['Личные финансы', 'Инвестиции', 'Налоговое планирование', 'Банковские продукты']
   },
@@ -23,7 +23,7 @@ export const blogAuthors: BlogAuthor[] = [
     education: 'МГЮА им. О.Е. Кутафина (Юридическая академия).',
     avatar: '/authors/elena-ivanova.png',
     social: {
-      email: 'e.ivanova@schitay.ru'
+      email: 'e.ivanova@schitay-online.ru'
     },
     expertise: ['Семейное право', 'Трудовой кодекс', 'Социальные выплаты', 'Судебная практика']
   },
@@ -36,7 +36,7 @@ export const blogAuthors: BlogAuthor[] = [
     education: 'Российская экономическая школа (РЭШ).',
     avatar: '/authors/dmitry-kozlov.png',
     social: {
-      email: 'd.kozlov@schitay.ru'
+      email: 'd.kozlov@schitay-online.ru'
     },
     expertise: ['Ипотечное кредитование', 'Рынок жилья', 'Государственные льготы', 'Оценка недвижимости']
   },
@@ -49,7 +49,7 @@ export const blogAuthors: BlogAuthor[] = [
     education: 'Первый МГМУ им. И.М. Сеченова.',
     avatar: '/authors/anna-petrova.png',
     social: {
-      email: 'a.petrova@schitay.ru'
+      email: 'a.petrova@schitay-online.ru'
     },
     expertise: ['Нутрициология', 'ЗОЖ-калькуляторы', 'Профилактика здоровья', 'Фитнес-планирование']
   }

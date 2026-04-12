@@ -35,7 +35,7 @@ export default function DepositTaxCalculatorPage() {
       title="Калькулятор налога на вклады 2026 | Рассчитать НДФЛ онлайн"
       description="Рассчитайте сумму налога на вклады (НДФЛ 13%) за пару кликов. Актуальный расчет для 2025-2026 года с учетом вычета по максимальной ключевой ставке ЦБ."
       faqItems={faqItems}
-      canonical="https://schitay-online.ru/calculator/deposit-tax"
+      canonical="https://schitay-online.ru/calculator/deposit-tax/"
       schemaName="Калькулятор налога на вклады"
       schemaDescription="Рассчитайте НДФЛ с процентов по вкладам с учетом не облагаемого лимита"
       category="Финансы"

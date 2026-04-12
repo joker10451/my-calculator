@@ -49,7 +49,7 @@ const MaternityCapitalCalculatorPage = () => {
             seoTitle="Калькулятор материнского капитала 2026"
             seoDescription="Рассчитайте размер материнского капитала на первого и второго ребенка. Актуальные суммы господдержки 2026 года с учетом индексации."
             seoKeywords="материнский капитал 2026, калькулятор маткапитала, размер материнского капитала, господдержка семей"
-            canonical="https://schitay-online.ru/calculator/maternity-capital"
+            canonical="https://schitay-online.ru/calculator/maternity-capital/"
             schemaName="Калькулятор материнского капитала"
             schemaDescription="Бесплатный онлайн калькулятор для расчета размера материнского капитала"
             title="Калькулятор материнского капитала"

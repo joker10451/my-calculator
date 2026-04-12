@@ -23,7 +23,7 @@ const CourtFeeCalculatorPage = () => {
       seoTitle="Калькулятор госпошлины в суд 2026"
       seoDescription="Рассчитайте размер государственной пошлины для подачи иска в суды общей юрисдикции и арбитражные суды РФ. Актуальные тарифы 2026 года согласно НК РФ."
       seoKeywords="госпошлина, суд, калькулятор, арбитражный суд, суды общей юрисдикции, НК РФ, государственная пошлина, иск, льготы"
-      canonical="https://schitay-online.ru/calculator/court-fee"
+      canonical="https://schitay-online.ru/calculator/court-fee/"
       schemaName="Калькулятор госпошлины в суд"
       schemaDescription="Бесплатный онлайн калькулятор государственной пошлины для судов РФ"
       title="Калькулятор госпошлины в суд"

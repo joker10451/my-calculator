@@ -51,7 +51,7 @@ const SalaryCalculatorPage = () => {
             seoTitle="Калькулятор зарплаты и НДФЛ 2026"
             seoDescription="Рассчитайте зарплату на руки с учетом НДФЛ и страховых взносов. Актуальные ставки 2026 года. Прогрессивная шкала налогообложения."
             seoKeywords="калькулятор зарплаты, расчет НДФЛ, зарплата на руки, калькулятор налогов 2026, подоходный налог"
-            canonical="https://schitay-online.ru/calculator/salary"
+            canonical="https://schitay-online.ru/calculator/salary/"
             schemaName="Калькулятор зарплаты и НДФЛ"
             schemaDescription="Бесплатный онлайн калькулятор для расчета зарплаты с учетом НДФЛ и страховых взносов"
             title="Калькулятор зарплаты и НДФЛ"

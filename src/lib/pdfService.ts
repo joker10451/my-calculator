@@ -444,7 +444,7 @@ export class PdfService {
     const footer = '\n\n' + '-'.repeat(50) + '\n' + 
                   `Сформировано на Schitay.ru\n` +
                   `Дата: ${new Date().toLocaleDateString('ru-RU')} ${new Date().toLocaleTimeString('ru-RU')}\n` +
-                  'Для получения актуальных данных посетите schitay.ru';
+                  'Для получения актуальных данных посетите schitay-online.ru';
 
     return header + textContent + footer;
   }
@@ -455,7 +455,7 @@ export class PdfService {
   private extractStructuredData(element: HTMLElement): Record<string, unknown> {
     const data: Record<string, unknown> = {
       timestamp: new Date().toISOString(),
-      source: 'schitay.ru',
+      source: 'schitay-online.ru',
       type: 'calculation_result',
       content: {}
     };

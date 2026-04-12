@@ -51,7 +51,7 @@ const KASKOCalculatorPage = () => {
             seoTitle="Калькулятор КАСКО 2026 - Рассчитать стоимость страховки онлайн"
             seoDescription="Рассчитайте стоимость КАСКО с учетом всех параметров: марка авто, возраст, регион, франшиза. Сравните предложения страховых компаний."
             seoKeywords="каско калькулятор, расчет каско, стоимость каско 2026, калькулятор каско онлайн, франшиза каско"
-            canonical="https://schitay-online.ru/calculator/kasko"
+            canonical="https://schitay-online.ru/calculator/kasko/"
             schemaName="Калькулятор КАСКО"
             schemaDescription="Бесплатный онлайн калькулятор для расчета стоимости полиса КАСКО"
             title="Калькулятор КАСКО"

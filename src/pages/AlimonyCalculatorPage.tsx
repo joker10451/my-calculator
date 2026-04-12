@@ -19,7 +19,7 @@ const AlimonyCalculatorPage = () => {
             seoTitle="Калькулятор алиментов 2026"
             seoDescription="Рассчитайте размер алиментов на детей с учетом дохода и количества детей."
             seoKeywords="калькулятор алиментов, расчет алиментов 2026, алименты на ребенка"
-            canonical="https://schitay-online.ru/calculator/alimony"
+            canonical="https://schitay-online.ru/calculator/alimony/"
             schemaName="Калькулятор алиментов"
             schemaDescription="Бесплатный онлайн калькулятор алиментов на детей"
             title="Калькулятор алиментов"

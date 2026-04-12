@@ -23,7 +23,7 @@ const CurrencyConverterPage = () => {
             seoTitle="Конвертер валют онлайн 2026 - Курс доллара, евро, юаня"
             seoDescription="Бесплатный онлайн конвертер валют с актуальными курсами ЦБ РФ. Перевод рублей в доллары, евро, юани и другие валюты. Быстро и точно."
             seoKeywords="конвертер валют, курс валют, доллар, евро, юань, обмен валют, калькулятор валют"
-            canonical="https://schitay-online.ru/calculator/currency"
+            canonical="https://schitay-online.ru/calculator/currency/"
             schemaName="Конвертер валют"
             schemaDescription="Бесплатный онлайн конвертер валют с актуальными курсами"
             title="Конвертер валют"
