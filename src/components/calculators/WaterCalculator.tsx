@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Calculator, Dna, Info, Share2, Droplets, Activity, Download } from "lucide-react";
 import { exportToPDF } from "@/lib/pdfService";
-import { STAMP_BASE64 } from "@/lib/assets";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 type ActivityLevel = "low" | "medium" | "high";
@@ -27,7 +26,7 @@ const WaterCalculator = () => {
 
     const handleDownload = async () => {
         showToast("Генерация PDF", "Пожалуйста, подождите...");
-        const success = await exportToPDF("water-report-template", `расчет_воды_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
+        const success = await exportToPDF("water-report-template", `расчет_воды_${new Date().toISOString().split('T')[0]}`);
         if (success) {
             showToast("Успех!", "PDF-отчет успешно сформирован.");
         } else {

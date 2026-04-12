@@ -4,7 +4,6 @@ import { Calculator, TrendingUp, Info, Share2, Wallet, Download } from "lucide-r
 import { Slider } from "@/components/ui/slider";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { exportToPDF } from "@/lib/pdfService";
-import { STAMP_BASE64 } from "@/lib/assets";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { PSBCardWidget } from "@/components/PSBCardWidget";
 import { CalculatorActions } from "@/components/CalculatorActions";
@@ -79,7 +78,7 @@ const DepositCalculator = () => {
 
     const handleDownload = async () => {
         showToast("Генерация PDF", "Пожалуйста, подождите...");
-        const success = await exportToPDF("deposit-report-template", `расчет_вклада_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
+        const success = await exportToPDF("deposit-report-template", `расчет_вклада_${new Date().toISOString().split('T')[0]}`);
         if (success) {
             showToast("Успех!", "PDF-отчет успешно сформирован и скачан.");
         } else {

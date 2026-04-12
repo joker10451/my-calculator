@@ -3,7 +3,6 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 import { calculateMortgage, type ExtraPayment, type MortgageCalculationResult, type ScheduleItem } from "@/lib/mortgageCalculations";
 import { parseShareableLink } from "@/utils/exportUtils";
-import { STAMP_BASE64 } from "@/lib/assets";
 import { exportToPDF } from "@/lib/pdfService";
 
 export const useMortgageCalculator = () => {
@@ -75,7 +74,7 @@ export const useMortgageCalculator = () => {
 
     const handleDownload = async () => {
         showToast("Генерация PDF", "Пожалуйста, подождите...");
-        const success = await exportToPDF("mortgage-report-template", `расчет_ипотеки_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
+        const success = await exportToPDF("mortgage-report-template", `расчет_ипотеки_${new Date().toISOString().split('T')[0]}`);
         if (success) {
             showToast("Успех!", "PDF-отчет успешно сформирован.");
         } else {

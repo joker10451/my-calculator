@@ -11,7 +11,6 @@ import { CalculatorHistory } from "@/components/CalculatorHistory";
 import { parseShareableLink } from "@/utils/exportUtils";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 import { exportToPDF } from "@/lib/pdfService";
-import { STAMP_BASE64 } from "@/lib/assets";
 
 const SalaryCalculator = () => {
   const { formatCurrency, saveCalculation, addToComparison, showToast } = useCalculatorCommon('salary', 'Зарплатный калькулятор');
@@ -92,7 +91,7 @@ const SalaryCalculator = () => {
 
   const handleDownload = async () => {
     showToast("Генерация PDF", "Пожалуйста, подождите...");
-    const success = await exportToPDF("salary-report-template", `расчет_зарплаты_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
+    const success = await exportToPDF("salary-report-template", `расчет_зарплаты_${new Date().toISOString().split('T')[0]}`);
     if (success) {
       showToast("Успех!", "PDF-отчет успешно сформирован и скачан.");
     } else {

@@ -2,7 +2,6 @@ import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Calculator, Baby, Info, Share2, Wallet, Calendar, Download } from "lucide-react";
 import { exportToPDF } from "@/lib/pdfService";
-import { STAMP_BASE64 } from "@/lib/assets";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
 import { parseShareableLink } from "@/utils/exportUtils";
@@ -53,7 +52,7 @@ const MaternityCapitalCalculator = () => {
 
     const handleDownload = async () => {
         showToast("Генерация PDF", "Пожалуйста, подождите...");
-        const success = await exportToPDF("maternity-report-template", `материнский_капитал_${new Date().toISOString().split('T')[0]}`, STAMP_BASE64);
+        const success = await exportToPDF("maternity-report-template", `материнский_капитал_${new Date().toISOString().split('T')[0]}`);
         if (success) {
             showToast("Успех!", "PDF-отчет успешно сформирован.");
         } else {

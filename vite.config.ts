@@ -110,6 +110,9 @@ export default defineConfig(({ mode }) => ({
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'ui-vendor': ['lucide-react', 'framer-motion'],
           'form-vendor': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          'pdf-vendor': ['jspdf', 'html2canvas'],
+          'chart-vendor': ['recharts'],
+          'supabase-vendor': ['@supabase/supabase-js'],
         },
         chunkFileNames: (_chunkInfo) => {
           return `assets/[name]-[hash].js`;
