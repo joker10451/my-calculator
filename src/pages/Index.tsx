@@ -6,6 +6,7 @@ import Categories from "@/components/Categories";
 import PopularCalculators from "@/components/PopularCalculators";
 import RecentCalculators from "@/components/RecentCalculators";
 import CalculatorOfTheWeek from "@/components/CalculatorOfTheWeek";
+import PersonalizedRecommendations from "@/components/PersonalizedRecommendations";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight } from "lucide-react";
@@ -47,6 +48,7 @@ const Index = () => {
           <PopularCalculators />
           <RecentCalculators />
           <CalculatorOfTheWeek />
+          <PersonalizedRecommendations />
           <section className="section-shell bg-slate-950">
             <div className="max-w-5xl mx-auto surface-card p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">

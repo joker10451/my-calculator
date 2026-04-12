@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cookie, X } from 'lucide-react';
 import { storage } from '@/shared/utils/storage';
-import { Link } from 'react-router-dom';
 
 const CONSENT_KEY = 'cookie_consent';
 
@@ -50,9 +49,9 @@ export function CookieConsent() {
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-slate-700 dark:text-slate-300">
                   Мы используем файлы cookie для улучшения работы сайта и аналитики. Продолжая использовать сайт, вы соглашаетесь с{' '}
-                  <Link to="/privacy" className="text-blue-600 dark:text-blue-400 underline underline-offset-2 hover:text-blue-700">
+                  <a href="/privacy" className="text-blue-600 dark:text-blue-400 underline underline-offset-2 hover:text-blue-700">
                     политикой конфиденциальности
-                  </Link>.
+                  </a>.
                 </p>
               </div>
               <button
