@@ -52,6 +52,28 @@ const Index = () => {
           <CalculatorOfTheWeek />
           <PersonalizedRecommendations />
           <section className="section-shell bg-slate-950">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-black text-slate-100 mb-6 text-center">Полезные инструменты</h2>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Link to="/checklist" className="surface-card surface-card-hover p-5 text-center">
+                  <span className="text-3xl">📋</span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-200">Чек-лист финансовой грамотности</h3>
+                  <p className="mt-1 text-xs text-slate-500">28 шагов к свободе. Отмечай прогресс!</p>
+                </Link>
+                <Link to="/how-much-you-lose" className="surface-card surface-card-hover p-5 text-center">
+                  <span className="text-3xl">💸</span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-200">Сколько ты теряешь</h3>
+                  <p className="mt-1 text-xs text-slate-500">Налоги, инфляция, скрытые платежи</p>
+                </Link>
+                <Link to="/key-rate" className="surface-card surface-card-hover p-5 text-center">
+                  <span className="text-3xl">📊</span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-200">Ключевая ставка ЦБ</h3>
+                  <p className="mt-1 text-xs text-slate-500">Сегодня, динамика, влияние на тебя</p>
+                </Link>
+              </div>
+            </div>
+          </section>
+          <section className="section-shell bg-slate-950">
             <div className="max-w-5xl mx-auto surface-card p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>

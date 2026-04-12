@@ -117,6 +117,8 @@ const pages = [
   { url: '/calculator/inflation/', priority: 0.8, changefreq: 'monthly' },
   { url: '/how-much-you-lose/', priority: 0.9, changefreq: 'monthly' },
   { url: '/key-rate/', priority: 0.9, changefreq: 'weekly' },
+  { url: '/checklist/', priority: 0.8, changefreq: 'monthly' },
+  { url: '/quiz/financial-literacy/', priority: 0.7, changefreq: 'monthly' },
 ];
 
 // Банки для SEO-страниц
