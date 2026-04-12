@@ -36,14 +36,20 @@ export const TAX_RATES = {
   // НДФЛ 2026
   INCOME_TAX: {
     STANDARD_RATE: 0.13,
-    PROGRESSIVE_THRESHOLD: 5000000, // 5 млн рублей в год
-    PROGRESSIVE_RATE: 0.15,
+    BRACKETS: [
+      { threshold: 2400000, rate: 0.13 },
+      { threshold: 5000000, rate: 0.15 },
+      { threshold: 20000000, rate: 0.18 },
+      { threshold: 50000000, rate: 0.20 },
+      { threshold: Infinity, rate: 0.22 },
+    ],
   },
   
   // Материнский капитал 2026
   MATERNITY_CAPITAL: {
     FIRST_CHILD: 934058,
-    SECOND_CHILD: 1232000,
+    SECOND_CHILD: 1232881,
+    ADD_CAPITAL: 298823,
   },
   
   // Социальные взносы

@@ -80,7 +80,7 @@ export default function DepositTaxCalculator() {
               </div>
               <p className="text-xs text-text-tertiary mt-2 flex items-start gap-1">
                 <InfoIcon className="w-3 h-3 mt-0.5 flex-shrink-0" />
-                <span>Для доходов 2025 года максимальная ставка была 24%, для 2026 — пока 15%. Укажите ожидаемый максимум на 1-е число любого месяца года.</span>
+                <span>Для доходов 2025 года максимальная ставка была 25%, для 2026 — пока 18%. Укажите ожидаемый максимум на 1-е число любого месяца года.</span>
               </p>
             </div>
 

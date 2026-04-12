@@ -45,10 +45,16 @@ const SalaryCalculator = () => {
     const yearlyGross = monthlyGross * 12;
     let yearlyTax = 0;
 
-    if (yearlyGross <= 5000000) {
+    if (yearlyGross <= 2400000) {
       yearlyTax = yearlyGross * 0.13;
+    } else if (yearlyGross <= 5000000) {
+      yearlyTax = 2400000 * 0.13 + (yearlyGross - 2400000) * 0.15;
+    } else if (yearlyGross <= 20000000) {
+      yearlyTax = 2400000 * 0.13 + 2600000 * 0.15 + (yearlyGross - 5000000) * 0.18;
+    } else if (yearlyGross <= 50000000) {
+      yearlyTax = 2400000 * 0.13 + 2600000 * 0.15 + 15000000 * 0.18 + (yearlyGross - 20000000) * 0.20;
     } else {
-      yearlyTax = (5000000 * 0.13) + (yearlyGross - 5000000) * 0.15;
+      yearlyTax = 2400000 * 0.13 + 2600000 * 0.15 + 15000000 * 0.18 + 30000000 * 0.20 + (yearlyGross - 50000000) * 0.22;
     }
 
     return {
@@ -220,7 +226,7 @@ const SalaryCalculator = () => {
           <div className="bg-muted/50 p-4 rounded-xl flex gap-3 text-sm text-muted-foreground">
             <Info className="w-5 h-5 flex-shrink-0 text-primary" />
             <p>
-              Стандартная ставка НДФЛ в России — 13%. С 2021 года действует прогрессивная шкала: 15% с доходов свыше 5 млн ₽/год.
+              С 2025 года действует 5-ступенчатая прогрессивная шкала НДФЛ: 13% до 2,4 млн ₽, 15% (2,4–5 млн), 18% (5–20 млн), 20% (20–50 млн), 22% (свыше 50 млн ₽/год).
             </p>
           </div>
 

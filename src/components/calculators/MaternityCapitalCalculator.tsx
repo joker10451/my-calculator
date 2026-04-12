@@ -9,9 +9,9 @@ import { parseShareableLink } from "@/utils/exportUtils";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 // Official data for 2026 (approved by Putin)
-const BASE_CAPITAL = 934058; // 1st child (2026)
-const ADD_CAPITAL = 230000; // 2nd child (if 1st was after 2020)
-const FULL_CAPITAL_2ND = 934058; // 2nd child (total)
+const BASE_CAPITAL = 934058;
+const ADD_CAPITAL = 298823;
+const FULL_CAPITAL_2ND = 1232881;
 
 const MaternityCapitalCalculator = () => {
     const { formatCurrency, saveCalculation, showToast } = useCalculatorCommon('maternity-capital', 'Калькулятор материнского капитала');

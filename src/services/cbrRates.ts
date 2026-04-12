@@ -20,7 +20,7 @@ export interface CBRData {
 
 const KEY_RATES: Record<string, number> = {
   '2026-04': 15.0,
-  '2026-03': 15.0,
+  '2026-03': 16.0,
   '2026-02': 16.0,
   '2026-01': 18.0,
   '2025-12': 18.0,

@@ -143,7 +143,7 @@ export class FeeCalculationEngine implements IFeeCalculationEngine {
     } else if (amount <= 10000000) {
       return 36000 + (amount - 1500000) * 0.01;
     } else if (amount <= 500000000) {
-      return 121000 + (amount - 10000000) * 0.005;
+      return 136000 + (amount - 10000000) * 0.005;
     } else {
       return 200000;
     }
