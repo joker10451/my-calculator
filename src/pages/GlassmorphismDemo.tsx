@@ -3,6 +3,7 @@ import { useFeatureDetection } from '@/hooks/useFeatureDetection';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Search, Bell, Settings, User, Check, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function GlassmorphismDemo() {
   const features = useFeatureDetection();
@@ -79,15 +80,15 @@ export default function GlassmorphismDemo() {
               <div className="flex items-center gap-4">
                 <h3 className="text-xl font-bold text-white">Навигация</h3>
                 <nav className="flex gap-4">
-                  <a href="/" className="text-white/80 hover:text-white transition-colors">
+                  <Link to="/" className="text-white/80 hover:text-white transition-colors">
                     Главная
-                  </a>
-                  <a href="/about" className="text-white/80 hover:text-white transition-colors">
+                  </Link>
+                  <Link to="/about" className="text-white/80 hover:text-white transition-colors">
                     О нас
-                  </a>
-                  <a href="/contacts" className="text-white/80 hover:text-white transition-colors">
+                  </Link>
+                  <Link to="/contacts" className="text-white/80 hover:text-white transition-colors">
                     Контакты
-                  </a>
+                  </Link>
                 </nav>
               </div>
               <div className="flex items-center gap-3">

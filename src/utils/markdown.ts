@@ -68,7 +68,7 @@ export function parseMarkdown(content: string): string {
     const lines = p1.split('\n').map((l: string) => l.trim()).filter((l: string) => l);
     let title = 'Специальное предложение';
     let description = '';
-    let link = '#';
+    let link = '';
     let cta = 'Подробнее';
     let badge = '';
 
@@ -85,20 +85,27 @@ export function parseMarkdown(content: string): string {
       }
     }
 
+    const hasLink = link.length > 0 && link !== '#';
     const isExternal = link.startsWith('http');
-    const linkAttrs = isExternal
-      ? `href="${link}" target="_blank" rel="nofollow noopener"`
-      : `href="${link}"`;
+    const linkAttrs = hasLink
+      ? (isExternal
+        ? `href="${link}" target="_blank" rel="nofollow noopener"`
+        : `href="${link}"`)
+      : '';
+
+    const ctaHtml = hasLink
+      ? `<a ${linkAttrs} class="offer-cta">${cta}</a>`
+      : '';
 
     return `<div class="offer-box-modern ${badge ? 'is-highlighted' : ''}">
       <div class="offer-tag">Рекомендация Считай.RU</div>
       ${badge ? `<span class="offer-badge">${badge}</span>` : ''}
       <h3 class="offer-title">${title}</h3>
       <p class="offer-description">${description}</p>
-      <a ${linkAttrs} class="offer-cta">${cta}</a>
+      ${ctaHtml}
       <div class="offer-footer">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        ${isExternal ? 'Безопасная сделка через официального партнера' : 'Проверенные предложения от Считай.RU'}
+        ${hasLink && isExternal ? 'Безопасная сделка через официального партнера' : 'Проверенные предложения от Считай.RU'}
       </div>
     </div>`;
   });

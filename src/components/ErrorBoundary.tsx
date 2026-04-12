@@ -3,6 +3,7 @@ import { Component, type ReactNode } from 'react';
 interface Props {
   children: ReactNode;
   fallback?: ReactNode;
+  resetKey?: string;
 }
 
 interface State {
@@ -20,6 +21,16 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (this.state.hasError && prevProps.resetKey !== this.props.resetKey) {
+      this.setState({ hasError: false, error: null });
+    }
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('ErrorBoundary caught:', error, errorInfo);
+  }
+
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) return this.props.fallback;
@@ -34,10 +45,10 @@ export class ErrorBoundary extends Component<Props, State> {
             <h2 className="text-2xl font-black text-slate-900 mb-2">Что-то пошло не так</h2>
             <p className="text-slate-600 mb-6">Произошла ошибка при загрузке страницы. Попробуйте обновить.</p>
             <button
-              onClick={() => window.location.reload()}
+              onClick={() => this.setState({ hasError: false, error: null })}
               className="bg-blue-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-blue-700 transition-all"
             >
-              Обновить страницу
+              Попробовать снова
             </button>
           </div>
         </div>

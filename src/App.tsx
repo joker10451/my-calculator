@@ -125,7 +125,7 @@ const AnimatedRoutes = () => {
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <ErrorBoundary>
+      <ErrorBoundary resetKey={location.pathname}>
         <Suspense fallback={<CalculatorLoadingSkeleton />}>
           <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />

@@ -117,11 +117,14 @@ export function ReferralLink({
 }: Omit<ReferralButtonProps, 'variant' | 'size' | 'showIcon'>) {
   const { trackClick } = useReferralTracking();
 
-  const referralLink = getAffiliateLink(
+  const rawLink = getAffiliateLink(
     product.bank_id,
     product.product_type,
     product.id
-  ) || product.bank?.website_url || '#';
+  ) || product.bank?.website_url;
+  const referralLink = rawLink && rawLink !== '#' ? rawLink : null;
+
+  if (!referralLink) return null;
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();

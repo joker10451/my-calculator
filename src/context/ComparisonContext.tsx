@@ -25,11 +25,12 @@ interface ComparisonContextType {
 const ComparisonContext = createContext<ComparisonContextType | undefined>(undefined);
 
 const MAX_COMPARISON_ITEMS = 4;
+const INITIAL_COMPARISON_ITEMS: ComparisonItem[] = [];
 
 export const ComparisonProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useLocalStorage<ComparisonItem[]>(
     STORAGE_KEYS.COMPARISON_ITEMS, 
-    [],
+    INITIAL_COMPARISON_ITEMS,
     { syncAcrossTabs: true }
   );
 
