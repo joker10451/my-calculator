@@ -30,15 +30,11 @@ const OFFERS_BY_PRODUCT: Record<string, OfferKeyConfig[]> = {
     { key: 'renlife-guaranteed-income', label: 'НСЖ “Гарантированный доход”', partnerName: 'renlife', productType: 'insurance', isPopular: true },
     { key: 'pari-tick-insurance', label: 'СК ПАРИ — защита от клеща', partnerName: 'pari', productType: 'insurance' },
   ],
-  auto_insurance: [
-    { key: 'pampadu-osago', label: 'Сравнить ОСАГО онлайн', partnerName: 'pampadu', productType: 'insurance', isPopular: true, bestValue: true },
-    { key: 'pampadu-kasko', label: 'Рассчитать КАСКО онлайн', partnerName: 'pampadu', productType: 'insurance' },
-  ],
+  auto_insurance: [],
   loan: [
     { key: 'joymoney-loan', label: 'JoyMoney — займ онлайн', partnerName: 'joymoney', productType: 'loan', isPopular: true },
   ],
   vacancies: [
-    { key: 'pampadu-offer-31ba9c13', label: 'Курьер Яндекс.Еда/Лавка', partnerName: 'pampadu', productType: 'vacancies', isPopular: true },
     { key: 'ruki-vacancy-moscow', label: 'Сервис «Руки» — мастера по ремонту', partnerName: 'ruki', productType: 'vacancies' },
   ],
 };

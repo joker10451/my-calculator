@@ -64,7 +64,7 @@ export default function OffersCatalogPage() {
 
   const allOffers = useMemo(() => {
     const offers = asOffers()
-      .filter((o) => o.url && o.title && (o.url.includes('trk.ppdu.ru') || o.url.includes('pampadu.ru')))
+      .filter((o) => o.url && o.title && o.url.includes('trk.ppdu.ru'))
       .sort((a, b) => (b.priority || 0) - (a.priority || 0));
     return offers;
   }, []);

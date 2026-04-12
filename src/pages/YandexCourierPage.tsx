@@ -7,8 +7,7 @@ import { generateHowToSchema } from '@/utils/seoSchemas';
 import { Link } from 'react-router-dom';
 
 const SITE_URL = 'https://schitay-online.ru';
-const OFFER_KEY = 'pampadu-offer-31ba9c13';
-const OFFER = AFFILIATE_LINKS[OFFER_KEY];
+const COURIER_OFFER = AFFILIATE_LINKS['ruki-vacancy-moscow'] ?? null;
 
 interface IncomeResult {
   dailyIncome: number;
@@ -141,10 +140,10 @@ function CourierIncomeCalculator() {
         </div>
 
         <AffiliateLink
-          href={OFFER.url}
-          partnerName={OFFER.bankId}
-          productType={OFFER.productType || 'vacancies'}
-          offerId={OFFER_KEY}
+          href={COURIER_OFFER?.url}
+          partnerName={COURIER_OFFER?.bankId}
+          productType={COURIER_OFFER?.productType || 'vacancies'}
+          offerId={COURIER_OFFER_KEY}
           placement="result_block"
           target="_blank"
           rel="noopener noreferrer"
@@ -206,10 +205,10 @@ export default function YandexCourierPage() {
               Доход до 8 500 ₽ в день. Свободное расписание. Ежедневные выплаты.
             </p>
             <AffiliateLink
-              href={OFFER.url}
-              partnerName={OFFER.bankId}
-              productType={OFFER.productType || 'vacancies'}
-              offerId={OFFER_KEY}
+              href={COURIER_OFFER?.url}
+              partnerName={COURIER_OFFER?.bankId}
+              productType={COURIER_OFFER?.productType || 'vacancies'}
+              offerId={COURIER_OFFER_KEY}
               placement="hero"
               target="_blank"
               rel="noopener noreferrer"
@@ -293,10 +292,10 @@ export default function YandexCourierPage() {
               </div>
 
               <AffiliateLink
-                href={OFFER.url}
-                partnerName={OFFER.bankId}
-                productType={OFFER.productType || 'vacancies'}
-                offerId={OFFER_KEY}
+                href={COURIER_OFFER?.url}
+                partnerName={COURIER_OFFER?.bankId}
+                productType={COURIER_OFFER?.productType || 'vacancies'}
+                offerId={COURIER_OFFER_KEY}
                 placement="result_block"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -378,10 +377,10 @@ export default function YandexCourierPage() {
               Выберите удобный график и начните работать в доставке в комфортном режиме
             </p>
             <AffiliateLink
-              href={OFFER.url}
-              partnerName={OFFER.bankId}
-              productType={OFFER.productType || 'vacancies'}
-              offerId={OFFER_KEY}
+              href={COURIER_OFFER?.url}
+              partnerName={COURIER_OFFER?.bankId}
+              productType={COURIER_OFFER?.productType || 'vacancies'}
+              offerId={COURIER_OFFER_KEY}
               placement="footer"
               target="_blank"
               rel="noopener noreferrer"
@@ -400,7 +399,7 @@ export default function YandexCourierPage() {
         {/* Disclaimer */}
         <div className="max-w-4xl mx-auto text-center text-xs text-slate-400 pb-8">
           <p>Набор ведётся в сервис доставки, а не по прямому трудовому договору с Яндекс.Еда/Яндекс.Лавка.</p>
-          {OFFER.erid && <p className="mt-1">Реклама • erid: {OFFER.erid}</p>}
+          {COURIER_OFFER?.erid && <p className="mt-1">Реклама • erid: {COURIER_OFFER?.erid}</p>}
           <p className="mt-2">
             Ищете другую вакансию?{" "}
             <Link to="/offers?category=vacancies&q=руки" className="text-slate-500 hover:text-slate-300 underline">
