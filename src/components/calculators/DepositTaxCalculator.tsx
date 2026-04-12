@@ -3,7 +3,7 @@ import { Calculator, AlertCircle, Coins, PieChart, InfoIcon } from 'lucide-react
 
 export default function DepositTaxCalculator() {
   const [totalInterest, setTotalInterest] = useState<number>(350000);
-  const [keyRate, setKeyRate] = useState<number>(21.0); // Актуально для расчета 2026 года (по итогам 2025/2026)
+  const [keyRate, setKeyRate] = useState<number>(15.0);
   const [isHighIncome, setIsHighIncome] = useState<boolean>(false);
 
   const results = useMemo(() => {
@@ -80,7 +80,7 @@ export default function DepositTaxCalculator() {
               </div>
               <p className="text-xs text-text-tertiary mt-2 flex items-start gap-1">
                 <InfoIcon className="w-3 h-3 mt-0.5 flex-shrink-0" />
-                <span>Для доходов 2024 года максимум был 21%, для 2025/2026 пик может быть выше. Укажите ожидаемый максимум на 1-е число любого месяца года.</span>
+                <span>Для доходов 2025 года максимальная ставка была 24%, для 2026 — пока 15%. Укажите ожидаемый максимум на 1-е число любого месяца года.</span>
               </p>
             </div>
 

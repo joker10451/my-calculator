@@ -18,25 +18,25 @@ export interface CBRData {
 }
 
 const KEY_RATES: Record<string, number> = {
-  '2026-04': 21.0,
-  '2026-03': 21.0,
-  '2026-02': 21.0,
-  '2026-01': 21.0,
-  '2025-12': 21.0,
-  '2025-11': 21.0,
-  '2025-10': 21.0,
-  '2025-09': 19.0,
-  '2025-08': 18.0,
-  '2025-07': 18.0,
-  '2025-06': 20.0,
-  '2025-05': 21.0,
-  '2025-04': 21.0,
+  '2026-04': 15.0,
+  '2026-03': 15.0,
+  '2026-02': 16.0,
+  '2026-01': 18.0,
+  '2025-12': 18.0,
+  '2025-11': 20.0,
+  '2025-10': 20.0,
+  '2025-09': 21.0,
+  '2025-08': 21.0,
+  '2025-07': 21.0,
+  '2025-06': 22.0,
+  '2025-05': 24.0,
+  '2025-04': 24.0,
 };
 
 function getKeyRate(): number {
   const now = new Date();
   const key = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-  return KEY_RATES[key] ?? 21.0;
+  return KEY_RATES[key] ?? 15.0;
 }
 
 export async function fetchCBRRates(): Promise<CBRData> {

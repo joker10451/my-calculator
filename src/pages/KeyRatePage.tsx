@@ -7,21 +7,23 @@ import Footer from '@/components/Footer';
 const SITE_URL = 'https://schitay-online.ru';
 
 const KEY_RATE_HISTORY = [
-  { date: '2026-04-11', rate: 21.0, change: 0 },
-  { date: '2026-02-14', rate: 21.0, change: 0 },
-  { date: '2025-12-20', rate: 21.0, change: 0 },
-  { date: '2025-10-25', rate: 21.0, change: 0 },
-  { date: '2025-07-26', rate: 20.0, change: 1 },
-  { date: '2025-06-06', rate: 20.0, change: 0 },
-  { date: '2025-04-25', rate: 21.0, change: -1 },
-  { date: '2025-03-21', rate: 21.0, change: 0 },
-  { date: '2025-02-14', rate: 21.0, change: 0 },
-  { date: '2024-12-20', rate: 21.0, change: 1 },
-  { date: '2024-10-25', rate: 20.0, change: 2 },
-  { date: '2024-07-26', rate: 18.0, change: 2 },
-  { date: '2024-04-26', rate: 16.0, change: 0 },
-  { date: '2023-12-15', rate: 16.0, change: 0 },
-  { date: '2023-07-21', rate: 16.0, change: 0 },
+  { date: '2026-04-10', rate: 15.0, change: -1 },
+  { date: '2026-02-14', rate: 16.0, change: -2 },
+  { date: '2025-12-20', rate: 18.0, change: -2 },
+  { date: '2025-10-24', rate: 20.0, change: -1 },
+  { date: '2025-07-25', rate: 21.0, change: -1 },
+  { date: '2025-06-06', rate: 22.0, change: -2 },
+  { date: '2025-04-25', rate: 24.0, change: 0 },
+  { date: '2025-03-21', rate: 24.0, change: -1 },
+  { date: '2025-02-14', rate: 25.0, change: -2 },
+  { date: '2024-12-20', rate: 27.0, change: 2 },
+  { date: '2024-10-25', rate: 25.0, change: 2 },
+  { date: '2024-07-26', rate: 23.0, change: 2 },
+  { date: '2024-04-26', rate: 21.0, change: 1 },
+  { date: '2024-03-22', rate: 20.0, change: 0 },
+  { date: '2023-12-15', rate: 20.0, change: 2 },
+  { date: '2023-07-21', rate: 18.0, change: 2 },
+  { date: '2023-04-14', rate: 16.0, change: 0 },
   { date: '2022-09-16', rate: 7.5, change: -1.5 },
   { date: '2022-07-29', rate: 9.0, change: -3 },
   { date: '2022-06-16', rate: 12.0, change: -3 },
@@ -36,7 +38,7 @@ const FAQ = [
   { question: 'Какая ключевая ставка ЦБ РФ сегодня?', answer: `Ключевая ставка ЦБ РФ на ${new Date(CURRENT.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })} составляет ${CURRENT.rate}%.` },
   { question: 'На что влияет ключевая ставка?', answer: 'Ключевая ставка влияет на ставки по ипотеке, кредитам и вкладам. При высокой ставке кредиты дороже, но вклады выгоднее. При низкой — наоборот.' },
   { question: 'Когда ЦБ меняет ставку?', answer: 'Совет директоров ЦБ РФ рассматривает ставку 8 раз в год — примерно раз в 1.5 месяца. Решение принимается на основе инфляции и прогнозов.' },
-  { question: 'Что будет со ставкой в 2026 году?', answer: 'Прогнозы аналитиков: к концу 2026 года ставка может снизиться до 17-19% при снижении инфляции. Но ЦБ не даёт точных прогнозов.' },
+  { question: 'Что будет со ставкой в 2026 году?', answer: 'Прогнозы аналитиков: ЦБ продолжил цикл снижения ставки. К концу 2026 года возможно снижение до 12-14% при устойчивом замедлении инфляции. Но ЦБ не даёт точных прогнозов.' },
 ];
 
 export default function KeyRatePage() {
@@ -80,13 +82,13 @@ export default function KeyRatePage() {
               <div className="surface-card p-5 text-center border-t-4 border-t-emerald-500">
                 <TrendingUp className="w-5 h-5 text-emerald-400 mx-auto mb-2" />
                 <h3 className="text-sm font-bold text-slate-200 mb-1">Вклады</h3>
-                <p className="text-2xl font-black text-emerald-400">до 21%</p>
+                <p className="text-2xl font-black text-emerald-400">до 16%</p>
                 <p className="text-xs text-slate-500">Топ ставки банков</p>
               </div>
               <div className="surface-card p-5 text-center border-t-4 border-t-red-500">
                 <Percent className="w-5 h-5 text-red-400 mx-auto mb-2" />
                 <h3 className="text-sm font-bold text-slate-200 mb-1">Кредиты</h3>
-                <p className="text-2xl font-black text-red-400">от 22%</p>
+                <p className="text-2xl font-black text-red-400">от 18%</p>
                 <p className="text-xs text-slate-500">Потребительские</p>
               </div>
             </div>
@@ -102,7 +104,7 @@ export default function KeyRatePage() {
                   <li>Высокая ставка → кредиты дорогие, вклады выгодные, инфляция тормозится</li>
                   <li>Низкая ставка → кредиты дешёвые, вклады невыгодные, экономика растёт</li>
                 </ul>
-                <p>Сейчас ставка <strong className="text-amber-400">{CURRENT.rate}%</strong> — это <strong className="text-red-400">очень высоко</strong>. Вклады перекрывают инфляцию, но кредиты доступны не всем.</p>
+                <p>Сейчас ставка <strong className="text-amber-400">{CURRENT.rate}%</strong> — ЦБ снижает её, но она всё ещё <strong className="text-red-400">выше нейтральной</strong>. Вклады ещё выгодные, а кредиты постепенно дешевеют.</p>
               </div>
             </div>
 

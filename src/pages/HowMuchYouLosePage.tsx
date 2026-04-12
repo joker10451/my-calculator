@@ -191,7 +191,7 @@ export default function HowMuchYouLosePage() {
               <Link to="/calculator/deposit" className="surface-card surface-card-hover p-5 flex items-start gap-3">
                 <PiggyBank className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-sm font-bold text-slate-200">Вклад под 19%+</h3>
+                  <h3 className="text-sm font-bold text-slate-200">Вклад под 15%+</h3>
                   <p className="text-xs text-slate-500">Перекрой инфляцию и сохрани покупательную способность</p>
                 </div>
               </Link>
