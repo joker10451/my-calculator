@@ -16,6 +16,7 @@ import { SkipToContent } from "./components/SkipToContent";
 import { PageTransition } from "./components/animations/PageTransition";
 import { ThemeInitializer } from "./components/ThemeInitializer";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { CookieConsent } from "./components/CookieConsent";
 
 // Lazy loading для страниц
 const Index = lazy(() => import("./pages/Index"));
@@ -49,6 +50,8 @@ const YandexCourierPage = lazy(() => import("./pages/YandexCourierPage"));
 const JoyMoneyPage = lazy(() => import("./pages/JoyMoneyPage"));
 const EmbedWidgetPage = lazy(() => import("./pages/EmbedWidgetPage"));
 const BankMortgagePage = lazy(() => import("./pages/BankMortgagePage"));
+const BankCreditPage = lazy(() => import("./pages/BankCreditPage"));
+const BankDepositPage = lazy(() => import("./pages/BankDepositPage"));
 const MFOPage = lazy(() => import("./pages/MFOPage"));
 const FinancialLiteracyQuiz = lazy(() => import("./pages/FinancialLiteracyQuiz"));
 const TaxDeductionCalculatorPage = lazy(() => import("./pages/TaxDeductionCalculatorPage"));
@@ -79,6 +82,7 @@ export const BlogComments = lazy(() => import("./components/blog/BlogComments"))
 export const BlogShare = lazy(() => import("./components/blog/BlogShare"));
 export const BlogRecommendations = lazy(() => import("./components/blog/BlogRecommendations"));
 const AnalyticsDashboardPage = lazy(() => import("./pages/AnalyticsDashboardPage"));
+const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Конфигурация QueryClient с оптимизацией
@@ -107,6 +111,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <PWAInstallPrompt />
+            <CookieConsent />
             <Router>
               <YandexMetrikaTracker />
               <GoogleAnalyticsTracker />
@@ -149,6 +154,8 @@ const AnimatedRoutes = () => {
           <Route path="/joy-money" element={<PageTransition><JoyMoneyPage /></PageTransition>} />
           <Route path="/widgets" element={<PageTransition><EmbedWidgetPage /></PageTransition>} />
           <Route path="/bank/:bank/mortgage" element={<PageTransition><BankMortgagePage /></PageTransition>} />
+          <Route path="/bank/:bank/credit" element={<PageTransition><BankCreditPage /></PageTransition>} />
+          <Route path="/bank/:bank/deposit" element={<PageTransition><BankDepositPage /></PageTransition>} />
           <Route path="/mfo/:mfo" element={<PageTransition><MFOPage /></PageTransition>} />
           <Route path="/quiz/financial-literacy" element={<PageTransition><FinancialLiteracyQuiz /></PageTransition>} />
           <Route path="/calculator/tax-deduction" element={<PageTransition><TaxDeductionCalculatorPage /></PageTransition>} />
@@ -163,6 +170,7 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/deposit-tax" element={<PageTransition><DepositTaxCalculatorPage /></PageTransition>} />
           <Route path="/calculator/currency" element={<PageTransition><CurrencyConverterPage /></PageTransition>} />
           <Route path="/compare" element={<PageTransition><ComparisonPage /></PageTransition>} />
+          <Route path="/favorites" element={<PageTransition><FavoritesPage /></PageTransition>} />
           <Route path="/search" element={<PageTransition><SearchPage /></PageTransition>} />
           <Route path="/all" element={<PageTransition><AllCalculatorsPage /></PageTransition>} />
           <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />

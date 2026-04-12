@@ -1,8 +1,3 @@
-/**
- * Программные SEO-страницы
- * Генерирует страницы для long-tail запросов
- */
-
 export interface BankOffer {
   bankName: string;
   bankSlug: string;
@@ -11,6 +6,7 @@ export interface BankOffer {
   depositRate: number;
   creditRate: number;
   maxMortgage: number;
+  maxCredit: number;
   minDownPayment: number;
   features: string[];
   description: string;
@@ -36,6 +32,7 @@ const BANKS: BankOffer[] = [
     depositRate: 19.5,
     creditRate: 22.9,
     maxMortgage: 30000000,
+    maxCredit: 5000000,
     minDownPayment: 15,
     features: ['Онлайн-заявка', 'Досрочное погашение', 'Материнский капитал', 'Военная ипотека'],
     description: 'Крупнейший банк России с разветвлённой сетью отделений и онлайн-сервисами.',
@@ -50,6 +47,7 @@ const BANKS: BankOffer[] = [
     depositRate: 20.0,
     creditRate: 23.5,
     maxMortgage: 25000000,
+    maxCredit: 7000000,
     minDownPayment: 15,
     features: ['Ипотека без первоначального взноса', 'Семейная ипотека', 'Онлайн-заявка'],
     description: 'Второй по величине банк России с выгодными программами ипотеки.',
@@ -64,6 +62,7 @@ const BANKS: BankOffer[] = [
     depositRate: 21.0,
     creditRate: 24.5,
     maxMortgage: 20000000,
+    maxCredit: 7500000,
     minDownPayment: 10,
     features: ['Быстрое одобрение', 'Онлайн-заявка', 'Без справок о доходах'],
     description: 'Крупнейший частный банк России с быстрым одобрением заявок.',
@@ -78,6 +77,7 @@ const BANKS: BankOffer[] = [
     depositRate: 20.5,
     creditRate: 25.0,
     maxMortgage: 15000000,
+    maxCredit: 1000000,
     minDownPayment: 10,
     features: ['Полностью онлайн', 'Без визита в офис', 'Кэшбэк на покупки'],
     description: 'Цифровой банк без отделений — всё оформляется онлайн.',
@@ -92,10 +92,86 @@ const BANKS: BankOffer[] = [
     depositRate: 19.0,
     creditRate: 23.0,
     maxMortgage: 25000000,
+    maxCredit: 5000000,
     minDownPayment: 10,
     features: ['Семейная ипотека', 'IT-ипотека', 'Военная ипотека'],
     description: 'Универсальный банк с льготными программами ипотеки.',
     rating: 4.1,
+    referralLink: '',
+  },
+  {
+    bankName: 'Россельхозбанк',
+    bankSlug: 'rshb',
+    logoUrl: '/logos/rshb.svg',
+    mortgageRate: 23.1,
+    depositRate: 18.5,
+    creditRate: 22.5,
+    maxMortgage: 20000000,
+    maxCredit: 3000000,
+    minDownPayment: 15,
+    features: ['Сельская ипотека', 'Семейная ипотека', 'Льготные программы'],
+    description: 'Государственный банк с программами поддержки сельских жителей и семей.',
+    rating: 3.9,
+    referralLink: '',
+  },
+  {
+    bankName: 'Банк «Открытие»',
+    bankSlug: 'openbank',
+    logoUrl: '/logos/openbank.svg',
+    mortgageRate: 23.3,
+    depositRate: 19.8,
+    creditRate: 23.8,
+    maxMortgage: 20000000,
+    maxCredit: 5000000,
+    minDownPayment: 15,
+    features: ['Онлайн-заявка', 'Быстрое одобрение', 'Рефинансирование'],
+    description: 'Банк с широкой линейкой ипотечных и кредитных продуктов.',
+    rating: 4.0,
+    referralLink: '',
+  },
+  {
+    bankName: 'Совкомбанк',
+    bankSlug: 'sovcombank',
+    logoUrl: '/logos/sovcombank.svg',
+    mortgageRate: 24.5,
+    depositRate: 21.5,
+    creditRate: 26.0,
+    maxMortgage: 10000000,
+    maxCredit: 5000000,
+    minDownPayment: 20,
+    features: ['Карта рассрочки', 'Кэшбэк', 'Онлайн-заявка'],
+    description: 'Банк с программами рассрочки и кэшбэка для повседневных покупок.',
+    rating: 3.8,
+    referralLink: '',
+  },
+  {
+    bankName: 'Райффайзенбанк',
+    bankSlug: 'raiffeisen',
+    logoUrl: '/logos/raiffeisen.svg',
+    mortgageRate: 23.8,
+    depositRate: 20.2,
+    creditRate: 24.0,
+    maxMortgage: 25000000,
+    maxCredit: 2000000,
+    minDownPayment: 15,
+    features: ['Онлайн-заявка', 'Быстрое одобрение', 'Премиальное обслуживание'],
+    description: 'Дочерний банк европейской финансовой группы с высоким уровнем сервиса.',
+    rating: 4.4,
+    referralLink: '',
+  },
+  {
+    bankName: 'МКБ',
+    bankSlug: 'mkb',
+    logoUrl: '/logos/mkb.svg',
+    mortgageRate: 23.0,
+    depositRate: 19.0,
+    creditRate: 23.5,
+    maxMortgage: 15000000,
+    maxCredit: 3000000,
+    minDownPayment: 15,
+    features: ['Онлайн-заявка', 'Быстрое одобрение', 'Рефинансирование'],
+    description: 'Московский кредитный банк с конкурентными ставками по ипотеке и кредитам.',
+    rating: 4.0,
     referralLink: '',
   },
 ];
@@ -115,9 +191,6 @@ const MFO_OFFERS = [
   },
 ];
 
-/**
- * Генерирует SEO-шаблон для страницы банка
- */
 export function generateBankSEOTemplate(bank: BankOffer, year: number = 2026): SEOTemplate {
   return {
     title: `Ипотека ${bank.bankName} ${year} — ставки, условия, калькулятор`,
@@ -154,9 +227,68 @@ export function generateBankSEOTemplate(bank: BankOffer, year: number = 2026): S
   };
 }
 
-/**
- * Генерирует SEO-шаблон для страницы МФО
- */
+export function generateBankCreditSEOTemplate(bank: BankOffer, year: number = 2026): SEOTemplate {
+  return {
+    title: `Кредит ${bank.bankName} ${year} — ставки, условия, калькулятор онлайн`,
+    description: `Потребительский кредит в ${bank.bankName} от ${bank.creditRate}% в ${year} году. Сумма до ${formatMoney(bank.maxCredit)} ₽. Онлайн-заявка за 5 минут. Рассчитайте платёж.`,
+    keywords: `кредит ${bank.bankName.toLowerCase()} ${year}, ${bank.bankName.toLowerCase()} кредит наличными, ${bank.bankName.toLowerCase()} кредитная ставка, ${bank.bankName.toLowerCase()} кредитный калькулятор`,
+    h1: `Кредит в ${bank.bankName} в ${year} году`,
+    intro: `${bank.bankName} выдаёт потребительские кредиты под ${bank.creditRate}% годовых. Максимальная сумма — ${formatMoney(bank.maxCredit)} ₽. ${bank.description}`,
+    faq: [
+      {
+        question: `Какая ставка по кредиту в ${bank.bankName} в ${year} году?`,
+        answer: `Ставка по потребительскому кредиту в ${bank.bankName} начинается от ${bank.creditRate}% годовых. Точная ставка зависит от кредитной истории, срока и суммы.`,
+      },
+      {
+        question: `Какую сумму кредита можно получить в ${bank.bankName}?`,
+        answer: `Максимальная сумма потребительского кредита в ${bank.bankName} — ${formatMoney(bank.maxCredit)} ₽. Для постоянных клиентов лимит может быть увеличен.`,
+      },
+      {
+        question: `Как подать заявку на кредит в ${bank.bankName}?`,
+        answer: bank.features.includes('Онлайн-заявка')
+          ? `Заявку на кредит в ${bank.bankName} можно подать онлайн через сайт или приложение банка. Решение — от 5 минут.`
+          : `Для подачи заявки на кредит обратитесь в отделение ${bank.bankName}.`,
+      },
+      {
+        question: `Можно ли получить кредит в ${bank.bankName} без справок?`,
+        answer: bank.features.includes('Без справок о доходах')
+          ? `Да, ${bank.bankName} выдаёт кредиты без справки 2-НДФЛ для клиентов с хорошей кредитной историей.`
+          : `${bank.bankName} может запросить справку о доходах. Для зарплатных клиентов упрощённая процедура.`,
+      },
+    ],
+  };
+}
+
+export function generateBankDepositSEOTemplate(bank: BankOffer, year: number = 2026): SEOTemplate {
+  return {
+    title: `Вклад ${bank.bankName} ${year} — ставки, условия, калькулятор доходности`,
+    description: `Вклад в ${bank.bankName} под ${bank.depositRate}% в ${year} году. Рассчитайте доходность на калькуляторе. Капитализация, пополнение, онлайн-оформление.`,
+    keywords: `вклад ${bank.bankName.toLowerCase()} ${year}, ${bank.bankName.toLowerCase()} депозит, ${bank.bankName.toLowerCase()} ставка вклада, ${bank.bankName.toLowerCase()} калькулятор вклада`,
+    h1: `Вклад в ${bank.bankName} в ${year} году`,
+    intro: `${bank.bankName} принимает вклады под ${bank.depositRate}% годовых. ${bank.description} Рассчитайте доходность на нашем калькуляторе вкладов.`,
+    faq: [
+      {
+        question: `Какая ставка по вкладам в ${bank.bankName} в ${year} году?`,
+        answer: `Максимальная ставка по вкладам в ${bank.bankName} — ${bank.depositRate}% годовых. Ставка зависит от суммы, срока и условий (с капитализацией или без).`,
+      },
+      {
+        question: `Застрахованы ли вклады в ${bank.bankName}?`,
+        answer: `Да, вклады в ${bank.bankName} застрахованы Агентством по страхованию вкладов (АСВ) на сумму до 1 400 000 ₽.`,
+      },
+      {
+        question: `Можно ли открыть вклад в ${bank.bankName} онлайн?`,
+        answer: bank.features.includes('Онлайн-заявка') || bank.features.includes('Полностью онлайн')
+          ? `Да, вклад в ${bank.bankName} можно открыть онлайн через мобильное приложение или интернет-банк.`
+          : `Открыть вклад можно в отделении ${bank.bankName}. Для некоторых вкладов доступно онлайн-оформление.`,
+      },
+      {
+        question: `Облагается ли доход по вкладу налогом?`,
+        answer: `Да, с ${year} года доход по вкладам облагается НДФЛ 13%. Необлагаемая сумма зависит от максимальной ключевой ставки ЦБ. Рассчитайте налог на нашем калькуляторе.`,
+      },
+    ],
+  };
+}
+
 export function generateMFOSEOTemplate(mfo: typeof MFO_OFFERS[0], year: number = 2026): SEOTemplate {
   return {
     title: `Займ ${mfo.name} ${year} — онлайн займ без отказа до ${formatMoney(mfo.maxAmount)} ₽`,

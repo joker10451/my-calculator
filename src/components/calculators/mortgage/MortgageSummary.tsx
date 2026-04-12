@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip as ChartTooltip, Legend } from 'recharts';
 
 import type { MortgageCalculationResult } from '@/lib/mortgageCalculations';
+import { RateComparison, RateComparisonInput } from '@/components/RateComparison';
 
 interface MortgageSummaryProps {
     calculations: MortgageCalculationResult;
@@ -10,6 +11,8 @@ interface MortgageSummaryProps {
     handleDownload: () => void;
     handleShare: () => void;
     handleCompare: () => void;
+    rate?: number;
+    calculatorRate?: number;
 }
 
 export const MortgageSummary = ({
@@ -17,7 +20,9 @@ export const MortgageSummary = ({
     formatCurrency,
     handleDownload,
     handleShare,
-    handleCompare
+    handleCompare,
+    rate: currentRate,
+    calculatorRate
 }: MortgageSummaryProps) => {
     return (
         <div id="mortgage-results" className="lg:col-span-5 space-y-6">
@@ -54,6 +59,16 @@ export const MortgageSummary = ({
                                 </div>
                             </div>
                         </div>
+                    )}
+
+                    {currentRate && currentRate > 0 && calculations.loanAmount > 0 && (
+                        <RateComparison
+                            currentRate={currentRate}
+                            newRate={calculatorRate ?? 18}
+                            loanAmount={calculations.loanAmount}
+                            termMonths={calculations.actualMonths || calculations.originalMonths}
+                            formatCurrency={formatCurrency}
+                        />
                     )}
 
                     <div className="grid grid-cols-2 gap-4 pt-6 border-t border-primary/10">

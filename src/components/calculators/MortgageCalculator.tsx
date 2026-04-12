@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
 import { useMortgageCalculator } from "@/hooks/useMortgageCalculator";
@@ -8,7 +9,11 @@ import { MortgageResultsTabs } from "./mortgage/MortgageResultsTabs";
 import { MortgageComparison } from "./mortgage/MortgageComparison";
 import { ZenithAI } from "./mortgage/ZenithAI";
 
+import { RateComparisonInput } from '@/components/RateComparison';
+
 const MortgageCalculator = () => {
+  const [currentRate, setCurrentRate] = useState<number>(0);
+
   const {
     price, setPrice,
     initialPayment, setInitialPayment,
@@ -115,7 +120,11 @@ const MortgageCalculator = () => {
             handleDownload={handleDownload}
             handleShare={handleShare}
             handleCompare={handleCompare}
+            rate={currentRate}
+            calculatorRate={rate}
           />
+
+          <RateComparisonInput onCompare={setCurrentRate} />
 
           <ZenithAI
             calculations={calculations}

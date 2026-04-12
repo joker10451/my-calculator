@@ -1,12 +1,14 @@
-import { Calculator, Menu, X, Search, Scale } from "lucide-react";
+import { Calculator, Menu, X, Search, Scale, Heart } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { categories } from "@/lib/data";
 import { useComparison } from "@/context/ComparisonContext";
+import { useFavorites } from "@/hooks/useFavorites";
 
 const Header = () => {
   const { items } = useComparison();
+  const { favorites } = useFavorites();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -124,6 +126,14 @@ const Header = () => {
                 </span>
               )}
             </Link>
+            <Link to="/favorites" className="relative p-2 text-slate-300 hover:text-primary transition-colors">
+              <Heart className="w-4 h-4" />
+              {favorites.length > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {favorites.length}
+                </span>
+              )}
+            </Link>
             <ThemeToggle />
           </nav>
 
@@ -134,6 +144,14 @@ const Header = () => {
               {items.length > 0 && (
                 <span className="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {items.length}
+                </span>
+              )}
+            </Link>
+            <Link to="/favorites" className="relative p-2 text-slate-300 hover:text-primary transition-colors">
+              <Heart className="w-5 h-5" />
+              {favorites.length > 0 && (
+                <span className="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {favorites.length}
                 </span>
               )}
             </Link>

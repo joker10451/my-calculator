@@ -112,7 +112,21 @@ const pages = [
   { url: '/courier-yandex/', priority: 0.8, changefreq: 'monthly' },
   { url: '/joy-money/', priority: 0.8, changefreq: 'monthly' },
   { url: '/widgets/', priority: 0.7, changefreq: 'monthly' },
+  { url: '/favorites/', priority: 0.5, changefreq: 'monthly' },
 ];
+
+// Банки для SEO-страниц
+const BANK_SLUGS = [
+  'sberbank', 'vtb', 'alfa-bank', 't-bank', 'gazprombank',
+  'rshb', 'openbank', 'sovcombank', 'raiffeisen', 'mkb'
+];
+
+const BANK_PAGES = [];
+BANK_SLUGS.forEach(slug => {
+  BANK_PAGES.push({ url: `/bank/${slug}/mortgage/`, priority: 0.9, changefreq: 'weekly' });
+  BANK_PAGES.push({ url: `/bank/${slug}/credit/`, priority: 0.8, changefreq: 'weekly' });
+  BANK_PAGES.push({ url: `/bank/${slug}/deposit/`, priority: 0.8, changefreq: 'weekly' });
+});
 
 function generateSitemap() {
   const today = new Date().toISOString().split('T')[0];
@@ -128,7 +142,7 @@ function generateSitemap() {
     changefreq: 'monthly'
   }));
   
-  const allPages = [...pages, ...blogPages];
+  const allPages = [...pages, ...BANK_PAGES, ...blogPages];
   
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
   xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
@@ -158,6 +172,7 @@ function generateSitemap() {
   console.log(`📍 Путь (public): ${sitemapPublicPath}`);
   console.log(`📊 Всего страниц в sitemap: ${allPages.length}`);
   console.log(`   - Статических страниц: ${pages.length}`);
+  console.log(`   - Банк-страниц: ${BANK_PAGES.length}`);
   console.log(`   - Статей блога: ${blogSlugs.length}`);
   
   // Создаем robots.txt

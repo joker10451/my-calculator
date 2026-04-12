@@ -28,6 +28,7 @@ import { generateArticleSchema, generateFAQSchema } from '@/utils/seoSchemas';
 import { countApprovedComments } from '@/services/commentService';
 import { getAssetUrl } from '@/utils/blogImageMap';
 import { StickySidebar } from '@/components/blog/StickySidebar';
+import { NewsletterSignup } from '@/components/NewsletterSignup';
 import '@/styles/blog.css';
 
 // Lazy load комментариев
@@ -475,6 +476,7 @@ export default function BlogPostPage() {
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">Спасибо за оценку!</span>
                 )}
               </div>
+              <NewsletterSignup source="blog" className="mt-8" />
             </article>
 
             {/* Теги */}

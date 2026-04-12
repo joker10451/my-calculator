@@ -3,6 +3,7 @@ import CalculatorLayout from "@/components/CalculatorLayout";
 import { SEO, generateCalculatorSchema } from "@/components/SEO";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
+import { CalculatorFeedback } from "@/components/CalculatorFeedback";
 import { LucideIcon } from "lucide-react";
 
 interface Feature {
@@ -95,8 +96,8 @@ const CalculatorPageWrapper = ({
   howToUseSteps
 }: CalculatorPageWrapperProps) => {
   const seoData = {
-    title: seoTitle,
-    description: seoDescription,
+    title: seoTitle || title,
+    description: seoDescription || description,
     keywords: seoKeywords,
     canonical
   };
@@ -123,15 +124,21 @@ const CalculatorPageWrapper = ({
         
         {calculator}
 
+        <div className="mt-6">
+          <CalculatorFeedback calculatorId={title} />
+        </div>
+
         {afterCalculator && (
           <div className="mt-8 md:mt-10">
             {afterCalculator}
           </div>
         )}
         
-        <div className="mt-14 md:mt-16">
-          <FAQ items={faqItems} />
-        </div>
+        {faqItems && faqItems.length > 0 && (
+          <div className="mt-14 md:mt-16">
+            <FAQ items={faqItems} />
+          </div>
+        )}
 
         {(aboutTitle || features || howToUseSteps) && (
           <div className="mt-12 md:mt-14 space-y-8">

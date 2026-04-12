@@ -1,5 +1,6 @@
 import { Calculator } from "lucide-react";
 import { Link } from "react-router-dom";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 const Footer = () => {
   const categoriesList = [
@@ -36,7 +37,7 @@ const Footer = () => {
   return (
     <footer className="bg-slate-950 text-slate-100 py-12 md:py-14 border-t border-slate-800">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-7 md:gap-10 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-7 md:gap-10 mb-10">
           {/* Бренд */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
@@ -102,6 +103,9 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+
+          {/* Подписка */}
+          <NewsletterSignup />
 
           {/* Контакты */}
           <div>
