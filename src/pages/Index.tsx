@@ -7,6 +7,7 @@ import PopularCalculators from "@/components/PopularCalculators";
 import RecentCalculators from "@/components/RecentCalculators";
 import CalculatorOfTheWeek from "@/components/CalculatorOfTheWeek";
 import PersonalizedRecommendations from "@/components/PersonalizedRecommendations";
+import CurrencyRatesWidget from "@/components/CurrencyRatesWidget";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight } from "lucide-react";
@@ -44,6 +45,7 @@ const Index = () => {
         <Header />
         <main id="main-content" className="flex-1">
           <Hero />
+          <CurrencyRatesWidget />
           <Categories />
           <PopularCalculators />
           <RecentCalculators />
