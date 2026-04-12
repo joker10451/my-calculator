@@ -7,8 +7,7 @@ import Footer from '@/components/Footer';
 import { CPI_CATEGORIES, calculatePersonalInflation, getDefaultWeights } from '@/services/personalInflation';
 import { getCPIData } from '@/services/rosstatCPI';
 import { motion } from 'framer-motion';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 const NDFL_RATE = 0.13;
 const PFR_RATE = 0.22;

@@ -6,8 +6,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AffiliateLink } from "@/components/AffiliateLink";
 import { AFFILIATE_LINKS } from "@/config/affiliateLinks";
+import { SITE_URL } from '@/shared/constants';
 
-const SITE_URL = "https://schitay-online.ru";
+
 const OFFER_KEY = "ruki-vacancy-moscow";
 const OFFER = AFFILIATE_LINKS[OFFER_KEY];
 

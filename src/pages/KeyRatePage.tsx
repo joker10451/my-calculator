@@ -3,8 +3,7 @@ import { Percent, TrendingDown, TrendingUp, ArrowRight, Calculator, Info, Calend
 import { SEO, generateFAQSchema } from '@/components/SEO';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 const KEY_RATE_HISTORY = [
   { date: '2026-04-10', rate: 15.0, change: -1 },

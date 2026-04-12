@@ -9,6 +9,7 @@ import { ReferralTracker } from '@/lib/analytics/referralTracking';
 import type { ReferralClickEvent } from '@/lib/analytics/referralTracking';
 import { TrendingUp, MousePointerClick, Building2, Package, ExternalLink, Trash2 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
+import { formatCurrency } from '@/lib/utils';
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
 
@@ -36,14 +37,6 @@ export function ReferralDashboard() {
       ReferralTracker.cleanupOldEvents();
       loadData();
     }
-  };
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('ru-RU', {
-      style: 'currency',
-      currency: 'RUB',
-      maximumFractionDigits: 0,
-    }).format(value);
   };
 
   const formatDate = (date: Date) => {

@@ -6,8 +6,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { COMPARISONS, type ComparisonConfig } from '@/data/comparisons';
 
-const SITE_URL = 'https://schitay-online.ru';
-
 function ComparisonTable({ rows, leftLabel, rightLabel }: { rows: ComparisonConfig['tableRows']; leftLabel: string; rightLabel: string }) {
   return (
     <div className="overflow-x-auto">

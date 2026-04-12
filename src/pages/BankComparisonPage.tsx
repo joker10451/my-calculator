@@ -3,8 +3,7 @@ import { SEO, generateFAQSchema, generateCalculatorSchema } from "@/components/S
 import { generateHowToSchema } from "@/utils/seoSchemas";
 import { RateAlertButton } from "@/components/RateAlertButton";
 import { Building2, TrendingDown, Wallet, Shield, Star, ArrowRight, CheckCircle } from "lucide-react";
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 const featureColorClasses: Record<string, { box: string; icon: string }> = {
     amber: { box: 'bg-amber-500/10', icon: 'text-amber-400' },

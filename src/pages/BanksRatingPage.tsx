@@ -4,8 +4,7 @@ import { Star, Building2, ArrowRight, TrendingUp, Percent, Wallet } from 'lucide
 import { SEO } from '@/components/SEO';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 const PRODUCT_LABELS: Record<string, { label: string; color: string; icon: React.ElementType }> = {
   mortgage: { label: 'Ипотека', color: 'text-blue-400 bg-blue-500/10', icon: Building2 },

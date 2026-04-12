@@ -4,8 +4,7 @@ import { generateHowToSchema } from '@/utils/seoSchemas';
 import { BANKS, generateBankSEOTemplate } from '@/lib/seoPages';
 import { Building2, Star, ArrowRight, CheckCircle, TrendingDown } from 'lucide-react';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 export default function BankMortgagePage() {
   const { bank } = useParams<{ bank: string }>();

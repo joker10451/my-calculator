@@ -5,8 +5,7 @@ import { MFO_OFFERS, generateMFOSEOTemplate } from '@/lib/seoPages';
 import { useParams, Navigate } from 'react-router-dom';
 import { Wallet, Clock, CheckCircle, ArrowRight, Star, Shield, TrendingDown } from 'lucide-react';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 export default function MFOPage() {
   const { mfo } = useParams<{ mfo: string }>();

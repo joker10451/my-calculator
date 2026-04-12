@@ -1,9 +1,9 @@
 import { SEO, generateFAQSchema } from '@/components/SEO';
 import { generateHowToSchema } from '@/utils/seoSchemas';
 import { Shield, Clock, CheckCircle, ArrowRight, FileText, Car, AlertTriangle, Wallet, Phone, Heart } from 'lucide-react';
+import { SITE_URL } from '@/shared/constants';
 
 const REFERRAL_LINK = 'https://trk.ppdu.ru/click/mzjtNLs0?erid=2SDnjf2J17q';
-const SITE_URL = 'https://schitay-online.ru';
 
 export default function ZettaOSGOPPage() {
 

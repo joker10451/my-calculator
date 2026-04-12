@@ -6,8 +6,7 @@ import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import { TrustInfoBlock } from "@/components/TrustInfoBlock";
 import { trackUxEvent } from "@/lib/analytics/uxMetrics";
 import { Link } from "react-router-dom";
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 const faqItems = [
     {

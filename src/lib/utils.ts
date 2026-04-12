@@ -13,3 +13,11 @@ export function formatCurrency(value: number): string {
     maximumFractionDigits: 0,
   }).format(value);
 }
+
+export function formatMoney(value: number): string {
+  return Math.round(value).toLocaleString('ru-RU');
+}
+
+export function formatNumber(value: number, maximumFractionDigits = 0): string {
+  return new Intl.NumberFormat('ru-RU', { maximumFractionDigits }).format(value);
+}

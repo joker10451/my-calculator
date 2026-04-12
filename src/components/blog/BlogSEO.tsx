@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import type { BlogPost } from '@/types/blog';
 import { getAssetUrl } from '@/utils/blogImageMap';
+import { SITE_URL } from '@/shared/constants';
 
 interface BlogSEOProps {
   post?: BlogPost;
@@ -17,16 +18,16 @@ export const BlogSEO = ({
   description, 
   canonical 
 }: BlogSEOProps) => {
-  const siteUrl = 'https://schitay-online.ru';
+  
   const siteName = 'Считай.RU';
   
   const seoTitle = post?.seo.metaTitle || title || (post ? `${post.title} | ${siteName}` : siteName);
   const seoDescription = post?.seo.metaDescription || description || post?.excerpt || 'Экспертные статьи о финансах, налогах и экономии.';
-  const seoCanonical = canonical || (post ? `${siteUrl}/blog/${post.slug}/` : `${siteUrl}/blog/`);
+  const seoCanonical = canonical || (post ? `${SITE_URL}/blog/${post.slug}/` : `${SITE_URL}/blog/`);
   
-  // Resolve image URL with fallback and siteUrl prefix for absolute URL
-  const resolvedImage = post?.seo.ogImage || getAssetUrl(post?.featuredImage?.url) || `${siteUrl}/og-image-default.png`;
-  const seoImage = resolvedImage.startsWith('http') ? resolvedImage : `${siteUrl}${resolvedImage.startsWith('/') ? '' : '/'}${resolvedImage}`;
+  // Resolve image URL with fallback and SITE_URL prefix for absolute URL
+  const resolvedImage = post?.seo.ogImage || getAssetUrl(post?.featuredImage?.url) || `${SITE_URL}/og-image-default.png`;
+  const seoImage = resolvedImage.startsWith('http') ? resolvedImage : `${SITE_URL}${resolvedImage.startsWith('/') ? '' : '/'}${resolvedImage}`;
 
   // JSON-LD для статьи
   const articleSchema = post ? {
@@ -40,19 +41,19 @@ export const BlogSEO = ({
     'author': [{
       '@type': 'Person',
       'name': post.author.name,
-      'url': `${siteUrl}/blog?author=${encodeURIComponent(post.author.name)}`
+      'url': `${SITE_URL}/blog?author=${encodeURIComponent(post.author.name)}`
     }],
     'publisher': {
       '@type': 'Organization',
       'name': siteName,
       'logo': {
         '@type': 'ImageObject',
-        'url': `${siteUrl}/logo.png`
+        'url': `${SITE_URL}/logo.png`
       }
     },
     'mainEntityOfPage': {
       '@type': 'WebPage',
-      '@id': `${siteUrl}/blog/${post.slug}/`
+      '@id': `${SITE_URL}/blog/${post.slug}/`
     }
   } : null;
 
@@ -65,24 +66,24 @@ export const BlogSEO = ({
         '@type': 'ListItem',
         'position': 1,
         'name': 'Главная',
-        'item': siteUrl
+        'item': SITE_URL
       },
       {
         '@type': 'ListItem',
         'position': 2,
         'name': 'Блог',
-        'item': `${siteUrl}/blog/`
+        'item': `${SITE_URL}/blog/`
       },
       ...(post ? [{
         '@type': 'ListItem',
         'position': 3,
         'name': post.category.name,
-        'item': `${siteUrl}/blog/category/${post.category.slug}/`
+        'item': `${SITE_URL}/blog/category/${post.category.slug}/`
       }, {
         '@type': 'ListItem',
         'position': 4,
         'name': post.title,
-        'item': `${siteUrl}/blog/${post.slug}/`
+        'item': `${SITE_URL}/blog/${post.slug}/`
       }] : [])
     ]
   };

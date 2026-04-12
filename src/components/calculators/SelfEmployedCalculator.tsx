@@ -2,10 +2,7 @@ import { useState, useMemo } from 'react';
 import { Calculator, Download, Share2, Shield, Wallet, Building2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { jsPDF } from 'jspdf';
-
-function formatMoney(v: number): string {
-  return Math.round(v).toLocaleString('ru-RU');
-}
+import { formatMoney } from '@/lib/utils';
 
 export function SelfEmployedCalculator() {
   const { toast } = useToast();

@@ -2,10 +2,7 @@ import { useState, useMemo } from 'react';
 import { Calculator, TrendingUp, Download, Share2, Shield, Home, Heart, GraduationCap, Wallet } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { jsPDF } from 'jspdf';
-
-function formatMoney(v: number): string {
-  return Math.round(v).toLocaleString('ru-RU');
-}
+import { formatMoney } from '@/lib/utils';
 
 export function TaxDeductionCalculator() {
   const { toast } = useToast();

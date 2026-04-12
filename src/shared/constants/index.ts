@@ -1,11 +1,13 @@
 // Общие константы приложения
+export const SITE_URL = 'https://schitay-online.ru' as const;
+
 export const APP_CONFIG = {
   name: 'Считай.RU',
   shortName: 'Считай.RU',
   description: 'Бесплатные онлайн калькуляторы для России и СНГ',
   version: '1.0.0',
   author: 'Schitay.ru Team',
-  url: 'https://schitay-online.ru',
+  url: SITE_URL,
 } as const;
 
 export const STORAGE_KEYS = {

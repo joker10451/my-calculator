@@ -4,8 +4,9 @@ import { AffiliateLink } from "@/components/AffiliateLink";
 import { AFFILIATE_LINKS } from "@/config/affiliateLinks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { SITE_URL } from '@/shared/constants';
 
-const SITE_URL = "https://schitay-online.ru";
+
 const OFFER_KEY = "goldapple-ecom";
 const OFFER = AFFILIATE_LINKS[OFFER_KEY];
 

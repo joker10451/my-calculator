@@ -5,17 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Scale, Trash2, ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { formatCurrency } from '@/lib/utils';
 
 const ComparisonPage = () => {
     const { items, removeItem, clearAll } = useComparison();
-
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat("ru-RU", {
-            style: "currency",
-            currency: "RUB",
-            maximumFractionDigits: 0,
-        }).format(value);
-    };
 
     const getCalculatorName = (id: string) => {
         switch (id) {

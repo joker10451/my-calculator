@@ -4,10 +4,11 @@ import { SEO } from '@/components/SEO';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
 import { trackUxEvent } from '@/lib/analytics/uxMetrics';
+import { SITE_URL } from '@/shared/constants';
 
 type Category = NonNullable<(typeof AFFILIATE_LINKS)[string]['category']>;
 
-const SITE_URL = 'https://schitay-online.ru';
+
 
 type Offer = {
   id: string;

@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { TrendingDown, PiggyBank, Calendar, Percent, ArrowDown, ArrowRight, Download, Share2, Building2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { jsPDF } from 'jspdf';
+import { formatMoney } from '@/lib/utils';
 
 interface RefiResult {
   oldMonthly: number;
@@ -12,10 +13,6 @@ interface RefiResult {
   totalSaving: number;
   oldRate: number;
   newRate: number;
-}
-
-function formatMoney(v: number): string {
-  return Math.round(v).toLocaleString('ru-RU');
 }
 
 function calcMonthlyPayment(amount: number, annualRate: number, months: number): number {

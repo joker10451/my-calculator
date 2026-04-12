@@ -3,8 +3,7 @@ import { SEO, generateFAQSchema } from '@/components/SEO';
 import { BANKS, generateBankCreditSEOTemplate } from '@/lib/seoPages';
 import { Building2, Star, ArrowRight, CheckCircle, Calculator } from 'lucide-react';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 export default function BankCreditPage() {
   const { bank } = useParams<{ bank: string }>();

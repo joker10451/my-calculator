@@ -3,8 +3,7 @@ import { Code, Copy, Check, ExternalLink, Share2 } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { WIDGETS, generateEmbedCode, generateJSEmbedCode, type EmbedWidgetConfig } from '@/lib/embedWidgets';
 import { useToast } from '@/hooks/use-toast';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 export default function EmbedWidgetPage() {
   const { toast } = useToast();

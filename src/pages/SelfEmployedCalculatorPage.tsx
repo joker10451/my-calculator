@@ -3,8 +3,7 @@ import { SEO, generateFAQSchema } from "@/components/SEO";
 import { generateHowToSchema } from "@/utils/seoSchemas";
 import { SelfEmployedCalculator } from "@/components/calculators/SelfEmployedCalculator";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 const faqItems = [
     {

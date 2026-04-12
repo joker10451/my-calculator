@@ -37,11 +37,10 @@ const BlogComments = lazy(async () => {
   return { default: module.BlogComments ?? module.default };
 });
 import { Helmet } from 'react-helmet-async';
+import { SITE_URL } from '@/shared/constants';
 
 // Объединяем все статьи для поиска
 const allPosts = [...blogPosts, ...generatedArticles, ...allGeneratedArticles];
-
-const SITE_URL = 'https://schitay-online.ru';
 
 const CALCULATOR_BRIDGE_MAP: Record<
   string,

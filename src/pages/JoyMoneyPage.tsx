@@ -4,8 +4,8 @@ import { AffiliateLink } from '@/components/AffiliateLink';
 import { SEO, generateFAQSchema } from '@/components/SEO';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
 import { generateHowToSchema } from '@/utils/seoSchemas';
+import { SITE_URL } from '@/shared/constants';
 
-const SITE_URL = 'https://schitay-online.ru';
 const OFFER_KEY = 'joymoney-loan';
 const OFFER = AFFILIATE_LINKS[OFFER_KEY];
 

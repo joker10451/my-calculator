@@ -5,8 +5,8 @@ import { SEO, generateFAQSchema } from '@/components/SEO';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
 import { generateHowToSchema } from '@/utils/seoSchemas';
 import { Link } from 'react-router-dom';
+import { SITE_URL } from '@/shared/constants';
 
-const SITE_URL = 'https://schitay-online.ru';
 const COURIER_OFFER_KEY = 'pampadu-offer-31ba9c13';
 const COURIER_OFFER = AFFILIATE_LINKS[COURIER_OFFER_KEY] ?? null;
 

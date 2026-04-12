@@ -3,6 +3,7 @@ import { Share2, Download, TrendingUp, PiggyBank, AlertTriangle, Calculator, Bui
 import { useToast } from '@/hooks/use-toast';
 import { jsPDF } from 'jspdf';
 import { generateShareableLink, parseShareableLink } from '@/utils/exportUtils';
+import { formatMoney } from '@/lib/utils';
 
 interface OverpaymentResult {
   totalPaid: number;
@@ -30,10 +31,6 @@ const SHOCK_FACTS = [
   (daily: number) => `${daily.toLocaleString('ru-RU')} ₽ в день уходит банку — это ${Math.round(daily / 50)} чашек кофе в день`,
   (percent: number) => `Переплата ${percent}% — вы покупаете ${Math.round(percent / 100 + 1)} квартиры по цене одной`,
 ];
-
-function formatMoney(value: number): string {
-  return value.toLocaleString('ru-RU');
-}
 
 export function OverpaymentCalculator() {
   const { toast } = useToast();

@@ -4,6 +4,7 @@ import { Slider } from "@/components/ui/slider";
 import { Calculator, Share2, Info, Fuel, MapPin, Wallet, Download } from "lucide-react";
 import { exportToPDF } from "@/lib/pdfService";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
+import { formatNumber } from "@/lib/utils";
 
 const FuelCalculator = () => {
     const { formatCurrency, showToast } = useCalculatorCommon('fuel', 'Калькулятор топлива');
@@ -22,10 +23,6 @@ const FuelCalculator = () => {
         } else {
             showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
-    };
-
-    const formatNumber = (value: number, decimals = 1) => {
-        return new Intl.NumberFormat("ru-RU", { maximumFractionDigits: decimals }).format(value);
     };
 
     return (

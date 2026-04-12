@@ -5,8 +5,7 @@ import { CheckCircle2, Circle, Trophy, ArrowRight, Sparkles, Target, TrendingUp,
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 interface ChecklistItem {
   id: string;

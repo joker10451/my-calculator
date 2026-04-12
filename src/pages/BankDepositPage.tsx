@@ -2,8 +2,7 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { SEO, generateFAQSchema } from '@/components/SEO';
 import { BANKS, generateBankDepositSEOTemplate } from '@/lib/seoPages';
 import { Building2, Star, CheckCircle, ArrowRight, PiggyBank } from 'lucide-react';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 export default function BankDepositPage() {
   const { bank } = useParams<{ bank: string }>();

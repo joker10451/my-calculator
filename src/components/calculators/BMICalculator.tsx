@@ -4,6 +4,7 @@ import { Slider } from "@/components/ui/slider";
 import { Calculator, Download, Share2, Info, User, Scale, Ruler } from "lucide-react";
 import { exportToPDF } from "@/lib/pdfService";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
+import { formatNumber } from "@/lib/utils";
 
 const BMICalculator = () => {
     const { showToast } = useCalculatorCommon('bmi', 'Калькулятор ИМТ');
@@ -34,10 +35,6 @@ const BMICalculator = () => {
         } else {
             showToast("Ошибка", "Не удалось создать PDF-отчет.", "destructive");
         }
-    };
-
-    const formatNumber = (value: number) => {
-        return new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 1 }).format(value);
     };
 
     return (

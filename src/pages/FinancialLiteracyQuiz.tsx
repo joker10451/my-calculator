@@ -3,8 +3,7 @@ import { SEO, generateFAQSchema } from '@/components/SEO';
 import { generateHowToSchema } from '@/utils/seoSchemas';
 import { Share2, RefreshCw, Trophy, ArrowRight, CheckCircle, XCircle, ChevronRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 interface Question {
   question: string;

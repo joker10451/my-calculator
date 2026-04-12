@@ -1,3 +1,4 @@
+import { SITE_URL } from '@/shared/constants';
 /**
  * Виджет для встраивания калькуляторов на внешние сайты
  * Генерирует iframe-код для встраивания
@@ -11,8 +12,6 @@ export interface EmbedWidgetConfig {
   height?: string;
   theme?: 'light' | 'dark';
 }
-
-const SITE_URL = 'https://schitay-online.ru';
 
 const WIDGETS: EmbedWidgetConfig[] = [
   {

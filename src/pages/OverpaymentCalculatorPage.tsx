@@ -2,8 +2,7 @@ import { Shield, TrendingDown, PiggyBank, AlertTriangle, Calculator, Home, Perce
 import { SEO, generateFAQSchema, generateCalculatorSchema } from "@/components/SEO";
 import { generateHowToSchema } from "@/utils/seoSchemas";
 import { OverpaymentCalculator } from "@/components/calculators/OverpaymentCalculator";
-
-const SITE_URL = 'https://schitay-online.ru';
+import { SITE_URL } from '@/shared/constants';
 
 const faqItems = [
     {
