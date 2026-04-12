@@ -87,16 +87,6 @@ function useLocalStorage<T>(
     };
   }, [key, deserialize, syncAcrossTabs]);
 
-  useEffect(() => {
-    const currentValue = readValue();
-    setStoredValue(prev => {
-      if (JSON.stringify(currentValue) !== JSON.stringify(prev)) {
-        return currentValue;
-      }
-      return prev;
-    });
-  }, [key, readValue]);
-
   return [storedValue, setValue, removeValue];
 }
 
