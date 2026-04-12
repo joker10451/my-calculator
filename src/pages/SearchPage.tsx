@@ -1,5 +1,6 @@
 import { useSearchParams, Link } from "react-router-dom";
 import CalculatorLayout from "@/components/CalculatorLayout";
+import { SEO } from "@/components/SEO";
 import { categories } from "@/lib/data";
 import { Search, Calculator, ArrowRight } from "lucide-react";
 
@@ -20,6 +21,7 @@ const SearchPage = () => {
             title={`Результаты поиска: ${query}`}
             description={`Найдено ${results.length} калькуляторов по вашему запросу.`}
         >
+            <SEO title={`Поиск: ${query}`} description="Результаты поиска калькуляторов" noindex />
             <div className="max-w-4xl mx-auto">
                 {results.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

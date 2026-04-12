@@ -26,7 +26,7 @@ const WaterCalculatorPage = () => {
             title="Калькулятор нормы воды"
             description="Узнайте, сколько воды вам нужно пить ежедневно"
             category="Здоровье"
-            categoryHref="/category/personal"
+            categoryHref="/category/health"
             faqItems={faqItems}
             calculator={<WaterCalculator />}
             afterCalculator={

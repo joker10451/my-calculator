@@ -56,7 +56,7 @@ const PensionCalculatorPage = () => {
             title="Калькулятор пенсии"
             description="Рассчитайте размер будущей страховой пенсии по старости"
             category="Зарплата и налоги"
-            categoryHref="/category/financial"
+            categoryHref="/category/finance"
             faqItems={faqItems}
             calculator={<PensionCalculator />}
             afterCalculator={<OffersBlock product="insurance" placement="result_block" title="Накопления на пенсию" subtitle="НСЖ и страховые программы — дополнительная защита к государственной пенсии." />}

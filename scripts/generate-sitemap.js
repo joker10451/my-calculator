@@ -112,7 +112,6 @@ const pages = [
   { url: '/courier-yandex/', priority: 0.8, changefreq: 'monthly' },
   { url: '/joy-money/', priority: 0.8, changefreq: 'monthly' },
   { url: '/widgets/', priority: 0.7, changefreq: 'monthly' },
-  { url: '/favorites/', priority: 0.5, changefreq: 'monthly' },
   { url: '/banks/', priority: 0.7, changefreq: 'weekly' },
   { url: '/calculator/inflation/', priority: 0.8, changefreq: 'monthly' },
   { url: '/how-much-you-lose/', priority: 0.9, changefreq: 'monthly' },
@@ -125,6 +124,10 @@ const pages = [
   { url: '/compare/salary-vs-self-employed/', priority: 0.9, changefreq: 'monthly' },
   { url: '/compare/refinancing-vs-new-credit/', priority: 0.8, changefreq: 'monthly' },
   { url: '/compare/vacation-vs-sick-leave/', priority: 0.8, changefreq: 'monthly' },
+  { url: '/calculator/tire-size/', priority: 0.7, changefreq: 'monthly' },
+  { url: '/calculator/deposit-tax/', priority: 0.8, changefreq: 'weekly' },
+  { url: '/calculator/tax-deduction/', priority: 0.8, changefreq: 'weekly' },
+  { url: '/insurance/osgop-taxi/', priority: 0.7, changefreq: 'monthly' },
 ];
 
 // Банки для SEO-страниц

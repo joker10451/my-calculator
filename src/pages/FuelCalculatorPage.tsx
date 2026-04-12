@@ -25,7 +25,7 @@ const FuelCalculatorPage = () => {
             title="Калькулятор расхода топлива"
             description="Рассчитайте расход и стоимость топлива для вашей поездки"
             category="Транспорт"
-            categoryHref="/category/transport"
+            categoryHref="/category/auto"
             faqItems={faqItems}
             calculator={<FuelCalculator />}
             afterCalculator={<OffersBlock product="auto_insurance" placement="result_block" title="ОСАГО и КАСКО для вашего авто" subtitle="Оформите полис онлайн — без визита в офис." />}

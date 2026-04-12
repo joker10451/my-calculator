@@ -58,7 +58,7 @@ const InvestmentCalculatorPage = () => {
             title="Калькулятор доходности инвестиций"
             description="Рассчитайте будущую стоимость инвестиций с учетом регулярных пополнений"
             category="Финансы"
-            categoryHref="/category/financial"
+            categoryHref="/category/finance"
             faqItems={faqItems}
             calculator={<InvestmentCalculator />}
             afterCalculator={

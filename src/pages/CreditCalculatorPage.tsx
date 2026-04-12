@@ -58,7 +58,7 @@ const CreditCalculatorPage = () => {
             title="Кредитный калькулятор"
             description="Рассчитайте параметры потребительского кредита и узнайте реальную переплату"
             category="Финансы"
-            categoryHref="/category/financial"
+            categoryHref="/category/finance"
             faqItems={faqItems}
             calculator={<CreditCalculatorWithComparison />}
             afterCalculator={

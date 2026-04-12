@@ -29,7 +29,7 @@ const CurrencyConverterPage = () => {
             title="Конвертер валют"
             description="Удобный перевод валют по актуальному курсу: доллары, евро, юани и другие"
             category="Финансы"
-            categoryHref="/category/financial"
+            categoryHref="/category/finance"
             faqItems={faqItems}
             calculator={<CurrencyConverter />}
             afterCalculator={<OffersBlock product="deposit" placement="result_block" title="Куда выгодно положить валюту" subtitle="Карты с кешбэком и накопительные счета для сбережений." />}

@@ -57,7 +57,7 @@ const SalaryCalculatorPage = () => {
             title="Калькулятор зарплаты и НДФЛ"
             description="Рассчитайте зарплату на руки, подоходный налог и взносы. Актуальные ставки 2026 года"
             category="Финансы"
-            categoryHref="/category/financial"
+            categoryHref="/category/finance"
             faqItems={faqItems}
             calculator={<SalaryCalculatorWithComparison />}
             afterCalculator={

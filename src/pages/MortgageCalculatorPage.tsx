@@ -58,7 +58,7 @@ const MortgageCalculatorPage = () => {
       title="Ипотечный калькулятор"
       description="Рассчитайте ипотеку онлайн: ежемесячный платеж, переплата и график платежей."
       category="Финансы"
-      categoryHref="/category/financial"
+      categoryHref="/category/finance"
       faqItems={faqItems}
       calculator={<MortgageCalculatorWithComparison />}
       afterCalculator={

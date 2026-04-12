@@ -1,7 +1,14 @@
 import { useState, useMemo } from 'react';
 import CalculatorLayout from '@/components/CalculatorLayout';
+import { SEO, generateCalculatorSchema, generateFAQSchema } from '@/components/SEO';
 import { getCPIData, calculateInflationImpact } from '@/services/rosstatCPI';
 import { TrendingDown, TrendingUp, AlertTriangle, Info } from 'lucide-react';
+
+const INFLATION_FAQ = [
+  { question: 'Как рассчитать инфляцию?', answer: 'Инфляция рассчитывается как процентное изменение индекса потребительских цен (ИПЦ) за определённый период. Росстат ежемесячно публикует данные ИПЦ.' },
+  { question: 'Как инфляция влияет на сбережения?', answer: 'Инфляция обесценивает деньги: при инфляции 10% за год 100 000 ₽ будут иметь покупательную способность 90 000 ₽.' },
+  { question: 'Как защитить деньги от инфляции?', answer: 'Вклады с высокой ставкой, ОФЗ, инвестиции в акции или недвижимость помогают опережать инфляцию.' },
+];
 
 export default function InflationCalculatorPage() {
   const cpi = getCPIData();
@@ -16,11 +23,24 @@ export default function InflationCalculatorPage() {
 
   const fmt = (v: number) => v.toLocaleString('ru-RU', { maximumFractionDigits: 0 });
 
+  const seoTitle = 'Калькулятор инфляции — сколько будут стоить ваши деньги';
+  const seoDesc = 'Узнайте, как инфляция обесценивает сбережения. Расчёт покупательной способности на основе данных Росстата за 2026 год.';
+
   return (
     <CalculatorLayout
-      title="Калькулятор инфляции — сколько будут стоить ваши деньги"
-      description="Узнайте, как инфляция обесценивает сбережения. Расчёт покупательной способности на основе данных Росстата"
+      title={seoTitle}
+      description={seoDesc}
     >
+      <SEO
+        title={seoTitle}
+        description={seoDesc}
+        keywords="калькулятор инфляции, обесценивание денег, покупательная способность, ИПЦ, Росстат"
+        ogType="website"
+        structuredData={[
+          generateCalculatorSchema(seoTitle, seoDesc, 'https://schitay-online.ru/calculator/inflation/', 'FinanceApplication'),
+          generateFAQSchema(INFLATION_FAQ)
+        ]}
+      />
       <div className="max-w-4xl mx-auto">
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="lg:col-span-3 space-y-6">

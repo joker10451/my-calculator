@@ -384,7 +384,7 @@ function generateDefaultSEO(title: string) {
     metaTitle: title + ' | Считай.RU',
     metaDescription: 'Полезная статья на сайте Считай.RU - универсальный помощник для расчетов.',
     keywords: ['калькулятор', 'расчет', 'считай.ру'],
-    canonical: '/' + slugify(title)
+    canonical: '/' + slugify(title) + '/'
   };
 }
 

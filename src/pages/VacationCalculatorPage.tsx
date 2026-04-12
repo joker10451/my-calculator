@@ -55,7 +55,7 @@ const VacationCalculatorPage = () => {
             title="Калькулятор отпускных"
             description="Рассчитайте сумму отпускных с учетом среднего заработка"
             category="Зарплата и налоги"
-            categoryHref="/category/financial"
+            categoryHref="/category/finance"
             faqItems={faqItems}
             calculator={<VacationCalculator />}
             afterCalculator={<OffersBlock product="insurance" placement="result_block" title="Защита перед отпуском" subtitle="Страхование от клеща и ДМС — чтобы отпуск не испортила болезнь." />}

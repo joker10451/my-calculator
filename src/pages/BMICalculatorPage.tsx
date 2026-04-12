@@ -26,7 +26,7 @@ const BMICalculatorPage = () => {
             title="Индекс массы тела (ИМТ)"
             description="Простой способ узнать, находится ли ваш вес в пределах нормы"
             category="Здоровье"
-            categoryHref="/category/personal"
+            categoryHref="/category/health"
             faqItems={faqItems}
             calculator={<BMICalculator />}
             afterCalculator={

@@ -226,15 +226,6 @@ export default function BlogPostPage() {
     [post?.category.id]
   );
 
-  // Генерируем стабильный рейтинг на основе ID статьи (для детерминированности)
-  const articleRating = useMemo(() => {
-    if (!post) return { value: 4.7, count: 89 };
-    const hash = post.id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-    const value = 4.3 + (hash % 7) * 0.1; // от 4.3 до 4.9
-    const count = 47 + (hash % 180); // от 47 до 226
-    return { value: Math.round(value * 10) / 10, count };
-  }, [post]);
-
   const articleSchema = useMemo(() => {
     if (!post) return null;
     return generateArticleSchema(
@@ -243,10 +234,9 @@ export default function BlogPostPage() {
       canonicalUrl,
       post.publishedAt,
       post.updatedAt,
-      getAssetUrl(post.featuredImage?.url),
-      articleRating
+      getAssetUrl(post.featuredImage?.url)
     );
-  }, [post, articleRating]);
+  }, [post]);
 
   const faqSchema = useMemo(() => {
     if (!post) return null;
@@ -447,9 +437,6 @@ export default function BlogPostPage() {
               <div className="article-rating-widget">
                 <div>
                   <div className="article-rating-label">Оцените статью</div>
-                  <div className="article-rating-count">
-                    Средняя оценка: {articleRating.value}/5 ({articleRating.count} голосов)
-                  </div>
                 </div>
                 <div className="article-rating-stars">
                   {[1, 2, 3, 4, 5].map(star => (
@@ -464,8 +451,8 @@ export default function BlogPostPage() {
                         height="28"
                         stroke="currentColor"
                         strokeWidth="2"
-                        fill={star <= (userRating || Math.round(articleRating.value)) ? 'currentColor' : 'none'}
-                        className={star <= (userRating || Math.round(articleRating.value)) ? 'star-active' : 'star-inactive'}
+                        fill={star <= userRating ? 'currentColor' : 'none'}
+                        className={star <= userRating ? 'star-active' : 'star-inactive'}
                       >
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                       </svg>
@@ -497,7 +484,7 @@ export default function BlogPostPage() {
             offer={{
               title: offersBridge?.label || 'Лучшее предложение месяца',
               subtitle: offersBridge?.subtitle || 'Специально подобранные варианты',
-              rating: articleRating.value,
+              rating: userRating || 5,
               href: offersBridge?.href || '/offers',
               cta: 'Смотреть предложения',
               badge: 'Топ выбор'

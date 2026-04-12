@@ -56,7 +56,7 @@ const SickLeaveCalculatorPage = () => {
             title="Калькулятор больничного"
             description="Рассчитайте пособие по временной нетрудоспособности"
             category="Зарплата и налоги"
-            categoryHref="/category/financial"
+            categoryHref="/category/finance"
             faqItems={faqItems}
             calculator={<SickLeaveCalculator />}
             afterCalculator={<OffersBlock product="insurance" placement="result_block" title="ДМС и защита здоровья" subtitle="Добровольное медстрахование — быстрее доступ к врачам, меньше больничных." />}

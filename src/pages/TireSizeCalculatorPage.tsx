@@ -24,7 +24,7 @@ const TireSizeCalculatorPage = () => {
             title="Калькулятор размера шин"
             description="Рассчитайте и сравните параметры автомобильных шин"
             category="Транспорт"
-            categoryHref="/category/transport"
+            categoryHref="/category/auto"
             faqItems={faqItems}
             calculator={<TireSizeCalculator />}
         />

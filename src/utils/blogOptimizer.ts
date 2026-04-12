@@ -28,7 +28,7 @@ export function optimizeSEO(article: BlogPost): BlogPost {
   
   // Если нет canonical, генерируем из slug
   if (!optimized.seo.canonical) {
-    optimized.seo.canonical = `/blog/${article.slug}`;
+    optimized.seo.canonical = `/blog/${article.slug}/`;
   }
   
   return optimized;

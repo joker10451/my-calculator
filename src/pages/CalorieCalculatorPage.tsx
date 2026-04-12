@@ -26,7 +26,7 @@ const CalorieCalculatorPage = () => {
             title="Калькулятор калорий"
             description="Рассчитайте суточную норму калорий для достижения ваших целей"
             category="Здоровье"
-            categoryHref="/category/personal"
+            categoryHref="/category/health"
             faqItems={faqItems}
             calculator={<CalorieCalculator />}
             afterCalculator={

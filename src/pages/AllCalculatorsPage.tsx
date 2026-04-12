@@ -1,4 +1,5 @@
 import CalculatorLayout from "@/components/CalculatorLayout";
+import { SEO } from "@/components/SEO";
 import { categories } from "@/lib/data";
 import { Link } from "react-router-dom";
 import { Calculator, ArrowRight } from "lucide-react";
@@ -11,6 +12,12 @@ const AllCalculatorsPage = () => {
             title="Все калькуляторы"
             description="Полный список всех инструментов для расчёта финансов, налогов, здоровья и многого другого."
         >
+            <SEO
+                title="Все онлайн калькуляторы — полный список"
+                description="Полный каталог калькуляторов Считай.RU: финансы, зарплата, налоги, авто, жильё, здоровье, семья, юридические."
+                keywords="все калькуляторы, каталог калькуляторов, финансовые калькуляторы, онлайн расчёт"
+                ogType="website"
+            />
             <h1 className="sr-only">Все финансовые и бытовые калькуляторы Считай.RU</h1>
             <div className="space-y-16">
                 {categories.map((category) => {

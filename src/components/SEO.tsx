@@ -37,7 +37,8 @@ export function SEO({
   // Гарантируем слэш в конце для консистентности SEO
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
   const normalizedPath = pathname === '/' ? '/' : (pathname.endsWith('/') ? pathname : `${pathname}/`);
-  const url = canonical || `https://schitay-online.ru${normalizedPath}`;
+  const rawUrl = canonical || `https://schitay-online.ru${normalizedPath}`;
+  const url = rawUrl.endsWith('/') ? rawUrl : `${rawUrl}/`;
   const locale = language === 'en' ? 'en_US' : 'ru_RU';
 
   return (

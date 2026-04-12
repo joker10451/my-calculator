@@ -309,7 +309,7 @@ export const moreBlogPosts: BlogPost[] = [
       metaTitle: 'Индекс массы тела (ИМТ) 2026: норма, расчет, рекомендации | Считай.RU',
       metaDescription: 'Как рассчитать ИМТ, что означают результаты, нормы для мужчин и женщин. Калькулятор ИМТ онлайн с персональными рекомендациями.',
       keywords: ['ИМТ', 'индекс массы тела', 'калькулятор ИМТ', 'норма веса', 'BMI'],
-      canonical: '/blog/imt-2026-norma-kak-rasschitat'
+      canonical: '/blog/imt-2026-norma-kak-rasschitat/'
     },
     readingTime: 12,
     isPublished: true,
@@ -597,7 +597,7 @@ export const depositArticle: BlogPost = {
     metaTitle: 'Банковские вклады в 2026 году: ставки, рейтинг банков | Считай.RU',
     metaDescription: 'Лучшие банковские вклады 2026: актуальные ставки до 18%, рейтинг банков, калькулятор доходности. Как выбрать выгодный вклад.',
     keywords: ['вклады 2026', 'банковские вклады', 'ставки по вкладам', 'калькулятор вкладов', 'проценты по вкладам'],
-    canonical: '/blog/vklady-2026-luchshie-predlozheniya'
+    canonical: '/blog/vklady-2026-luchshie-predlozheniya/'
   },
   readingTime: 13,
   isPublished: true,

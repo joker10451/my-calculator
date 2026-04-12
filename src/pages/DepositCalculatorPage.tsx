@@ -58,7 +58,7 @@ const DepositCalculatorPage = () => {
             title="Калькулятор вкладов"
             description="Рассчитайте сложный процент по вкладу с пополнением и капитализацией"
             category="Финансы"
-            categoryHref="/category/financial"
+            categoryHref="/category/finance"
             faqItems={faqItems}
             calculator={<DepositCalculator />}
             afterCalculator={

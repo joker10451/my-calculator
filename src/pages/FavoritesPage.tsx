@@ -3,6 +3,7 @@ import { Heart, Trash2, Calculator } from 'lucide-react';
 import { useFavorites } from '@/hooks/useFavorites';
 import { categories } from '@/lib/data';
 import CalculatorLayout from '@/components/CalculatorLayout';
+import { SEO } from '@/components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
@@ -32,6 +33,7 @@ export default function FavoritesPage() {
       title="Избранное"
       description="Ваши сохранённые калькуляторы для быстрого доступа"
     >
+      <SEO title="Избранное" description="Ваши сохранённые калькуляторы" noindex />
       <h1 className="sr-only">Избранные калькуляторы — Считай.RU</h1>
 
       <div className="max-w-4xl mx-auto">

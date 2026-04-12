@@ -57,7 +57,7 @@ const OSAGOCalculatorPage = () => {
             title="Калькулятор ОСАГО"
             description="Рассчитайте стоимость полиса ОСАГО онлайн с учетом всех коэффициентов 2026 года"
             category="Авто"
-            categoryHref="/category/transport"
+            categoryHref="/category/auto"
             faqItems={faqItems}
             calculator={<OSAGOCalculator />}
             afterCalculator={

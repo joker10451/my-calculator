@@ -3,6 +3,7 @@ import { categories } from "@/lib/data";
 import { Search, Calculator, ArrowRight, Home, Sparkles } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { SEO } from "@/components/SEO";
 import { useState } from "react";
 
 const POPULAR = [
@@ -25,6 +26,7 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950">
+      <SEO title="404 — Страница не найдена" description="Запрашиваемая страница не существует" noindex />
       <Header />
 
       <main className="flex-1 flex items-center justify-center py-20">

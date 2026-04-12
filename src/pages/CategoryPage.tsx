@@ -1,5 +1,6 @@
 import { useParams, Navigate, Link } from "react-router-dom";
 import CalculatorLayout from "@/components/CalculatorLayout";
+import { SEO } from "@/components/SEO";
 import { categories } from "@/lib/data";
 import { ArrowRight, Calculator } from "lucide-react";
 import { PSBCardWidget } from "@/components/PSBCardWidget";
@@ -34,6 +35,12 @@ const CategoryPage = () => {
             description={category.description}
             bgClass={category.color.split(" ")[0] + " bg-opacity-10"}
         >
+            <SEO
+                title={`${category.name} — онлайн калькуляторы`}
+                description={category.description}
+                keywords={`${category.name}, калькулятор, онлайн расчёт`}
+                ogType="website"
+            />
             {/* Карта ПСБ для релевантных категорий */}
             {showPSBCard && (
                 <div className="mb-8 animate-fade-in">

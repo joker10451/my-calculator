@@ -57,7 +57,7 @@ const KASKOCalculatorPage = () => {
             title="Калькулятор КАСКО"
             description="Рассчитайте стоимость добровольного страхования автомобиля"
             category="Авто"
-            categoryHref="/category/transport"
+            categoryHref="/category/auto"
             faqItems={faqItems}
             calculator={<KASKOCalculator />}
             afterCalculator={

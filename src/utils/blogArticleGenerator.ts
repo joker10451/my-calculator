@@ -232,7 +232,7 @@ export class BlogArticleBuilder {
       metaTitle: `${metadata.title} | Считай.RU`,
       metaDescription: metadata.excerpt,
       keywords: metadata.tags,
-      canonical: `/blog/${metadata.slug}`
+      canonical: `/blog/${metadata.slug}/`
     };
   }
 

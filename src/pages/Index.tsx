@@ -9,7 +9,7 @@ import CalculatorOfTheWeek from "@/components/CalculatorOfTheWeek";
 import PersonalizedRecommendations from "@/components/PersonalizedRecommendations";
 import CurrencyRatesWidget from "@/components/CurrencyRatesWidget";
 import Footer from "@/components/Footer";
-import { Helmet } from "react-helmet-async";
+import { SEO } from "@/components/SEO";
 import { ArrowRight } from "lucide-react";
 
 const BlogSection = lazy(() => import("@/components/blog/BlogSection"));
@@ -29,17 +29,46 @@ const Index = () => {
     }
   }, [location]);
 
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': 'https://schitay-online.ru/#website',
+        'url': 'https://schitay-online.ru/',
+        'name': 'Считай.RU',
+        'description': 'Бесплатные онлайн калькуляторы для России и СНГ',
+        'publisher': { '@id': 'https://schitay-online.ru/#organization' },
+        'inLanguage': 'ru',
+        'potentialAction': {
+          '@type': 'SearchAction',
+          'target': 'https://schitay-online.ru/search?q={search_term_string}',
+          'query-input': 'required name=search_term_string'
+        }
+      },
+      {
+        '@type': 'Organization',
+        '@id': 'https://schitay-online.ru/#organization',
+        'name': 'Считай.RU',
+        'url': 'https://schitay-online.ru/',
+        'logo': {
+          '@type': 'ImageObject',
+          'url': 'https://schitay-online.ru/icon.svg'
+        }
+      }
+    ]
+  };
+
   return (
     <>
-      <Helmet>
-        <title>Считай.RU — Онлайн калькуляторы для России и СНГ</title>
-        <meta
-          name="description"
-          content="Бесплатные онлайн калькуляторы: ипотека, кредит, зарплата, ЖКХ, налоги, здоровье. Точные расчёты по актуальным данным РФ за 10 секунд."
-        />
-        <meta name="keywords" content="калькулятор онлайн, ипотека калькулятор, расчёт кредита, зарплата на руки, ЖКХ калькулятор" />
-        <link rel="canonical" href="https://schitay-online.ru/" />
-      </Helmet>
+      <SEO
+        title="Считай.RU — Онлайн калькуляторы для России и СНГ"
+        description="Бесплатные онлайн калькуляторы: ипотека, кредит, зарплата, ЖКХ, налоги, здоровье. Точные расчёты по актуальным данным РФ за 10 секунд."
+        keywords="калькулятор онлайн, ипотека калькулятор, расчёт кредита, зарплата на руки, ЖКХ калькулятор"
+        canonical="https://schitay-online.ru/"
+        ogImage="https://schitay-online.ru/og-image.png"
+        structuredData={organizationSchema}
+      />
 
       <div className="min-h-screen flex flex-col bg-slate-950">
         <Header />

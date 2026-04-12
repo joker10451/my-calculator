@@ -39,7 +39,7 @@ export default function DepositTaxCalculatorPage() {
       schemaName="Калькулятор налога на вклады"
       schemaDescription="Рассчитайте НДФЛ с процентов по вкладам с учетом не облагаемого лимита"
       category="Финансы"
-      categoryHref="/category/financial"
+      categoryHref="/category/finance"
       calculator={<DepositTaxCalculator />}
       afterCalculator={
         <div className="space-y-6">

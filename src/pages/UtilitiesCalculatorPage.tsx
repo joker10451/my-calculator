@@ -24,7 +24,7 @@ const UtilitiesCalculatorPage = () => {
             title="Калькулятор коммунальных платежей"
             description="Рассчитайте стоимость коммунальных услуг для вашей квартиры"
             category="Коммунальные услуги"
-            categoryHref="/category/utilities"
+            categoryHref="/category/housing"
             faqItems={faqItems}
             calculator={<UtilitiesCalculator />}
         />
