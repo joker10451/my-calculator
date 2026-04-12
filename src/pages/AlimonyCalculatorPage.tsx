@@ -1,5 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import AlimonyCalculator from "@/components/calculators/AlimonyCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 
 const AlimonyCalculatorPage = () => {
     const faqItems = [
@@ -27,6 +28,7 @@ const AlimonyCalculatorPage = () => {
             categoryHref="/category/family"
             faqItems={faqItems}
             calculator={<AlimonyCalculator />}
+            afterCalculator={<OffersBlock product="vacancies" placement="result_block" title="Подработка и доп. доход" subtitle="Если не хватает на алименты — подработка курьером или мастером." />}
         />
     );
 };

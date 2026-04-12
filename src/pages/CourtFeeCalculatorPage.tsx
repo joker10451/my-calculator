@@ -1,5 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import CourtFeeCalculator from "@/components/calculators/CourtFeeCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 
 const CourtFeeCalculatorPage = () => {
   const faqItems = [
@@ -31,6 +32,9 @@ const CourtFeeCalculatorPage = () => {
       categoryHref="/category/legal"
       faqItems={faqItems}
       calculator={<CourtFeeCalculator />}
+      afterCalculator={
+        <OffersBlock product="loan" placement="result_block" title="Если не хватает на пошлину" subtitle="Микрозайм до зарплаты или кредитная карта — быстрые варианты." />
+      }
     />
   );
 };

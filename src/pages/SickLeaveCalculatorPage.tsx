@@ -1,5 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import SickLeaveCalculator from "@/components/calculators/SickLeaveCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import { Heart, Calculator, TrendingUp, DollarSign, FileText, Calendar } from "lucide-react";
 
 const SickLeaveCalculatorPage = () => {
@@ -58,6 +59,7 @@ const SickLeaveCalculatorPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<SickLeaveCalculator />}
+            afterCalculator={<OffersBlock product="insurance" placement="result_block" title="ДМС и защита здоровья" subtitle="Добровольное медстрахование — быстрее доступ к врачам, меньше больничных." />}
             features={features}
             howToUseSteps={howToUseSteps}
         />

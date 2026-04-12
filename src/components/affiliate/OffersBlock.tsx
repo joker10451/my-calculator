@@ -17,22 +17,38 @@ interface OfferKeyConfig {
 
 const OFFERS_BY_PRODUCT: Record<string, OfferKeyConfig[]> = {
   mortgage: [
-    { key: 'partner-promo-1', label: 'Подобрать предложения', partnerName: 'partner', productType: 'mortgage', isPopular: true },
+    { key: 'tbank-mortgage-insurance', label: 'T‑Страхование — ипотека', partnerName: 'tbank', productType: 'mortgage', isPopular: true },
+    { key: 'sber-insurance-all', label: 'СберСтрахование — защита', partnerName: 'sberbank', productType: 'insurance', bestValue: true },
+    { key: 'partner-promo-1', label: 'Подобрать предложения', partnerName: 'partner', productType: 'mortgage' },
   ],
   credit: [
     { key: 'vtb-credit-card', label: 'Оформить карту (ВТБ)', partnerName: 'vtb', productType: 'credit', bestValue: true },
+    { key: 'psb-debit-cashback', label: 'ПСБ «Твой кешбэк»', partnerName: 'psb', productType: 'debit', isPopular: true },
   ],
   deposit: [
     { key: 'psb-debit-cashback', label: 'ПСБ «Твой кешбэк»', partnerName: 'psb', productType: 'debit', bestValue: true },
     { key: 'tbank-all-airlines-debit', label: 'Т‑Банк ALL Airlines', partnerName: 'tbank', productType: 'debit', isPopular: true },
+    { key: 'sber-insurance-all', label: 'СберСтрахование — защита', partnerName: 'sberbank', productType: 'insurance' },
+  ],
+  debit: [
+    { key: 'psb-debit-cashback', label: 'ПСБ «Твой кешбэк»', partnerName: 'psb', productType: 'debit', bestValue: true },
+    { key: 'tbank-all-airlines-debit', label: 'Т‑Банк ALL Airlines', partnerName: 'tbank', productType: 'debit', isPopular: true },
   ],
   insurance: [
-    { key: 'renlife-guaranteed-income', label: 'НСЖ “Гарантированный доход”', partnerName: 'renlife', productType: 'insurance', isPopular: true },
+    { key: 'renlife-guaranteed-income', label: 'НСЖ «Гарантированный доход»', partnerName: 'renlife', productType: 'insurance', isPopular: true },
     { key: 'pari-tick-insurance', label: 'СК ПАРИ — защита от клеща', partnerName: 'pari', productType: 'insurance' },
+    { key: 'sber-insurance-all', label: 'СберСтрахование — защита', partnerName: 'sberbank', productType: 'insurance', bestValue: true },
+    { key: 'pari-dms', label: 'СК ПАРИ — полис ДМС', partnerName: 'sk-pari', productType: 'insurance' },
+    { key: 'zetta-vzr', label: 'Zetta — страхование туристов', partnerName: 'zetta', productType: 'insurance' },
   ],
-  auto_insurance: [],
+  auto_insurance: [
+    { key: 'vsk-osago', label: 'ВСК — электронный ОСАГО', partnerName: 'vsk', productType: 'insurance', bestValue: true },
+    { key: 'vsk-kasko', label: 'ВСК — КАСКО онлайн', partnerName: 'vsk', productType: 'insurance', isPopular: true },
+    { key: 'sber-insurance-all', label: 'СберСтрахование — защита', partnerName: 'sberbank', productType: 'insurance' },
+  ],
   loan: [
     { key: 'joymoney-loan', label: 'JoyMoney — займ онлайн', partnerName: 'joymoney', productType: 'loan', isPopular: true },
+    { key: 'vtb-credit-card', label: 'Кредитная карта ВТБ', partnerName: 'vtb', productType: 'credit', bestValue: true },
   ],
   vacancies: [
     { key: 'pampadu-offer-31ba9c13', label: 'Курьер Яндекс.Еда/Лавка', partnerName: 'pampadu', productType: 'vacancies', isPopular: true },

@@ -1,5 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import VacationCalculator from "@/components/calculators/VacationCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import { Calendar, Calculator, TrendingUp, DollarSign, FileText, Users } from "lucide-react";
 
 const VacationCalculatorPage = () => {
@@ -57,6 +58,7 @@ const VacationCalculatorPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<VacationCalculator />}
+            afterCalculator={<OffersBlock product="insurance" placement="result_block" title="Защита перед отпуском" subtitle="Страхование от клеща и ДМС — чтобы отпуск не испортила болезнь." />}
             features={features}
             howToUseSteps={howToUseSteps}
         />

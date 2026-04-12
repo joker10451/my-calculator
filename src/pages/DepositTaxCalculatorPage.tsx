@@ -1,8 +1,8 @@
 import CalculatorPageWrapper from '@/components/CalculatorPageWrapper';
 import DepositTaxCalculator from '@/components/calculators/DepositTaxCalculator';
-import { FAQ } from '@/components/FAQ';
 import { TrustInfoBlock } from '@/components/TrustInfoBlock';
 import { OffersBlock } from '@/components/affiliate/OffersBlock';
+
 export default function DepositTaxCalculatorPage() {
   const faqItems = [
     {
@@ -28,25 +28,23 @@ export default function DepositTaxCalculatorPage() {
   ];
 
   return (
-    <>
-      <CalculatorPageWrapper
-        title="Калькулятор налога на вклады 2026 | Рассчитать НДФЛ онлайн"
-        description="Рассчитайте сумму налога на вклады (НДФЛ 13%) за пару кликов. Актуальный расчет для 2025-2026 года с учетом вычета по максимальной ключевой ставке ЦБ."
-        seoKeywords="налог на вклады 2026, налог на проценты по вкладам, калькулятор налога на вклады, ндфл с депозита"
-        faqItems={faqItems}
-        canonical="https://schitay-online.ru/calculator/deposit-tax"
-        schemaName="Калькулятор налога на вклады"
-        schemaDescription="Рассчитайте НДФЛ с процентов по вкладам с учетом не облагаемого лимита"
-        category="Финансы"
-        categoryHref="/category/financial"
-      >
-        <DepositTaxCalculator />
-        
-        <div className="mt-12 space-y-8">
-          <OffersBlock category="debit" limit={3} />
-          
+    <CalculatorPageWrapper
+      seoTitle="Калькулятор налога на вклады 2026 | Рассчитать НДФЛ онлайн"
+      seoDescription="Рассчитайте сумму налога на вклады (НДФЛ 13%) за пару кликов. Актуальный расчет для 2025-2026 года с учетом вычета по максимальной ключевой ставке ЦБ."
+      seoKeywords="налог на вклады 2026, налог на проценты по вкладам, калькулятор налога на вклады, ндфл с депозита"
+      title="Калькулятор налога на вклады 2026 | Рассчитать НДФЛ онлайн"
+      description="Рассчитайте сумму налога на вклады (НДФЛ 13%) за пару кликов. Актуальный расчет для 2025-2026 года с учетом вычета по максимальной ключевой ставке ЦБ."
+      faqItems={faqItems}
+      canonical="https://schitay-online.ru/calculator/deposit-tax"
+      schemaName="Калькулятор налога на вклады"
+      schemaDescription="Рассчитайте НДФЛ с процентов по вкладам с учетом не облагаемого лимита"
+      category="Финансы"
+      categoryHref="/category/financial"
+      calculator={<DepositTaxCalculator />}
+      afterCalculator={
+        <div className="space-y-6">
+          <OffersBlock product="deposit" placement="result_block" />
           <TrustInfoBlock />
-          
           <div className="bg-surface-secondary rounded-2xl p-6 sm:p-8">
             <h2 className="text-2xl font-bold text-text-primary mb-6">
               Как работает налог на проценты по вкладам?
@@ -76,7 +74,7 @@ export default function DepositTaxCalculatorPage() {
             </div>
           </div>
         </div>
-      </CalculatorPageWrapper>
-    </>
+      }
+    />
   );
 }

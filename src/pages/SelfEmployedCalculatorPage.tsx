@@ -2,6 +2,7 @@ import { Shield, TrendingDown, PiggyBank, Calculator, Wallet, ArrowRight } from 
 import { SEO, generateFAQSchema } from "@/components/SEO";
 import { generateHowToSchema } from "@/utils/seoSchemas";
 import { SelfEmployedCalculator } from "@/components/calculators/SelfEmployedCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 
 const SITE_URL = 'https://schitay-online.ru';
 
@@ -62,6 +63,10 @@ export default function SelfEmployedCalculatorPage() {
             />
             <div className="container mx-auto px-4">
                 <SelfEmployedCalculator />
+
+                <div className="max-w-5xl mx-auto mt-10">
+                    <OffersBlock product="vacancies" placement="result_block" title="Подработка и вакансии" subtitle="Дополнительный доход для самозанятых — курьер, мастер и другие." />
+                </div>
 
                 {/* Features */}
                 <div className="max-w-5xl mx-auto mt-20">

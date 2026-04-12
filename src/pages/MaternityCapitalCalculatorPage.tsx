@@ -1,5 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import MaternityCapitalCalculator from "@/components/calculators/MaternityCapitalCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import { Baby, Home, GraduationCap, TrendingUp, DollarSign, Calendar } from "lucide-react";
 
 const MaternityCapitalCalculatorPage = () => {
@@ -57,6 +58,7 @@ const MaternityCapitalCalculatorPage = () => {
             categoryHref="/category/family"
             faqItems={faqItems}
             calculator={<MaternityCapitalCalculator />}
+            afterCalculator={<OffersBlock product="mortgage" placement="result_block" title="Ипотека с маткапиталом" subtitle="Используйте материнский капитал как первоначальный взнос." />}
             features={features}
             howToUseSteps={howToUseSteps}
         />

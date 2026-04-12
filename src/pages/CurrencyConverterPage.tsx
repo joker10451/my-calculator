@@ -1,5 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import CurrencyConverter from "@/components/calculators/CurrencyConverter";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 
 const CurrencyConverterPage = () => {
     const faqItems = [
@@ -31,6 +32,7 @@ const CurrencyConverterPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<CurrencyConverter />}
+            afterCalculator={<OffersBlock product="deposit" placement="result_block" title="Куда выгодно положить валюту" subtitle="Карты с кешбэком и накопительные счета для сбережений." />}
         />
     );
 };

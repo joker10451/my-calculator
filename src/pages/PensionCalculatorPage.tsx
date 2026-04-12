@@ -1,5 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import PensionCalculator from "@/components/calculators/PensionCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import { Users, Calculator, TrendingUp, Calendar, DollarSign, BarChart3 } from "lucide-react";
 
 const PensionCalculatorPage = () => {
@@ -58,6 +59,7 @@ const PensionCalculatorPage = () => {
             categoryHref="/category/financial"
             faqItems={faqItems}
             calculator={<PensionCalculator />}
+            afterCalculator={<OffersBlock product="insurance" placement="result_block" title="Накопления на пенсию" subtitle="НСЖ и страховые программы — дополнительная защита к государственной пенсии." />}
             features={features}
             howToUseSteps={howToUseSteps}
         />

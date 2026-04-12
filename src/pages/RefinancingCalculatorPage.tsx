@@ -2,6 +2,7 @@ import { Shield, TrendingDown, PiggyBank, Calculator, Percent, ArrowRight } from
 import { SEO, generateFAQSchema } from "@/components/SEO";
 import { generateHowToSchema } from "@/utils/seoSchemas";
 import { RefinancingCalculator } from "@/components/calculators/RefinancingCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 
 const SITE_URL = 'https://schitay-online.ru';
 
@@ -63,6 +64,10 @@ export default function RefinancingCalculatorPage() {
             />
             <div className="container mx-auto px-4">
                 <RefinancingCalculator />
+
+                <div className="max-w-5xl mx-auto mt-10">
+                    <OffersBlock product="credit" placement="result_block" title="Предложения для рефинансирования" subtitle="Кредитные карты и программы — снизьте ставку и экономьте." />
+                </div>
 
                 {/* Features */}
                 <div className="max-w-5xl mx-auto mt-20">

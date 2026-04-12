@@ -1,5 +1,6 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import FuelCalculator from "@/components/calculators/FuelCalculator";
+import { OffersBlock } from "@/components/affiliate/OffersBlock";
 
 const FuelCalculatorPage = () => {
     const faqItems = [
@@ -27,6 +28,7 @@ const FuelCalculatorPage = () => {
             categoryHref="/category/transport"
             faqItems={faqItems}
             calculator={<FuelCalculator />}
+            afterCalculator={<OffersBlock product="auto_insurance" placement="result_block" title="ОСАГО и КАСКО для вашего авто" subtitle="Оформите полис онлайн — без визита в офис." />}
         />
     );
 };
