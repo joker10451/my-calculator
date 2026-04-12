@@ -1,9 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import CalculatorLayout from "@/components/CalculatorLayout";
 import { SEO, generateCalculatorSchema } from "@/components/SEO";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
-import { CalculatorFeedback } from "@/components/CalculatorFeedback";
+import { storage } from "@/shared/utils/storage";
+import { toast } from "sonner";
 import { LucideIcon } from "lucide-react";
 
 interface Feature {
@@ -41,6 +42,54 @@ interface CalculatorPageWrapperProps {
   aboutDescription?: string;
   features?: Feature[];
   howToUseSteps?: string[];
+}
+
+function CalculatorFeedback({ calculatorId }: { calculatorId: string }) {
+  const [voted, setVoted] = useState<'positive' | 'negative' | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    try {
+      const val = storage.get<string>(`calc_feedback_${calculatorId}`, '');
+      if (val === 'positive' || val === 'negative') {
+        setVoted(val);
+        setSubmitted(true);
+      }
+    } catch {}
+  }, [calculatorId]);
+
+  const handleVote = (type: 'positive' | 'negative') => {
+    if (submitted) return;
+    setVoted(type);
+    setSubmitted(true);
+    try { storage.set(`calc_feedback_${calculatorId}`, type); } catch {}
+    try {
+      fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ calculator_id: calculatorId, feedback_type: type }),
+      }).catch(() => {});
+    } catch {}
+    toast.success('Спасибо за отзыв!');
+  };
+
+  if (submitted && voted) {
+    return (
+      <div className="flex items-center justify-center gap-2 py-4 text-sm text-slate-500 dark:text-slate-400">
+        Спасибо за отзыв!
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center justify-center gap-4 py-4">
+      <span className="text-sm text-slate-500 dark:text-slate-400">Был ли полезен калькулятор?</span>
+      <div className="flex items-center gap-2">
+        <button onClick={() => handleVote('positive')} className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors" title="Да">👍</button>
+        <button onClick={() => handleVote('negative')} className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" title="Нет">👎</button>
+      </div>
+    </div>
+  );
 }
 
 const colorClasses = {

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Mail, Check, Loader2 } from 'lucide-react';
-import { supabase } from '@/lib/database/supabase';
 import { storage } from '@/shared/utils/storage';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
@@ -28,10 +27,11 @@ export function NewsletterSignup({ source = 'footer', className = '' }: Newslett
 
     setLoading(true);
     try {
-      await supabase.from('newsletter_subscribers').insert({
-        email: trimmed,
-        source,
-      });
+      await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trimmed, source }),
+      }).catch(() => {});
     } catch {
       // Graceful degradation
     }

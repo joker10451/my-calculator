@@ -16,7 +16,11 @@ export function useFavorites() {
       const stored = localStorage.getItem(FAVORITES_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        setFavorites(parsed);
+        if (Array.isArray(parsed)) {
+          setFavorites(parsed);
+        } else {
+          localStorage.removeItem(FAVORITES_KEY);
+        }
       }
     } catch (error) {
       console.error('Error loading favorites:', error);
