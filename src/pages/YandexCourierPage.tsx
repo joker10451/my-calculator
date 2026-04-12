@@ -7,7 +7,8 @@ import { generateHowToSchema } from '@/utils/seoSchemas';
 import { Link } from 'react-router-dom';
 
 const SITE_URL = 'https://schitay-online.ru';
-const COURIER_OFFER = AFFILIATE_LINKS['pampadu-offer-31ba9c13'] ?? null;
+const COURIER_OFFER_KEY = 'pampadu-offer-31ba9c13';
+const COURIER_OFFER = AFFILIATE_LINKS[COURIER_OFFER_KEY] ?? null;
 
 interface IncomeResult {
   dailyIncome: number;
