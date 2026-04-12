@@ -43,7 +43,7 @@ export default function RecentCalculators() {
             <Clock className="w-6 h-6 text-slate-400" />
             <h2 className="text-2xl md:text-3xl font-bold text-slate-100">Недавние расчёты</h2>
           </div>
-          <p className="text-slate-400 mb-6">Здесь появятся ваши последние расчёты. Начните с популярного:</p>
+          <p className="text-slate-400 mb-6">Тут появятся твои последние расчёты. Начни с чего-нибудь:</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {POPULAR_FALLBACK.map(calc => (
               <Link

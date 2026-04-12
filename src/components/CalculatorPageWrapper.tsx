@@ -70,7 +70,7 @@ function CalculatorFeedback({ calculatorId }: { calculatorId: string }) {
         body: JSON.stringify({ calculator_id: calculatorId, feedback_type: type }),
       }).catch(() => {});
     } catch {}
-    toast.success('Спасибо за отзыв!');
+    toast.success(type === 'positive' ? 'Круто, мы полезны! 🎉' : 'Учтём, спасибо за честность!');
   };
 
   if (submitted && voted) {

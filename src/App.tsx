@@ -83,6 +83,7 @@ export const BlogShare = lazy(() => import("./components/blog/BlogShare"));
 export const BlogRecommendations = lazy(() => import("./components/blog/BlogRecommendations"));
 const AnalyticsDashboardPage = lazy(() => import("./pages/AnalyticsDashboardPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
+const BanksRatingPage = lazy(() => import("./pages/BanksRatingPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Конфигурация QueryClient с оптимизацией
@@ -103,7 +104,7 @@ const queryClient = new QueryClient({
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <ThemeInitializer />
         <TooltipProvider>
           <ComparisonProvider>
@@ -171,6 +172,7 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/currency" element={<PageTransition><CurrencyConverterPage /></PageTransition>} />
           <Route path="/compare" element={<PageTransition><ComparisonPage /></PageTransition>} />
           <Route path="/favorites" element={<PageTransition><FavoritesPage /></PageTransition>} />
+          <Route path="/banks" element={<PageTransition><BanksRatingPage /></PageTransition>} />
           <Route path="/search" element={<PageTransition><SearchPage /></PageTransition>} />
           <Route path="/all" element={<PageTransition><AllCalculatorsPage /></PageTransition>} />
           <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />

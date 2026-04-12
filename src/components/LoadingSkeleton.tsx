@@ -110,3 +110,33 @@ export const LoadingSpinner = () => (
     </div>
   </div>
 );
+
+export const CategoryGridSkeleton = () => (
+  <div className="py-12 md:py-16 bg-slate-950">
+    <div className="container mx-auto px-4">
+      <div className="text-center mb-10 md:mb-12">
+        <div className="h-10 w-64 bg-slate-800 rounded-lg mx-auto mb-4 animate-pulse" />
+        <div className="h-6 w-96 bg-slate-800 rounded-lg mx-auto animate-pulse" />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 animate-pulse">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-slate-700 rounded-lg flex-shrink-0" />
+              <div className="flex-1 space-y-2">
+                <div className="h-5 w-32 bg-slate-700 rounded" />
+                <div className="h-4 w-full bg-slate-700 rounded" />
+                <div className="h-4 w-2/3 bg-slate-700 rounded" />
+              </div>
+            </div>
+            <div className="mt-4 flex gap-2">
+              <div className="h-6 w-20 bg-slate-700 rounded-md" />
+              <div className="h-6 w-24 bg-slate-700 rounded-md" />
+              <div className="h-6 w-16 bg-slate-700 rounded-md" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);

@@ -21,7 +21,7 @@ export function NewsletterSignup({ source = 'footer', className = '' }: Newslett
 
     const trimmed = email.trim();
     if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      toast.error('Введите корректный email');
+      toast.error('Что-то не так с email — проверь, пожалуйста');
       return;
     }
 
@@ -39,7 +39,7 @@ export function NewsletterSignup({ source = 'footer', className = '' }: Newslett
     storage.set('newsletter_subscribed', true);
     setSubscribed(true);
     setEmail('');
-    toast.success('Вы подписаны на обновления!', {
+    toast.success('Готово! Теперь ты в курсе всего 📬', {
       description: 'Новые статьи и калькуляторы — прямо в почту',
     });
     setLoading(false);
