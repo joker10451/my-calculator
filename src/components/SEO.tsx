@@ -31,9 +31,11 @@ export function SEO({
   hreflangTags,
   language = 'ru'
 }: SEOProps) {
-  const fullTitle = title.includes('Считай.RU') ? title : `${title} — Считай.RU`;
+  const safeTitle = title || '';
+  const fullTitle = safeTitle.includes('Считай.RU') ? safeTitle : (safeTitle ? `${safeTitle} — Считай.RU` : 'Считай.RU');
+  
   // Гарантируем слэш в конце для консистентности SEO
-  const pathname = window.location.pathname;
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
   const normalizedPath = pathname === '/' ? '/' : (pathname.endsWith('/') ? pathname : `${pathname}/`);
   const url = canonical || `https://schitay-online.ru${normalizedPath}`;
   const locale = language === 'en' ? 'en_US' : 'ru_RU';

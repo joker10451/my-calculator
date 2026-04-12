@@ -26,6 +26,10 @@ export function FAQ({ items, title = 'Часто задаваемые вопро
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  if (!items || items.length === 0) {
+    return null;
+  }
+
   const faqSchema = generateFAQSchema(items);
 
   return (

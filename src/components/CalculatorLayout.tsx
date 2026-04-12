@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { useLocation, Link } from "react-router-dom";
 import { categories } from "@/lib/data";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Calculator } from "lucide-react";
 
 interface CalculatorLayoutProps {
     children: ReactNode;
