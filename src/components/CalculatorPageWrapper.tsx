@@ -1,8 +1,10 @@
 import { ReactNode, useState, useEffect } from "react";
 import CalculatorLayout from "@/components/CalculatorLayout";
 import { SEO, generateCalculatorSchema } from "@/components/SEO";
+import { generateFAQSchema, generateHowToSchema, generateBreadcrumbSchema } from "@/utils/seoSchemas";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
+import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { storage } from "@/shared/utils/storage";
 import { toast } from "sonner";
 import { LucideIcon } from "lucide-react";
@@ -42,6 +44,8 @@ interface CalculatorPageWrapperProps {
   aboutDescription?: string;
   features?: Feature[];
   howToUseSteps?: string[];
+  // Slug калькулятора для внутренней перелинковки
+  relatedSlug?: string;
 }
 
 function CalculatorFeedback({ calculatorId }: { calculatorId: string }) {
@@ -142,7 +146,8 @@ const CalculatorPageWrapper = ({
   aboutTitle,
   aboutDescription,
   features,
-  howToUseSteps
+  howToUseSteps,
+  relatedSlug
 }: CalculatorPageWrapperProps) => {
   const seoData = {
     title: seoTitle || title,
@@ -151,12 +156,46 @@ const CalculatorPageWrapper = ({
     canonical
   };
 
-  const structuredData = generateCalculatorSchema(
+  const webAppSchema = generateCalculatorSchema(
     schemaName,
     schemaDescription,
     canonical,
     "FinanceApplication"
   );
+
+  const graphItems: object[] = [webAppSchema];
+
+  if (faqItems && faqItems.length > 0) {
+    const faqSchema = generateFAQSchema(faqItems);
+    graphItems.push(faqSchema);
+  }
+
+  if (howToUseSteps && howToUseSteps.length > 0) {
+    const howToSchema = generateHowToSchema(
+      `Как пользоваться: ${schemaName}`,
+      schemaDescription,
+      canonical,
+      howToUseSteps.map((step, i) => ({ name: `Шаг ${i + 1}`, text: step }))
+    );
+    graphItems.push(howToSchema);
+  }
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Главная', url: 'https://schitay-online.ru/' },
+    { name: category, url: `https://schitay-online.ru${categoryHref}` },
+    { name: title, url: canonical }
+  ]);
+  graphItems.push(breadcrumbSchema);
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': graphItems.map(item => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { '@context': _ctx, ...rest } = item as any;
+      void _ctx;
+      return rest;
+    })
+  };
 
   const breadcrumbs = [
     { label: category, href: categoryHref },
@@ -255,6 +294,10 @@ const CalculatorPageWrapper = ({
               </div>
             )}
           </div>
+        )}
+
+        {relatedSlug && (
+          <RelatedCalculators currentSlug={relatedSlug} />
         )}
       </CalculatorLayout>
     </>

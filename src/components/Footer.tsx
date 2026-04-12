@@ -35,7 +35,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-slate-950 text-slate-100 py-12 md:py-14 border-t border-slate-800">
+    <footer className="bg-slate-900 dark:bg-slate-950 text-slate-100 py-12 md:py-14 border-t border-slate-800">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-6 gap-7 md:gap-10 mb-10">
           {/* Бренд */}

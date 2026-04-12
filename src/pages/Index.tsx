@@ -70,7 +70,7 @@ const Index = () => {
         structuredData={organizationSchema}
       />
 
-      <div className="min-h-screen flex flex-col bg-slate-950">
+      <div className="min-h-screen flex flex-col bg-background">
         <Header />
         <main id="main-content" className="flex-1">
           <Hero />

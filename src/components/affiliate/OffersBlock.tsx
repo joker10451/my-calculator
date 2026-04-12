@@ -61,6 +61,15 @@ export interface OffersBlockProps {
   placement?: Placement;
   title?: string;
   subtitle?: string;
+  /** Результат расчёта для персонализированного CTA */
+  calculationResult?: {
+    /** Числовое значение (платёж, сумма и т.д.) */
+    value?: number;
+    /** Подпись (например: "Ежемесячный платёж") */
+    label?: string;
+    /** Форматированное значение для подстановки в текст */
+    formatted?: string;
+  };
 }
 
 export function OffersBlock({

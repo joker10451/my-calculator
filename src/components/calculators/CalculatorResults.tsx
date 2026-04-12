@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
-import { Calculator, Scale, Download, Share2 } from 'lucide-react';
+import { Calculator, Scale, Download, Share2, FileSpreadsheet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { AnimatedNumber } from '@/components/ui/AnimatedNumber';
+import type { ExcelExportOptions } from '@/lib/excelService';
 
 interface ResultItem {
   label: string;
@@ -20,6 +22,8 @@ interface CalculatorResultsProps {
   onCompare?: () => void;
   onDownload?: () => void;
   onShare?: () => void;
+  /** Данные для экспорта в Excel. Если не передать, кнопка Excel не показывается */
+  excelOptions?: Omit<ExcelExportOptions, 'rows'>;
   className?: string;
 }
 
@@ -30,8 +34,16 @@ export const CalculatorResults = ({
   onCompare,
   onDownload,
   onShare,
+  excelOptions,
   className = '',
 }: CalculatorResultsProps) => {
+  const handleExcelExport = async () => {
+    const { exportToExcel } = await import('@/lib/excelService');
+    await exportToExcel({
+      ...excelOptions,
+      rows: results.map(r => ({ label: r.label, value: r.value })),
+    });
+  };
   const getVariantColor = (variant?: string) => {
     switch (variant) {
       case 'success':
@@ -58,8 +70,12 @@ export const CalculatorResults = ({
           <div className="text-sm text-muted-foreground mb-1">
             {mainResult.label}
           </div>
-          <div className="calc-result animate-count-up">
-            {mainResult.value}
+          <div className="calc-result">
+            {typeof mainResult.value === 'number' ? (
+              <AnimatedNumber value={mainResult.value} />
+            ) : (
+              mainResult.value
+            )}
           </div>
         </div>
       )}
@@ -80,12 +96,18 @@ export const CalculatorResults = ({
       </div>
 
       {/* Действия */}
-      {(onCompare || onDownload || onShare) && (
+      {(onCompare || onDownload || onShare || excelOptions) && (
         <div className="space-y-3 pt-4 border-t border-border">
           {onDownload && (
             <Button variant="hero" className="w-full gap-2" onClick={onDownload}>
               <Download className="w-5 h-5" />
-              Скачать отчет
+              Скачать отчет (PDF)
+            </Button>
+          )}
+          {excelOptions && (
+            <Button variant="outline" className="w-full gap-2" onClick={handleExcelExport}>
+              <FileSpreadsheet className="w-5 h-5 text-green-600" />
+              Скачать Excel
             </Button>
           )}
           <div className="grid grid-cols-2 gap-2">

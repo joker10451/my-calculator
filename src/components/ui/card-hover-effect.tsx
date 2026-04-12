@@ -15,6 +15,7 @@ export const HoverEffect = ({
         color?: string;
         bgColor?: string;
         extra?: React.ReactNode;
+        onMouseEnter?: () => void;
     }[];
     className?: string;
 }) => {
@@ -32,7 +33,7 @@ export const HoverEffect = ({
                     to={item?.link}
                     key={item?.link}
                     className="relative group block p-1.5 h-full w-full"
-                    onMouseEnter={() => setHoveredIndex(idx)}
+                    onMouseEnter={() => { setHoveredIndex(idx); item.onMouseEnter?.(); }}
                     onMouseLeave={() => setHoveredIndex(null)}
                 >
                     <AnimatePresence>

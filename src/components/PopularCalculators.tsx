@@ -3,6 +3,16 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { HoverEffect } from "./ui/card-hover-effect";
 
+// Lazy prefetch imports для топ-6 маршрутов
+const prefetchMap: Record<string, () => Promise<unknown>> = {
+  mortgage: () => import('@/pages/MortgageCalculatorPage'),
+  salary: () => import('@/pages/SalaryCalculatorPage'),
+  'court-fee': () => import('@/pages/CourtFeeCalculatorPage'),
+  utilities: () => import('@/pages/UtilitiesCalculatorPage'),
+  fuel: () => import('@/pages/FuelCalculatorPage'),
+  credit: () => import('@/pages/CreditCalculatorPage'),
+};
+
 const popularCalculators = [
   {
     id: "mortgage",
@@ -75,6 +85,16 @@ const PopularCalculators = () => {
     icon: calc.icon,
     color: calc.color,
     bgColor: calc.bgColor,
+    onMouseEnter: () => {
+      const prefetch = prefetchMap[calc.id];
+      if (prefetch) {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => prefetch(), { timeout: 2000 });
+        } else {
+          setTimeout(() => prefetch(), 100);
+        }
+      }
+    },
     extra: (
       <div className="flex items-center gap-1 mt-auto pt-4 text-xs font-medium text-slate-300">
         <CheckCircle2 className="w-3 h-3 text-green-500" />
@@ -84,14 +104,14 @@ const PopularCalculators = () => {
   }));
 
   return (
-    <section className="py-12 md:py-16 bg-slate-950">
+    <section className="py-12 md:py-16 bg-background">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 md:mb-10 text-center md:text-left">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2 uppercase tracking-tight text-slate-100">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2 uppercase tracking-tight text-foreground">
               Популярные калькуляторы
             </h2>
-            <p className="text-lg text-slate-300 max-w-2xl">
+            <p className="text-lg text-muted-foreground max-w-2xl">
               Самые востребованные расчёты прямо сейчас
             </p>
           </div>
