@@ -220,6 +220,23 @@ export const AFFILIATE_LINKS: Record<string, AffiliateLink> = {
     priority: 88,
   },
 
+  'pampadu-offer-31ba9c13': {
+    url: 'https://trk.ppdu.ru/click/o6eCET0k?erid=CQH36pWzJqVGXC5oLP8WVVNCNqJmbhiUPijGiu4zpwPd7G',
+    bankId: 'pampadu',
+    productType: 'vacancies',
+    erid: 'CQH36pWzJqVGXC5oLP8WVVNCNqJmbhiUPijGiu4zpwPd7G',
+    description: 'Курьер в Яндекс.Еда/Яндекс.Лавка (РФ/РБ) — гибкий график и ежедневные выплаты',
+    title: 'Курьер Яндекс.Еда/Яндекс.Лавка',
+    category: 'vacancies',
+    badges: ['Вакансии', 'РФ/РБ', 'До 9 750 ₽'],
+    updatedAt: '2026-04-08',
+    eligibility: ['Возраст и условия зависят от города', 'Android/iOS с актуальной версией'],
+    restrictions: ['Условия и доступные форматы зависят от города'],
+    publicDetails: 'График и формат работы выбираются по правилам сервиса',
+    internalNotes: 'Конверсии выгружаются вручную: пн/ср/пт',
+    priority: 92,
+  },
+
   'ruki-vacancy-moscow': {
     url: 'https://trk.ppdu.ru/click/zWDbY2Cd?erid=2SDnjceSYW1',
     bankId: 'ruki',

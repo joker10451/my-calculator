@@ -35,6 +35,7 @@ const OFFERS_BY_PRODUCT: Record<string, OfferKeyConfig[]> = {
     { key: 'joymoney-loan', label: 'JoyMoney — займ онлайн', partnerName: 'joymoney', productType: 'loan', isPopular: true },
   ],
   vacancies: [
+    { key: 'pampadu-offer-31ba9c13', label: 'Курьер Яндекс.Еда/Лавка', partnerName: 'pampadu', productType: 'vacancies', isPopular: true },
     { key: 'ruki-vacancy-moscow', label: 'Сервис «Руки» — мастера по ремонту', partnerName: 'ruki', productType: 'vacancies' },
   ],
 };
