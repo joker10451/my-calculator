@@ -67,13 +67,7 @@ function CalculatorFeedback({ calculatorId }: { calculatorId: string }) {
     setVoted(type);
     setSubmitted(true);
     try { storage.set(`calc_feedback_${calculatorId}`, type); } catch {}
-    try {
-      fetch('/api/feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ calculator_id: calculatorId, feedback_type: type }),
-      }).catch(() => {});
-    } catch {}
+    // Note: backend API not available — feedback stored in localStorage only
     toast.success(type === 'positive' ? 'Круто, мы полезны! 🎉' : 'Учтём, спасибо за честность!');
   };
 

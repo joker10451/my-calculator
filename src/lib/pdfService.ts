@@ -633,7 +633,7 @@ export class PdfService {
 // Экспортируем экземпляр сервиса для обратной совместимости
 const pdfService = new PdfService();
 
-export const exportToPDF = async (elementId: string, filename: string, _stampBase64?: string): Promise<boolean> => {
+export const exportToPDF = async (elementId: string, filename: string): Promise<boolean> => {
   try {
     const result = await pdfService.exportToPDF(elementId, filename);
     return result.success;
