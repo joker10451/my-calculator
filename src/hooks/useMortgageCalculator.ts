@@ -1,20 +1,33 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 import { calculateMortgage, type ExtraPayment, type MortgageCalculationResult, type ScheduleItem } from "@/lib/mortgageCalculations";
-import { parseShareableLink } from "@/utils/exportUtils";
 import { exportToPDF } from "@/lib/pdfService";
 
 export const useMortgageCalculator = () => {
     const { formatCurrency, saveCalculation, addToComparison, showToast } = useCalculatorCommon('mortgage', 'Ипотечный калькулятор');
 
-    const [price, setPrice] = useLocalStorage("mortgage_price", 5000000);
-    const [initialPayment, setInitialPayment] = useLocalStorage("mortgage_initial", 1000000);
+    // Parse URL params on initial load (take priority over localStorage)
+    const getInitialValue = <T,>(param: string, fallback: T, parser: (v: string) => T): T => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const val = urlParams.get(param);
+        if (val === null) return fallback;
+        try { return parser(val); } catch { return fallback; }
+    };
+
+    const [price, setPrice] = useLocalStorage("mortgage_price",
+        getInitialValue('price', 5000000, v => parseInt(v, 10)));
+    const [initialPayment, setInitialPayment] = useLocalStorage("mortgage_initial",
+        getInitialValue('initial', 1000000, v => parseInt(v, 10)));
     const [isInitialPercent, setIsInitialPercent] = useState(false);
-    const [term, setTerm] = useLocalStorage("mortgage_term", 20); // years
-    const [rate, setRate] = useLocalStorage("mortgage_rate", 18);
-    const [withMatCapital, setWithMatCapital] = useState(false);
-    const [paymentType, setPaymentType] = useState<"annuity" | "differentiated">("annuity");
+    const [term, setTerm] = useLocalStorage("mortgage_term",
+        getInitialValue('term', 20, v => parseInt(v, 10))); // years
+    const [rate, setRate] = useLocalStorage("mortgage_rate",
+        getInitialValue('rate', 18, v => parseFloat(v)));
+    const [withMatCapital, setWithMatCapital] = useState(
+        getInitialValue('matcap', false, v => v === '1' || v === 'true'));
+    const [paymentType, setPaymentType] = useState<"annuity" | "differentiated">(
+        getInitialValue('type', 'annuity', v => v === 'diff' ? 'differentiated' : 'annuity'));
     const [extraPayments, setExtraPayments] = useLocalStorage<ExtraPayment[]>("mortgage_extra_payments", []);
     interface MortgageInputs {
         price: number;
@@ -31,18 +44,22 @@ export const useMortgageCalculator = () => {
 
     const MAT_CAPITAL = 934058; // Official for 2026 (first child)
 
-    // Load results from shared link
+    // Update URL params when inputs change (debounced via timeout)
     useEffect(() => {
-        const sharedParams = parseShareableLink();
-        if (sharedParams) {
-            if (sharedParams.price) setPrice(sharedParams.price as number);
-            if (sharedParams.initialPayment) setInitialPayment(sharedParams.initialPayment as number);
-            if (sharedParams.term) setTerm(sharedParams.term as number);
-            if (sharedParams.rate) setRate(sharedParams.rate as number);
-            if (sharedParams.withMatCapital !== undefined) setWithMatCapital(sharedParams.withMatCapital as boolean);
-            if (sharedParams.paymentType) setPaymentType(sharedParams.paymentType as "annuity" | "differentiated");
-        }
-    }, [setPrice, setInitialPayment, setTerm, setRate, setWithMatCapital, setPaymentType]);
+        const timer = setTimeout(() => {
+            const params = new URLSearchParams();
+            if (price !== 5000000) params.set('price', String(price));
+            if (initialPayment !== 1000000) params.set('initial', String(initialPayment));
+            if (term !== 20) params.set('term', String(term));
+            if (rate !== 18) params.set('rate', String(rate));
+            if (withMatCapital) params.set('matcap', '1');
+            if (paymentType === 'differentiated') params.set('type', 'diff');
+
+            const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+            window.history.replaceState(null, '', newUrl);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [price, initialPayment, term, rate, withMatCapital, paymentType]);
 
     const calculations = useMemo(() => {
         return calculateMortgage({
@@ -95,6 +112,24 @@ export const useMortgageCalculator = () => {
         await navigator.clipboard.writeText(text);
         showToast("Скопировано!");
     };
+
+    const copyShareableLink = useCallback(async () => {
+        const params = new URLSearchParams();
+        params.set('price', String(price));
+        params.set('initial', String(initialPayment));
+        params.set('term', String(term));
+        params.set('rate', String(rate));
+        if (withMatCapital) params.set('matcap', '1');
+        if (paymentType === 'differentiated') params.set('type', 'diff');
+
+        const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+        try {
+            await navigator.clipboard.writeText(url);
+            showToast('Ссылка скопирована!', 'Поделитесь расчётом — получатель увидит те же цифры');
+        } catch {
+            showToast('Не удалось скопировать', 'Попробуйте скопировать URL вручную', 'destructive');
+        }
+    }, [price, initialPayment, term, rate, withMatCapital, paymentType, showToast]);
 
     const handleCompare = () => {
         addToComparison(
@@ -175,6 +210,7 @@ export const useMortgageCalculator = () => {
         calculations,
         handleDownload,
         handleShare,
+        copyShareableLink,
         handleCompare,
         addExtraPayment,
         removeExtraPayment,

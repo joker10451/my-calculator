@@ -1,4 +1,4 @@
-import { TrendingDown, Download, Share2, Scale, TrendingDown as SavingsIcon } from "lucide-react";
+import { TrendingDown, Download, Share2, Scale, TrendingDown as SavingsIcon, Link2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip as ChartTooltip, Legend } from 'recharts';
 
@@ -10,6 +10,7 @@ interface MortgageSummaryProps {
     formatCurrency: (v: number) => string;
     handleDownload: () => void;
     handleShare: () => void;
+    copyShareableLink: () => Promise<void>;
     handleCompare: () => void;
     rate?: number;
     calculatorRate?: number;
@@ -20,6 +21,7 @@ export const MortgageSummary = ({
     formatCurrency,
     handleDownload,
     handleShare,
+    copyShareableLink,
     handleCompare,
     rate: currentRate,
     calculatorRate
@@ -110,14 +112,18 @@ export const MortgageSummary = ({
                             <Download className="w-6 h-6" />
                             Скачать отчет
                         </Button>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-3 gap-2">
                             <Button variant="outline" className="gap-2" onClick={handleShare}>
                                 <Share2 className="w-4 h-4" />
                                 Поделиться
                             </Button>
+                            <Button variant="outline" className="gap-2" onClick={copyShareableLink}>
+                                <Link2 className="w-4 h-4" />
+                                Ссылка
+                            </Button>
                             <Button variant="secondary" className="gap-2" onClick={handleCompare}>
                                 <Scale className="w-4 h-4" />
-                                К сравнению
+                                Сравнить
                             </Button>
                         </div>
                     </div>

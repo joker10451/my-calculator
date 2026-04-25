@@ -26,6 +26,7 @@ const MortgageCalculator = () => {
     calculations,
     handleDownload,
     handleShare,
+    copyShareableLink,
     handleCompare,
     addExtraPayment,
     removeExtraPayment,
@@ -119,6 +120,7 @@ const MortgageCalculator = () => {
             formatCurrency={formatCurrency}
             handleDownload={handleDownload}
             handleShare={handleShare}
+            copyShareableLink={copyShareableLink}
             handleCompare={handleCompare}
             rate={currentRate}
             calculatorRate={rate}
