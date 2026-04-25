@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { TrendingDown, PiggyBank, Calendar, Percent, ArrowDown, ArrowRight, Download, Share2, Building2 } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { TrendingDown, PiggyBank, Calendar, Percent, ArrowDown, ArrowRight, Download, Share2, Building2, Link2, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { jsPDF } from 'jspdf';
 import { formatMoney } from '@/lib/utils';
@@ -21,13 +21,34 @@ function calcMonthlyPayment(amount: number, annualRate: number, months: number):
   return amount * (r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
 }
 
+const getInitial = <T,>(param: string, fallback: T, parser: (v: string) => T): T => {
+  const v = new URLSearchParams(window.location.search).get(param);
+  if (v === null) return fallback;
+  try { return parser(v); } catch { return fallback; }
+};
+
 export function RefinancingCalculator() {
   const { toast } = useToast();
-  const [balance, setBalance] = useState(2000000);
-  const [oldRate, setOldRate] = useState(18);
-  const [newRate, setNewRate] = useState(14);
-  const [remainingMonths, setRemainingMonths] = useState(180);
+  const [balance, setBalance] = useState(getInitial('balance', 2000000, v => parseInt(v, 10)));
+  const [oldRate, setOldRate] = useState(getInitial('oldRate', 18, v => parseFloat(v)));
+  const [newRate, setNewRate] = useState(getInitial('newRate', 14, v => parseFloat(v)));
+  const [remainingMonths, setRemainingMonths] = useState(getInitial('months', 180, v => parseInt(v, 10)));
   const [showResult, setShowResult] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
+
+  // Auto-update URL
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (balance !== 2000000) params.set('balance', String(balance));
+      if (oldRate !== 18) params.set('oldRate', String(oldRate));
+      if (newRate !== 14) params.set('newRate', String(newRate));
+      if (remainingMonths !== 180) params.set('months', String(remainingMonths));
+      const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+      window.history.replaceState(null, '', newUrl);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [balance, oldRate, newRate, remainingMonths]);
 
   const result = useMemo<RefiResult | null>(() => {
     if (balance <= 0 || oldRate <= 0 || newRate <= 0 || remainingMonths <= 0) return null;
@@ -97,6 +118,17 @@ export function RefinancingCalculator() {
     } else {
       await navigator.clipboard.writeText(text);
       toast({ title: 'Скопировано!', description: 'Текст скопирован в буфер обмена' });
+    }
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setLinkCopied(true);
+      toast({ title: 'Ссылка скопирована!', description: 'Отправьте друзьям — откроется с вашими цифрами' });
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      toast({ title: 'Ошибка', description: 'Не удалось скопировать ссылку' });
     }
   };
 
@@ -317,6 +349,13 @@ export function RefinancingCalculator() {
                 >
                   <Share2 className="w-5 h-5" />
                   Поделиться
+                </button>
+                <button
+                  onClick={handleCopyLink}
+                  className="flex-1 h-14 bg-white border-2 border-slate-200 text-slate-900 font-bold rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                >
+                  {linkCopied ? <Check className="w-5 h-5 text-emerald-600" /> : <Link2 className="w-5 h-5" />}
+                  {linkCopied ? 'Скопировано!' : 'Скопировать ссылку'}
                 </button>
                 <button
                   onClick={handleDownload}
