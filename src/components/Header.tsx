@@ -110,6 +110,7 @@ const Header = () => {
                 ref={inputRef}
                 type="text"
                 placeholder="Поиск калькулятора..."
+                aria-label="Поиск калькулятора"
                 className="w-full h-9 pl-10 pr-4 rounded-lg border border-slate-700 bg-slate-900/90 text-slate-100 placeholder:text-slate-500 transition-colors focus:ring-2 focus:ring-primary/30 outline-none text-sm"
                 value={searchQuery}
                 onChange={(e) => {
@@ -188,7 +189,7 @@ const Header = () => {
             >
               Вакансии
             </Link>
-            <Link to="/compare" className="relative p-2 text-slate-300 hover:text-primary transition-colors">
+            <Link to="/compare" className="relative p-2 text-slate-300 hover:text-primary transition-colors" aria-label="Сравнение калькуляторов">
               <Scale className="w-4 h-4" />
               {items.length > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
@@ -196,7 +197,7 @@ const Header = () => {
                 </span>
               )}
             </Link>
-            <Link to="/favorites" className="relative p-2 text-slate-300 hover:text-primary transition-colors">
+            <Link to="/favorites" className="relative p-2 text-slate-300 hover:text-primary transition-colors" aria-label="Избранное">
               <Heart className="w-4 h-4" />
               {favorites.length > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
@@ -209,7 +210,7 @@ const Header = () => {
 
           {/* Mobile Actions */}
           <div className="flex lg:hidden items-center gap-1">
-            <Link to="/compare" className="relative p-2 text-slate-300 hover:text-primary transition-colors">
+            <Link to="/compare" className="relative p-2 text-slate-300 hover:text-primary transition-colors" aria-label="Сравнение калькуляторов">
               <Scale className="w-5 h-5" />
               {items.length > 0 && (
                 <span className="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
@@ -217,7 +218,7 @@ const Header = () => {
                 </span>
               )}
             </Link>
-            <Link to="/favorites" className="relative p-2 text-slate-300 hover:text-primary transition-colors">
+            <Link to="/favorites" className="relative p-2 text-slate-300 hover:text-primary transition-colors" aria-label="Избранное">
               <Heart className="w-5 h-5" />
               {favorites.length > 0 && (
                 <span className="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
@@ -231,6 +232,7 @@ const Header = () => {
                 setIsSearchOpen(!isSearchOpen);
                 setIsMenuOpen(false);
               }}
+              aria-label={isSearchOpen ? "Закрыть поиск" : "Открыть поиск"}
             >
               <Search className="w-5 h-5" />
             </button>
@@ -241,6 +243,7 @@ const Header = () => {
                 setIsMenuOpen(!isMenuOpen);
                 setIsSearchOpen(false);
               }}
+              aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -254,6 +257,7 @@ const Header = () => {
               ref={mobileInputRef}
               type="text"
               placeholder="Поиск калькулятора..."
+              aria-label="Поиск калькулятора"
               className="w-full h-9 px-3 rounded-md border border-slate-700 bg-slate-900 text-slate-100 outline-none mb-1 text-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

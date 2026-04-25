@@ -72,7 +72,9 @@ export function NewsletterSignup({ source = 'footer', className = '' }: Newslett
         <form onSubmit={handleSubmit} className="flex gap-2 mt-4">
           <input
             type="email"
+            id="newsletter-email-blog"
             placeholder="Ваш email"
+            aria-label="Email для подписки на обновления"
             value={email}
             onChange={e => setEmail(e.target.value)}
             className="flex-1 h-11 px-4 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-blue-500/30"
@@ -96,7 +98,9 @@ export function NewsletterSignup({ source = 'footer', className = '' }: Newslett
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           type="email"
+          id="newsletter-email-footer"
           placeholder="Ваш email"
+          aria-label="Email для подписки на обновления"
           value={email}
           onChange={e => setEmail(e.target.value)}
           className="flex-1 min-w-0 h-9 px-3 rounded-lg border border-slate-700 bg-slate-900 text-slate-100 text-sm outline-none focus:ring-1 focus:ring-blue-500/50"

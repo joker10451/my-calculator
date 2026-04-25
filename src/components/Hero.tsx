@@ -56,8 +56,9 @@ const Hero = () => {
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Быстрый расчёт ипотеки</p>
           <div className="grid grid-cols-3 gap-3 mb-4">
             <div>
-              <label className="text-xs text-muted-foreground mb-1 block">Стоимость, ₽</label>
+              <label htmlFor="hero-price" className="text-xs text-muted-foreground mb-1 block">Стоимость, ₽</label>
               <input
+                id="hero-price"
                 type="number"
                 value={price}
                 min={500000}
@@ -68,8 +69,9 @@ const Hero = () => {
               />
             </div>
             <div>
-              <label className="text-xs text-muted-foreground mb-1 block">Взнос, ₽</label>
+              <label htmlFor="hero-downpayment" className="text-xs text-muted-foreground mb-1 block">Взнос, ₽</label>
               <input
+                id="hero-downpayment"
                 type="number"
                 value={downPayment}
                 min={0}
@@ -80,8 +82,9 @@ const Hero = () => {
               />
             </div>
             <div>
-              <label className="text-xs text-muted-foreground mb-1 block">Срок, лет</label>
+              <label htmlFor="hero-term" className="text-xs text-muted-foreground mb-1 block">Срок, лет</label>
               <input
+                id="hero-term"
                 type="number"
                 value={termYears}
                 min={1}
