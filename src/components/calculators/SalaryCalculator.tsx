@@ -1,28 +1,38 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Download, Share2, Info, Wallet, Building2, Coins, PiggyBank, TrendingUp, Scale } from "lucide-react";
+import { Calculator, Download, Share2, Info, Wallet, Building2, Coins, PiggyBank, TrendingUp, Scale, Link2 } from "lucide-react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { PSBCardWidget } from "@/components/PSBCardWidget";
 import { shouldShowPSBCard, getPSBCardVariant, getPSBCardSource } from "@/lib/psbCardPlacement";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { parseShareableLink } from "@/utils/exportUtils";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 import { exportToPDF } from "@/lib/pdfService";
 
 const SalaryCalculator = () => {
   const { formatCurrency, saveCalculation, addToComparison, showToast } = useCalculatorCommon('salary', 'Зарплатный калькулятор');
-  const [salary, setSalary] = useLocalStorage<number>("calc_salary_amount", 100000);
 
-  // Загрузка параметров из расшаренной ссылки
+  const getInitial = <T,>(param: string, fallback: T, parser: (v: string) => T): T => {
+    const v = new URLSearchParams(window.location.search).get(param);
+    if (v === null) return fallback;
+    try { return parser(v); } catch { return fallback; }
+  };
+
+  const [salary, setSalary] = useLocalStorage<number>("calc_salary_amount",
+    getInitial('salary', 100000, v => parseInt(v, 10)));
+
+  // Auto-update URL when salary changes
   useEffect(() => {
-    const sharedParams = parseShareableLink();
-    if (sharedParams && sharedParams.salary) {
-      setSalary(sharedParams.salary);
-    }
-  }, []);
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (salary !== 100000) params.set('salary', String(salary));
+      const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+      window.history.replaceState(null, '', newUrl);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [salary]);
 
   // Определяем, нужно ли показывать карту ПСБ
   const showPSBCard = shouldShowPSBCard({
@@ -128,6 +138,18 @@ const SalaryCalculator = () => {
       showToast("Ошибка", "Не удалось скопировать.", "destructive");
     }
   };
+
+  const copyShareableLink = useCallback(async () => {
+    const params = new URLSearchParams();
+    params.set('salary', String(salary));
+    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast('Ссылка скопирована!', 'Поделитесь расчётом — получатель увидит те же цифры');
+    } catch {
+      showToast('Не удалось скопировать', 'Попробуйте скопировать URL вручную', 'destructive');
+    }
+  }, [salary, showToast]);
 
   const handleCompare = () => {
     addToComparison(
@@ -293,10 +315,16 @@ const SalaryCalculator = () => {
                 <Download className="w-5 h-5" />
                 Скачать PDF
               </Button>
-              <Button variant="outline" className="w-full gap-2" onClick={handleShare}>
-                <Share2 className="w-5 h-5" />
-                Поделиться
-              </Button>
+              <div className="grid grid-cols-2 gap-2">
+                <Button variant="outline" className="gap-2" onClick={handleShare}>
+                  <Share2 className="w-4 h-4" />
+                  Поделиться
+                </Button>
+                <Button variant="outline" className="gap-2" onClick={copyShareableLink}>
+                  <Link2 className="w-4 h-4" />
+                  Ссылка
+                </Button>
+              </div>
               <Button variant="secondary" className="w-full gap-2" onClick={handleCompare}>
                 <Scale className="w-5 h-5" />
                 Добавить к сравнению

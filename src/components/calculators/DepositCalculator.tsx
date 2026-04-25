@@ -1,6 +1,6 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Calculator, TrendingUp, Info, Share2, Wallet, Download } from "lucide-react";
+import { Calculator, TrendingUp, Info, Share2, Wallet, Download, Link2 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { exportToPDF } from "@/lib/pdfService";
@@ -8,28 +8,42 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { PSBCardWidget } from "@/components/PSBCardWidget";
 import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { parseShareableLink } from "@/utils/exportUtils";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 
 const DepositCalculator = () => {
     const { formatCurrency, saveCalculation, showToast } = useCalculatorCommon('deposit', 'Калькулятор вкладов');
-    const [amount, setAmount] = useLocalStorage("calc_deposit_amount", 100000);
-    const [rate, setRate] = useLocalStorage("calc_deposit_rate", 15);
-    const [term, setTerm] = useLocalStorage("calc_deposit_term", 12); // months
-    const [replenishment, setReplenishment] = useLocalStorage("calc_deposit_replenishment", 0);
-    const [indexation, setIndexation] = useLocalStorage("calc_deposit_indexation", 0);
 
-    // Загрузка из расшаренной ссылки
+    const getInitial = <T,>(param: string, fallback: T, parser: (v: string) => T): T => {
+        const v = new URLSearchParams(window.location.search).get(param);
+        if (v === null) return fallback;
+        try { return parser(v); } catch { return fallback; }
+    };
+
+    const [amount, setAmount] = useLocalStorage("calc_deposit_amount",
+        getInitial('amount', 100000, v => parseInt(v, 10)));
+    const [rate, setRate] = useLocalStorage("calc_deposit_rate",
+        getInitial('rate', 15, v => parseFloat(v)));
+    const [term, setTerm] = useLocalStorage("calc_deposit_term",
+        getInitial('term', 12, v => parseInt(v, 10))); // months
+    const [replenishment, setReplenishment] = useLocalStorage("calc_deposit_replenishment",
+        getInitial('repl', 0, v => parseInt(v, 10)));
+    const [indexation, setIndexation] = useLocalStorage("calc_deposit_indexation",
+        getInitial('index', 0, v => parseFloat(v)));
+
+    // Auto-update URL
     useEffect(() => {
-        const params = parseShareableLink();
-        if (params) {
-            if (params.amount) setAmount(params.amount);
-            if (params.rate) setRate(params.rate);
-            if (params.term) setTerm(params.term);
-            if (params.replenishment) setReplenishment(params.replenishment);
-            if (params.indexation) setIndexation(params.indexation);
-        }
-    }, []);
+        const timer = setTimeout(() => {
+            const params = new URLSearchParams();
+            if (amount !== 100000) params.set('amount', String(amount));
+            if (rate !== 15) params.set('rate', String(rate));
+            if (term !== 12) params.set('term', String(term));
+            if (replenishment !== 0) params.set('repl', String(replenishment));
+            if (indexation !== 0) params.set('index', String(indexation));
+            const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+            window.history.replaceState(null, '', newUrl);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [amount, rate, term, replenishment, indexation]);
 
     const { total, interest, history } = useMemo(() => {
         let currentBalance = amount;
@@ -112,6 +126,22 @@ const DepositCalculator = () => {
             showToast("Ошибка", "Не удалось скопировать", "destructive");
         }
     };
+
+    const copyShareableLink = useCallback(async () => {
+        const params = new URLSearchParams();
+        params.set('amount', String(amount));
+        params.set('rate', String(rate));
+        params.set('term', String(term));
+        if (replenishment !== 0) params.set('repl', String(replenishment));
+        if (indexation !== 0) params.set('index', String(indexation));
+        const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+        try {
+            await navigator.clipboard.writeText(url);
+            showToast('Ссылка скопирована!', 'Поделитесь расчётом — получатель увидит те же цифры');
+        } catch {
+            showToast('Не удалось скопировать', 'Попробуйте скопировать URL вручную', 'destructive');
+        }
+    }, [amount, rate, term, replenishment, indexation, showToast]);
 
     const handleLoadFromHistory = (item: { inputs: { amount?: number; rate?: number; term?: number; replenishment?: number; indexation?: boolean } }) => {
         if (item.inputs.amount) setAmount(item.inputs.amount);
@@ -247,10 +277,16 @@ const DepositCalculator = () => {
                                 <Download className="w-5 h-5" />
                                 Скачать PDF
                             </Button>
-                            <Button variant="outline" className="w-full gap-2" onClick={handleShare}>
-                                <Share2 className="w-5 h-5" />
-                                Поделиться
-                            </Button>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Button variant="outline" className="gap-2" onClick={handleShare}>
+                                    <Share2 className="w-4 h-4" />
+                                    Поделиться
+                                </Button>
+                                <Button variant="outline" className="gap-2" onClick={copyShareableLink}>
+                                    <Link2 className="w-4 h-4" />
+                                    Ссылка
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>

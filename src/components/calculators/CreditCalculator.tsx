@@ -1,35 +1,45 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Slider } from "@/components/ui/slider";
-import { Info, Banknote, Calendar, Percent } from "lucide-react";
+import { Info, Banknote, Calendar, Percent, Download, Share2, Link2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { PSBCardWidget } from "@/components/PSBCardWidget";
-import { CalculatorActions } from "@/components/CalculatorActions";
 import { CalculatorHistory } from "@/components/CalculatorHistory";
-import { parseShareableLink } from "@/utils/exportUtils";
 import { CalculatorResults } from "@/components/calculators/CalculatorResults";
 import { useCalculatorCommon } from "@/hooks/useCalculatorCommon";
 import { useAnnuityCalculation } from "@/hooks/useCalculatorMemo";
+import { exportToPDF } from "@/lib/pdfService";
 
 const CreditCalculator = () => {
-    const [loanAmount, setLoanAmount] = useState(500000);
-    const [loanTerm, setLoanTerm] = useState(24); // months
-    const [interestRate, setInterestRate] = useState(19.5);
+    const getInitial = <T,>(param: string, fallback: T, parser: (v: string) => T): T => {
+        const v = new URLSearchParams(window.location.search).get(param);
+        if (v === null) return fallback;
+        try { return parser(v); } catch { return fallback; }
+    };
+
+    const [loanAmount, setLoanAmount] = useState(getInitial('amount', 500000, v => parseInt(v, 10)));
+    const [loanTerm, setLoanTerm] = useState(getInitial('term', 24, v => parseInt(v, 10))); // months
+    const [interestRate, setInterestRate] = useState(getInitial('rate', 19.5, v => parseFloat(v)));
 
     const {
         formatCurrency,
         formatTerm,
         saveCalculation,
         addToComparison,
+        showToast,
     } = useCalculatorCommon('credit', 'Кредитный калькулятор');
 
-    // Загрузка из расшаренной ссылки
+    // Auto-update URL
     useEffect(() => {
-        const params = parseShareableLink();
-        if (params) {
-            if (params.loanAmount) setLoanAmount(params.loanAmount);
-            if (params.loanTerm) setLoanTerm(params.loanTerm);
-            if (params.interestRate) setInterestRate(params.interestRate);
-        }
-    }, []);
+        const timer = setTimeout(() => {
+            const params = new URLSearchParams();
+            if (loanAmount !== 500000) params.set('amount', String(loanAmount));
+            if (loanTerm !== 24) params.set('term', String(loanTerm));
+            if (interestRate !== 19.5) params.set('rate', String(interestRate));
+            const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+            window.history.replaceState(null, '', newUrl);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [loanAmount, loanTerm, interestRate]);
 
     // Расчеты с использованием оптимизированного хука
     const calculations = useAnnuityCalculation(loanAmount, interestRate, loanTerm);
@@ -68,6 +78,41 @@ const CreditCalculator = () => {
         if (item.inputs.interestRate) setInterestRate(item.inputs.interestRate);
     };
 
+    const handleDownload = async () => {
+        showToast("Генерация PDF", "Пожалуйста, подождите...");
+        const success = await exportToPDF("credit-report-template", `расчет_кредита_${new Date().toISOString().split('T')[0]}`);
+        if (success) {
+            showToast("Успех!", "PDF-отчет сформирован.");
+        } else {
+            showToast("Ошибка", "Не удалось создать PDF.", "destructive");
+        }
+    };
+
+    const handleShare = async () => {
+        const text = `Кредит ${formatCurrency(loanAmount)} на ${loanTerm} мес. при ${interestRate}%: платёж ${formatCurrency(monthlyPayment)}/мес, переплата ${formatCurrency(totalInterest)}`;
+        if (navigator.share) {
+            try { await navigator.share({ title: 'Расчет кредита', text }); return; } catch {}
+        }
+        try {
+            await navigator.clipboard.writeText(text);
+            showToast("Скопировано!");
+        } catch { showToast("Ошибка", "Не удалось скопировать", "destructive"); }
+    };
+
+    const copyShareableLink = useCallback(async () => {
+        const params = new URLSearchParams();
+        params.set('amount', String(loanAmount));
+        params.set('term', String(loanTerm));
+        params.set('rate', String(interestRate));
+        const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+        try {
+            await navigator.clipboard.writeText(url);
+            showToast('Ссылка скопирована!', 'Поделитесь расчётом — получатель увидит те же цифры');
+        } catch {
+            showToast('Не удалось скопировать', 'Попробуйте скопировать URL вручную', 'destructive');
+        }
+    }, [loanAmount, loanTerm, interestRate, showToast]);
+
     const exportData = [{
         'Сумма кредита': formatCurrency(loanAmount),
         'Срок': formatTerm(loanTerm),
@@ -85,13 +130,6 @@ const CreditCalculator = () => {
                     <CalculatorHistory
                         calculatorType="credit"
                         onLoadCalculation={handleLoadFromHistory}
-                    />
-                    <CalculatorActions
-                        calculatorId="credit"
-                        calculatorName="Кредитный калькулятор"
-                        data={exportData}
-                        printElementId="credit-results"
-                        shareParams={{ loanAmount, loanTerm, interestRate }}
                     />
                 </div>
             </div>
@@ -198,7 +236,20 @@ const CreditCalculator = () => {
                             }
                         ]}
                         onCompare={handleCompare}
+                        onDownload={handleDownload}
+                        onShare={handleShare}
                     />
+
+                    <div className="grid grid-cols-2 gap-2 mt-3">
+                        <Button variant="outline" className="gap-2" onClick={handleShare}>
+                            <Share2 className="w-4 h-4" />
+                            Поделиться
+                        </Button>
+                        <Button variant="outline" className="gap-2" onClick={copyShareableLink}>
+                            <Link2 className="w-4 h-4" />
+                            Ссылка
+                        </Button>
+                    </div>
 
                     {/* PSB Card Widget */}
                     <div className="mt-6 animate-fade-in relative z-0">
