@@ -51,3 +51,6 @@ DEPLOYMENT_*.md
 TODO_*.md
 CHANGELOG_*.md
 docs-archive/
+
+# Remotion video project (separate repo)
+my-video/
