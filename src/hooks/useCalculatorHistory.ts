@@ -18,10 +18,13 @@ export interface CalculationHistoryItem {
 const HISTORY_KEY = 'calculator_history';
 const MAX_HISTORY_ITEMS = 50;
 
-import { getSupabase } from '@/lib/database/supabase';
+async function getSupabaseLazy() {
+  const { getSupabase } = await import('@/lib/database/supabase');
+  return getSupabase();
+}
 
 async function syncToSupabase(userId: string, items: CalculationHistoryItem[]) {
-  const supabase = await getSupabase();
+  const supabase = await getSupabaseLazy();
   if (!supabase) return;
   try {
     await supabase
@@ -35,7 +38,7 @@ async function syncToSupabase(userId: string, items: CalculationHistoryItem[]) {
 }
 
 async function loadFromSupabase(userId: string): Promise<CalculationHistoryItem[] | null> {
-  const supabase = await getSupabase();
+  const supabase = await getSupabaseLazy();
   if (!supabase) return null;
   try {
     const { data } = await (supabase
@@ -68,7 +71,7 @@ export function useCalculatorHistory() {
       } catch {}
 
       // 2. Проверяем Supabase-сессию
-      const supabase = await getSupabase();
+      const supabase = await getSupabaseLazy();
       if (!supabase || !mounted) return;
 
       try {

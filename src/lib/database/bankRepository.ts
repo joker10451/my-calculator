@@ -3,7 +3,6 @@
  * Поддерживает как Supabase, так и локальное хранение
  */
 
-import { isSupabaseConfigured } from './supabase';
 import { localDB } from './local-storage';
 import type {
   Bank,
@@ -25,6 +24,8 @@ import type {
 /**
  * Конфигурация источника данных
  */
+const isSupabaseConfigured = Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+
 const dataSourceConfig: DataSourceConfig = {
   type: (import.meta.env.VITE_USE_SUPABASE === 'true' && isSupabaseConfigured) ? 'supabase' : 'local',
   fallback_enabled: true,
