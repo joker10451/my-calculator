@@ -21,8 +21,10 @@
   <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
   <link rel="dns-prefetch" href="https://mc.yandex.ru">
   
-  <!-- Inter Font - оптимизированная загрузка (Requirements 4.1, 4.2, 10.1, 10.2) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Inter Font - неблокирующая загрузка для LCP -->
+  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
   
   <!-- Canonical URL -->
   <link rel="canonical" href="https://schitay-online.ru/" />
@@ -57,6 +59,9 @@
   
   <!-- Theme Color -->
   <meta name="theme-color" content="#3B82F6" />
+  
+  <!-- Prevent FOUC -->
+  <style>html{font-family:system-ui,-apple-system,sans-serif;line-height:1.5}body{margin:0;background:#0f172a;color:#f8fafc}</style>
   
   <script type="text/javascript">
     // Single Page Apps for GitHub Pages
