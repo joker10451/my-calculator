@@ -189,7 +189,7 @@ export function getRelatedCalculators(
     'taxes-salary': ['salary', 'vacation', 'sick-leave', 'self-employed', 'pension'],
     'utilities-housing': ['utilities', 'water'],
     'auto-transport': ['osago', 'kasko', 'fuel', 'tire-size'],
-    'health-fitness': ['bmi', 'calories', 'water'],
+    'health-fitness': ['bmi', 'water'],
     'investments-deposits': ['deposit', 'investment', 'currency'],
     'legal-questions': ['court-fee', 'alimony'],
     'family-children': ['maternity-capital', 'alimony']

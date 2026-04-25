@@ -10,6 +10,15 @@ const ContactsPage = () => {
         <title>Контакты — Считай.RU</title>
         <meta name="description" content="Свяжитесь с нами по вопросам работы калькуляторов, предложениям и сообщениям об ошибках. Контактная информация Считай.RU" />
         <link rel="canonical" href="https://schitay-online.ru/contacts/" />
+        <meta property="og:title" content="Контакты — Считай.RU" />
+        <meta property="og:description" content="Свяжитесь с нами по вопросам работы калькуляторов, предложениям и сообщениям об ошибках." />
+        <meta property="og:url" content="https://schitay-online.ru/contacts/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://schitay-online.ru/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Контакты — Считай.RU" />
+        <meta name="twitter:description" content="Свяжитесь с нами по вопросам работы калькуляторов, предложениям и сообщениям об ошибках." />
+        <meta name="twitter:image" content="https://schitay-online.ru/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-background">

@@ -61,7 +61,6 @@ const CALCULATOR_BRIDGE_MAP: Record<
   ],
   'health-fitness': [
     { id: 'bmi', title: 'Калькулятор ИМТ', href: '/calculator/bmi/', subtitle: 'Индекс массы тела' },
-    { id: 'calories', title: 'Калькулятор калорий', href: '/calculator/calories/', subtitle: 'Суточная норма' },
     { id: 'water', title: 'Калькулятор воды', href: '/calculator/water/', subtitle: 'Режим потребления' },
   ],
   'family-law': [
@@ -266,6 +265,10 @@ export default function BlogPostPage() {
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
         {post.featuredImage && <meta property="og:image" content={getAssetUrl(post.featuredImage.url).startsWith('http') ? getAssetUrl(post.featuredImage.url) : `${SITE_URL}${getAssetUrl(post.featuredImage.url).startsWith('/') ? '' : '/'}${getAssetUrl(post.featuredImage.url)}`} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${post.title} | Считай.RU`} />
+        <meta name="twitter:description" content={post.excerpt} />
+        {post.featuredImage && <meta name="twitter:image" content={getAssetUrl(post.featuredImage.url).startsWith('http') ? getAssetUrl(post.featuredImage.url) : `${SITE_URL}${getAssetUrl(post.featuredImage.url).startsWith('/') ? '' : '/'}${getAssetUrl(post.featuredImage.url)}`} />}
       </Helmet>
 
       {/* SEO */}

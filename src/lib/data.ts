@@ -75,10 +75,9 @@ export const categories = [
         name: "Здоровье и фитнес",
         icon: Heart,
         color: "bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20",
-        description: "ИМТ, калории, вода",
+        description: "ИМТ, вода",
         calculators: [
             { name: "Индекс массы тела", href: "/calculator/bmi" },
-            { name: "Калькулятор калорий", href: "/calculator/calorie" },
             { name: "Норма воды", href: "/calculator/water" },
         ],
         href: "/category/health",

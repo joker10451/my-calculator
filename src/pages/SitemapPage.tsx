@@ -30,6 +30,15 @@ const SitemapPage = () => {
         <meta name="description" content="Полный список всех калькуляторов и страниц сайта Считай.RU. Ипотека, кредит, зарплата, налоги, ЖКХ и другие." />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://schitay-online.ru/sitemap/" />
+        <meta property="og:title" content="Карта сайта — Все калькуляторы | Считай.RU" />
+        <meta property="og:description" content="Полный список всех калькуляторов и страниц сайта Считай.RU. Ипотека, кредит, зарплата, налоги, ЖКХ и другие." />
+        <meta property="og:url" content="https://schitay-online.ru/sitemap/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://schitay-online.ru/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Карта сайта — Все калькуляторы | Считай.RU" />
+        <meta name="twitter:description" content="Полный список всех калькуляторов и страниц сайта Считай.RU. Ипотека, кредит, зарплата, налоги, ЖКХ и другие." />
+        <meta name="twitter:image" content="https://schitay-online.ru/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -89,7 +98,7 @@ const SitemapPage = () => {
             <h2 className="text-xl font-semibold mb-4">Все калькуляторы онлайн</h2>
             <p className="text-muted-foreground mb-4">
               На сайте Считай.RU представлены бесплатные онлайн-калькуляторы для различных сфер жизни:
-              финансовые расчеты (ипотека, кредит, зарплата, налоги), бытовые расчеты (ЖКХ, топливо, калории) 
+              финансовые расчеты (ипотека, кредит, зарплата, налоги), бытовые расчеты (ЖКХ, топливо) 
               и юридические расчеты (госпошлина, алименты).
             </p>
             <p className="text-muted-foreground">

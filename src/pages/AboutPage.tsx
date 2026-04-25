@@ -79,6 +79,11 @@ const AboutPage = () => {
         <meta property="og:description" content="Бесплатный сервис онлайн-калькуляторов для России. Точные расчёты по актуальным данным." />
         <meta property="og:url" content="https://schitay-online.ru/about/" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://schitay-online.ru/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="О проекте Считай.RU — бесплатные калькуляторы для России" />
+        <meta name="twitter:description" content="Бесплатный сервис онлайн-калькуляторов для России. Точные расчёты по актуальным данным." />
+        <meta name="twitter:image" content="https://schitay-online.ru/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-background">

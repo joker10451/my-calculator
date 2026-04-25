@@ -46,6 +46,11 @@ export default function HowMuchYouLosePage() {
         <link rel="canonical" href={`${SITE_URL}/how-much-you-lose`} />
         <meta property="og:title" content="Сколько ты теряешь — Калькулятор скрытых потерь" />
         <meta property="og:description" content="Я зарабатываю X₽, а теряю Y₽ в год. Узнай свои потери!" />
+        <meta property="og:image" content="https://schitay-online.ru/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Сколько ты теряешь — Калькулятор скрытых потерь | Считай.RU" />
+        <meta name="twitter:description" content="Я зарабатываю X₽, а теряю Y₽ в год. Узнай свои потери!" />
+        <meta name="twitter:image" content="https://schitay-online.ru/og-image.png" />
       </Helmet>
 
       <Header />

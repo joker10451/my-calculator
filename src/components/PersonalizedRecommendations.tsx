@@ -27,7 +27,6 @@ const CALCULATOR_TO_CATEGORY: Record<string, string[]> = {
   utilities: ['utilities-housing'],
   water: ['utilities-housing'],
   bmi: ['health-fitness'],
-  calorie: ['health-fitness'],
   alimony: ['family-law'],
   'maternity-capital': ['family-law'],
   osago: ['auto-transport'],

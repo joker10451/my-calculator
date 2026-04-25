@@ -29,7 +29,6 @@ const FuelCalculatorPage = lazy(() => import("./pages/FuelCalculatorPage"));
 const UtilitiesCalculatorPage = lazy(() => import("./pages/UtilitiesCalculatorPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const MaternityCapitalCalculatorPage = lazy(() => import("./pages/MaternityCapitalCalculatorPage"));
-const CalorieCalculatorPage = lazy(() => import("./pages/CalorieCalculatorPage"));
 const WaterCalculatorPage = lazy(() => import("./pages/WaterCalculatorPage"));
 const AlimonyCalculatorPage = lazy(() => import("./pages/AlimonyCalculatorPage"));
 const RefinancingCalculatorPage = lazy(() => import("./pages/RefinancingCalculatorPage"));
@@ -169,7 +168,7 @@ const AnimatedRoutes = () => {
           <Route path="/insurance/osgop-taxi" element={<PageTransition><ZettaOSGOPPage /></PageTransition>} />
           <Route path="/category/:id" element={<PageTransition><CategoryPage /></PageTransition>} />
           <Route path="/calculator/maternity-capital" element={<PageTransition><MaternityCapitalCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/calories" element={<PageTransition><CalorieCalculatorPage /></PageTransition>} />
+
           <Route path="/calculator/water" element={<PageTransition><WaterCalculatorPage /></PageTransition>} />
           <Route path="/calculator/alimony" element={<PageTransition><AlimonyCalculatorPage /></PageTransition>} />
           <Route path="/calculator/refinancing" element={<PageTransition><RefinancingCalculatorPage /></PageTransition>} />

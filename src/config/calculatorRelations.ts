@@ -165,13 +165,6 @@ export const CALCULATOR_INFO: Record<string, CalculatorInfo> = {
     icon: '⚖️',
     description: 'Индекс массы тела'
   },
-  calorie: {
-    slug: 'calorie',
-    name: 'Калории',
-    href: '/calculator/calorie/',
-    icon: '🍎',
-    description: 'Суточная норма калорий'
-  },
 };
 
 // Карта связей: slug → список связанных slug'ов
@@ -197,8 +190,7 @@ export const CALCULATOR_RELATIONS: Record<string, string[]> = {
   utilities: ['water'],
   fuel: ['osago', 'kasko'],
   water: ['utilities'],
-  bmi: ['calorie'],
-  calorie: ['bmi'],
+  bmi: [],
 };
 
 /**

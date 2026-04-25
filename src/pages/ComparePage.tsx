@@ -124,6 +124,11 @@ export default function ComparePage({ config }: { config: ComparisonConfig }) {
         <meta property="og:title" content={config.title} />
         <meta property="og:description" content={config.description} />
         <meta property="og:url" content={config.canonical} />
+        <meta property="og:image" content="https://schitay-online.ru/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={config.title} />
+        <meta name="twitter:description" content={config.description} />
+        <meta name="twitter:image" content="https://schitay-online.ru/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

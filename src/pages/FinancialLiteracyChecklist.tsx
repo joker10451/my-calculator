@@ -158,6 +158,11 @@ export default function FinancialLiteracyChecklist() {
         <link rel="canonical" href={`${SITE_URL}/checklist`} />
         <meta property="og:title" content="Чек-лист финансовой грамотности 2026" />
         <meta property="og:description" content="28 шагов к финансовой свободе. Отмечай прогресс!" />
+        <meta property="og:image" content="https://schitay-online.ru/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Чек-лист финансовой грамотности 2026 — Пошаговый план | Считай.RU" />
+        <meta name="twitter:description" content="Интерактивный чек-лист: 28 пунктов по налогам, кредитам, сбережениям и защите. Отмечай прогресс!" />
+        <meta name="twitter:image" content="https://schitay-online.ru/og-image.png" />
       </Helmet>
 
       <Header />

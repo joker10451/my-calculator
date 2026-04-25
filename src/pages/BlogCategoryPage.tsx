@@ -68,6 +68,11 @@ const BlogCategoryPage = () => {
         <meta property="og:description" content={category.description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://schitay-online.ru/blog/category/${category.slug}/`} />
+        <meta property="og:image" content="https://schitay-online.ru/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={category.name} />
+        <meta name="twitter:description" content={category.description} />
+        <meta name="twitter:image" content="https://schitay-online.ru/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
