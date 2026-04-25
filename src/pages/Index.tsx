@@ -4,15 +4,15 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Categories from "@/components/Categories";
 import PopularCalculators from "@/components/PopularCalculators";
-import RecentCalculators from "@/components/RecentCalculators";
-import CalculatorOfTheWeek from "@/components/CalculatorOfTheWeek";
 import PersonalizedRecommendations from "@/components/PersonalizedRecommendations";
-import CurrencyRatesWidget from "@/components/CurrencyRatesWidget";
-import Footer from "@/components/Footer";
 import { SEO } from "@/components/SEO";
 import { ArrowRight } from "lucide-react";
 
 const BlogSection = lazy(() => import("@/components/blog/BlogSection"));
+const Footer = lazy(() => import("@/components/Footer"));
+const RecentCalculators = lazy(() => import("@/components/RecentCalculators"));
+const CalculatorOfTheWeek = lazy(() => import("@/components/CalculatorOfTheWeek"));
+const CurrencyRatesWidget = lazy(() => import("@/components/CurrencyRatesWidget"));
 
 const Index = () => {
   const location = useLocation();
@@ -74,11 +74,17 @@ const Index = () => {
         <Header />
         <main id="main-content" className="flex-1">
           <Hero />
-          <CurrencyRatesWidget />
+          <Suspense fallback={null}>
+            <CurrencyRatesWidget />
+          </Suspense>
           <Categories />
           <PopularCalculators />
-          <RecentCalculators />
-          <CalculatorOfTheWeek />
+          <Suspense fallback={null}>
+            <RecentCalculators />
+          </Suspense>
+          <Suspense fallback={null}>
+            <CalculatorOfTheWeek />
+          </Suspense>
           <PersonalizedRecommendations />
           <section className="section-shell bg-slate-950">
             <div className="max-w-5xl mx-auto">
@@ -191,7 +197,9 @@ const Index = () => {
             <BlogSection />
           </Suspense>
         </main>
-        <Footer />
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
       </div>
     </>
   );
