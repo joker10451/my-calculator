@@ -56,8 +56,8 @@ export const HoverEffect = ({
                     <HoverCard className="min-h-[210px]">
                         <div className="flex items-start gap-4">
                             {item.icon && (
-                                <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0", item.bgColor)}>
-                                    <item.icon className={cn("w-5 h-5", item.color)} />
+                                <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0", item.bgColor)} aria-hidden="true">
+                                    <item.icon className={cn("w-5 h-5", item.color)} aria-hidden="true" />
                                 </div>
                             )}
                             <div className="flex-1">

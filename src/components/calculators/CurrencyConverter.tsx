@@ -156,6 +156,7 @@ const CurrencyConverter = () => {
                         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                             <button
                                 onClick={handleSwap}
+                                aria-label="Поменять валюты местами"
                                 className="w-12 h-12 rounded-full bg-background border-2 border-border flex items-center justify-center shadow-lg hover:border-primary hover:text-primary transition-all active:scale-95"
                             >
                                 <ArrowRightLeft className="w-5 h-5" />

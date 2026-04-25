@@ -54,6 +54,7 @@ export function PWAInstallPrompt() {
       <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 p-5 relative">
         <button
           onClick={handleDismiss}
+          aria-label="Закрыть предложение установки приложения"
           className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 transition-colors"
         >
           <X className="w-5 h-5" />

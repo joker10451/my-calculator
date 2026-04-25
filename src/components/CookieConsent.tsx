@@ -38,6 +38,7 @@ export function CookieConsent() {
           <div className="max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-4 md:p-5 relative">
             <button
               onClick={handleDismiss}
+              aria-label="Закрыть уведомление о cookie"
               className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
             >
               <X className="w-5 h-5" />

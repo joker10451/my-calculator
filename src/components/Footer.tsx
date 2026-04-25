@@ -55,7 +55,7 @@ const Footer = () => {
 
           {/* Категории */}
           <div>
-            <h4 className="font-semibold mb-4 text-slate-200">Категории</h4>
+            <h3 className="font-semibold mb-4 text-slate-200 text-base">Категории</h3>
             <ul className="space-y-2">
               {categoriesList.map((item) => (
                 <li key={item.name}>
@@ -72,7 +72,7 @@ const Footer = () => {
 
           {/* Популярное */}
           <div>
-            <h4 className="font-semibold mb-4 text-slate-200">Популярное</h4>
+            <h3 className="font-semibold mb-4 text-slate-200 text-base">Популярное</h3>
             <ul className="space-y-2">
               {popular.map((item) => (
                 <li key={item.name}>
@@ -89,7 +89,7 @@ const Footer = () => {
 
           {/* Информация */}
           <div>
-            <h4 className="font-semibold mb-4 text-slate-200">Информация</h4>
+            <h3 className="font-semibold mb-4 text-slate-200 text-base">Информация</h3>
             <ul className="space-y-2">
               {legal.map((item) => (
                 <li key={item.name}>
@@ -109,7 +109,7 @@ const Footer = () => {
 
           {/* Контакты */}
           <div>
-            <h4 className="font-semibold mb-4 text-slate-200">Контакты</h4>
+            <h3 className="font-semibold mb-4 text-slate-200 text-base">Контакты</h3>
             <div className="space-y-2">
               <div>
                 <p className="text-sm text-slate-400 mb-1">Для связи:</p>
@@ -140,7 +140,7 @@ const Footer = () => {
         </div>
 
         {/* HTML ссылки для поисковых ботов */}
-        <div className="sr-only" aria-hidden="true">
+        <div className="sr-only">
           <h2>Все калькуляторы</h2>
           <nav>
             <ul>
