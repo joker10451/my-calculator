@@ -1,5 +1,3 @@
-import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas";
 import { ImageValidator, ImageValidationResult } from "./ImageValidator";
 
 export interface PdfGenerationOptions {
@@ -101,6 +99,9 @@ export class PdfService {
         }
         warnings.push('Изображение было восстановлено после ошибки валидации');
       }
+
+      // Lazy-load jsPDF only when needed
+      const { jsPDF } = await import('jspdf');
 
       // Создаем PDF
       const pdf = new jsPDF("p", "mm", "a4");
@@ -261,14 +262,14 @@ export class PdfService {
       recommendations.push('PDF генерация недоступна: ошибка инициализации Canvas');
     }
 
-    // Проверяем доступность jsPDF
+    // Проверяем доступность jsPDF (lazy-load)
     try {
-      // Проверяем, что jsPDF загружен
-      if (typeof jsPDF === 'undefined') {
+      const { jsPDF: jsPDFClass } = await import('jspdf');
+      if (!jsPDFClass) {
         recommendations.push('Библиотека jsPDF не загружена');
         canGeneratePdf = false;
       }
-    } catch (error) {
+    } catch {
       recommendations.push('Ошибка загрузки библиотеки jsPDF');
       canGeneratePdf = false;
     }
@@ -368,6 +369,8 @@ export class PdfService {
   private async generateCanvas(element: HTMLElement, quality: 'low' | 'medium' | 'high'): Promise<HTMLCanvasElement> {
     const scaleMap = { low: 1, medium: 2, high: 3 };
     const scale = scaleMap[quality];
+
+    const { default: html2canvas } = await import('html2canvas');
 
     return html2canvas(element, {
       scale,
