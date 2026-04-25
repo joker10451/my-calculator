@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight, BookOpen } from 'lucide-react';
 import { useCalculatorHistory } from '@/hooks/useCalculatorHistory';
-import { blogPosts } from '@/data/blogPosts';
 import { motion } from 'framer-motion';
-import { useMemo } from 'react';
-
-const allPosts = blogPosts;
+import { useMemo, useState, useEffect } from 'react';
+import type { BlogPost } from '@/types/blog';
 
 const CALCULATOR_TO_CATEGORY: Record<string, string[]> = {
   mortgage: ['mortgage-credit'],
@@ -36,10 +34,17 @@ const CALCULATOR_TO_CATEGORY: Record<string, string[]> = {
 
 export default function PersonalizedRecommendations() {
   const { history } = useCalculatorHistory();
+  const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    if (history.length === 0) return;
+    // Lazy-load blog data only when user has calculator history
+    import('@/data/blogPosts').then(m => setAllPosts(m.blogPosts));
+  }, [history.length]);
 
   const recommendations = useMemo(() => {
     const usedTypes = [...new Set(history.map(h => h.calculatorType))];
-    if (usedTypes.length === 0) return [];
+    if (usedTypes.length === 0 || allPosts.length === 0) return [];
 
     const relevantCategories = new Set<string>();
     usedTypes.forEach(type => {
@@ -54,7 +59,7 @@ export default function PersonalizedRecommendations() {
         return hasRelatedCalc || relevantCategories.has(post.category?.id ?? '');
       });
 
-    const unique = new Map<string, typeof post>();
+    const unique = new Map<string, BlogPost>();
     matchedPosts.forEach(post => {
       if (!unique.has(post.slug)) unique.set(post.slug, post);
     });
@@ -62,7 +67,7 @@ export default function PersonalizedRecommendations() {
     return [...unique.values()]
       .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
       .slice(0, 4);
-  }, [history]);
+  }, [history, allPosts]);
 
   if (recommendations.length === 0) return null;
 

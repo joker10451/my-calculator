@@ -155,6 +155,10 @@ function generateHTML(route) {
   <meta name="keywords" content="калькулятор онлайн, расчет ипотеки, калькулятор зарплаты, НДФЛ, ЖКХ, алименты, бесплатно, 2026" />
   <meta name="author" content="Считай.RU" />
   <meta name="robots" content="index, follow" />
+  <meta name="yandex-verification" content="397cbe38123af0f0" />
+  <meta name="yandex-verification" content="f18b1ee2dceedee3" />
+  <meta name="yandex-verification" content="xtdkshawlc8vdfh1" />
+  <meta name="msvalidate.01" content="8F67F3B77C281CB6889648894352F2C9" />
   
   <!-- Canonical URL (со слэшем для GitHub Pages) -->
   <link rel="canonical" href="${canonicalUrl}" />
@@ -204,7 +208,17 @@ function generateHTML(route) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Preload critical font for LCP -->
+  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Non-blocking Google Fonts (prevent FOIT/FOUT) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+
+  <!-- Prevent FOUC: critical CSS inline -->
+  <style>html{font-family:system-ui,-apple-system,sans-serif;line-height:1.5}body{margin:0;background:#0f172a;color:#f8fafc}</style>
+
 ${cssLink}  
   <!-- SPA Redirect Script -->
   <script type="text/javascript">
