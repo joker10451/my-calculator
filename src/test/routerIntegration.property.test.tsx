@@ -8,7 +8,6 @@ import { describe, test, expect, vi, beforeEach } from 'vitest';
 import * as fc from 'fast-check';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ComparisonProvider } from '@/context/ComparisonContext';
@@ -59,29 +58,19 @@ const invalidRouteGenerator = fc.constantFrom(
 
 // Создаем обертку для тестирования с провайдерами и маршрутами
 const TestWrapper = ({ initialEntries }: { initialEntries: string[] }) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
-
   return (
     <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <ComparisonProvider>
-            <MemoryRouter initialEntries={initialEntries}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/calculator/court-fee" element={<CourtFeeCalculatorPage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </MemoryRouter>
-          </ComparisonProvider>
-        </TooltipProvider>
-      </QueryClientProvider>
+      <TooltipProvider>
+        <ComparisonProvider>
+          <MemoryRouter initialEntries={initialEntries}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/calculator/court-fee" element={<CourtFeeCalculatorPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </MemoryRouter>
+        </ComparisonProvider>
+      </TooltipProvider>
     </HelmetProvider>
   );
 };

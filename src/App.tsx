@@ -2,17 +2,16 @@ import { Suspense, lazy, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "next-themes";
-import { AnimatePresence } from "framer-motion";
+
 import { ComparisonProvider } from "./context/ComparisonContext";
 import { useYandexMetrika } from "./hooks/useYandexMetrika";
 import { trackPageView } from "./lib/analytics/googleAnalytics";
 import { CalculatorLoadingSkeleton } from "./components/LoadingSkeleton";
 import { SkipToContent } from "./components/SkipToContent";
-import { PageTransition } from "./components/animations/PageTransition";
+
 import { ThemeInitializer } from "./components/ThemeInitializer";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 
@@ -91,25 +90,9 @@ const FinancialLiteracyChecklist = lazy(() => import("./pages/FinancialLiteracyC
 const ComparePageWrapper = lazy(() => import("./pages/ComparePageWrapper"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Конфигурация QueryClient с оптимизацией
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 минут
-      gcTime: 10 * 60 * 1000, // 10 минут (ранее cacheTime)
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-    mutations: {
-      retry: 1,
-    },
-  },
-});
-
 const App = () => (
   <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <ThemeInitializer />
         <TooltipProvider>
           <ComparisonProvider>
@@ -126,7 +109,6 @@ const App = () => (
           </ComparisonProvider>
         </TooltipProvider>
       </ThemeProvider>
-    </QueryClientProvider>
   </HelmetProvider>
 );
 
@@ -135,94 +117,94 @@ const AnimatedRoutes = () => {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <>
       <ErrorBoundary resetKey={location.pathname}>
         <Suspense fallback={<CalculatorLoadingSkeleton />}>
-          <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageTransition><Index /></PageTransition>} />
-          <Route path="/calculator/mortgage" element={<PageTransition><MortgageCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/salary" element={<PageTransition><SalaryCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/credit" element={<PageTransition><CreditCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/bmi" element={<PageTransition><BMICalculatorPage /></PageTransition>} />
-          <Route path="/calculator/fuel" element={<PageTransition><FuelCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/tire-size" element={<PageTransition><TireSizeCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/court-fee" element={<PageTransition><CourtFeeCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/utilities" element={<PageTransition><UtilitiesCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/osago" element={<PageTransition><OSAGOCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/vacation" element={<PageTransition><VacationCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/sick-leave" element={<PageTransition><SickLeaveCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/self-employed" element={<PageTransition><SelfEmployedCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/pension" element={<PageTransition><PensionCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/kasko" element={<PageTransition><KASKOCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/investment" element={<PageTransition><InvestmentCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/overpayment" element={<PageTransition><OverpaymentCalculatorPage /></PageTransition>} />
-          <Route path="/courier-yandex" element={<PageTransition><YandexCourierPage /></PageTransition>} />
-          <Route path="/joy-money" element={<PageTransition><JoyMoneyPage /></PageTransition>} />
-          <Route path="/widgets" element={<PageTransition><EmbedWidgetPage /></PageTransition>} />
-          <Route path="/bank/:bank/mortgage" element={<PageTransition><BankMortgagePage /></PageTransition>} />
-          <Route path="/bank/:bank/credit" element={<PageTransition><BankCreditPage /></PageTransition>} />
-          <Route path="/bank/:bank/deposit" element={<PageTransition><BankDepositPage /></PageTransition>} />
-          <Route path="/mfo/:mfo" element={<PageTransition><MFOPage /></PageTransition>} />
-          <Route path="/quiz/financial-literacy" element={<PageTransition><FinancialLiteracyQuiz /></PageTransition>} />
-          <Route path="/calculator/tax-deduction" element={<PageTransition><TaxDeductionCalculatorPage /></PageTransition>} />
-          <Route path="/insurance/osgop-taxi" element={<PageTransition><ZettaOSGOPPage /></PageTransition>} />
-          <Route path="/category/:id" element={<PageTransition><CategoryPage /></PageTransition>} />
-          <Route path="/calculator/maternity-capital" element={<PageTransition><MaternityCapitalCalculatorPage /></PageTransition>} />
+          <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/calculator/mortgage" element={<MortgageCalculatorPage />} />
+          <Route path="/calculator/salary" element={<SalaryCalculatorPage />} />
+          <Route path="/calculator/credit" element={<CreditCalculatorPage />} />
+          <Route path="/calculator/bmi" element={<BMICalculatorPage />} />
+          <Route path="/calculator/fuel" element={<FuelCalculatorPage />} />
+          <Route path="/calculator/tire-size" element={<TireSizeCalculatorPage />} />
+          <Route path="/calculator/court-fee" element={<CourtFeeCalculatorPage />} />
+          <Route path="/calculator/utilities" element={<UtilitiesCalculatorPage />} />
+          <Route path="/calculator/osago" element={<OSAGOCalculatorPage />} />
+          <Route path="/calculator/vacation" element={<VacationCalculatorPage />} />
+          <Route path="/calculator/sick-leave" element={<SickLeaveCalculatorPage />} />
+          <Route path="/calculator/self-employed" element={<SelfEmployedCalculatorPage />} />
+          <Route path="/calculator/pension" element={<PensionCalculatorPage />} />
+          <Route path="/calculator/kasko" element={<KASKOCalculatorPage />} />
+          <Route path="/calculator/investment" element={<InvestmentCalculatorPage />} />
+          <Route path="/calculator/overpayment" element={<OverpaymentCalculatorPage />} />
+          <Route path="/courier-yandex" element={<YandexCourierPage />} />
+          <Route path="/joy-money" element={<JoyMoneyPage />} />
+          <Route path="/widgets" element={<EmbedWidgetPage />} />
+          <Route path="/bank/:bank/mortgage" element={<BankMortgagePage />} />
+          <Route path="/bank/:bank/credit" element={<BankCreditPage />} />
+          <Route path="/bank/:bank/deposit" element={<BankDepositPage />} />
+          <Route path="/mfo/:mfo" element={<MFOPage />} />
+          <Route path="/quiz/financial-literacy" element={<FinancialLiteracyQuiz />} />
+          <Route path="/calculator/tax-deduction" element={<TaxDeductionCalculatorPage />} />
+          <Route path="/insurance/osgop-taxi" element={<ZettaOSGOPPage />} />
+          <Route path="/category/:id" element={<CategoryPage />} />
+          <Route path="/calculator/maternity-capital" element={<MaternityCapitalCalculatorPage />} />
 
-          <Route path="/calculator/water" element={<PageTransition><WaterCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/alimony" element={<PageTransition><AlimonyCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/refinancing" element={<PageTransition><RefinancingCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/inflation" element={<PageTransition><InflationCalculatorPage /></PageTransition>} />
-          <Route path="/how-much-you-lose" element={<PageTransition><HowMuchYouLosePage /></PageTransition>} />
-          <Route path="/key-rate" element={<PageTransition><KeyRatePage /></PageTransition>} />
-          <Route path="/checklist" element={<PageTransition><FinancialLiteracyChecklist /></PageTransition>} />
-          <Route path="/compare/:slug" element={<PageTransition><ComparePageWrapper /></PageTransition>} />
-          <Route path="/calculator/deposit" element={<PageTransition><DepositCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/deposit-tax" element={<PageTransition><DepositTaxCalculatorPage /></PageTransition>} />
-          <Route path="/calculator/currency" element={<PageTransition><CurrencyConverterPage /></PageTransition>} />
-          <Route path="/compare" element={<PageTransition><ComparisonPage /></PageTransition>} />
-          <Route path="/favorites" element={<PageTransition><FavoritesPage /></PageTransition>} />
-          <Route path="/banks" element={<PageTransition><BanksRatingPage /></PageTransition>} />
-          <Route path="/search" element={<PageTransition><SearchPage /></PageTransition>} />
-          <Route path="/all" element={<PageTransition><AllCalculatorsPage /></PageTransition>} />
-          <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
-          <Route path="/privacy" element={<PageTransition><LegalPage type="privacy" /></PageTransition>} />
-          <Route path="/terms" element={<PageTransition><LegalPage type="terms" /></PageTransition>} />
-          <Route path="/contacts" element={<PageTransition><ContactsPage /></PageTransition>} />
-          <Route path="/offers" element={<PageTransition><OffersCatalogPage /></PageTransition>} />
-          <Route path="/offers/" element={<PageTransition><OffersCatalogPage /></PageTransition>} />
-          <Route path="/jobs" element={<PageTransition><JobsLandingPage /></PageTransition>} />
-          <Route path="/jobs/" element={<PageTransition><JobsLandingPage /></PageTransition>} />
-          <Route path="/ruki-masters" element={<PageTransition><RukiVacancyPage /></PageTransition>} />
-          <Route path="/ruki-masters/" element={<PageTransition><RukiVacancyPage /></PageTransition>} />
-          <Route path="/tick-insurance" element={<PageTransition><TickInsuranceLandingPage /></PageTransition>} />
-          <Route path="/tick-insurance/" element={<PageTransition><TickInsuranceLandingPage /></PageTransition>} />
-          <Route path="/goldapple" element={<PageTransition><GoldapplePage /></PageTransition>} />
-          <Route path="/goldapple/" element={<PageTransition><GoldapplePage /></PageTransition>} />
-          <Route path="/admin/analytics" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
-          <Route path="/analytics-dashboard" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
-          <Route path="/analytics-dashboard/" element={<PageTransition><AnalyticsDashboardPage /></PageTransition>} />
-          <Route path="/blog" element={<PageTransition><BlogPage /></PageTransition>} />
-          <Route path="/blog/category/:slug" element={<PageTransition><BlogCategoryPage /></PageTransition>} />
-          <Route path="/blog/:slug" element={<PageTransition><BlogPostPage /></PageTransition>} />
+          <Route path="/calculator/water" element={<WaterCalculatorPage />} />
+          <Route path="/calculator/alimony" element={<AlimonyCalculatorPage />} />
+          <Route path="/calculator/refinancing" element={<RefinancingCalculatorPage />} />
+          <Route path="/calculator/inflation" element={<InflationCalculatorPage />} />
+          <Route path="/how-much-you-lose" element={<HowMuchYouLosePage />} />
+          <Route path="/key-rate" element={<KeyRatePage />} />
+          <Route path="/checklist" element={<FinancialLiteracyChecklist />} />
+          <Route path="/compare/:slug" element={<ComparePageWrapper />} />
+          <Route path="/calculator/deposit" element={<DepositCalculatorPage />} />
+          <Route path="/calculator/deposit-tax" element={<DepositTaxCalculatorPage />} />
+          <Route path="/calculator/currency" element={<CurrencyConverterPage />} />
+          <Route path="/compare" element={<ComparisonPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/banks" element={<BanksRatingPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/all" element={<AllCalculatorsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/privacy" element={<LegalPage type="privacy" />} />
+          <Route path="/terms" element={<LegalPage type="terms" />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/offers" element={<OffersCatalogPage />} />
+          <Route path="/offers/" element={<OffersCatalogPage />} />
+          <Route path="/jobs" element={<JobsLandingPage />} />
+          <Route path="/jobs/" element={<JobsLandingPage />} />
+          <Route path="/ruki-masters" element={<RukiVacancyPage />} />
+          <Route path="/ruki-masters/" element={<RukiVacancyPage />} />
+          <Route path="/tick-insurance" element={<TickInsuranceLandingPage />} />
+          <Route path="/tick-insurance/" element={<TickInsuranceLandingPage />} />
+          <Route path="/goldapple" element={<GoldapplePage />} />
+          <Route path="/goldapple/" element={<GoldapplePage />} />
+          <Route path="/admin/analytics" element={<AnalyticsDashboardPage />} />
+          <Route path="/analytics-dashboard" element={<AnalyticsDashboardPage />} />
+          <Route path="/analytics-dashboard/" element={<AnalyticsDashboardPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/category/:slug" element={<BlogCategoryPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
           {/* Demo pages */}
-          <Route path="/demo/colourful-text" element={<PageTransition><ColourfulTextDemo /></PageTransition>} />
-          <Route path="/demo/enhanced-blog-card" element={<PageTransition><EnhancedBlogCardDemo /></PageTransition>} />
-          <Route path="/demo/color-system" element={<PageTransition><ColorSystemDemo /></PageTransition>} />
-          <Route path="/demo/glassmorphism" element={<PageTransition><GlassmorphismDemo /></PageTransition>} />
+          <Route path="/demo/colourful-text" element={<ColourfulTextDemo />} />
+          <Route path="/demo/enhanced-blog-card" element={<EnhancedBlogCardDemo />} />
+          <Route path="/demo/color-system" element={<ColorSystemDemo />} />
+          <Route path="/demo/glassmorphism" element={<GlassmorphismDemo />} />
           {/* Multilingual blog routes */}
-          <Route path="/:lang/blog" element={<PageTransition><BlogPage /></PageTransition>} />
-          <Route path="/:lang/blog/:slug" element={<PageTransition><BlogPostPage /></PageTransition>} />
-          <Route path="/:lang/blog/category/:slug" element={<PageTransition><BlogCategoryPage /></PageTransition>} />
+          <Route path="/:lang/blog" element={<BlogPage />} />
+          <Route path="/:lang/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/:lang/blog/category/:slug" element={<BlogCategoryPage />} />
           {/* Sitemap for SEO */}
-          <Route path="/sitemap" element={<PageTransition><SitemapPage /></PageTransition>} />
-          <Route path="/sitemap/" element={<PageTransition><SitemapPage /></PageTransition>} />
+          <Route path="/sitemap" element={<SitemapPage />} />
+          <Route path="/sitemap/" element={<SitemapPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-        </Routes>
-      </Suspense>
+          <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </ErrorBoundary>
-    </AnimatePresence>
+    </>
   );
 };
 
