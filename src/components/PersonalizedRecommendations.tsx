@@ -2,12 +2,10 @@ import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight, BookOpen } from 'lucide-react';
 import { useCalculatorHistory } from '@/hooks/useCalculatorHistory';
 import { blogPosts } from '@/data/blogPosts';
-import { generatedArticles } from '@/data/blogArticlesGenerated';
-import { allGeneratedArticles } from '@/data/blogArticlesGenerated2';
 import { motion } from 'framer-motion';
 import { useMemo } from 'react';
 
-const allPosts = [...blogPosts, ...generatedArticles, ...allGeneratedArticles];
+const allPosts = blogPosts;
 
 const CALCULATOR_TO_CATEGORY: Record<string, string[]> = {
   mortgage: ['mortgage-credit'],

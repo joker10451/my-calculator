@@ -97,8 +97,6 @@ export async function analyzeBlogData(): Promise<BlogDataAnalysis> {
     'src/data/blogPostsNew3.ts',
     'src/data/blogPostsNew4.ts',
     'src/data/blogPostsNew5.ts',
-    'src/data/blogArticlesGenerated.ts',
-    'src/data/blogArticlesGenerated2.ts',
     'src/data/blogPostsRemaining.ts'
   ];
 

@@ -15,8 +15,6 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { blogPosts } from '@/data/blogPosts';
-import { generatedArticles } from '@/data/blogArticlesGenerated';
-import { allGeneratedArticles } from '@/data/blogArticlesGenerated2';
 import { parseMarkdown } from '@/utils/markdown';
 import DOMPurify from 'dompurify';
 import { AuthorBio } from '@/components/blog/AuthorBio';
@@ -40,7 +38,7 @@ import { Helmet } from 'react-helmet-async';
 import { SITE_URL } from '@/shared/constants';
 
 // Объединяем все статьи для поиска
-const allPosts = [...blogPosts, ...generatedArticles, ...allGeneratedArticles];
+const allPosts = blogPosts;
 
 const CALCULATOR_BRIDGE_MAP: Record<
   string,

@@ -36,8 +36,6 @@ const SOURCE_PRIORITIES: Record<string, number> = {
   'blogPostsNew3.ts': 7,
   'blogPostsNew2.ts': 6,
   'blogPostsNew.ts': 5,
-  'blogArticlesGenerated2.ts': 4,
-  'blogArticlesGenerated.ts': 3,
   'blogPostsRemaining.ts': 2
 };
 
@@ -150,9 +148,7 @@ async function loadAllArticles(): Promise<ArticleWithSource[]> {
     'src/data/blogPostsNew2.ts',
     'src/data/blogPostsNew3.ts',
     'src/data/blogPostsNew4.ts',
-    'src/data/blogPostsNew5.ts',
-    'src/data/blogArticlesGenerated.ts',
-    'src/data/blogArticlesGenerated2.ts'
+    'src/data/blogPostsNew5.ts'
   ];
 
   for (const fileName of dataFiles) {
