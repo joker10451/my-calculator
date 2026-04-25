@@ -209,8 +209,8 @@ function generateHTML(route) {
   <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 
-  <!-- Preload critical font for LCP -->
-  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Inter Cyrillic Variable Font - preload для LCP (русский текст) -->
+  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Non-blocking Google Fonts (prevent FOIT/FOUT) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
