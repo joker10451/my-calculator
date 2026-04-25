@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Mail, Check, Loader2 } from 'lucide-react';
 import { storage } from '@/shared/utils/storage';
 import { toast } from 'sonner';
-import { motion } from 'framer-motion';
+
 
 interface NewsletterSignupProps {
   source?: 'footer' | 'blog';
@@ -47,14 +47,13 @@ export function NewsletterSignup({ source = 'footer', className = '' }: Newslett
 
   if (subscribed) {
     return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className={`flex items-center gap-2 text-sm text-green-600 dark:text-green-400 ${className}`}
+      <div
+        className={`flex items-center gap-2 text-sm text-green-600 dark:text-green-400 animate-fade-in-up ${className}`}
+        style={{ animationDuration: '0.3s' }}
       >
         <Check className="w-4 h-4" />
         <span>Вы подписаны на обновления</span>
-      </motion.div>
+      </div>
     );
   }
 

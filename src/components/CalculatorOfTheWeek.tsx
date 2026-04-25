@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Flame, ArrowRight, Trophy, Sparkles } from 'lucide-react';
-import { motion } from 'framer-motion';
+
 
 interface WeeklyChallenge {
   id: string;
@@ -141,12 +141,9 @@ export default function CalculatorOfTheWeek() {
   return (
     <section className="py-12 md:py-16 bg-slate-950">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto"
+        <div
+          className="max-w-4xl mx-auto animate-fade-in-up"
+          style={{ animationDuration: '0.5s' }}
         >
           <div className={`relative overflow-hidden rounded-3xl border ${challenge.borderColor} bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 md:p-8`}>
             <div className="absolute top-0 right-0 w-48 h-48 opacity-5">
@@ -192,7 +189,7 @@ export default function CalculatorOfTheWeek() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

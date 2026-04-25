@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchCBRRates, type CBRData } from '@/services/cbrRates';
 import { TrendingUp, TrendingDown, Banknote, Percent } from 'lucide-react';
-import { motion } from 'framer-motion';
+
 
 const FLAGS: Record<string, string> = {
   USD: '🇺🇸',
@@ -26,10 +26,9 @@ export default function CurrencyRatesWidget() {
   return (
     <section className="py-8 md:py-10 bg-slate-950 border-t border-slate-800/50">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col md:flex-row items-start md:items-center gap-6"
+        <div
+          className="flex flex-col md:flex-row items-start md:items-center gap-6 animate-fade-in-up"
+          style={{ animationDuration: '0.4s' }}
         >
           <div className="flex items-center gap-3 flex-shrink-0">
             <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
@@ -64,7 +63,7 @@ export default function CurrencyRatesWidget() {
               <div className="text-lg font-black text-amber-400">{data.keyRate}%</div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
