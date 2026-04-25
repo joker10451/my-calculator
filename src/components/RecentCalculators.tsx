@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Clock, ArrowRight, Calculator } from 'lucide-react';
 import { useCalculatorHistory } from '@/hooks/useCalculatorHistory';
 import { categories } from '@/lib/data';
-import { motion } from 'framer-motion';
+
 
 const CALCULATOR_MAP = new Map<string, { name: string; href: string; icon: React.ElementType }>();
 categories.forEach(cat => {
@@ -87,11 +87,10 @@ export default function RecentCalculators() {
             const name = meta?.name ?? item.calculatorName;
 
             return (
-              <motion.div
+              <div
                 key={item.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.05 }}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${idx * 50}ms` }}
               >
                 <Link
                   to={href}
@@ -110,7 +109,7 @@ export default function RecentCalculators() {
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-primary transition-colors flex-shrink-0" />
                 </Link>
-              </motion.div>
+              </div>
             );
           })}
         </div>

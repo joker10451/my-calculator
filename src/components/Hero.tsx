@@ -3,7 +3,6 @@ import { ArrowRight, Calculator, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { FlipWords } from "./ui/flip-words";
-import { motion } from "framer-motion";
 
 function formatRub(value: number): string {
   return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(value);
@@ -96,15 +95,12 @@ const Hero = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-muted-foreground">Ежемесячный платёж (ставка {RATE}%)</p>
-              <motion.p
+              <p
                 key={Math.round(monthly)}
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25 }}
-                className="text-2xl font-black text-primary"
+                className="text-2xl font-black text-primary animate-fade-in-down"
               >
                 {monthly > 0 ? formatRub(monthly) : '—'}
-              </motion.p>
+              </p>
             </div>
             <Link to="/calculator/mortgage/">
               <Button size="sm" className="rounded-xl gap-1.5">
