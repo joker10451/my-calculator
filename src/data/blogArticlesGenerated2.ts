@@ -1022,7 +1022,6 @@ export const calorieArticle = createArticle({
 // Экспортируем все сгенерированные статьи
 export const allGeneratedArticles = [
   creditCardsArticle,
-  maternityCapitalArticle,
   refinancingArticle,
   calorieArticle
 ];
