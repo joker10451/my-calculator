@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 const MortgageCalculatorWithComparison = lazy(() => import('@/components/calculators/mortgage/MortgageCalculatorWithComparison'));
-const CreditCalculator = lazy(() => import('@/components/calculators/credit/CreditCalculator').then(m => ({ default: m.CreditCalculator || m.default })));
-const DepositCalculator = lazy(() => import('@/components/calculators/deposit/DepositCalculator').then(m => ({ default: m.DepositCalculator || m.default })));
+const CreditCalculator = lazy(() => import('@/components/calculators/CreditCalculator'));
+const DepositCalculator = lazy(() => import('@/components/calculators/DepositCalculator'));
 
 export default function SeoLandingPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -57,26 +57,13 @@ export default function SeoLandingPage() {
           {/* Калькулятор */}
           <Suspense fallback={<CalculatorLoadingSkeleton />}>
             {config.calculatorType === 'mortgage' && (
-              <MortgageCalculatorWithComparison
-                initialPrice={config.params.amount}
-                initialDownPayment={config.params.downPayment}
-                initialTerm={config.params.term}
-                initialRate={config.params.rate}
-              />
+              <MortgageCalculatorWithComparison />
             )}
             {config.calculatorType === 'credit' && (
-              <CreditCalculator
-                initialAmount={config.params.amount}
-                initialTerm={config.params.term}
-                initialRate={config.params.rate}
-              />
+              <CreditCalculator />
             )}
             {config.calculatorType === 'deposit' && (
-              <DepositCalculator
-                initialAmount={config.params.amount}
-                initialTerm={config.params.term}
-                initialRate={config.params.rate}
-              />
+              <DepositCalculator />
             )}
           </Suspense>
 
