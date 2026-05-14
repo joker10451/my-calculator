@@ -90,24 +90,21 @@ const BlogSection = () => {
         <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
           <div className="text-center p-4 md:p-5 surface-card rounded-2xl">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
-              {blogPosts.filter(p => p.isPublished).length}
+              {latestPosts.length + featuredPosts.length}+
             </div>
             <div className="text-sm sm:text-base text-slate-300">Статей опубликовано</div>
           </div>
           <div className="text-center p-4 md:p-5 surface-card rounded-2xl">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
-              {blogPosts.filter(p => p.isPublished && p.isFeatured).length}
+              {featuredPosts.length}
             </div>
             <div className="text-sm sm:text-base text-slate-300">Рекомендуемых статей</div>
           </div>
           <div className="text-center p-4 md:p-5 surface-card rounded-2xl sm:col-span-2 md:col-span-1">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
-              {Math.round(
-                blogPosts
-                  .filter(p => p.isPublished)
-                  .reduce((sum, post) => sum + post.readingTime, 0) /
-                blogPosts.filter(p => p.isPublished).length
-              )}
+              {latestPosts.length > 0 ? Math.round(
+                latestPosts.reduce((sum, post) => sum + (post.readTime || 5), 0) / latestPosts.length
+              ) : 5}
             </div>
             <div className="text-sm sm:text-base text-slate-300">Минут среднее время чтения</div>
           </div>
