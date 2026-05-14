@@ -5,6 +5,11 @@ function applyInlineFormatting(text: string): string {
   const normalizeHref = (href: string): string => {
     // Легаси-ссылки вида "#/calculator/..." переводим в обычные роуты
     if (href.startsWith('#/')) return href.slice(1);
+    // Защита от XSS: блокируем опасные протоколы
+    const lower = href.toLowerCase().trim();
+    if (lower.startsWith('javascript:') || lower.startsWith('data:') || lower.startsWith('vbscript:')) {
+      return '#';
+    }
     return href;
   };
 

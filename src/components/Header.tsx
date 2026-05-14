@@ -1,6 +1,6 @@
 import { Calculator, Menu, X, Search, Scale, Heart, Wallet } from "lucide-react";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { categories } from "@/lib/data";
 import { useComparison } from "@/context/ComparisonContext";
@@ -48,6 +48,7 @@ const Header = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const allCalculators = categories.flatMap(cat =>
     cat.calculators.map(c => ({ ...c, description: c.description || '' }))
@@ -160,14 +161,15 @@ const Header = () => {
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-0.5" aria-label="Основная навигация">
             {categories.slice(0, 4).map((cat, idx) => (
               <Link
                 key={cat.name}
                 to={cat.href}
+                aria-current={location.pathname.startsWith(cat.href) ? 'page' : undefined}
                 className={`px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors hover:bg-slate-800 rounded-md whitespace-nowrap ${
                   idx === 3 ? 'hidden 2xl:inline-flex' : ''
-                }`}
+                } ${location.pathname.startsWith(cat.href) ? 'text-white bg-slate-800' : ''}`}
               >
                 {cat.name}
               </Link>

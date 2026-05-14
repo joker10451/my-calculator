@@ -43,7 +43,10 @@ export const OptimizedImage = ({
     : undefined;
 
   return (
-    <div className={cn('relative overflow-hidden bg-muted', className)}>
+    <div
+      className={cn('relative overflow-hidden bg-muted', className)}
+      style={!width && !height ? { aspectRatio: '16/9' } : undefined}
+    >
       {!isLoaded && !hasError && (
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-muted to-primary/5 animate-pulse" />
       )}
