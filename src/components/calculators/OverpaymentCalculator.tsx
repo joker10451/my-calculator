@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Share2, Download, TrendingUp, PiggyBank, AlertTriangle, Calculator, Building2, ChevronDown, ChevronUp, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { jsPDF } from 'jspdf';
+// jsPDF загружается лениво при экспорте в PDF
+const loadJsPDF = () => import('jspdf').then(m => m.jsPDF);
 import { generateShareableLink, parseShareableLink } from '@/utils/exportUtils';
 import { formatMoney } from '@/lib/utils';
 
@@ -115,9 +116,10 @@ export function OverpaymentCalculator() {
     return { best, worst, savings };
   }, [amount, term]);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!result) return;
-    const doc = new jsPDF();
+    const JsPDF = await loadJsPDF();
+    const doc = new JsPDF();
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(20);
     doc.setTextColor(220, 38, 38);

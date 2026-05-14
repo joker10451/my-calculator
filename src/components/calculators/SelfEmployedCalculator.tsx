@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import { Calculator, Download, Share2, Shield, Wallet, Building2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { jsPDF } from 'jspdf';
+// jsPDF загружается лениво при экспорте в PDF
+const loadJsPDF = () => import('jspdf').then(m => m.jsPDF);
 import { formatMoney } from '@/lib/utils';
 
 export function SelfEmployedCalculator() {
@@ -53,8 +54,9 @@ export function SelfEmployedCalculator() {
     };
   }, [income, regime, hasEmployees]);
 
-  const handleDownload = () => {
-    const doc = new jsPDF();
+  const handleDownload = async () => {
+    const JsPDF = await loadJsPDF();
+    const doc = new JsPDF();
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(20);
     doc.setTextColor(16, 185, 129);

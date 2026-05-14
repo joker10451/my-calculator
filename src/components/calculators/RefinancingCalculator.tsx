@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import { TrendingDown, PiggyBank, Calendar, Percent, ArrowDown, ArrowRight, Download, Share2, Building2, Link2, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { jsPDF } from 'jspdf';
+// jsPDF загружается лениво при экспорте в PDF
+const loadJsPDF = () => import('jspdf').then(m => m.jsPDF);
 import { formatMoney } from '@/lib/utils';
 
 interface RefiResult {
@@ -73,9 +74,10 @@ export function RefinancingCalculator() {
     };
   }, [balance, oldRate, newRate, remainingMonths]);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!result) return;
-    const doc = new jsPDF();
+    const JsPDF = await loadJsPDF();
+    const doc = new JsPDF();
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(20);
     doc.setTextColor(16, 185, 129);

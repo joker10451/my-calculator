@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import { Calculator, TrendingUp, Download, Share2, Shield, Home, Heart, GraduationCap, Wallet } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { jsPDF } from 'jspdf';
+// jsPDF загружается лениво при экспорте в PDF
+const loadJsPDF = () => import('jspdf').then(m => m.jsPDF);
 import { formatMoney } from '@/lib/utils';
 
 export function TaxDeductionCalculator() {
@@ -61,8 +62,9 @@ export function TaxDeductionCalculator() {
     };
   }, [deductionType, expense, income]);
 
-  const handleDownload = () => {
-    const doc = new jsPDF();
+  const handleDownload = async () => {
+    const JsPDF = await loadJsPDF();
+    const doc = new JsPDF();
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(20);
     doc.setTextColor(16, 185, 129);
