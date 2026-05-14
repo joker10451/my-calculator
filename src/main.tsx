@@ -5,14 +5,11 @@ import './i18n';
 import { initGA } from "./lib/analytics/googleAnalytics";
 import { initConversionTracking } from "./lib/analytics/conversionTracking";
 import { registerServiceWorker } from "./utils/serviceWorker";
-import { initYandexMetrika } from "./hooks/useYandexMetrika";
-
 // Add no-transition class to prevent flash on initial load
-document.body.classList.add('no-transition');
+document.documentElement.classList.add('no-transition');
 
-// Initialize analytics
+// Initialize analytics (Yandex Metrika is loaded in index.html directly)
 initGA();
-initYandexMetrika();
 initConversionTracking();
 
 // Register Service Worker for caching
@@ -21,3 +18,11 @@ if (import.meta.env.PROD) {
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
+
+// Включаем transitions после первого рендера
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    document.documentElement.classList.remove('no-transition');
+    document.body.classList.remove('no-transition');
+  });
+});

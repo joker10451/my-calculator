@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { categories } from "@/lib/data";
-import { Search, Calculator, ArrowRight, Home, Sparkles } from "lucide-react";
+import { Search, Calculator, Home, Sparkles } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SEO } from "@/components/SEO";
@@ -36,7 +36,7 @@ const NotFound = () => {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-black text-slate-100 mb-4 tracking-tight">
-            Такої страницы не существует
+            Такой страницы не существует
           </h1>
           <p className="text-lg text-slate-400 max-w-lg mx-auto mb-10">
             Может, опечатка? Или она переехала. Пока ищешь — попробуй калькулятор, он точно работает.

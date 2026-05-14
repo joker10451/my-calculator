@@ -3,6 +3,8 @@ import { ArrowRight, Calculator, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { FlipWords } from "./ui/flip-words";
+import { AnimatedCounter } from "./AnimatedCounter";
+import { RangeSlider } from "./ui/range-slider";
 
 function formatRub(value: number): string {
   return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(value);
@@ -54,7 +56,9 @@ const Hero = () => {
         {/* Мини-ипотечный калькулятор */}
         <div className="max-w-2xl mx-auto mb-8 rounded-2xl border border-border bg-background/60 p-5 text-left glass-card">
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Быстрый расчёт ипотеки</p>
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          
+          {/* Desktop: number inputs */}
+          <div className="hidden md:grid grid-cols-3 gap-3 mb-4">
             <div>
               <label htmlFor="hero-price" className="text-xs text-muted-foreground mb-1 block">Стоимость, ₽</label>
               <input
@@ -95,14 +99,48 @@ const Hero = () => {
               />
             </div>
           </div>
+
+          {/* Mobile: sliders */}
+          <div className="md:hidden space-y-4 mb-4">
+            <RangeSlider
+              label="Стоимость"
+              value={price}
+              min={500000}
+              max={30000000}
+              step={100000}
+              onChange={setPrice}
+              formatValue={v => `${(v / 1000000).toFixed(1)} млн`}
+            />
+            <RangeSlider
+              label="Первоначальный взнос"
+              value={downPayment}
+              min={0}
+              max={Math.min(price * 0.9, 15000000)}
+              step={100000}
+              onChange={setDownPayment}
+              formatValue={v => `${(v / 1000000).toFixed(1)} млн`}
+            />
+            <RangeSlider
+              label="Срок"
+              value={termYears}
+              min={1}
+              max={30}
+              step={1}
+              onChange={setTermYears}
+              formatValue={v => `${v} лет`}
+            />
+          </div>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-muted-foreground">Ежемесячный платёж (ставка {RATE}%)</p>
-              <p
-                key={Math.round(monthly)}
-                className="text-2xl font-black text-primary animate-fade-in-down"
-              >
-                {monthly > 0 ? formatRub(monthly) : '—'}
+              <p className="text-2xl font-black text-primary">
+                {monthly > 0 ? (
+                  <AnimatedCounter
+                    value={monthly}
+                    duration={600}
+                    formatFn={formatRub}
+                  />
+                ) : '—'}
               </p>
             </div>
             <Link to="/calculator/mortgage/">

@@ -88,22 +88,17 @@
   
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
-    // Загружаем Metrika после загрузки страницы (не блокирует рендеринг)
-    window.addEventListener('load', function() {
-      (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
-      
-      ym(106217699, 'init', {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true,
-        trackHash:true
-      });
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+    ym(106217699, 'init', {
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      webvisor:true,
+      trackHash:true
     });
   </script>
   <!-- /Yandex.Metrika counter -->
@@ -159,159 +154,90 @@
   <noscript><div><img src="https://mc.yandex.ru/watch/106217699" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika noscript -->
   
-  <div id="root"></div>
-  
-  <!-- Контент для ботов и браузеров без JavaScript -->
-  <noscript>
+  <div id="root">
+    <!-- SEO-контент: виден поисковым ботам, заменяется React при загрузке -->
     <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px;">
       <header style="border-bottom: 2px solid #3B82F6; padding-bottom: 20px; margin-bottom: 30px;">
-        <h1 style="color: #1E293B; font-size: 32px; margin: 0 0 10px 0;">Считай.RU</h1>
-        <p style="color: #64748B; font-size: 18px; margin: 0;">Бесплатные онлайн калькуляторы для России и СНГ</p>
+        <h1 style="color: #f8fafc; font-size: 32px; margin: 0 0 10px 0;">Считай.RU — Бесплатные онлайн калькуляторы</h1>
+        <p style="color: #94a3b8; font-size: 18px; margin: 0;">🧮 Бесплатные калькуляторы 2026: ипотека, кредит, зарплата, ИМТ, ЖКХ, топливо. Точные расчёты за 10 секунд. Работает офлайн, без регистрации.</p>
       </header>
       
       <main>
         <section style="margin-bottom: 40px;">
-          <h2 style="color: #1E293B; font-size: 24px; margin-bottom: 20px;">Финансовые калькуляторы</h2>
+          <h2 style="color: #f8fafc; font-size: 24px; margin-bottom: 20px;">Финансовые калькуляторы</h2>
           <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/mortgage/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                🏠 Ипотечный калькулятор - Расчет ежемесячного платежа по ипотеке
-              </a>
-            </li>
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/credit/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                💳 Кредитный калькулятор - Расчет платежей по кредиту
-              </a>
-            </li>
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/salary/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                💰 Калькулятор зарплаты - Расчет зарплаты на руки с учетом налогов
-              </a>
-            </li>
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/deposit/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                🏦 Депозитный калькулятор - Расчет доходности вклада
-              </a>
-            </li>
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/refinancing/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                🔄 Калькулятор рефинансирования - Расчет выгоды от рефинансирования кредита
-              </a>
-            </li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/mortgage/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">🏠 Ипотечный калькулятор — расчет ежемесячного платежа 2026</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/credit/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">💳 Кредитный калькулятор — аннуитет и дифференцированный</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/salary/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">💰 Калькулятор зарплаты — НДФЛ, расчет на руки</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/deposit/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">🏦 Депозитный калькулятор — доходность вклада</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/deposit-tax/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">📊 Калькулятор налога на вклады 2026</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/refinancing/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">🔄 Калькулятор рефинансирования — выгода от перекредитования</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/investment/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">📈 Калькулятор доходности инвестиций</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/self-employed/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">🧾 Калькулятор налогов для самозанятых и ИП</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/tax-deduction/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">💸 Калькулятор налогового вычета 2026</a></li>
           </ul>
         </section>
         
         <section style="margin-bottom: 40px;">
-          <h2 style="color: #1E293B; font-size: 24px; margin-bottom: 20px;">Семейные калькуляторы</h2>
+          <h2 style="color: #f8fafc; font-size: 24px; margin-bottom: 20px;">Семейные калькуляторы</h2>
           <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/maternity-capital/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                👶 Калькулятор материнского капитала - Расчет размера маткапитала
-              </a>
-            </li>
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/alimony/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                👨‍👩‍👧 Калькулятор алиментов - Расчет размера алиментов на детей
-              </a>
-            </li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/maternity-capital/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">👶 Калькулятор материнского капитала 2026</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/alimony/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">👨‍👩‍👧 Калькулятор алиментов — расчет размера выплат</a></li>
           </ul>
         </section>
         
         <section style="margin-bottom: 40px;">
-          <h2 style="color: #1E293B; font-size: 24px; margin-bottom: 20px;">Здоровье и личное</h2>
+          <h2 style="color: #f8fafc; font-size: 24px; margin-bottom: 20px;">Здоровье и личное</h2>
           <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/bmi/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                ⚖️ Калькулятор ИМТ - Расчет индекса массы тела
-              </a>
-            </li>
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/calories/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                🍎 Калькулятор калорий - Расчет суточной нормы калорий
-              </a>
-            </li>
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/water/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                💧 Калькулятор воды - Расчет суточной нормы воды
-              </a>
-            </li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/bmi/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">⚖️ Калькулятор ИМТ — индекс массы тела</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/water/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">💧 Калькулятор воды — суточная норма</a></li>
           </ul>
         </section>
         
         <section style="margin-bottom: 40px;">
-          <h2 style="color: #1E293B; font-size: 24px; margin-bottom: 20px;">Транспорт и ЖКХ</h2>
+          <h2 style="color: #f8fafc; font-size: 24px; margin-bottom: 20px;">Транспорт и ЖКХ</h2>
           <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/fuel/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                ⛽ Калькулятор топлива - Расчет расхода и стоимости топлива
-              </a>
-            </li>
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/utilities/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                🏘️ Калькулятор ЖКХ - Расчет коммунальных платежей
-              </a>
-            </li>
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/tire-size/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                🚗 Калькулятор размера шин - Подбор размера шин для автомобиля
-              </a>
-            </li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/fuel/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">⛽ Калькулятор расхода топлива</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/utilities/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">🏘️ Калькулятор ЖКХ — коммунальные платежи 2026</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/tire-size/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">🚗 Калькулятор размера шин</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/osago/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">🛡️ Калькулятор ОСАГО онлайн 2026</a></li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/kasko/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">🚙 Калькулятор КАСКО</a></li>
           </ul>
         </section>
         
         <section style="margin-bottom: 40px;">
-          <h2 style="color: #1E293B; font-size: 24px; margin-bottom: 20px;">Юридические калькуляторы</h2>
+          <h2 style="color: #f8fafc; font-size: 24px; margin-bottom: 20px;">Юридические калькуляторы</h2>
           <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/court-fee/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                ⚖️ Калькулятор госпошлины - Расчет госпошлины для суда
-              </a>
-            </li>
+            <li style="margin-bottom: 15px;"><a href="/calculator/court-fee/" style="color: #60a5fa; text-decoration: none; font-size: 18px;">⚖️ Калькулятор госпошлины в суд 2026</a></li>
           </ul>
         </section>
         
-        <section style="margin-bottom: 40px;">
-          <h2 style="color: #1E293B; font-size: 24px; margin-bottom: 20px;">Другие калькуляторы</h2>
-          <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 15px;">
-              <a href="/calculator/currency/" style="color: #3B82F6; text-decoration: none; font-size: 18px;">
-                💱 Конвертер валют - Перевод валют по актуальному курсу
-              </a>
-            </li>
-          </ul>
-        </section>
-        
-        <section style="background: #F1F5F9; padding: 20px; border-radius: 8px; margin-bottom: 40px;">
-          <h2 style="color: #1E293B; font-size: 20px; margin-bottom: 15px;">О сервисе Считай.RU</h2>
-          <p style="color: #475569; line-height: 1.6; margin-bottom: 10px;">
-            Считай.RU - это бесплатный онлайн-сервис с набором калькуляторов для решения повседневных финансовых, 
+        <section style="background: #1e293b; padding: 20px; border-radius: 8px; margin-bottom: 40px;">
+          <h2 style="color: #f8fafc; font-size: 20px; margin-bottom: 15px;">О сервисе Считай.RU</h2>
+          <p style="color: #94a3b8; line-height: 1.6; margin-bottom: 10px;">
+            Считай.RU — бесплатный онлайн-сервис с набором калькуляторов для решения повседневных финансовых, 
             бытовых и юридических задач. Все калькуляторы работают без регистрации и абсолютно бесплатно.
           </p>
-          <p style="color: #475569; line-height: 1.6;">
+          <p style="color: #94a3b8; line-height: 1.6;">
             Наши калькуляторы используют актуальные данные 2026 года: МРОТ, налоговые ставки, прожиточный минимум, 
             размер материнского капитала и другие официальные показатели Российской Федерации.
           </p>
         </section>
-        
-        <footer style="border-top: 1px solid #E2E8F0; padding-top: 20px; color: #64748B; font-size: 14px;">
-          <p>© 2026 Считай.RU - Бесплатные онлайн калькуляторы</p>
-          <p style="margin-top: 10px;">
-            <a href="/about/" style="color: #3B82F6; text-decoration: none; margin-right: 15px;">О нас</a>
-            <a href="/contacts/" style="color: #3B82F6; text-decoration: none; margin-right: 15px;">Контакты</a>
-            <a href="/privacy/" style="color: #3B82F6; text-decoration: none; margin-right: 15px;">Политика конфиденциальности</a>
-            <a href="/terms/" style="color: #3B82F6; text-decoration: none;">Условия использования</a>
-          </p>
-        </footer>
       </main>
       
-      <div style="background: #FEF3C7; border: 2px solid #F59E0B; padding: 20px; border-radius: 8px; margin-top: 30px;">
-        <p style="color: #92400E; font-size: 16px; margin: 0;">
-          ⚠️ <strong>JavaScript отключен</strong><br>
-          Для полноценной работы калькуляторов необходимо включить JavaScript в вашем браузере.
+      <footer style="border-top: 1px solid #334155; padding-top: 20px; color: #64748b; font-size: 14px;">
+        <p>© 2026 Считай.RU — Бесплатные онлайн калькуляторы для России и СНГ</p>
+        <p style="margin-top: 10px;">
+          <a href="/about/" style="color: #60a5fa; text-decoration: none; margin-right: 15px;">О нас</a>
+          <a href="/contacts/" style="color: #60a5fa; text-decoration: none; margin-right: 15px;">Контакты</a>
+          <a href="/privacy/" style="color: #60a5fa; text-decoration: none; margin-right: 15px;">Политика конфиденциальности</a>
+          <a href="/terms/" style="color: #60a5fa; text-decoration: none;">Условия использования</a>
+          <a href="/blog/" style="color: #60a5fa; text-decoration: none; margin-left: 15px;">Блог</a>
+          <a href="/all/" style="color: #60a5fa; text-decoration: none; margin-left: 15px;">Все калькуляторы</a>
         </p>
-      </div>
+      </footer>
     </div>
-  </noscript>
+  </div>
   
   <script type="module" src="/src/main.tsx"></script>
 </body>

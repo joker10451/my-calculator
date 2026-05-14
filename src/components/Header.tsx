@@ -1,4 +1,4 @@
-import { Calculator, Menu, X, Search, Scale, Heart } from "lucide-react";
+import { Calculator, Menu, X, Search, Scale, Heart, Wallet } from "lucide-react";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
@@ -122,13 +122,14 @@ const Header = () => {
                 onKeyDown={handleKeyDown}
                 aria-autocomplete="list"
                 aria-expanded={isSearchOpen && filteredCalculators.length > 0}
+                aria-controls="search-results-listbox"
                 role="combobox"
               />
             </div>
 
             {/* Search Results Dropdown */}
             {isSearchOpen && searchQuery && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900 border border-slate-800 rounded-xl shadow-lg p-2 max-h-80 overflow-y-auto animate-fade-in z-50" role="listbox">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900 border border-slate-800 rounded-xl shadow-lg p-2 max-h-80 overflow-y-auto animate-fade-in z-50" role="listbox" id="search-results-listbox">
                 {filteredCalculators.length > 0 ? (
                   filteredCalculators.map((calc, idx) => (
                     <button
@@ -204,6 +205,9 @@ const Header = () => {
                   {favorites.length}
                 </span>
               )}
+            </Link>
+            <Link to="/my-finances" className="p-2 text-slate-300 hover:text-primary transition-colors" aria-label="Мои финансы">
+              <Wallet className="w-4 h-4" />
             </Link>
             <ThemeToggle />
           </nav>

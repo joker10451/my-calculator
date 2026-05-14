@@ -7,6 +7,8 @@ import PopularCalculators from "@/components/PopularCalculators";
 import PersonalizedRecommendations from "@/components/PersonalizedRecommendations";
 import { SEO } from "@/components/SEO";
 import { ArrowRight } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CalculatorOfTheDay } from "@/components/CalculatorOfTheDay";
 
 const BlogSection = lazy(() => import("@/components/blog/BlogSection"));
 const Footer = lazy(() => import("@/components/Footer"));
@@ -74,15 +76,16 @@ const Index = () => {
         <Header />
         <main id="main-content" className="flex-1">
           <Hero />
-          <Suspense fallback={null}>
+          <Suspense fallback={<div className="h-12" />}>
             <CurrencyRatesWidget />
           </Suspense>
+          <CalculatorOfTheDay />
           <Categories />
           <PopularCalculators />
-          <Suspense fallback={null}>
+          <Suspense fallback={<div className="py-12 container mx-auto px-4"><Skeleton className="h-8 w-64 mb-6" /><div className="grid grid-cols-2 md:grid-cols-4 gap-4">{[1,2,3,4].map(i => <Skeleton key={i} className="h-24 rounded-xl" />)}</div></div>}>
             <RecentCalculators />
           </Suspense>
-          <Suspense fallback={null}>
+          <Suspense fallback={<div className="py-12 container mx-auto px-4"><Skeleton className="h-8 w-48 mb-6 mx-auto" /><Skeleton className="h-40 rounded-xl" /></div>}>
             <CalculatorOfTheWeek />
           </Suspense>
           <PersonalizedRecommendations />

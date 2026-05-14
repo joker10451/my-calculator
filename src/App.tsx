@@ -44,6 +44,9 @@ const SelfEmployedCalculatorPage = lazy(() => import("./pages/SelfEmployedCalcul
 const PensionCalculatorPage = lazy(() => import("./pages/PensionCalculatorPage"));
 const KASKOCalculatorPage = lazy(() => import("./pages/KASKOCalculatorPage"));
 const InvestmentCalculatorPage = lazy(() => import("./pages/InvestmentCalculatorPage"));
+const CompoundInterestPage = lazy(() => import("./pages/CompoundInterestPage"));
+const RentVsBuyPage = lazy(() => import("./pages/RentVsBuyPage"));
+const BudgetCalculatorPage = lazy(() => import("./pages/BudgetCalculatorPage"));
 const OverpaymentCalculatorPage = lazy(() => import("./pages/OverpaymentCalculatorPage"));
 const YandexCourierPage = lazy(() => import("./pages/YandexCourierPage"));
 const JoyMoneyPage = lazy(() => import("./pages/JoyMoneyPage"));
@@ -54,6 +57,7 @@ const BankDepositPage = lazy(() => import("./pages/BankDepositPage"));
 const MFOPage = lazy(() => import("./pages/MFOPage"));
 const FinancialLiteracyQuiz = lazy(() => import("./pages/FinancialLiteracyQuiz"));
 const TaxDeductionCalculatorPage = lazy(() => import("./pages/TaxDeductionCalculatorPage"));
+const CalorieCalculatorPage = lazy(() => import("./pages/CalorieCalculatorPage"));
 const ZettaOSGOPPage = lazy(() => import("./pages/ZettaOSGOPPage"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllCalculatorsPage = lazy(() => import("./pages/AllCalculatorsPage"));
@@ -82,12 +86,14 @@ export const BlogShare = lazy(() => import("./components/blog/BlogShare"));
 export const BlogRecommendations = lazy(() => import("./components/blog/BlogRecommendations"));
 const AnalyticsDashboardPage = lazy(() => import("./pages/AnalyticsDashboardPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
+const MyFinancesPage = lazy(() => import("./pages/MyFinancesPage"));
 const BanksRatingPage = lazy(() => import("./pages/BanksRatingPage"));
 const InflationCalculatorPage = lazy(() => import("./pages/InflationCalculatorPage"));
 const HowMuchYouLosePage = lazy(() => import("./pages/HowMuchYouLosePage"));
 const KeyRatePage = lazy(() => import("./pages/KeyRatePage"));
 const FinancialLiteracyChecklist = lazy(() => import("./pages/FinancialLiteracyChecklist"));
 const ComparePageWrapper = lazy(() => import("./pages/ComparePageWrapper"));
+const SeoLandingPage = lazy(() => import("./pages/SeoLandingPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => (
@@ -137,6 +143,9 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/pension" element={<PensionCalculatorPage />} />
           <Route path="/calculator/kasko" element={<KASKOCalculatorPage />} />
           <Route path="/calculator/investment" element={<InvestmentCalculatorPage />} />
+          <Route path="/calculator/compound-interest" element={<CompoundInterestPage />} />
+          <Route path="/calculator/rent-vs-buy" element={<RentVsBuyPage />} />
+          <Route path="/calculator/budget" element={<BudgetCalculatorPage />} />
           <Route path="/calculator/overpayment" element={<OverpaymentCalculatorPage />} />
           <Route path="/courier-yandex" element={<YandexCourierPage />} />
           <Route path="/joy-money" element={<JoyMoneyPage />} />
@@ -147,6 +156,7 @@ const AnimatedRoutes = () => {
           <Route path="/mfo/:mfo" element={<MFOPage />} />
           <Route path="/quiz/financial-literacy" element={<FinancialLiteracyQuiz />} />
           <Route path="/calculator/tax-deduction" element={<TaxDeductionCalculatorPage />} />
+          <Route path="/calculator/calories" element={<CalorieCalculatorPage />} />
           <Route path="/insurance/osgop-taxi" element={<ZettaOSGOPPage />} />
           <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/calculator/maternity-capital" element={<MaternityCapitalCalculatorPage />} />
@@ -164,6 +174,7 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/currency" element={<CurrencyConverterPage />} />
           <Route path="/compare" element={<ComparisonPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/my-finances" element={<MyFinancesPage />} />
           <Route path="/banks" element={<BanksRatingPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/all" element={<AllCalculatorsPage />} />
@@ -172,33 +183,28 @@ const AnimatedRoutes = () => {
           <Route path="/terms" element={<LegalPage type="terms" />} />
           <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/offers" element={<OffersCatalogPage />} />
-          <Route path="/offers/" element={<OffersCatalogPage />} />
           <Route path="/jobs" element={<JobsLandingPage />} />
-          <Route path="/jobs/" element={<JobsLandingPage />} />
           <Route path="/ruki-masters" element={<RukiVacancyPage />} />
-          <Route path="/ruki-masters/" element={<RukiVacancyPage />} />
           <Route path="/tick-insurance" element={<TickInsuranceLandingPage />} />
-          <Route path="/tick-insurance/" element={<TickInsuranceLandingPage />} />
           <Route path="/goldapple" element={<GoldapplePage />} />
-          <Route path="/goldapple/" element={<GoldapplePage />} />
           <Route path="/admin/analytics" element={<AnalyticsDashboardPage />} />
           <Route path="/analytics-dashboard" element={<AnalyticsDashboardPage />} />
-          <Route path="/analytics-dashboard/" element={<AnalyticsDashboardPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/category/:slug" element={<BlogCategoryPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
-          {/* Demo pages */}
-          <Route path="/demo/colourful-text" element={<ColourfulTextDemo />} />
-          <Route path="/demo/enhanced-blog-card" element={<EnhancedBlogCardDemo />} />
-          <Route path="/demo/color-system" element={<ColorSystemDemo />} />
-          <Route path="/demo/glassmorphism" element={<GlassmorphismDemo />} />
+          {/* Demo pages (admin only) */}
+          <Route path="/admin/demo/colourful-text" element={<ColourfulTextDemo />} />
+          <Route path="/admin/demo/enhanced-blog-card" element={<EnhancedBlogCardDemo />} />
+          <Route path="/admin/demo/color-system" element={<ColorSystemDemo />} />
+          <Route path="/admin/demo/glassmorphism" element={<GlassmorphismDemo />} />
           {/* Multilingual blog routes */}
           <Route path="/:lang/blog" element={<BlogPage />} />
           <Route path="/:lang/blog/:slug" element={<BlogPostPage />} />
           <Route path="/:lang/blog/category/:slug" element={<BlogCategoryPage />} />
           {/* Sitemap for SEO */}
           <Route path="/sitemap" element={<SitemapPage />} />
-          <Route path="/sitemap/" element={<SitemapPage />} />
+          {/* SEO Landing Pages */}
+          <Route path="/calc/:slug" element={<SeoLandingPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>

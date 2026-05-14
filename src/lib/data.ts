@@ -22,6 +22,9 @@ export const categories = [
             { name: "Калькулятор вкладов", href: "/calculator/deposit" },
             { name: "Конвертер валют", href: "/calculator/currency" },
             { name: "Доходность инвестиций", href: "/calculator/investment" },
+            { name: "Сложный процент", href: "/calculator/compound-interest" },
+            { name: "Аренда или покупка", href: "/calculator/rent-vs-buy" },
+            { name: "Бюджет 50/30/20", href: "/calculator/budget" },
             { name: "Сколько вы переплатите банку", href: "/calculator/overpayment" },
             { name: "Займ в JoyMoney", href: "/joy-money" }
         ],
@@ -66,6 +69,7 @@ export const categories = [
             { name: "Калькулятор ОСАГО", href: "/calculator/osago" },
             { name: "Калькулятор КАСКО", href: "/calculator/kasko" },
             { name: "Расход топлива", href: "/calculator/fuel" },
+            { name: "Размер шин", href: "/calculator/tire-size" },
             { name: "ОСГОП для такси", href: "/insurance/osgop-taxi" }
         ],
         href: "/category/auto",
@@ -79,6 +83,7 @@ export const categories = [
         calculators: [
             { name: "Индекс массы тела", href: "/calculator/bmi" },
             { name: "Норма воды", href: "/calculator/water" },
+            { name: "Калькулятор калорий", href: "/calculator/calories" },
         ],
         href: "/category/health",
     },

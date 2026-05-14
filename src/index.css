@@ -6,6 +6,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Плавная смена темы */
+html:not(.no-transition) *,
+html:not(.no-transition) *::before,
+html:not(.no-transition) *::after {
+  transition: background-color 300ms ease, color 200ms ease, border-color 250ms ease, box-shadow 300ms ease !important;
+}
+/* Отключаем transition при первой загрузке (предотвращает вспышку) */
+html.no-transition *,
+html.no-transition *::before,
+html.no-transition *::after {
+  transition: none !important;
+}
+
 @layer utilities {
   /* Glassmorphism утилиты */
   .glass {

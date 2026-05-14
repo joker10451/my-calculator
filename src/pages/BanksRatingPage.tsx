@@ -5,12 +5,7 @@ import { SEO } from '@/components/SEO';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { SITE_URL } from '@/shared/constants';
-
-const PRODUCT_LABELS: Record<string, { label: string; color: string; icon: React.ElementType }> = {
-  mortgage: { label: 'Ипотека', color: 'text-blue-400 bg-blue-500/10', icon: Building2 },
-  credit: { label: 'Кредит', color: 'text-emerald-400 bg-emerald-500/10', icon: Wallet },
-  deposit: { label: 'Вклад', color: 'text-amber-400 bg-amber-500/10', icon: TrendingUp },
-};
+import { BankComparisonTable } from '@/components/BankComparisonTable';
 
 export default function BanksRatingPage() {
   const sorted = [...BANKS].sort((a, b) => b.rating - a.rating);
@@ -91,6 +86,12 @@ export default function BanksRatingPage() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Сравнительная таблица */}
+          <div className="max-w-5xl mx-auto mt-12">
+            <h2 className="text-2xl md:text-3xl font-black text-slate-100 mb-6">Сравнение ставок</h2>
+            <BankComparisonTable />
           </div>
 
           <div className="max-w-3xl mx-auto mt-16 text-center">

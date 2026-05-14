@@ -1,0 +1,3 @@
+# Cloudflare Pages SPA fallback
+# Все маршруты, которые не соответствуют файлам, отдают index.html с кодом 200
+/*    /index.html   200

@@ -5,6 +5,8 @@ import { generateFAQSchema, generateHowToSchema, generateBreadcrumbSchema } from
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQ } from "@/components/FAQ";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
+import { RateAlertSignup } from "@/components/RateAlertSignup";
+import { ShareResult } from "@/components/ShareResult";
 import { storage } from "@/shared/utils/storage";
 import { toast } from "sonner";
 import { LucideIcon } from "lucide-react";
@@ -59,14 +61,14 @@ function CalculatorFeedback({ calculatorId }: { calculatorId: string }) {
         setVoted(val);
         setSubmitted(true);
       }
-    } catch {}
+    } catch { /* storage unavailable */ }
   }, [calculatorId]);
 
   const handleVote = (type: 'positive' | 'negative') => {
     if (submitted) return;
     setVoted(type);
     setSubmitted(true);
-    try { storage.set(`calc_feedback_${calculatorId}`, type); } catch {}
+    try { storage.set(`calc_feedback_${calculatorId}`, type); } catch { /* ignore */ }
     // Note: backend API not available — feedback stored in localStorage only
     toast.success(type === 'positive' ? 'Круто, мы полезны! 🎉' : 'Учтём, спасибо за честность!');
   };
@@ -215,6 +217,18 @@ const CalculatorPageWrapper = ({
             {afterCalculator}
           </div>
         )}
+
+        {/* Шеринг и подписка на ставки */}
+        <div className="mt-6 space-y-4">
+          <div className="rounded-xl border border-border bg-card p-4">
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">Поделиться расчётом</p>
+            <ShareResult
+              title={`${title} — Считай.RU`}
+              text={description}
+            />
+          </div>
+          <RateAlertSignup calculatorType={category === 'Финансы' ? 'mortgage' : category === 'Авто' ? 'credit' : 'deposit'} />
+        </div>
         
         {faqItems && faqItems.length > 0 && (
           <div className="mt-14 md:mt-16">

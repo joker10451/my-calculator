@@ -104,6 +104,26 @@ const routes = [
   { path: '/insurance/osgop-taxi/', folder: 'insurance/osgop-taxi', title: 'ОСГОП для такси онлайн — обязательная страховка от 3 392 ₽ | Зетта Страхование', description: 'Оформите ОСГОП для такси за 3 минуты. Штрафы до 1 млн ₽ без полиса. Выплаты до 2 млн ₽ пассажирам.' },
   // Google verification
   { path: '/google110b9cc8d3bca8f9.html', folder: '.', title: '', description: '', isGoogleVerification: true },
+  // SEO Landing Pages (автогенерация)
+  { path: '/calc/ipoteka-3-mln-na-15-let/', folder: 'calc/ipoteka-3-mln-na-15-let', title: 'Ипотека 3 млн на 15 лет — расчёт платежа 2026 | Считай.RU', description: 'Рассчитайте ипотеку 3 000 000 ₽ на 15 лет. Ежемесячный платёж, переплата, график. Актуальные ставки 2026.' },
+  { path: '/calc/ipoteka-5-mln-na-20-let/', folder: 'calc/ipoteka-5-mln-na-20-let', title: 'Ипотека 5 млн на 20 лет — расчёт платежа 2026 | Считай.RU', description: 'Рассчитайте ипотеку 5 000 000 ₽ на 20 лет. Ежемесячный платёж, переплата, график. Актуальные ставки 2026.' },
+  { path: '/calc/ipoteka-6-mln-na-20-let/', folder: 'calc/ipoteka-6-mln-na-20-let', title: 'Ипотека 6 млн на 20 лет — расчёт платежа 2026 | Считай.RU', description: 'Рассчитайте ипотеку 6 000 000 ₽ на 20 лет. Ежемесячный платёж, переплата, график. Актуальные ставки 2026.' },
+  { path: '/calc/ipoteka-10-mln-na-25-let/', folder: 'calc/ipoteka-10-mln-na-25-let', title: 'Ипотека 10 млн на 25 лет — расчёт платежа 2026 | Считай.RU', description: 'Рассчитайте ипотеку 10 000 000 ₽ на 25 лет. Ежемесячный платёж, переплата, график. Актуальные ставки 2026.' },
+  { path: '/calc/ipoteka-15-mln-na-30-let/', folder: 'calc/ipoteka-15-mln-na-30-let', title: 'Ипотека 15 млн на 30 лет — расчёт платежа 2026 | Считай.RU', description: 'Рассчитайте ипотеку 15 000 000 ₽ на 30 лет. Ежемесячный платёж, переплата, график. Актуальные ставки 2026.' },
+  { path: '/calc/ipoteka-sberbank-2026/', folder: 'calc/ipoteka-sberbank-2026', title: 'Ипотека Сбербанк 2026 — ставка 14.9%, расчёт платежа | Считай.RU', description: 'Рассчитайте ипотеку в Сбербанке по ставке 14.9%. Ежемесячный платёж, переплата, условия 2026 года.' },
+  { path: '/calc/ipoteka-vtb-2026/', folder: 'calc/ipoteka-vtb-2026', title: 'Ипотека ВТБ 2026 — ставка 14.5%, расчёт платежа | Считай.RU', description: 'Рассчитайте ипотеку в ВТБ по ставке 14.5%. Ежемесячный платёж, переплата, условия 2026 года.' },
+  { path: '/calc/ipoteka-alfa-bank-2026/', folder: 'calc/ipoteka-alfa-bank-2026', title: 'Ипотека Альфа-Банк 2026 — ставка 15.2%, расчёт | Считай.RU', description: 'Рассчитайте ипотеку в Альфа-Банке по ставке 15.2%. Ежемесячный платёж, переплата, условия 2026.' },
+  { path: '/calc/ipoteka-tbank-2026/', folder: 'calc/ipoteka-tbank-2026', title: 'Ипотека Т-Банк 2026 — ставка 15.5%, расчёт | Считай.RU', description: 'Рассчитайте ипотеку в Т-Банке по ставке 15.5%. Ежемесячный платёж, переплата, условия 2026.' },
+  { path: '/calc/kredit-500-tysyach-na-3-goda/', folder: 'calc/kredit-500-tysyach-na-3-goda', title: 'Кредит 500 000 ₽ на 3 года — расчёт платежа 2026 | Считай.RU', description: 'Рассчитайте кредит 500 000 ₽ на 3 года. Ежемесячный платёж, переплата. Актуальные ставки 2026.' },
+  { path: '/calc/kredit-1-mln-na-5-let/', folder: 'calc/kredit-1-mln-na-5-let', title: 'Кредит 1 000 000 ₽ на 5 лет — расчёт платежа 2026 | Считай.RU', description: 'Рассчитайте кредит 1 000 000 ₽ на 5 лет. Ежемесячный платёж, переплата. Актуальные ставки 2026.' },
+  { path: '/calc/kredit-2-mln-na-5-let/', folder: 'calc/kredit-2-mln-na-5-let', title: 'Кредит 2 000 000 ₽ на 5 лет — расчёт платежа 2026 | Считай.RU', description: 'Рассчитайте кредит 2 000 000 ₽ на 5 лет. Ежемесячный платёж, переплата. Актуальные ставки 2026.' },
+  { path: '/calc/kredit-3-mln-na-7-let/', folder: 'calc/kredit-3-mln-na-7-let', title: 'Кредит 3 000 000 ₽ на 7 лет — расчёт платежа 2026 | Считай.RU', description: 'Рассчитайте кредит 3 000 000 ₽ на 7 лет. Ежемесячный платёж, переплата. Актуальные ставки 2026.' },
+  { path: '/calc/vklad-1-mln-na-1-god/', folder: 'calc/vklad-1-mln-na-1-god', title: 'Вклад 1 000 000 ₽ на 1 год — доходность 2026 | Считай.RU', description: 'Рассчитайте доходность вклада 1 000 000 ₽ на 12 месяцев. Проценты, итоговая сумма. Ставки 2026.' },
+  { path: '/calc/vklad-500-tysyach-na-6-mesyacev/', folder: 'calc/vklad-500-tysyach-na-6-mesyacev', title: 'Вклад 500 000 ₽ на 6 месяцев — доходность 2026 | Считай.RU', description: 'Рассчитайте доходность вклада 500 000 ₽ на 6 месяцев. Проценты, итоговая сумма. Ставки 2026.' },
+  { path: '/calc/vklad-3-mln-na-1-god/', folder: 'calc/vklad-3-mln-na-1-god', title: 'Вклад 3 000 000 ₽ на 1 год — доходность 2026 | Считай.RU', description: 'Рассчитайте доходность вклада 3 000 000 ₽ на 12 месяцев. Проценты, итоговая сумма. Ставки 2026.' },
+  { path: '/calc/semejnaya-ipoteka-6-procentov-2026/', folder: 'calc/semejnaya-ipoteka-6-procentov-2026', title: 'Семейная ипотека 6% в 2026 — расчёт платежа | Считай.RU', description: 'Рассчитайте семейную ипотеку под 6% годовых. Ежемесячный платёж, переплата, условия программы 2026.' },
+  { path: '/calc/it-ipoteka-5-procentov-2026/', folder: 'calc/it-ipoteka-5-procentov-2026', title: 'IT-ипотека 5% в 2026 — расчёт платежа | Считай.RU', description: 'Рассчитайте IT-ипотеку под 5% годовых. Ежемесячный платёж, переплата, условия для IT-специалистов.' },
+  { path: '/calc/avtokredit-1-5-mln-na-5-let/', folder: 'calc/avtokredit-1-5-mln-na-5-let', title: 'Автокредит 1 500 000 ₽ на 5 лет — расчёт 2026 | Считай.RU', description: 'Рассчитайте автокредит 1 500 000 ₽ на 5 лет. Ежемесячный платёж, переплата. Ставки 2026.' },
 ];
 
 // Получаем entry point файл из assets (берём самый большой index-*.js — это главный бандл)
@@ -236,21 +256,17 @@ ${cssLink}
   
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
-    window.addEventListener('load', function() {
-      (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
-      
-      ym(106217699, 'init', {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true,
-        trackHash:true
-      });
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+    ym(106217699, 'init', {
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      webvisor:true,
+      trackHash:true
     });
   </script>
   <!-- /Yandex.Metrika counter -->
@@ -269,41 +285,48 @@ ${cssLink}
   <!-- Yandex.Metrika noscript -->
   <noscript><div><img src="https://mc.yandex.ru/watch/106217699" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika noscript -->
-  <div id="root"></div>
-  <script type="module" src="${entryPoint}"></script>
-  
-  <!-- Rich SEO Content for Search Engines -->
-  <noscript>
-    <div style="font-family: system-ui, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px;">
-      <h1>${route.title}</h1>
-      <p>${route.description}</p>
-      <nav>
-        <h2>Популярные калькуляторы</h2>
-        <ul>
-          <li><a href="/calculator/mortgage/">Ипотечный калькулятор — расчет платежа 2026</a></li>
-          <li><a href="/calculator/salary/">Калькулятор зарплаты — НДФЛ, на руки</a></li>
-          <li><a href="/calculator/credit/">Кредитный калькулятор — аннуитет и дифференцированный</a></li>
-          <li><a href="/calculator/bmi/">Калькулятор ИМТ — индекс массы тела</a></li>
-          <li><a href="/calculator/utilities/">Калькулятор ЖКХ — коммунальные платежи 2026</a></li>
-          <li><a href="/calculator/alimony/">Калькулятор алиментов 2026</a></li>
-          <li><a href="/calculator/court-fee/">Калькулятор госпошлины в суд</a></li>
-          <li><a href="/calculator/fuel/">Калькулятор расхода топлива</a></li>
-          <li><a href="/calculator/deposit/">Калькулятор вкладов — доходность депозита</a></li>
-          <li><a href="/calculator/deposit-tax/">Калькулятор налога на вклады 2026</a></li>
-          <li><a href="/calculator/maternity-capital/">Калькулятор материнского капитала 2026</a></li>
-          <li><a href="/calculator/osago/">Калькулятор ОСАГО онлайн</a></li>
-          <li><a href="/calculator/calories/">Калькулятор калорий — суточная норма</a></li>
-        </ul>
-        <h2>Разделы</h2>
-        <ul>
-          <li><a href="/blog/">Блог — финансовые статьи 2026</a></li>
-          <li><a href="/all/">Все калькуляторы</a></li>
-          <li><a href="/about/">О проекте</a></li>
-        </ul>
-      </nav>
-      <p>© 2026 Считай.RU — Бесплатные онлайн калькуляторы для России и СНГ. Все расчёты без регистрации.</p>
+  <div id="root">
+    <!-- SEO-контент: виден поисковым ботам, заменяется React при загрузке -->
+    <div style="font-family: system-ui, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #0f172a; color: #f8fafc;">
+      <header style="border-bottom: 2px solid #3B82F6; padding-bottom: 20px; margin-bottom: 30px;">
+        <h1 style="color: #f8fafc; font-size: 1.5rem;">${route.title}</h1>
+        <p style="color: #94a3b8;">${route.description}</p>
+      </header>
+      <main>
+        <nav aria-label="Навигация по калькуляторам">
+          <h2 style="color: #f8fafc;">Популярные калькуляторы</h2>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin: 8px 0;"><a href="/calculator/mortgage/" style="color: #60a5fa;">Ипотечный калькулятор — расчет платежа 2026</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/salary/" style="color: #60a5fa;">Калькулятор зарплаты — НДФЛ, на руки</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/credit/" style="color: #60a5fa;">Кредитный калькулятор — аннуитет и дифференцированный</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/bmi/" style="color: #60a5fa;">Калькулятор ИМТ — индекс массы тела</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/utilities/" style="color: #60a5fa;">Калькулятор ЖКХ — коммунальные платежи 2026</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/alimony/" style="color: #60a5fa;">Калькулятор алиментов 2026</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/court-fee/" style="color: #60a5fa;">Калькулятор госпошлины в суд</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/fuel/" style="color: #60a5fa;">Калькулятор расхода топлива</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/deposit/" style="color: #60a5fa;">Калькулятор вкладов — доходность депозита</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/deposit-tax/" style="color: #60a5fa;">Калькулятор налога на вклады 2026</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/maternity-capital/" style="color: #60a5fa;">Калькулятор материнского капитала 2026</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/osago/" style="color: #60a5fa;">Калькулятор ОСАГО онлайн</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/investment/" style="color: #60a5fa;">Калькулятор доходности инвестиций</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/self-employed/" style="color: #60a5fa;">Калькулятор налогов для самозанятых</a></li>
+            <li style="margin: 8px 0;"><a href="/calculator/tax-deduction/" style="color: #60a5fa;">Калькулятор налогового вычета</a></li>
+          </ul>
+          <h2 style="color: #f8fafc;">Разделы</h2>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin: 8px 0;"><a href="/blog/" style="color: #60a5fa;">Блог — финансовые статьи 2026</a></li>
+            <li style="margin: 8px 0;"><a href="/all/" style="color: #60a5fa;">Все калькуляторы</a></li>
+            <li style="margin: 8px 0;"><a href="/about/" style="color: #60a5fa;">О проекте</a></li>
+            <li style="margin: 8px 0;"><a href="/contacts/" style="color: #60a5fa;">Контакты</a></li>
+          </ul>
+        </nav>
+      </main>
+      <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #334155; color: #64748b;">
+        <p>© 2026 Считай.RU — Бесплатные онлайн калькуляторы для России и СНГ. Все расчёты без регистрации.</p>
+      </footer>
     </div>
-  </noscript>
+  </div>
+  <script type="module" src="${entryPoint}"></script>
   
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json">

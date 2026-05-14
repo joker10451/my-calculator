@@ -2,19 +2,24 @@ import { Link } from 'react-router-dom';
 import { BookOpen, ArrowRight, TrendingUp } from 'lucide-react';
 import { BlogCard } from './BlogCard';
 import { Button } from '@/components/ui/button';
-import { blogPosts } from '@/data/blogPosts';
+import { useState, useEffect } from 'react';
+import type { BlogPost } from '@/types/blog';
 
 const BlogSection = () => {
-  // Получаем последние 3 опубликованные статьи
-  const latestPosts = blogPosts
-    .filter(post => post.isPublished)
-    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-    .slice(0, 3);
+  const [latestPosts, setLatestPosts] = useState<BlogPost[]>([]);
+  const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
 
-  // Получаем рекомендуемые статьи
-  const featuredPosts = blogPosts
-    .filter(post => post.isPublished && post.isFeatured)
-    .slice(0, 2);
+  useEffect(() => {
+    import('@/data/blogPosts').then(({ blogPosts }) => {
+      const published = blogPosts.filter(post => post.isPublished);
+      setLatestPosts(
+        published
+          .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+          .slice(0, 3)
+      );
+      setFeaturedPosts(published.filter(post => post.isFeatured).slice(0, 2));
+    });
+  }, []);
 
   if (latestPosts.length === 0) {
     return null;
