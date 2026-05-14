@@ -9,6 +9,7 @@ import { SEO } from "@/components/SEO";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CalculatorOfTheDay } from "@/components/CalculatorOfTheDay";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const BlogSection = lazy(() => import("@/components/blog/BlogSection"));
 const Footer = lazy(() => import("@/components/Footer"));
@@ -79,7 +80,9 @@ const Index = () => {
           <Suspense fallback={<div className="h-12" />}>
             <CurrencyRatesWidget />
           </Suspense>
-          <CalculatorOfTheDay />
+          <ErrorBoundary fallback={null}>
+            <CalculatorOfTheDay />
+          </ErrorBoundary>
           <Categories />
           <PopularCalculators />
           <Suspense fallback={<div className="py-12 container mx-auto px-4"><Skeleton className="h-8 w-64 mb-6" /><div className="grid grid-cols-2 md:grid-cols-4 gap-4">{[1,2,3,4].map(i => <Skeleton key={i} className="h-24 rounded-xl" />)}</div></div>}>
@@ -88,7 +91,9 @@ const Index = () => {
           <Suspense fallback={<div className="py-12 container mx-auto px-4"><Skeleton className="h-8 w-48 mb-6 mx-auto" /><Skeleton className="h-40 rounded-xl" /></div>}>
             <CalculatorOfTheWeek />
           </Suspense>
-          <PersonalizedRecommendations />
+          <ErrorBoundary fallback={null}>
+            <PersonalizedRecommendations />
+          </ErrorBoundary>
           <section className="section-shell bg-slate-950">
             <div className="max-w-5xl mx-auto">
               <h2 className="text-2xl md:text-3xl font-black text-slate-100 mb-6 text-center">Сравнения</h2>
