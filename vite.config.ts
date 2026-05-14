@@ -147,6 +147,6 @@ export default defineConfig(({ mode }) => ({
     exclude: ['@vite/client', '@vite/env']
   },
   esbuild: {
-    drop: mode === 'production' ? ['console', 'debugger'] : [],
+    drop: mode === 'production' ? ['debugger'] : [],
   }
 }));
