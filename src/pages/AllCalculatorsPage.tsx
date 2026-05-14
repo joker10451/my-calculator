@@ -7,6 +7,21 @@ import { PSBCardWidget } from "@/components/PSBCardWidget";
 import { shouldShowPSBCard, getPSBCardVariant, getPSBCardSource } from "@/lib/psbCardPlacement";
 
 const AllCalculatorsPage = () => {
+    const allCalcs = categories.flatMap(cat => cat.calculators);
+    const itemListSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Все калькуляторы Считай.RU',
+      description: 'Полный каталог бесплатных онлайн калькуляторов',
+      numberOfItems: allCalcs.length,
+      itemListElement: allCalcs.map((calc, idx) => ({
+        '@type': 'ListItem',
+        position: idx + 1,
+        name: calc.name,
+        url: `https://schitay-online.ru${calc.href}`,
+      })),
+    };
+
     return (
         <CalculatorLayout
             title="Все калькуляторы"
@@ -16,7 +31,9 @@ const AllCalculatorsPage = () => {
                 title="Все онлайн калькуляторы — полный список"
                 description="Полный каталог калькуляторов Считай.RU: финансы, зарплата, налоги, авто, жильё, здоровье, семья, юридические."
                 keywords="все калькуляторы, каталог калькуляторов, финансовые калькуляторы, онлайн расчёт"
+                canonical="https://schitay-online.ru/all"
                 ogType="website"
+                structuredData={itemListSchema}
             />
             <h1 className="sr-only">Все финансовые и бытовые калькуляторы Считай.RU</h1>
             <div className="space-y-16">

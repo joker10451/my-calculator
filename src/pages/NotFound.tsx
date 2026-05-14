@@ -4,7 +4,8 @@ import { Search, Calculator, Home, Sparkles } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SEO } from "@/components/SEO";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { trackYandexGoal } from "@/hooks/useYandexMetrika";
 
 const POPULAR = [
   { name: 'Ипотечный калькулятор', href: '/calculator/mortgage', tag: 'Хит' },
@@ -19,6 +20,14 @@ const POPULAR = [
 
 const NotFound = () => {
   const [query, setQuery] = useState('');
+
+  // Трекинг 404 в аналитику
+  useEffect(() => {
+    trackYandexGoal('404_page', {
+      url: window.location.href,
+      referrer: document.referrer,
+    });
+  }, []);
 
   const filtered = query.length > 0
     ? POPULAR.filter(p => p.name.toLowerCase().includes(query.toLowerCase()))

@@ -51,21 +51,21 @@ export function PWAInstallPrompt() {
 
   return (
     <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:w-96 z-50 animate-fade-in-up">
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 p-5 relative">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-5 relative">
         <button
           onClick={handleDismiss}
           aria-label="Закрыть предложение установки приложения"
-          className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 transition-colors"
+          className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Download className="w-6 h-6 text-blue-600" />
+          <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+            <Download className="w-6 h-6 text-blue-600 dark:text-blue-400" />
           </div>
           <div>
-            <h3 className="font-bold text-slate-900 text-base mb-1">Установить Считай.RU</h3>
-            <p className="text-slate-500 text-sm mb-4">
+            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base mb-1">Установить Считай.RU</h3>
+            <p className="text-slate-500 dark:text-slate-400 text-sm mb-4">
               Добавьте приложение на главный экран для быстрого доступа к калькуляторам
             </p>
             <button

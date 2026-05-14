@@ -3,6 +3,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { initGA } from "./lib/analytics/googleAnalytics";
 import { initConversionTracking } from "./lib/analytics/conversionTracking";
+import { initWebVitals } from "./lib/analytics/webVitals";
 import { registerServiceWorker } from "./utils/serviceWorker";
 // Add no-transition class to prevent flash on initial load
 document.documentElement.classList.add('no-transition');
@@ -10,6 +11,7 @@ document.documentElement.classList.add('no-transition');
 // Initialize analytics (Yandex Metrika is loaded in index.html directly)
 initGA();
 initConversionTracking();
+initWebVitals();
 
 // Register Service Worker for caching
 if (import.meta.env.PROD) {
