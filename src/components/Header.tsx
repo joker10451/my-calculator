@@ -5,6 +5,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { categories } from "@/lib/data";
 import { useComparison } from "@/context/ComparisonContext";
 import { useFavorites } from "@/hooks/useFavorites";
+import { trackYandexParams } from "@/hooks/useYandexMetrika";
 
 /** Trigram similarity score (0–1) */
 function trigramScore(a: string, b: string): number {
@@ -63,7 +64,14 @@ const Header = () => {
 
   useEffect(() => {
     setActiveIndex(-1);
-  }, [searchQuery]);
+    // Трекинг нулевых результатов поиска (debounce 2 сек)
+    if (searchQuery.length >= 3 && filteredCalculators.length === 0) {
+      const timer = setTimeout(() => {
+        trackYandexParams({ search_zero_results: searchQuery });
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [searchQuery, filteredCalculators.length]);
 
   const handleSearchSelect = useCallback((href: string) => {
     navigate(href);

@@ -19,10 +19,13 @@ export function CookieConsent() {
   const handleAccept = () => {
     storage.set(CONSENT_KEY, true);
     setVisible(false);
+    // Уведомляем main.tsx что можно инициализировать аналитику
+    window.dispatchEvent(new Event('cookie-consent-accepted'));
   };
 
   const handleDismiss = () => {
     setVisible(false);
+    // При закрытии без согласия — не инициализируем аналитику
   };
 
   return (
