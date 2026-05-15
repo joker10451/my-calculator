@@ -17,6 +17,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 
 const PWAInstallPrompt = lazy(() => import("./components/PWAInstallPrompt").then(m => ({ default: m.PWAInstallPrompt })));
 const CookieConsent = lazy(() => import("./components/CookieConsent").then(m => ({ default: m.CookieConsent })));
+const RateChangeNotification = lazy(() => import("./components/RateChangeNotification").then(m => ({ default: m.RateChangeNotification })));
 
 // Lazy loading для страниц
 const Index = lazy(() => import("./pages/Index"));
@@ -98,7 +99,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => (
   <HelmetProvider>
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <ThemeInitializer />
         <TooltipProvider>
           <ComparisonProvider>
@@ -107,6 +108,7 @@ const App = () => (
             <Sonner />
             <PWAInstallPrompt />
             <CookieConsent />
+            <RateChangeNotification />
             <Router>
               <YandexMetrikaTracker />
               <GoogleAnalyticsTracker />
