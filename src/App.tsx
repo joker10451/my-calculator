@@ -109,8 +109,8 @@ const App = () => (
             <Sonner />
             <PWAInstallPrompt />
             <CookieConsent />
-            <RateChangeNotification />
             <Router>
+              <RateChangeNotification />
               <YandexMetrikaTracker />
               <GoogleAnalyticsTracker />
               <AnimatedRoutes />
