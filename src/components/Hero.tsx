@@ -40,7 +40,7 @@ const Hero = () => {
         <h1 className="text-4xl md:text-6xl font-black tracking-tight text-foreground mb-4">
           Финансовые калькуляторы
           <br />
-          <span className="text-primary">для жизни</span>
+          <span className="bg-gradient-to-r from-primary via-blue-600 to-indigo-600 bg-clip-text text-transparent">для жизни</span>
         </h1>
 
         <p className="text-lg text-muted-foreground max-w-lg mx-auto mb-10">
@@ -88,19 +88,19 @@ const Hero = () => {
 
         {/* Быстрые ссылки */}
         <div className="flex flex-wrap justify-center gap-2 mb-8">
-          <Link to="/calculator/mortgage" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors">
+          <Link to="/calculator/mortgage" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 hover:shadow-sm hover:shadow-primary/10 transition-all duration-200">
             Ипотека
           </Link>
-          <Link to="/calculator/salary" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors">
+          <Link to="/calculator/salary" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 hover:shadow-sm hover:shadow-primary/10 transition-all duration-200">
             Зарплата
           </Link>
-          <Link to="/calculator/credit" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors">
+          <Link to="/calculator/credit" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 hover:shadow-sm hover:shadow-primary/10 transition-all duration-200">
             Кредит
           </Link>
-          <Link to="/calculator/deposit" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors">
+          <Link to="/calculator/deposit" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 hover:shadow-sm hover:shadow-primary/10 transition-all duration-200">
             Вклады
           </Link>
-          <Link to="/calculator/court-fee" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors">
+          <Link to="/calculator/court-fee" className="px-4 py-2 rounded-full border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 hover:shadow-sm hover:shadow-primary/10 transition-all duration-200">
             Госпошлина
           </Link>
         </div>

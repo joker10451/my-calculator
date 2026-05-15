@@ -7,6 +7,7 @@ import PopularCalculators from "@/components/PopularCalculators";
 import { SEO } from "@/components/SEO";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { FadeInSection } from "@/components/FadeInSection";
 
 const BlogSection = lazy(() => import("@/components/blog/BlogSection"));
 const Footer = lazy(() => import("@/components/Footer"));
@@ -72,17 +73,23 @@ const Index = () => {
           </Suspense>
 
           {/* 3. Категории */}
-          <Categories />
+          <FadeInSection>
+            <Categories />
+          </FadeInSection>
 
           {/* 4. Популярные калькуляторы */}
-          <PopularCalculators />
+          <FadeInSection delay={100}>
+            <PopularCalculators />
+          </FadeInSection>
 
           {/* 5. Блог */}
-          <ErrorBoundary fallback={null}>
-            <Suspense fallback={<div className="section-shell"><Skeleton className="h-40 rounded-2xl" /></div>}>
-              <BlogSection />
-            </Suspense>
-          </ErrorBoundary>
+          <FadeInSection delay={150}>
+            <ErrorBoundary fallback={null}>
+              <Suspense fallback={<div className="section-shell"><Skeleton className="h-40 rounded-2xl" /></div>}>
+                <BlogSection />
+              </Suspense>
+            </ErrorBoundary>
+          </FadeInSection>
         </main>
 
         <Suspense fallback={null}>
