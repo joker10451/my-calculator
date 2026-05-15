@@ -100,7 +100,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => (
   <HelmetProvider>
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <ThemeInitializer />
         <TooltipProvider>
           <ComparisonProvider>
