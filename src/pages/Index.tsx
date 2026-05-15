@@ -94,52 +94,52 @@ const Index = () => {
           <ErrorBoundary fallback={null}>
             <PersonalizedRecommendations />
           </ErrorBoundary>
-          <section className="section-shell bg-slate-950">
+          <section className="section-shell">
             <div className="max-w-5xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-black text-slate-100 mb-6 text-center">Сравнения</h2>
+              <h2 className="text-2xl md:text-3xl font-black text-foreground mb-6 text-center">Сравнения</h2>
               <div className="grid md:grid-cols-3 gap-4">
                 <Link to="/compare/mortgage-vs-credit/" className="surface-card surface-card-hover p-5 text-center">
-                  <span className="text-3xl">🏠 <span className="text-slate-500">VS</span> 💳</span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-200">Ипотека или кредит</h3>
-                  <p className="mt-1 text-xs text-slate-500">Что выгоднее для покупки жилья?</p>
+                  <span className="text-3xl">🏠 <span className="text-muted-foreground">VS</span> 💳</span>
+                  <h3 className="mt-3 text-sm font-bold text-foreground">Ипотека или кредит</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">Что выгоднее для покупки жилья?</p>
                 </Link>
                 <Link to="/compare/osago-vs-kasko/" className="surface-card surface-card-hover p-5 text-center">
-                  <span className="text-3xl">📜 <span className="text-slate-500">VS</span> 🛡️</span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-200">ОСАГО или КАСКО</h3>
-                  <p className="mt-1 text-xs text-slate-500">Какую страховку выбрать для авто?</p>
+                  <span className="text-3xl">📜 <span className="text-muted-foreground">VS</span> 🛡️</span>
+                  <h3 className="mt-3 text-sm font-bold text-foreground">ОСАГО или КАСКО</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">Какую страховку выбрать для авто?</p>
                 </Link>
                 <Link to="/compare/deposit-vs-investment/" className="surface-card surface-card-hover p-5 text-center">
-                  <span className="text-3xl">🏦 <span className="text-slate-500">VS</span> 📈</span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-200">Вклад или инвестиции</h3>
-                  <p className="mt-1 text-xs text-slate-500">Куда выгоднее положить деньги?</p>
+                  <span className="text-3xl">🏦 <span className="text-muted-foreground">VS</span> 📈</span>
+                  <h3 className="mt-3 text-sm font-bold text-foreground">Вклад или инвестиции</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">Куда выгоднее положить деньги?</p>
                 </Link>
                 <Link to="/compare/salary-vs-self-employed/" className="surface-card surface-card-hover p-5 text-center">
-                  <span className="text-3xl">💼 <span className="text-slate-500">VS</span> 🧑‍💻</span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-200">Найм или самозанятость</h3>
-                  <p className="mt-1 text-xs text-slate-500">Где ты заработаешь больше?</p>
+                  <span className="text-3xl">💼 <span className="text-muted-foreground">VS</span> 🧑‍💻</span>
+                  <h3 className="mt-3 text-sm font-bold text-foreground">Найм или самозанятость</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">Где ты заработаешь больше?</p>
                 </Link>
                 <Link to="/compare/refinancing-vs-new-credit/" className="surface-card surface-card-hover p-5 text-center">
-                  <span className="text-3xl">🔄 <span className="text-slate-500">VS</span> 💳</span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-200">Рефинансирование или новый кредит</h3>
-                  <p className="mt-1 text-xs text-slate-500">Как сэкономить на процентах?</p>
+                  <span className="text-3xl">🔄 <span className="text-muted-foreground">VS</span> 💳</span>
+                  <h3 className="mt-3 text-sm font-bold text-foreground">Рефинансирование или новый кредит</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">Как сэкономить на процентах?</p>
                 </Link>
                 <Link to="/compare/vacation-vs-sick-leave/" className="surface-card surface-card-hover p-5 text-center">
-                  <span className="text-3xl">🏖️ <span className="text-slate-500">VS</span> 🤒</span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-200">Отпускные или больничный</h3>
-                  <p className="mt-1 text-xs text-slate-500">Сколько платят в каждом случае?</p>
+                  <span className="text-3xl">🏖️ <span className="text-muted-foreground">VS</span> 🤒</span>
+                  <h3 className="mt-3 text-sm font-bold text-foreground">Отпускные или больничный</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">Сколько платят в каждом случае?</p>
                 </Link>
               </div>
             </div>
           </section>
-          <section className="section-shell bg-slate-950">
+          <section className="section-shell">
             <div className="max-w-5xl mx-auto surface-card p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-100">Подбор предложений по вашим задачам</h2>
-                  <p className="text-slate-600 dark:text-slate-300 mt-2">
+                  <h2 className="text-2xl md:text-3xl font-black text-foreground">Подбор предложений по вашим задачам</h2>
+                  <p className="text-muted-foreground mt-2">
                     Собрали актуальные предложения в одном месте: карты, займы, страхование и вакансии.
                   </p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                  <p className="text-sm text-muted-foreground dark:text-slate-400 mt-2">
                     Для мастеров по ремонту есть отдельная подборка:{" "}
                     <Link to="/offers?category=vacancies&q=руки" className="font-semibold text-primary hover:underline">
                       вакансии «Сервис Руки»
@@ -162,8 +162,8 @@ const Index = () => {
                 className="surface-card surface-card-hover p-5"
               >
                 <p className="text-xs font-bold text-primary">Новая посадочная</p>
-                <h3 className="mt-2 text-xl font-black text-slate-900 dark:text-slate-100">Работа и подработка</h3>
-                <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm">
+                <h3 className="mt-2 text-xl font-black text-foreground">Работа и подработка</h3>
+                <p className="mt-2 text-muted-foreground text-sm">
                   Современная страница с быстрым выбором: курьерские вакансии и работа для мастеров.
                 </p>
                 <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
@@ -176,8 +176,8 @@ const Index = () => {
                 className="surface-card surface-card-hover p-5"
               >
                 <p className="text-xs font-bold text-primary">Сезонный спрос</p>
-                <h3 className="mt-2 text-xl font-black text-slate-900 dark:text-slate-100">Защита от клеща</h3>
-                <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm">
+                <h3 className="mt-2 text-xl font-black text-foreground">Защита от клеща</h3>
+                <p className="mt-2 text-muted-foreground text-sm">
                   Понятная посадочная со сценариями и переходом к релевантным страховым предложениям.
                 </p>
                 <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
@@ -190,8 +190,8 @@ const Index = () => {
                 className="surface-card surface-card-hover p-5"
               >
                 <p className="text-xs font-bold text-primary">E-com оффер</p>
-                <h3 className="mt-2 text-xl font-black text-slate-900 dark:text-slate-100">Золотое Яблоко</h3>
-                <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm">
+                <h3 className="mt-2 text-xl font-black text-foreground">Золотое Яблоко</h3>
+                <p className="mt-2 text-muted-foreground text-sm">
                   Переход к актуальным акциям и ассортименту косметики и парфюмерии.
                 </p>
                 <span className="mt-4 inline-flex items-center gap-2 text-primary font-bold text-sm">
@@ -201,7 +201,7 @@ const Index = () => {
               </Link>
             </div>
           </section>
-          <Suspense fallback={<section className="container mx-auto px-4 py-12 bg-slate-950"><div className="h-40 rounded-3xl border border-slate-800 bg-slate-900/70 animate-pulse" /></section>}>
+          <Suspense fallback={<section className="section-shell"><div className="h-40 rounded-2xl border border-border bg-muted animate-pulse" /></section>}>
             <BlogSection />
           </Suspense>
         </main>
