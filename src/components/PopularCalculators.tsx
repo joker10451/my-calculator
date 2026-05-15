@@ -108,7 +108,7 @@ const PopularCalculators = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 md:mb-10 text-center md:text-left">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2 uppercase tracking-tight text-foreground">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
               Популярные калькуляторы
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl">

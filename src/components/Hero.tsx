@@ -1,178 +1,57 @@
-import { useState, useMemo } from "react";
-import { ArrowRight, Calculator, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { FlipWords } from "./ui/flip-words";
-import { AnimatedCounter } from "./AnimatedCounter";
-import { RangeSlider } from "./ui/range-slider";
-
-function formatRub(value: number): string {
-  return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(value);
-}
-
-function calcMonthlyPayment(price: number, downPayment: number, termYears: number, ratePercent: number): number {
-  const loan = price - downPayment;
-  if (loan <= 0 || termYears <= 0 || ratePercent <= 0) return 0;
-  const r = ratePercent / 100 / 12;
-  const n = termYears * 12;
-  return (loan * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-}
 
 const Hero = () => {
-  const words = ["Ипотеку", "Кредит", "Налоги", "Вклады", "Зарплату", "ЖКХ", "ИМТ"];
-  const features = ["Точные алгоритмы", "Всегда бесплатно", "Без регистрации"];
-
-  const [price, setPrice] = useState(6000000);
-  const [downPayment, setDownPayment] = useState(1200000);
-  const [termYears, setTermYears] = useState(20);
-  const RATE = 16;
-
-  const monthly = useMemo(
-    () => calcMonthlyPayment(price, downPayment, termYears, RATE),
-    [price, downPayment, termYears]
-  );
+  const words = ["Ипотеку", "Кредит", "Налоги", "Вклады", "Зарплату", "ЖКХ"];
 
   return (
-    <section className="section-shell pt-20 md:pt-24 lg:pt-28">
-      <div className="max-w-6xl mx-auto rounded-3xl border border-border bg-card p-6 md:p-10 text-center shadow-2xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 md:mb-6 text-sm font-medium border rounded-full bg-muted border-border text-primary">
-          <Calculator className="w-4 h-4" />
-          <span>Универсальный помощник</span>
-        </div>
-
-        <h1 className="mb-4 md:mb-6 text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
-          <span className="block mb-2 text-foreground">
-            Посчитайте
+    <section className="pt-24 md:pt-32 lg:pt-36 pb-12 md:pb-16">
+      <div className="container mx-auto px-4 text-center">
+        {/* Заголовок */}
+        <h1 className="mb-6 text-5xl font-black tracking-tight md:text-7xl lg:text-8xl">
+          <span className="text-foreground">Посчитайте</span>
+          <br />
+          <span className="inline-block h-[1.2em]">
+            <FlipWords words={words} className="text-primary" />
           </span>
-          <div className="h-[1.2em] flex items-center justify-center overflow-visible">
-            <FlipWords words={words} className="text-primary font-black" />
-          </div>
         </h1>
 
-        <p className="max-w-2xl mx-auto mb-6 md:mb-8 text-lg md:text-xl text-muted-foreground">
-          Бесплатные онлайн-калькуляторы для России и СНГ. Кредиты, налоги, ЖКХ, здоровье — всё точно и по закону.
+        {/* Подзаголовок */}
+        <p className="max-w-xl mx-auto mb-10 text-lg text-muted-foreground md:text-xl">
+          Бесплатные калькуляторы для жизни в России. Точно, быстро, без регистрации.
         </p>
 
-        {/* Мини-ипотечный калькулятор */}
-        <div className="max-w-2xl mx-auto mb-8 rounded-2xl border border-border bg-background/60 p-5 text-left glass-card">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Быстрый расчёт ипотеки</p>
-          
-          {/* Desktop: number inputs */}
-          <div className="hidden md:grid grid-cols-3 gap-3 mb-4">
-            <div>
-              <label htmlFor="hero-price" className="text-xs text-muted-foreground mb-1 block">Стоимость, ₽</label>
-              <input
-                id="hero-price"
-                type="number"
-                value={price}
-                min={500000}
-                max={50000000}
-                step={100000}
-                onChange={e => setPrice(Number(e.target.value))}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
-              />
-            </div>
-            <div>
-              <label htmlFor="hero-downpayment" className="text-xs text-muted-foreground mb-1 block">Взнос, ₽</label>
-              <input
-                id="hero-downpayment"
-                type="number"
-                value={downPayment}
-                min={0}
-                max={price}
-                step={100000}
-                onChange={e => setDownPayment(Number(e.target.value))}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
-              />
-            </div>
-            <div>
-              <label htmlFor="hero-term" className="text-xs text-muted-foreground mb-1 block">Срок, лет</label>
-              <input
-                id="hero-term"
-                type="number"
-                value={termYears}
-                min={1}
-                max={30}
-                step={1}
-                onChange={e => setTermYears(Number(e.target.value))}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
-              />
-            </div>
-          </div>
-
-          {/* Mobile: sliders */}
-          <div className="md:hidden space-y-4 mb-4">
-            <RangeSlider
-              label="Стоимость"
-              value={price}
-              min={500000}
-              max={30000000}
-              step={100000}
-              onChange={setPrice}
-              formatValue={v => `${(v / 1000000).toFixed(1)} млн`}
-            />
-            <RangeSlider
-              label="Первоначальный взнос"
-              value={downPayment}
-              min={0}
-              max={Math.min(price * 0.9, 15000000)}
-              step={100000}
-              onChange={setDownPayment}
-              formatValue={v => `${(v / 1000000).toFixed(1)} млн`}
-            />
-            <RangeSlider
-              label="Срок"
-              value={termYears}
-              min={1}
-              max={30}
-              step={1}
-              onChange={setTermYears}
-              formatValue={v => `${v} лет`}
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs text-muted-foreground">Ежемесячный платёж (ставка {RATE}%)</p>
-              <p className="text-2xl font-black text-primary">
-                {monthly > 0 ? (
-                  <AnimatedCounter
-                    value={monthly}
-                    duration={600}
-                    formatFn={formatRub}
-                  />
-                ) : '—'}
-              </p>
-            </div>
-            <Link to="/calculator/mortgage/">
-              <Button size="sm" className="rounded-xl gap-1.5">
-                Подробнее
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        <div className="flex flex-col items-center justify-center gap-4 mb-8 md:mb-10 sm:flex-row">
+        {/* CTA */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <Link to="/#categories">
-            <Button size="lg" className="h-12 px-8 text-lg rounded-xl group">
+            <Button size="lg" className="h-13 px-8 text-base rounded-xl group shadow-lg shadow-primary/20">
               Выбрать калькулятор
               <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
-          <Link to="/blog">
-            <Button size="lg" variant="outline" className="h-12 px-8 text-lg rounded-xl">
-              Читать статьи
+          <Link to="/my-finances">
+            <Button size="lg" variant="outline" className="h-13 px-8 text-base rounded-xl">
+              Мои финансы
             </Button>
           </Link>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-          {features.map((feature, index) => (
-            <div key={index} className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-              <CheckCircle2 className="w-5 h-5 text-primary" />
-              <span>{feature}</span>
-            </div>
-          ))}
+        {/* Trust signals */}
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <CheckCircle2 className="w-4 h-4 text-green-500" />
+            <span>Актуальные данные 2026</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <CheckCircle2 className="w-4 h-4 text-green-500" />
+            <span>28+ калькуляторов</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <CheckCircle2 className="w-4 h-4 text-green-500" />
+            <span>Работает офлайн</span>
+          </div>
         </div>
       </div>
     </section>
