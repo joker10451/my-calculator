@@ -48,6 +48,7 @@ const InvestmentCalculatorPage = lazy(() => import("./pages/InvestmentCalculator
 const CompoundInterestPage = lazy(() => import("./pages/CompoundInterestPage"));
 const RentVsBuyPage = lazy(() => import("./pages/RentVsBuyPage"));
 const BudgetCalculatorPage = lazy(() => import("./pages/BudgetCalculatorPage"));
+const DebtPayoffPage = lazy(() => import("./pages/DebtPayoffPage"));
 const OverpaymentCalculatorPage = lazy(() => import("./pages/OverpaymentCalculatorPage"));
 const YandexCourierPage = lazy(() => import("./pages/YandexCourierPage"));
 const JoyMoneyPage = lazy(() => import("./pages/JoyMoneyPage"));
@@ -148,6 +149,7 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/compound-interest" element={<CompoundInterestPage />} />
           <Route path="/calculator/rent-vs-buy" element={<RentVsBuyPage />} />
           <Route path="/calculator/budget" element={<BudgetCalculatorPage />} />
+          <Route path="/calculator/debt-payoff" element={<DebtPayoffPage />} />
           <Route path="/calculator/overpayment" element={<OverpaymentCalculatorPage />} />
           <Route path="/courier-yandex" element={<YandexCourierPage />} />
           <Route path="/joy-money" element={<JoyMoneyPage />} />

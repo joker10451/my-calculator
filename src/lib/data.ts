@@ -25,6 +25,7 @@ export const categories = [
             { name: "Сложный процент", href: "/calculator/compound-interest" },
             { name: "Аренда или покупка", href: "/calculator/rent-vs-buy" },
             { name: "Бюджет 50/30/20", href: "/calculator/budget" },
+            { name: "Погашение долгов", href: "/calculator/debt-payoff" },
             { name: "Сколько вы переплатите банку", href: "/calculator/overpayment" },
             { name: "Займ в JoyMoney", href: "/joy-money" }
         ],

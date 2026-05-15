@@ -1,68 +1,57 @@
 import { Calculator } from "lucide-react";
 import { Link } from "react-router-dom";
-import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 const Footer = () => {
-  const categoriesList = [
-    { name: "Кредиты и ипотека", href: "/category/finance" },
-    { name: "Зарплата и налоги", href: "/category/salary" },
-    { name: "ЖКХ и коммуналка", href: "/category/housing" },
-    { name: "Авто и транспорт", href: "/category/auto" },
-    { name: "Здоровье", href: "/category/health" },
-    { name: "Семья и дети", href: "/category/family" },
-    { name: "Юридические", href: "/category/legal" },
+  const links = [
+    { name: "Ипотека", href: "/calculator/mortgage" },
+    { name: "Зарплата", href: "/calculator/salary" },
+    { name: "Кредит", href: "/calculator/credit" },
+    { name: "Вклады", href: "/calculator/deposit" },
+    { name: "Госпошлина", href: "/calculator/court-fee" },
+    { name: "ОСАГО", href: "/calculator/osago" },
+    { name: "ИМТ", href: "/calculator/bmi" },
+    { name: "Все калькуляторы", href: "/all" },
   ];
 
-  const popular = [
-    { name: "Калькулятор ипотеки", href: "/calculator/mortgage" },
-    { name: "Зарплата на руки", href: "/calculator/salary" },
-    { name: "Индекс массы тела", href: "/calculator/bmi" },
-    { name: "Расход топлива", href: "/calculator/fuel" },
-    { name: "Расчёт ЖКХ", href: "/calculator/utilities" },
-    { name: "Каталог предложений", href: "/offers" },
-    { name: "Работа и подработка", href: "/jobs" },
-    { name: "Страхование от клеща", href: "/tick-insurance" },
-    { name: "Золотое Яблоко", href: "/goldapple" },
-  ];
-
-  const legal = [
-    { name: "О проекте", href: "/about" },
+  const pages = [
     { name: "Блог", href: "/blog" },
-    { name: "Карта сайта", href: "/sitemap" },
-    { name: "Политика конфиденциальности", href: "/privacy" },
-    { name: "Условия использования", href: "/terms" },
+    { name: "Банки", href: "/banks" },
+    { name: "Мои финансы", href: "/my-finances" },
+    { name: "О проекте", href: "/about" },
     { name: "Контакты", href: "/contacts" },
+    { name: "Конфиденциальность", href: "/privacy" },
   ];
 
   return (
-    <footer className="bg-slate-900 dark:bg-slate-950 text-slate-100 py-12 md:py-14 border-t border-slate-800" aria-label="Подвал сайта">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-7 md:gap-10 mb-10">
+    <footer className="border-t border-border bg-muted/30" aria-label="Подвал сайта">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Бренд */}
-          <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <Calculator className="w-5 h-5 text-primary-foreground" />
+          <div>
+            <Link to="/" className="flex items-center gap-2.5 mb-4">
+              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+                <Calculator className="w-4 h-4 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold uppercase">
-                Считай.RU
-              </span>
+              <span className="text-lg font-bold text-foreground">Считай.RU</span>
             </Link>
-            <p className="text-sm text-slate-400">
-              Бесплатные онлайн-калькуляторы для России и СНГ. Точные расчёты по актуальным данным.
+            <p className="text-sm text-muted-foreground max-w-xs">
+              Бесплатные финансовые калькуляторы с актуальными данными 2026 года. Без регистрации.
             </p>
+            <a
+              href="mailto:joker104_97@mail.ru"
+              className="inline-block mt-4 text-sm text-primary hover:underline"
+            >
+              joker104_97@mail.ru
+            </a>
           </div>
 
-          {/* Категории */}
+          {/* Калькуляторы */}
           <div>
-            <h3 className="font-semibold mb-4 text-slate-200 text-base">Категории</h3>
-            <ul className="space-y-2">
-              {categoriesList.map((item) => (
+            <h3 className="font-semibold text-foreground mb-4">Калькуляторы</h3>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+              {links.map(item => (
                 <li key={item.name}>
-                  <Link
-                    to={item.href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors"
-                  >
+                  <Link to={item.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {item.name}
                   </Link>
                 </li>
@@ -70,96 +59,52 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Популярное */}
+          {/* Страницы */}
           <div>
-            <h3 className="font-semibold mb-4 text-slate-200 text-base">Популярное</h3>
+            <h3 className="font-semibold text-foreground mb-4">Информация</h3>
             <ul className="space-y-2">
-              {popular.map((item) => (
+              {pages.map(item => (
                 <li key={item.name}>
-                  <Link
-                    to={item.href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors"
-                  >
+                  <Link to={item.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Информация */}
-          <div>
-            <h3 className="font-semibold mb-4 text-slate-200 text-base">Информация</h3>
-            <ul className="space-y-2">
-              {legal.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    to={item.href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Подписка */}
-          <NewsletterSignup />
-
-          {/* Контакты */}
-          <div>
-            <h3 className="font-semibold mb-4 text-slate-200 text-base">Контакты</h3>
-            <div className="space-y-2">
-              <div>
-                <p className="text-sm text-slate-400 mb-1">Для связи:</p>
-                <a
-                  href="mailto:joker104_97@mail.ru"
-                  className="text-sm text-primary hover:text-blue-300 transition-colors"
-                >
-                  joker104_97@mail.ru
-                </a>
-              </div>
-              <div>
-                <p className="text-xs text-slate-500">
-                  Вопросы, предложения, сообщения об ошибках
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 
-          {/* Нижняя часть */}
-        <div className="pt-7 border-t border-slate-700 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-          <p className="text-sm text-slate-400">
-            © 2026 Считай.ru — Все права защищены
+        {/* Нижняя строка */}
+        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-muted-foreground">
+            © 2026 Считай.RU
           </p>
-          <p className="text-[10px] md:text-xs text-slate-500 max-w-md">
-            Информация носит справочный характер и не является публичной офертой
+          <p className="text-xs text-muted-foreground">
+            Информация носит справочный характер
           </p>
-        </div>
-
-        {/* HTML ссылки для поисковых ботов */}
-        <div className="sr-only">
-          <h2>Все калькуляторы</h2>
-          <nav>
-            <ul>
-              <li><a href="/calculator/mortgage/">Ипотечный калькулятор</a></li>
-              <li><a href="/calculator/salary/">Калькулятор зарплаты</a></li>
-              <li><a href="/calculator/credit/">Кредитный калькулятор</a></li>
-              <li><a href="/calculator/bmi/">Калькулятор ИМТ</a></li>
-              <li><a href="/calculator/fuel/">Калькулятор топлива</a></li>
-              <li><a href="/calculator/utilities/">Калькулятор ЖКХ</a></li>
-              <li><a href="/calculator/deposit/">Депозитный калькулятор</a></li>
-              <li><a href="/calculator/currency/">Конвертер валют</a></li>
-              <li><a href="/calculator/court-fee/">Калькулятор госпошлины</a></li>
-              <li><a href="/calculator/alimony/">Калькулятор алиментов</a></li>
-              <li><a href="/calculator/maternity-capital/">Материнский капитал</a></li>
-              <li><a href="/blog/">Блог</a></li>
-            </ul>
-          </nav>
         </div>
       </div>
+
+      {/* SEO-ссылки для ботов */}
+      <nav className="sr-only" aria-label="Все калькуляторы">
+        <ul>
+          <li><a href="/calculator/mortgage/">Ипотечный калькулятор</a></li>
+          <li><a href="/calculator/salary/">Калькулятор зарплаты</a></li>
+          <li><a href="/calculator/credit/">Кредитный калькулятор</a></li>
+          <li><a href="/calculator/bmi/">Калькулятор ИМТ</a></li>
+          <li><a href="/calculator/fuel/">Калькулятор топлива</a></li>
+          <li><a href="/calculator/utilities/">Калькулятор ЖКХ</a></li>
+          <li><a href="/calculator/deposit/">Депозитный калькулятор</a></li>
+          <li><a href="/calculator/currency/">Конвертер валют</a></li>
+          <li><a href="/calculator/court-fee/">Калькулятор госпошлины</a></li>
+          <li><a href="/calculator/alimony/">Калькулятор алиментов</a></li>
+          <li><a href="/calculator/maternity-capital/">Материнский капитал</a></li>
+          <li><a href="/calculator/compound-interest/">Сложный процент</a></li>
+          <li><a href="/calculator/rent-vs-buy/">Аренда или покупка</a></li>
+          <li><a href="/calculator/budget/">Бюджет 50/30/20</a></li>
+          <li><a href="/blog/">Блог</a></li>
+        </ul>
+      </nav>
     </footer>
   );
 };
