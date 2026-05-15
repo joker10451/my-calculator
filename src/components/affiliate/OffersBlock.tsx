@@ -26,9 +26,8 @@ const OFFERS_BY_PRODUCT: Record<string, OfferKeyConfig[]> = {
     { key: 'psb-debit-cashback', label: 'ПСБ «Твой кешбэк»', partnerName: 'psb', productType: 'debit', isPopular: true },
   ],
   deposit: [
-    { key: 'psb-debit-cashback', label: 'ПСБ «Твой кешбэк»', partnerName: 'psb', productType: 'debit', bestValue: true },
-    { key: 'tbank-all-airlines-debit', label: 'Т‑Банк ALL Airlines', partnerName: 'tbank', productType: 'debit', isPopular: true },
-    { key: 'sber-insurance-all', label: 'СберСтрахование — защита', partnerName: 'sberbank', productType: 'insurance' },
+    { key: 'psb-debit-cashback', label: 'ПСБ — накопительный счёт с кешбэком', partnerName: 'psb', productType: 'debit', bestValue: true },
+    { key: 'tbank-all-airlines-debit', label: 'Т‑Банк — накопительный счёт до 18%', partnerName: 'tbank', productType: 'debit', isPopular: true },
   ],
   debit: [
     { key: 'psb-debit-cashback', label: 'ПСБ «Твой кешбэк»', partnerName: 'psb', productType: 'debit', bestValue: true },
