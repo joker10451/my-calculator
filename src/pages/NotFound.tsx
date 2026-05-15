@@ -34,7 +34,7 @@ const NotFound = () => {
     : POPULAR;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950">
+    <div className="min-h-screen flex flex-col bg-background">
       <SEO title="404 — Страница не найдена" description="Запрашиваемая страница не существует" noindex />
       <Header />
 
@@ -44,22 +44,22 @@ const NotFound = () => {
             <span>404</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-black text-slate-100 mb-4 tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-black text-foreground mb-4 tracking-tight">
             Такой страницы не существует
           </h1>
-          <p className="text-lg text-slate-400 max-w-lg mx-auto mb-10">
+          <p className="text-lg text-muted-foreground max-w-lg mx-auto mb-10">
             Может, опечатка? Или она переехала. Пока ищешь — попробуй калькулятор, он точно работает.
           </p>
 
           <div className="max-w-md mx-auto mb-12">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <input
                 type="text"
                 placeholder="Найти калькулятор..."
                 value={query}
                 onChange={e => setQuery(e.target.value)}
-                className="w-full h-12 pl-12 pr-4 rounded-xl border border-slate-700 bg-slate-900 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-500/30 placeholder:text-slate-500"
+                className="w-full h-12 pl-12 pr-4 rounded-xl border border-border bg-card text-foreground text-sm outline-none focus:ring-2 focus:ring-blue-500/30 placeholder:text-muted-foreground"
               />
             </div>
           </div>
@@ -74,7 +74,7 @@ const NotFound = () => {
             </Link>
             <Link
               to="/all"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-slate-700 text-slate-200 font-bold rounded-xl hover:border-primary hover:text-primary transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-border text-foreground font-bold rounded-xl hover:border-primary hover:text-primary transition-colors"
             >
               <Calculator className="w-4 h-4" />
               Все калькуляторы
@@ -84,7 +84,7 @@ const NotFound = () => {
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center gap-2 mb-6 justify-center">
               <Sparkles className="w-5 h-5 text-primary" />
-              <h2 className="text-xl font-bold text-slate-200">Популярные калькуляторы</h2>
+              <h2 className="text-xl font-bold text-foreground">Популярные калькуляторы</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {filtered.map(calc => (
@@ -94,7 +94,7 @@ const NotFound = () => {
                   className="group surface-card surface-card-hover p-4 flex items-center gap-3 text-left"
                 >
                   <Calculator className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span className="text-sm font-semibold text-slate-200 group-hover:text-primary transition-colors truncate">
+                  <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                     {calc.name}
                   </span>
                   {calc.tag && (
@@ -108,7 +108,7 @@ const NotFound = () => {
           </div>
 
           <div className="max-w-3xl mx-auto mt-12">
-            <h2 className="text-xl font-bold text-slate-200 mb-6">Категории</h2>
+            <h2 className="text-xl font-bold text-foreground mb-6">Категории</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {categories.slice(0, 3).map((cat) => (
                 <Link
@@ -119,8 +119,8 @@ const NotFound = () => {
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${cat.color}`}>
                     <cat.icon className="w-5 h-5" />
                   </div>
-                  <h3 className="font-bold text-slate-200 mb-1">{cat.name}</h3>
-                  <p className="text-xs text-slate-500">{cat.description}</p>
+                  <h3 className="font-bold text-foreground mb-1">{cat.name}</h3>
+                  <p className="text-xs text-muted-foreground">{cat.description}</p>
                 </Link>
               ))}
             </div>

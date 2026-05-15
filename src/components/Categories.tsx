@@ -29,7 +29,7 @@ const Categories = () => {
   }));
 
   return (
-    <section id="categories" className="section-shell bg-slate-950">
+    <section id="categories" className="section-shell bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10 md:mb-12">
           <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tight text-foreground">

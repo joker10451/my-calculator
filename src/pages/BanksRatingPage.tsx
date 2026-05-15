@@ -11,7 +11,7 @@ export default function BanksRatingPage() {
   const sorted = [...BANKS].sort((a, b) => b.rating - a.rating);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950">
+    <div className="min-h-screen flex flex-col bg-background">
       <SEO
         title="Рейтинг банков 2026 — ставки по ипотеке, кредитам и вкладам"
         description="Сравните ставки крупнейших банков России: ипотека, кредиты, вклады. Рейтинг на основе ставок и отзывов клиентов."
@@ -27,10 +27,10 @@ export default function BanksRatingPage() {
               <Building2 className="w-4 h-4" />
               Рейтинг банков
             </div>
-            <h1 className="text-4xl md:text-5xl font-black text-slate-100 mb-4 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-black text-foreground mb-4 tracking-tight">
               Банки России — ставки 2026
             </h1>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Сравните ставки по ипотеке, кредитам и вкладам у крупнейших банков. Данные актуальны на 2026 год.
             </p>
           </div>
@@ -43,15 +43,15 @@ export default function BanksRatingPage() {
                   className="surface-card p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-4"
                 >
                   <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <div className="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-xl font-black text-slate-300 flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-slate-800 border border-border flex items-center justify-center text-xl font-black text-muted-foreground flex-shrink-0">
                       {idx + 1}
                     </div>
                     <div className="min-w-0">
-                      <h2 className="text-lg font-bold text-slate-100 truncate">{bank.bankName}</h2>
+                      <h2 className="text-lg font-bold text-foreground truncate">{bank.bankName}</h2>
                       <div className="flex items-center gap-1 mt-1">
                         <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                        <span className="text-sm font-bold text-slate-200">{bank.rating}</span>
-                        <span className="text-xs text-slate-500">/5</span>
+                        <span className="text-sm font-bold text-foreground">{bank.rating}</span>
+                        <span className="text-xs text-muted-foreground">/5</span>
                       </div>
                     </div>
                   </div>
@@ -59,17 +59,17 @@ export default function BanksRatingPage() {
                   <div className="grid grid-cols-3 gap-3 flex-1">
                     <Link to={`/bank/${bank.bankSlug}/mortgage`} className="group text-center p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 hover:border-blue-500/30 transition-colors">
                       <Percent className="w-4 h-4 text-blue-400 mx-auto mb-1" />
-                      <div className="text-xs text-slate-500">Ипотека</div>
+                      <div className="text-xs text-muted-foreground">Ипотека</div>
                       <div className="text-lg font-black text-blue-400">{bank.mortgageRate}%</div>
                     </Link>
                     <Link to={`/bank/${bank.bankSlug}/credit`} className="group text-center p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/10 hover:border-emerald-500/30 transition-colors">
                       <Wallet className="w-4 h-4 text-emerald-400 mx-auto mb-1" />
-                      <div className="text-xs text-slate-500">Кредит</div>
+                      <div className="text-xs text-muted-foreground">Кредит</div>
                       <div className="text-lg font-black text-emerald-400">{bank.creditRate}%</div>
                     </Link>
                     <Link to={`/bank/${bank.bankSlug}/deposit`} className="group text-center p-3 rounded-xl bg-amber-500/5 border border-amber-500/10 hover:border-amber-500/30 transition-colors">
                       <TrendingUp className="w-4 h-4 text-amber-400 mx-auto mb-1" />
-                      <div className="text-xs text-slate-500">Вклад</div>
+                      <div className="text-xs text-muted-foreground">Вклад</div>
                       <div className="text-lg font-black text-amber-400">{bank.depositRate}%</div>
                     </Link>
                   </div>
@@ -90,21 +90,21 @@ export default function BanksRatingPage() {
 
           {/* Сравнительная таблица */}
           <div className="max-w-5xl mx-auto mt-12">
-            <h2 className="text-2xl md:text-3xl font-black text-slate-100 mb-6">Сравнение ставок</h2>
+            <h2 className="text-2xl md:text-3xl font-black text-foreground mb-6">Сравнение ставок</h2>
             <BankComparisonTable />
           </div>
 
           <div className="max-w-3xl mx-auto mt-16 text-center">
-            <h2 className="text-2xl font-bold text-slate-100 mb-4">Не нашёл свой банк?</h2>
-            <p className="text-slate-400 mb-6">Попробуй наш калькулятор — он считает по актуальным ставкам ЦБ</p>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Не нашёл свой банк?</h2>
+            <p className="text-muted-foreground mb-6">Попробуй наш калькулятор — он считает по актуальным ставкам ЦБ</p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link to="/calculator/mortgage" className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors text-sm">
                 Ипотечный калькулятор
               </Link>
-              <Link to="/calculator/credit" className="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-700 text-slate-200 font-bold rounded-xl hover:border-primary hover:text-primary transition-colors text-sm">
+              <Link to="/calculator/credit" className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-foreground font-bold rounded-xl hover:border-primary hover:text-primary transition-colors text-sm">
                 Кредитный калькулятор
               </Link>
-              <Link to="/calculator/deposit" className="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-700 text-slate-200 font-bold rounded-xl hover:border-primary hover:text-primary transition-colors text-sm">
+              <Link to="/calculator/deposit" className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-foreground font-bold rounded-xl hover:border-primary hover:text-primary transition-colors text-sm">
                 Калькулятор вкладов
               </Link>
             </div>

@@ -96,7 +96,7 @@ const PopularCalculators = () => {
       }
     },
     extra: (
-      <div className="flex items-center gap-1 mt-auto pt-4 text-xs font-medium text-slate-300">
+      <div className="flex items-center gap-1 mt-auto pt-4 text-xs font-medium text-muted-foreground">
         <CheckCircle2 className="w-3 h-3 text-green-500" />
         <span>Актуально на 2026 год</span>
       </div>

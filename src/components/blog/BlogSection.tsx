@@ -26,7 +26,7 @@ const BlogSection = () => {
   }
 
   return (
-    <section className="py-12 md:py-16 bg-slate-950">
+    <section className="py-12 md:py-16 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl">
         {/* Заголовок секции */}
         <div className="text-center mb-8 md:mb-10">
@@ -34,11 +34,11 @@ const BlogSection = () => {
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center">
               <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase text-slate-100">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase text-foreground">
               Финансовый блог
             </h2>
           </div>
-          <p className="text-base md:text-lg text-slate-300 max-w-2xl mx-auto px-4">
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Экспертные статьи о финансах, налогах и экономии. Актуальная информация для принятия правильных решений.
           </p>
         </div>
@@ -48,7 +48,7 @@ const BlogSection = () => {
           <div className="mb-8 md:mb-10">
             <div className="flex items-center gap-2 mb-5 md:mb-8">
               <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-slate-100">Рекомендуем к прочтению</h3>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-foreground">Рекомендуем к прочтению</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               {featuredPosts.map(post => (
@@ -60,7 +60,7 @@ const BlogSection = () => {
 
         {/* Последние статьи */}
         <div className="mb-8 md:mb-10">
-          <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-5 md:mb-8 text-slate-100">Последние публикации</h3>
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-5 md:mb-8 text-foreground">Последние публикации</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {latestPosts.map(post => (
               <BlogCard key={post.id} post={post} />
@@ -92,13 +92,13 @@ const BlogSection = () => {
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {latestPosts.length + featuredPosts.length}+
             </div>
-            <div className="text-sm sm:text-base text-slate-300">Статей опубликовано</div>
+            <div className="text-sm sm:text-base text-muted-foreground">Статей опубликовано</div>
           </div>
           <div className="text-center p-4 md:p-5 surface-card rounded-2xl">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
               {featuredPosts.length}
             </div>
-            <div className="text-sm sm:text-base text-slate-300">Рекомендуемых статей</div>
+            <div className="text-sm sm:text-base text-muted-foreground">Рекомендуемых статей</div>
           </div>
           <div className="text-center p-4 md:p-5 surface-card rounded-2xl sm:col-span-2 md:col-span-1">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-2">
@@ -106,7 +106,7 @@ const BlogSection = () => {
                 latestPosts.reduce((sum, post) => sum + (post.readTime || 5), 0) / latestPosts.length
               ) : 5}
             </div>
-            <div className="text-sm sm:text-base text-slate-300">Минут среднее время чтения</div>
+            <div className="text-sm sm:text-base text-muted-foreground">Минут среднее время чтения</div>
           </div>
         </div>
       </div>

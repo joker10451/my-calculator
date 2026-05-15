@@ -267,17 +267,17 @@ export default function CalculatorOfTheWeek() {
                 </span>
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-black text-slate-100 mb-3">
+              <h2 className="text-2xl md:text-3xl font-black text-foreground mb-3">
                 {challenge.title}
               </h2>
 
-              <p className="text-slate-400 text-sm md:text-base mb-5 max-w-2xl">
+              <p className="text-muted-foreground text-sm md:text-base mb-5 max-w-2xl">
                 {challenge.description}
               </p>
 
               <div className={`p-4 rounded-2xl ${challenge.bgColor} border ${challenge.borderColor} mb-6`}>
                 <p className={`font-semibold ${challenge.accentColor} text-sm mb-1`}>Челлендж</p>
-                <p className="text-slate-200 text-sm md:text-base">{challenge.challenge}</p>
+                <p className="text-foreground text-sm md:text-base">{challenge.challenge}</p>
               </div>
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -289,7 +289,7 @@ export default function CalculatorOfTheWeek() {
                   {challenge.calculatorName}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
-                <p className="text-xs text-slate-500 max-w-xs">
+                <p className="text-xs text-muted-foreground max-w-xs">
                   Факт: {challenge.fact}
                 </p>
               </div>
