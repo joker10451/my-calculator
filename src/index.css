@@ -483,6 +483,8 @@ html.no-transition *::after {
 
   .section-shell {
     @apply container mx-auto px-4 py-8 md:py-12;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
   }
 
   .cta-primary {
