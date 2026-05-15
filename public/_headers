@@ -1,6 +1,6 @@
 # Cloudflare Pages HTTP Headers
 
-# Все страницы
+# Безопасность для всех страниц
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
@@ -8,25 +8,56 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 
-# Кэширование статических ассетов (1 год)
+# Статические ассеты — агрессивный кэш (1 год, immutable)
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
 
-# Favicon и иконки (1 год)
+# Шрифты
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# Иконки (1 год)
 /favicon.ico
   Cache-Control: public, max-age=31536000, immutable
-  Content-Type: image/x-icon
 
 /icon.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/icon-192.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/icon-512.png
   Cache-Control: public, max-age=31536000, immutable
 
 /apple-touch-icon.png
   Cache-Control: public, max-age=31536000, immutable
 
-# Manifest (1 день — может обновляться)
+# Manifest и SW (1 день)
 /manifest.json
   Cache-Control: public, max-age=86400
 
-# HTML страницы — не кэшировать агрессивно
-/*.html
+/sw.js
   Cache-Control: public, max-age=0, must-revalidate
+
+# Sitemap и robots (1 день)
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+# HTML страницы — короткий кэш (10 минут) + revalidate
+/index.html
+  Cache-Control: public, max-age=600, stale-while-revalidate=3600
+
+# Все остальные HTML (SPA routes)
+/calculator/*
+  Cache-Control: public, max-age=600, stale-while-revalidate=3600
+
+/blog/*
+  Cache-Control: public, max-age=600, stale-while-revalidate=3600
+
+/calc/*
+  Cache-Control: public, max-age=600, stale-while-revalidate=3600

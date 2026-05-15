@@ -1,3 +1,13 @@
-# Cloudflare Pages SPA fallback
-# Все маршруты, которые не соответствуют файлам, отдают index.html с кодом 200
+# Редиректы старых URL (GitHub Pages → новые)
+/mortgage-calculator    /calculator/mortgage    301
+/credit-calculator      /calculator/credit      301
+/salary-calculator      /calculator/salary      301
+/bmi-calculator         /calculator/bmi         301
+/fuel-calculator        /calculator/fuel        301
+/deposit-calculator     /calculator/deposit     301
+
+# Старые demo-страницы → 404 (убраны из продакшена)
+/demo/*                 /                       301
+
+# SPA fallback — все остальные маршруты
 /*    /index.html   200

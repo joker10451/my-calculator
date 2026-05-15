@@ -304,9 +304,8 @@ const CalculatorPageWrapper = ({
           </div>
         )}
 
-        {relatedSlug && (
-          <RelatedCalculators currentSlug={relatedSlug} />
-        )}
+        {/* Связанные калькуляторы — автоматически по slug из canonical */}
+        <RelatedCalculators currentSlug={relatedSlug || canonical.replace('https://schitay-online.ru/calculator/', '').replace(/\/$/, '')} />
       </CalculatorLayout>
     </>
   );
