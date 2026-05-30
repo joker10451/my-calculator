@@ -23,6 +23,7 @@ const BMICalculatorPage = () => {
             canonical="https://schitay-online.ru/calculator/bmi/"
             schemaName="Калькулятор ИМТ"
             schemaDescription="Бесплатный онлайн калькулятор индекса массы тела"
+            appCategory="HealthApplication"
             title="Индекс массы тела (ИМТ)"
             description="Простой способ узнать, находится ли ваш вес в пределах нормы"
             category="Здоровье"

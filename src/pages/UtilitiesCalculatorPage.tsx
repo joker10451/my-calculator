@@ -21,6 +21,7 @@ const UtilitiesCalculatorPage = () => {
             canonical="https://schitay-online.ru/calculator/utilities/"
             schemaName="Калькулятор ЖКХ"
             schemaDescription="Бесплатный онлайн калькулятор коммунальных платежей"
+            appCategory="UtilityApplication"
             title="Калькулятор коммунальных платежей"
             description="Рассчитайте стоимость коммунальных услуг для вашей квартиры"
             category="Коммунальные услуги"

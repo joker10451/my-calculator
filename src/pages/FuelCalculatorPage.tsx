@@ -22,6 +22,7 @@ const FuelCalculatorPage = () => {
             canonical="https://schitay-online.ru/calculator/fuel/"
             schemaName="Калькулятор топлива"
             schemaDescription="Бесплатный онлайн калькулятор расхода топлива"
+            appCategory="UtilityApplication"
             title="Калькулятор расхода топлива"
             description="Рассчитайте расход и стоимость топлива для вашей поездки"
             category="Транспорт"

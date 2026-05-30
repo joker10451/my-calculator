@@ -32,7 +32,7 @@ const LegalPage = ({ type }: { type: 'privacy' | 'terms' }) => {
                 </section>
 
                 <p className="pt-8 border-t text-sm text-muted-foreground">
-                    Дата последнего обновления: 12 января 2026 г.
+                    Дата последнего обновления: 28 мая 2026 г.
                 </p>
             </div>
         </CalculatorLayout>

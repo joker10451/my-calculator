@@ -42,32 +42,10 @@ const AboutPage = () => {
     { name: "Министерство труда", url: "https://mintrud.gov.ru/" },
   ];
 
-  const team = [
-    {
-      name: "Дмитрий Козлов",
-      role: "Эксперт по ипотеке и недвижимости",
-      bio: "Сертифицированный аналитик рынка недвижимости с 10-летним стажем. Специализируется на ипотечных программах.",
-      avatar: "/authors/dmitry-kozlov.png"
-    },
-    {
-      name: "Елена Иванова",
-      role: "Специалист по ЖКХ и льготам",
-      bio: "15 лет опыта в сфере жилищно-коммунального хозяйства. Автор методических пособий по оптимизации расходов.",
-      avatar: "/authors/elena-ivanova.png"
-    },
-    {
-      name: "Александр Смирнов",
-      role: "Финансовый аналитик",
-      bio: "Эксперт в области налогообложения и личных финансов. Помогает разобраться в тонкостях законодательства.",
-      avatar: "/authors/alexander-smirnov.png"
-    },
-    {
-      name: "Анна Петрова",
-      role: "Юрист по семейному праву",
-      bio: "Практикующий адвокат, специалист в области семейного и гражданского права.",
-      avatar: "/authors/anna-petrova.png"
-    },
-  ];
+  const author = {
+    name: "Создатель проекта",
+    bio: "Независимый разработчик из России. Все калькуляторы написаны вручную, формулы сверены с НК РФ, ГК РФ и регуляторами. Проект существует на общественных началах — никаких банков и страховых за спиной."
+  };
 
   return (
     <>
@@ -152,34 +130,25 @@ const AboutPage = () => {
             </div>
           </section>
 
-          {/* Команда экспертов */}
+          {/* Об авторе */}
           <section className="py-12 md:py-16 bg-muted/30">
             <div className="container mx-auto px-4">
-              <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">Наши эксперты</h2>
-              <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-12">
-                Статьи и методики проверяются квалифицированными специалистами в каждой области.
+              <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">Об авторе</h2>
+              <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-2">
+                Проект создан и поддерживается одним разработчиком. Никакой «команды экспертов» за вывеской — только живые формулы и честные данные.
               </p>
-
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-                {team.map((member, i) => (
-                  <div key={i} className="bg-card rounded-xl p-5 border text-center hover:shadow-lg transition-all">
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                      <img
-                        src={member.avatar}
-                        alt={member.name}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          target.parentElement!.innerHTML = `<span class="text-2xl font-bold text-primary">${member.name.split(' ').map(n => n[0]).join('')}</span>`;
-                        }}
-                      />
-                    </div>
-                    <h3 className="font-semibold mb-1">{member.name}</h3>
-                    <p className="text-xs text-primary font-medium mb-2">{member.role}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{member.bio}</p>
-                  </div>
-                ))}
+              <div className="max-w-lg mx-auto bg-card rounded-xl p-6 border text-center mt-6">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/30 to-primary/5 flex items-center justify-center mx-auto mb-4">
+                  <Calculator className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">Разработчик</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {author.bio}
+                </p>
+                <p className="text-xs text-muted-foreground mt-4">
+                  Связь:{" "}
+                  <a href="mailto:joker104_97@mail.ru" className="text-primary hover:underline">joker104_97@mail.ru</a>
+                </p>
               </div>
             </div>
           </section>

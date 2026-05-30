@@ -152,14 +152,6 @@ export const seoArticles: BlogPost[] = [
       metaDescription: 'Подробный гайд по расчёту НДФЛ в 2026 году. Прогрессивная шкала, налоговые вычеты, примеры расчёта. Бесплатный онлайн-калькулятор.',
       keywords: ['НДФЛ', 'калькулятор НДФЛ', 'налог с зарплаты', 'прогрессивная шкала', 'налоговые вычеты', '2026'],
     },
-    structuredData: {
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: 'Калькулятор НДФЛ 2026: как рассчитать налог с зарплаты онлайн',
-      author: { '@type': 'Person', name: 'Алексей Петров' },
-      datePublished: '2026-04-05T09:00:00Z',
-      publisher: { '@type': 'Organization', name: 'Считай.RU' },
-    },
     relatedCalculators: ['salary', 'self-employed'],
   },
   {
@@ -302,14 +294,6 @@ export const seoArticles: BlogPost[] = [
       metaTitle: 'Рефинансирование ипотеки 2026: калькулятор выгоды и пошаговая инструкция',
       metaDescription: 'Полный гайд по рефинансированию ипотеки в 2026 году. Калькулятор выгоды, условия банков, подводные камни. Узнайте, сколько сэкономите.',
       keywords: ['рефинансирование', 'ипотека 2026', 'калькулятор рефинансирования', 'снижение ставки', 'выгода'],
-    },
-    structuredData: {
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: 'Рефинансирование ипотеки 2026: калькулятор выгоды и пошаговая инструкция',
-      author: { '@type': 'Person', name: 'Марина Козлова' },
-      datePublished: '2026-04-05T10:00:00Z',
-      publisher: { '@type': 'Organization', name: 'Считай.RU' },
     },
     relatedCalculators: ['refinancing', 'mortgage', 'overpayment'],
   },
@@ -454,14 +438,6 @@ export const seoArticles: BlogPost[] = [
       metaDescription: 'Полный гайд по материнскому капиталу 2026. Размер выплат, индексация, условия получения, направления использования. Калькулятор онлайн.',
       keywords: ['материнский капитал 2026', 'размер маткапитала', 'как получить', 'на что потратить', 'индексация'],
     },
-    structuredData: {
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: 'Материнский капитал 2026: размер, как получить, на что потратить',
-      author: { '@type': 'Person', name: 'Елена Смирнова' },
-      datePublished: '2026-04-05T11:00:00Z',
-      publisher: { '@type': 'Organization', name: 'Считай.RU' },
-    },
     relatedCalculators: ['mortgage', 'maternity-capital'],
   },
   {
@@ -527,7 +503,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['досрочное погашение', 'ипотека', 'экономия', 'калькулятор', '2026'],
     readingTime: 7, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Досрочное погашение кредита 2026: срок или платёж — что выгоднее', metaDescription: 'Подробный разбор двух стратегий досрочного погашения. Калькулятор, примеры расчёта, реальные цифры. Узнайте, как сэкономить до 40% переплаты.', keywords: ['досрочное погашение', 'сократить срок или платёж', 'экономия на ипотеке', 'калькулятор досрочного', 'переплата по кредиту'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Досрочное погашение кредита 2026: что выгоднее — сократить срок или платёж', author: { '@type': 'Person', name: 'Марина Козлова' }, datePublished: '2026-04-06T09:00:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['mortgage', 'refinancing', 'overpayment'],
   },
   {
@@ -603,7 +578,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['инфляция', 'калькулятор', 'сбережения', 'вклады', 'инвестиции', '2026'],
     readingTime: 6, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Калькулятор инфляции 2026: сколько будут стоить деньги через 5 и 10 лет', metaDescription: 'Узнайте, как инфляция съедает ваши сбережения. Калькулятор покупательной способности, примеры, стратегии защиты денег.', keywords: ['калькулятор инфляции', 'инфляция 2026', 'покупательная способность', 'защита от инфляции', 'обесценивание денег'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Калькулятор инфляции 2026: сколько будут стоить ваши деньги через 5 и 10 лет', author: { '@type': 'Person', name: 'Сергей Иванов' }, datePublished: '2026-04-06T10:00:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['deposit', 'investment', 'salary'],
   },
   {
@@ -678,7 +652,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['кредитные карты', 'сравнение', 'льготный период', 'кэшбэк', '2026'],
     readingTime: 7, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Лучшие кредитные карты 2026: сравнение условий и льготных периодов', metaDescription: 'Рейтинг лучших кредитных карт 2026 года. Сравнение льготных периодов, ставок, кэшбэка. Как пользоваться без переплат.', keywords: ['кредитные карты 2026', 'лучшие кредитки', 'льготный период', 'кэшбэк', 'сравнение'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Лучшие кредитные карты 2026: сравнение условий, льготных периодов и кэшбэка', author: { '@type': 'Person', name: 'Алексей Петров' }, datePublished: '2026-04-06T11:00:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['credit', 'overpayment'],
   },
   {
@@ -751,7 +724,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['пенсия', 'калькулятор', 'пенсионные баллы', 'СФР', '2026'],
     readingTime: 6, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Калькулятор пенсии 2026: когда выйдете на пенсию и сколько получите', metaDescription: 'Рассчитайте свою будущую пенсию. Формула расчёта, пенсионные баллы, стаж. Актуальные данные ПФР на 2026 год.', keywords: ['калькулятор пенсии', 'пенсионные баллы 2026', 'расчёт пенсии', 'когда выйду на пенсию', 'пенсионный возраст'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Калькулятор пенсии 2026: когда выйдете на пенсию и сколько получите', author: { '@type': 'Person', name: 'Елена Смирнова' }, datePublished: '2026-04-06T12:00:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['pension', 'salary'],
   },
   {
@@ -827,7 +799,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['ОСАГО', 'калькулятор', 'коэффициенты', 'страхование', '2026'],
     readingTime: 7, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'ОСАГО 2026: калькулятор стоимости, коэффициенты, как сэкономить', metaDescription: 'Рассчитайте стоимость ОСАГО онлайн. Все коэффициенты 2026 года, скидки за безаварийность, способы сэкономить на полисе.', keywords: ['ОСАГО 2026', 'калькулятор ОСАГО', 'стоимость ОСАГО', 'коэффициенты ОСАГО', 'КБМ'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'ОСАГО 2026: калькулятор стоимости, коэффициенты, как сэкономить', author: { '@type': 'Person', name: 'Марина Козлова' }, datePublished: '2026-04-06T13:00:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['osago', 'kasko'],
   },
   {
@@ -915,7 +886,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['инвестиции', 'вклады', 'облигации', 'акции', '2026', 'калькулятор'],
     readingTime: 8, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Куда вложить деньги в 2026 году: 7 стратегий для начинающих', metaDescription: 'Подробный обзор инвестиционных инструментов 2026. Вклады, облигации, акции, недвижимость. Калькулятор доходности.', keywords: ['куда вложить деньги 2026', 'инвестиции для начинающих', 'лучшие вклады', 'облигации', 'акции'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Куда вложить деньги в 2026 году: 7 стратегий для начинающих', author: { '@type': 'Person', name: 'Сергей Иванов' }, datePublished: '2026-04-06T14:00:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['investment', 'deposit'],
   },
   {
@@ -989,7 +959,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['отпускные', 'калькулятор', 'зарплата', 'отпуск', '2026'],
     readingTime: 6, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Отпускные 2026: калькулятор и когда выгоднее идти в отпуск', metaDescription: 'Как рассчитать отпускные в 2026 году. Формула, примеры, в каком месяце выгоднее отдыхать. Онлайн-калькулятор.', keywords: ['отпускные 2026', 'калькулятор отпускных', 'расчёт отпускных', 'когда выгоднее отпуск', 'средний заработок'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Отпускные 2026: калькулятор и когда выгоднее идти в отпуск', author: { '@type': 'Person', name: 'Алексей Петров' }, datePublished: '2026-04-06T15:00:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['vacation', 'salary'],
   },
   {
@@ -1070,7 +1039,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['работа в москве', 'вакансии 2026', 'подработка', 'курьер', 'мастер', 'доход'],
     readingTime: 7, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Работа в Москве без опыта в 2026: где быстро стартовать', metaDescription: 'Где искать работу в Москве без опыта в 2026 году: курьерские вакансии и заказы для мастеров. Пошаговый чек-лист и ссылки на актуальные страницы.', keywords: ['работа в москве без опыта 2026', 'подработка москва', 'курьер вакансии москва', 'работа мастером москва', 'быстрый старт работы'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Работа в Москве без опыта в 2026: где быстро стартовать и как выбрать формат', author: { '@type': 'Person', name: 'Алексей Петров' }, datePublished: '2026-04-08T18:40:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['salary'],
   },
   {
@@ -1152,7 +1120,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['подработка на выходные', 'работа в москве', 'вакансии 2026', 'курьер', 'мастер', 'доход'],
     readingTime: 7, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Подработка на выходные в Москве в 2026: где искать и как выбрать', metaDescription: 'Где искать подработку на выходные в Москве в 2026 году: курьерские смены и заказы для мастеров. Чек-лист и полезные ссылки.', keywords: ['подработка на выходные москва 2026', 'подработка в москве', 'работа в выходные', 'курьер подработка', 'вакансии мастера москва'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Подработка на выходные в Москве в 2026: где искать и как выбрать безопасный вариант', author: { '@type': 'Person', name: 'Алексей Петров' }, datePublished: '2026-04-08T19:05:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['salary'],
   },
   {
@@ -1232,7 +1199,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['доход курьера', 'работа курьером москва', 'подработка 2026', 'вакансии москва', 'доход на руки'],
     readingTime: 7, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Сколько можно заработать курьером в Москве в 2026', metaDescription: 'Как посчитать доход курьера в Москве в 2026 году: смены, расходы, чистый результат и практический чек-лист по выбору формата.', keywords: ['сколько зарабатывает курьер москва 2026', 'доход курьера', 'работа курьером', 'подработка москва', 'расчет дохода'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Сколько можно заработать курьером в Москве в 2026: как посчитать доход без иллюзий', author: { '@type': 'Person', name: 'Алексей Петров' }, datePublished: '2026-04-08T19:30:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['salary'],
   },
   {
@@ -1313,7 +1279,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['работа мастером москва', 'сборка кухонь', 'вакансии мастеров', 'подработка 2026', 'доход мастера'],
     readingTime: 7, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Работа мастером по сборке кухонь в Москве в 2026', metaDescription: 'Требования и формат работы мастером по сборке кухонь в Москве в 2026 году. Как оценить график, загрузку и реальный доход.', keywords: ['работа мастером по сборке кухонь москва', 'вакансии мастера москва 2026', 'работа по установке дверей', 'доход мастера', 'подработка мастером'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Работа мастером по сборке кухонь в Москве в 2026: требования, график и как оценить доход', author: { '@type': 'Person', name: 'Алексей Петров' }, datePublished: '2026-04-08T19:55:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['salary'],
   },
   {
@@ -1383,7 +1348,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['косметика онлайн', 'покупки 2026', 'уход за кожей', 'бьюти', 'экономия бюджета'],
     readingTime: 7, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Как выбрать косметику онлайн в 2026 без лишних трат', metaDescription: 'Пошаговый чек-лист покупки косметики онлайн: состав, оттенки, доставка, бюджет. Как выбирать средства и не переплачивать.', keywords: ['как выбрать косметику онлайн', 'покупка косметики 2026', 'уход за кожей онлайн', 'бьюти покупки', 'как не переплачивать за косметику'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Как выбрать косметику онлайн в 2026 без лишних трат: пошаговый чек-лист', author: { '@type': 'Person', name: 'Алексей Петров' }, datePublished: '2026-04-08T20:20:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['salary'],
   },
   {
@@ -1448,7 +1412,6 @@ export const seoArticles: BlogPost[] = [
     tags: ['скидки на косметику', 'акции 2026', 'бьюти бюджет', 'парфюмерия', 'экономия'],
     readingTime: 6, isPublished: true, isFeatured: true, language: 'ru',
     seo: { metaTitle: 'Скидки на косметику в 2026: как искать акции разумно', metaDescription: 'Как искать скидки на косметику и парфюмерию без импульсивных покупок: план, бюджет, проверка финальной цены и полезный чек-лист.', keywords: ['скидки на косметику 2026', 'акции на парфюмерию', 'как экономить на косметике', 'бьюти шопинг', 'разумные покупки'] },
-    structuredData: { '@context': 'https://schema.org', '@type': 'Article', headline: 'Скидки на косметику в 2026: как искать акции разумно и не переплачивать', author: { '@type': 'Person', name: 'Алексей Петров' }, datePublished: '2026-04-08T20:35:00Z', publisher: { '@type': 'Organization', name: 'Считай.RU' } },
     relatedCalculators: ['salary'],
   },
 ];

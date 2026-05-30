@@ -111,20 +111,6 @@ https://trk.ppdu.ru/click/AxwkY87N?erid=2SDnjeBaaR6 | Выбрать карту 
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['vacation'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Отпускные в 2026 году: как рассчитать, сроки выплаты, налоги",
-      "author": {
-        "@type": "Person",
-        "name": "Михаил Соколов"
-      },
-      "datePublished": "2026-01-16T09:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
 
   // 4. Больничный (Зарплата и налоги)  
@@ -222,19 +208,5 @@ https://trk.ppdu.ru/click/6OxyALMQ?erid=2SDnjd5PFg5 | Оформить стра�
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['sick-leave'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Больничный в 2026 году: расчет, оформление, сроки выплаты",
-      "author": {
-        "@type": "Person",
-        "name": "Михаил Соколов"
-      },
-      "datePublished": "2026-01-17T10:30:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   }
 ];

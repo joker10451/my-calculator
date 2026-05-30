@@ -21,6 +21,7 @@ const TireSizeCalculatorPage = () => {
             canonical="https://schitay-online.ru/calculator/tire-size/"
             schemaName="Калькулятор шин"
             schemaDescription="Бесплатный онлайн калькулятор размера шин"
+            appCategory="UtilityApplication"
             title="Калькулятор размера шин"
             description="Рассчитайте и сравните параметры автомобильных шин"
             category="Транспорт"

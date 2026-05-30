@@ -23,6 +23,7 @@ const WaterCalculatorPage = () => {
             canonical="https://schitay-online.ru/calculator/water/"
             schemaName="Калькулятор воды"
             schemaDescription="Бесплатный онлайн калькулятор суточной нормы воды"
+            appCategory="UtilityApplication"
             title="Калькулятор нормы воды"
             description="Узнайте, сколько воды вам нужно пить ежедневно"
             category="Здоровье"

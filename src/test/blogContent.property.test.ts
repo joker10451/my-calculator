@@ -1,5 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { blogPosts } from '@/data/blogPosts';
+import { generateArticleSchema } from '@/utils/seoSchemas';
 
 /**
  * Property-Based Tests для контента блога
@@ -85,23 +86,24 @@ describe('Property Tests: Blog Content', () => {
   });
 
   /**
-   * Property 8: Structured Data Presence
-   * For any published article, it must have valid Article schema structured data
+   * Property 8: Structured Data Presence (generated at render time)
+   * For any published article, generateArticleSchema must produce valid BlogPosting schema
    * Validates: Requirements 2.5
    */
-  test('Property 8: Every article has valid Article schema structured data', () => {
+  test('Property 8: Every article has valid BlogPosting schema via generateArticleSchema', () => {
     const publishedArticles = blogPosts.filter(post => post.isPublished);
     
     publishedArticles.forEach(article => {
-      // Проверяем наличие structured data
-      expect(
-        article.structuredData,
-        `Article "${article.title}" (${article.slug}) must have structuredData`
-      ).toBeDefined();
+      const canonicalUrl = `https://schitay-online.ru/blog/${article.slug}/`;
+      const sd = generateArticleSchema(
+        article.title,
+        article.excerpt,
+        canonicalUrl,
+        article.publishedAt,
+        article.updatedAt
+      );
       
-      const sd = article.structuredData!;
-      
-      // Проверяем обязательные поля Article schema
+      // Проверяем обязательные поля BlogPosting schema
       expect(
         sd['@context'],
         `Article "${article.title}" must have @context in structured data`
@@ -109,8 +111,8 @@ describe('Property Tests: Blog Content', () => {
       
       expect(
         sd['@type'],
-        `Article "${article.title}" must have @type = "Article" in structured data`
-      ).toBe('Article');
+        `Article "${article.title}" must have @type = "BlogPosting" in structured data`
+      ).toBe('BlogPosting');
       
       expect(
         sd['headline'],
@@ -118,16 +120,11 @@ describe('Property Tests: Blog Content', () => {
       ).toBeDefined();
       
       expect(
-        typeof sd['headline'],
-        `Headline in article "${article.title}" must be a string`
-      ).toBe('string');
+        sd['headline'],
+        `Headline in article "${article.title}" must be non-empty`
+      ).toBeTruthy();
       
-      expect(
-        (sd['headline'] as string).length,
-        `Headline in article "${article.title}" must not be empty`
-      ).toBeGreaterThan(0);
-      
-      // Проверяем author
+      // Проверяем author (Organization, not Person — генерируется на лету)
       expect(
         sd['author'],
         `Article "${article.title}" must have author in structured data`
@@ -136,8 +133,8 @@ describe('Property Tests: Blog Content', () => {
       const author = sd['author'] as any;
       expect(
         author['@type'],
-        `Author in article "${article.title}" must have @type = "Person"`
-      ).toBe('Person');
+        `Author in article "${article.title}" must have @type = "Organization"`
+      ).toBe('Organization');
       
       expect(
         author['name'],

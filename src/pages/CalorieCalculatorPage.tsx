@@ -23,6 +23,7 @@ const CalorieCalculatorPage = () => {
             canonical="https://schitay-online.ru/calculator/calories/"
             schemaName="Калькулятор калорий"
             schemaDescription="Бесплатный онлайн калькулятор суточной нормы калорий"
+            appCategory="HealthApplication"
             title="Калькулятор калорий"
             description="Рассчитайте суточную норму калорий для достижения ваших целей"
             category="Здоровье"

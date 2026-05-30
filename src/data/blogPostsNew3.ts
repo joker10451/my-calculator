@@ -120,20 +120,6 @@ https://trk.ppdu.ru/click/dpZrs2PD?erid=2SDnjckH5nw | Расчет ОСАГО в
     isPublished: true,
     isFeatured: true,
     relatedCalculators: ['osago'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "ОСАГО в 2026 году: стоимость, как оформить онлайн, что изменилось",
-      "author": {
-        "@type": "Person",
-        "name": "Александр Смирнов"
-      },
-      "datePublished": "2026-01-14T10:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
 
   // 2. КАСКО (Авто и транспорт)
@@ -241,19 +227,5 @@ https://trk.ppdu.ru/click/mqYRntHD?erid=2SDnjeJfe47 | Рассчитать КА�
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['kasko'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "КАСКО в 2026 году: что покрывает, стоит ли оформлять, как выбрать",
-      "author": {
-        "@type": "Person",
-        "name": "Александр Смирнов"
-      },
-      "datePublished": "2026-01-15T11:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   }
 ];

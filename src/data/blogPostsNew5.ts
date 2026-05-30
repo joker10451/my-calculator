@@ -315,20 +315,6 @@ export const moreBlogPosts: BlogPost[] = [
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['bmi', 'calorie'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Индекс массы тела (ИМТ) в 2026: норма, как рассчитать, что означает",
-      "author": {
-        "@type": "Person",
-        "name": "Елена Смирнова"
-      },
-      "datePublished": "2026-01-18T09:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   }
 ];
 
@@ -511,20 +497,6 @@ export const depositArticle: BlogPost = {
   isPublished: true,
   isFeatured: false,
   relatedCalculators: ['deposit'],
-  structuredData: {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Банковские вклады в 2026 году: лучшие предложения, ставки, как выбрать",
-    "author": {
-      "@type": "Person",
-        "name": "Сергей Иванов"
-    },
-    "datePublished": "2026-01-19T10:00:00Z",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Считай.RU"
-    }
-  }
 };
 
 moreBlogPosts.push(depositArticle);

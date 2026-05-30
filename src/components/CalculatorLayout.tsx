@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { useLocation, Link } from "react-router-dom";
 import { categories } from "@/lib/data";
-import { ArrowRight, Sparkles, Calculator } from "lucide-react";
+import { ArrowRight, Sparkles, Calculator, Scale } from "lucide-react";
 
 interface CalculatorLayoutProps {
     children: ReactNode;
@@ -81,6 +81,21 @@ const CalculatorLayout = ({
                     <div className="container mx-auto px-4 pb-16 md:pb-20">
                         <div className="max-w-6xl mx-auto">
                             {children}
+
+                            {/* Дисклеймер */}
+                            <div className="mt-8 max-w-4xl mx-auto">
+                                <div className="flex items-start gap-2 p-3 rounded-lg border border-slate-800 bg-slate-900/50">
+                                    <Scale className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
+                                    <p className="text-xs text-muted-foreground leading-relaxed">
+                                        Расчёт носит информационный характер и не является финансовой или юридической консультацией.
+                                        Актуальные ставки и нормативы уточняйте в официальных источниках:{" "}
+                                        <a href="https://www.consultant.ru/document/cons_doc_LAW_19671/" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">НК РФ</a>,{" "}
+                                        <a href="https://cbr.ru/" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">ЦБ РФ</a>,{" "}
+                                        <a href="https://sfr.gov.ru/" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">СФР</a>.
+                                        Создатель проекта не несёт ответственности за возможные убытки, связанные с использованием расчётов.
+                                    </p>
+                                </div>
+                            </div>
 
                             {/* Related Calculators */}
                             {relatedCalculators.length > 0 && (

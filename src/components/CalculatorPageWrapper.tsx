@@ -17,6 +17,8 @@ interface Feature {
   color: 'blue' | 'green' | 'purple' | 'orange' | 'pink' | 'indigo';
 }
 
+type AppCategory = 'FinanceApplication' | 'HealthApplication' | 'UtilityApplication';
+
 interface CalculatorPageWrapperProps {
   // SEO данные
   seoTitle: string;
@@ -25,6 +27,7 @@ interface CalculatorPageWrapperProps {
   canonical: string;
   schemaName: string;
   schemaDescription: string;
+  appCategory?: AppCategory;
   
   // Заголовки
   title: string;
@@ -143,7 +146,8 @@ const CalculatorPageWrapper = ({
   aboutDescription,
   features,
   howToUseSteps,
-  relatedSlug
+  relatedSlug,
+  appCategory = 'FinanceApplication'
 }: CalculatorPageWrapperProps) => {
   const seoData = {
     title: seoTitle || title,
@@ -156,7 +160,7 @@ const CalculatorPageWrapper = ({
     schemaName,
     schemaDescription,
     canonical,
-    "FinanceApplication"
+    appCategory
   );
 
   const graphItems: object[] = [webAppSchema];

@@ -75,13 +75,19 @@ const Footer = () => {
         </div>
 
         {/* Нижняя строка */}
-        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-muted-foreground">
             © 2026 Считай.RU
           </p>
-          <p className="text-xs text-muted-foreground">
-            Информация носит справочный характер
-          </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+            <span>Информация справочного характера</span>
+            <span className="hidden sm:inline">·</span>
+            <a href="https://www.consultant.ru/document/cons_doc_LAW_19671/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">НК РФ</a>
+            <span className="hidden sm:inline">·</span>
+            <a href="https://cbr.ru/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">ЦБ РФ</a>
+            <span className="hidden sm:inline">·</span>
+            <a href="https://sfr.gov.ru/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">СФР</a>
+          </div>
         </div>
       </div>
 

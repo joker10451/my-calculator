@@ -102,20 +102,6 @@ const legacyBlogPosts: Partial<BlogPost>[] = [
     isPublished: true,
     isFeatured: true,
     relatedCalculators: ['mortgage', 'refinancing'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Ипотека в 2026 году: новые условия и льготные программы",
-      "author": {
-        "@type": "Person",
-        "name": "Дмитрий Козлов"
-      },
-      "datePublished": "2026-01-13T10:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
   {
     id: '2',
@@ -218,20 +204,6 @@ const legacyBlogPosts: Partial<BlogPost>[] = [
     isPublished: true,
     isFeatured: true,
     relatedCalculators: ['salary'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "НДФЛ в 2026 году: как работает прогрессивная шкала налогообложения",
-      "author": {
-        "@type": "Person",
-        "name": "Александр Смирнов"
-      },
-      "datePublished": "2026-01-12T14:30:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
   {
     id: '3',
@@ -353,20 +325,6 @@ const legacyBlogPosts: Partial<BlogPost>[] = [
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['utilities'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Тарифы ЖКХ в 2026 году: как экономить на коммунальных платежах",
-      "author": {
-        "@type": "Person",
-        "name": "Елена Иванова"
-      },
-      "datePublished": "2026-01-11T09:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
   {
     id: '4',
@@ -438,20 +396,6 @@ https://trk.ppdu.ru/click/ZaiOEayY?erid=Kra23k98b | Получить займ в
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['alimony'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Алименты в 2026 году: размеры, порядок взыскания и новые правила",
-      "author": {
-        "@type": "Person",
-        "name": "Анна Петрова"
-      },
-      "datePublished": "2026-01-10T11:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
   {
     id: '14',
@@ -583,20 +527,6 @@ https://trk.ppdu.ru/click/ZaiOEayY?erid=Kra23k98b | Получить займ в
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['maternity-capital', 'mortgage'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Материнский капитал в 2026: точные суммы, сроки и как не потерять деньги",
-      "author": {
-        "@type": "Person",
-        "name": "Елена Иванова"
-      },
-      "datePublished": "2026-01-23T10:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
   {
     id: '16',
@@ -727,20 +657,6 @@ https://trk.ppdu.ru/click/q3zhF1ow?erid=2SDnjeGCc2T | Оформить карт�
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['credit'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Кредитные карты в 2026: как пользоваться и не платить банку лишнего",
-      "author": {
-        "@type": "Person",
-        "name": "Александр Смирнов"
-      },
-      "datePublished": "2026-01-22T10:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
   {
     id: '17',
@@ -891,20 +807,6 @@ https://trk.ppdu.ru/click/q3zhF1ow?erid=2SDnjeGCc2T | Оформить карт�
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['refinancing', 'credit', 'mortgage'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Рефинансирование кредитов в 2026: когда оно реально выгодно",
-      "author": {
-        "@type": "Person",
-        "name": "Александр Смирнов"
-      },
-      "datePublished": "2026-01-24T10:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
   {
     id: '11',
@@ -1031,20 +933,6 @@ https://trk.ppdu.ru/click/q3zhF1ow?erid=2SDnjeGCc2T | Оформить карт�
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['investment', 'deposit'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Инвестиции в 2026 году: куда вложить деньги, чтобы заработать",
-      "author": {
-        "@type": "Person",
-        "name": "Александр Смирнов"
-      },
-      "datePublished": "2026-01-20T10:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
   {
     id: '12',
@@ -1188,20 +1076,6 @@ https://trk.ppdu.ru/click/q3zhF1ow?erid=2SDnjeGCc2T | Оформить карт�
     isPublished: true,
     isFeatured: false,
     relatedCalculators: ['court-fee'],
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "Госпошлины в 2026 году: размеры, как рассчитать, кто освобожден",
-      "author": {
-        "@type": "Person",
-        "name": "Елена Иванова"
-      },
-      "datePublished": "2026-01-21T10:00:00Z",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Считай.RU"
-      }
-    }
   },
   ...newBlogPosts,
   ...additionalBlogPosts,

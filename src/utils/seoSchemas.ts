@@ -134,7 +134,7 @@ export function generateBreadcrumbSchema(items: Array<{ name: string; url: strin
 }
 
 /**
- * Генератор структурированных данных для статьи
+ * Генератор структурированных данных для статьи блога
  */
 export function generateArticleSchema(
   title: string,
@@ -147,7 +147,7 @@ export function generateArticleSchema(
 ) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     'headline': title,
     'description': description,
     'url': url,
