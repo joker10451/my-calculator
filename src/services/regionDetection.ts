@@ -195,7 +195,9 @@ export async function detectRegion(): Promise<RegionData> {
         return parsed.data;
       }
     }
-  } catch {}
+  } catch {
+    // Не блокируем расчёт при недоступности локального кэша
+  }
 
   try {
     const position = await new Promise<GeolocationPosition>((resolve, reject) => {
@@ -223,7 +225,9 @@ export async function detectRegion(): Promise<RegionData> {
 
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: result }));
-    } catch {}
+    } catch {
+      // Не блокируем расчёт при недоступности локального кэша
+    }
 
     return result;
   } catch {

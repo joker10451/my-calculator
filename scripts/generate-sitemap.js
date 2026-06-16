@@ -15,6 +15,36 @@ const SITE_URL = 'https://schitay-online.ru';
 const DIST_DIR = path.join(__dirname, '..', 'dist');
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
 
+function normalizeUrl(url) {
+  return url.endsWith('/') ? url : `${url}/`;
+}
+
+function loadSeoLandingUrls() {
+  try {
+    const content = fs.readFileSync(path.join(__dirname, '..', 'src/data/seoLandings.ts'), 'utf8');
+    const slugs = Array.from(content.matchAll(/slug:\s*['"]([^'"]+)['"]/g)).map(match => match[1]);
+    return [...new Set(slugs)].map(slug => normalizeUrl(`/calc/${slug}`));
+  } catch (error) {
+    console.warn('⚠️  Не удалось загрузить SEO-лендинги для sitemap:', error.message);
+    return [];
+  }
+}
+
+function uniquePages(pageList) {
+  const seen = new Set();
+  const result = [];
+
+  for (const page of pageList) {
+    const key = page.url.replace(/\/$/, '');
+    if (!seen.has(key)) {
+      seen.add(key);
+      result.push(page);
+    }
+  }
+
+  return result;
+}
+
 // Загружаем статьи блога
 function loadBlogPosts() {
   try {
@@ -145,10 +175,12 @@ BANK_SLUGS.forEach(slug => {
 
 function generateSitemap() {
   const today = new Date().toISOString().split('T')[0];
+  const seoLandingUrls = loadSeoLandingUrls();
   
   // Загружаем статьи блога
   const blogSlugs = loadBlogPosts();
   console.log(`📝 Найдено статей блога: ${blogSlugs.length}`);
+  console.log(`🧮 Найдено SEO-лендингов: ${seoLandingUrls.length}`);
   
   // Добавляем статьи блога к страницам
   const blogPages = blogSlugs.map(slug => ({
@@ -157,14 +189,20 @@ function generateSitemap() {
     changefreq: 'monthly'
   }));
   
-  const allPages = [...pages, ...BANK_PAGES, ...blogPages];
+  const allPages = uniquePages([
+    ...pages,
+    ...BANK_PAGES,
+    ...seoLandingUrls.map(url => ({ url, priority: 0.85, changefreq: 'weekly' })),
+    ...blogPages,
+  ]);
   
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
   xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
   
   allPages.forEach(page => {
+    const cleanUrl = page.url === '/' ? '/' : page.url.replace(/\/$/, '');
     xml += '  <url>\n';
-    xml += `    <loc>${SITE_URL}${page.url}</loc>\n`;
+    xml += `    <loc>${SITE_URL}${cleanUrl}</loc>\n`;
     xml += `    <lastmod>${today}</lastmod>\n`;
     xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
     xml += `    <priority>${page.priority}</priority>\n`;
@@ -188,6 +226,7 @@ function generateSitemap() {
   console.log(`📊 Всего страниц в sitemap: ${allPages.length}`);
   console.log(`   - Статических страниц: ${pages.length}`);
   console.log(`   - Банк-страниц: ${BANK_PAGES.length}`);
+  console.log(`   - SEO-лендингов: ${seoLandingUrls.length}`);
   console.log(`   - Статей блога: ${blogSlugs.length}`);
   
   // Создаем robots.txt

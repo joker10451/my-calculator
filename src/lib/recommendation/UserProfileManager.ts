@@ -9,10 +9,9 @@ import type {
   UserProfileData,
   CalculationHistoryItem,
   ProductType,
-  EmploymentType,
   RiskTolerance
 } from '@/types/bank';
-import { isSupabaseConfigured } from '@/lib/database/supabase';
+import { getSupabase } from '@/lib/database/supabase';
 import { storage } from '@/shared/utils/storage';
 
 export interface CalculationData {
@@ -45,6 +44,18 @@ export class UserProfileManager {
   private static readonly ANONYMOUS_USER_ID = 'anonymous';
   private static readonly MAX_HISTORY_ITEMS = 100;
 
+  private getSupabaseClient() {
+    const client = getSupabase();
+    if (!client) {
+      throw new Error('Supabase not configured');
+    }
+    return client;
+  }
+
+  private normalizeSingleResult<T>(data: T | T[] | null | undefined): T | null {
+    return Array.isArray(data) ? data[0] ?? null : data;
+  }
+
   /**
    * Получает профиль пользователя
    * Сначала пытается загрузить из БД, затем из localStorage
@@ -52,7 +63,7 @@ export class UserProfileManager {
   async getUserProfile(userId: string): Promise<UserProfile | null> {
     try {
       // Пытаемся загрузить из Supabase
-      const { data, error } = await supabase
+      const { data, error } = await this.getSupabaseClient()
         .from('user_profiles')
         .select('*')
         .eq('user_id', userId)
@@ -104,7 +115,7 @@ export class UserProfileManager {
 
     try {
       // Пытаемся сохранить в Supabase
-      const { data, error } = await supabase
+      const { data, error } = await this.getSupabaseClient()
         .from('user_profiles')
         .insert(newProfileInsert)
         .select()
@@ -182,7 +193,7 @@ export class UserProfileManager {
 
     try {
       // Обновляем в Supabase
-      const { data, error } = await supabase
+      const { data, error } = await this.getSupabaseClient()
         .from('user_profiles')
         .update(profileUpdates)
         .eq('user_id', userId)
@@ -528,7 +539,7 @@ export class UserProfileManager {
   async syncProfile(userId: string): Promise<UserProfile | null> {
     try {
       // Загружаем из БД
-      const { data, error } = await supabase
+      const { data, error } = await this.getSupabaseClient()
         .from('user_profiles')
         .select('*')
         .eq('user_id', userId)

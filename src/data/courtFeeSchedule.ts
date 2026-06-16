@@ -68,7 +68,7 @@ export const FEE_SCHEDULE_CONFIG: FeeScheduleConfig = {
         min: 10000001, 
         max: 500000000, 
         rate: 0.005, 
-        fixedPart: 136000 
+        fixedPart: 121000
       },
       { 
         min: 500000001, 
@@ -169,7 +169,7 @@ export const ARBITRATION_RULES: FeeRule[] = [
     maxAmount: 500000000,
     feeType: 'progressive',
     feeValue: 0.005,
-    formula: '136 000 руб. + 0,5% с суммы, превышающей 10 000 000 руб.',
+    formula: '121 000 руб. + 0,5% с суммы, превышающей 10 000 000 руб.',
     legalBasis: 'пп. 5 п. 1 ст. 333.21 НК РФ'
   },
   {

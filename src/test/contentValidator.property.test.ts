@@ -217,7 +217,7 @@ describe('Content Validator Property Tests', () => {
       fc.assert(
         fc.property(
           fc.string({ minLength: 3, maxLength: 20 }).filter(s => /^[a-zа-яё]+$/i.test(s)),
-          fc.string({ minLength: 100, maxLength: 500 }),
+          fc.string({ minLength: 100, maxLength: 500 }).filter(s => !/^#/m.test(s)),
           (keyword, bodyContent) => {
             // Markdown формат
             const markdownContent = `# ${keyword} заголовок\n\n${bodyContent}`;

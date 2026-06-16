@@ -49,7 +49,9 @@ export async function fetchCBRRates(): Promise<CBRData> {
         return parsed.data;
       }
     }
-  } catch {}
+  } catch {
+    // Не блокируем расчёт при недоступности локального кэша
+  }
 
   try {
     const response = await fetch(API_URL);
@@ -82,7 +84,9 @@ export async function fetchCBRRates(): Promise<CBRData> {
 
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({ version: CACHE_VERSION, timestamp: Date.now(), data: result }));
-    } catch {}
+    } catch {
+      // Не блокируем расчёт при недоступности локального кэша
+    }
 
     return result;
   } catch (error) {

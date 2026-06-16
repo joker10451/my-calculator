@@ -28,7 +28,7 @@ function mdToTurboHtml(md: string) {
   const processedLines: string[] = [];
 
   for (let i = 0; i < lines.length; i++) {
-    let line = lines[i].trim();
+    const line = lines[i].trim();
 
     if (line.startsWith('- ') || line.startsWith('* ')) {
       if (!inUl) {

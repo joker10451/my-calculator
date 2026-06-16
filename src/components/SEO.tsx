@@ -34,11 +34,11 @@ export function SEO({
   const safeTitle = title || '';
   const fullTitle = safeTitle.includes('Считай.RU') ? safeTitle : (safeTitle ? `${safeTitle} — Считай.RU` : 'Считай.RU');
   
-  // Гарантируем слэш в конце для консистентности SEO
+  // Гарантируем консистентность canonical: без трейлинг-слеша
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
-  const normalizedPath = pathname === '/' ? '/' : (pathname.endsWith('/') ? pathname : `${pathname}/`);
+  const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
   const rawUrl = canonical || `https://schitay-online.ru${normalizedPath}`;
-  const url = rawUrl.endsWith('/') ? rawUrl : `${rawUrl}/`;
+  const url = rawUrl.replace(/\/$/, '');
   const locale = language === 'en' ? 'en_US' : 'ru_RU';
 
   return (

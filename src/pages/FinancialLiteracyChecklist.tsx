@@ -246,10 +246,18 @@ export default function FinancialLiteracyChecklist() {
 
                       return (
                         <div
+                          role="button"
+                          tabIndex={0}
                           key={item.id}
                           className={`surface-card p-4 cursor-pointer transition-colors ${checked[item.id] ? 'bg-emerald-500/5 border-emerald-500/20' : 'hover:bg-slate-800/50'}`}
                           onClick={() => {
                             setExpandedItem(isExpanded ? null : item.id);
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              setExpandedItem(isExpanded ? null : item.id);
+                            }
                           }}
                         >
                           <div className="flex items-start gap-3">

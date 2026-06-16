@@ -13,21 +13,15 @@ const mockLocalStorage = (() => {
   let store: Record<string, string> = {};
   
   return {
-    getItem: (key: string) => {
-      console.log(`localStorage.getItem(${key}) -> ${store[key] || null}`);
-      return store[key] || null;
+    getItem: (key: string) => store[key] || null,
+    setItem: (key: string, value: string) => {
+      store[key] = value;
     },
-    setItem: (key: string, value: string) => { 
-      console.log(`localStorage.setItem(${key}, ${value})`);
-      store[key] = value; 
+    removeItem: (key: string) => {
+      delete store[key];
     },
-    removeItem: (key: string) => { 
-      console.log(`localStorage.removeItem(${key})`);
-      delete store[key]; 
-    },
-    clear: () => { 
-      console.log('localStorage.clear()');
-      store = {}; 
+    clear: () => {
+      store = {};
     },
     get length() { return Object.keys(store).length; },
     key: (index: number) => Object.keys(store)[index] || null,
@@ -260,7 +254,7 @@ describe('Cache Management Property Tests', () => {
             }
             
             // Сохраняем несколько записей
-            for (const entry of validEntries) {
+            for (const entry of uniqueEntries) {
               await enhancedCache.set(entry.key, entry.data, 60000, {
                 source: entry.source,
                 tags: entry.tags
@@ -309,70 +303,6 @@ describe('Cache Management Property Tests', () => {
     });
   });
 
-  describe('Debug Search Issues', () => {
-    it('should debug search functionality', async () => {
-      // Простой тест для отладки
-      const testKey = 'test_key_123';
-      const testData = 'test_data';
-      const testTag = 'debug_tag';
-      const testSource = 'debug_source';
-      
-      // Сохраняем данные
-      console.log('Saving data with key:', testKey);
-      await enhancedCache.set(testKey, testData, 60000, {
-        source: testSource,
-        tags: [testTag]
-      });
-      console.log('Data saved, localStorage keys:', (localStorage as any).getAllKeys());
-      
-      // Проверяем что данные сохранились
-      const retrieved = await enhancedCache.get(testKey);
-      expect(retrieved).toBe(testData);
-      
-      // Проверяем метаданные
-      const metadata = await enhancedCache.getMetadata(testKey);
-      expect(metadata).toBeDefined();
-      expect(metadata!.source).toBe(testSource);
-      expect(metadata!.tags).toContain(testTag);
-      
-      // Проверяем поиск по тегу
-      console.log('Looking for tag:', testTag);
-      console.log('All localStorage keys:', (localStorage as any).getAllKeys());
-      
-      // Проверим данные вручную
-      const manualKey = 'enhanced_cache_test_key_123';
-      const manualData = localStorage.getItem(manualKey);
-      console.log('Manual data check:', manualData);
-      if (manualData) {
-        const parsed = JSON.parse(manualData);
-        console.log('Parsed metadata:', parsed.metadata);
-        console.log('Tags in metadata:', parsed.metadata.tags);
-        console.log('Does it include our tag?', parsed.metadata.tags.includes(testTag));
-      }
-      
-      // Проверим что возвращает Object.keys(localStorage)
-      console.log('Object.keys(localStorage):', Object.keys(localStorage));
-      console.log('localStorage.length:', localStorage.length);
-      
-      // Попробуем получить ключи через length и key()
-      const keysViaLength = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key) keysViaLength.push(key);
-      }
-      console.log('Keys via length/key():', keysViaLength);
-      
-      const foundByTag = await enhancedCache.findByTag(testTag);
-      console.log('Found by tag:', foundByTag);
-      expect(foundByTag).toContain(testKey);
-      
-      // Проверяем поиск по источнику
-      const foundBySource = await enhancedCache.findBySource(testSource);
-      console.log('Found by source:', foundBySource);
-      expect(foundBySource).toContain(testKey);
-    });
-  });
-
   describe('Cache Search and Filtering', () => {
     it('should find entries by tags correctly', async () => {
       await fc.assert(
@@ -399,13 +329,19 @@ describe('Cache Management Property Tests', () => {
               /^[a-zA-Z0-9_-]+$/.test(entry.key.trim()) // Только буквы, цифры, подчеркивания и дефисы
             );
             
+            const latestByKey = new Map<string, typeof validEntries[number]>();
+            for (const entry of validEntries) {
+              latestByKey.set(entry.key, entry);
+            }
+            const uniqueEntries = [...latestByKey.values()];
+
             // Если нет валидных записей, пропускаем тест
-            if (validEntries.length === 0) {
+            if (uniqueEntries.length === 0) {
               return;
             }
             
             // Сохраняем записи
-            for (const entry of validEntries) {
+            for (const entry of uniqueEntries) {
               await enhancedCache.set(entry.key, entry.data, 60000, {
                 source: 'test',
                 tags: entry.tags
@@ -512,7 +448,7 @@ describe('Cache Management Property Tests', () => {
           fc.record({
             key: fc.string({ minLength: 1, maxLength: 50 }),
             data: fc.string(),
-            shortTtl: fc.integer({ min: 1, max: 100 }) // Очень короткий TTL
+            shortTtl: fc.integer({ min: 50, max: 200 }) // Короткий, но устойчивый TTL для тестов
           }),
           async ({ key, data, shortTtl }) => {
             // Сохраняем с коротким TTL

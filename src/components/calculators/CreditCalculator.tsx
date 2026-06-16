@@ -91,7 +91,7 @@ const CreditCalculator = () => {
     const handleShare = async () => {
         const text = `Кредит ${formatCurrency(loanAmount)} на ${loanTerm} мес. при ${interestRate}%: платёж ${formatCurrency(monthlyPayment)}/мес, переплата ${formatCurrency(totalInterest)}`;
         if (navigator.share) {
-            try { await navigator.share({ title: 'Расчет кредита', text }); return; } catch {}
+            try { await navigator.share({ title: 'Расчет кредита', text }); return; } catch { /* Пользователь отменил шеринг */ }
         }
         try {
             await navigator.clipboard.writeText(text);

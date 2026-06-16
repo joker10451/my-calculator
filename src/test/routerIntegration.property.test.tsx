@@ -18,8 +18,20 @@ import Index from '@/pages/Index';
 // Мокаем LocalDataManager для тестирования
 vi.mock('@/lib/apiClient/LocalDataManager', () => ({
   LocalDataManager: class MockLocalDataManager {
-    getFeeSchedule = vi.fn().mockRejectedValue(new Error('Local data only'));
-    checkForUpdates = vi.fn().mockRejectedValue(new Error('Local data only'));
+    getFeeSchedule = vi.fn().mockResolvedValue({
+      success: false,
+      error: 'Local data only',
+      source: 'local',
+      timestamp: new Date(),
+      cached: false
+    });
+    checkForUpdates = vi.fn().mockResolvedValue({
+      success: false,
+      error: 'Local data only',
+      source: 'local',
+      timestamp: new Date(),
+      cached: false
+    });
     getSourcesStatus = vi.fn().mockReturnValue([]);
     testConnection = vi.fn().mockResolvedValue(true);
     clearCache = vi.fn().mockResolvedValue(undefined);
@@ -29,16 +41,16 @@ vi.mock('@/lib/apiClient/LocalDataManager', () => ({
 
 vi.mock('@/lib/apiClient/ConsultantRuClient', () => ({
   ConsultantRuClient: class MockConsultantRuClient {
-    getFeeSchedule = vi.fn().mockRejectedValue(new Error('HTTP 404: Not Found'));
-    checkForUpdates = vi.fn().mockRejectedValue(new Error('HTTP 404: Not Found'));
+    getFeeSchedule = vi.fn().mockResolvedValue({ success: false, error: 'HTTP 404: Not Found', source: 'consultant.ru', timestamp: new Date(), cached: false });
+    checkForUpdates = vi.fn().mockResolvedValue({ success: false, error: 'HTTP 404: Not Found', source: 'consultant.ru', timestamp: new Date(), cached: false });
     isAvailable = vi.fn().mockResolvedValue(false);
   }
 }));
 
 vi.mock('@/lib/apiClient/ApiSourceManager', () => ({
   ApiSourceManager: class MockApiSourceManager {
-    getFeeSchedule = vi.fn().mockRejectedValue(new Error('All API sources failed'));
-    checkForUpdates = vi.fn().mockRejectedValue(new Error('All API sources failed'));
+    getFeeSchedule = vi.fn().mockResolvedValue({ success: false, error: 'All API sources failed', source: 'api-source-manager', timestamp: new Date(), cached: false });
+    checkForUpdates = vi.fn().mockResolvedValue({ success: false, error: 'All API sources failed', source: 'api-source-manager', timestamp: new Date(), cached: false });
     getSourceStatuses = vi.fn().mockResolvedValue([]);
   }
 }));

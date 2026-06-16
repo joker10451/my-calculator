@@ -32,7 +32,34 @@ const routes = [
   '/courier-yandex', '/joy-money', '/tick-insurance',
   '/goldapple', '/ruki-masters',
   '/how-much-you-lose', '/key-rate', '/checklist', '/quiz/financial-literacy',
+  ...loadSeoLandingRoutes(),
 ];
+
+function loadSeoLandingRoutes() {
+  try {
+    const content = fs.readFileSync(path.join(process.cwd(), 'src/data/seoLandings.ts'), 'utf8');
+    const lines = content.split(/\r?\n/);
+    const landingRoutes = [];
+    let currentSlug = null;
+
+    for (const line of lines) {
+      const slugMatch = line.match(/slug:\s*'([^']+)'/);
+      if (slugMatch) {
+        currentSlug = slugMatch[1];
+      }
+
+      if (currentSlug && line.trim().startsWith('},')) {
+        landingRoutes.push(`/calc/${currentSlug}`);
+        currentSlug = null;
+      }
+    }
+
+    return landingRoutes;
+  } catch (error) {
+    console.warn('⚠️  Не удалось загрузить SEO-лендинги для prerender:', error.message);
+    return [];
+  }
+}
 
 function startServer() {
   return new Promise((resolve) => {

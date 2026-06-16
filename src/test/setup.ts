@@ -78,34 +78,25 @@ class MockCanvasRenderingContext2D {
   closePath = vi.fn();
 }
 
-class MockHTMLCanvasElement extends HTMLElement {
-  width = 300;
-  height = 150;
-  
-  getContext(contextType: string) {
-    if (contextType === '2d') {
-      return new MockCanvasRenderingContext2D();
-    }
-    return null;
-  }
-  
-  toDataURL(type?: string, quality?: number) {
-    return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
-  }
-  
-  toBlob(callback: (blob: Blob | null) => void, type?: string, quality?: number) {
-    const blob = new Blob(['fake-image-data'], { type: type || 'image/png' });
-    setTimeout(() => callback(blob), 0);
-  }
-}
+const mockCanvasContext = new MockCanvasRenderingContext2D();
 
 // Переопределяем createElement для canvas
 const originalCreateElement = document.createElement.bind(document);
 document.createElement = function(tagName: string, options?: any) {
+  const element = originalCreateElement.call(document, tagName, options);
   if (tagName.toLowerCase() === 'canvas') {
-    return new MockHTMLCanvasElement() as any;
+    Object.assign(element, {
+      width: 300,
+      height: 150,
+      getContext: () => mockCanvasContext,
+      toDataURL: () => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==',
+      toBlob: (callback: (blob: Blob | null) => void, type?: string) => {
+        const blob = new Blob(['fake-image-data'], { type: type || 'image/png' });
+        setTimeout(() => callback(blob), 0);
+      },
+    });
   }
-  return originalCreateElement.call(document, tagName, options);
+  return element;
 };
 
 // Мок для Image constructor

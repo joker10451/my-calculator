@@ -1,5 +1,5 @@
 import { describe, test, expect, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import { OptimizedImage } from '@/components/blog/OptimizedImage';
 
 describe('OptimizedImage Component', () => {
@@ -73,12 +73,11 @@ describe('OptimizedImage Component', () => {
 
     const img = screen.getByAltText('Test image');
     
-    // Симулируем загрузку изображения
-    img.dispatchEvent(new Event('load'));
-
-    await waitFor(() => {
-      expect(onLoad).toHaveBeenCalledTimes(1);
+    await act(async () => {
+      fireEvent.load(img);
     });
+
+    expect(onLoad).toHaveBeenCalledTimes(1);
   });
 
   test('applies custom className', () => {

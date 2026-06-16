@@ -68,7 +68,9 @@ export function useCalculatorHistory() {
       try {
         const stored = localStorage.getItem(HISTORY_KEY);
         if (stored && mounted) setHistory(JSON.parse(stored));
-      } catch {}
+      } catch {
+        // Ошибки localStorage не должны ломать расчёт
+      }
 
       // 2. Проверяем Supabase-сессию
       const supabase = await getSupabaseLazy();
@@ -88,7 +90,9 @@ export function useCalculatorHistory() {
         if (cloudHistory && cloudHistory.length > 0) {
           const merged = [...cloudHistory];
           setHistory(merged);
-          try { localStorage.setItem(HISTORY_KEY, JSON.stringify(merged)); } catch {}
+          try { localStorage.setItem(HISTORY_KEY, JSON.stringify(merged)); } catch {
+            // Не блокируем загрузку истории при ошибке localStorage
+          }
         } else {
           // Облако пустое — заливаем локальные данные
           const stored = localStorage.getItem(HISTORY_KEY);
@@ -97,7 +101,9 @@ export function useCalculatorHistory() {
             if (localItems.length > 0) await syncToSupabase(userId, localItems);
           }
         }
-      } catch {}
+      } catch {
+        // Ошибки синхронизации истории не должны ломать расчёт
+      }
     };
 
     load();
@@ -105,7 +111,9 @@ export function useCalculatorHistory() {
   }, []);
 
   const saveToStorage = useCallback((items: CalculationHistoryItem[]) => {
-    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(items)); } catch {}
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(items)); } catch {
+      // Ошибки сохранения истории не должны ломать расчёт
+    }
   }, []);
 
   const addCalculation = useCallback((

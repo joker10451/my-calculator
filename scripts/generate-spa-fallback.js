@@ -1,98 +1,81 @@
 #!/usr/bin/env node
 
 /**
- * Генерирует копии index.html для каждого маршрута
- * Это решает проблему 404 на GitHub Pages для SPA
+ * Генерирует 404.html и SPA-fallback для GitHub Pages.
+ *
+ * GitHub Pages не умеет fallback для React Router, поэтому:
+ * 1. dist/404.html используется как fallback для неизвестных URL;
+ * 2. для URL из sitemap создаются route/index.html только если файла ещё нет,
+ *    чтобы не затереть полноценно сгенерированные статические страницы.
  */
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Список всех маршрутов из sitemap.xml
-const routes = [
-  '/all',
-  '/calculator/mortgage',
-  '/calculator/salary',
-  '/calculator/credit',
-  '/calculator/bmi',
-  '/calculator/fuel',
-  '/calculator/utilities',
-  '/calculator/maternity-capital',
-  '/calculator/calories',
-  '/calculator/water',
-  '/calculator/alimony',
-  '/calculator/refinancing',
-  '/calculator/deposit',
-  '/calculator/currency',
-  '/calculator/court-fee',
-  '/calculator/tire-size',
-  '/about',
-  '/privacy',
-  '/terms',
-  '/contacts',
-  '/legal',
-  '/blog',
-  '/category/financial',
-  '/category/personal',
-  '/category/transport',
-  '/category/utilities',
-  '/category/legal'
-];
-
-const distDir = path.resolve(__dirname, '../dist');
+const distDir = path.resolve(process.cwd(), 'dist');
 const indexPath = path.join(distDir, 'index.html');
+const sitemapPath = path.join(distDir, 'sitemap.xml');
 
-console.log('🚀 Generating SPA fallback files for GitHub Pages...\n');
-
-// Проверяем что dist существует
-if (!fs.existsSync(distDir)) {
-  console.error('❌ Error: dist directory not found. Run build first.');
-  process.exit(1);
-}
-
-// Проверяем что index.html существует
-if (!fs.existsSync(indexPath)) {
-  console.error('❌ Error: index.html not found in dist directory.');
-  process.exit(1);
-}
-
-// Читаем содержимое index.html
-const indexContent = fs.readFileSync(indexPath, 'utf8');
-
-let successCount = 0;
-let errorCount = 0;
-
-// Создаем копии index.html для каждого маршрута
-routes.forEach(route => {
-  try {
-    // Убираем начальный слеш и создаем путь к директории
-    const routePath = route.slice(1);
-    const targetDir = path.join(distDir, routePath);
-    const targetFile = path.join(targetDir, 'index.html');
-    
-    // Создаем директорию если не существует
-    if (!fs.existsSync(targetDir)) {
-      fs.mkdirSync(targetDir, { recursive: true });
-    }
-    
-    // Копируем index.html
-    fs.writeFileSync(targetFile, indexContent);
-    
-    console.log(`✅ Created: ${route}/index.html`);
-    successCount++;
-  } catch (error) {
-    console.error(`❌ Error creating ${route}/index.html:`, error.message);
-    errorCount++;
+function readSitemapUrls() {
+  if (!fs.existsSync(sitemapPath)) {
+    return [];
   }
-});
 
-console.log(`\n📊 Summary:`);
-console.log(`   ✅ Success: ${successCount} files`);
-if (errorCount > 0) {
-  console.log(`   ❌ Errors: ${errorCount} files`);
+  const content = fs.readFileSync(sitemapPath, 'utf8');
+  const urls = Array.from(content.matchAll(/<loc>([^<]+)<\/loc>/g)).map(match => match[1]);
+
+  return urls
+    .filter(url => url.startsWith('https://schitay-online.ru/'))
+    .map(url => new URL(url).pathname)
+    .filter(pathname => pathname && pathname !== '/');
 }
-console.log(`\n✨ Done! Your SPA is now ready for GitHub Pages.`);
+
+function toRoutePath(urlPath) {
+  return urlPath.replace(/^\/+/, '');
+}
+
+function ensureRouteFallback(urlPath) {
+  const routePath = toRoutePath(urlPath);
+  const targetFile = path.join(distDir, routePath, 'index.html');
+
+  if (fs.existsSync(targetFile)) {
+    return false;
+  }
+
+  fs.mkdirSync(path.dirname(targetFile), { recursive: true });
+  fs.copyFileSync(indexPath, targetFile);
+  return true;
+}
+
+function main() {
+  if (!fs.existsSync(distDir)) {
+    console.error('❌ Error: dist directory not found. Run build first.');
+    process.exit(1);
+  }
+
+  if (!fs.existsSync(indexPath)) {
+    console.error('❌ Error: dist/index.html not found. Run build first.');
+    process.exit(1);
+  }
+
+  const fallbackPath = path.join(distDir, '404.html');
+  fs.copyFileSync(indexPath, fallbackPath);
+  console.log('✅ Created: 404.html');
+
+  const sitemapUrls = readSitemapUrls();
+  let fallbackCount = 0;
+
+  for (const urlPath of sitemapUrls) {
+    if (ensureRouteFallback(urlPath)) {
+      fallbackCount += 1;
+      console.log(`✅ Fallback created: ${urlPath}`);
+    }
+  }
+
+  console.log(`📊 Summary:`);
+  console.log(`   - Sitemap URLs checked: ${sitemapUrls.length}`);
+  console.log(`   - Fallback route files created: ${fallbackCount}`);
+  console.log(`\n✨ Done! GitHub Pages SPA fallback is ready.`);
+}
+
+main();

@@ -304,8 +304,10 @@ export const BlogSearch = ({
 
       {/* Overlay для закрытия результатов при клике вне */}
       {shouldShowResults && (
-        <div
-          className="fixed inset-0 z-40"
+        <button
+          type="button"
+          aria-label="Закрыть результаты поиска"
+          className="fixed inset-0 z-40 bg-transparent"
           onClick={() => setShowResults(false)}
         />
       )}

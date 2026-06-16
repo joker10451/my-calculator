@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useState, useRef, useCallback } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { GripVertical } from "lucide-react";
 
@@ -24,12 +24,11 @@ export const Compare = ({
     showHandlebar = true,
 }: CompareProps) => {
     const [sliderXPercent, setSliderXPercent] = useState(initialSliderPercentage);
-    const [isDragging, setIsDragging] = useState(false);
     const sliderRef = useRef<HTMLDivElement>(null);
 
     const handleMove = useCallback((clientX: number) => {
         if (!sliderRef.current) return;
-        if (slideMode === "hover" || (slideMode === "drag" && isDragging)) {
+        if (slideMode === "hover") {
             const rect = sliderRef.current.getBoundingClientRect();
             const x = clientX - rect.left;
             const percent = (x / rect.width) * 100;
@@ -37,33 +36,40 @@ export const Compare = ({
                 setSliderXPercent(Math.max(0, Math.min(100, percent)));
             });
         }
-    }, [slideMode, isDragging]);
-
-    const handleMouseDown = useCallback(() => {
-        if (slideMode === "drag") setIsDragging(true);
     }, [slideMode]);
-
-    const handleMouseUp = useCallback(() => {
-        if (slideMode === "drag") setIsDragging(false);
-    }, [slideMode]);
-
-    useEffect(() => {
-        if (slideMode === "drag") {
-            window.addEventListener("mouseup", handleMouseUp);
-            return () => window.removeEventListener("mouseup", handleMouseUp);
-        }
-    }, [slideMode, handleMouseUp]);
 
     return (
         <div
             ref={sliderRef}
+            role="slider"
+            aria-label="Сравнение изображений"
+            aria-orientation="horizontal"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(sliderXPercent)}
+            aria-valuetext={`${Math.round(sliderXPercent)} процентов`}
+            tabIndex={0}
             className={cn("relative overflow-hidden w-full h-full rounded-xl border border-border bg-background", className)}
-            style={{ cursor: slideMode === "drag" ? (isDragging ? "grabbing" : "grab") : "col-resize" }}
-            onMouseMove={(e) => handleMove(e.clientX)}
+            style={{ cursor: "col-resize" }}
             onMouseLeave={() => { if (slideMode === "hover") setSliderXPercent(initialSliderPercentage); }}
-            onMouseDown={handleMouseDown}
-            onTouchMove={(e) => handleMove(e.touches[0].clientX)}
         >
+            <input
+                type="range"
+                min={0}
+                max={100}
+                value={Math.round(sliderXPercent)}
+                aria-label="Сравнение изображений"
+                aria-orientation="horizontal"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={Math.round(sliderXPercent)}
+                aria-valuetext={`${Math.round(sliderXPercent)} процентов`}
+                className="absolute inset-0 z-40 h-full w-full cursor-col-resize opacity-0"
+                onChange={(e) => setSliderXPercent(Number(e.currentTarget.value))}
+                onPointerMove={(e) => {
+                    if (slideMode === "hover") handleMove(e.clientX);
+                }}
+            />
             <div className="absolute inset-0 z-10 pointer-events-none">
                 <motion.div
                     className="h-full w-px absolute top-0 z-30 bg-primary"

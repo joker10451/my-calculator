@@ -19,8 +19,20 @@ import { FeeDataService } from '@/lib/feeDataService';
 // Мокаем LocalDataManager для тестирования офлайн-режима
 vi.mock('@/lib/apiClient/LocalDataManager', () => ({
   LocalDataManager: class MockLocalDataManager {
-    getFeeSchedule = vi.fn().mockRejectedValue(new Error('Local data only'));
-    checkForUpdates = vi.fn().mockRejectedValue(new Error('Local data only'));
+    getFeeSchedule = vi.fn().mockResolvedValue({
+      success: false,
+      error: 'Local data only',
+      source: 'local',
+      timestamp: new Date(),
+      cached: false
+    });
+    checkForUpdates = vi.fn().mockResolvedValue({
+      success: false,
+      error: 'Local data only',
+      source: 'local',
+      timestamp: new Date(),
+      cached: false
+    });
     getSourcesStatus = vi.fn().mockReturnValue([]);
     testConnection = vi.fn().mockResolvedValue(true);
     clearCache = vi.fn().mockResolvedValue(undefined);

@@ -129,7 +129,10 @@ describe('SEO Optimizer Property Tests', () => {
       
       fc.assert(
         fc.property(
-          fc.string().filter(s => !/^[a-z0-9-]+$/.test(s) && s.length > 0),
+          fc.string().filter((slug) => {
+            const cleanSlug = slug.replace(/^\//, '');
+            return cleanSlug.length > 0 && (!/^[a-z0-9-]+$/.test(cleanSlug) || !/[a-z0-9]/.test(cleanSlug));
+          }),
           (invalidSlug) => {
             expect(() => generateCanonicalURL(invalidSlug)).toThrow('Invalid slug format');
           }

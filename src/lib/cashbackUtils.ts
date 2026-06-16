@@ -136,7 +136,8 @@ export function shouldShowCashbackTip(
  * Генерирует уникальный ID сессии для аналитики
  */
 export function generateSessionId(): string {
-  return `cashback_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const randomPart = Math.random().toString(36).substring(2, 11).padEnd(9, '0');
+  return `cashback_${Date.now()}_${randomPart}`;
 }
 
 /**

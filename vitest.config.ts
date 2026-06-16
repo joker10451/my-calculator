@@ -15,8 +15,11 @@ export default defineConfig({
       '**/build/**',
       '**/coverage/**',
       // Playwright E2E tests should run via `npm run test:e2e`
+      '**/.kilo/**',
       'e2e/**',
+      '**/e2e/**',
       'tests/e2e/**',
+      '**/tests/e2e/**',
     ],
     coverage: {
       provider: 'v8',
@@ -57,7 +60,7 @@ export default defineConfig({
     // Настройки для property-based тестирования
     benchmark: {
       include: ['**/*.{bench,benchmark}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-      exclude: ['node_modules', 'dist', '.idea', '.git', '.cache']
+      exclude: ['node_modules', 'dist', '.idea', '.git', '.cache', '.kilo']
     }
   },
   resolve: {

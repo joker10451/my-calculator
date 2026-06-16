@@ -23,7 +23,6 @@ export function trackAffiliateClick(event: AffiliateClickEvent): void {
   if (typeof window !== 'undefined') {
     try {
       // Lazy import to avoid circular deps in non-browser contexts
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       import('@/lib/analytics/referralTracking').then(({ ReferralTracker }) => {
         ReferralTracker.trackClick({
           productId: event.offerId || `${event.partnerName}-${event.productType}`,

@@ -113,8 +113,8 @@ describe('Court Fee Calculator Property Tests', () => {
           const expectedFee = 36000 + (claimAmount - 1500000) * 0.01;
           expect(fee).toBe(expectedFee);
         } else if (claimAmount <= 500000000) {
-          // 136 000 руб. + 0,5% с суммы, превышающей 10 000 000 руб.
-          const expectedFee = 136000 + (claimAmount - 10000000) * 0.005;
+          // 121 000 руб. + 0,5% с суммы, превышающей 10 000 000 руб.
+          const expectedFee = 121000 + (claimAmount - 10000000) * 0.005;
           expect(fee).toBe(expectedFee);
         } else {
           // Максимальная сумма 200 000 руб.

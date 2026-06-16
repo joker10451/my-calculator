@@ -330,6 +330,8 @@ export const mockSupabase = {
   }
 };
 
+export const getSupabase = () => mockSupabase;
+
 // Функция для очистки мок базы данных
 export const clearMockDatabase = () => {
   mockDb.clear();

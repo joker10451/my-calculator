@@ -137,6 +137,57 @@ const routes = [
   { path: '/calc/vklad-5-mln-na-1-god/', folder: 'calc/vklad-5-mln-na-1-god', title: 'Вклад 5 000 000 ₽ на 1 год — доходность 2026 | Считай.RU', description: 'Рассчитайте доходность вклада 5 000 000 ₽ на 12 месяцев. Проценты, итоговая сумма. Ставки 2026.' },
 ];
 
+function loadSeoLandingRoutes() {
+  try {
+    const filePath = path.join(process.cwd(), 'src/data/seoLandings.ts');
+    const content = fs.readFileSync(filePath, 'utf8');
+    const lines = content.split(/\r?\n/);
+    const landingRoutes = [];
+    let current = null;
+
+    for (const line of lines) {
+      const slugMatch = line.match(/slug:\s*'([^']+)'/);
+      if (slugMatch) {
+        current = { slug: slugMatch[1] };
+        continue;
+      }
+
+      if (current && line.includes('title:')) {
+        current.title = line.match(/title:\s*'([^']*)'/)?.[1] || '';
+      }
+
+      if (current && line.includes('description:')) {
+        current.description = line.match(/description:\s*'([^']*)'/)?.[1] || '';
+      }
+
+      if (current && line.trim().startsWith('},')) {
+        if (current.slug && current.title && current.description) {
+          landingRoutes.push({
+            path: `/calc/${current.slug}/`,
+            folder: `calc/${current.slug}`,
+            title: current.title,
+            description: current.description,
+          });
+        }
+        current = null;
+      }
+    }
+
+    return landingRoutes;
+  } catch (error) {
+    console.warn('⚠️  Не удалось загрузить SEO-лендинги для статической генерации:', error.message);
+    return [];
+  }
+}
+
+const generatedSeoLandingRoutes = loadSeoLandingRoutes();
+const routesWithSeo = [
+  ...routes,
+  ...generatedSeoLandingRoutes.filter((route) => !routes.some((existingRoute) => existingRoute.path === route.path)),
+];
+
+console.log(`📄 SEO-лендинги для статической генерации: ${generatedSeoLandingRoutes.length}`);
+
 // Получаем entry point файл из assets (берём самый большой index-*.js — это главный бандл)
 function getEntryPoint() {
   const assetsPath = path.join(process.cwd(), 'dist', 'assets');
@@ -374,7 +425,7 @@ function generateStaticFiles() {
   
   let generatedCount = 0;
   
-  routes.forEach(route => {
+  routesWithSeo.forEach(route => {
     // Google verification file - copy as-is instead of generating HTML
     if (route.isGoogleVerification) {
       const srcPath = path.resolve(process.cwd(), 'public', path.basename(route.path));
@@ -410,7 +461,7 @@ function generateStaticFiles() {
   });
   
   // Удаляем старые .html файлы
-  routes.forEach(route => {
+  routesWithSeo.forEach(route => {
     if (route.folder !== '.') {
       const htmlFile = path.join(distPath, `${route.folder}.html`);
       if (fs.existsSync(htmlFile)) {

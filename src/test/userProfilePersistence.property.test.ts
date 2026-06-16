@@ -13,6 +13,7 @@ vi.mock('@/lib/database/supabase', async () => {
   const { mockSupabase } = await import('./__mocks__/supabase');
   return {
     supabase: mockSupabase,
+    getSupabase: () => mockSupabase,
     handleDatabaseError: (error: any) => {
       throw new Error(error.message || 'Database error');
     }
