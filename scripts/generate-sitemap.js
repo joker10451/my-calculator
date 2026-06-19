@@ -156,6 +156,7 @@ const pages = [
   { url: '/compare/vacation-vs-sick-leave/', priority: 0.8, changefreq: 'monthly' },
   { url: '/calculator/tire-size/', priority: 0.7, changefreq: 'monthly' },
   { url: '/calculator/deposit-tax/', priority: 0.8, changefreq: 'weekly' },
+  { url: '/calculator/vat/', priority: 1.0, changefreq: 'weekly' },
   { url: '/calculator/tax-deduction/', priority: 0.8, changefreq: 'weekly' },
   { url: '/insurance/osgop-taxi/', priority: 0.7, changefreq: 'monthly' },
 ];

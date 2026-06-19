@@ -25,6 +25,7 @@ const routes = [
   '/calculator/pension', '/calculator/kasko', '/calculator/investment',
   '/calculator/compound-interest', '/calculator/rent-vs-buy',
   '/calculator/budget', '/calculator/debt-payoff', '/calculator/overpayment',
+  '/calculator/vat',
   '/calculator/tax-deduction', '/calculator/calories',
   '/calculator/maternity-capital', '/calculator/water', '/calculator/alimony',
   '/calculator/refinancing', '/calculator/inflation',

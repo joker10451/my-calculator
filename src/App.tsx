@@ -63,6 +63,8 @@ const CalorieCalculatorPage = lazy(() => import("./pages/CalorieCalculatorPage")
 const ZettaOSGOPPage = lazy(() => import("./pages/ZettaOSGOPPage"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllCalculatorsPage = lazy(() => import("./pages/AllCalculatorsPage"));
+const VatCalculatorPage = lazy(() => import("./pages/VatCalculatorPage"));
+
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const LegalPage = lazy(() => import("./pages/LegalPage"));
 const ContactsPage = lazy(() => import("./pages/ContactsPage"));
@@ -144,6 +146,8 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/sick-leave" element={<SickLeaveCalculatorPage />} />
           <Route path="/calculator/self-employed" element={<SelfEmployedCalculatorPage />} />
           <Route path="/calculator/pension" element={<PensionCalculatorPage />} />
+          <Route path="/calculator/vat" element={<VatCalculatorPage />} />
+
           <Route path="/calculator/kasko" element={<KASKOCalculatorPage />} />
           <Route path="/calculator/investment" element={<InvestmentCalculatorPage />} />
           <Route path="/calculator/compound-interest" element={<CompoundInterestPage />} />
