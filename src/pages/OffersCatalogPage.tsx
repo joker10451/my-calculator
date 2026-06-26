@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
 import { AffiliateCTA } from '@/components/AffiliateCTA';
 import { AFFILIATE_LINKS } from '@/config/affiliateLinks';
+import { PampaduOffersWidget } from '@/components/PampaduOffersWidget';
 import { trackUxEvent } from '@/lib/analytics/uxMetrics';
 import { SITE_URL } from '@/shared/constants';
 
@@ -169,6 +170,13 @@ export default function OffersCatalogPage() {
             <p className="text-slate-300 mt-2">
               Выберите категорию и изучите доступные предложения.
             </p>
+          </div>
+
+          <div className="mb-6">
+            <PampaduOffersWidget
+              source="offers_catalog"
+              title={null}
+            />
           </div>
 
           <div className="surface-card p-5 md:p-6 mb-6">
