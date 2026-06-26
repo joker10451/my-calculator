@@ -1,6 +1,8 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import OSAGOCalculator from "@/components/calculators/OSAGOCalculator";
+import { PampaduOsagoWidget } from "@/components/PampaduOsagoWidget";
+import { PampaduOsagoErrorBoundary } from "@/components/PampaduOsagoErrorBoundary";
 import { Car, Calculator, TrendingDown, MapPin, Zap, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -62,6 +64,13 @@ const OSAGOCalculatorPage = () => {
             calculator={<OSAGOCalculator />}
             afterCalculator={
                 <div className="space-y-4">
+                    <PampaduOsagoErrorBoundary>
+                        <PampaduOsagoWidget
+                            source="osago_calculator"
+                            title="Калькулятор ОСАГО"
+                            subtitle="Простой способ выгодно купить полис"
+                        />
+                    </PampaduOsagoErrorBoundary>
                     <OffersBlock
                         product="auto_insurance"
                         placement="result_block"
