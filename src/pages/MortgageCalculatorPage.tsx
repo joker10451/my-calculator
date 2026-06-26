@@ -1,6 +1,7 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import MortgageCalculatorWithComparison from "@/components/calculators/mortgage/MortgageCalculatorWithComparison";
+import { PampaduMortgageInsuranceWidget } from "@/components/PampaduMortgageInsuranceWidget";
 import { Home, Calculator, TrendingDown, Calendar, FileText, BarChart3, GitCompare } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -63,6 +64,11 @@ const MortgageCalculatorPage = () => {
       calculator={<MortgageCalculatorWithComparison />}
       afterCalculator={
         <div className="space-y-4">
+          <PampaduMortgageInsuranceWidget
+            source="mortgage_calculator"
+            title="Страхование ипотеки"
+            subtitle="Узнайте цены ипотечного страхования в разных компаниях и выберите выгодный вариант, подходящий для вашего банка"
+          />
           <OffersBlock product="mortgage" placement="result_block" />
           <div className="surface-muted rounded-2xl p-4 md:p-5">
             <h3 className="text-base font-semibold text-slate-900">Что обычно ищут перед оформлением ипотеки</h3>
