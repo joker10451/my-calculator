@@ -75,7 +75,7 @@ export default function TaxDeductionCalculatorPage() {
                             title="Как увеличить выгоду после вычета"
                             subtitle="Некоторые программы накоплений позволяют дополнительно использовать налоговые льготы. Изучите доступные условия и форматы."
                         />
-                        <div className="text-sm text-slate-600">
+                        <div className="text-sm text-slate-600 dark:text-slate-400">
                             Подобрать больше программ можно в{" "}
                             <Link to="/offers?category=insurance" className="font-semibold text-primary hover:underline">
                                 каталоге предложений

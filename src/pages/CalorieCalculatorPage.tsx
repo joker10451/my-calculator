@@ -38,7 +38,7 @@ const CalorieCalculatorPage = () => {
                         title="Страхование здоровья"
                         subtitle="Подберите программы страховой защиты для активного отдыха и путешествий."
                     />
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
                         Быстрый переход:{" "}
                         <Link to="/offers?category=insurance&q=клещ" className="font-semibold text-primary hover:underline">
                             защита от укуса клеща

@@ -69,7 +69,7 @@ const InvestmentCalculatorPage = () => {
                         title="Страхование и накопления"
                         subtitle="НСЖ и другие программы, которые могут подойти под вашу цель накоплений."
                     />
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
                         Для выбора других вариантов откройте{" "}
                         <Link to="/offers?category=insurance" className="font-semibold text-primary hover:underline">
                             полный каталог предложений

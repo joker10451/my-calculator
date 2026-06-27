@@ -38,7 +38,7 @@ const WaterCalculatorPage = () => {
                         title="Дополнительная защита здоровья"
                         subtitle="Актуальные страховые программы для тех, кто часто проводит время на природе."
                     />
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
                         Посмотреть целевое предложение:{" "}
                         <Link to="/offers?category=insurance&q=клещ" className="font-semibold text-primary hover:underline">
                             страхование от укуса клеща

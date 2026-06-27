@@ -68,7 +68,7 @@ const KASKOCalculatorPage = () => {
                         title="Подходящие предложения по автострахованию"
                         subtitle="Сравните предложения по КАСКО и ОСАГО и выберите подходящий вариант."
                     />
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
                         Хотите посмотреть больше предложений?{" "}
                         <Link to="/offers?category=insurance&q=каско" className="font-semibold text-primary hover:underline">
                             Открыть каталог предложений по КАСКО

@@ -65,20 +65,20 @@ const DepositCalculatorPage = () => {
                 <div className="space-y-6">
                     <OffersBlock product="deposit" placement="result_block" />
                     <div className="surface-muted rounded-2xl p-4 md:p-5">
-                        <h3 className="text-base font-semibold text-slate-900">Дополнительно к расчету вклада</h3>
+                        <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Дополнительно к расчету вклада</h3>
                         <div className="mt-3 flex flex-wrap gap-2 text-sm">
-                            <Link to="/blog/?q=вклад" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                            <Link to="/blog/?q=вклад" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
                                 Статьи про вклады
                             </Link>
-                            <Link to="/calculator/investment/" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                            <Link to="/calculator/investment/" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
                                 Калькулятор инвестиций
                             </Link>
-                            <Link to="/offers?category=debit" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                            <Link to="/offers?category=debit" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
                                 Карты и накопительные продукты
                             </Link>
                         </div>
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
                         Подберите альтернативные варианты в каталоге{" "}
                         <Link to="/offers?category=debit" className="font-semibold text-primary hover:underline">
                             (карты и накопительные предложения)

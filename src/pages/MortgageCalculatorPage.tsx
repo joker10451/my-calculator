@@ -71,20 +71,20 @@ const MortgageCalculatorPage = () => {
           />
           <OffersBlock product="mortgage" placement="result_block" />
           <div className="surface-muted rounded-2xl p-4 md:p-5">
-            <h3 className="text-base font-semibold text-slate-900">Что обычно ищут перед оформлением ипотеки</h3>
+            <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Что обычно ищут перед оформлением ипотеки</h3>
             <div className="mt-3 flex flex-wrap gap-2 text-sm">
-              <Link to="/blog/?q=ипотека" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+              <Link to="/blog/?q=ипотека" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
                 Ипотека или аренда
               </Link>
-              <Link to="/blog/?q=досрочное+погашение+ипотеки" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+              <Link to="/blog/?q=досрочное+погашение+ипотеки" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
                 Как снизить переплату
               </Link>
-              <Link to="/offers?category=mortgage" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+              <Link to="/offers?category=mortgage" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
                 Ипотечные предложения
               </Link>
             </div>
           </div>
-          <div className="text-sm text-slate-600">
+          <div className="text-sm text-slate-600 dark:text-slate-400">
             Нужны дополнительные варианты?{" "}
             <Link to="/offers?category=mortgage" className="font-semibold text-primary hover:underline">
               Открыть все ипотечные предложения

@@ -65,20 +65,20 @@ const CreditCalculatorPage = () => {
                 <div className="space-y-4">
                     <OffersBlock product="credit" placement="result_block" />
                     <div className="surface-muted rounded-2xl p-4 md:p-5">
-                        <h3 className="text-base font-semibold text-slate-900">Полезно перед выбором кредита</h3>
+                        <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Полезно перед выбором кредита</h3>
                         <div className="mt-3 flex flex-wrap gap-2 text-sm">
-                            <Link to="/blog/?q=потребительский+кредит" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                            <Link to="/blog/?q=потребительский+кредит" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
                                 Гайды по кредитам
                             </Link>
-                            <Link to="/calculator/refinancing/" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                            <Link to="/calculator/refinancing/" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
                                 Калькулятор рефинансирования
                             </Link>
-                            <Link to="/offers?category=credit" className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:text-primary">
+                            <Link to="/offers?category=credit" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
                                 Актуальные предложения
                             </Link>
                         </div>
                     </div>
-                    <div className="text-sm text-slate-600">
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
                         Хотите больше вариантов?{" "}
                         <Link to="/offers?category=credit" className="font-semibold text-primary hover:underline">
                             Смотреть все предложения по кредитам
