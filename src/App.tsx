@@ -32,6 +32,10 @@ const MaternityCapitalCalculatorPage = lazy(() => import("./pages/MaternityCapit
 const WaterCalculatorPage = lazy(() => import("./pages/WaterCalculatorPage"));
 const AlimonyCalculatorPage = lazy(() => import("./pages/AlimonyCalculatorPage"));
 const AlimonyTwoChildrenPage = lazy(() => import("./pages/AlimonyTwoChildrenPage"));
+const DivorceFeePage = lazy(() => import("./pages/DivorceFeePage"));
+const SelfEmployedTaxPage = lazy(() => import("./pages/SelfEmployedTaxPage"));
+const Mortgage16Page = lazy(() => import("./pages/Mortgage16Page"));
+const SickLeavePage = lazy(() => import("./pages/SickLeavePage"));
 const RefinancingCalculatorPage = lazy(() => import("./pages/RefinancingCalculatorPage"));
 const DepositCalculatorPage = lazy(() => import("./pages/DepositCalculatorPage"));
 const DepositTaxCalculatorPage = lazy(() => import("./pages/DepositTaxCalculatorPage"));
@@ -170,6 +174,10 @@ const AnimatedRoutes = () => {
           <Route path="/calculator/water" element={<WaterCalculatorPage />} />
           <Route path="/calculator/alimony" element={<AlimonyCalculatorPage />} />
           <Route path="/calculator/alimony/dvoih-detey" element={<AlimonyTwoChildrenPage />} />
+          <Route path="/calculator/court-fee/razvod" element={<DivorceFeePage />} />
+          <Route path="/calculator/self-employed/npd" element={<SelfEmployedTaxPage />} />
+          <Route path="/calculator/mortgage/16-procentov" element={<Mortgage16Page />} />
+          <Route path="/calculator/sick-leave/bolnichniy-list" element={<SickLeavePage />} />
           <Route path="/calculator/refinancing" element={<RefinancingCalculatorPage />} />
           <Route path="/calculator/inflation" element={<InflationCalculatorPage />} />
           <Route path="/how-much-you-lose" element={<HowMuchYouLosePage />} />
