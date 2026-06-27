@@ -96,6 +96,7 @@ const pages = [
   { url: '/ruki-masters/', priority: 0.8, changefreq: 'weekly' },
   { url: '/tick-insurance/', priority: 0.8, changefreq: 'weekly' },
   { url: '/goldapple/', priority: 0.8, changefreq: 'weekly' },
+  { url: '/gifts/', priority: 0.8, changefreq: 'weekly' },
   
   // Категории блога
   { url: '/blog/category/mortgage-credit/', priority: 0.7, changefreq: 'weekly' },
