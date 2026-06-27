@@ -18,7 +18,7 @@ const WaterCalculatorPage = () => {
     return (
         <CalculatorPageWrapper
             seoTitle="Калькулятор нормы воды 2026"
-            seoDescription="Рассчитайте свою суточную норму воды с учетом веса, возраста и активности."
+            seoDescription="Калькулятор воды: рассчитайте сколько пить воды в день по весу и активности. Норма воды для здоровья — бесплатно онлайн."
             seoKeywords="калькулятор воды, норма воды в день, сколько пить воды"
             canonical="https://schitay-online.ru/calculator/water/"
             schemaName="Калькулятор воды"
@@ -30,6 +30,12 @@ const WaterCalculatorPage = () => {
             categoryHref="/category/health"
             faqItems={faqItems}
             calculator={<WaterCalculator />}
+            howToUseSteps={[
+                "Введите свой вес в килограммах",
+                "Укажите уровень физической активности",
+                "Нажмите «Рассчитать» — калькулятор покажет норму воды",
+                "Узнайте, сколько стаканов воды нужно пить ежедневно"
+            ]}
             afterCalculator={
                 <div className="space-y-4">
                     <OffersBlock

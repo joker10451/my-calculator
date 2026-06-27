@@ -18,7 +18,7 @@ const CalorieCalculatorPage = () => {
     return (
         <CalculatorPageWrapper
             seoTitle="Калькулятор калорий 2026 - Расчет суточной нормы"
-            seoDescription="Рассчитайте свою суточную норму калорий для похудения, поддержания или набора веса."
+            seoDescription="Калькулятор калорий: рассчитайте суточную норму для похудения, набора веса или поддержания. Формулы Миффлина-Сан Жеора — бесплатно онлайн."
             seoKeywords="калькулятор калорий, суточная норма калорий, расчет калорий для похудения"
             canonical="https://schitay-online.ru/calculator/calories/"
             schemaName="Калькулятор калорий"
@@ -30,6 +30,12 @@ const CalorieCalculatorPage = () => {
             categoryHref="/category/health"
             faqItems={faqItems}
             calculator={<CalorieCalculator />}
+            howToUseSteps={[
+                "Введите пол, возраст, вес и рост",
+                "Укажите уровень физической активности",
+                "Выберите цель: похудение, набор веса или поддержание",
+                "Изучите суточную норму калорий и рекомендации"
+            ]}
             afterCalculator={
                 <div className="space-y-4">
                     <OffersBlock

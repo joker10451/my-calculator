@@ -16,7 +16,7 @@ const TireSizeCalculatorPage = () => {
     return (
         <CalculatorPageWrapper
             seoTitle="Калькулятор размера шин 2026"
-            seoDescription="Рассчитайте параметры шин и сравните размеры. Узнайте, какие шины подходят для вашего автомобиля."
+            seoDescription="Калькулятор размера шин: подберите шины для автомобиля по марке. Совместимость, сравнение размеров, расчет клиренса — онлайн."
             seoKeywords="калькулятор шин, размер шин, подбор шин, калькулятор дисков"
             canonical="https://schitay-online.ru/calculator/tire-size/"
             schemaName="Калькулятор шин"
@@ -28,6 +28,12 @@ const TireSizeCalculatorPage = () => {
             categoryHref="/category/auto"
             faqItems={faqItems}
             calculator={<TireSizeCalculator />}
+            howToUseSteps={[
+                "Введите текущий размер шин или марку автомобиля",
+                "Сравните параметры: ширина, профиль, диаметр",
+                "Узнайте, какие шины совместимы с вашими дисками",
+                "Проверьте клиренс после замены шин"
+            ]}
         />
     );
 };

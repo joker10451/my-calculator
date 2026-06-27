@@ -16,7 +16,7 @@ const UtilitiesCalculatorPage = () => {
     return (
         <CalculatorPageWrapper
             seoTitle="Калькулятор коммунальных платежей 2026"
-            seoDescription="Рассчитайте стоимость коммунальных услуг: электричество, вода, отопление, газ."
+            seoDescription="Калькулятор ЖКХ 2026: рассчитайте коммунальные платежи — отопление, вода, электричество, газ. Тарифы по регионам — бесплатно онлайн."
             seoKeywords="калькулятор ЖКХ, коммунальные платежи, расчет коммуналки"
             canonical="https://schitay-online.ru/calculator/utilities/"
             schemaName="Калькулятор ЖКХ"
@@ -28,6 +28,12 @@ const UtilitiesCalculatorPage = () => {
             categoryHref="/category/housing"
             faqItems={faqItems}
             calculator={<UtilitiesCalculator />}
+            howToUseSteps={[
+                "Выберите тип услуги: отопление, вода, электричество, газ",
+                "Введите показания счётчиков или нормативы",
+                "Укажите тариф и количество жильцов",
+                "Изучите итоговую стоимость коммунальных услуг"
+            ]}
         />
     );
 };

@@ -137,6 +137,7 @@ const pages = [
   { url: '/calculator/calories/', priority: 0.7, changefreq: 'monthly' },
   { url: '/calculator/water/', priority: 0.7, changefreq: 'monthly' },
   { url: '/calculator/alimony/', priority: 0.7, changefreq: 'monthly' },
+  { url: '/calculator/alimony/dvoih-detey/', priority: 0.8, changefreq: 'monthly' },
   { url: '/calculator/currency/', priority: 0.8, changefreq: 'daily' },
   { url: '/calculator/court-fee/', priority: 0.7, changefreq: 'monthly' },
   { url: '/calculator/overpayment/', priority: 0.9, changefreq: 'weekly' },
