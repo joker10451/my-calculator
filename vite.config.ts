@@ -119,6 +119,7 @@ export default defineConfig(({ mode }) => ({
           'pdf-vendor': ['jspdf', 'html2canvas'],
           'chart-vendor': ['recharts'],
           'supabase-vendor': ['@supabase/supabase-js'],
+          'setup-vendor': ['next-themes', 'react-helmet-async', 'i18next', 'react-i18next'],
         },
         chunkFileNames: (_chunkInfo) => {
           return `assets/[name]-[hash].js`;

@@ -61,7 +61,7 @@
     }(window.location))
   </script>
   
-  <!-- Yandex.Metrika counter (загружается только при наличии consent) -->
+  <!-- Yandex.Metrika counter — загружается после first paint через requestIdleCallback -->
   <script type="text/javascript">
     (function() {
       var hasConsent = false;
@@ -82,10 +82,18 @@
         });
       }
 
+      function defer(fn) {
+        if (window.requestIdleCallback) {
+          window.requestIdleCallback(fn, { timeout: 3000 });
+        } else {
+          setTimeout(fn, 1000);
+        }
+      }
+
       if (hasConsent) {
-        initMetrika();
+        defer(initMetrika);
       } else {
-        window.addEventListener('cookie-consent-accepted', initMetrika, { once: true });
+        window.addEventListener('cookie-consent-accepted', function() { defer(initMetrika); }, { once: true });
       }
     })();
   </script>
