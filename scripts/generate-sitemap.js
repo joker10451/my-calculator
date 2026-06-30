@@ -142,6 +142,7 @@ const pages = [
   { url: '/calculator/self-employed/npd/', priority: 0.8, changefreq: 'monthly' },
   { url: '/calculator/mortgage/16-procentov/', priority: 0.8, changefreq: 'monthly' },
   { url: '/calculator/sick-leave/bolnichniy-list/', priority: 0.8, changefreq: 'monthly' },
+  { url: '/calculator/vacation/otpusknye-2026/', priority: 0.8, changefreq: 'monthly' },
   { url: '/calculator/currency/', priority: 0.8, changefreq: 'daily' },
   { url: '/calculator/court-fee/', priority: 0.7, changefreq: 'monthly' },
   { url: '/calculator/overpayment/', priority: 0.9, changefreq: 'weekly' },

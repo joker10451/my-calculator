@@ -32,6 +32,7 @@ const routes = [
   '/calculator/alimony/dvoih-detey', '/calculator/court-fee/razvod',
   '/calculator/self-employed/npd', '/calculator/mortgage/16-procentov',
   '/calculator/sick-leave/bolnichniy-list',
+  '/calculator/vacation/otpusknye-2026',
   '/gifts',
   '/courier-yandex', '/joy-money', '/tick-insurance',
   '/goldapple', '/ruki-masters',
