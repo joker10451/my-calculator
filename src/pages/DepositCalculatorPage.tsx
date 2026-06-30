@@ -2,6 +2,7 @@ import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import DepositCalculator from "@/components/calculators/DepositCalculator";
 import { TrustInfoBlock } from "@/components/TrustInfoBlock";
+import { CalculatorCTA } from "@/components/CalculatorCTA";
 import { TrendingUp, PiggyBank, Calendar, BarChart3, Calculator, LineChart } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -62,38 +63,47 @@ const DepositCalculatorPage = () => {
             faqItems={faqItems}
             calculator={<DepositCalculator />}
             afterCalculator={
-                <div className="space-y-6">
-                    <OffersBlock product="deposit" placement="result_block" />
-                    <div className="surface-muted rounded-2xl p-4 md:p-5">
-                        <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Дополнительно к расчету вклада</h3>
-                        <div className="mt-3 flex flex-wrap gap-2 text-sm">
-                            <Link to="/blog/?q=вклад" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                                Статьи про вклады
-                            </Link>
-                            <Link to="/calculator/investment/" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                                Калькулятор инвестиций
-                            </Link>
-                            <Link to="/offers?category=debit" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                                Карты и накопительные продукты
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="text-sm text-slate-600 dark:text-slate-400">
-                        Подберите альтернативные варианты в каталоге{" "}
-                        <Link to="/offers?category=debit" className="font-semibold text-primary hover:underline">
-                            (карты и накопительные предложения)
-                        </Link>
-                        .
-                    </div>
-                    <TrustInfoBlock
-                        page="/calculator/deposit"
-                        updatedAt="Апрель 2026"
-                        sourceLabel="Публичные тарифы банков и рыночные ставки"
-                        methodology="Расчёт выполняется по формуле сложного процента с учётом капитализации и пополнений."
-                        forWho="Для тех, кто выбирает вклад и хочет сравнить сценарии по сроку, ставке и капитализации."
-                    />
-                </div>
-            }
+                            <div className="space-y-6">
+                                <CalculatorCTA
+                                    testKey="deposit_main_cta"
+                                    label="Открыть вклад с лучшей ставкой"
+                                    description="Вклады до 19% годовых, капитализация, пополнение, налоговый вычет. Партнёры: ПСБ, Т-Банк, ВТБ"
+                                    href="https://trk.ppdu.ru/click/AxwkY87N?erid=2SDnjeBaaR6&utm_source=schitay-online&utm_medium=calculator_cta&utm_campaign=deposit&utm_content=main_button"
+                                    variant="debit"
+                                    erid="2SDnjeBaaR6"
+                                    calculatorId="deposit"
+                                />
+                                <OffersBlock product="deposit" placement="result_block" />
+                                <div className="surface-muted rounded-2xl p-4 md:p-5">
+                                    <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Дополнительно к расчету вклада</h3>
+                                    <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                                        <Link to="/blog/?q=вклад" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                                            Статьи про вклады
+                                        </Link>
+                                        <Link to="/calculator/investment/" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                                            Калькулятор инвестиций
+                                        </Link>
+                                        <Link to="/offers?category=debit" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                                            Карты и накопительные продукты
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="text-sm text-slate-600 dark:text-slate-400">
+                                    Подберите альтернативные варианты в каталоге{" "}
+                                    <Link to="/offers?category=debit" className="font-semibold text-primary hover:underline">
+                                        (карты и накопительные предложения)
+                                    </Link>
+                                    .
+                                </div>
+                                <TrustInfoBlock
+                                    page="/calculator/deposit"
+                                    updatedAt="Апрель 2026"
+                                    sourceLabel="Публичные тарифы банков и рыночные ставки"
+                                    methodology="Расчёт выполняется по формуле сложного процента с учётом капитализации и пополнений."
+                                    forWho="Для тех, кто выбирает вклад и хочет сравнить сценарии по сроку, ставке и капитализации."
+                                />
+                            </div>
+                        }
             features={features}
             howToUseSteps={howToUseSteps}
         />

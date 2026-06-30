@@ -1,6 +1,7 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import CreditCalculatorWithComparison from "@/components/calculators/CreditCalculatorWithComparison";
+import { CalculatorCTA } from "@/components/CalculatorCTA";
 import { Calculator, TrendingUp, FileText, BarChart3, PieChart, DollarSign, GitCompare } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -62,30 +63,39 @@ const CreditCalculatorPage = () => {
             faqItems={faqItems}
             calculator={<CreditCalculatorWithComparison />}
             afterCalculator={
-                <div className="space-y-4">
-                    <OffersBlock product="credit" placement="result_block" />
-                    <div className="surface-muted rounded-2xl p-4 md:p-5">
-                        <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Полезно перед выбором кредита</h3>
-                        <div className="mt-3 flex flex-wrap gap-2 text-sm">
-                            <Link to="/blog/?q=потребительский+кредит" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                                Гайды по кредитам
-                            </Link>
-                            <Link to="/calculator/refinancing/" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                                Калькулятор рефинансирования
-                            </Link>
-                            <Link to="/offers?category=credit" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                                Актуальные предложения
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="text-sm text-slate-600 dark:text-slate-400">
-                        Хотите больше вариантов?{" "}
-                        <Link to="/offers?category=credit" className="font-semibold text-primary hover:underline">
-                            Смотреть все предложения по кредитам
-                        </Link>
-                    </div>
-                </div>
-            }
+                            <div className="space-y-4">
+                                <CalculatorCTA
+                                    testKey="credit_main_cta"
+                                    label="Получить кредит на карту за 5 минут"
+                                    description="Потребительские кредиты до 5 млн ₽, ставки от 14%, решение за 1 минуту. Партнёры: ВТБ, ПСБ, Т-Банк"
+                                    href="https://trk.ppdu.ru/click/q3zhF1ow?erid=2SDnjeGCc2T&utm_source=schitay-online&utm_medium=calculator_cta&utm_campaign=credit&utm_content=main_button"
+                                    variant="credit"
+                                    erid="2SDnjeGCc2T"
+                                    calculatorId="credit"
+                                />
+                                <OffersBlock product="credit" placement="result_block" />
+                                <div className="surface-muted rounded-2xl p-4 md:p-5">
+                                    <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Полезно перед выбором кредита</h3>
+                                    <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                                        <Link to="/blog/?q=потребительский+кредит" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                                            Гайды по кредитам
+                                        </Link>
+                                        <Link to="/calculator/refinancing/" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                                            Калькулятор рефинансирования
+                                        </Link>
+                                        <Link to="/offers?category=credit" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                                            Актуальные предложения
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="text-sm text-slate-600 dark:text-slate-400">
+                                    Хотите больше вариантов?{" "}
+                                    <Link to="/offers?category=credit" className="font-semibold text-primary hover:underline">
+                                        Смотреть все предложения по кредитам
+                                    </Link>
+                                </div>
+                            </div>
+                        }
             features={features}
             howToUseSteps={howToUseSteps}
         />

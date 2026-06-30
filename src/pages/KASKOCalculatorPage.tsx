@@ -1,6 +1,7 @@
 import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import KASKOCalculator from "@/components/calculators/KASKOCalculator";
+import { CalculatorCTA } from "@/components/CalculatorCTA";
 import { Shield, Calculator, TrendingDown, Car, DollarSign, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -59,23 +60,32 @@ const KASKOCalculatorPage = () => {
             category="Авто"
             categoryHref="/category/auto"
             faqItems={faqItems}
-            calculator={<KASKOCalculator />}
-            afterCalculator={
-                <div className="space-y-4">
-                    <OffersBlock
-                        product="auto_insurance"
-                        placement="result_block"
-                        title="Подходящие предложения по автострахованию"
-                        subtitle="Сравните предложения по КАСКО и ОСАГО и выберите подходящий вариант."
-                    />
-                    <div className="text-sm text-slate-600 dark:text-slate-400">
-                        Хотите посмотреть больше предложений?{" "}
-                        <Link to="/offers?category=insurance&q=каско" className="font-semibold text-primary hover:underline">
-                            Открыть каталог предложений по КАСКО
-                        </Link>
-                    </div>
-                </div>
-            }
+                        calculator={<KASKOCalculator />}
+                        afterCalculator={
+                            <div className="space-y-4">
+                                <CalculatorCTA
+                                    testKey="kasko_main_cta"
+                                    label="Рассчитать и оформить КАСКО онлайн"
+                                    description="Полное и частичное КАСКО, рассрочка платежа, дистанционный осмотр. Партнёр: ВСК"
+                                    href="https://trk.ppdu.ru/click/mqYRntHD?erid=2SDnjeJfe47&utm_source=schitay-online&utm_medium=calculator_cta&utm_campaign=kasko&utm_content=main_button"
+                                    variant="insurance"
+                                    erid="2SDnjeJfe47"
+                                    calculatorId="kasko"
+                                />
+                                <OffersBlock
+                                    product="auto_insurance"
+                                    placement="result_block"
+                                    title="Подходящие предложения по автострахованию"
+                                    subtitle="Сравните предложения по КАСКО и ОСАГО и выберите подходящий вариант."
+                                />
+                                <div className="text-sm text-slate-600 dark:text-slate-400">
+                                    Хотите посмотреть больше предложений?{" "}
+                                    <Link to="/offers?category=insurance&q=каско" className="font-semibold text-primary hover:underline">
+                                        Открыть каталог предложений по КАСКО
+                                    </Link>
+                                </div>
+                            </div>
+                        }
             features={features}
             howToUseSteps={howToUseSteps}
         />

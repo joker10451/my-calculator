@@ -2,6 +2,7 @@ import CalculatorPageWrapper from "@/components/CalculatorPageWrapper";
 import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import MortgageCalculatorWithComparison from "@/components/calculators/mortgage/MortgageCalculatorWithComparison";
 import { PampaduMortgageInsuranceWidget } from "@/components/PampaduMortgageInsuranceWidget";
+import { CalculatorCTA } from "@/components/CalculatorCTA";
 import { Home, Calculator, TrendingDown, Calendar, FileText, BarChart3, GitCompare } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -63,35 +64,44 @@ const MortgageCalculatorPage = () => {
       faqItems={faqItems}
       calculator={<MortgageCalculatorWithComparison />}
       afterCalculator={
-        <div className="space-y-4">
-          <PampaduMortgageInsuranceWidget
-            source="mortgage_calculator"
-            title="Страхование ипотеки"
-            subtitle="Узнайте цены ипотечного страхования в разных компаниях и выберите выгодный вариант, подходящий для вашего банка"
-          />
-          <OffersBlock product="mortgage" placement="result_block" />
-          <div className="surface-muted rounded-2xl p-4 md:p-5">
-            <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Что обычно ищут перед оформлением ипотеки</h3>
-            <div className="mt-3 flex flex-wrap gap-2 text-sm">
-              <Link to="/blog/?q=ипотека" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                Ипотека или аренда
-              </Link>
-              <Link to="/blog/?q=досрочное+погашение+ипотеки" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                Как снизить переплату
-              </Link>
-              <Link to="/offers?category=mortgage" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                Ипотечные предложения
-              </Link>
-            </div>
-          </div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">
-            Нужны дополнительные варианты?{" "}
-            <Link to="/offers?category=mortgage" className="font-semibold text-primary hover:underline">
-              Открыть все ипотечные предложения
-            </Link>
-          </div>
-        </div>
-      }
+              <div className="space-y-4">
+                  <CalculatorCTA
+                      testKey="mortgage_main_cta"
+                      label="Подобрать ипотеку с лучшей ставкой"
+                      description="Сравнение банков, семейная/IT/дальневосточная ипотека, страхование жизни. Комиссия до 85 000 ₽"
+                      href="https://trk.ppdu.ru/click/XwVMdFnv?erid=2SDnjeYFJZe&utm_source=schitay-online&utm_medium=calculator_cta&utm_campaign=mortgage&utm_content=main_button"
+                      variant="mortgage"
+                      erid="2SDnjeYFJZe"
+                      calculatorId="mortgage"
+                  />
+                  <PampaduMortgageInsuranceWidget
+                      source="mortgage_calculator"
+                      title="Страхование ипотеки"
+                      subtitle="Узнайте цены ипотечного страхования в разных компаниях и выберите выгодный вариант, подходящий для вашего банка"
+                  />
+                  <OffersBlock product="mortgage" placement="result_block" />
+                  <div className="surface-muted rounded-2xl p-4 md:p-5">
+                      <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Что обычно ищут перед оформлением ипотеки</h3>
+                      <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                          <Link to="/blog/?q=ипотека" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                              Ипотека или аренда
+                          </Link>
+                          <Link to="/blog/?q=досрочное+погашение+ипотеки" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                              Как снизить переплату
+                          </Link>
+                          <Link to="/offers?category=mortgage" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                              Ипотечные предложения
+                          </Link>
+                      </div>
+                  </div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">
+                      Нужны дополнительные варианты?{" "}
+                      <Link to="/offers?category=mortgage" className="font-semibold text-primary hover:underline">
+                          Открыть все ипотечные предложения
+                      </Link>
+                  </div>
+              </div>
+          }
       aboutTitle="О калькуляторе ипотеки"
       aboutDescription="Наш ипотечный калькулятор поможет вам рассчитать все параметры ипотечного кредита: ежемесячный платеж, общую сумму выплат, переплату по процентам и построить детальный график платежей. Калькулятор учитывает актуальные ставки 2026 года и позволяет моделировать различные сценарии досрочного погашения."
       features={features}

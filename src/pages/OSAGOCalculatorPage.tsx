@@ -3,6 +3,7 @@ import { OffersBlock } from "@/components/affiliate/OffersBlock";
 import OSAGOCalculator from "@/components/calculators/OSAGOCalculator";
 import { PampaduOsagoWidget } from "@/components/PampaduOsagoWidget";
 import { PampaduOsagoErrorBoundary } from "@/components/PampaduOsagoErrorBoundary";
+import { CalculatorCTA } from "@/components/CalculatorCTA";
 import { Car, Calculator, TrendingDown, MapPin, Zap, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -63,42 +64,51 @@ const OSAGOCalculatorPage = () => {
             faqItems={faqItems}
             calculator={<OSAGOCalculator />}
             afterCalculator={
-                <div className="space-y-4">
-                    <PampaduOsagoErrorBoundary>
-                        <PampaduOsagoWidget
-                            source="osago_calculator"
-                            title="Калькулятор ОСАГО"
-                            subtitle="Простой способ выгодно купить полис"
-                        />
-                    </PampaduOsagoErrorBoundary>
-                    <OffersBlock
-                        product="auto_insurance"
-                        placement="result_block"
-                        title="Подходящие предложения по автострахованию"
-                        subtitle="Сравните варианты ОСАГО и КАСКО и выберите оптимальные условия."
-                    />
-                    <div className="surface-muted rounded-2xl p-4 md:p-5">
-                        <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Что проверить перед покупкой полиса</h3>
-                        <div className="mt-3 flex flex-wrap gap-2 text-sm">
-                            <Link to="/calculator/kasko/" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                                Рассчитать КАСКО
-                            </Link>
-                            <Link to="/blog/?q=осаго" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                                Разборы по ОСАГО
-                            </Link>
-                            <Link to="/offers?category=insurance&q=осаго" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
-                                Предложения по ОСАГО
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="text-sm text-slate-600 dark:text-slate-400">
-                        Нужны дополнительные варианты?{" "}
-                        <Link to="/offers?category=insurance&q=осаго" className="font-semibold text-primary hover:underline">
-                            Смотреть предложения по ОСАГО
-                        </Link>
-                    </div>
-                </div>
-            }
+                            <div className="space-y-4">
+                                <CalculatorCTA
+                                    testKey="osago_main_cta"
+                                    label="Оформить ОСАГО онлайн за 2 минуты"
+                                    description="Точная стоимость, электронный полис на email, оплата картой. Партнёры: ВСК, СберСтрахование"
+                                    href="https://trk.ppdu.ru/click/dpZrs2PD?erid=2SDnjckH5nw&utm_source=schitay-online&utm_medium=calculator_cta&utm_campaign=osago&utm_content=main_button"
+                                    variant="insurance"
+                                    erid="2SDnjckH5nw"
+                                    calculatorId="osago"
+                                />
+                                <PampaduOsagoErrorBoundary>
+                                    <PampaduOsagoWidget
+                                        source="osago_calculator"
+                                        title="Калькулятор ОСАГО"
+                                        subtitle="Простой способ выгодно купить полис"
+                                    />
+                                </PampaduOsagoErrorBoundary>
+                                <OffersBlock
+                                    product="auto_insurance"
+                                    placement="result_block"
+                                    title="Подходящие предложения по автострахованию"
+                                    subtitle="Сравните варианты ОСАГО и КАСКО и выберите оптимальные условия."
+                                />
+                                <div className="surface-muted rounded-2xl p-4 md:p-5">
+                                    <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Что проверить перед покупкой полиса</h3>
+                                    <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                                        <Link to="/calculator/kasko/" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                                            Рассчитать КАСКО
+                                        </Link>
+                                        <Link to="/blog/?q=осаго" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                                            Разборы по ОСАГО
+                                        </Link>
+                                        <Link to="/offers?category=insurance&q=осаго" className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-slate-700 dark:text-slate-300 hover:text-primary">
+                                            Предложения по ОСАГО
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="text-sm text-slate-600 dark:text-slate-400">
+                                    Нужны дополнительные варианты?{" "}
+                                    <Link to="/offers?category=insurance&q=осаго" className="font-semibold text-primary hover:underline">
+                                        Смотреть предложения по ОСАГО
+                                    </Link>
+                                </div>
+                            </div>
+                        }
             features={features}
             howToUseSteps={howToUseSteps}
         />
