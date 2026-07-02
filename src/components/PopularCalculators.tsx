@@ -1,7 +1,10 @@
-import { ArrowRight, TrendingUp, Home, Calculator, CheckCircle2, Droplets, Car, Scale } from "lucide-react";
+import { ArrowRight, Home, Calculator, CheckCircle2, Droplets, Car, Scale, TrendingUp, Calendar, Receipt, Shield, PiggyBank, Wallet, Users } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useMemo } from "react";
 import { Button } from "./ui/button";
 import { HoverEffect } from "./ui/card-hover-effect";
+import { getSeasonalPicks, SEASON_NAMES, getCurrentMonth, type PopularPick } from "@/lib/seasonalPicks";
+import { trackYandexGoal } from "@/hooks/useYandexMetrika";
 
 // Lazy prefetch imports для топ-6 маршрутов
 const prefetchMap: Record<string, () => Promise<unknown>> = {
@@ -11,78 +14,50 @@ const prefetchMap: Record<string, () => Promise<unknown>> = {
   utilities: () => import('@/pages/UtilitiesCalculatorPage'),
   fuel: () => import('@/pages/FuelCalculatorPage'),
   credit: () => import('@/pages/CreditCalculatorPage'),
+  vacation: () => import('@/pages/VacationCalculatorPage'),
+  'tax-deduction': () => import('@/pages/TaxDeductionCalculatorPage'),
+  osago: () => import('@/pages/OSAGOCalculatorPage'),
+  deposit: () => import('@/pages/DepositCalculatorPage'),
+  budget: () => import('@/pages/BudgetCalculatorPage'),
+  alimony: () => import('@/pages/AlimonyCalculatorPage'),
 };
 
-const popularCalculators = [
-  {
-    id: "mortgage",
-    name: "Калькулятор ипотеки",
-    description: "Рассчитай ежемесячный платёж, переплату и график погашения",
-    icon: Home,
-    color: "text-finance",
-    bgColor: "bg-finance/10",
-    href: "/calculator/mortgage",
-    statsCount: "12 500",
-  },
-  {
-    id: "salary",
-    name: "Зарплата на руки",
-    description: "НДФЛ 13%, пенсионные и страховые взносы",
-    icon: TrendingUp,
-    color: "text-finance",
-    bgColor: "bg-finance/10",
-    href: "/calculator/salary",
-    statsCount: "8 200",
-  },
-  {
-    id: "court-fee",
-    name: "Госпошлина в суд",
-    description: "Расчёт госпошлины для судов общей юрисдикции и арбитража",
-    icon: Scale,
-    color: "text-legal",
-    bgColor: "bg-legal/10",
-    href: "/calculator/court-fee",
-    statsCount: "2 100",
-  },
-
-  {
-    id: "utilities",
-    name: "Расчёт ЖКХ",
-    description: "Сколько платить за воду, свет и отопление",
-    icon: Droplets,
-    color: "text-housing",
-    bgColor: "bg-housing/10",
-    href: "/calculator/utilities",
-    statsCount: "4 300",
-  },
-  {
-    id: "fuel",
-    name: "Расход топлива",
-    description: "Сколько стоит поездка на машине",
-    icon: Car,
-    color: "text-auto",
-    bgColor: "bg-auto/10",
-    href: "/calculator/fuel",
-    statsCount: "3 900",
-  },
-  {
-    id: "credit",
-    name: "Кредитный калькулятор",
-    description: "Потребительский кредит с досрочным погашением",
-    icon: Calculator,
-    color: "text-finance",
-    bgColor: "bg-finance/10",
-    href: "/calculator/credit",
-    statsCount: "6 100",
-  },
-];
+// Маппинг icon-string → компонент из lucide
+const ICON_MAP: Record<string, typeof Home> = {
+  Home,
+  Calculator,
+  TrendingUp,
+  Scale,
+  Droplets,
+  Car,
+  Calendar,
+  Receipt,
+  Shield,
+  PiggyBank,
+  Wallet,
+  Users,
+};
 
 const PopularCalculators = () => {
-  const hoverItems = popularCalculators.map((calc) => ({
+  const picks: PopularPick[] = useMemo(() => {
+    // Регион можно подтянуть из localStorage (regionDetection) или сети
+    let region: string | undefined;
+    try {
+      region = localStorage.getItem("detected_region") ?? undefined;
+    } catch {
+      // ignore
+    }
+    return getSeasonalPicks({ region, count: 6 });
+  }, []);
+
+  const month = getCurrentMonth();
+  const season = SEASON_NAMES[month] ?? "";
+
+  const hoverItems = picks.map((calc) => ({
     title: calc.name,
     description: calc.description,
     link: calc.href,
-    icon: calc.icon,
+    icon: ICON_MAP[calc.icon] ?? Calculator,
     color: calc.color,
     bgColor: calc.bgColor,
     onMouseEnter: () => {
@@ -109,13 +84,16 @@ const PopularCalculators = () => {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 md:mb-10 text-center md:text-left">
           <div>
             <h2 className="text-3xl md:text-4xl font-black mb-2 tracking-tight text-foreground">
-              Популярные калькуляторы
+              Популярные сейчас
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              Самые востребованные расчёты прямо сейчас
+              Самые востребованные расчёты в {season.toLowerCase()}е 2026
             </p>
           </div>
-          <Link to="/all">
+          <Link
+            to="/all"
+            onClick={() => trackYandexGoal("popular_see_all_click")}
+          >
             <Button variant="outline" className="gap-2 rounded-full px-6 min-h-[44px]">
               Все калькуляторы
               <ArrowRight className="w-4 h-4" />

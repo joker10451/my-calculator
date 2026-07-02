@@ -88,6 +88,7 @@ const TickInsuranceLandingPage = lazy(() => import("./pages/TickInsuranceLanding
 const RukiVacancyPage = lazy(() => import("./pages/RukiVacancyPage"));
 const GoldapplePage = lazy(() => import("./pages/GoldapplePage"));
 const GiftsPage = lazy(() => import("./pages/GiftsPage"));
+const PromocodesPage = lazy(() => import("./pages/PromocodesPage"));
 
 // Blog components with lazy loading (loaded on demand)
 export const BlogComments = lazy(() => import("./components/blog/BlogComments"));
@@ -205,6 +206,7 @@ const AnimatedRoutes = () => {
           <Route path="/tick-insurance" element={<TickInsuranceLandingPage />} />
           <Route path="/goldapple" element={<GoldapplePage />} />
           <Route path="/gifts" element={<GiftsPage />} />
+          <Route path="/promocodes" element={<PromocodesPage />} />
           <Route path="/admin/analytics" element={<AnalyticsDashboardPage />} />
           <Route path="/analytics-dashboard" element={<AnalyticsDashboardPage />} />
           <Route path="/blog" element={<BlogPage />} />
