@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://schitay-online.ru/sitemap-index.xml

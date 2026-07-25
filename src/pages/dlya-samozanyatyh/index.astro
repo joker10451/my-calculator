@@ -1,0 +1,184 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { getCollection } from 'astro:content';
+
+const articles = (await getCollection('blog', (e) => e.data.tags.includes('самозанятость'))).map((a) => ({
+  ...a,
+  readingTime: Math.max(1, Math.round(a.body.split(/\s+/).length / 200)),
+}));
+
+const title = 'Инструменты для самозанятых 2026 — калькуляторы и статьи';
+const desc = 'Бесплатные калькуляторы для самозанятых: налог НПД, сравнение с ИП, налоговый вычет. Актуальные ставки 2026.';
+const canonical = 'https://schitay-online.ru/dlya-samozanyatyh/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
+    { '@type': 'ListItem', position: 2, name: 'Самозанятым', item: canonical },
+  ],
+};
+
+const faqItems = [
+  {
+    question: 'Кто может стать самозанятым в 2026?',
+    answer: 'Самозанятым может стать любой гражданин России (включая несовершеннолетних с 14 лет), а также граждане стран ЕАЭС. Вид деятельности — услуги, работы, товары собственного производства. Нельзя перепродавать чужие товары, работать по агентским договорам и добывать полезные ископаемые.',
+  },
+  {
+    question: 'Нужно ли самозанятому регистрировать ИП?',
+    answer: 'Нет, самозанятость не требует регистрации ИП. Достаточно скачать приложение «Мой налог», загрузить паспорт и фото. Регистрация занимает 5-10 минут. Если вы превысите лимит 2,4 млн ₽ в год — придётся регистрировать ИП или платить НДФЛ 13%.',
+  },
+  {
+    question: 'Как самозанятому платить налоги?',
+    answer: 'После каждого получения дохода вы выбиваете чек в приложении «Мой налог». Приложение автоматически считает налог по ставке 4% (физлица) или 6% (юрлица). Налог уплачивается до 25 числа следующего месяца. Если чека нет — доход считается неучтённым, и при проверке ФНС начислит штраф 20%.',
+  },
+  {
+    question: 'Можно ли нанимать сотрудников будучи самозанятым?',
+    answer: 'Нет, самозанятые не могут заключать трудовые договоры с сотрудниками. Разрешено привлекать исполнителей по договорам ГПХ (гражданско-правового характера). Если нужны наёмные работники — придётся зарегистрироваться как ИП.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+---
+
+<Layout {title} description={desc} {canonical} type="website">
+  <Fragment slot="header">
+    <Header />
+  </Fragment>
+
+  <!-- Breadcrumbs -->
+  <nav class="container-main pt-6 pb-2" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Главная</span></a>
+        <meta itemprop="position" content="1" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
+        <span itemprop="name">Самозанятым</span>
+        <meta itemprop="position" content="2" />
+      </li>
+    </ol>
+  </nav>
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero -->
+  <div class="container-main py-8 md:py-12">
+    <div class="max-w-3xl">
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+        Калькуляторы и инструменты для самозанятых
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-2">
+        Все расчёты бесплатные, без регистрации. Актуальные ставки и лимиты 2026 года.
+        Рассчитайте налог НПД на 4% или 6%, сравните с ИП и узнайте сумму вычета.
+      </p>
+    </div>
+  </div>
+
+  <!-- Calculator grid -->
+  <section class="container-main pb-12">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <a href="/dlya-samozanyatyh/kalkulyator-naloga/" class="group p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+          </div>
+          <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400">Готов ✓</span>
+        </div>
+        <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">Калькулятор налога НПД</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">4% или 6% — мгновенный расчёт налога самозанятого. Сравнение с ИП и НДФЛ.</p>
+        <span class="inline-flex items-center text-sm font-semibold text-accent-600 dark:text-accent-400 group-hover:gap-2 transition-all">Перейти <span class="ml-1">→</span></span>
+      </a>
+
+      <div class="group p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          </div>
+          <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400">Скоро</span>
+        </div>
+        <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">Сравнение НПД vs ИП</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Что выгоднее при вашем доходе: самозанятость, ИП на УСН или патент.</p>
+      </div>
+
+      <div class="group p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400">Скоро</span>
+        </div>
+        <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">Калькулятор налогового вычета</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">10 000 ₽ вычета — сколько осталось и как сэкономить.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Articles -->
+  {articles.length > 0 && (
+    <section class="container-main pb-12">
+      <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Разбираем на цифрах</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {articles.map((a) => (
+          <a href={`/blog/${a.slug}/`} class="group p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-2 text-xs text-gray-400 mb-3">
+              <time datetime={a.data.pubDate.toISOString()}>{a.data.pubDate.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' })}</time>
+              <span>·</span>
+              <span>~{a.readingTime} мин чтения</span>
+            </div>
+            <h3 class="font-heading font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent-600 transition-colors">{a.data.title}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">{a.data.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  <section class="container-main pb-12" id="faq">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Часто задаваемые вопросы</h2>
+    <div class="max-w-3xl space-y-2">
+      {faqItems.map((item) => (
+        <details class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden">
+          <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-bold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors [&::-webkit-details-marker]:hidden">
+            <span>{item.question}</span>
+            <svg class="w-5 h-5 text-gray-400 shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-open:max-h-[500px] group-open:opacity-100">
+            {item.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-main pb-16">
+    <div class="p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 class="font-heading text-xl font-bold mb-2">Подпишись на Telegram-канал</h3>
+          <p class="text-gray-300 text-sm">1 финансовый лайфхак в день. Без спама.</p>
+        </div>
+        <a href="#" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg shrink-0">Подписаться</a>
+      </div>
+      <div class="mt-6 pt-6 border-t border-gray-700 text-center">
+        <p class="text-sm text-gray-400">Скоро: ещё 2 калькулятора для самозанятых — следите за обновлениями</p>
+      </div>
+    </div>
+  </section>
+</Layout>

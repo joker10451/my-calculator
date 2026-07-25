@@ -1,0 +1,53 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+  <div class="container-main flex items-center justify-between h-16">
+    <a href="/" class="flex items-center gap-2 font-heading font-bold text-lg text-gray-900 dark:text-white hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+      <span class="w-8 h-8 bg-accent-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">∑</span>
+      Считай.RU
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6" aria-label="Основная навигация">
+      <a href="/dlya-samozanyatyh/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Самозанятым</a>
+      <a href="/dlya-semi/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Семье</a>
+      <a href="/zhkh/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">ЖКХ</a>
+      <a href="/avto/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Авто</a>
+      <a href="/blog/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Блог</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <ThemeToggle />
+      <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Открыть меню" data-mobile-menu-toggle>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="md:hidden hidden border-t border-gray-200 dark:border-gray-800" data-mobile-menu>
+    <div class="container-main py-4 space-y-3">
+      <a href="/dlya-samozanyatyh/" class="block text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600">Самозанятым</a>
+      <a href="/dlya-semi/" class="block text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600">Семье</a>
+      <a href="/zhkh/" class="block text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600">ЖКХ</a>
+      <a href="/avto/" class="block text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600">Авто</a>
+      <a href="/blog/" class="block text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600">Блог</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.querySelector('[data-mobile-menu-toggle]');
+    const menu = document.querySelector('[data-mobile-menu]');
+    if (toggle && menu) {
+      toggle.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+      });
+    }
+  });
+</script>

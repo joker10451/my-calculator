@@ -1,0 +1,100 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  ogImage?: string;
+  type?: 'website' | 'article';
+}
+
+const { title, description, canonical, ogImage, type = 'website' } = Astro.props;
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: 'Считай.RU',
+      url: 'https://schitay-online.ru/',
+      potentialAction: {
+        '@type': 'SearchAction',
+        query: 'required',
+        target: 'https://schitay-online.ru/search?q={search_term_string}',
+      },
+    },
+    {
+      '@type': 'Organization',
+      name: 'Считай.RU',
+      url: 'https://schitay-online.ru/',
+    },
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang="ru" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content="Считай.RU" />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Unbounded:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+  <script is:inline>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- ВСТАВЬ СЧЁТЧИК МЕТРИКИ СЮДА -->
+</head>
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
+  <slot name="header" />
+  <main id="main-content" class="flex-1">
+    <slot />
+  </main>
+
+  <footer class="border-t border-gray-200 dark:border-gray-800 py-8 mt-16">
+    <div class="container-main text-center text-sm text-gray-500 dark:text-gray-400">
+      <p class="mb-2">&copy; {new Date().getFullYear()} Считай.RU — бесплатные финансовые калькуляторы</p>
+      <p class="text-xs text-gray-400">
+        Результаты расчётов носят информационный характер. Для принятия решений проконсультируйтесь со специалистом.
+        <a href="/partners/" class="underline hover:text-accent-600">Партнёрская информация</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    });
+  </script>
+</body>
+</html>

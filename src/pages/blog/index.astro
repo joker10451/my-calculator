@@ -1,0 +1,97 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { getCollection } from 'astro:content';
+
+const articles = (await getCollection('blog'))
+  .map((a) => ({
+    ...a,
+    readingTime: Math.max(1, Math.round(a.body.split(/\s+/).length / 200)),
+  }))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const title = 'Блог Считай.RU — калькуляторы и статьи о финансах 2026';
+const desc = 'Разборы налогов, ипотеки, ЖКХ и авто на цифрах. Бесплатные калькуляторы и инструкции. Актуально на 2026.';
+const canonical = 'https://schitay-online.ru/blog/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
+    { '@type': 'ListItem', position: 2, name: 'Блог', item: canonical },
+  ],
+};
+---
+
+<Layout {title} description={desc} {canonical} type="website">
+  <Fragment slot="header"><Header /></Fragment>
+
+  <nav class="container-main pt-6 pb-2" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Главная</span></a>
+        <meta itemprop="position" content="1" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
+        <span itemprop="name">Блог</span>
+        <meta itemprop="position" content="2" />
+      </li>
+    </ol>
+  </nav>
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="container-main py-8 md:py-12">
+    <div class="max-w-3xl">
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+        Блог Считай.RU — финансы на цифрах
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+        Разборы, сравнения и инструкции. Без воды, только цифры и расчёты. Актуально на 2026 год.
+      </p>
+    </div>
+  </div>
+
+  <section class="container-main pb-12">
+    <div class="max-w-3xl space-y-5">
+      {articles.map((a) => (
+        <a
+          href={`/blog/${a.slug}/`}
+          class="group block p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all"
+        >
+          {a.data.tags && a.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-3">
+              {a.data.tags.map((tag) => (
+                <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+          <h2 class="font-heading text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent-600 transition-colors">
+            {a.data.title}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">{a.data.description}</p>
+          <div class="flex items-center gap-3 text-xs text-gray-400">
+            <time datetime={a.data.pubDate.toISOString()}>
+              {a.data.pubDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </time>
+            <span>·</span>
+            <span>~{a.readingTime} мин чтения</span>
+            <span class="ml-auto group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="container-main pb-16">
+    <div class="max-w-3xl p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white text-center">
+      <h3 class="font-heading text-xl font-bold mb-2">Подпишись на Telegram-канал</h3>
+      <p class="text-gray-300 text-sm mb-6">1 финансовый лайфхак в день. Без спама.</p>
+      <a href="#" class="inline-block px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg">Подписаться</a>
+    </div>
+  </section>
+</Layout>

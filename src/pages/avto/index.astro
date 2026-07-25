@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+const title = 'Калькуляторы для автовладельцев — ОСАГО, топливо, штрафы | Считай.RU';
+const desc = 'Сравнение ОСАГО и КАСКО, расчёт стоимости топлива, штрафы ГИБДД. Скоро на Считай.RU.';
+const canonical = 'https://schitay-online.ru/avto/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
+    { '@type': 'ListItem', position: 2, name: 'Авто', item: canonical },
+  ],
+};
+---
+
+<Layout {title} description={desc} {canonical} type="website">
+  <Fragment slot="header"><Header /></Fragment>
+
+  <nav class="container-main pt-6 pb-2" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Главная</span></a>
+        <meta itemprop="position" content="1" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
+        <span itemprop="name">Авто</span>
+        <meta itemprop="position" content="2" />
+      </li>
+    </ol>
+  </nav>
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="container-main py-8 md:py-12">
+    <div class="max-w-3xl">
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+        Калькуляторы для автовладельцев: ОСАГО, топливо, штрафы
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+        Сколько реально стоит владение автомобилем? Мы готовим калькуляторы ОСАГО, расхода
+        топлива и штрафов ГИБДД, чтобы вы не переплачивали.
+      </p>
+    </div>
+  </div>
+
+  <section class="container-main pb-12">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400">Скоро</span>
+        </div>
+        <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">ОСАГО vs КАСКО</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Что выбрать и сколько это стоит в 2026 году.</p>
+      </div>
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400">Скоро</span>
+        </div>
+        <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">Расход топлива</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Сколько вы тратите на бензин в месяц и в год.</p>
+      </div>
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+          </div>
+          <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400">Скоро</span>
+        </div>
+        <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">Штрафы ГИБДД</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Проверка и оплата штрафов со скидкой 50%.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-main pb-16">
+    <div class="p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white text-center">
+      <h3 class="font-heading text-xl font-bold mb-2">Подпишись на Telegram — узнаешь первым</h3>
+      <p class="text-gray-300 text-sm mb-6">Калькуляторы для автовладельцев появятся в ближайшее время</p>
+      <a href="#" class="inline-block px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg">Подписаться</a>
+    </div>
+  </section>
+</Layout>

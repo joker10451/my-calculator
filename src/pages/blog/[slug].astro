@@ -1,0 +1,142 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+const readingTime = Math.max(1, Math.round(post.body.split(/\s+/).length / 200));
+
+const allPosts = await getCollection('blog');
+const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+
+const title = post.data.title.length > 60
+  ? post.data.title.slice(0, 57) + '...'
+  : post.data.title;
+const desc = post.data.description;
+const slug = post.slug;
+const canonical = `https://schitay-online.ru/blog/${slug}/`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
+    { '@type': 'ListItem', position: 2, name: 'Блог', item: 'https://schitay-online.ru/blog/' },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
+  ],
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: { '@type': 'Organization', name: 'Считай.RU' },
+  publisher: { '@type': 'Organization', name: 'Считай.RU' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+};
+---
+
+<Layout {title} description={desc} {canonical} type="article">
+  <Fragment slot="header"><Header /></Fragment>
+
+  <nav class="container-main pt-6 pb-2" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Главная</span></a>
+        <meta itemprop="position" content="1" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/blog/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Блог</span></a>
+        <meta itemprop="position" content="2" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
+        <span itemprop="name">{post.data.title}</span>
+        <meta itemprop="position" content="3" />
+      </li>
+    </ol>
+  </nav>
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="container-main py-8">
+    <div class="max-w-3xl mx-auto">
+      <!-- Header -->
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-4">
+          {post.data.tags.map((tag) => (
+            <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">{tag}</span>
+          ))}
+        </div>
+      )}
+
+      <h1 class="font-heading text-3xl md:text-4xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+        {post.data.title}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-3 text-sm text-gray-400 mb-8">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {post.data.pubDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </time>
+        <span>·</span>
+        <span>~{readingTime} мин чтения</span>
+        <span>·</span>
+        <span>Редакция Считай.RU</span>
+      </div>
+
+      <!-- Content -->
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        <Content />
+      </div>
+
+      <!-- Related -->
+      {related.length > 0 && (
+        <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+          <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Похожие материалы</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            {related.map((r) => (
+              <a
+                href={`/blog/${r.slug}/`}
+                class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md transition-all"
+              >
+                <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">{r.data.title}</h3>
+                <div class="flex items-center gap-2 text-xs text-gray-400">
+                  <time datetime={r.data.pubDate.toISOString()}>
+                    {r.data.pubDate.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' })}
+                  </time>
+                  <span class="ml-auto group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- CTA -->
+      <div class="mt-8 p-7 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white">
+        <p class="text-sm text-gray-300 mb-4">Понравилась статья? Поделись результатом калькулятора.</p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button onclick="document.getElementById('share-card')?.scrollIntoView({behavior:'smooth'})" class="px-5 py-2.5 rounded-xl bg-white/10 text-white font-bold text-sm hover:bg-white/20 transition-colors border border-white/20 text-center">
+            Поделиться
+          </button>
+          <a href="#" class="px-5 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-sm hover:bg-accent-700 transition-colors text-center">
+            Подписаться на Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
