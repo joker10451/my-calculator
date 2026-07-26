@@ -7,28 +7,55 @@ export function fmt(n: number): string {
   return Math.round(n).toLocaleString('ru-RU');
 }
 
-export interface NpdResult {
-  tax: number;
-  taxYear: number;
-  rate: number;
-  effectiveRate: number;
-  insurance: number;
-  savingsNdfl: number;
+export function deductionMonthlySaving(income: number, shareFromLegal: number): number {
+  return income * 0.01 * (1 + shareFromLegal);
 }
 
-export function calcNpd(income: number, fromLegal: boolean): NpdResult {
-  const rate = fromLegal ? 0.06 : 0.04;
-  const tax = income * rate;
-  const taxYear = tax * 12;
+export interface NpdResult {
+  ratePhysical: number;
+  rateLegal: number;
+  ratePhysicalNow: number;
+  rateLegalNow: number;
+  monthlyStable: number;
+  monthlyWithDed: number;
+  effectiveRate: number;
+  monthlySavingFromDed: number;
+  monthsDeductionLasts: number | null;
+  tax: number;
+  rate: number;
+  taxYear: number;
+  savingsNdfl: number;
+  insurance: number;
+}
+
+export function calcNpd(income: number, shareFromLegal: number, useDeduction: boolean = false): NpdResult {
+  const pct = shareFromLegal;
+  const ratePhysical = 0.04;
+  const rateLegal = 0.06;
+  const ratePhysicalNow = useDeduction ? 0.03 : 0.04;
+  const rateLegalNow = useDeduction ? 0.04 : 0.06;
+  const blendedStable = (1 - pct) * ratePhysical + pct * rateLegal;
+  const blendedNow = (1 - pct) * ratePhysicalNow + pct * rateLegalNow;
+  const monthlyStable = Math.round(income * blendedStable);
+  const monthlyWithDed = Math.round(income * blendedNow);
+  const saving = useDeduction ? Math.round(deductionMonthlySaving(income, pct)) : 0;
+  const monthsDeductionLasts = useDeduction && saving > 0 ? Math.ceil(10000 / saving) : null;
   const ndfl = income * NDFL_RATE;
-  const effectiveRate = income > 0 ? tax / income : 0;
   return {
-    tax: Math.round(tax),
-    taxYear: Math.round(taxYear),
-    rate: rate * 100,
-    effectiveRate: effectiveRate * 100,
+    ratePhysical,
+    rateLegal,
+    ratePhysicalNow,
+    rateLegalNow,
+    monthlyStable,
+    monthlyWithDed,
+    effectiveRate: blendedStable * 100,
+    monthlySavingFromDed: saving,
+    monthsDeductionLasts,
+    tax: monthlyStable,
+    rate: blendedStable * 100,
+    taxYear: monthlyStable * 12,
+    savingsNdfl: Math.round(ndfl - monthlyStable),
     insurance: 0,
-    savingsNdfl: Math.round(ndfl - tax),
   };
 }
 
@@ -100,20 +127,25 @@ export interface ComparisonResult {
   annualSavings: number;
   npdAvailable: boolean;
   intersectionIncome: number | null;
+  npdMonthlyWithDeduction: number;
+  npdDeductionMonthsLeft: number | null;
+  npdMonthlySavingFromDed: number;
 }
 
 export function compareNpdVsUsn(
   income: number,
   legalShare: number,
-  hasEmployees: boolean
+  hasEmployees: boolean,
+  useNpdDeduction: boolean = false
 ): ComparisonResult {
   const pct = legalShare / 100;
-  const npdRate = pct * 0.06 + (1 - pct) * 0.04;
-  const npdTax = income * npdRate;
-  const npdBurden = Math.round(npdTax);
+
+  const npdResult = calcNpd(income, pct, useNpdDeduction);
   const ndfl = income * NDFL_RATE;
 
   const usnResult = calcUsn(income, hasEmployees);
+
+  const npdBurden = npdResult.monthlyStable;
   const usnBurden = usnResult.totalBurden;
 
   const diff = Math.abs(npdBurden - usnBurden);
@@ -127,14 +159,7 @@ export function compareNpdVsUsn(
   const intersectionIncome = findIntersection(legalShare, hasEmployees);
 
   return {
-    npd: {
-      tax: npdBurden,
-      taxYear: npdBurden * 12,
-      rate: npdRate * 100,
-      effectiveRate: npdRate * 100,
-      insurance: 0,
-      savingsNdfl: Math.round(ndfl - npdBurden),
-    },
+    npd: npdResult,
     usn: usnResult,
     winner,
     npdBurden,
@@ -143,6 +168,9 @@ export function compareNpdVsUsn(
     annualSavings: diff * 12,
     npdAvailable,
     intersectionIncome,
+    npdMonthlyWithDeduction: npdResult.monthlyWithDed,
+    npdDeductionMonthsLeft: npdResult.monthsDeductionLasts,
+    npdMonthlySavingFromDed: npdResult.monthlySavingFromDed,
   };
 }
 

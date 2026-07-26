@@ -1,0 +1,356 @@
+---
+// Pure HTML/CSS/JS teaser — no React. Inline script only.
+// Simplified NPD vs USN comparison for the hero section.
+---
+
+<div class="hero-teaser">
+  <div class="teaser-slider">
+    <label class="teaser-label" for="hero-income">Ваш доход в месяц</label>
+    <div class="teaser-slider-row">
+      <input
+        type="range"
+        id="hero-income"
+        min="10000"
+        max="500000"
+        step="5000"
+        value="100000"
+        class="teaser-range"
+        aria-label="Доход в месяц"
+      />
+      <span class="teaser-value" id="hero-income-value">100 000 ₽</span>
+    </div>
+  </div>
+
+  <div class="teaser-result">
+    <div class="teaser-tax-row">
+      <div>
+        <span class="teaser-tax-label">Налог НПД</span>
+        <span class="teaser-tax-amount" id="hero-npd-amount">4 000 ₽</span>
+        <span class="teaser-tax-sub">в месяц · ставка 4%</span>
+      </div>
+      <div class="teaser-vs">
+        <span class="teaser-vs-badge">VS</span>
+      </div>
+      <div>
+        <span class="teaser-tax-label">Нагрузка ИП УСН</span>
+        <span class="teaser-tax-amount teaser-tax-amount--usn" id="hero-usn-amount">6 000 ₽</span>
+        <span class="teaser-tax-sub">налог + взносы</span>
+      </div>
+    </div>
+
+    <div class="teaser-bars">
+      <div class="teaser-bar-row">
+        <span class="teaser-bar-label">НПД</span>
+        <div class="teaser-bar-track">
+          <div class="teaser-bar-fill teaser-bar-fill--npd" id="hero-npd-bar" style="width:67%"></div>
+        </div>
+      </div>
+      <div class="teaser-bar-row">
+        <span class="teaser-bar-label">УСН</span>
+        <div class="teaser-bar-track">
+          <div class="teaser-bar-fill teaser-bar-fill--usn" id="hero-usn-bar" style="width:100%"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="teaser-verdict" id="hero-verdict">Самозанятость экономит 2 000 ₽/мес</p>
+
+    <a href="/dlya-samozanyatyh/npd-vs-ip/" class="teaser-cta">
+      Открыть полный расчёт →
+    </a>
+  </div>
+</div>
+
+<style>
+  .hero-teaser {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 1.25rem;
+    padding: 1.75rem 1.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .teaser-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .teaser-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .teaser-range {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--slider-track);
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+  }
+  .teaser-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #2563eb;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .teaser-range::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+  .teaser-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #2563eb;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+    cursor: pointer;
+  }
+
+  .teaser-value {
+    font-family: 'Unbounded', system-ui, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    white-space: nowrap;
+    min-width: 110px;
+    text-align: right;
+  }
+
+  .teaser-result {
+    margin-top: 1.25rem;
+  }
+
+  .teaser-tax-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .teaser-tax-row > div {
+    flex: 1;
+  }
+  .teaser-vs {
+    flex: 0 0 auto;
+  }
+  .teaser-vs-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--vs-bg);
+    color: var(--text-tertiary);
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+
+  .teaser-tax-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.15rem;
+  }
+  .teaser-tax-amount {
+    display: block;
+    font-family: 'Unbounded', system-ui, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #10b981;
+    line-height: 1.2;
+    transition: color 0.3s;
+  }
+  .teaser-tax-amount--usn {
+    color: #f59e0b;
+  }
+  .teaser-tax-sub {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    margin-top: 0.1rem;
+  }
+
+  .teaser-bars {
+    margin-bottom: 0.75rem;
+  }
+  .teaser-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .teaser-bar-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    min-width: 2.2rem;
+  }
+  .teaser-bar-track {
+    flex: 1;
+    height: 10px;
+    border-radius: 5px;
+    background: var(--slider-track);
+    overflow: hidden;
+  }
+  .teaser-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .teaser-bar-fill--npd {
+    background: #10b981;
+  }
+  .teaser-bar-fill--usn {
+    background: #f59e0b;
+  }
+
+  .teaser-verdict {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin: 0 0 0.75rem;
+    min-height: 1.3em;
+    transition: color 0.3s;
+  }
+
+  .teaser-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.75rem;
+    background: #2563eb;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, gap 0.2s;
+  }
+  .teaser-cta:hover {
+    background: #1d4ed8;
+    gap: 0.6rem;
+  }
+
+  /* Dark mode overrides */
+  :global(.dark) .hero-teaser {
+    --card-bg: #1f2937;
+    --card-border: #374151;
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --text-tertiary: #6b7280;
+    --slider-track: #374151;
+    --vs-bg: #374151;
+  }
+  :global(.dark) .teaser-range::-webkit-slider-thumb {
+    border-color: #1f2937;
+  }
+  :global(.dark) .teaser-range::-moz-range-thumb {
+    border-color: #1f2937;
+  }
+
+  /* Light mode defaults on component scope */
+  .hero-teaser {
+    --card-bg: #ffffff;
+    --card-border: #e5e7eb;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-tertiary: #9ca3af;
+    --slider-track: #e5e7eb;
+    --vs-bg: #f3f4f6;
+  }
+</style>
+
+<script>
+(function() {
+  var slider = document.getElementById('hero-income');
+  var valueEl = document.getElementById('hero-income-value');
+  var npdEl = document.getElementById('hero-npd-amount');
+  var usnEl = document.getElementById('hero-usn-amount');
+  var npdBar = document.getElementById('hero-npd-bar');
+  var usnBar = document.getElementById('hero-usn-bar');
+  var verdictEl = document.getElementById('hero-verdict');
+
+  var currentDisplay = parseInt(slider.value) * 0.04;
+  var rafId = null;
+
+  function calcBurden(income) {
+    var npd = income * 0.04;
+    var annual = income * 12;
+    var mf = 57390 / 12;
+    var m1p = Math.max(0, (annual - 300000) * 0.01) / 12;
+    var contribs = mf + m1p;
+    var baseTax = income * 0.06;
+    var ded = Math.min(contribs, baseTax);
+    var taxPayable = Math.max(0, baseTax - ded);
+    var usn = taxPayable + contribs;
+    return { npd: npd, usn: usn };
+  }
+
+  function fmt(n) {
+    return Math.round(n).toLocaleString('ru-RU');
+  }
+
+  function update(income) {
+    var r = calcBurden(income);
+    var maxVal = Math.max(r.npd, r.usn, 1);
+    var npdPct = (r.npd / maxVal) * 100;
+    var usnPct = (r.usn / maxVal) * 100;
+
+    usnEl.textContent = fmt(r.usn) + ' ₽';
+    npdBar.style.width = Math.max(npdPct, 2) + '%';
+    usnBar.style.width = Math.max(usnPct, 2) + '%';
+
+    var diff = Math.abs(r.npd - r.usn);
+    var threshold = Math.max(r.npd, r.usn) * 0.02;
+    var text = '';
+    if (diff <= threshold) {
+      text = 'Нагрузка режимов примерно равна';
+    } else if (r.npd < r.usn) {
+      text = 'Самозанятость экономит ' + fmt(r.usn - r.npd) + ' \u20BD/мес';
+    } else {
+      text = 'ИП УСН экономит ' + fmt(r.npd - r.usn) + ' \u20BD/мес';
+    }
+    verdictEl.textContent = text;
+
+    if (rafId) cancelAnimationFrame(rafId);
+    var start = currentDisplay;
+    var target = r.npd;
+    var t0 = performance.now();
+
+    function tick(now) {
+      var p = Math.min((now - t0) / 300, 1);
+      var eased = 1 - (1 - p) * (1 - p) * (1 - p);
+      currentDisplay = start + (target - start) * eased;
+      npdEl.textContent = fmt(currentDisplay) + ' \u20BD';
+      if (p < 1) rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  slider.addEventListener('input', function() {
+    var val = parseInt(this.value);
+    valueEl.textContent = fmt(val) + ' \u20BD';
+    update(val);
+  });
+
+  update(parseInt(slider.value));
+})();
+</script>

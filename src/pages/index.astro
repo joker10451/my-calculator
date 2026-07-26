@@ -1,6 +1,48 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import HeroTeaser from '../components/HeroTeaser.astro';
+import { getCollection } from 'astro:content';
+
+const articles = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map((a) => ({
+    slug: a.slug,
+    title: a.data.title,
+    description: a.data.description,
+    tags: a.data.tags,
+    readingTime: Math.max(1, Math.round(a.body.split(/\s+/).length / 200)),
+  }));
+
+const faqItems = [
+  {
+    question: 'Сколько налогов платит самозанятый?',
+    answer: 'Ставка НПД — 4% при работе с физлицами и 6% — с юрлицами. Лимит дохода — 2,4 млн ₽ в год. Страховые взносы платить не обязательно, но можно добровольно для пенсии.',
+  },
+  {
+    question: 'Что выгоднее: самозанятость или ИП?',
+    answer: 'Для дохода до 2,4 млн ₽ в год самозанятость выгоднее из-за меньшей ставки (4-6% против 6-15% УСН) и отсутствия обязательных страховых взносов (49 500 ₽ в год для ИП).',
+  },
+  {
+    question: 'Может ли самозанятый получать пособия?',
+    answer: 'Да. Самозанятые могут получать пособие по безработице (в минимальном размере) и единое пособие на детей при низком доходе. Больничные и декретные — только при добровольном страховании в СФР.',
+  },
+  {
+    question: 'Как подтвердить доход самозанятого для ипотеки?',
+    answer: 'Справка из приложения «Мой налог» за 6-12 месяцев. Банки (Т-Банк, ВТБ, Альфа-Банк) принимают её как подтверждение дохода. Средний чек и регулярность поступлений влияют на решение.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
 ---
 
 <Layout
@@ -12,204 +54,224 @@ import Header from '../components/Header.astro';
     <Header />
   </Fragment>
 
-  <!-- Hero: интерактивный выбор "Кто вы?" -->
-  <section class="bg-gradient-to-br from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 overflow-hidden">
-    <div class="container-main py-12 md:py-20">
-      <div class="max-w-3xl mx-auto text-center mb-10">
-        <p class="font-heading text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 dark:text-white mb-4">
-          Разберись с деньгами<br />
-          <span class="text-accent-600 dark:text-accent-400">за 2 минуты</span>
-        </p>
-        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Бесплатно. Без регистрации. Выберите, кто вы — и получите калькуляторы под вашу ситуацию.
-        </p>
-      </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-      <!-- Карточки выбора аудитории -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-        <a href="/dlya-samozanyatyh/" class="group relative p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-accent-400 dark:hover:border-accent-600 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.193 23.193 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 20 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          </div>
-          <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">Самозанятый / фрилансер</h2>
-          <p class="text-sm text-gray-500 dark:text-gray-400">Налоги, вычеты, пенсия. Сколько платить и как сэкономить.</p>
-          <span class="mt-3 inline-flex items-center text-sm font-semibold text-accent-600 dark:text-accent-400 group-hover:gap-2 transition-all">
-            Калькуляторы <span class="ml-1">→</span>
-          </span>
-        </a>
-
-        <a href="/dlya-semi/" class="group relative p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-warm-400 dark:hover:border-warm-500 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-warm-50 dark:bg-warm-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <svg class="w-6 h-6 text-warm-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          </div>
-          <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">Семья</h2>
-          <p class="text-sm text-gray-500 dark:text-gray-400">Ипотека с маткапиталом, алименты, пособия на детей.</p>
-          <span class="mt-3 inline-flex items-center text-sm font-semibold text-warm-600 hover:gap-2 transition-all">
-            Скоро <span class="ml-1">→</span>
-          </span>
-        </a>
-
-        <a href="/zhkh/" class="group relative p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-accent-400 dark:hover:border-accent-600 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-          </div>
-          <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">ЖКХ и коммуналка</h2>
-          <p class="text-sm text-gray-500 dark:text-gray-400">Проверьте переплату. Нормативы воды, света, отопления.</p>
-          <span class="mt-3 inline-flex items-center text-sm font-semibold text-accent-600 dark:text-accent-400 group-hover:gap-2 transition-all">
-            Скоро <span class="ml-1">→</span>
-          </span>
-        </a>
-
-        <a href="/avto/" class="group relative p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-warm-400 dark:hover:border-warm-500 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-          <div class="w-12 h-12 rounded-xl bg-warm-50 dark:bg-warm-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <svg class="w-6 h-6 text-warm-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          </div>
-          <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">Авто</h2>
-          <p class="text-sm text-gray-500 dark:text-gray-400">ОСАГО, КАСКО, топливо. Сколько реально стоит владение.</p>
-          <span class="mt-3 inline-flex items-center text-sm font-semibold text-warm-600 hover:gap-2 transition-all">
-            Скоро <span class="ml-1">→</span>
-          </span>
-        </a>
-      </div>
+  <!-- HERO: асимметричная сцена -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
+    <!-- Ambient фон: миллиметровая сетка -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.06]"
+      style="background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, currentColor 39px, currentColor 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, currentColor 39px, currentColor 40px); color: inherit;">
     </div>
-  </section>
 
-  <!-- Блок "Почему вам стоит доверять" (Social proof) -->
-  <section class="py-16 md:py-20">
-    <div class="container-main">
-      <h2 class="font-heading text-2xl md:text-3xl font-black text-center text-gray-900 dark:text-white mb-12">
-        Почему вам стоит доверять
-      </h2>
+    <div class="container-main py-10 md:py-16 lg:py-20">
+      <div class="lg:flex lg:gap-10 lg:items-center">
+        <!-- LEFT: заголовок + CTA -->
+        <div class="lg:w-[38%] mb-8 lg:mb-0">
+          <h1 class="font-heading text-[clamp(2rem,5vw,4.5rem)] leading-[1.08] font-black text-gray-900 dark:text-white">
+            Разберись<br />
+            <span class="text-accent-600 dark:text-accent-400">с деньгами</span><br />
+            за 2 минуты
+          </h1>
+          <p class="mt-4 text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm">
+            Бесплатные калькуляторы для самозанятых, семей, ЖКХ и автовладельцев. Никакой рекламы банков — только честные цифры.
+          </p>
+          <div class="mt-6 flex flex-col items-start gap-3">
+            <a href="/dlya-samozanyatyh/kalkulyator-naloga/"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-accent-600 text-white font-bold text-sm hover:bg-accent-700 transition-colors shadow-lg shadow-accent-600/20">
+              Посчитать свой налог
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="/dlya-samozanyatyh/npd-vs-ip/"
+              class="text-sm text-gray-400 dark:text-gray-500 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+              или сравнить режимы →
+            </a>
+          </div>
+        </div>
 
-      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <div class="text-center p-6">
-          <div class="text-4xl font-black text-accent-600 dark:text-accent-400 mb-2">100%</div>
-          <p class="text-gray-600 dark:text-gray-400 font-medium">Бесплатно. Всегда. Без скрытых подписок.</p>
-        </div>
-        <div class="text-center p-6">
-          <div class="text-4xl font-black text-accent-600 dark:text-accent-400 mb-2">>32</div>
-          <p class="text-gray-600 dark:text-gray-400 font-medium">Калькуляторов для всех жизненных ситуаций</p>
-        </div>
-        <div class="text-center p-6">
-          <div class="text-4xl font-black text-accent-600 dark:text-accent-400 mb-2">0 ₽</div>
-          <p class="text-gray-600 dark:text-gray-400 font-medium">Никакой рекламы банков. Только честные цифры.</p>
-        </div>
-      </div>
-
-      <!-- Отзывы -->
-      <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mt-12">
-        <div class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-          <div class="flex items-center gap-1 text-warm-500 mb-2">★★★★★</div>
-          <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">«Отличный калькулятор налога для самозанятых. Всё честно, без навязывания. Посчитал налог за 2025 — сэкономил 12 тыс. на консультации с бухгалтером.»</p>
-          <p class="text-xs text-gray-500">— Александр, самозанятый веб-разработчик</p>
-        </div>
-        <div class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-          <div class="flex items-center gap-1 text-warm-500 mb-2">★★★★★</div>
-          <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">«Искала ипотечный калькулятор и наткнулась на Считай.RU. Очень удобно: выбрала сумму, срок — и сразу видно график. Поняла, что 15 лет — это переплата 80%!»</p>
-          <p class="text-xs text-gray-500">— Екатерина, берёт ипотеку в 2026</p>
+        <!-- RIGHT: живой тизер -->
+        <div class="lg:w-[62%]">
+          <HeroTeaser />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Блог: последние статьи (заглушка) -->
-  <section class="py-16 md:py-20 bg-gray-50 dark:bg-gray-900/50">
+  <!-- АУДИТОРИИ: неравные блоки -->
+  <section class="py-14 md:py-18">
     <div class="container-main">
-      <div class="flex items-center justify-between mb-10">
-        <h2 class="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white">
+      <p class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-6 text-center lg:text-left">Выберите свою ситуацию</p>
+      <div class="grid md:grid-cols-3 gap-4 auto-rows-fr">
+        <!-- Самозанятый — featured -->
+        <a href="/dlya-samozanyatyh/"
+          class="group relative p-7 rounded-2xl border-2 border-accent-200 dark:border-accent-800 bg-gradient-to-br from-accent-50 to-white dark:from-accent-950/30 dark:to-gray-900 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 md:col-span-2 row-span-2 flex flex-col justify-between min-h-[220px]">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <svg class="w-5.5 h-5.5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.193 23.193 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 20 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <h2 class="font-heading text-xl font-black text-gray-900 dark:text-white mb-1">Самозанятый / фрилансер</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 max-w-md">Налоги, вычеты, пенсия. Посчитайте налог НПД, сравните с ИП и узнайте, сколько можно сэкономить.</p>
+          </div>
+          <div class="flex items-center gap-3 mt-4">
+            <span class="inline-flex items-center gap-1 text-sm font-bold text-accent-600 dark:text-accent-400 group-hover:gap-2 transition-all">
+              Перейти к калькуляторам →</span>
+            <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400">2 инструмента</span>
+          </div>
+        </a>
+
+        <!-- Семья -->
+        <a href="/dlya-semi/"
+          class="group p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between min-h-[100px]">
+          <div>
+            <div class="w-9 h-9 rounded-lg bg-warm-50 dark:bg-warm-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <svg class="w-4.5 h-4.5 text-warm-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            </div>
+            <h2 class="font-heading font-bold text-base text-gray-900 dark:text-white mb-1">Семья</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Ипотека, алименты, пособия на детей</p>
+          </div>
+          <span class="mt-3 inline-flex items-center text-xs font-semibold text-warm-600 group-hover:gap-1.5 transition-all gap-1">Скоро →</span>
+        </a>
+
+        <!-- ЖКХ -->
+        <a href="/zhkh/"
+          class="group p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between min-h-[100px]">
+          <div>
+            <div class="w-9 h-9 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <svg class="w-4.5 h-4.5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            </div>
+            <h2 class="font-heading font-bold text-base text-gray-900 dark:text-white mb-1">ЖКХ</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Нормативы, переплата, поверка счётчиков</p>
+          </div>
+          <span class="mt-3 inline-flex items-center text-xs font-semibold text-accent-600 dark:text-accent-400 group-hover:gap-1.5 transition-all gap-1">Скоро →</span>
+        </a>
+
+        <!-- Авто -->
+        <a href="/avto/"
+          class="group p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between min-h-[100px]">
+          <div>
+            <div class="w-9 h-9 rounded-lg bg-warm-50 dark:bg-warm-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <svg class="w-4.5 h-4.5 text-warm-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h2 class="font-heading font-bold text-base text-gray-900 dark:text-white mb-1">Авто</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">ОСАГО, КАСКО, топливо, штрафы</p>
+          </div>
+          <span class="mt-3 inline-flex items-center text-xs font-semibold text-warm-600 group-hover:gap-1.5 transition-all gap-1">Скоро →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="py-14 md:py-18 bg-white dark:bg-gray-900">
+    <div class="container-main">
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
+        <div class="p-5">
+          <div class="text-4xl font-black text-accent-600 dark:text-accent-400 mb-1">100%</div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Бесплатно навсегда. Без скрытых подписок.</p>
+        </div>
+        <div class="p-5">
+          <div class="text-4xl font-black text-accent-600 dark:text-accent-400 mb-1">&gt;32</div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Калькуляторов для всех жизненных ситуаций</p>
+        </div>
+        <div class="p-5">
+          <div class="text-4xl font-black text-accent-600 dark:text-accent-400 mb-1">0 ₽</div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Никакой рекламы банков. Только честные цифры.</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto mt-10">
+        <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center gap-1 text-warm-500 mb-2 text-sm">★★★★★</div>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 leading-relaxed">«Отличный калькулятор налога для самозанятых. Посчитал налог за 2025 — сэкономил 12 тыс. на консультации с бухгалтером.»</p>
+          <p class="text-xs text-gray-400">— Александр, самозанятый веб-разработчик</p>
+        </div>
+        <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center gap-1 text-warm-500 mb-2 text-sm">★★★★★</div>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 leading-relaxed">«Искала ипотечный калькулятор — наткнулась на Считай.RU. Выбрала сумму и сразу увидела график. Переплата 80% за 15 лет — шок, но спасибо, что показали честно.»</p>
+          <p class="text-xs text-gray-400">— Екатерина, берёт ипотеку в 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОГ -->
+  <section class="py-14 md:py-18 bg-gray-50 dark:bg-gray-900/50">
+    <div class="container-main">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="font-heading text-xl md:text-2xl font-black text-gray-900 dark:text-white">
           Последние статьи
         </h2>
         <a href="/blog/" class="text-sm font-semibold text-accent-600 dark:text-accent-400 hover:underline">Все статьи →</a>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <article class="group p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-shadow">
-          <span class="text-xs font-semibold text-accent-600 dark:text-accent-400 uppercase tracking-wider">Самозанятые</span>
-          <h3 class="font-heading font-bold text-lg mt-2 mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
-            <a href="/blog/samozanyatyy-vs-ip-2026/">Самозанятость vs ИП в 2026: что выгоднее по налогам?</a>
-          </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Сравнение налоговой нагрузки, страховых взносов и отчётности для реальных доходов.</p>
-        </article>
-
-        <article class="group p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-shadow">
-          <span class="text-xs font-semibold text-accent-600 dark:text-accent-400 uppercase tracking-wider">Ипотека</span>
-          <h3 class="font-heading font-bold text-lg mt-2 mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
-            <a href="/blog/ipoteka-s-matkapitalom-2026/">Ипотека с маткапиталом: калькулятор и пошаговый план</a>
-          </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Как использовать маткапитал 675 тыс. для первого взноса или погашения ипотеки.</p>
-        </article>
-
-        <article class="group p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-shadow">
-          <span class="text-xs font-semibold text-accent-600 dark:text-accent-400 uppercase tracking-wider">ЖКХ</span>
-          <h3 class="font-heading font-bold text-lg mt-2 mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
-            <a href="/blog/kak-proverit-pereplatu-zhkh/">Как проверить, не обманывает ли УК: расчёт переплаты</a>
-          </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Нормативы потребления 2026, повышающие коэффициенты и как вернуть переплату.</p>
-        </article>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {articles.map((a) => (
+          <a href={`/blog/${a.slug}/`} class="group p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-shadow">
+            {a.tags.length > 0 && (
+              <span class="text-[10px] font-semibold text-accent-600 dark:text-accent-400 uppercase tracking-wider">{a.tags[0]}</span>
+            )}
+            <h3 class="font-heading font-bold text-sm mt-2 mb-2 text-gray-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors leading-snug">
+              {a.title}
+            </h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{a.description}</p>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- FAQ (с разметкой Schema.org) -->
-  <section class="py-16 md:py-20">
+  <!-- FAQ -->
+  <section class="py-14 md:py-18">
     <div class="container-main max-w-3xl">
-      <h2 class="font-heading text-2xl md:text-3xl font-black text-center text-gray-900 dark:text-white mb-10">
+      <h2 class="font-heading text-xl md:text-2xl font-black text-center text-gray-900 dark:text-white mb-8">
         Часто задаваемые вопросы
       </h2>
-
       <div class="space-y-3" itemscope itemtype="https://schema.org/FAQPage">
-        <details class="group p-5 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 open:shadow-md transition-all" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <summary class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 dark:text-white" itemprop="name">
-            <span>Сколько налогов платит самозанятый?</span>
-            <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <div itemprop="text">Ставка НПД — 4% при работе с физлицами и 6% — с юрлицами. Лимит дохода — 2,4 млн ₽ в год. Страховые взносы платить не обязательно, но можно добровольно для пенсии.</div>
-          </div>
-        </details>
-
-        <details class="group p-5 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 open:shadow-md transition-all" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <summary class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 dark:text-white" itemprop="name">
-            <span>Что выгоднее: самозанятость или ИП?</span>
-            <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <div itemprop="text">Для дохода до 2,4 млн ₽ в год самозанятость выгоднее из-за меньшей ставки (4-6% против 6-15% УСН) и отсутствия обязательных страховых взносов (49 500 ₽ в год для ИП).</div>
-          </div>
-        </details>
-
-        <details class="group p-5 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 open:shadow-md transition-all" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <summary class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 dark:text-white" itemprop="name">
-            <span>Может ли самозанятый получать пособия?</span>
-            <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <div itemprop="text">Да. Самозанятые могут получать пособие по безработице (в минимальном размере) и единое пособие на детей при низком доходе. Больничные и декретные — только при добровольном страховании в СФР.</div>
-          </div>
-        </details>
-
-        <details class="group p-5 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 open:shadow-md transition-all" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <summary class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 dark:text-white" itemprop="name">
-            <span>Как подтвердить доход самозанятого для ипотеки?</span>
-            <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <div itemprop="text">Справка из приложения «Мой налог» за 6-12 месяцев. Банки (Т-Банк, ВТБ, Альфа-Банк) принимают её как подтверждение дохода. Средний чек и регулярность поступлений влияют на решение.</div>
-          </div>
-        </details>
+        {faqItems.map((item) => (
+          <details class="group p-5 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 open:shadow-md transition-all" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <summary class="flex items-center justify-between gap-3 cursor-pointer font-semibold text-gray-900 dark:text-white" itemprop="name">
+              <span>{item.question}</span>
+              <svg class="w-5 h-5 text-gray-400 shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div itemprop="text">{item.answer}</div>
+            </div>
+          </details>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- CTA секция -->
-  <section class="py-16 bg-gradient-to-r from-accent-600 to-blue-700 text-white">
+  <!-- CTA -->
+  <section class="py-14 bg-gradient-to-r from-accent-600 to-blue-700 text-white">
     <div class="container-main text-center">
-      <h2 class="font-heading text-2xl md:text-3xl font-black mb-4">Готовы посчитать?</h2>
-      <p class="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">Выберите свою ситуацию и получите точный расчёт за 2 минуты. Бесплатно и без регистрации.</p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="/dlya-samozanyatyh/" class="px-8 py-3 rounded-xl bg-white text-accent-700 font-bold hover:bg-blue-50 transition-colors shadow-lg">Я самозанятый</a>
-        <a href="/dlya-semi/" class="px-8 py-3 rounded-xl bg-blue-500/30 text-white font-bold hover:bg-blue-500/40 transition-colors border border-white/20">У меня семья</a>
+      <h2 class="font-heading text-xl md:text-2xl font-black mb-3">Готовы посчитать?</h2>
+      <p class="text-blue-100 text-sm md:text-base mb-6 max-w-xl mx-auto">Выберите свою ситуацию и получите точный расчёт. Бесплатно и без регистрации.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/dlya-samozanyatyh/" class="px-7 py-2.5 rounded-xl bg-white text-accent-700 font-bold text-sm hover:bg-blue-50 transition-colors shadow-lg">Я самозанятый</a>
+        <a href="/dlya-semi/" class="px-7 py-2.5 rounded-xl bg-blue-500/30 text-white font-bold text-sm hover:bg-blue-500/40 transition-colors border border-white/20">У меня семья</a>
       </div>
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Smooth FAQ open/close */
+  details[open] > div {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 0;
+  }
+
+  /* Scroll-triggered animation class (optional progressive enhancement) */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
