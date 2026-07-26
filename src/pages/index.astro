@@ -15,6 +15,11 @@ const articles = (await getCollection('blog'))
     readingTime: Math.max(1, Math.round(a.body.split(/\s+/).length / 200)),
   }));
 
+const samozanyatostTools = [
+  '/dlya-samozanyatyh/kalkulyator-naloga/',
+  '/dlya-samozanyatyh/npd-vs-ip/',
+];
+
 const faqItems = [
   {
     question: 'Сколько налогов платит самозанятый?',
@@ -114,7 +119,7 @@ const faqSchema = {
           <div class="flex items-center gap-3 mt-4">
             <span class="inline-flex items-center gap-1 text-sm font-bold text-accent-600 dark:text-accent-400 group-hover:gap-2 transition-all">
               Перейти к калькуляторам →</span>
-            <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400">2 инструмента</span>
+            <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400">{samozanyatostTools.length} {samozanyatostTools.length === 1 ? 'инструмент' : 'инструмента'}</span>
           </div>
         </a>
 
