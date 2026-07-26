@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { title, description, canonical, ogImage, type = 'website' } = Astro.props;
+const defaultOgImage = 'https://schitay-online.ru/og-default.png';
+const imageUrl = ogImage || defaultOgImage;
 
 const websiteSchema = {
   '@context': 'https://schema.org',
@@ -45,11 +47,15 @@ const websiteSchema = {
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:site_name" content="Считай.RU" />
-  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta property="og:image" content={imageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={imageUrl} />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -108,7 +114,7 @@ const websiteSchema = {
   <footer class="border-t border-gray-200 dark:border-gray-800 py-8 mt-16">
     <div class="container-main text-center text-sm text-gray-500 dark:text-gray-400">
       <p class="mb-2">&copy; {new Date().getFullYear()} Считай.RU — бесплатные финансовые калькуляторы</p>
-      <p class="text-xs text-gray-400">
+      <p class="text-xs text-gray-500 dark:text-slate-400">
         Результаты расчётов носят информационный характер. Для принятия решений проконсультируйтесь со специалистом.
         <a href="/partners/" class="underline hover:text-accent-600">Партнёрская информация</a>
       </p>
