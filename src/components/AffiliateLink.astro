@@ -1,0 +1,32 @@
+---
+interface Props {
+  href: string;
+  partner: string;
+  offer: string;
+  variant?: 'button' | 'inline' | 'card';
+}
+
+const { href, partner, offer, variant = 'inline' } = Astro.props;
+
+const styles: Record<string, string> = {
+  button: 'inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent-600 text-white font-bold text-sm hover:bg-accent-700 transition-colors shadow-lg shadow-accent-600/20',
+  inline: 'text-accent-600 dark:text-accent-400 font-semibold text-sm hover:underline inline-flex items-center gap-1',
+  card: 'block p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md hover:-translate-y-0.5 transition-all',
+};
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="sponsored nofollow noopener"
+  data-affiliate="true"
+  data-partner={partner}
+  data-offer={offer}
+  class={styles[variant]}
+>
+  <slot />
+  <svg class="w-3.5 h-3.5 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+</a>
+{variant === 'card' && (
+  <p class="mt-1 text-[10px] text-gray-400 dark:text-gray-500">Партнёрская ссылка</p>
+)}

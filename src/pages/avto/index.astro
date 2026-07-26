@@ -2,8 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 
-const title = 'Калькуляторы для автовладельцев — ОСАГО, топливо, штрафы | Считай.RU';
-const desc = 'Сравнение ОСАГО и КАСКО, расчёт стоимости топлива, штрафы ГИБДД. Скоро на Считай.RU.';
+const title = 'Калькулятор ОСАГО онлайн 2026 — сравнение цен | Считай.RU';
+const desc = 'Рассчитайте стоимость ОСАГО за 2 минуты: сравнение 12 страховых компаний. Оформление полиса онлайн без визита в офис.';
 const canonical = 'https://schitay-online.ru/avto/';
 
 const breadcrumbSchema = {
@@ -11,14 +11,69 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
-    { '@type': 'ListItem', position: 2, name: 'Авто', item: canonical },
+    { '@type': 'ListItem', position: 2, name: 'ОСАГО', item: canonical },
   ],
 };
+
+const widgetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Калькулятор ОСАГО',
+  description: 'Сравнение стоимости ОСАГО в 12 страховых компаниях',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'RUB' },
+  provider: { '@type': 'Organization', name: 'Pampadu', url: 'https://pampadu.ru' },
+};
+
+const faqItems = [
+  {
+    question: 'Можно ли оформить ОСАГО без визита в офис?',
+    answer: 'Да, через виджет на этой странице. Вы заполняете данные онлайн, сравниваете цены разных страховых и оплачиваете картой. Электронный полис придёт на email. Никуда ехать не нужно — всё оформление удалённое.',
+  },
+  {
+    question: 'Электронный полис имеет такую же юридическую силу, как бумажный?',
+    answer: 'Да, с 2017 года электронный полис ОСАГО (е-ОСАГО) имеет ту же юридическую силу, что и бумажный. При проверке сотрудник ГИБДД может сверить полис по базе РСА. Если вы всё оформили — полис в базе, штраф за отсутствие не выпишут.',
+  },
+  {
+    question: 'Что такое КБМ и как его проверить?',
+    answer: 'КБМ (коэффициент бонус-малус) — это скидка за безаварийную езду. Чем дольше вы ездите без аварий, тем ниже коэффициент (максимальная скидка — 54%). При первом оформлении КБМ = 1. Проверить свой КБМ можно бесплатно на сайте РСА через калькулятор ОСАГО.',
+  },
+  {
+    question: 'Почему цены в разных страховых отличаются?',
+    answer: 'Базовый тариф устанавливает каждая страховая компания в пределах коридора, утверждённого ЦБ РФ. В 2026 году коридор расширен, поэтому разница между компаниями может достигать 30–40%. Кроме базового тарифа на цену влияют КБМ, возраст, стаж, регион и мощность авто. Виджет сравнивает все эти параметры и показывает лучшие предложения.',
+  },
+  {
+    question: 'Что делать, если страховая отказывает в оформлении?',
+    answer: 'По закону страховая компания не может отказать в оформлении ОСАГО. Если отказ происходит — обращайтесь в ЦБ РФ с жалобой. В виджете можно выбрать другую компанию из списка — какая-то из них обязательно оформит полис без проблем.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
+const factors = [
+  { factor: 'КБМ (бонус-малус)', effect: 'от 0.46 до 2.45 — скидка за безаварийность или надбавка за аварии' },
+  { factor: 'Возраст и стаж водителя', effect: 'от 1.22 (возраст >59, стаж >14) до 2.27 (возраст 16–21, стаж <2)' },
+  { factor: 'Регион', effect: 'самые высокие коэффициенты в Москве (2.35) и Санкт-Петербурге (2.0), самые низкие — в сельской местности' },
+  { factor: 'Мощность двигателя', effect: 'от 0.6 (до 50 л.с.) до 1.6 (свыше 150 л.с.)' },
+  { factor: 'Период использования', effect: 'от 0.2 (1 месяц) до 1.0 (год)' },
+  { factor: 'Количество водителей', effect: 'ограниченный полис дешевле, мультидрайв — дороже' },
+  { factor: 'Наличие прицепа', effect: 'коэффициент 1.16 для легковых авто с прицепом' },
+];
 ---
 
 <Layout {title} description={desc} {canonical} type="website">
   <Fragment slot="header"><Header /></Fragment>
 
+  <!-- Breadcrumbs -->
   <nav class="container-main pt-6 pb-2" aria-label="Breadcrumb">
     <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
       <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
@@ -27,66 +82,252 @@ const breadcrumbSchema = {
         <span class="mx-1">/</span>
       </li>
       <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
-        <span itemprop="name">Авто</span>
+        <span itemprop="name">ОСАГО</span>
         <meta itemprop="position" content="2" />
       </li>
     </ol>
   </nav>
 
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(widgetSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-  <div class="container-main py-8 md:py-12">
+  <!-- HERO -->
+  <section class="container-main py-8 md:py-12">
     <div class="max-w-3xl">
       <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
-        Калькуляторы для автовладельцев: ОСАГО, топливо, штрафы
+        Калькулятор ОСАГО — сравните цены 12 страховых
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-        Сколько реально стоит владение автомобилем? Мы готовим калькуляторы ОСАГО, расхода
-        топлива и штрафов ГИБДД, чтобы вы не переплачивали.
+        Введите гос. номер или данные авто — получите точную цену за 2 минуты. Оформление онлайн, полис придёт на email.
       </p>
     </div>
-  </div>
+  </section>
 
+  <!-- PAMPADU WIDGET -->
+  <section class="container-main pb-8">
+    <div class="pampadu-widget">
+      <iframe
+        src="https://b2c.pampadu.ru/index.html#acbda318-432c-4eb9-8f04-d79fcf7d9904"
+        style="width: 100%; border: none; height: 650px; min-width: 320px; overflow: hidden; border-radius: 16px;"
+        id="ppdwi"
+        scrolling="no"
+        title="Калькулятор ОСАГО — сравнение страховых"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <!-- Disclosure -->
+    <p class="mt-3 text-xs text-gray-400 dark:text-gray-500 leading-relaxed">
+      Расчёт стоимости и оформление полисов ОСАГО осуществляется через платформу Pampadu (ООО «Страховые Партнёры», ИНН 9729069737, КПП 772501001, г. Москва, Пресненская наб., д. 6, стр. 2). Считай.RU является партнёром платформы и получает агентское вознаграждение за оформленные полисы. Стоимость полиса для пользователя не меняется. Не является публичной офертой.
+    </p>
+  </section>
+
+  <!-- Как работает -->
   <section class="container-main pb-12">
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
-        <div class="flex items-start justify-between mb-4">
-          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-          </div>
-          <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400">Скоро</span>
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Как работает калькулятор</h2>
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-4">
+          <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </div>
-        <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">ОСАГО vs КАСКО</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Что выбрать и сколько это стоит в 2026 году.</p>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1">Введите данные</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Гос. номер авто или марку, модель и год выпуска. Занять пару минут.</p>
       </div>
-      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
-        <div class="flex items-start justify-between mb-4">
-          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          </div>
-          <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400">Скоро</span>
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-4">
+          <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
         </div>
-        <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">Расход топлива</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Сколько вы тратите на бензин в месяц и в год.</p>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1">Сравните цены</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">12 страховых компаний — выберите лучшее предложение по цене и условиям.</p>
       </div>
-      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
-        <div class="flex items-start justify-between mb-4">
-          <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
-          </div>
-          <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400">Скоро</span>
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-4">
+          <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         </div>
-        <h2 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-1">Штрафы ГИБДД</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Проверка и оплата штрафов со скидкой 50%.</p>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1">Оформите онлайн</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Полис придёт на email. Распечатывать не нужно — данные уже в базе РСА.</p>
       </div>
     </div>
   </section>
 
+  <!-- Что влияет на цену -->
+  <section class="container-main pb-12">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-2">Что влияет на цену ОСАГО</h2>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Итоговая цена складывается из базового тарифа и коэффициентов. Вот основные:</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="text-left py-3 pr-4 font-semibold text-gray-900 dark:text-white">Фактор</th>
+            <th class="text-left py-3 font-semibold text-gray-900 dark:text-white">Как влияет</th>
+          </tr>
+        </thead>
+        <tbody>
+          {factors.map((f) => (
+            <tr class="border-b border-gray-100 dark:border-gray-800">
+              <td class="py-3 pr-4 text-gray-800 dark:text-gray-200 font-medium">{f.factor}</td>
+              <td class="py-3 text-gray-500 dark:text-gray-400">{f.effect}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Почему выгодно -->
+  <section class="container-main pb-12">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Почему выгодно сравнивать онлайн</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center shrink-0 mt-0.5">
+          <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 dark:text-white text-sm">Экономия до 40%</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Разница между предложениями страховых может достигать 40% на один и тот же полис.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-8 h-8 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center shrink-0 mt-0.5">
+          <svg class="w-4 h-4 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 dark:text-white text-sm">Не нужно ехать в офис</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Всё оформление онлайн — от ввода данных до получения полиса на email.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center shrink-0 mt-0.5">
+          <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 dark:text-white text-sm">Полис за 10 минут</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Весь процесс от первого клика до получения полиса — не дольше 10 минут.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-8 h-8 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center shrink-0 mt-0.5">
+          <svg class="w-4 h-4 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 dark:text-white text-sm">Официально</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Данные уходят в РСА, полис регистрируется в единой базе. Всё по закону.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="container-main pb-12" id="faq">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Часто задаваемые вопросы</h2>
+    <div class="max-w-3xl space-y-2">
+      {faqItems.map((item) => (
+        <details class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden">
+          <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-bold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors [&::-webkit-details-marker]:hidden">
+            <span>{item.question}</span>
+            <svg class="w-5 h-5 text-gray-400 shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-open:max-h-[500px] group-open:opacity-100">
+            {item.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- Статьи (заглушки) -->
+  <section class="container-main pb-8">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Полезные статьи</h2>
+    <div class="grid sm:grid-cols-3 gap-4">
+      <div class="p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Как рассчитать КБМ в 2026</h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Что такое коэффициент бонус-малус и как получить максимальную скидку.</p>
+        <span class="mt-3 inline-flex text-xs font-semibold text-gray-400">Скоро</span>
+      </div>
+      <div class="p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Что делать при ДТП: пошагово</h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Инструкция: что делать сразу после аварии, чтобы получить выплату.</p>
+        <span class="mt-3 inline-flex text-xs font-semibold text-gray-400">Скоро</span>
+      </div>
+      <div class="p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1 text-sm">ОСАГО vs КАСКО: в чём разница</h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Чем отличаются, что покрывают и когда нужен каждый из полисов.</p>
+        <span class="mt-3 inline-flex text-xs font-semibold text-gray-400">Скоро</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Перелинковка -->
+  <section class="container-main pb-8">
+    <a href="/semia/" class="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-accent-300 dark:hover:border-accent-600 transition-colors group max-w-md">
+      <svg class="w-5 h-5 text-accent-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <span class="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-accent-600 transition-colors">Страхование ипотеки: сравните цены и сэкономьте до 50% →</span>
+    </a>
+  </section>
+
+  <!-- CTA -->
   <section class="container-main pb-16">
     <div class="p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white text-center">
-      <h3 class="font-heading text-xl font-bold mb-2">Подпишись на Telegram — узнаешь первым</h3>
-      <p class="text-gray-300 text-sm mb-6">Калькуляторы для автовладельцев появятся в ближайшее время</p>
-      <a href="#" class="inline-block px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg">Подписаться</a>
+      <h3 class="font-heading text-xl font-bold mb-2">Рассчитайте стоимость ОСАГО прямо сейчас</h3>
+      <p class="text-gray-300 text-sm mb-6">Сравните цены 12 страховых и оформите полис за 10 минут</p>
+      <a href="#ppdwi" class="inline-block px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg">Вернуться к калькулятору ↑</a>
     </div>
   </section>
 </Layout>
+
+<style>
+  .pampadu-widget {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .pampadu-widget iframe {
+    width: 100%;
+    height: 650px;
+    border: none;
+    border-radius: 16px;
+  }
+  @media (max-width: 768px) {
+    .pampadu-widget iframe {
+      height: 750px;
+    }
+  }
+</style>
+
+<script>
+  // Analytics: Metrika goal when widget enters viewport
+  (function() {
+    var widget = document.querySelector('.pampadu-widget');
+    if (widget && typeof window.ym !== 'undefined') {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            ym(106217699, 'reachGoal', 'osago_widget_view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      observer.observe(widget);
+    }
+
+    // GA4 widget_impression event
+    if (widget && typeof gtag !== 'undefined') {
+      var gaObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            gtag('event', 'widget_impression', {
+              widget_type: 'osago',
+              partner: 'pampadu'
+            });
+            gaObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      gaObserver.observe(widget);
+    }
+  })();
+</script>

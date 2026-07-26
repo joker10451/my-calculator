@@ -1,0 +1,356 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+const title = 'Страхование ипотеки онлайн 2026 — сравнение цен | Считай.RU';
+const desc = 'Рассчитайте стоимость страховки для ипотеки: сравнение 15+ страховых. Подбор под требования вашего банка. Оформление за 10 минут онлайн.';
+const canonical = 'https://schitay-online.ru/semia/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
+    { '@type': 'ListItem', position: 2, name: 'Семья и ипотека', item: canonical },
+  ],
+};
+
+const widgetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Калькулятор ипотечного страхования',
+  description: 'Сравнение стоимости страховки для ипотеки в 15+ страховых компаниях',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'RUB' },
+  provider: { '@type': 'Organization', name: 'Pampadu', url: 'https://pampadu.ru' },
+};
+
+const faqItems = [
+  {
+    question: 'Можно ли оформить страховку не в банке, а самостоятельно?',
+    answer: 'Да. Банк обязан принять полис любой аккредитованной СК (ст. 31 102-ФЗ). Выбирать страховую — ваше право.',
+  },
+  {
+    question: 'Электронный полис имеет юридическую силу?',
+    answer: 'Да. Электронный полис = бумажный (ст. 434 ГК РФ). Банк принимает PDF на email.',
+  },
+  {
+    question: 'Что будет, если не продлить страховку?',
+    answer: 'Банк поднимет ставку на 1–3% или потребует досрочного погашения. Уведомление придёт за 30 дней.',
+  },
+  {
+    question: 'Можно ли застраховать только квартиру, без жизни?',
+    answer: 'Да, страхование недвижимости — единственное обязательное. Но без страховки жизни ставка обычно выше.',
+  },
+  {
+    question: 'Сколько стоит страховка для ипотеки 5 млн ₽?',
+    answer: 'В среднем 10 000–25 000 ₽/год за комплекс (недвижимость + жизнь). Зависит от возраста, типа дома, региона.',
+  },
+  {
+    question: 'Как сменить страховую при продлении?',
+    answer: 'За 30 дней до окончания полиса оформите новый в другой СК и отправьте в банк. Старый не продлевайте.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
+const insuranceTypes = [
+  { kind: 'Недвижимость', required: 'Да (102-ФЗ)', covers: 'Пожар, затопление, взрыв', price: '3 000–8 000 ₽/год' },
+  { kind: 'Жизнь и здоровье', required: 'Нет*', covers: 'Инвалидность, смерть', price: '5 000–15 000 ₽/год' },
+  { kind: 'Титул', required: 'Нет', covers: 'Потеря права собственности', price: '3 000–7 000 ₽/год' },
+];
+
+const banks = ['Сбербанк', 'ВТБ', 'Альфа-Банк', 'Т-Банк', 'Газпромбанк', 'Дом.РФ', 'Совкомбанк', 'Росбанк', 'МКБ', 'Уралсиб'];
+---
+
+<Layout {title} description={desc} {canonical} type="website">
+  <Fragment slot="header"><Header /></Fragment>
+
+  <!-- Breadcrumbs -->
+  <nav class="container-main pt-6 pb-2" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Главная</span></a>
+        <meta itemprop="position" content="1" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
+        <span itemprop="name">Семья и ипотека</span>
+        <meta itemprop="position" content="2" />
+      </li>
+    </ol>
+  </nav>
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(widgetSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- HERO -->
+  <section class="container-main py-8 md:py-12">
+    <div class="max-w-3xl">
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+        Страхование ипотеки — сравните цены и сэкономьте до 50%
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+        Банк требует застраховать квартиру, жизнь и титул? Не переплачивайте. Введите параметры кредита — получите цены 15+ страховых за 2 минуты. Полис подходит для любого банка.
+      </p>
+    </div>
+  </section>
+
+  <!-- PAMPADU WIDGET -->
+  <section class="container-main pb-8">
+    <div class="pampadu-widget pampadu-widget--ipoteka">
+      <iframe
+        src="https://ipoteka.pampadu.ru/index.html#42cc08fc-4c12-48f3-8e84-3746ccaf77a6"
+        style="width: 100%; border: none; height: 650px; min-width: 320px; overflow: hidden; border-radius: 16px;"
+        id="ppdwiIpoteka"
+        scrolling="no"
+        title="Калькулятор ипотечного страхования — сравнение страховых"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <script src="https://ipoteka.pampadu.ru/app/ppdw.js" defer></script>
+
+    <!-- Disclosure -->
+    <p class="mt-3 text-xs text-gray-400 dark:text-gray-500 leading-relaxed">
+      Подбор и оформление полисов через платформу Pampadu (ООО «Страховые Партнёры», ИНН 9729069737). Партнёрская ссылка. Комиссия не влияет на стоимость полиса.
+    </p>
+  </section>
+
+  <!-- Зачем нужна страховка -->
+  <section class="container-main pb-12">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-4">Зачем нужна страховка при ипотеке</h2>
+    <div class="max-w-3xl space-y-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+      <p>Страхование недвижимости — требование закона 102-ФЗ «Об ипотеке». Без полиса банк просто не выдаст кредит. А вот страхование жизни и титула — добровольно, но их отсутствие повышает ставку на 1–3%.</p>
+      <p><strong>Пример:</strong> кредит 5 млн ₽, страховка 15 000 ₽/год vs переплата по ставке +1% = 50 000 ₽/год. Выгоднее купить полис.</p>
+    </div>
+  </section>
+
+  <!-- Виды страховки (таблица) -->
+  <section class="container-main pb-12">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-2">Какие виды страховки нужны</h2>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">При ипотеке можно застраховать три риска. Вот что покрывает каждый:</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="text-left py-3 pr-3 font-semibold text-gray-900 dark:text-white">Вид</th>
+            <th class="text-left py-3 pr-3 font-semibold text-gray-900 dark:text-white">Обязательно?</th>
+            <th class="text-left py-3 pr-3 font-semibold text-gray-900 dark:text-white">Что покрывает</th>
+            <th class="text-left py-3 font-semibold text-gray-900 dark:text-white">Цена (пример)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {insuranceTypes.map((t) => (
+            <tr class="border-b border-gray-100 dark:border-gray-800">
+              <td class="py-3 pr-3 text-gray-800 dark:text-gray-200 font-medium">{t.kind}</td>
+              <td class="py-3 pr-3 text-gray-500 dark:text-gray-400">{t.required}</td>
+              <td class="py-3 pr-3 text-gray-500 dark:text-gray-400">{t.covers}</td>
+              <td class="py-3 text-gray-500 dark:text-gray-400">{t.price}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-2 text-xs text-gray-400 dark:text-gray-500">*Без страховки жизни банк поднимает ставку на 1–2%.</p>
+  </section>
+
+  <!-- Как сэкономить -->
+  <section class="container-main pb-12">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Как сэкономить на страховке</h2>
+    <ul class="max-w-3xl space-y-3">
+      <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+        <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <span><strong>Сравнивайте</strong> — разница между СК достигает 50%</span>
+      </li>
+      <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+        <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <span><strong>Не продлевайте «по умолчанию» у банка</strong> — там дороже</span>
+      </li>
+      <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+        <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <span><strong>Полис можно оформить</strong> в любой аккредитованной СК</span>
+      </li>
+      <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+        <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <span><strong>Франшиза</strong> снижает цену на 10–20%</span>
+      </li>
+      <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+        <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <span><strong>Комплексный полис (3 в 1)</strong> дешевле трёх отдельных</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Как работает -->
+  <section class="container-main pb-12">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Как работает калькулятор</h2>
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-4">
+          <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1">Укажите параметры</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Банк, сумму кредита, тип недвижимости — это займёт 2 минуты.</p>
+      </div>
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-4">
+          <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1">Сравните цены</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">15+ страховых компаний — выберите лучшее предложение.</p>
+      </div>
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div class="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-4">
+          <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1">Оплатите онлайн</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Полис на email за 10 минут. Банк принимает PDF.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Для каких банков -->
+  <section class="container-main pb-12">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-2">Для каких банков подходит</h2>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Полисы из каталога Pampadu принимают 50+ банков. Вот крупнейшие:</p>
+    <div class="flex flex-wrap gap-2 mb-3">
+      {banks.map((b) => (
+        <span class="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300">{b}</span>
+      ))}
+    </div>
+    <p class="text-xs text-gray-400 dark:text-gray-500">И другие — всего 50+ банков принимают полисы из каталога Pampadu.</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="container-main pb-12" id="faq">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Часто задаваемые вопросы</h2>
+    <div class="max-w-3xl space-y-2">
+      {faqItems.map((item) => (
+        <details class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden">
+          <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-bold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors [&::-webkit-details-marker]:hidden">
+            <span>{item.question}</span>
+            <svg class="w-5 h-5 text-gray-400 shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-open:max-h-[500px] group-open:opacity-100">
+            {item.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- Статьи (заглушки) -->
+  <section class="container-main pb-12">
+    <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Полезные статьи</h2>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Ипотека в 2026: ставки и программы</h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Обзор актуальных ипотечных программ и ставок.</p>
+        <span class="mt-3 inline-flex text-xs font-semibold text-gray-400">Скоро</span>
+      </div>
+      <div class="p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Как снизить ставку по ипотеке на 2%</h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Практические способы уменьшить переплату.</p>
+        <span class="mt-3 inline-flex text-xs font-semibold text-gray-400">Скоро</span>
+      </div>
+      <div class="p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Семейная ипотека 6%: условия</h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Кто может получить, какие документы нужны.</p>
+        <span class="mt-3 inline-flex text-xs font-semibold text-gray-400">Скоро</span>
+      </div>
+      <div class="p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 opacity-60">
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Что делать, если нечем платить ипотеку</h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Реструктуризация, кредитные каникулы, рефинансирование.</p>
+        <span class="mt-3 inline-flex text-xs font-semibold text-gray-400">Скоро</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Перелинковка -->
+  <section class="container-main pb-8">
+    <div class="grid sm:grid-cols-2 gap-4">
+      <a href="/avto/" class="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-accent-300 dark:hover:border-accent-600 transition-colors group">
+        <svg class="w-5 h-5 text-accent-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <span class="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-accent-600 transition-colors">Также: калькулятор ОСАГО →</span>
+      </a>
+      <a href="/dlya-samozanyatyh/npd-vs-ip/" class="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-accent-300 dark:hover:border-accent-600 transition-colors group">
+        <svg class="w-5 h-5 text-accent-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        <span class="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-accent-600 transition-colors">Самозанятый? Узнайте, как подтвердить доход для ипотеки →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-main pb-16">
+    <div class="p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white text-center">
+      <h3 class="font-heading text-xl font-bold mb-2">Рассчитайте стоимость страховки прямо сейчас</h3>
+      <p class="text-gray-300 text-sm mb-6">Сравните цены 15+ страховых и оформите полис за 10 минут</p>
+      <a href="#ppdwiIpoteka" class="inline-block px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg">↑ Рассчитать стоимость страховки</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .pampadu-widget--ipoteka {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .pampadu-widget--ipoteka iframe {
+    width: 100%;
+    height: 650px;
+    border: none;
+    border-radius: 16px;
+  }
+  @media (max-width: 768px) {
+    .pampadu-widget--ipoteka iframe {
+      height: 780px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    var widget = document.querySelector('.pampadu-widget--ipoteka');
+    if (widget && typeof window.ym !== 'undefined') {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            ym(106217699, 'reachGoal', 'ipoteka_widget_view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      observer.observe(widget);
+    }
+
+    if (widget && typeof gtag !== 'undefined') {
+      var gaObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            gtag('event', 'widget_impression', {
+              widget_type: 'ipoteka_insurance',
+              partner: 'pampadu'
+            });
+            gaObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      gaObserver.observe(widget);
+    }
+  })();
+</script>

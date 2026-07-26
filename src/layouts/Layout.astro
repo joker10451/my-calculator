@@ -59,6 +59,10 @@ const websiteSchema = {
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+  <!-- Верификация -->
+  <meta name="yandex-verification" content="<!-- YANDEX_WEBMASTER_TOKEN -->" />
+  <meta name="google-site-verification" content="<!-- GOOGLE_SEARCH_CONSOLE_TOKEN -->" />
+
   <!-- Self-hosted fonts (no external requests → zero CLS from font swap) -->
   <link rel="preload" href="/fonts/inter-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inter-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -108,6 +112,15 @@ const websiteSchema = {
     ym(106217699, "init", {clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/106217699" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
+
+  <!-- Google Analytics 4 (замените G-XXXXXXXXXX на ваш ID) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
   <slot name="header" />
@@ -118,10 +131,14 @@ const websiteSchema = {
   <footer class="border-t border-gray-200 dark:border-gray-800 py-8 mt-16">
     <div class="container-main text-center text-sm text-gray-500 dark:text-gray-400">
       <p class="mb-2">&copy; {new Date().getFullYear()} Считай.RU — бесплатные финансовые калькуляторы</p>
-      <p class="text-xs text-gray-500 dark:text-slate-400">
+      <p class="mb-3 text-xs text-gray-500 dark:text-slate-400">
         Результаты расчётов носят информационный характер. Для принятия решений проконсультируйтесь со специалистом.
-        <a href="/partners/" class="underline hover:text-accent-600">Партнёрская информация</a>
       </p>
+      <nav class="flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-slate-400">
+        <a href="/partners/" class="underline hover:text-accent-600">Партнёрская информация</a>
+        <a href="/privacy/" class="underline hover:text-accent-600">Политика конфиденциальности</a>
+        <a href="/terms/" class="underline hover:text-accent-600">Пользовательское соглашение</a>
+      </nav>
     </div>
   </footer>
 
