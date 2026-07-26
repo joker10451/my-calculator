@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Copy, Share2, Check } from 'lucide-react';
 import { toPng } from 'html-to-image';
+import { calcNpd, calcUsn, calcPatent, fmt, NPD_LIMIT } from '../../lib/tax';
 
 type Mode = 'npd' | 'usn' | 'patent';
 
@@ -17,63 +18,6 @@ interface TaxBreakdown {
   rate: number;
   label: string;
   color: string;
-}
-
-const FIXED_CONTRIBUTIONS_2026 = 57390;
-
-function fmt(n: number): string {
-  return Math.round(n).toLocaleString('ru-RU');
-}
-
-function calcNpd(income: number, fromLegal: boolean) {
-  const rate = fromLegal ? 0.06 : 0.04;
-  const tax = income * rate;
-  const taxYear = tax * 12;
-  const ndfl = income * 0.13;
-  return {
-    tax: Math.round(tax),
-    taxYear: Math.round(taxYear),
-    rate: rate * 100,
-    insurance: 0,
-    savingsNdfl: Math.round(ndfl - tax),
-  };
-}
-
-function calcUsn(income: number, hasEmployees: boolean) {
-  const baseTax = income * 0.06;
-  const annualIncome = income * 12;
-  const monthlyFixed = FIXED_CONTRIBUTIONS_2026 / 12;
-  const monthlyOnePct = Math.max(0, (annualIncome - 300000) * 0.01) / 12;
-  const monthlyContribs = monthlyFixed + monthlyOnePct;
-
-  const maxDeduction = hasEmployees ? baseTax * 0.5 : baseTax;
-  const deduction = Math.min(monthlyContribs, maxDeduction);
-  const taxPayable = baseTax - deduction;
-  const totalBurden = taxPayable + monthlyContribs;
-  const ndfl = income * 0.13;
-
-  return {
-    tax: Math.round(taxPayable),
-    taxYear: Math.round(taxPayable * 12),
-    rate: (taxPayable / (income || 1)) * 100,
-    insurance: Math.round(monthlyContribs),
-    totalBurden: Math.round(totalBurden),
-    savingsNdfl: Math.round(ndfl - taxPayable),
-  };
-}
-
-function calcPatent(income: number, patentCost: number) {
-  const monthlyFixed = FIXED_CONTRIBUTIONS_2026 / 12;
-  const tax = patentCost / 12;
-  const ndfl = income * 0.13;
-  return {
-    tax: Math.round(tax),
-    taxYear: Math.round(patentCost),
-    rate: (tax / (income || 1)) * 100,
-    insurance: Math.round(monthlyFixed),
-    totalBurden: Math.round(tax + monthlyFixed),
-    savingsNdfl: Math.round(ndfl - tax),
-  };
 }
 
 function useAnimatedValue(target: number, duration = 300): number {
@@ -208,9 +152,8 @@ export function SelfEmployedTaxCalculator() {
   }, [state]);
 
   const limitWarning =
-    state.mode === 'npd' && state.income * 12 > 2400000;
+    state.mode === 'npd' && state.income * 12 > NPD_LIMIT;
 
-  // Comparisons for bars: compute all three regimes
   const npdComp = useMemo(() => calcNpd(state.income, state.fromLegal), [state.income, state.fromLegal]);
   const usnComp = useMemo(() => calcUsn(state.income, state.hasEmployees), [state.income, state.hasEmployees]);
   const ndflTax = state.income * 0.13;
@@ -232,7 +175,6 @@ export function SelfEmployedTaxCalculator() {
 
   const maxBurden = Math.max(...breakdowns.map((b) => b.tax));
 
-  // Animated display value
   const animatedTax = useAnimatedValue(result.tax);
 
   const handleCopy = useCallback(async () => {

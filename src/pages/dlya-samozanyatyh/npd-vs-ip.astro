@@ -1,0 +1,304 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { NpdVsIpCalculator } from '../../components/calculators/NpdVsIpCalculator';
+
+const title = 'Сравнение НПД и ИП 2026 — что выгоднее, онлайн калькулятор';
+const desc = 'Сравните самозанятость (НПД) и ИП на УСН 6% на вашем доходе: учёт взносов 57 390 ₽, лимита 2,4 млн, доли юрлиц и сотрудников. Мгновенный результат.';
+const canonical = 'https://schitay-online.ru/dlya-samozanyatyh/npd-vs-ip/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
+    { '@type': 'ListItem', position: 2, name: 'Самозанятым', item: 'https://schitay-online.ru/dlya-samozanyatyh/' },
+    { '@type': 'ListItem', position: 3, name: 'Сравнение НПД и ИП', item: canonical },
+  ],
+};
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Калькулятор сравнения НПД и ИП',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'RUB' },
+};
+
+const faqItems = [
+  {
+    question: 'Что выгоднее — самозанятость или ИП на УСН?',
+    answer: 'На доходах до 150 000 ₽ в месяц самозанятость почти всегда выгоднее, потому что у НПД нет обязательных страховых взносов. На доходах от 200 000 ₽/мес разница стирается, а после 2,4 млн ₽ в год НПД становится недоступен. Конкретный результат зависит от доли платежей от юрлиц (4% или 6%) и наличия сотрудников.',
+  },
+  {
+    question: 'Какая ставка налога у самозанятого и ИП?',
+    answer: 'У самозанятого (НПД): 4% с физлиц и 6% с юрлиц/ИП. У ИП на УСН «Доходы»: 6% со всего дохода, но налог уменьшается на страховые взносы (57 390 ₽/год + 1% с дохода свыше 300 000 ₽). Эффективная ставка ИП с учётом взносов — от 6% до 11% в зависимости от дохода.',
+  },
+  {
+    question: 'Нужно ли самозанятому платить страховые взносы?',
+    answer: 'Нет, самозанятые освобождены от обязательных страховых взносов. Это главное преимущество перед ИП, у которого взносы составляют 57 390 ₽ в год даже при нулевом доходе. Однако период самозанятости не засчитывается в пенсионный стаж — стаж можно купить добровольными взносами.',
+  },
+  {
+    question: 'Когда ИП на УСН выгоднее самозанятости?',
+    answer: 'ИП на УСН становится выгоднее в трёх случаях: 1) доход приближается к лимиту 2,4 млн ₽/год, 2) нужны наёмные сотрудники, 3) крупные заказчики работают только с ИП. По цифрам: при доходе от 200 000 ₽/мес разница в нагрузке между режимами минимальна, а после 2,4 млн ₽/год НПД недоступен.',
+  },
+  {
+    question: 'Как рассчитывается эффективная ставка ИП на УСН?',
+    answer: 'Эффективная ставка — это отношение полной нагрузки (налог после вычета взносов + сами взносы) к доходу. Пример: при доходе 80 000 ₽/мес ИП платит ~5 350 ₽ налога плюс ~4 782 ₽ взносов = ~10 132 ₽ общей нагрузки, что даёт эффективную ставку ~12,7%. Калькулятор выше считает это автоматически.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+---
+
+<Layout {title} description={desc} {canonical} type="article">
+  <Fragment slot="header">
+    <Header />
+  </Fragment>
+
+  <!-- Breadcrumbs -->
+  <nav class="container-main pt-6 pb-2" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Главная</span></a>
+        <meta itemprop="position" content="1" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/dlya-samozanyatyh/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Самозанятым</span></a>
+        <meta itemprop="position" content="2" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
+        <span itemprop="name">Сравнение НПД и ИП</span>
+        <meta itemprop="position" content="3" />
+      </li>
+    </ol>
+  </nav>
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Mobile ToC -->
+  <div class="container-main lg:hidden overflow-x-auto pb-3 -mx-4 px-4">
+    <div class="flex gap-2 text-nowrap">
+      <a href="#как-пользоваться" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Как пользоваться</a>
+      <a href="#когда-выгоднее-нпд-а-когда-ип" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Когда что выгоднее</a>
+      <a href="#faq" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">FAQ</a>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="container-main py-4 lg:py-6">
+    <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-10">
+      <!-- Left -->
+      <div>
+        <!-- H1 + intro -->
+        <section class="mb-8">
+          <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+            Что выгоднее — самозанятость или ИП
+          </h1>
+          <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+            Сравните налоговую нагрузку самозанятого (НПД) и ИП на УСН 6% на вашем доходе.
+            Калькулятор учитывает взносы 57 390 ₽, лимит 2,4 млн ₽, процент платежей от юрлиц и наличие сотрудников.
+            Результат — мгновенно, без кнопки «Рассчитать».
+          </p>
+          <div class="flex flex-wrap gap-3 text-sm text-gray-400 dark:text-gray-500">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Обновлено: июль 2026
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Время расчёта: 30 сек
+            </span>
+          </div>
+        </section>
+
+        <!-- Calculator -->
+        <section class="mb-12">
+          <div class="rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 md:p-6">
+            <NpdVsIpCalculator client:visible />
+          </div>
+        </section>
+
+        <!-- How-to -->
+        <section class="mb-12" id="как-пользоваться">
+          <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Как пользоваться</h2>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+              <div class="w-10 h-10 rounded-lg bg-accent-100 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400 flex items-center justify-center font-heading font-black text-lg mb-3">1</div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1">Введите свой доход</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Месячный доход от деятельности — двигайте ползунок или выберите готовый сценарий 80k/150k/300k.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+              <div class="w-10 h-10 rounded-lg bg-accent-100 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400 flex items-center justify-center font-heading font-black text-lg mb-3">2</div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1">Настройте параметры</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Укажите долю клиентов-юрлиц (4% или 6% ставка НПД) и отметьте, есть ли у ИП сотрудники.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+              <div class="w-10 h-10 rounded-lg bg-accent-100 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400 flex items-center justify-center font-heading font-black text-lg mb-3">3</div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1">Оцените результат</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Калькулятор покажет, какой режим выгоднее, точку пересечения и полную структуру нагрузки.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Article: when to choose what -->
+        <section class="mb-12" id="когда-выгоднее-нпд-а-когда-ип">
+          <article class="prose prose-gray dark:prose-invert max-w-none">
+            <h2>Когда выгоднее НПД, а когда — ИП</h2>
+
+            <p>Главный результат, который вы увидите в калькуляторе: <strong>самозанятость почти всегда выгоднее ИП на УСН при доходе до 150 000 ₽ в месяц</strong>. Причина не в ставке налога (4–6% против 6%), а в страховых взносах — у ИП они обязательны даже при нулевом доходе и составляют 57 390 ₽ в год плюс 1% с превышения 300 000 ₽.</p>
+
+            <p>При доходе 80 000 ₽/мес разница в нагрузке между НПД и УСН достигает <strong>~7 000 ₽ в месяц</strong> в пользу самозанятости. При 150 000 ₽/мес — ~4 000 ₽/мес. А вот при 200 000 ₽/мес режимы практически сравниваются: взносы ИП «съедают» лишний налог, и эффективная ставка обоих режимов оказывается в районе 8-10%.</p>
+
+            <p>После 2,4 млн ₽ в год (примерно 200 000 ₽/мес) НПД становится недоступен — теряете право на режим. Калькулятор показывает это автоматически. Если ваш доход регулярно превышает этот порог, выбор очевиден: ИП на УСН или патент.</p>
+
+            <h3>Что ещё влияет на выбор</h3>
+
+            <ul>
+              <li><strong>Клиенты-юрлица.</strong> Если 100% дохода от юрлиц, ставка НПД — 6%, как у УСН. Но взносов всё равно нет — самозанятость остаётся выгоднее до ~180 000 ₽/мес.</li>
+              <li><strong>Сотрудники.</strong> Если нужны наёмные работники — только ИП или ООО. Самозанятым нанимать нельзя.</li>
+              <li><strong>Пенсионный стаж.</strong> У самозанятого стаж не идёт. Если хотите накопить стаж и баллы — придётся платить добровольные взносы либо выбирать ИП.</li>
+              <li><strong>Отчётность.</strong> У самозанятого — ноль отчётности. У ИП — ежегодная декларация и книга учёта доходов.</li>
+            </ul>
+
+            <p>Калькулятор на этой странице считает <strong>полную налоговую нагрузку</strong> для обоих режимов: налог (с учётом вычета взносов для УСН) плюс страховые взносы для ИП. Вердикт выносится на основе сравнения этих двух чисел.</p>
+
+            <h3>Что такое «точка пересечения»</h3>
+
+            <p>Калькулятор находит доход, при котором налоговая нагрузка НПД и УСН сравнивается. Это полезный ориентир: ниже этой точки выгоднее самозанятость, выше — ИП. При 100% клиентов-физлиц (4%) точка пересечения — около 190 000 ₽/мес. При 100% юрлиц (6%) — около 160 000 ₽/мес.</p>
+
+            <p>Подробный разбор трёх сценариев (80k, 150k, 300k) и чек-лист выбора режима — в отдельной статье: <a href="/blog/samozanyatost-vs-ip-2026/">Самозанятость или ИП в 2026: что выгоднее</a>.</p>
+
+            <h3>Ограничения и допущения</h3>
+
+            <p>Калькулятор упрощает реальность в нескольких моментах. Во-первых, он не учитывает региональные льготы и пониженные ставки УСН — в некоторых регионах ставка может быть 1-3%. Во-вторых, стоимость патента сильно варьируется по региону и виду деятельности — для точного сравнения с патентом используйте <a href="/dlya-samozanyatyh/kalkulyator-naloga/">калькулятор налога самозанятого</a>. В-третьих, калькулятор считает, что у ИП нет расходов, уменьшающих налоговую базу — на УСН «Доходы минус расходы» (15%) логика другая.</p>
+          </article>
+        </section>
+
+        <!-- FAQ -->
+        <section class="mb-12" id="faq">
+          <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Часто задаваемые вопросы</h2>
+          <div class="space-y-2">
+            {faqItems.map((item) => (
+              <details class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden">
+                <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-bold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors [&::-webkit-details-marker]:hidden">
+                  <span>{item.question}</span>
+                  <svg class="w-5 h-5 text-gray-400 shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </summary>
+                <div class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-open:max-h-[500px] group-open:opacity-100">
+                  {item.answer}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <!-- Related calculators -->
+        <section class="mb-12">
+          <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Похожие калькуляторы</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="/dlya-samozanyatyh/kalkulyator-naloga/" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              </div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">Калькулятор налога НПД</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">4% или 6% — расчёт налога самозанятого</p>
+            </a>
+            <a href="#" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">Калькулятор налогового вычета</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Сколько можно вернуть из бюджета</p>
+            </a>
+            <a href="/blog/samozanyatost-vs-ip-2026/" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              </div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">Разбор: самозанятость vs ИП</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Расчёт на трёх доходах и чек-лист выбора</p>
+            </a>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="mb-12 p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 class="font-heading text-xl font-bold mb-2">Сравнили? Теперь подпишись</h3>
+              <p class="text-gray-300 text-sm">1 финансовый лайфхак в день. Без спама.</p>
+            </div>
+            <a href="#" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg shrink-0">Подписаться</a>
+          </div>
+          <div class="mt-6 pt-6 border-t border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-gray-400">Понравился калькулятор? Сохрани результат и поделись.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right: Sidebar (desktop) -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24 space-y-6">
+          <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Содержание</h4>
+            <nav class="space-y-2 text-sm">
+              <a href="#как-пользоваться" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Как пользоваться</a>
+              <a href="#когда-выгоднее-нпд-а-когда-ип" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Когда что выгоднее</a>
+              <a href="#faq" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">FAQ</a>
+            </nav>
+          </div>
+          <div class="p-5 rounded-xl bg-gradient-to-br from-accent-600 to-blue-700 text-white">
+            <h4 class="font-bold text-sm mb-2">Полезно?</h4>
+            <p class="text-xs text-blue-100 mb-4">Подпишись на Telegram — 1 лайфхак в день.</p>
+            <a href="#" class="block w-full text-center py-2 rounded-lg bg-white/20 text-white font-bold text-sm hover:bg-white/30 transition-colors">Подписаться</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  details[open] > div {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 0;
+    padding-bottom: 16px;
+  }
+
+  :global(.dark) .prose :where(table) {
+    --tw-prose-body: #9CA3AF;
+    --tw-prose-headings: #F3F4F6;
+    --tw-prose-bold: #F3F4F6;
+    --tw-prose-th-borders: #374151;
+    --tw-prose-td-borders: #374151;
+  }
+
+  .prose :where(table) {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 768px) {
+    .prose :where(table) {
+      white-space: normal;
+    }
+  }
+</style>
