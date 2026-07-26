@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url('/fonts/inter-400-normal-cyrillic.woff2') format('woff2'),
+    url('/fonts/inter-400-normal-cyrillicext.woff2') format('woff2'),
+    url('/fonts/inter-400-normal-greek.woff2') format('woff2'),
+    url('/fonts/inter-400-normal-greekext.woff2') format('woff2'),
+    url('/fonts/inter-400-normal-latin.woff2') format('woff2'),
+    url('/fonts/inter-400-normal-latinext.woff2') format('woff2'),
+    url('/fonts/inter-400-normal-vietnamese.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  src:
+    url('/fonts/inter-500-normal-cyrillic.woff2') format('woff2'),
+    url('/fonts/inter-500-normal-cyrillicext.woff2') format('woff2'),
+    url('/fonts/inter-500-normal-greek.woff2') format('woff2'),
+    url('/fonts/inter-500-normal-greekext.woff2') format('woff2'),
+    url('/fonts/inter-500-normal-latin.woff2') format('woff2'),
+    url('/fonts/inter-500-normal-latinext.woff2') format('woff2'),
+    url('/fonts/inter-500-normal-vietnamese.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  src:
+    url('/fonts/inter-600-normal-cyrillic.woff2') format('woff2'),
+    url('/fonts/inter-600-normal-cyrillicext.woff2') format('woff2'),
+    url('/fonts/inter-600-normal-greek.woff2') format('woff2'),
+    url('/fonts/inter-600-normal-greekext.woff2') format('woff2'),
+    url('/fonts/inter-600-normal-latin.woff2') format('woff2'),
+    url('/fonts/inter-600-normal-latinext.woff2') format('woff2'),
+    url('/fonts/inter-600-normal-vietnamese.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url('/fonts/inter-700-normal-cyrillic.woff2') format('woff2'),
+    url('/fonts/inter-700-normal-cyrillicext.woff2') format('woff2'),
+    url('/fonts/inter-700-normal-greek.woff2') format('woff2'),
+    url('/fonts/inter-700-normal-greekext.woff2') format('woff2'),
+    url('/fonts/inter-700-normal-latin.woff2') format('woff2'),
+    url('/fonts/inter-700-normal-latinext.woff2') format('woff2'),
+    url('/fonts/inter-700-normal-vietnamese.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  src:
+    url('/fonts/inter-800-normal-cyrillic.woff2') format('woff2'),
+    url('/fonts/inter-800-normal-cyrillicext.woff2') format('woff2'),
+    url('/fonts/inter-800-normal-greek.woff2') format('woff2'),
+    url('/fonts/inter-800-normal-greekext.woff2') format('woff2'),
+    url('/fonts/inter-800-normal-latin.woff2') format('woff2'),
+    url('/fonts/inter-800-normal-latinext.woff2') format('woff2'),
+    url('/fonts/inter-800-normal-vietnamese.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  src:
+    url('/fonts/inter-900-normal-cyrillic.woff2') format('woff2'),
+    url('/fonts/inter-900-normal-cyrillicext.woff2') format('woff2'),
+    url('/fonts/inter-900-normal-greek.woff2') format('woff2'),
+    url('/fonts/inter-900-normal-greekext.woff2') format('woff2'),
+    url('/fonts/inter-900-normal-latin.woff2') format('woff2'),
+    url('/fonts/inter-900-normal-latinext.woff2') format('woff2'),
+    url('/fonts/inter-900-normal-vietnamese.woff2') format('woff2');
+  font-display: swap;
+}
+

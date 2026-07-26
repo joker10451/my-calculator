@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { title, description, canonical, ogImage, type = 'website' } = Astro.props;
-const defaultOgImage = 'https://schitay-online.ru/og-default.png';
+const defaultOgImage = 'https://schitay-online.ru/og-default.jpg';
 const imageUrl = ogImage || defaultOgImage;
 
 const websiteSchema = {
@@ -50,7 +50,7 @@ const websiteSchema = {
   <meta property="og:image" content={imageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:type" content="image/jpeg" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
@@ -59,9 +59,13 @@ const websiteSchema = {
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Unbounded:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Self-hosted fonts (no external requests → zero CLS from font swap) -->
+  <link rel="preload" href="/fonts/inter-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/inter-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/unbounded-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/unbounded-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/fonts/inter.css" />
+  <link rel="stylesheet" href="/fonts/unbounded.css" />
 
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
