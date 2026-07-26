@@ -78,7 +78,7 @@ const faqSchema = {
             за 2 минуты
           </h1>
           <p class="mt-4 text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm">
-            Бесплатные калькуляторы для самозанятых, семей, ЖКХ и автовладельцев. Никакой рекламы банков — только честные цифры.
+            Бесплатные калькуляторы для самозанятых, семей, ЖКХ и автовладельцев. Расчёты объективны — платят партнёры, не вы.
           </p>
           <div class="mt-6 flex flex-col items-start gap-3">
             <a href="/dlya-samozanyatyh/kalkulyator-naloga/"
@@ -174,25 +174,54 @@ const faqSchema = {
           <p class="text-sm text-gray-500 dark:text-gray-400">Бесплатно навсегда. Без скрытых подписок.</p>
         </div>
         <div class="p-5">
-          <div class="text-4xl font-black text-accent-600 dark:text-accent-400 mb-1">&gt;32</div>
-          <p class="text-sm text-gray-500 dark:text-gray-400">Калькуляторов для всех жизненных ситуаций</p>
+          <div class="text-4xl font-black text-accent-600 dark:text-accent-400 mb-1">{samozanyatostTools.length}</div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Калькулятора для самозанятых — считаем налог НПД и сравниваем с ИП</p>
         </div>
         <div class="p-5">
           <div class="text-4xl font-black text-accent-600 dark:text-accent-400 mb-1">0 ₽</div>
-          <p class="text-sm text-gray-500 dark:text-gray-400">Никакой рекламы банков. Только честные цифры.</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Бесплатно навсегда. Партнёрские ссылки — без навязывания.</p>
         </div>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto mt-10">
-        <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
-          <div class="flex items-center gap-1 text-warm-500 mb-2 text-sm">★★★★★</div>
-          <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 leading-relaxed">«Отличный калькулятор налога для самозанятых. Посчитал налог за 2025 — сэкономил 12 тыс. на консультации с бухгалтером.»</p>
-          <p class="text-xs text-gray-400">— Александр, самозанятый веб-разработчик</p>
+
+    </div>
+  </section>
+
+  <!-- МОНЕТИЗАЦИЯ: асимметричный блок -->
+  <section class="py-14 md:py-18 border-t border-gray-100 dark:border-gray-800">
+    <div class="container-main">
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-16">
+        <div class="lg:w-2/5 shrink-0">
+          <p class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">Честность</p>
+          <h2 class="font-heading text-3xl md:text-4xl font-black text-gray-900 dark:text-white leading-[1.1] mb-4">
+            Бесплатно для вас.<br />
+            <span class="text-accent-600 dark:text-accent-400">Навсегда.</span>
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+            Расчёты объективны — мы не продаём места в сравнениях и не ставим баннеры. Зарабатываем на партнёрских программах: если продукт вам подошёл и вы оформили его по нашей ссылке, партнёр платит нам комиссию. На цифры калькулятора это не влияет — он считает одинаково в любом случае.
+          </p>
+          <a href="/partners/" class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent-600 dark:text-accent-400 hover:gap-2 transition-all">
+            Подробнее →</a>
         </div>
-        <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
-          <div class="flex items-center gap-1 text-warm-500 mb-2 text-sm">★★★★★</div>
-          <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 leading-relaxed">«Искала ипотечный калькулятор — наткнулась на Считай.RU. Выбрала сумму и сразу увидела график. Переплата 80% за 15 лет — шок, но спасибо, что показали честно.»</p>
-          <p class="text-xs text-gray-400">— Екатерина, берёт ипотеку в 2026</p>
+        <div class="lg:w-3/5 flex items-center justify-center lg:justify-end">
+          <div class="grid grid-cols-2 gap-3 w-full max-w-md">
+            <div class="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+              <div class="text-xl font-black text-gray-900 dark:text-white mb-1">0 ₽</div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">с вас — навсегда. Платит банк или сервис, не вы.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+              <div class="text-xl font-black text-gray-900 dark:text-white mb-1">Независимо</div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">ссылки не влияют на расчёты. Алгоритм един для всех.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+              <div class="text-xl font-black text-gray-900 dark:text-white mb-1">Без рейтингов</div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">не берём денег за места в сравнениях продуктов.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+              <div class="text-xl font-black text-gray-900 dark:text-white mb-1">По закону</div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">партнёрские материалы маркируем по 38-ФЗ (реклама, токен ОРД).</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

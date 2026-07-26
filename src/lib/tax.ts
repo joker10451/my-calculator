@@ -195,11 +195,9 @@ export function findIntersection(
   let lo = 10000;
   let hi = 200000;
 
-  // Check if NPD is always cheaper or always more expensive
   const loDiff = lo * npdRate - usnBurdenAt(lo, hasEmployees);
   const hiDiff = hi * npdRate - usnBurdenAt(hi, hasEmployees);
   if (Math.abs(loDiff) < threshold) return lo;
-  if (Math.abs(hiDiff) < threshold) return hi;
   if (loDiff < 0 && hiDiff < 0) return null;
   if (loDiff > 0 && hiDiff > 0) return null;
 
@@ -208,10 +206,9 @@ export function findIntersection(
     if (mid <= lo || mid >= hi) break;
     const npdTax = mid * npdRate;
     const usnLoad = usnBurdenAt(mid, hasEmployees);
-    if (Math.abs(npdTax - usnLoad) < threshold) return mid;
     if (npdTax < usnLoad) lo = mid;
     else hi = mid;
   }
 
-  return null;
+  return hi;
 }

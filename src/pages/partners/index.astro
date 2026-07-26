@@ -1,0 +1,202 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+const title = 'Как зарабатывает Считай.RU — партнёрская модель и честность';
+const desc = 'Калькуляторы бесплатны навсегда. Мы зарабатываем на партнёрских программах и не берём денег за места в сравнениях. Расчёты объективны независимо от ссылок.';
+const canonical = 'https://schitay-online.ru/partners/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
+    { '@type': 'ListItem', position: 2, name: 'Как мы зарабатываем', item: canonical },
+  ],
+};
+---
+
+<Layout title={title} description={desc} canonical={canonical}>
+  <script define:vars={{ breadcrumbSchema }}>
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(script);
+  </script>
+
+  <Header />
+
+  <!-- FIRST SCREEN: asymmetric hero -->
+  <section class="pt-16 md:pt-24 pb-14 md:pb-20 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]"
+      style="background-image: repeating-linear-gradient(90deg, #2563eb 0px, #2563eb 1px, transparent 1px, transparent 40px), repeating-linear-gradient(0deg, #2563eb 0px, #2563eb 1px, transparent 1px, transparent 40px);">
+    </div>
+    <div class="container-main relative">
+      <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
+        <div class="lg:w-2/5 shrink-0">
+          <p class="text-xs font-bold text-accent-600 dark:text-accent-400 uppercase tracking-widest mb-5">Честность</p>
+          <h1 class="font-heading text-[clamp(1.75rem,4vw,3.2rem)] leading-[1.12] font-black text-gray-900 dark:text-white">
+            Мы считаем честно.<br />
+            <span class="text-accent-600 dark:text-accent-400">Вот на чём зарабатываем.</span>
+          </h1>
+          <p class="mt-4 text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm">
+            Бесплатно для вас. Платит банк или сервис, если наш расчёт помог вам выбрать и вы оформили продукт по ссылке.
+          </p>
+        </div>
+        <div class="lg:w-3/5 flex justify-center lg:justify-end">
+          <div class="flex flex-col gap-6 w-full max-w-sm">
+            <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-8 items-start">
+              <div class="w-8 h-8 rounded-full bg-accent-600 text-white flex items-center justify-center text-sm font-bold shrink-0 reveal">1</div>
+              <div class="reveal">
+                <p class="font-bold text-gray-900 dark:text-white text-sm">Вы считаете</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Вводите доход, видите реальную нагрузку обоих режимов — без накруток.</p>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-accent-600 text-white flex items-center justify-center text-sm font-bold shrink-0 reveal">2</div>
+              <div class="reveal">
+                <p class="font-bold text-gray-900 dark:text-white text-sm">Понимаете, что подходит</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Калькулятор показывает честные цифры и вердикт. Без подмены результата.</p>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-accent-600 text-white flex items-center justify-center text-sm font-bold shrink-0 reveal">3</div>
+              <div class="reveal">
+                <p class="font-bold text-gray-900 dark:text-white text-sm">Оформляете по ссылке</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Если решите открыть ИП, расчётный счёт или страховку — переходите по нашей рекомендации.</p>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-accent-600 text-white flex items-center justify-center text-sm font-bold shrink-0 reveal">4</div>
+              <div class="reveal">
+                <p class="font-bold text-gray-900 dark:text-white text-sm">Партнёр платит нам комиссию</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Для вас цена та же. Сайт остаётся бесплатным — без баннеров и платных подписок.</p>
+              </div>
+            </div>
+            <div class="hidden lg:block absolute left-[1.65rem] top-12 bottom-4 w-px bg-accent-200 dark:bg-accent-800 -z-10"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INCOME SOURCES: bento with different weights -->
+  <section class="py-14 md:py-18 bg-gray-50 dark:bg-gray-900/50">
+    <div class="container-main">
+      <p class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-6">Источники дохода</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 auto-rows-fr">
+        <a class="relative p-6 md:p-7 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 sm:col-span-2 flex flex-col justify-between group min-h-[180px]">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            </div>
+            <h3 class="font-heading font-black text-lg text-gray-900 dark:text-white mb-1">Банковские карты и кредиты</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Комиссия за оформление карты — до 4–5 тыс ₽ за одобренную. По кредитам — процент от выданной суммы.</p>
+          </div>
+          <span class="mt-3 text-xs font-semibold text-accent-600 dark:text-accent-400">Основной источник</span>
+        </a>
+        <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex flex-col justify-between group hover:shadow-md transition-all duration-300 min-h-[140px]">
+          <div>
+            <div class="w-9 h-9 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <svg class="w-4.5 h-4.5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="font-bold text-sm text-gray-900 dark:text-white mb-1">Страховки</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">ВЗР, ОСАГО, КАСКО — комиссия за полис при переходе с нашего калькулятора.</p>
+          </div>
+        </div>
+        <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex flex-col justify-between group hover:shadow-md transition-all duration-300 min-h-[140px]">
+          <div>
+            <div class="w-9 h-9 rounded-lg bg-warm-50 dark:bg-warm-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <svg class="w-4.5 h-4.5 text-warm-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.193 23.193 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 20 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="font-bold text-sm text-gray-900 dark:text-white mb-1">Сервисы для самозанятых и ИП</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Расчётные счета, бухгалтерия — рекуррентная комиссия за привлечённого клиента.</p>
+          </div>
+        </div>
+        <div class="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex flex-col justify-between group hover:shadow-md transition-all duration-300 min-h-[140px]">
+          <div>
+            <div class="w-9 h-9 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <svg class="w-4.5 h-4.5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <h3 class="font-bold text-sm text-gray-900 dark:text-white mb-1">Образование</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Курсы и обучения — процент от оплаты при переходе по партнёрской ссылке.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES: asymmetric -->
+  <section class="py-14 md:py-18">
+    <div class="container-main">
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-16">
+        <div class="lg:w-3/5">
+          <h2 class="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white leading-[1.15] mb-4">
+            Цифры калькулятора не зависят<br />
+            <span class="text-accent-600 dark:text-accent-400">от наличия ссылки</span>
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+            Алгоритм считает нагрузку по ставкам НК РФ — 4% или 6% для НПД, 6% для УСН, 15% для патента. Никакая партнёрская ссылка не может изменить этот расчёт. Мы показываем все режимы — даже те, где у нас нет партнёрской программы.
+          </p>
+        </div>
+        <div class="lg:w-2/5 space-y-4">
+          <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+            <h3 class="font-bold text-sm text-gray-900 dark:text-white mb-1">Не берём за места</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">В рейтингах и сравнениях — никакой оплаты за позицию. Продукты располагаем по объективным параметрам.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+            <h3 class="font-bold text-sm text-gray-900 dark:text-white mb-1">Показываем даже невыгодные партнёру</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Если наш партнёрский продукт не подходит под ваш сценарий — калькулятор покажет это без цензуры.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+            <h3 class="font-bold text-sm text-gray-900 dark:text-white mb-1">Маркируем по закону</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Партнёрские материалы промаркированы по 38-ФЗ: пометка «реклама», данные рекламодателя, токен ОРД. Никакой скрытой рекламы.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTENDED TEXT -->
+  <section class="py-14 md:py-18 bg-gray-50 dark:bg-gray-900/50">
+    <div class="container-main">
+      <div class="max-w-2xl">
+        <h2 class="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-6">Как это устроено</h2>
+        <div class="prose prose-gray dark:prose-invert prose-sm max-w-none text-gray-600 dark:text-gray-400 leading-relaxed space-y-4">
+          <p>Считай.RU — бесплатный калькулятор для самозанятых. Не банк, не страховая, не финансовая организация. Мы не продаём ваши данные, не ставим баннеры и не берём денег за места в сравнениях.</p>
+
+          <p>Наша модель простая: вы считаете налоги на калькуляторе, видите честную картину — и, если решаете действовать (открыть ИП, заказать карту, оформить страховку), можете перейти по ссылке на сайт партнёра. Если вы оформите продукт, партнёр платит нам комиссию. Для вас цена продукта — та же, что и при прямом заходе на сайт партнёра.</p>
+
+          <p>Партнёрские ссылки никак не влияют на цифры и вердикт калькулятора. Алгоритм считает по формулам Налогового кодекса — ставки, лимиты, взносы — и не знает, есть у нас партнёрка с этим банком или нет. Если наш партнёр предлагает продукт, который вам не подходит, калькулятор не врёт в вашу пользу.</p>
+
+          <p>Мы выбираем офферы, которые сами бы посоветовали после расчёта. Если у вас доход от физлиц — покажем самозанятость. Если превышаете лимит — честно скажем, что НПД недоступен. Ссылка на ИП-продукт появляется только когда режим правда стоит рассмотреть.</p>
+
+          <p>Все материалы с партнёрскими ссылками маркируются по закону РФ «О рекламе» (38-ФЗ): пометка «реклама», данные рекламодателя и токен ОРД. Если ссылок нет — маркировки нет. Сейчас на сайте нет партнёрских ссылок в статьях — эта страница объясняет модель на будущее.</p>
+
+          <p>Вопросы или предложения — пишите. Мы открыты к диалогу.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll-reveal script -->
+  <script>
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            entry.target.classList.remove('opacity-0', 'translate-y-4');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach((el) => {
+        el.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500', 'ease-out');
+        observer.observe(el);
+      });
+    } else {
+      document.querySelectorAll('.reveal').forEach((el) => {
+        el.classList.remove('opacity-0', 'translate-y-4');
+      });
+    }
+  </script>
+
+  <style>
+    .reveal { will-change: transform, opacity; }
+  </style>
+</Layout>
