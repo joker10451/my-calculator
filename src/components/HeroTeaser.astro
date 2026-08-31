@@ -3,308 +3,122 @@
 // Simplified NPD vs USN comparison for the hero section.
 ---
 
-<div class="hero-teaser">
-  <div class="teaser-slider">
-    <label class="teaser-label" for="hero-income">Ваш доход в месяц</label>
-    <div class="teaser-slider-row">
-      <input
-        type="range"
-        id="hero-income"
-        min="10000"
-        max="500000"
-        step="5000"
-        value="100000"
-        class="teaser-range"
-        aria-label="Доход в месяц"
-      />
-      <span class="teaser-value" id="hero-income-value">100 000 ₽</span>
+<div class="glass-card p-6 md:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/90 shadow-xl shadow-slate-900/5 dark:shadow-black/20 backdrop-blur-xl">
+  <!-- Card Header -->
+  <div class="flex items-center justify-between pb-5 border-b border-slate-100 dark:border-slate-800">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-accent-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm shadow-accent-600/20">
+        ⚡
+      </div>
+      <div>
+        <span class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider block">
+          Экспресс-сравнение 2026
+        </span>
+        <span class="text-[11px] text-slate-500 dark:text-slate-400 block">
+          Самозанятость vs ИП на УСН 6%
+        </span>
+      </div>
+    </div>
+    <span class="px-2.5 py-1 text-[11px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+      Интерактивно
+    </span>
+  </div>
+
+  <!-- Income Slider -->
+  <div class="pt-5 pb-4">
+    <div class="flex items-center justify-between mb-2">
+      <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider" for="hero-income">
+        Доход в месяц
+      </label>
+      <span class="font-heading font-extrabold text-lg md:text-xl text-slate-900 dark:text-white" id="hero-income-value">
+        100 000 ₽
+      </span>
+    </div>
+
+    <input
+      type="range"
+      id="hero-income"
+      min="10000"
+      max="500000"
+      step="5000"
+      value="100000"
+      class="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-accent-600 focus:outline-hidden"
+      aria-label="Доход в месяц"
+    />
+    <div class="flex justify-between text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-medium">
+      <span>10 000 ₽</span>
+      <span>250 000 ₽</span>
+      <span>500 000 ₽</span>
     </div>
   </div>
 
-  <div class="teaser-result">
-    <div class="teaser-tax-row">
-      <div>
-        <span class="teaser-tax-label">Налог НПД</span>
-        <span class="teaser-tax-amount" id="hero-npd-amount">4 000 ₽</span>
-        <span class="teaser-tax-sub">в месяц · ставка 4%</span>
+  <!-- Comparison Results -->
+  <div class="grid grid-cols-2 gap-3 pt-2 pb-4">
+    <!-- NPD Card -->
+    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 transition-colors">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          Самозанятый (НПД)
+        </span>
+        <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">4%</span>
       </div>
-      <div class="teaser-vs">
-        <span class="teaser-vs-badge">VS</span>
-      </div>
-      <div>
-        <span class="teaser-tax-label">Нагрузка ИП УСН</span>
-        <span class="teaser-tax-amount teaser-tax-amount--usn" id="hero-usn-amount">6 000 ₽</span>
-        <span class="teaser-tax-sub">налог + взносы</span>
-      </div>
+      <span class="font-heading text-lg md:text-xl font-black text-emerald-600 dark:text-emerald-400 block" id="hero-npd-amount">
+        4 000 ₽
+      </span>
+      <span class="text-[10px] text-slate-400 dark:text-slate-500 block mt-0.5">
+        взносы 0 ₽ · без отчётов
+      </span>
     </div>
 
-    <div class="teaser-bars">
-      <div class="teaser-bar-row">
-        <span class="teaser-bar-label">НПД</span>
-        <div class="teaser-bar-track">
-          <div class="teaser-bar-fill teaser-bar-fill--npd" id="hero-npd-bar" style="width:67%"></div>
-        </div>
+    <!-- USN Card -->
+    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 transition-colors">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          ИП (УСН 6%)
+        </span>
+        <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400">налог + взносы</span>
       </div>
-      <div class="teaser-bar-row">
-        <span class="teaser-bar-label">УСН</span>
-        <div class="teaser-bar-track">
-          <div class="teaser-bar-fill teaser-bar-fill--usn" id="hero-usn-bar" style="width:100%"></div>
-        </div>
-      </div>
+      <span class="font-heading text-lg md:text-xl font-black text-amber-600 dark:text-amber-400 block" id="hero-usn-amount">
+        6 000 ₽
+      </span>
+      <span class="text-[10px] text-slate-400 dark:text-slate-500 block mt-0.5">
+        взносы 57 390 ₽/год
+      </span>
     </div>
-
-    <p class="teaser-verdict" id="hero-verdict">Самозанятость экономит 2 000 ₽/мес</p>
-
-    <a href="/dlya-samozanyatyh/npd-vs-ip/" class="teaser-cta">
-      Открыть полный расчёт →
-    </a>
   </div>
+
+  <!-- Visual Comparison Bars -->
+  <div class="space-y-2 pb-4">
+    <div class="flex items-center gap-2.5 text-xs">
+      <span class="w-10 text-[11px] font-bold text-slate-600 dark:text-slate-300">НПД</span>
+      <div class="flex-1 h-3 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+        <div class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-300" id="hero-npd-bar" style="width: 67%"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2.5 text-xs">
+      <span class="w-10 text-[11px] font-bold text-slate-600 dark:text-slate-300">УСН</span>
+      <div class="flex-1 h-3 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+        <div class="h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300" id="hero-usn-bar" style="width: 100%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Verdict Banner -->
+  <div class="p-3 rounded-xl bg-accent-50/80 dark:bg-accent-950/60 border border-accent-100 dark:border-accent-900/60 mb-4 flex items-center justify-between gap-2">
+    <span class="text-xs font-semibold text-accent-900 dark:text-accent-200" id="hero-verdict">
+      💡 Самозанятость экономит 2 000 ₽/мес
+    </span>
+  </div>
+
+  <!-- CTA -->
+  <a
+    href="/dlya-samozanyatyh/npd-vs-ip/"
+    class="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-accent-600 dark:hover:bg-accent-500 text-white font-bold text-xs md:text-sm transition-all shadow-md shadow-slate-900/10 hover:shadow-lg"
+  >
+    <span>Открыть детальный калькулятор НПД vs ИП</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+  </a>
 </div>
-
-<style>
-  .hero-teaser {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 1.25rem;
-    padding: 1.75rem 1.5rem;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-    transition: background 0.3s, border-color 0.3s;
-    min-height: 260px;
-  }
-
-  .teaser-label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .teaser-slider-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .teaser-range {
-    flex: 1;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--slider-track);
-    appearance: none;
-    cursor: pointer;
-    outline: none;
-    touch-action: none;
-  }
-  .teaser-range::-webkit-slider-thumb {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #2563eb;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 6px rgba(37,99,235,0.3);
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .teaser-range::-webkit-slider-thumb:hover {
-    transform: scale(1.15);
-  }
-  .teaser-range:active::-webkit-slider-thumb,
-  .teaser-range.is-active::-webkit-slider-thumb {
-    transform: scale(1.25);
-    box-shadow: 0 0 0 5px rgba(37,99,235,0.2), 0 2px 10px rgba(37,99,235,0.35);
-  }
-  .teaser-range::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #2563eb;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 6px rgba(37,99,235,0.3);
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .teaser-range:active::-moz-range-thumb,
-  .teaser-range.is-active::-moz-range-thumb {
-    transform: scale(1.25);
-    box-shadow: 0 0 0 5px rgba(37,99,235,0.2), 0 2px 10px rgba(37,99,235,0.35);
-  }
-  @media (pointer: coarse) {
-    .teaser-range::-webkit-slider-thumb {
-      width: 26px;
-      height: 26px;
-    }
-    .teaser-range::-moz-range-thumb {
-      width: 26px;
-      height: 26px;
-    }
-  }
-
-  .teaser-value {
-    font-family: 'Unbounded', system-ui, sans-serif;
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    white-space: nowrap;
-    min-width: 110px;
-    text-align: right;
-  }
-
-  .teaser-result {
-    margin-top: 1.25rem;
-  }
-
-  .teaser-tax-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-  .teaser-tax-row > div {
-    flex: 1;
-  }
-  .teaser-vs {
-    flex: 0 0 auto;
-  }
-  .teaser-vs-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--vs-bg);
-    color: var(--text-secondary);
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-  }
-
-  .teaser-tax-label {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.15rem;
-  }
-  .teaser-tax-amount {
-    display: block;
-    font-family: 'Unbounded', system-ui, sans-serif;
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: #10b981;
-    line-height: 1.2;
-    transition: color 0.3s;
-    min-height: 1.5em;
-  }
-  .teaser-tax-amount--usn {
-    color: #f59e0b;
-  }
-  .teaser-tax-sub {
-    display: block;
-    font-size: 0.7rem;
-    color: var(--text-tertiary);
-    margin-top: 0.1rem;
-  }
-
-  .teaser-bars {
-    margin-bottom: 0.75rem;
-  }
-  .teaser-bar-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.4rem;
-  }
-  .teaser-bar-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--text-tertiary);
-    min-width: 2.2rem;
-  }
-  .teaser-bar-track {
-    flex: 1;
-    height: 10px;
-    border-radius: 5px;
-    background: var(--slider-track);
-    overflow: hidden;
-  }
-  .teaser-bar-fill {
-    height: 100%;
-    border-radius: 5px;
-  }
-  .teaser-bar-fill.is-animated {
-    transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .teaser-bar-fill--npd {
-    background: #10b981;
-  }
-  .teaser-bar-fill--usn {
-    background: #f59e0b;
-  }
-
-  .teaser-verdict {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin: 0 0 0.75rem;
-    min-height: 1.3em;
-    transition: color 0.3s;
-  }
-
-  .teaser-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.6rem 1.25rem;
-    border-radius: 0.75rem;
-    background: #2563eb;
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: background 0.2s, gap 0.2s;
-    min-height: 44px;
-    box-sizing: border-box;
-  }
-  .teaser-cta:hover {
-    background: #1d4ed8;
-    gap: 0.6rem;
-  }
-
-  /* Dark mode overrides */
-  :global(.dark) .hero-teaser {
-    --card-bg: #334155;
-    --card-border: #475569;
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-tertiary: #cbd5e1;
-    --slider-track: #475569;
-    --vs-bg: #475569;
-  }
-  :global(.dark) .teaser-range::-webkit-slider-thumb {
-    border-color: #334155;
-  }
-  :global(.dark) .teaser-range::-moz-range-thumb {
-    border-color: #334155;
-  }
-
-  /* Light mode defaults on component scope */
-  .hero-teaser {
-    --card-bg: #ffffff;
-    --card-border: #e5e7eb;
-    --text-primary: #111827;
-    --text-secondary: #4b5563;
-    --text-tertiary: #6b7280;
-    --slider-track: #e5e7eb;
-    --vs-bg: #f3f4f6;
-  }
-</style>
 
 <script>
 (function() {
@@ -316,8 +130,7 @@
   var usnBar = document.getElementById('hero-usn-bar');
   var verdictEl = document.getElementById('hero-verdict');
 
-  var currentDisplay = parseInt(slider.value) * 0.04;
-  var rafId = null;
+  if (!slider) return;
 
   function calcBurden(income) {
     var npd = income * 0.04;
@@ -342,58 +155,30 @@
     var npdPct = (r.npd / maxVal) * 100;
     var usnPct = (r.usn / maxVal) * 100;
 
+    npdEl.textContent = fmt(r.npd) + ' ₽';
     usnEl.textContent = fmt(r.usn) + ' ₽';
-    npdBar.style.width = Math.max(npdPct, 2) + '%';
-    usnBar.style.width = Math.max(usnPct, 2) + '%';
+    npdBar.style.width = Math.max(npdPct, 5) + '%';
+    usnBar.style.width = Math.max(usnPct, 5) + '%';
 
     var diff = Math.abs(r.npd - r.usn);
     var threshold = Math.max(r.npd, r.usn) * 0.02;
     var text = '';
     if (diff <= threshold) {
-      text = 'Нагрузка режимов примерно равна';
+      text = '⚖️ Налоговая нагрузка режимов примерно равна';
     } else if (r.npd < r.usn) {
-      text = 'Самозанятость экономит ' + fmt(r.usn - r.npd) + ' \u20BD/мес';
+      text = '💡 Самозанятость экономит ' + fmt(r.usn - r.npd) + ' ₽/мес';
     } else {
-      text = 'ИП УСН экономит ' + fmt(r.npd - r.usn) + ' \u20BD/мес';
+      text = '💼 ИП на УСН 6% экономит ' + fmt(r.npd - r.usn) + ' ₽/мес';
     }
     verdictEl.textContent = text;
-
-    if (rafId) cancelAnimationFrame(rafId);
-    var start = currentDisplay;
-    var target = r.npd;
-    var t0 = performance.now();
-
-    function tick(now) {
-      var p = Math.min((now - t0) / 300, 1);
-      var eased = 1 - (1 - p) * (1 - p) * (1 - p);
-      currentDisplay = start + (target - start) * eased;
-      npdEl.textContent = fmt(currentDisplay) + ' \u20BD';
-      if (p < 1) rafId = requestAnimationFrame(tick);
-    }
-    rafId = requestAnimationFrame(tick);
   }
 
   slider.addEventListener('input', function() {
     var val = parseInt(this.value);
-    valueEl.textContent = fmt(val) + ' \u20BD';
+    valueEl.textContent = fmt(val) + ' ₽';
     update(val);
   });
 
-  slider.addEventListener('pointerdown', function() {
-    slider.classList.add('is-active');
-  });
-  slider.addEventListener('pointerup', function() {
-    slider.classList.remove('is-active');
-  });
-  slider.addEventListener('pointerleave', function() {
-    slider.classList.remove('is-active');
-  });
-
   update(parseInt(slider.value));
-  // Enable bar transitions after initial render (prevents CLS)
-  requestAnimationFrame(function() {
-    npdBar.classList.add('is-animated');
-    usnBar.classList.add('is-animated');
-  });
 })();
 </script>

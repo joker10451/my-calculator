@@ -134,54 +134,18 @@ const faqSchema = {
               <span>100% приватно</span>
             </div>
             <div class="flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span>0 ₽ навсегда</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Hero Column: Interactive Teaser -->
-        <div class="lg:col-span-6">
-          <div class="relative">
-            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-accent-500/20 to-indigo-500/20 blur-xl opacity-70"></div>
-            <div class="relative">
-              <HeroTeaser />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BENTO GRID КАТЕГОРИЙ И КАЛЬКУЛЯТОРОВ -->
-  <section class="py-16 md:py-20 bg-slate-100/60 dark:bg-slate-900/40">
-    <div class="container-main">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-        <div>
-          <span class="text-xs font-bold text-accent-600 dark:text-accent-400 uppercase tracking-widest">
-            Каталог решений 2026
-          </span>
-          <h2 class="font-heading text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-1">
-            Калькуляторы для любой ситуации
-          </h2>
-        </div>
-        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-md">
-          Выберите категорию, чтобы рассчитать платежи, сравнить тарифы или оптимизировать налоговые ставки.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <!-- 1. FEATURED: Самозанятые (Large Bento Card) -->
+              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 1. FEATURED: Самозанятые (Large Bento Card, Spans 2 cols on desktop) -->
         <a
           href="/dlya-samozanyatyh/"
-          class="group relative md:col-span-2 md:row-span-2 glass-card p-7 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent-500/50 hover:shadow-xl hover:shadow-accent-500/10 hover:-translate-y-1 overflow-hidden"
+          class="group relative md:col-span-2 lg:col-span-2 glass-card p-7 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent-500/50 hover:shadow-xl hover:shadow-accent-500/10 hover:-translate-y-1 overflow-hidden"
         >
           <div class="absolute top-0 right-0 w-64 h-64 bg-accent-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-accent-500/15 transition-all"></div>
 
           <div>
             <div class="flex items-start justify-between mb-4">
               <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-accent-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-accent-600/20 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.193 23.193 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.193 23.193 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 20 0 00-2 2v10a2 2 0 002 2z"/></svg>
               </div>
               <div class="flex items-center gap-2">
                 <span class="px-2.5 py-1 text-[11px] font-bold rounded-full bg-accent-100 dark:bg-accent-950/80 text-accent-700 dark:text-accent-300 border border-accent-200 dark:border-accent-800">
@@ -224,39 +188,41 @@ const faqSchema = {
           </div>
         </a>
 
-        <!-- 2. Банки и вклады (Right Top) -->
+        <!-- 2. Банки и вклады (Right Top Card) -->
         <a
           href="/banki/"
-          class="group glass-card p-6 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1"
+          class="group glass-card p-7 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1"
         >
           <div>
-            <div class="flex items-start justify-between mb-3">
-              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center text-white shadow-md shadow-emerald-600/20 group-hover:scale-110 transition-transform">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center text-white shadow-md shadow-emerald-600/20 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
-              <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+              <span class="px-2.5 py-1 text-[11px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                 Вклады до 22%
               </span>
             </div>
-            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+            <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-2">
               Банки и вклады
             </h3>
-            <p class="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
-              Калькулятор доходности вкладов и налога на проценты по ставке 2026 года с учётом необлагаемого лимита.
+            <p class="text-sm text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+              Калькулятор доходности вкладов и налога на проценты по ставке 2026 года со сложным процентом и необлагаемым лимитом.
             </p>
           </div>
-          <span class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:gap-1.5 transition-all">
-            Калькулятор вкладов 2026 →
-          </span>
+          <div class="pt-4 border-t border-slate-200/60 dark:border-slate-800/60">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:gap-2 transition-all">
+              Калькулятор вкладов 2026 →
+            </span>
+          </div>
         </a>
 
-        <!-- 3. Семья и дети (Right Bottom) -->
+        <!-- 3. Семья и дети (Bottom Left) -->
         <a
           href="/semia/"
-          class="group glass-card p-6 flex flex-col justify-between transition-all duration-300 hover:border-warm-500/50 hover:shadow-xl hover:shadow-warm-500/10 hover:-translate-y-1"
+          class="group glass-card p-6 md:p-7 flex flex-col justify-between transition-all duration-300 hover:border-warm-500/50 hover:shadow-xl hover:shadow-warm-500/10 hover:-translate-y-1"
         >
           <div>
-            <div class="flex items-start justify-between mb-3">
+            <div class="flex items-start justify-between mb-4">
               <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-white shadow-md shadow-warm-600/20 group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
               </div>
@@ -267,7 +233,7 @@ const faqSchema = {
             <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1.5">
               Семья и ипотека
             </h3>
-            <p class="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
               Страхование ипотеки с экономией до 40%, маткапитал и расчёт налоговых вычетов за квартиру и детей.
             </p>
           </div>
@@ -276,13 +242,13 @@ const faqSchema = {
           </span>
         </a>
 
-        <!-- 4. ЖКХ (Col 1-2 Bottom) -->
+        <!-- 4. ЖКХ (Bottom Center) -->
         <a
           href="/zhkh/"
-          class="group glass-card p-6 flex flex-col justify-between transition-all duration-300 hover:border-sky-500/50 hover:shadow-xl hover:shadow-sky-500/10 hover:-translate-y-1"
+          class="group glass-card p-6 md:p-7 flex flex-col justify-between transition-all duration-300 hover:border-sky-500/50 hover:shadow-xl hover:shadow-sky-500/10 hover:-translate-y-1"
         >
           <div>
-            <div class="flex items-start justify-between mb-3">
+            <div class="flex items-start justify-between mb-4">
               <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-sky-600/20 group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
               </div>
@@ -293,7 +259,7 @@ const faqSchema = {
             <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1.5">
               ЖКХ и квитанции
             </h3>
-            <p class="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
               Проверка нормативов потребления, перерасчёт за отопление и воду, правила поверки счётчиков.
             </p>
           </div>
@@ -302,31 +268,29 @@ const faqSchema = {
           </span>
         </a>
 
-        <!-- 5. Авто и ОСАГО (Col 2-3 Bottom) -->
+        <!-- 5. Авто (Bottom Right) -->
         <a
           href="/avto/"
-          class="group glass-card p-6 md:col-span-2 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300 hover:border-rose-500/50 hover:shadow-xl hover:shadow-rose-500/10 hover:-translate-y-1"
+          class="group glass-card p-6 md:p-7 flex flex-col justify-between transition-all duration-300 hover:border-rose-500/50 hover:shadow-xl hover:shadow-rose-500/10 hover:-translate-y-1"
         >
-          <div class="flex items-center gap-4">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-600 flex items-center justify-center text-white shadow-md shadow-rose-600/20 shrink-0 group-hover:scale-110 transition-transform">
-              <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white">
-                  Автомобилистам: ОСАГО и КБМ
-                </h3>
-                <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
-                  12 страховых
-                </span>
+          <div>
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-600 flex items-center justify-center text-white shadow-md shadow-rose-600/20 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 max-w-md">
-                Сравнение цен на полисы ОСАГО по базе РСА с вашей персональной скидкой за безаварийную езду.
-              </p>
+              <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
+                ОСАГО и КБМ
+              </span>
             </div>
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+              Автомобилистам
+            </h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+              Формула расчёта ОСАГО по тарифам Банка России, таблица КБМ и советы по экономии до 40%.
+            </p>
           </div>
-          <span class="inline-flex items-center gap-1 text-xs font-bold text-rose-600 dark:text-rose-400 shrink-0 group-hover:gap-1.5 transition-all">
-            Рассчитать ОСАГО →
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-rose-600 dark:text-rose-400 group-hover:gap-1.5 transition-all">
+            Справочник ОСАГО →
           </span>
         </a>
       </div>
