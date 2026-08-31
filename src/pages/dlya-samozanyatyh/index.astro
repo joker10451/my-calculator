@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import EducationPromo from '../../components/EducationPromo.astro';
 import { getCollection } from 'astro:content';
 
 const articles = (await getCollection('blog', (e) => e.data.tags.includes('самозанятость'))).map((a) => ({
@@ -147,6 +148,9 @@ const faqSchema = {
       </div>
     </section>
   )}
+
+  <!-- Skyeng Education Promo -->
+  <EducationPromo />
 
   <!-- FAQ -->
   <section class="container-main pb-12" id="faq">
