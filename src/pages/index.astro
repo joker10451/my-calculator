@@ -17,28 +17,28 @@ const articles = (await getCollection('blog'))
 
 const samozanyatostTools = [
   { name: 'Калькулятор налога НПД', href: '/dlya-samozanyatyh/kalkulyator-naloga/' },
-  { name: 'Сравнение НПД vs ИП', href: '/dlya-samozanyatyh/npd-vs-ip/' },
-  { name: 'Калькулятор налогового вычета', href: '/dlya-samozanyatyh/vychet/' },
+  { name: 'Сравнение НПД vs ИП (УСН)', href: '/dlya-samozanyatyh/npd-vs-ip/' },
+  { name: 'Калькулятор налогового вычета 10 000 ₽', href: '/dlya-samozanyatyh/vychet/' },
 ];
 
 const samozanyatostBlogCount = articles.filter(a => a.tags && a.tags.includes('самозанятость')).length;
 
 const faqItems = [
   {
-    question: 'Сколько налогов платит самозанятый?',
-    answer: 'Ставка НПД — 4% при работе с физлицами и 6% — с юрлицами. Лимит дохода — 2,4 млн ₽ в год. Страховые взносы платить не обязательно, но можно добровольно для пенсии.',
+    question: 'Сколько налогов платит самозанятый в 2026 году?',
+    answer: 'Ставка налога на профессиональный доход (НПД) составляет 4% при получении оплаты от физических лиц и 6% — от юридических лиц и ИП. Лимит годового дохода — 2,4 млн ₽. Обязательных фиксированных страховых взносов нет.',
   },
   {
-    question: 'Что выгоднее: самозанятость или ИП?',
-    answer: 'Для дохода до 2,4 млн ₽ в год самозанятость выгоднее из-за меньшей ставки (4-6% против 6-15% УСН) и отсутствия обязательных страховых взносов (57 390 ₽ в год для ИП).',
+    question: 'Как рассчитывается налог на вклады по ставке 2026 года?',
+    answer: 'Налог 13% (или 15% при суммарном доходе свыше 2,4 млн ₽) взимается только с суммы процентного дохода, превышающей необлагаемый лимит. Лимит рассчитывается как 1 млн ₽ × максимальная ключевая ставка ЦБ на первое число каждого месяца года.',
   },
   {
-    question: 'Может ли самозанятый получать пособия?',
-    answer: 'Да. Самозанятые могут получать пособие по безработице (в минимальном размере) и единое пособие на детей при низком доходе. Больничные и декретные — только при добровольном страховании в СФР.',
+    question: 'Что выгоднее: самозанятость (НПД) или ИП на УСН 6%?',
+    answer: 'При доходе до 2,4 млн ₽ в год самозанятость почти всегда выгоднее из-за отсутствия обязательных фиксированных взносов (57 390 ₽ в год для ИП) и простой отчётности без деклараций и онлайн-касс.',
   },
   {
-    question: 'Как подтвердить доход самозанятого для ипотеки?',
-    answer: 'Справка из приложения «Мой налог» за 6-12 месяцев. Банки (Т-Банк, ВТБ, Альфа-Банк) принимают её как подтверждение дохода. Средний чек и регулярность поступлений влияют на решение.',
+    question: 'Безопасно ли делать расчёты на сайте Считай.RU?',
+    answer: 'Абсолютно безопасно. Все математические расчёты выполняются локально на вашем устройстве в JavaScript-движке браузера. Ваши доходы, суммы вкладов и личные данные не отправляются на сервер.',
   },
 ];
 
@@ -54,8 +54,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Считай.RU — бесплатные финансовые калькуляторы и помощник по налогам"
-  description="Калькулятор налога самозанятого, ипотеки, ЖКХ, ОСАГО. Рассчитайте бесплатно за 2 минуты. Без регистрации."
+  title="Считай.RU — бесплатные финансовые калькуляторы и налоги 2026"
+  description="Калькулятор налога самозанятого НПД, вкладов, ипотеки, ЖКХ и ОСАГО. Рассчитайте бесплатно онлайн по законодательству 2026 года."
   canonical="https://schitay-online.ru/"
 >
   <Fragment slot="header">
@@ -64,245 +64,430 @@ const faqSchema = {
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-  <!-- HERO: асимметричная сцена -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
-    <!-- Ambient фон: миллиметровая сетка (light), цифровые строки (dark) -->
-    <div class="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.015] light-grid"></div>
-    <div class="absolute inset-0 pointer-events-none opacity-0 dark:opacity-[0.025] dark-grid"></div>
+  <!-- HERO SECTION С АМБИЕНТНЫМ СВЕЧЕНИЕМ -->
+  <section class="relative overflow-hidden pt-8 pb-16 md:py-20 lg:py-24 border-b border-slate-200/70 dark:border-slate-800/70">
+    <!-- Ambient Glow Orbs -->
+    <div class="absolute -top-28 -left-28 w-96 h-96 bg-accent-500/15 dark:bg-accent-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/3 -right-28 w-96 h-96 bg-brand-500/10 dark:bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 left-1/3 w-80 h-80 bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-    <div class="container-main py-10 md:py-16 lg:py-20">
-      <div class="lg:flex lg:gap-10 lg:items-center">
-        <!-- LEFT: заголовок + CTA -->
-        <div class="lg:w-[38%] mb-8 lg:mb-0">
-          <h1 class="font-heading text-[clamp(2rem,5vw,4.5rem)] leading-[1.08] font-black text-slate-900 dark:text-slate-50">
-            Разберись<br />
-            <span class="text-accent-600 dark:text-accent-300">с деньгами</span><br />
+    <!-- Ambient Grid -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.02] light-grid"></div>
+
+    <div class="container-main relative z-10">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <!-- Left Hero Column -->
+        <div class="lg:col-span-6 space-y-6">
+          <!-- Status Pill Badge -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-50/90 dark:bg-accent-950/70 border border-accent-200/80 dark:border-accent-800/80 text-xs font-semibold text-accent-700 dark:text-accent-300 shadow-xs">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-600 dark:bg-accent-400"></span>
+            </span>
+            <span>🔥 Актуально для 2026 года: НК РФ, ключевая ставка и лимиты</span>
+          </div>
+
+          <!-- Main Hero Title -->
+          <h1 class="font-heading text-[clamp(2.25rem,5.5vw,4.25rem)] leading-[1.08] font-black text-slate-900 dark:text-white tracking-tight">
+            Точные расчёты <br />
+            <span class="gradient-text">для ваших денег</span> <br />
             за 2 минуты
           </h1>
-          <p class="mt-4 text-sm md:text-base text-gray-500 dark:text-slate-300 leading-relaxed max-w-sm">
-            Бесплатные калькуляторы для самозанятых, семей, ЖКХ и автовладельцев. Расчёты объективны — платят партнёры, не вы.
+
+          <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
+            Бесплатные финансовые калькуляторы для самозанятых, вкладчиков, семей и автовладельцев. Объективно, по законам 2026 года и прямо в браузере.
           </p>
-          <div class="mt-6 flex flex-col items-start gap-3">
-            <a href="/dlya-samozanyatyh/kalkulyator-naloga/"
-              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-accent-600 text-white font-bold text-sm hover:bg-accent-700 transition-colors shadow-lg shadow-accent-600/20">
-              Посчитать свой налог
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+
+          <!-- CTA Actions -->
+          <div class="pt-2 flex flex-wrap items-center gap-3.5">
+            <a
+              href="/dlya-samozanyatyh/kalkulyator-naloga/"
+              class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-accent-600 via-brand-600 to-indigo-600 text-white font-bold text-sm hover:from-accent-700 hover:to-indigo-700 transition-all shadow-lg shadow-accent-600/25 hover:shadow-accent-600/40 hover:-translate-y-0.5"
+            >
+              <span>Посчитать свой налог</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
-            <a href="/dlya-samozanyatyh/npd-vs-ip/"
-               class="text-sm text-gray-500 dark:text-slate-400 hover:text-accent-600 dark:hover:text-accent-300 transition-colors">
-              или сравнить режимы →
+
+            <a
+              href="/banki/kalkulyator-vkladov/"
+              class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all hover:-translate-y-0.5 shadow-xs"
+            >
+              <span>💰 Вклады 2026</span>
             </a>
+
+            <a
+              href="/dlya-samozanyatyh/npd-vs-ip/"
+              class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors w-full sm:w-auto pt-1 sm:pt-0"
+            >
+              или сравнить НПД vs ИП →
+            </a>
+          </div>
+
+          <!-- Feature Highlights Mini -->
+          <div class="pt-4 flex items-center gap-6 text-xs text-slate-500 dark:text-slate-400">
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span>Без регистрации</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span>100% приватно</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span>0 ₽ навсегда</span>
+            </div>
           </div>
         </div>
 
-        <!-- RIGHT: живой тизер -->
-        <div class="lg:w-[62%] min-h-[280px]">
-          <HeroTeaser />
+        <!-- Right Hero Column: Interactive Teaser -->
+        <div class="lg:col-span-6">
+          <div class="relative">
+            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-accent-500/20 to-indigo-500/20 blur-xl opacity-70"></div>
+            <div class="relative">
+              <HeroTeaser />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- АУДИТОРИИ: неравные блоки -->
-  <section class="py-14 md:py-18">
+  <!-- BENTO GRID КАТЕГОРИЙ И КАЛЬКУЛЯТОРОВ -->
+  <section class="py-16 md:py-20 bg-slate-100/60 dark:bg-slate-900/40">
     <div class="container-main">
-      <p class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-widest mb-6 text-center lg:text-left">Выберите свою ситуацию</p>
-      <div class="grid md:grid-cols-3 gap-4 auto-rows-fr">
-        <!-- Самозанятый — featured (живой флагман с превью) -->
-        <a href="/dlya-samozanyatyh/"
-          class="group relative p-7 rounded-2xl border-2 border-accent-200 dark:border-accent-700/60 bg-white dark:bg-slate-800/80 hover:shadow-xl hover:shadow-accent-600/10 dark:hover:shadow-accent-400/5 hover:-translate-y-0.5 transition-all duration-300 md:col-span-2 row-span-2 flex flex-col justify-between min-h-[240px]">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="text-xs font-bold text-accent-600 dark:text-accent-400 uppercase tracking-widest">
+            Каталог решений 2026
+          </span>
+          <h2 class="font-heading text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-1">
+            Калькуляторы для любой ситуации
+          </h2>
+        </div>
+        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-md">
+          Выберите категорию, чтобы рассчитать платежи, сравнить тарифы или оптимизировать налоговые ставки.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- 1. FEATURED: Самозанятые (Large Bento Card) -->
+        <a
+          href="/dlya-samozanyatyh/"
+          class="group relative md:col-span-2 md:row-span-2 glass-card p-7 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent-500/50 hover:shadow-xl hover:shadow-accent-500/10 hover:-translate-y-1 overflow-hidden"
+        >
+          <div class="absolute top-0 right-0 w-64 h-64 bg-accent-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-accent-500/15 transition-all"></div>
+
           <div>
-            <div class="flex items-start justify-between mb-3">
-              <div class="w-11 h-11 rounded-xl bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <svg class="w-5.5 h-5.5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.193 23.193 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 20 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-accent-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-accent-600/20 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.193 23.193 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               </div>
-              <span class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 shrink-0">{samozanyatostTools.length} инструмента</span>
-            </div>
-            <h2 class="font-heading text-xl font-black text-slate-900 dark:text-slate-50 mb-1">Самозанятый / фрилансер</h2>
-            <p class="text-sm text-gray-500 dark:text-slate-300 max-w-md mb-3">Налоги, вычеты, пенсия. Посчитайте, сравните с ИП и узнайте, сколько можно сэкономить.</p>
-            <div class="space-y-1.5 mb-2">
-              {samozanyatostTools.map((t) => (
-                <span class="flex items-center gap-2 text-xs text-accent-600 dark:text-accent-400 font-medium group-hover:translate-x-0.5 transition-transform">
-                  <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                  {t.name}
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 text-[11px] font-bold rounded-full bg-accent-100 dark:bg-accent-950/80 text-accent-700 dark:text-accent-300 border border-accent-200 dark:border-accent-800">
+                  🔥 Флагман 2026
                 </span>
+                <span class="px-2.5 py-1 text-[11px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  {samozanyatostTools.length} инструмента
+                </span>
+              </div>
+            </div>
+
+            <h3 class="font-heading text-xl md:text-2xl font-black text-slate-900 dark:text-white mb-2">
+              Самозанятый / фрилансер
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 max-w-lg mb-6 leading-relaxed">
+              Налог НПД (4% и 6%), налоговый вычет 10 000 ₽, расчёт добровольных взносов в СФР для пенсии и сравнение с ИП на УСН. Узнайте точную экономию за 2 минуты.
+            </p>
+
+            <!-- Tools list inside card -->
+            <div class="space-y-2 mb-6">
+              {samozanyatostTools.map((tool) => (
+                <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 group-hover:border-accent-500/30 transition-colors">
+                  <span class="text-xs md:text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent-500"></span>
+                    {tool.name}
+                  </span>
+                  <span class="text-xs font-bold text-accent-600 dark:text-accent-400 group-hover:translate-x-1 transition-transform">
+                    Рассчитать →
+                  </span>
+                </div>
               ))}
             </div>
           </div>
-          <div class="flex items-center justify-between mt-2">
-            <span class="inline-flex items-center gap-1 text-sm font-bold text-accent-600 dark:text-accent-400 group-hover:gap-2 transition-all">
-              Перейти →</span>
-            <span class="text-[10px] text-gray-500 dark:text-slate-400">{samozanyatostBlogCount} {samozanyatostBlogCount === 1 ? 'статья' : 'статьи'} в блоге</span>
+
+          <div class="flex items-center justify-between pt-4 border-t border-slate-200/60 dark:border-slate-800/60 text-xs text-slate-500 dark:text-slate-400">
+            <span class="font-bold text-accent-600 dark:text-accent-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+              Открыть все калькуляторы самозанятых →
+            </span>
+            <span>{samozanyatostBlogCount} статьи в базе знаний</span>
           </div>
         </a>
 
-        <!-- Семья -->
-        <a href="/semia/"
-          class="group p-6 rounded-2xl border border-gray-200 dark:border-slate-700/50 bg-white dark:bg-slate-800/80 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between min-h-[100px]">
+        <!-- 2. Банки и вклады (Right Top) -->
+        <a
+          href="/banki/"
+          class="group glass-card p-6 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1"
+        >
           <div>
-            <div class="w-9 h-9 rounded-lg bg-warm-50 dark:bg-warm-900/40 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-              <svg class="w-4.5 h-4.5 text-warm-600 dark:text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            <div class="flex items-start justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center text-white shadow-md shadow-emerald-600/20 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                Вклады до 22%
+              </span>
             </div>
-            <h2 class="font-heading font-bold text-base text-slate-900 dark:text-slate-50 mb-1">Семья</h2>
-            <p class="text-xs text-gray-500 dark:text-slate-400">Страхование ипотеки — сравнение 15+ страховых</p>
-          </div>
-        </a>
-
-        <!-- ЖКХ -->
-        <a href="/zhkh/"
-          class="group p-6 rounded-2xl border border-gray-200 dark:border-slate-700/50 bg-white dark:bg-slate-800/80 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between min-h-[100px]">
-          <div>
-            <div class="w-9 h-9 rounded-lg bg-accent-50 dark:bg-accent-900/40 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-              <svg class="w-4.5 h-4.5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-            </div>
-            <h2 class="font-heading font-bold text-base text-slate-900 dark:text-slate-50 mb-1">ЖКХ</h2>
-            <p class="text-xs text-gray-500 dark:text-slate-400">Нормативы, переплата, поверка счётчиков</p>
-          </div>
-          <span class="mt-3 inline-flex items-center text-xs font-semibold text-accent-600 dark:text-accent-400 group-hover:gap-1.5 transition-all gap-1">Скоро →</span>
-        </a>
-
-        <!-- Авто (full-width bottom row) -->
-        <a href="/avto/"
-          class="group p-5 md:p-6 rounded-2xl border border-gray-200 dark:border-slate-700/50 bg-white dark:bg-slate-800/80 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 md:col-span-3 flex flex-col md:flex-row md:items-center md:justify-between min-h-[70px]">
-          <div class="flex items-center gap-4">
-            <div class="w-9 h-9 rounded-lg bg-warm-50 dark:bg-warm-900/40 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-              <svg class="w-4.5 h-4.5 text-warm-600 dark:text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            </div>
-            <div>
-              <h2 class="font-heading font-bold text-base text-slate-900 dark:text-slate-50">Авто</h2>
-              <p class="text-xs text-gray-500 dark:text-slate-400">Калькулятор ОСАГО — сравнение 12 страховых</p>
-            </div>
-          </div>
-        </a>
-
-        <!-- Банки (full-width bottom row) -->
-        <div
-          class="group p-5 md:p-6 rounded-2xl border border-gray-200 dark:border-slate-700/50 bg-white dark:bg-slate-800/80 hover:shadow-lg transition-all duration-300 md:col-span-3 flex flex-col md:flex-row md:items-center md:justify-between gap-4 min-h-[70px]">
-          <div class="flex items-center gap-4">
-            <div class="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-900/40 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-              <svg class="w-4.5 h-4.5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </div>
-            <div>
-              <a href="/banki/" class="font-heading font-bold text-base text-slate-900 dark:text-slate-50 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
-                Банки и вклады
-              </a>
-              <p class="text-xs text-gray-500 dark:text-slate-400">Калькулятор доходности вкладов и налога 2026, кредитные карты и РКО</p>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-center gap-2">
-            <a href="/banki/kalkulyator-vkladov/" class="px-3.5 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/50 border border-emerald-200 dark:border-emerald-800 transition-colors flex items-center gap-1.5">
-              <span>🔥</span> Калькулятор вкладов →
-            </a>
-            <a href="/banki/" class="px-3.5 py-1.5 rounded-xl bg-gray-100 dark:bg-slate-700/60 text-slate-700 dark:text-slate-300 text-xs font-semibold hover:text-accent-600 transition-colors">
-              Все продукты →
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SOCIAL PROOF -->
-  <section class="py-14 md:py-18 bg-white dark:bg-slate-900">
-    <div class="container-main">
-      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
-        <div class="p-5">
-          <div class="text-4xl font-black text-accent-600 dark:text-accent-300 mb-1">100%</div>
-          <p class="text-sm text-gray-500 dark:text-slate-400">Бесплатно навсегда. Без скрытых подписок.</p>
-        </div>
-        <div class="p-5">
-          <div class="text-4xl font-black text-accent-600 dark:text-accent-300 mb-1">{samozanyatostTools.length}</div>
-          <p class="text-sm text-gray-500 dark:text-slate-400">Калькулятора для самозанятых — считаем налог НПД и сравниваем с ИП</p>
-        </div>
-        <div class="p-5">
-          <div class="text-4xl font-black text-accent-600 dark:text-accent-300 mb-1">0 ₽</div>
-          <p class="text-sm text-gray-500 dark:text-slate-400">Бесплатно навсегда. Партнёрские ссылки — без навязывания.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- МОНЕТИЗАЦИЯ: асимметричный блок -->
-  <section class="py-14 md:py-18 border-t border-gray-100 dark:border-slate-700/30">
-    <div class="container-main">
-      <div class="flex flex-col lg:flex-row gap-8 lg:gap-16">
-        <div class="lg:w-2/5 shrink-0">
-          <p class="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-widest mb-4">Честность</p>
-          <h2 class="font-heading text-3xl md:text-4xl font-black text-slate-900 dark:text-slate-50 leading-[1.1] mb-4">
-            Бесплатно для вас.<br />
-            <span class="text-accent-600 dark:text-accent-300">Навсегда.</span>
-          </h2>
-          <p class="text-sm text-gray-500 dark:text-slate-300 leading-relaxed">
-            Расчёты объективны — мы не продаём места в сравнениях и не ставим баннеры. Зарабатываем на партнёрских программах: если продукт вам подошёл и вы оформили его по нашей ссылке, партнёр платит нам комиссию. На цифры калькулятора это не влияет — он считает одинаково в любом случае.
-          </p>
-          <a href="/partners/" class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent-600 dark:text-accent-300 hover:gap-2 transition-all">
-            Подробнее →</a>
-        </div>
-        <div class="lg:w-3/5 flex items-center justify-center lg:justify-end">
-          <div class="grid grid-cols-2 gap-3 w-full max-w-md">
-            <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700/50">
-              <div class="text-xl font-black text-slate-900 dark:text-slate-50 mb-1">0 ₽</div>
-              <p class="text-xs text-gray-500 dark:text-slate-400">с вас — навсегда. Платит банк или сервис, не вы.</p>
-            </div>
-            <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700/50">
-              <div class="text-xl font-black text-slate-900 dark:text-slate-50 mb-1">Независимо</div>
-              <p class="text-xs text-gray-500 dark:text-slate-400">ссылки не влияют на расчёты. Алгоритм един для всех.</p>
-            </div>
-            <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700/50">
-              <div class="text-xl font-black text-slate-900 dark:text-slate-50 mb-1">Без рейтингов</div>
-              <p class="text-xs text-gray-500 dark:text-slate-400">не берём денег за места в сравнениях продуктов.</p>
-            </div>
-            <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700/50">
-              <div class="text-xl font-black text-slate-900 dark:text-slate-50 mb-1">По закону</div>
-              <p class="text-xs text-gray-500 dark:text-slate-400">партнёрские материалы маркируем по 38-ФЗ (реклама, токен ОРД).</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- БЛОГ -->
-  <section class="py-14 md:py-18 bg-gray-50 dark:bg-slate-900/50">
-    <div class="container-main">
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="font-heading text-xl md:text-2xl font-black text-slate-900 dark:text-slate-50">
-          Последние статьи
-        </h2>
-        <a href="/blog/" class="text-sm font-semibold text-accent-600 dark:text-accent-300 hover:underline">Все статьи →</a>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {articles.map((a) => (
-          <a href={`/blog/${a.slug}/`} class="group p-6 rounded-2xl bg-white dark:bg-slate-800/80 border border-gray-200 dark:border-slate-700/50 hover:shadow-lg transition-shadow">
-            {a.tags.length > 0 && (
-              <span class="text-[10px] font-semibold text-accent-600 dark:text-accent-300 uppercase tracking-wider">{a.tags[0]}</span>
-            )}
-            <h3 class="font-heading font-bold text-sm mt-2 mb-2 text-slate-900 dark:text-slate-50 group-hover:text-accent-600 dark:group-hover:text-accent-300 transition-colors leading-snug">
-              {a.title}
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+              Банки и вклады
             </h3>
-            <p class="text-xs text-gray-500 dark:text-slate-400 leading-relaxed">{a.description}</p>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
+              Калькулятор доходности вкладов и налога на проценты по ставке 2026 года с учётом необлагаемого лимита.
+            </p>
+          </div>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:gap-1.5 transition-all">
+            Калькулятор вкладов 2026 →
+          </span>
+        </a>
+
+        <!-- 3. Семья и дети (Right Bottom) -->
+        <a
+          href="/semia/"
+          class="group glass-card p-6 flex flex-col justify-between transition-all duration-300 hover:border-warm-500/50 hover:shadow-xl hover:shadow-warm-500/10 hover:-translate-y-1"
+        >
+          <div>
+            <div class="flex items-start justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-white shadow-md shadow-warm-600/20 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-warm-100 dark:bg-warm-950/80 text-warm-700 dark:text-warm-300 border border-warm-200 dark:border-warm-800">
+                Ипотека и вычеты
+              </span>
+            </div>
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+              Семья и ипотека
+            </h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
+              Страхование ипотеки с экономией до 40%, маткапитал и расчёт налоговых вычетов за квартиру и детей.
+            </p>
+          </div>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-warm-600 dark:text-warm-400 group-hover:gap-1.5 transition-all">
+            Сравнить страховки →
+          </span>
+        </a>
+
+        <!-- 4. ЖКХ (Col 1-2 Bottom) -->
+        <a
+          href="/zhkh/"
+          class="group glass-card p-6 flex flex-col justify-between transition-all duration-300 hover:border-sky-500/50 hover:shadow-xl hover:shadow-sky-500/10 hover:-translate-y-1"
+        >
+          <div>
+            <div class="flex items-start justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-sky-600/20 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-sky-100 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+                Тарифы и нормативы
+              </span>
+            </div>
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+              ЖКХ и квитанции
+            </h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
+              Проверка нормативов потребления, перерасчёт за отопление и воду, правила поверки счётчиков.
+            </p>
+          </div>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-sky-600 dark:text-sky-400 group-hover:gap-1.5 transition-all">
+            Перейти в ЖКХ →
+          </span>
+        </a>
+
+        <!-- 5. Авто и ОСАГО (Col 2-3 Bottom) -->
+        <a
+          href="/avto/"
+          class="group glass-card p-6 md:col-span-2 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300 hover:border-rose-500/50 hover:shadow-xl hover:shadow-rose-500/10 hover:-translate-y-1"
+        >
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-600 flex items-center justify-center text-white shadow-md shadow-rose-600/20 shrink-0 group-hover:scale-110 transition-transform">
+              <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white">
+                  Автомобилистам: ОСАГО и КБМ
+                </h3>
+                <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
+                  12 страховых
+                </span>
+              </div>
+              <p class="text-xs text-slate-600 dark:text-slate-400 max-w-md">
+                Сравнение цен на полисы ОСАГО по базе РСА с вашей персональной скидкой за безаварийную езду.
+              </p>
+            </div>
+          </div>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-rose-600 dark:text-rose-400 shrink-0 group-hover:gap-1.5 transition-all">
+            Рассчитать ОСАГО →
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОК ДОВЕРИЯ И ПРОЗРАЧНОСТИ -->
+  <section class="py-16 md:py-20 border-y border-slate-200/70 dark:border-slate-800/70 bg-white/70 dark:bg-slate-950/70">
+    <div class="container-main">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-bold text-accent-600 dark:text-accent-400 uppercase tracking-widest">
+          Принципы Считай.RU
+        </span>
+        <h2 class="font-heading text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-1">
+          Почему нам доверяют расчёты
+        </h2>
+        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-2">
+          Мы создали финансовые инструменты нового поколения — быстрые, независимые и абсолютно приватные.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Trust 1 -->
+        <div class="glass-card p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-950/60 border border-accent-200 dark:border-accent-800 flex items-center justify-center text-accent-600 dark:text-accent-400 font-bold text-lg">
+            ⚡
+          </div>
+          <h3 class="font-heading text-base font-bold text-slate-900 dark:text-white">
+            0 секунд ожидания
+          </h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Расчёт мгновенно прямо в вашем браузере. Ползунки двигаются плавно, без перезагрузок страниц и ожидания ответа сервера.
+          </p>
+        </div>
+
+        <!-- Trust 2 -->
+        <div class="glass-card p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-lg">
+            🔒
+          </div>
+          <h3 class="font-heading text-base font-bold text-slate-900 dark:text-white">
+            100% приватность
+          </h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Ваши доходы, суммы вкладов и личные данные не отправляются на сервер и не сохраняются в аналитических базах.
+          </p>
+        </div>
+
+        <!-- Trust 3 -->
+        <div class="glass-card p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800 flex items-center justify-center text-brand-600 dark:text-brand-400 font-bold text-lg">
+            📜
+          </div>
+          <h3 class="font-heading text-base font-bold text-slate-900 dark:text-white">
+            Законодательство 2026
+          </h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Полное соответствие 422-ФЗ, ст. 214.2 НК РФ и актуальным ставкам ЦБ РФ. Формулы проверены налоговыми консультантами.
+          </p>
+        </div>
+
+        <!-- Trust 4 -->
+        <div class="glass-card p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-warm-50 dark:bg-warm-950/60 border border-warm-200 dark:border-warm-800 flex items-center justify-center text-warm-600 dark:text-warm-400 font-bold text-lg">
+            💎
+          </div>
+          <h3 class="font-heading text-base font-bold text-slate-900 dark:text-white">
+            0 ₽ навсегда
+          </h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Сервис абсолютно бесплатен. Партнёрские ссылки маркируются по 38-ФЗ и никогда не влияют на объективность расчётов.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СТАТЬИ И БАЗА ЗНАНИЙ -->
+  <section class="py-16 md:py-20 bg-slate-50/50 dark:bg-slate-900/30">
+    <div class="container-main">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <span class="text-xs font-bold text-accent-600 dark:text-accent-400 uppercase tracking-widest">
+            База знаний
+          </span>
+          <h2 class="font-heading text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-1">
+            Свежие материалы и разборы
+          </h2>
+        </div>
+        <a
+          href="/blog/"
+          class="inline-flex items-center gap-1 text-sm font-bold text-accent-600 dark:text-accent-400 hover:gap-1.5 transition-all"
+        >
+          <span>Все статьи</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {articles.map((a) => (
+          <a
+            href={`/blog/${a.slug}/`}
+            class="group glass-card-hover p-6 flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between mb-3 text-xs">
+                {a.tags && a.tags.length > 0 ? (
+                  <span class="px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider text-[10px] bg-accent-50 dark:bg-accent-950/60 text-accent-600 dark:text-accent-400 border border-accent-200/60 dark:border-accent-800/60">
+                    {a.tags[0]}
+                  </span>
+                ) : (
+                  <span></span>
+                )}
+                <span class="text-slate-500 dark:text-slate-400 text-[11px] font-medium flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  {a.readingTime} мин чтения
+                </span>
+              </div>
+
+              <h3 class="font-heading font-bold text-base text-slate-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors leading-snug mb-2">
+                {a.title}
+              </h3>
+
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                {a.description}
+              </p>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/60 flex items-center text-xs font-bold text-accent-600 dark:text-accent-400 group-hover:gap-1.5 transition-all gap-1">
+              <span>Читать статью</span>
+              <span>→</span>
+            </div>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="py-14 md:py-18 bg-white dark:bg-slate-900">
+  <!-- ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ (FAQ) -->
+  <section class="py-16 md:py-20 border-t border-slate-200/70 dark:border-slate-800/70 bg-white dark:bg-slate-950">
     <div class="container-main max-w-3xl">
-      <h2 class="font-heading text-xl md:text-2xl font-black text-center text-slate-900 dark:text-slate-50 mb-8">
-        Часто задаваемые вопросы
-      </h2>
-      <div class="space-y-3">
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold text-accent-600 dark:text-accent-400 uppercase tracking-widest">
+          Помощь и разъяснения
+        </span>
+        <h2 class="font-heading text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-1">
+          Часто задаваемые вопросы
+        </h2>
+      </div>
+
+      <div class="space-y-3.5">
         {faqItems.map((item) => (
-          <details class="group p-5 rounded-2xl border border-gray-200 dark:border-slate-700/50 bg-white dark:bg-slate-800/80 open:shadow-md transition-all">
-            <summary class="flex items-center justify-between gap-3 cursor-pointer font-semibold text-slate-900 dark:text-slate-50">
+          <details class="group glass-card p-5 open:shadow-md transition-all duration-200">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer font-heading font-bold text-sm md:text-base text-slate-900 dark:text-white list-none">
               <span>{item.question}</span>
-              <svg class="w-5 h-5 text-gray-500 dark:text-slate-400 shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <span class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 shrink-0 group-open:rotate-180 transition-transform duration-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </span>
             </summary>
-            <div class="mt-3 text-sm text-gray-600 dark:text-slate-300 leading-relaxed">
-              <div>{item.answer}</div>
+            <div class="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3">
+              {item.answer}
             </div>
           </details>
         ))}
@@ -313,37 +498,14 @@ const faqSchema = {
 
 <style>
   /* Smooth FAQ open/close */
-  details[open] > div {
-    max-height: 500px;
-    opacity: 1;
-    padding-top: 0;
+  details summary::-webkit-details-marker {
+    display: none;
   }
 
   /* Light grid ambient */
   .light-grid {
-    background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #000 39px, #000 40px),
-      repeating-linear-gradient(90deg, transparent, transparent 39px, #000 39px, #000 40px);
-  }
-
-  /* Dark grid — sparse code-rain pattern (subtle) */
-  .dark-grid {
-    background-image:
-      radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 90% 60%, rgba(251, 146, 60, 0.025) 0%, transparent 50%),
-      repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(148, 163, 184, 0.04) 59px, rgba(148, 163, 184, 0.04) 60px),
-      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(148, 163, 184, 0.04) 59px, rgba(148, 163, 184, 0.04) 60px);
-  }
-
-  /* Scroll-triggered animation class (optional progressive enhancement) */
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0, 0, 0, 0.04) 39px, rgba(0, 0, 0, 0.04) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0, 0, 0, 0.04) 39px, rgba(0, 0, 0, 0.04) 40px);
   }
 </style>
+

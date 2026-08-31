@@ -2,63 +2,140 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { name: 'Самозанятым', label: 'Самозанятым', href: '/dlya-samozanyatyh/' },
+  { name: 'Семье', label: 'Семье', href: '/semia/' },
+  { name: 'ЖКХ', label: 'ЖКХ', href: '/zhkh/' },
+  { name: 'Авто', label: 'Авто', href: '/avto/' },
+  { name: 'Банки и карты', label: 'Банки и карты', href: '/banki/' },
+  { name: 'Блог', label: 'Блог', href: '/blog/' },
+];
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
 ---
 
-<header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<header class="sticky top-0 z-50 glass-header">
   <div class="container-main flex items-center justify-between h-16">
-    <a href="/" class="flex items-center gap-2 font-heading font-bold text-lg text-gray-900 dark:text-white hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
-      <span class="w-8 h-8 bg-accent-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">∑</span>
-      Считай.RU
+    <!-- Logo -->
+    <a href="/" class="group flex items-center gap-2.5 font-heading font-black text-lg tracking-tight text-slate-900 dark:text-white hover:opacity-95 transition-opacity">
+      <span class="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-accent-600 via-brand-600 to-indigo-500 text-white shadow-md shadow-accent-600/25 group-hover:scale-105 transition-transform">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16l-8 8 8 8H4"></path>
+        </svg>
+      </span>
+      <div class="flex items-center gap-1.5">
+        <span class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 dark:from-white dark:via-slate-100 dark:to-slate-300 bg-clip-text text-transparent">Считай.RU</span>
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-accent-50 dark:bg-accent-950/60 text-accent-600 dark:text-accent-400 border border-accent-200/60 dark:border-accent-800/60">
+          2026
+        </span>
+      </div>
     </a>
 
-    <nav class="hidden md:flex items-center gap-6" aria-label="Основная навигация">
-      <a href="/dlya-samozanyatyh/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Самозанятым</a>
-      <a href="/semia/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Семье</a>
-      <a href="/zhkh/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">ЖКХ</a>
-      <a href="/avto/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Авто</a>
-      <a href="/banki/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Банки и карты</a>
-      <a href="/blog/" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Блог</a>
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-1 lg:gap-2" aria-label="Основная навигация">
+      {navLinks.map((link) => {
+        const active = isActive(link.href);
+        return (
+          <a
+            href={link.href}
+            class={`px-3 py-1.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+              active
+                ? 'bg-accent-50 text-accent-600 dark:bg-accent-950/60 dark:text-accent-400 font-bold shadow-xs'
+                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/60'
+            }`}
+          >
+            {link.label}
+          </a>
+        );
+      })}
     </nav>
 
-    <div class="flex items-center gap-3">
+    <!-- Right Controls -->
+    <div class="flex items-center gap-2 sm:gap-3">
       <ThemeToggle />
-      <button class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Открыть меню" data-mobile-menu-toggle>
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button
+        type="button"
+        class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        aria-label="Открыть меню навигации"
+        aria-expanded="false"
+        data-mobile-menu-toggle
+      >
+        <svg class="w-6 h-6 menu-icon-open" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg class="w-6 h-6 menu-icon-close hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
     </div>
   </div>
 
-  <div class="md:hidden overflow-hidden border-t border-gray-200 dark:border-gray-800 transition-all duration-300 ease-out" data-mobile-menu style="max-height: 0; opacity: 0;">
-    <div class="container-main py-2">
-      <a href="/dlya-samozanyatyh/" class="block py-3 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 transition-colors">Самозанятым</a>
-      <a href="/semia/" class="block py-3 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 transition-colors">Семье</a>
-      <a href="/zhkh/" class="block py-3 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 transition-colors">ЖКХ</a>
-      <a href="/avto/" class="block py-3 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 transition-colors">Авто</a>
-      <a href="/banki/" class="block py-3 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 transition-colors">Банки и карты</a>
-      <a href="/blog/" class="block py-3 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-accent-600 transition-colors">Блог</a>
+  <!-- Mobile Drawer -->
+  <div
+    class="md:hidden overflow-hidden border-t border-slate-200/70 dark:border-slate-800/70 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl transition-all duration-300 ease-in-out"
+    data-mobile-menu
+    style="max-height: 0; opacity: 0;"
+  >
+    <div class="container-main py-3.5 space-y-1">
+      {navLinks.map((link) => {
+        const active = isActive(link.href);
+        return (
+          <a
+            href={link.href}
+            class={`block px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+              active
+                ? 'bg-accent-50 text-accent-600 dark:bg-accent-950/60 dark:text-accent-400 font-bold'
+                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white'
+            }`}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+      <div class="pt-3 mt-2 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-3.5">
+        <span>Законодательство 2026</span>
+        <span class="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Все системы онлайн
+        </span>
+      </div>
     </div>
   </div>
 </header>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    var toggle = document.querySelector('[data-mobile-menu-toggle]');
-    var menu = document.querySelector('[data-mobile-menu]');
+    const toggle = document.querySelector('[data-mobile-menu-toggle]');
+    const menu = document.querySelector('[data-mobile-menu]') as HTMLElement | null;
+    const iconOpen = toggle?.querySelector('.menu-icon-open');
+    const iconClose = toggle?.querySelector('.menu-icon-close');
+
     if (toggle && menu) {
-      var content = menu.querySelector('.container-main');
-      var isOpen = false;
-      toggle.addEventListener('click', function() {
+      let isOpen = false;
+      const content = menu.firstElementChild as HTMLElement | null;
+
+      toggle.addEventListener('click', () => {
         isOpen = !isOpen;
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
         if (isOpen) {
-          menu.style.maxHeight = content.scrollHeight + 40 + 'px';
+          const scrollH = content ? content.scrollHeight + 30 : 350;
+          menu.style.maxHeight = scrollH + 'px';
           menu.style.opacity = '1';
+          iconOpen?.classList.add('hidden');
+          iconClose?.classList.remove('hidden');
         } else {
           menu.style.maxHeight = '0';
           menu.style.opacity = '0';
+          iconOpen?.classList.remove('hidden');
+          iconClose?.classList.add('hidden');
         }
       });
     }
   });
 </script>
+

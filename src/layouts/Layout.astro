@@ -1,4 +1,6 @@
 ---
+import Footer from '../components/Footer.astro';
+
 interface Props {
   title: string;
   description: string;
@@ -113,25 +115,13 @@ const websiteSchema = {
     gtag('config', 'G-XXXXXXXXXX');
   </script>
 </head>
-<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
   <slot name="header" />
   <main id="main-content" class="flex-1">
     <slot />
   </main>
 
-  <footer class="border-t border-gray-200 dark:border-gray-800 py-8 mt-16">
-    <div class="container-main text-center text-sm text-gray-500 dark:text-gray-400">
-      <p class="mb-2">&copy; {new Date().getFullYear()} Считай.RU — бесплатные финансовые калькуляторы</p>
-      <p class="mb-3 text-xs text-gray-500 dark:text-slate-400">
-        Результаты расчётов носят информационный характер. Для принятия решений проконсультируйтесь со специалистом.
-      </p>
-      <nav class="flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-slate-400">
-        <a href="/partners/" class="underline hover:text-accent-600">Партнёрская информация</a>
-        <a href="/privacy/" class="underline hover:text-accent-600">Политика конфиденциальности</a>
-        <a href="/terms/" class="underline hover:text-accent-600">Пользовательское соглашение</a>
-      </nav>
-    </div>
-  </footer>
+  <Footer />
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
