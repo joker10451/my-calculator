@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import HomeGoodsShowcase from '../../components/HomeGoodsShowcase.astro';
+import SotkaPromo from '../../components/SotkaPromo.astro';
 import { getCollection } from 'astro:content';
 
 const allArticles = await getCollection('blog');
@@ -245,6 +246,9 @@ const banks = ['Сбербанк', 'ВТБ', 'Альфа-Банк', 'Т-Банк
 
   <!-- Cozy Home Showcase -->
   <HomeGoodsShowcase />
+
+  <!-- Sotka Online School Promo -->
+  <SotkaPromo />
 
   <!-- FAQ -->
   <section class="container-main pb-12" id="faq">

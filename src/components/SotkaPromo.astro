@@ -1,0 +1,122 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  className?: string;
+}
+
+const {
+  title = 'Подготовка к ЕГЭ и ОГЭ: 4 предмета по цене одного в онлайн-школе «Сотка»',
+  subtitle = 'Экономьте семейный бюджет на репетиторах: комплексная подготовка к экзаменам для 9–11 классов от 3 990 ₽/мес за все 4 предмета.',
+  className = '',
+} = Astro.props;
+
+const primaryUrl = 'https://trk.ppdu.ru/click/42S9SuFL?erid=2SDnjdAKSMS&dl=https%3A%2F%2Fsotkaonline.ru';
+const secondaryUrl = 'https://trk.ppdu.ru/click/42S9SuFL?erid=2SDnjdAKSMS';
+const disclosureText = 'Реклама. ООО «Сотка Онлайн», ИНН 1655447788, erid: 2SDnjdAKSMS';
+
+const features = [
+  {
+    icon: '📚',
+    title: '4 предмета по одной подписке',
+    desc: 'Готовьтесь к русскому, математике и профильным предметам без переплат',
+    tag: 'Выгода 4в1',
+  },
+  {
+    icon: '👨‍🏫',
+    title: 'Онлайн-наставник и проверка ДЗ',
+    desc: 'Индивидуальный разбор ошибок, регулярные пробники и контроль прогресса',
+    tag: 'Поддержка 24/7',
+  },
+  {
+    icon: '🎯',
+    title: 'Высокие баллы и бюджет',
+    desc: 'Средний балл выпускников 80+, экономия до 200 000 ₽/год на репетиторах',
+    tag: 'Результат 80+',
+  },
+];
+---
+
+<section class={`container-main pb-12 ${className}`} aria-label="Онлайн-школа «Сотка»: подготовка к ЕГЭ и ОГЭ">
+  <div class="p-6 md:p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-indigo-50 via-purple-50/40 to-pink-50 dark:from-gray-900 dark:via-gray-800/90 dark:to-gray-900 border border-purple-100 dark:border-gray-800 shadow-sm relative overflow-hidden">
+    <!-- Decorative background accents -->
+    <div class="absolute -top-24 -right-24 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+    <div class="relative z-10">
+      <!-- Badge & Header -->
+      <div class="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-3">
+        <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-lg bg-purple-600/10 dark:bg-purple-400/20 text-purple-600 dark:text-purple-400 font-black text-xs">
+          Сотка
+        </span>
+        <span>Образование для детей • Подготовка к экзаменам</span>
+      </div>
+
+      <div class="max-w-3xl mb-8">
+        <h2 class="font-heading text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white leading-tight">
+          {title}
+        </h2>
+        <p class="mt-3 text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+          {subtitle}
+        </p>
+      </div>
+
+      <!-- Features Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 mb-8">
+        {features.map((item) => (
+          <div class="rounded-2xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-purple-100/80 dark:border-gray-700/60 p-5 flex flex-col justify-between hover:shadow-md hover:border-purple-300 dark:hover:border-purple-500/50 transition-all duration-200 group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-2xl" role="img" aria-hidden="true">{item.icon}</span>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200/60 dark:border-purple-800/60">
+                  {item.tag}
+                </span>
+              </div>
+              <h3 class="font-heading font-bold text-base text-gray-900 dark:text-white mb-1.5 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                {item.title}
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA Buttons & Footer info -->
+      <div class="pt-2 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <a
+            href={primaryUrl}
+            target="_blank"
+            rel="sponsored nofollow noopener"
+            data-affiliate="true"
+            data-partner="Сотка"
+            data-offer="Бесплатный вводный урок"
+            class="py-3 px-6 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-purple-600/25 active:scale-[0.99]"
+          >
+            <span>Записаться на бесплатный вводный урок →</span>
+          </a>
+          <a
+            href={secondaryUrl}
+            target="_blank"
+            rel="sponsored nofollow noopener"
+            data-affiliate="true"
+            data-partner="Сотка"
+            data-offer="Все программы ОГЭ/ЕГЭ"
+            class="py-3 px-5 rounded-xl bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 border border-gray-200 dark:border-gray-700 font-bold text-sm text-center transition-all duration-200 flex items-center justify-center gap-1.5 active:scale-[0.99]"
+          >
+            <span>Все программы ОГЭ/ЕГЭ</span>
+            <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="text-[11px] text-gray-400 dark:text-gray-500 text-left lg:text-right">
+          <span>{disclosureText}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
