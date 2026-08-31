@@ -56,10 +56,10 @@ const faqSchema = {
 };
 
 const products = [
-  { icon: '💳', name: 'Кредитные карты', desc: 'Кэшбэк до 30%, льготный период 120+ дней' },
-  { icon: '💰', name: 'Вклады и счета', desc: 'Ставки до 22% годовых' },
-  { icon: '🏦', name: 'Кредиты наличными', desc: 'От 4,9%, одобрение за 5 минут' },
-  { icon: '📊', name: 'РКО для бизнеса', desc: '0 ₽/мес, бесплатные переводы' },
+  { icon: '💰', name: 'Вклады и счета', desc: 'Ставки до 22% годовых, расчёт налога 2026', href: '/banki/kalkulyator-vkladov/' },
+  { icon: '💳', name: 'Кредитные карты', desc: 'Кэшбэк до 30%, льготный период 120+ дней', href: '#ppdwiBanki' },
+  { icon: '🏦', name: 'Кредиты наличными', desc: 'От 4,9%, одобрение за 5 минут', href: '#ppdwiBanki' },
+  { icon: '💼', name: 'РКО для бизнеса', desc: '0 ₽/мес, бесплатные переводы', href: '#ppdwiBanki' },
 ];
 ---
 
@@ -95,10 +95,61 @@ const products = [
         Кредитные карты, вклады, кредиты наличными, РКО. 30+ банков, честное сравнение. Бесплатно.
       </p>
     </div>
+
+    <!-- PROMO BANNER / CARD -->
+    <div class="mt-8 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-700 to-slate-900 text-white shadow-xl flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32 pointer-events-none" />
+      <div class="relative space-y-2">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-emerald-100 text-xs font-bold">
+          <span>🔥</span> Калькулятор доходности и налога по вкладам 2026
+        </div>
+        <h2 class="text-xl md:text-2xl font-black font-heading leading-snug">
+          Рассчитайте сложный процент, капитализацию и налог по ст. 214.2 НК РФ
+        </h2>
+        <p class="text-sm text-emerald-100/90 max-w-xl">
+          Точный расчёт чистой доходности с учётом необлагаемого лимита 1 млн ₽ × ключевая ставка ЦБ.
+        </p>
+      </div>
+      <a
+        href="/banki/kalkulyator-vkladov/"
+        class="relative inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-emerald-50 transition-all shadow-lg shrink-0"
+      >
+        Открыть калькулятор →
+      </a>
+    </div>
   </section>
 
   <!-- PAMPADU WIDGET -->
   <section class="container-main pb-8">
+    <!-- Category Jump Pills -->
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+      <span class="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1">Быстрый подбор:</span>
+      <a
+        href="/banki/kalkulyator-vkladov/"
+        class="px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors flex items-center gap-1.5"
+      >
+        <span>🔥</span> Вклады до 22%
+      </a>
+      <a
+        href="#ppdwiBanki"
+        class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-bold hover:border-accent-400 hover:text-accent-600 transition-colors flex items-center gap-1.5"
+      >
+        <span>💳</span> Карты с кэшбэком
+      </a>
+      <a
+        href="#ppdwiBanki"
+        class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-bold hover:border-accent-400 hover:text-accent-600 transition-colors flex items-center gap-1.5"
+      >
+        <span>⏳</span> Кредитные карты
+      </a>
+      <a
+        href="#ppdwiBanki"
+        class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-bold hover:border-accent-400 hover:text-accent-600 transition-colors flex items-center gap-1.5"
+      >
+        <span>💼</span> РКО для бизнеса
+      </a>
+    </div>
+
     <div class="pampadu-widget pampadu-widget--banki">
       <iframe
         src="https://ppdu.ru/41ef6068-a4eb-4179-a855-6c0270f8acf0"
@@ -121,11 +172,11 @@ const products = [
     <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Что можно подобрать</h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {products.map((p) => (
-        <div class="p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-          <div class="text-2xl mb-3" aria-hidden="true">{p.icon}</div>
-          <h3 class="font-bold text-gray-900 dark:text-white mb-1">{p.name}</h3>
+        <a href={p.href} class="group p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all block">
+          <div class="text-2xl mb-3 group-hover:scale-110 transition-transform" aria-hidden="true">{p.icon}</div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">{p.name}</h3>
           <p class="text-sm text-gray-500 dark:text-gray-400">{p.desc}</p>
-        </div>
+        </a>
       ))}
     </div>
   </section>

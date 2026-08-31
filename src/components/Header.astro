@@ -43,7 +43,7 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     var toggle = document.querySelector('[data-mobile-menu-toggle]');
     var menu = document.querySelector('[data-mobile-menu]');
     if (toggle && menu) {

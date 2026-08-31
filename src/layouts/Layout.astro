@@ -18,11 +18,6 @@ const websiteSchema = {
       '@type': 'WebSite',
       name: 'Считай.RU',
       url: 'https://schitay-online.ru/',
-      potentialAction: {
-        '@type': 'SearchAction',
-        query: 'required',
-        target: 'https://schitay-online.ru/search?q={search_term_string}',
-      },
     },
     {
       '@type': 'Organization',
@@ -59,15 +54,11 @@ const websiteSchema = {
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Верификация -->
-  <meta name="yandex-verification" content="<!-- YANDEX_WEBMASTER_TOKEN -->" />
-  <meta name="google-site-verification" content="<!-- GOOGLE_SEARCH_CONSOLE_TOKEN -->" />
-
   <!-- Self-hosted fonts (no external requests → zero CLS from font swap) -->
-  <link rel="preload" href="/fonts/inter-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/inter-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/unbounded-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/unbounded-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/inter-400-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/inter-700-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/unbounded-700-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/unbounded-800-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/fonts/inter.css" />
   <link rel="stylesheet" href="/fonts/unbounded.css" />
 
@@ -143,7 +134,7 @@ const websiteSchema = {
   </footer>
 
   <script>
-    document.addEventListener('astro:page-load', () => {
+    document.addEventListener('DOMContentLoaded', () => {
       const saved = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       if (saved === 'dark' || (!saved && prefersDark)) {

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import PartnerOffers from '../../components/PartnerOffers.astro';
 import { NpdVsIpCalculator } from '../../components/calculators/NpdVsIpCalculator';
 
 const title = 'Сравнение НПД и ИП 2026 — что выгоднее, онлайн калькулятор';
@@ -228,6 +229,9 @@ const faqSchema = {
           </article>
         </section>
 
+        <!-- Partner Offers -->
+        <PartnerOffers />
+
         <!-- FAQ -->
         <section class="mb-12" id="faq">
           <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Часто задаваемые вопросы</h2>
@@ -259,7 +263,7 @@ const faqSchema = {
               <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">Калькулятор налога НПД</h3>
               <p class="text-sm text-gray-500 dark:text-gray-400">4% или 6% — расчёт налога самозанятого</p>
             </a>
-            <a href="#" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
+            <a href="/dlya-samozanyatyh/vychet/" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
               <div class="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
               </div>
@@ -283,7 +287,7 @@ const faqSchema = {
               <h3 class="font-heading text-xl font-bold mb-2">Сравнили? Теперь подпишись</h3>
               <p class="text-gray-300 text-sm">1 финансовый лайфхак в день. Без спама.</p>
             </div>
-            <a href="#" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg shrink-0">Подписаться</a>
+            <a href="https://t.me/schitay_online" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg shrink-0">Подписаться</a>
           </div>
           <div class="mt-6 pt-6 border-t border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p class="text-sm text-gray-400">Понравился калькулятор? Сохрани результат и поделись.</p>
@@ -305,7 +309,7 @@ const faqSchema = {
           <div class="p-5 rounded-xl bg-gradient-to-br from-accent-600 to-blue-700 text-white">
             <h4 class="font-bold text-sm mb-2">Полезно?</h4>
             <p class="text-xs text-blue-100 mb-4">Подпишись на Telegram — 1 лайфхак в день.</p>
-            <a href="#" class="block w-full text-center py-2 rounded-lg bg-white/20 text-white font-bold text-sm hover:bg-white/30 transition-colors">Подписаться</a>
+            <a href="https://t.me/schitay_online" target="_blank" rel="noopener noreferrer" class="block w-full text-center py-2 rounded-lg bg-white/20 text-white font-bold text-sm hover:bg-white/30 transition-colors">Подписаться</a>
           </div>
         </div>
       </aside>

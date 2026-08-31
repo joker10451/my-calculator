@@ -163,7 +163,7 @@ export function SelfEmployedTaxCalculator() {
     const usnBurden = usnComp.totalBurden ?? usnComp.tax;
     const items: TaxBreakdown[] = [
       { tax: npdBurden, rate: npdComp.rate, label: 'НПД', color: '#10B981' },
-      { tax: usnBurden, rate: npdComp.rate, label: 'ИП УСН', color: '#F59E0B' },
+      { tax: usnBurden, rate: usnComp.effectiveRate ?? usnComp.rate, label: 'ИП УСН', color: '#F59E0B' },
       { tax: Math.round(ndflTax), rate: 13, label: 'НДФЛ 13%', color: '#64748B' },
     ];
     const minBurden = Math.min(...items.map((i) => i.tax));

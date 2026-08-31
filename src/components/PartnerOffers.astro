@@ -1,0 +1,264 @@
+---
+import { PARTNERS } from '../config/partners';
+import DisclosureNote from './DisclosureNote.astro';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  className?: string;
+}
+
+const {
+  title = 'Полезные сервисы для самозанятых',
+  subtitle = 'Проверенные финансовые инструменты для расчётов с клиентами, перехода на ИП и экономии на ипотеке',
+  className = '',
+} = Astro.props;
+
+const tbank = PARTNERS.tbank_account;
+const moeDelo = PARTNERS.moe_delo;
+---
+
+<section class={`my-12 ${className}`} aria-label="Партнёрские предложения и рекомендации">
+  <div class="mb-6 md:mb-8">
+    <div class="flex items-center gap-2 text-xs font-bold text-accent-600 dark:text-accent-400 uppercase tracking-wider mb-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+      <span>Выбор редакции</span>
+    </div>
+    <h2 class="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white leading-tight">
+      {title}
+    </h2>
+    <p class="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+      {subtitle}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+    <!-- Card 1: Т-Банк (Расчётный счёт для самозанятых) -->
+    <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 flex flex-col justify-between hover:shadow-xl hover:border-accent-400 dark:hover:border-accent-600 transition-all duration-300 relative group">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-400/15 dark:bg-amber-400/20 text-amber-600 dark:text-amber-400 flex items-center justify-center font-heading font-black text-base shrink-0">
+              Т
+            </div>
+            <div>
+              <span class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider block">Банкинг</span>
+              <h3 class="font-bold text-gray-900 dark:text-white leading-tight">{tbank.name}</h3>
+            </div>
+          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+            0 ₽ навсегда
+          </span>
+        </div>
+
+        <h4 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+          Расчётный счёт для самозанятых
+        </h4>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+          Бесплатный спецсчёт для расчётов с юрлицами, приёма платежей по СБП и автоматической отчётности.
+        </p>
+
+        <ul class="space-y-2 mb-6 text-xs text-gray-700 dark:text-gray-300">
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span><strong>0 ₽</strong> открытие и ведение счёта</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span><strong>Автоотправка чеков</strong> в приложение «Мой налог»</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Приём оплат от юрлиц и физлиц по QR-коду и СБП</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Мгновенный вывод средств на карту без комиссии</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-col gap-3">
+        <a
+          href={tbank.url}
+          target="_blank"
+          rel="sponsored nofollow noopener"
+          data-affiliate="true"
+          data-partner={tbank.name}
+          data-offer={tbank.offer}
+          class="w-full py-3 px-4 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-sm text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-accent-600/20 active:scale-[0.99]"
+        >
+          <span>Открыть счёт 0 ₽</span>
+          <svg class="w-4 h-4 shrink-0 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+        <div class="flex items-center justify-between text-[11px] text-gray-400 dark:text-gray-500">
+          <span>АО «ТБанк» • Лиц. ЦБ №2673</span>
+          <span>Реклама</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Моё Дело (Бухгалтерия для самозанятых и ИП) -->
+    <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 flex flex-col justify-between hover:shadow-xl hover:border-accent-400 dark:hover:border-accent-600 transition-all duration-300 relative group">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/15 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-heading font-black text-base shrink-0">
+              М
+            </div>
+            <div>
+              <span class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider block">Бухгалтерия</span>
+              <h3 class="font-bold text-gray-900 dark:text-white leading-tight">{moeDelo.name}</h3>
+            </div>
+          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+            Переход на ИП
+          </span>
+        </div>
+
+        <h4 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+          Бухгалтерия и отчётность онлайн
+        </h4>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+          Идеально, если превышаете лимит 2,4 млн ₽ или открываете ИП: налоги, взносы и отчётность на автопилоте.
+        </p>
+
+        <ul class="space-y-2 mb-6 text-xs text-gray-700 dark:text-gray-300">
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span><strong>Авторасчёт налогов</strong> и уменьшение на взносы</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span><strong>Сдача отчётности в ФНС</strong> онлайн без очередей</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Бесплатная регистрация ИП и открытие счёта</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Круглосуточная поддержка бухгалтеров и юристов</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-col gap-3">
+        <a
+          href={moeDelo.url}
+          target="_blank"
+          rel="sponsored nofollow noopener"
+          data-affiliate="true"
+          data-partner={moeDelo.name}
+          data-offer={moeDelo.offer}
+          class="w-full py-3 px-4 rounded-xl bg-gray-900 hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 text-white dark:text-gray-900 font-bold text-sm text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-gray-900/10 active:scale-[0.99]"
+        >
+          <span>Попробовать сервис</span>
+          <svg class="w-4 h-4 shrink-0 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+        <div class="flex items-center justify-between text-[11px] text-gray-400 dark:text-gray-500">
+          <span>ООО «Мое дело» • ОГРН 1097746840090</span>
+          <span>Реклама</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Ипотека и страхование для самозанятых (/semia/) -->
+    <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 flex flex-col justify-between hover:shadow-xl hover:border-accent-400 dark:hover:border-accent-600 transition-all duration-300 relative group">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/15 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center font-heading font-black text-base shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider block">Ипотека</span>
+              <h3 class="font-bold text-gray-900 dark:text-white leading-tight">Считай.RU</h3>
+            </div>
+          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+            Экономия до 50%
+          </span>
+        </div>
+
+        <h4 class="font-heading font-bold text-lg text-gray-900 dark:text-white mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+          Ипотека и страховка самозанятым
+        </h4>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+          Как подтвердить доход справкой из «Мой налог» и не переплачивать банку за обязательную страховку.
+        </p>
+
+        <ul class="space-y-2 mb-6 text-xs text-gray-700 dark:text-gray-300">
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span><strong>Сравнение цен 15+ страховых</strong> под любой банк</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span><strong>Экономия до 25 000 ₽/год</strong> по сравнению с тарифом банка</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Оформление полиса онлайн за 10 минут</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Принимается в Сбере, ВТБ, Альфа-Банке, Т-Банке</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-col gap-3">
+        <a
+          href="/semia/"
+          class="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-purple-600/20 active:scale-[0.99]"
+        >
+          <span>Рассчитать страховку</span>
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+        <div class="flex items-center justify-between text-[11px] text-gray-400 dark:text-gray-500">
+          <span>Считай.RU • Сервис подбора</span>
+          <span>Бесплатно</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <DisclosureNote />
+  </div>
+</section>

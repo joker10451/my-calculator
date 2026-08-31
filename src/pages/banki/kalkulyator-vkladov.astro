@@ -1,0 +1,403 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { DepositCalculator } from '../../components/calculators/DepositCalculator';
+
+const title = 'Калькулятор вкладов 2026 — расчёт доходности, процентов и налога | Считай.RU';
+const desc = 'Рассчитайте доход по вкладу с капитализацией и налог на проценты в 2026 году. Сравнение предложений 30+ банков. Бесплатно.';
+const canonical = 'https://schitay-online.ru/banki/kalkulyator-vkladov/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
+    { '@type': 'ListItem', position: 2, name: 'Банки и карты', item: 'https://schitay-online.ru/banki/' },
+    { '@type': 'ListItem', position: 3, name: 'Калькулятор вкладов', item: canonical },
+  ],
+};
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Калькулятор вкладов и налога на проценты 2026',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'RUB' },
+};
+
+const faqItems = [
+  {
+    question: 'Как рассчитывается налог на проценты по вкладам в 2026 году?',
+    answer:
+      'Налог рассчитывается по правилам статьи 214.2 НК РФ. Налогом 13% облагается не сама сумма вклада, а только совокупный процентный доход за календарный год, превышающий необлагаемый минимум. Необлагаемый лимит равен 1 000 000 ₽ × максимальная ключевая ставка ЦБ РФ, действовавшая на 1-е число любого месяца в течение налогового года. Если суммарные проценты во всех банках меньше лимита — налог равен 0 ₽.',
+  },
+  {
+    question: 'Какой необлагаемый лимит по вкладам действует сейчас?',
+    answer:
+      'Формула расчёта: 1 000 000 ₽ × максимальная ставка ЦБ на первое число месяца в расчётном году. Например, при ключевой ставке ЦБ 21% необлагаемый лимит составляет 210 000 ₽ в год. Если ваши совокупные проценты по всем счетам составили 250 000 ₽, налог 13% взимается только с разницы: (250 000 - 210 000) × 13% = 5 200 ₽.',
+  },
+  {
+    question: 'Нужно ли самостоятельно подавать налоговую декларацию (3-НДФЛ)?',
+    answer:
+      'Нет, подавать декларацию не требуется. Банки самостоятельно передают информацию о начисленных процентах в Федеральную налоговую службу (ФНС) до 1 февраля года, следующего за отчётным. ФНС суммирует доходы по всем вашим счетам, вычитает необлагаемый лимит и выставляет единое налоговое уведомление в Личном кабинете налогоплательщика. Срок уплаты — до 1 декабря.',
+  },
+  {
+    question: 'Что такое капитализация процентов и как она увеличивает доход?',
+    answer:
+      'Капитализация (сложный процент) — это схема, при которой начисленные за месяц или квартал проценты не выплачиваются на отдельную карту, а прибавляются к основной сумме депозита. В следующем периоде проценты начисляются уже на увеличенную сумму. За счёт этого эффективная ставка по вкладу оказывается выше номинальной на 0,5–1,5% годовых.',
+  },
+  {
+    question: 'Как защищены сбережения в банках РФ (страхование АСВ)?',
+    answer:
+      'Все вклады и накопительные счета физических лиц в банках — участниках Системы страхования вкладов (АСВ) застрахованы государством на сумму до 1 400 000 ₽ в одном банке (включая причисленные проценты). Если у вас сбережений больше 1,4 млн ₽, безопаснее распределить их между несколькими независимыми банками.',
+  },
+  {
+    question: 'Что выбрать: накопительный счёт или срочный вклад?',
+    answer:
+      'Срочный вклад фиксирует высокую процентную ставку на весь срок (от 3 месяцев до 3 лет), но при досрочном снятии проценты обычно сгорают. Накопительный счёт позволяет свободно пополнять и снимать деньги в любой день, однако банк имеет право изменить процентную ставку в одностороннем порядке в любой момент.',
+  },
+  {
+    question: 'Облагаются ли налогом доходы по валютным вкладам и счетам в юанях?',
+    answer:
+      'Да. Доход по валютным вкладам пересчитывается в рубли по официальному курсу Банка России на дату выплаты процентов и суммируется с рублёвыми процентными доходами при расчёте налоговой базы.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+---
+
+<Layout {title} description={desc} {canonical} type="article">
+  <Fragment slot="header">
+    <Header />
+  </Fragment>
+
+  <!-- Breadcrumbs -->
+  <nav class="container-main pt-6 pb-2" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Главная</span></a>
+        <meta itemprop="position" content="1" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/banki/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Банки и карты</span></a>
+        <meta itemprop="position" content="2" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
+        <span itemprop="name">Калькулятор вкладов</span>
+        <meta itemprop="position" content="3" />
+      </li>
+    </ol>
+  </nav>
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Mobile ToC -->
+  <div class="container-main lg:hidden overflow-x-auto pb-3 -mx-4 px-4">
+    <div class="flex gap-2 text-nowrap">
+      <a href="#calculator" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Калькулятор</a>
+      <a href="#offers" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Предложения банков</a>
+      <a href="#tax-guide" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Налог 2026 (ст. 214.2)</a>
+      <a href="#capitalization-guide" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Капитализация</a>
+      <a href="#asv-insurance" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Страховка АСВ 1.4 млн</a>
+      <a href="#faq" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Вопросы и ответы</a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container-main py-4 lg:py-6">
+    <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-10">
+      {/* Left Main Column */}
+      <div>
+        {/* Header Hero Section */}
+        <section class="mb-8" id="calculator">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 text-xs font-bold mb-3">
+            <span>🔥</span> Актуально на 2026 год: ключевая ставка и ст. 214.2 НК РФ
+          </div>
+          <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+            Калькулятор вкладов 2026 — доходность, проценты и налог
+          </h1>
+          <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            Рассчитайте точную доходность по банковскому вкладу с ежемесячной капитализацией, регулярным пополнением и вычетом налога на проценты (ст. 214.2 НК РФ). Мгновенный расчёт без регистрации.
+          </p>
+          <div class="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Учёт капитализации и пополнений
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Авторасчёт налога по ставке ЦБ
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-warm-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              Контроль лимита АСВ 1,4 млн ₽
+            </span>
+          </div>
+        </section>
+
+        {/* Interactive Calculator Section */}
+        <section class="mb-14">
+          <DepositCalculator client:visible />
+        </section>
+
+        {/* Pampadu Bank Offers Marketplace Widget */}
+        <section class="mb-14" id="offers">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white">
+                Актуальные предложения банков по вкладам
+              </h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                Сравните максимальные ставки в крупнейших банках РФ (Т-Банк, ВТБ, Альфа-Банк, Газпромбанк и др.)
+              </p>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-2 sm:p-3 shadow-lg overflow-hidden">
+            <iframe
+              src="https://ppdu.ru/41ef6068-a4eb-4179-a855-6c0270f8acf0"
+              id="pampadu-banki-widget"
+              style="width: 100%; border: none; height: 850px; border-radius: 16px;"
+              loading="lazy"
+              title="Витрина банковских вкладов и карт 2026"
+            ></iframe>
+          </div>
+
+          <p class="mt-3 text-xs text-gray-400 dark:text-gray-500 leading-relaxed">
+            Подбор продуктов осуществляется через сервис Pampadu (ООО «Страховые Партнёры», ИНН 9729069737). Партнёрский сервис. Условия и процентные ставки актуализируются банками в режиме реального времени.
+          </p>
+        </section>
+
+        {/* Detailed Informational Guide */}
+        <section class="mb-14 space-y-10" id="tax-guide">
+          {/* 1. Tax Guide */}
+          <div class="p-6 md:p-8 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/40 text-accent-600 dark:text-accent-400 flex items-center justify-center font-black text-lg">
+                %
+              </span>
+              <div>
+                <h2 class="font-heading text-xl md:text-2xl font-black text-gray-900 dark:text-white">
+                  Как работает налог на вклады в 2026 году (ст. 214.2 НК РФ)
+                </h2>
+                <p class="text-xs text-gray-400">Правила расчёта, необлагаемый минимум и сроки уплаты</p>
+              </div>
+            </div>
+
+            <div class="prose prose-gray dark:prose-invert max-w-none text-sm leading-relaxed space-y-4">
+              <p>
+                С 2021 года в России действует налог на доходы физических лиц по вкладам и счетам (статья 214.2 НК РФ). В 2026 году налогообложение процентных доходов рассчитывается по формуле с плавающим необлагаемым лимитом:
+              </p>
+
+              <div class="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 font-mono text-xs sm:text-sm text-gray-900 dark:text-white font-bold">
+                Необлагаемый лимит = 1 000 000 ₽ × Максимальная ключевая ставка ЦБ РФ в году
+              </div>
+
+              <h3 class="text-base font-bold text-gray-900 dark:text-white mt-4">Пример расчёта на цифрах:</h3>
+              <ul class="list-disc pl-5 space-y-1.5 text-gray-600 dark:text-gray-300">
+                <li>
+                  Допустим, максимальная ключевая ставка ЦБ РФ на 1-е число месяца в течение года составила <strong>21%</strong>.
+                </li>
+                <li>
+                  Необлагаемый минимум процентов за год равен: <code>1 000 000 ₽ × 21% = 210 000 ₽</code>.
+                </li>
+                <li>
+                  Если вы открыли вклад на <strong>1 500 000 ₽</strong> под <strong>19%</strong> годовых, начисленный доход составит <strong>285 000 ₽</strong>.
+                </li>
+                <li>
+                  Налоговая база: <code>285 000 ₽ - 210 000 ₽ = 75 000 ₽</code>.
+                </li>
+                <li>
+                  Сумма налога к уплате (13%): <code>75 000 ₽ × 13% = 9 750 ₽</code>.
+                </li>
+              </ul>
+
+              <div class="p-4 rounded-xl bg-accent-50 dark:bg-accent-950/20 border border-accent-200 dark:border-accent-800/40 text-accent-900 dark:text-accent-200 text-xs">
+                <strong>Важно знать:</strong> Доходы суммируются по всем счетам и вкладам во всех банках России. Банки сами передают отчёты в ФНС. Налоговая служба рассчитывает сумму и направляет единое уведомление в Личный кабинет налогоплательщика. Срок уплаты — <strong>до 1 декабря следующего года</strong>.
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Capitalization Guide */}
+          <div class="p-6 md:p-8 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm" id="capitalization-guide">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-black text-lg">
+                📈
+              </span>
+              <div>
+                <h2 class="font-heading text-xl md:text-2xl font-black text-gray-900 dark:text-white">
+                  Что такое капитализация и сложный процент
+                </h2>
+                <p class="text-xs text-gray-400">Разница между номинальной и эффективной ставкой</p>
+              </div>
+            </div>
+
+            <div class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed space-y-3">
+              <p>
+                <strong>Капитализация процентов</strong> — это присоединение начисленного дохода к сумме депозита. В каждом следующем месяце проценты считаются не только на первоначальный взнос, но и на все ранее начисленные проценты (эффект сложного процента).
+              </p>
+              <div class="grid sm:grid-cols-2 gap-4 my-4">
+                <div class="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                  <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">Без капитализации (простой процент)</h4>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">
+                    Проценты каждый месяц перечисляются на отдельную банковскую карту. Тело вклада не растёт. Подходит, если вам нужен постоянный пассивный доход на жизнь.
+                  </p>
+                </div>
+                <div class="p-4 rounded-xl border border-emerald-300 dark:border-emerald-700/60 bg-emerald-50 dark:bg-emerald-950/20">
+                  <h4 class="font-bold text-emerald-900 dark:text-emerald-200 text-sm mb-1">С капитализацией (сложный процент)</h4>
+                  <p class="text-xs text-emerald-800 dark:text-emerald-300">
+                    Проценты остаются на вкладе и увеличивают его тело. При номинальной ставке 19% годовых эффективная ставка достигает <strong>20,75%</strong>. Максимальная выгода для накоплений.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 3. ASV Insurance Guide */}
+          <div class="p-6 md:p-8 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm" id="asv-insurance">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-10 h-10 rounded-xl bg-warm-50 dark:bg-warm-900/40 text-warm-600 dark:text-warm-400 flex items-center justify-center font-black text-lg">
+                🛡️
+              </span>
+              <div>
+                <h2 class="font-heading text-xl md:text-2xl font-black text-gray-900 dark:text-white">
+                  Страхование вкладов АСВ: лимит 1,4 млн рублей
+                </h2>
+                <p class="text-xs text-gray-400">Государственные гарантии сохранности сбережений</p>
+              </div>
+            </div>
+
+            <div class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed space-y-3">
+              <p>
+                Вклады физических лиц и самозанятых в РФ застрахованы Агентством по страхованию вкладов (АСВ) на сумму до <strong>1 400 000 рублей</strong> в одном банке. Страховка распространяется на:
+              </p>
+              <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                <li>Срочные вклады в рублях и иностранной валюте;</li>
+                <li>Накопительные счета и счета до востребования;</li>
+                <li>Дебетовые карты и текущие счета;</li>
+                <li>Все начисленные проценты на момент отзыва лицензии.</li>
+              </ul>
+              <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40 text-amber-900 dark:text-amber-200 text-xs">
+                <strong>Стратегия безопасности:</strong> Если вы планируете разместить сумму свыше 1,4 млн ₽ (например, 3 000 000 ₽), откройте несколько вкладов по 1 200 000 – 1 300 000 ₽ в разных банках с запасом под будущие проценты. В этом случае 100% ваших денег и дохода будут гарантированы государством.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Accordion Section */}
+        <section class="mb-14" id="faq">
+          <h2 class="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-6">
+            Часто задаваемые вопросы о вкладах и налогах
+          </h2>
+          <div class="space-y-3">
+            {faqItems.map((item) => (
+              <details class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden">
+                <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-bold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors [&::-webkit-details-marker]:hidden">
+                  <span>{item.question}</span>
+                  <svg class="w-5 h-5 text-gray-400 shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </summary>
+                <div class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-open:max-h-[500px] group-open:opacity-100">
+                  {item.answer}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        {/* Related Calculators & Navigation */}
+        <section class="mb-14">
+          <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">
+            Другие полезные калькуляторы
+          </h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="/banki/" class="group p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
+              <div class="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <span class="text-xl">💳</span>
+              </div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">Банковский хаб</h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Сравнение кредитных карт, РКО и кредитов от 30+ банков</p>
+            </a>
+
+            <a href="/dlya-samozanyatyh/kalkulyator-naloga/" class="group p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <span class="text-xl">🧮</span>
+              </div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-emerald-600 transition-colors">Калькулятор налога НПД</h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Расчёт налога самозанятого 4% и 6% со сравнением с ИП</p>
+            </a>
+
+            <a href="/dlya-samozanyatyh/vychet/" class="group p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
+              <div class="w-10 h-10 rounded-xl bg-warm-50 dark:bg-warm-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <span class="text-xl">🎁</span>
+              </div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-warm-600 transition-colors">Вычет 10 000 ₽</h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Помесячный график списания налогового бонуса</p>
+            </a>
+          </div>
+        </section>
+
+        {/* Telegram CTA */}
+        <section class="p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 class="font-heading text-xl font-bold mb-2">Подпишись на Telegram Считай.RU</h3>
+              <p class="text-gray-300 text-sm">Обзоры лучших ставок по вкладам и финансовые лайфхаки без спама.</p>
+            </div>
+            <a href="https://t.me/schitay_online" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg shrink-0">
+              Подписаться
+            </a>
+          </div>
+        </section>
+      </div>
+
+      {/* Right Desktop Sticky Sidebar */}
+      <aside class="hidden lg:block">
+        <div class="sticky top-24 space-y-6">
+          <div class="p-5 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
+            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Навигация по странице</h4>
+            <nav class="space-y-2 text-sm">
+              <a href="#calculator" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Калькулятор доходности</a>
+              <a href="#offers" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Витрина вкладов 30+ банков</a>
+              <a href="#tax-guide" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Налог на вклады (ст. 214.2)</a>
+              <a href="#capitalization-guide" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Капитализация и сложный %</a>
+              <a href="#asv-insurance" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Лимит страховки АСВ</a>
+              <a href="#faq" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Частые вопросы</a>
+            </nav>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-accent-600 to-blue-700 text-white shadow-md">
+            <h4 class="font-bold text-sm mb-2">Подбор лучшего вклада</h4>
+            <p class="text-xs text-blue-100 mb-4">Сравните ставки до 22% в проверенных банках и откройте онлайн.</p>
+            <a href="#offers" class="block w-full text-center py-2.5 rounded-xl bg-white text-accent-700 font-bold text-xs hover:bg-gray-100 transition-colors">
+              Выбрать вклад →
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  details[open] > div {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 0;
+    padding-bottom: 16px;
+  }
+</style>

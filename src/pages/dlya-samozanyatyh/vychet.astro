@@ -1,0 +1,507 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { TaxDeductionCalculator } from '../../components/calculators/TaxDeductionCalculator';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+import DisclosureNote from '../../components/DisclosureNote.astro';
+import { PARTNERS } from '../../config/partners';
+
+const title = 'Калькулятор налогового вычета 10 000 ₽ для самозанятых 2026';
+const desc = 'Рассчитайте налоговый вычет 10 000 ₽ для самозанятых (НПД) по 422-ФЗ. Сколько месяцев действует скидка (3% с физлиц, 4% с юрлиц), остаток бонуса и экономия онлайн.';
+const canonical = 'https://schitay-online.ru/dlya-samozanyatyh/vychet/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
+    { '@type': 'ListItem', position: 2, name: 'Самозанятым', item: 'https://schitay-online.ru/dlya-samozanyatyh/' },
+    { '@type': 'ListItem', position: 3, name: 'Налоговый вычет 10 000 ₽', item: canonical },
+  ],
+};
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Калькулятор налогового вычета 10 000 ₽ для самозанятых',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'RUB' },
+};
+
+const faqItems = [
+  {
+    question: 'Что такое налоговый вычет 10 000 ₽ для самозанятых?',
+    answer: 'Это государственный единовременный бонус (ст. 12 Федерального закона № 422-ФЗ), который автоматически предоставляется каждому гражданину при первой регистрации в качестве самозанятого (плательщика НПД). Бонус не перечисляется на банковскую карту деньгами, а уменьшает начисляемый налог: ставка снижается с 4% до 3% при работе с физлицами (скидка 1%) и с 6% до 4% при работе с юрлицами и ИП (скидка 2%).',
+  },
+  {
+    question: 'Как получить налоговый бонус 10 000 ₽?',
+    answer: 'Подавать заявления, собирать чеки или посещать налоговую инспекцию не требуется. Бонус 10 000 ₽ начисляется автоматически сразу после регистрации в приложении «Мой налог». Сумма сразу видна на главном экране личного кабинета, и налоговая служба самостоятельно списывает её при расчёте ежемесячного платежа.',
+  },
+  {
+    question: 'Сгорает ли вычет в конце календарного года?',
+    answer: 'Нет, налоговый вычет самозанятого не имеет срока давности и не сгорает 31 декабря. Неиспользованный остаток бонуса в полном объёме переносится на следующий месяц и на все последующие годы, пока не будет исчерпан до 0 ₽.',
+  },
+  {
+    question: 'Что происходит с бонусом, если закрыть самозанятость и открыться снова?',
+    answer: 'Если вы сниметесь с учёта в качестве самозанятого, неиспользованный остаток налогового бонуса сохраняется за вашим ИНН. При повторной регистрации бонус возобновит своё действие ровно на ту сумму, которая оставалась. Однако новые 10 000 ₽ повторно не начисляются — вычет предоставляется один раз в жизни.',
+  },
+  {
+    question: 'На сколько месяцев хватает вычета 10 000 ₽?',
+    answer: 'Срок действия зависит от суммы ежемесячного дохода и типа заказчиков. Например, при доходе 100 000 ₽ в месяц от физлиц экономия составляет 1 000 ₽/мес — вычета хватит ровно на 10 месяцев. При доходе 100 000 ₽ от юрлиц экономия 2 000 ₽/мес — бонуса хватит на 5 месяцев. При доходе 50 000 ₽ от физлиц бонус действует 20 месяцев.',
+  },
+  {
+    question: 'Можно ли вывести 10 000 ₽ бонуса на банковскую карту?',
+    answer: 'Нет, закон не предусматривает выплату бонуса наличными или перевод на банковский счёт. Эти средства предназначены исключительно для автоматической компенсации части налога на профессиональный доход при формировании чеков в приложении «Мой налог».',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+---
+
+<Layout {title} description={desc} {canonical} type="article">
+  <Fragment slot="header">
+    <Header />
+  </Fragment>
+
+  <!-- Breadcrumbs -->
+  <nav class="container-main pt-6 pb-2" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Главная</span></a>
+        <meta itemprop="position" content="1" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/dlya-samozanyatyh/" itemprop="item" class="hover:text-accent-600 transition-colors"><span itemprop="name">Самозанятым</span></a>
+        <meta itemprop="position" content="2" />
+        <span class="mx-1">/</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
+        <span itemprop="name">Налоговый вычет 10 000 ₽</span>
+        <meta itemprop="position" content="3" />
+      </li>
+    </ol>
+  </nav>
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Mobile Table of Contents -->
+  <div class="container-main lg:hidden overflow-x-auto pb-3 -mx-4 px-4">
+    <div class="flex gap-2 text-nowrap">
+      <a href="#как-работает-бонус" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Как работает бонус</a>
+      <a href="#таблица-расчёта" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Таблица на цифрах</a>
+      <a href="#кому-положен-вычет" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Кому положен</a>
+      <a href="#сгорает-ли-бонус" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Сгорает ли вычет</a>
+      <a href="#партнёрские-сервисы" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Сервисы</a>
+      <a href="#faq" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">FAQ</a>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="container-main py-4 lg:py-6">
+    <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-10">
+      <!-- Left Content Column -->
+      <div>
+        <!-- Hero Section -->
+        <section class="mb-8">
+          <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+            Калькулятор налогового вычета 10 000 ₽ для самозанятых
+          </h1>
+          <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+            Рассчитайте, на сколько месяцев вам хватит государственного налогового бонуса 10 000 ₽,
+            какой будет льготная ставка (3% с физлиц и 4% с юрлиц) и сколько рублей вы сэкономите в месяц.
+          </p>
+          <div class="flex flex-wrap gap-3 text-sm text-gray-400 dark:text-gray-500">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Актуально: 2026 год (422-ФЗ)
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Время расчёта: мгновенно
+            </span>
+          </div>
+        </section>
+
+        <!-- Calculator Component -->
+        <section class="mb-12">
+          <div class="rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 md:p-6">
+            <TaxDeductionCalculator client:visible />
+          </div>
+        </section>
+
+        <!-- Step by Step Guide -->
+        <section class="mb-12">
+          <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Как пользоваться калькулятором</h2>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+              <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-heading font-black text-lg mb-3">1</div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1">Укажите доход</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Передвиньте ползунок или введите сумму вашего среднемесячного дохода от деятельности.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+              <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-heading font-black text-lg mb-3">2</div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1">Выберите клиентов</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Физлица (скидка 1%, налог 3%) или юридические лица и ИП (скидка 2%, налог 4%).</p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+              <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-heading font-black text-lg mb-3">3</div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1">Оцените результат</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Узнайте сумму ежемесячной экономии, льготный налог и график списания бонуса 10 000 ₽.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Explanatory Content / Articles -->
+        <article class="prose prose-gray dark:prose-invert max-w-none mb-12">
+          <section id="как-работает-бонус">
+            <h2>Как устроен налоговый вычет для самозанятых по 422-ФЗ</h2>
+            <p>
+              Каждый гражданин, регистрирующийся в качестве плательщика налога на профессиональный доход (НПД),
+              получает от государства <strong>налоговый бонус в размере 10 000 рублей</strong>. Это регламентировано
+              <strong>статьёй 12 Федерального закона № 422-ФЗ</strong>.
+            </p>
+            <p>
+              Важно понимать: это не «живые деньги», которые поступят вам на карту. Государство начисляет виртуальный баланс
+              в приложении <strong>«Мой налог»</strong>, который автоматически уменьшает процентную ставку налога до тех пор,
+              пока суммарная скидка не достигнет 10 000 ₽:
+            </p>
+            <ul>
+              <li>
+                <strong>При работе с физическими лицами:</strong> базовая ставка <strong>4%</strong> снижается до <strong>3%</strong> (вычет составляет 1% от суммы чека).
+              </li>
+              <li>
+                <strong>При работе с юридическими лицами и ИП:</strong> базовая ставка <strong>6%</strong> снижается до <strong>4%</strong> (вычет составляет 2% от суммы чека).
+              </li>
+            </ul>
+            <p>
+              Налогоплательщику ничего не нужно считать вручную. При формировании каждого чека приложение «Мой налог»
+              самостоятельно определяет ставку, вычитает положенную скидку и показывает уменьшенную сумму налога к уплате.
+            </p>
+          </section>
+
+          <section id="таблица-расчёта">
+            <h2>Таблица: на сколько хватает вычета 10 000 ₽ при разном доходе</h2>
+            <p>
+              Чем выше ваш доход и чем больше доля заказов от юрлиц, тем быстрее расходуется стартовый бонус.
+              Ниже приведены точные расчёты для популярных уровней дохода:
+            </p>
+
+            <div class="overflow-x-auto my-6">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th class="text-left py-2.5 pr-4 font-bold text-gray-900 dark:text-white">Доход / мес</th>
+                    <th class="text-left py-2.5 px-4 font-bold text-gray-900 dark:text-white">Тип клиента</th>
+                    <th class="text-right py-2.5 px-4 font-bold text-emerald-600">Налог с вычетом</th>
+                    <th class="text-right py-2.5 px-4 font-bold text-gray-900 dark:text-white">Экономия / мес</th>
+                    <th class="text-right py-2.5 pl-4 font-bold text-accent-600">Хватит на</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-gray-100 dark:border-gray-800">
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">30 000 ₽</td>
+                    <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Физлица (3%)</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">900 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">300 ₽</td>
+                    <td class="text-right py-2.5 pl-4 font-bold text-accent-600">~33 мес.</td>
+                  </tr>
+                  <tr class="border-b border-gray-100 dark:border-gray-800">
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">50 000 ₽</td>
+                    <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Физлица (3%)</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">1 500 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">500 ₽</td>
+                    <td class="text-right py-2.5 pl-4 font-bold text-accent-600">20 мес.</td>
+                  </tr>
+                  <tr class="border-b border-gray-100 dark:border-gray-800">
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">80 000 ₽</td>
+                    <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Физлица (3%)</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">2 400 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">800 ₽</td>
+                    <td class="text-right py-2.5 pl-4 font-bold text-accent-600">12.5 мес.</td>
+                  </tr>
+                  <tr class="border-b border-gray-100 dark:border-gray-800">
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">100 000 ₽</td>
+                    <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Физлица (3%)</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">3 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">1 000 ₽</td>
+                    <td class="text-right py-2.5 pl-4 font-bold text-accent-600">10 мес.</td>
+                  </tr>
+                  <tr class="border-b border-gray-100 dark:border-gray-800">
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">100 000 ₽</td>
+                    <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Юрлица / ИП (4%)</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">4 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">2 000 ₽</td>
+                    <td class="text-right py-2.5 pl-4 font-bold text-accent-600">5 мес.</td>
+                  </tr>
+                  <tr class="border-b border-gray-100 dark:border-gray-800">
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">150 000 ₽</td>
+                    <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Юрлица / ИП (4%)</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">6 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">3 000 ₽</td>
+                    <td class="text-right py-2.5 pl-4 font-bold text-accent-600">~3.3 мес.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">200 000 ₽</td>
+                    <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Юрлица / ИП (4%)</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">8 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">4 000 ₽</td>
+                    <td class="text-right py-2.5 pl-4 font-bold text-accent-600">2.5 мес.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="кому-положен-вычет">
+            <h2>Кому предоставляется налоговый бонус</h2>
+            <p>Право на вычет 10 000 ₽ имеют:</p>
+            <ul>
+              <li>Все граждане РФ, впервые зарегистрировавшиеся в качестве плательщиков налога на профессиональный доход.</li>
+              <li>Граждане стран Евразийского экономического союза (Беларусь, Казахстан, Армения, Киргизия), вставшие на учёт как самозанятые в РФ.</li>
+              <li>Несовершеннолетние самозанятые (с 14 лет с согласия родителей или с 16 лет при эмансипации).</li>
+            </ul>
+            <p>
+              Бонус предоставляется <strong>один раз за всю жизнь</strong>. Если вы полностью использовали 10 000 ₽,
+              дальнейшие налоги уплачиваются по стандартным ставкам: 4% с физлиц и 6% с юрлиц.
+            </p>
+          </section>
+
+          <section id="сгорает-ли-бонус">
+            <h2>Сгорает ли вычет и что происходит при снятии с учёта</h2>
+            <p>
+              Один из самых частых вопросов самозанятых — «сгорит ли бонус, если я не заработаю ничего за год?».
+            </p>
+            <p>
+              <strong>Ответ — нет, бонус бессрочный.</strong> Он не привязан к календарному году и не сгорает 31 декабря.
+              Если в какие-то месяцы у вас нет дохода, остаток бонуса просто замораживается на счёте в приложении «Мой налог»
+              и активируется при первом же новом чеке.
+            </p>
+            <h3>Что происходит при закрытии и повторном открытии самозанятости:</h3>
+            <ol>
+              <li>
+                <strong>Если вы потратили часть бонуса (например, 4 000 ₽):</strong> при снятии с учёта оставшиеся 6 000 ₽ закрепляются за вашим ИНН. Когда вы решите снова стать самозанятым — вам будут доступны именно эти 6 000 ₽.
+              </li>
+              <li>
+                <strong>Если вы потратили все 10 000 ₽:</strong> при повторном открытии самозанятости вычет будет равен 0 ₽, налог сразу пойдёт по базовым ставкам 4% и 6%.
+              </li>
+              <li>
+                <strong>Новые 10 000 ₽ не выдаются:</strong> повторная регистрация не сбрасывает счётчик вычета.
+              </li>
+            </ol>
+          </section>
+        </article>
+
+        <!-- Partner Offers Section -->
+        <section class="mb-12" id="партнёрские-сервисы">
+          <div class="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800/80 border border-gray-200 dark:border-gray-800 shadow-md">
+            <div class="max-w-2xl mb-6">
+              <span class="text-xs font-bold uppercase tracking-widest text-accent-600 dark:text-accent-400 mb-1 block">
+                Рекомендации для самозанятых
+              </span>
+              <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-2">
+                Удобные сервисы для работы с чеками и клиентами
+              </h2>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Бесплатные расчётные счета и сервисы для автоматической отправки чеков в ФНС без комиссии.
+              </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4 mb-4">
+              <!-- Partner 1: T-Bank Account -->
+              <div class="p-5 rounded-xl bg-white dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-heading font-black text-base text-gray-900 dark:text-white">
+                      {PARTNERS.tbank_account.name}
+                    </span>
+                    <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-accent-50 dark:bg-accent-900/40 text-accent-600 dark:text-accent-400">
+                      0 ₽ обслуживание
+                    </span>
+                  </div>
+                  <h3 class="font-bold text-sm text-gray-800 dark:text-gray-200 mb-1">
+                    {PARTNERS.tbank_account.offer}
+                  </h3>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                    Автоматическая регистрация дохода, привязка к «Мой налог», моментальные переводы на любые карты без комиссии.
+                  </p>
+                </div>
+                <AffiliateLink
+                  href={PARTNERS.tbank_account.url}
+                  partner={PARTNERS.tbank_account.name}
+                  offer={PARTNERS.tbank_account.offer}
+                  variant="button"
+                >
+                  Открыть счёт
+                </AffiliateLink>
+              </div>
+
+              <!-- Partner 2: Moe Delo -->
+              <div class="p-5 rounded-xl bg-white dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-heading font-black text-base text-gray-900 dark:text-white">
+                      {PARTNERS.moe_delo.name}
+                    </span>
+                    <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
+                      Онлайн-сервис
+                    </span>
+                  </div>
+                  <h3 class="font-bold text-sm text-gray-800 dark:text-gray-200 mb-1">
+                    {PARTNERS.moe_delo.offer}
+                  </h3>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                    Учёт договоров с юрлицами, выставление счетов, акты выполненных работ и проверка контрагентов.
+                  </p>
+                </div>
+                <AffiliateLink
+                  href={PARTNERS.moe_delo.url}
+                  partner={PARTNERS.moe_delo.name}
+                  offer={PARTNERS.moe_delo.offer}
+                  variant="button"
+                >
+                  Попробовать
+                </AffiliateLink>
+              </div>
+            </div>
+
+            <DisclosureNote />
+          </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="mb-12" id="faq">
+          <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Часто задаваемые вопросы</h2>
+          <div class="space-y-2">
+            {faqItems.map((item) => (
+              <details class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden">
+                <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-bold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors [&::-webkit-details-marker]:hidden">
+                  <span>{item.question}</span>
+                  <svg class="w-5 h-5 text-gray-400 shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </summary>
+                <div class="px-5 pb-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-open:max-h-[500px] group-open:opacity-100">
+                  {item.answer}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <!-- Related Calculators -->
+        <section class="mb-12">
+          <h2 class="font-heading text-2xl font-black text-gray-900 dark:text-white mb-6">Другие калькуляторы для самозанятых</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="/dlya-samozanyatyh/kalkulyator-naloga/" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              </div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">Калькулятор налога НПД</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">4% или 6% — полный расчёт налога самозанятого</p>
+            </a>
+
+            <a href="/dlya-samozanyatyh/npd-vs-ip/" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-warm-300 dark:hover:border-warm-700 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-warm-50 dark:bg-warm-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 text-warm-600 dark:text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+              </div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-warm-600 transition-colors">Сравнение НПД vs ИП</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Что выгоднее: самозанятость или ИП на УСН 6%</p>
+            </a>
+
+            <a href="/blog/7-oshibok-samozanyatyh-2026/" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              </div>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-emerald-600 transition-colors">7 ошибок самозанятых</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Штрафы за чеки, лимит 2,4 млн и чеки от юрлиц</p>
+            </a>
+          </div>
+        </section>
+
+        <!-- CTA Box -->
+        <section class="mb-12 p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 class="font-heading text-xl font-bold mb-2">Подпишись на Telegram-канал</h3>
+              <p class="text-gray-300 text-sm">1 финансовый лайфхак и разбор законов в день. Без спама.</p>
+            </div>
+            <a href="https://t.me/schitay_online" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-bold hover:bg-accent-700 transition-colors shadow-lg shrink-0">
+              Подписаться
+            </a>
+          </div>
+          <div class="mt-6 pt-6 border-t border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-gray-400">Понравился расчёт вычета? Поделитесь с коллегами.</p>
+            <button onclick="if (navigator.share) { navigator.share({ title: document.title, url: window.location.href }); } else if (navigator.clipboard) { navigator.clipboard.writeText(window.location.href); }" class="px-5 py-2.5 rounded-xl bg-white/10 text-white font-bold text-sm hover:bg-white/20 transition-colors border border-white/20">
+              Поделиться ссылкой
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Sidebar (Desktop) -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24 space-y-6">
+          <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Содержание статьи</h4>
+            <nav class="space-y-2 text-sm">
+              <a href="#как-работает-бонус" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Как работает бонус</a>
+              <a href="#таблица-расчёта" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Таблица на цифрах</a>
+              <a href="#кому-положен-вычет" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Кому положен вычет</a>
+              <a href="#сгорает-ли-бонус" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Сгорает ли вычет</a>
+              <a href="#партнёрские-сервисы" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Сервисы для самозанятых</a>
+              <a href="#faq" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Вопросы и ответы</a>
+            </nav>
+          </div>
+
+          <div class="p-5 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white">
+            <h4 class="font-bold text-sm mb-2">Бонус 10 000 ₽</h4>
+            <p class="text-xs text-emerald-100 mb-4">Бессрочный налоговый вычет по ст. 12 422-ФЗ. Снижает налог до 3% и 4%.</p>
+            <a href="#faq" class="block w-full text-center py-2 rounded-lg bg-white/20 text-white font-bold text-sm hover:bg-white/30 transition-colors">Подробнее в FAQ</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  details[open] > div {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 0;
+    padding-bottom: 16px;
+  }
+
+  :global(.dark) .prose :where(table) {
+    --tw-prose-body: #9CA3AF;
+    --tw-prose-headings: #F3F4F6;
+    --tw-prose-bold: #F3F4F6;
+    --tw-prose-th-borders: #374151;
+    --tw-prose-td-borders: #374151;
+  }
+
+  .prose :where(table) {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 768px) {
+    .prose :where(table) {
+      white-space: normal;
+    }
+  }
+</style>
