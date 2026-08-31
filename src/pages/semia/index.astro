@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import HomeGoodsShowcase from '../../components/HomeGoodsShowcase.astro';
 import { getCollection } from 'astro:content';
 
 const allArticles = await getCollection('blog');
@@ -241,6 +242,9 @@ const banks = ['Сбербанк', 'ВТБ', 'Альфа-Банк', 'Т-Банк
     </div>
     <p class="text-xs text-gray-400 dark:text-gray-500">И другие — всего 50+ банков принимают полисы из каталога Pampadu.</p>
   </section>
+
+  <!-- Cozy Home Showcase -->
+  <HomeGoodsShowcase />
 
   <!-- FAQ -->
   <section class="container-main pb-12" id="faq">

@@ -1,0 +1,181 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  className?: string;
+}
+
+const {
+  title = 'Обустройство новой квартиры: скидки до 70% на текстиль и декор',
+  subtitle = 'Специальные предложения для новосёлов от Cozy Home — постельное бельё, подушки, пледы и декор для дома с выгодой.',
+  className = '',
+} = Astro.props;
+
+const deals = [
+  {
+    name: 'Комплект постельного белья Floox Горький шоколад/Пралине',
+    category: 'Постельное бельё',
+    price: '1 799 ₽',
+    oldPrice: '3 490 ₽',
+    discount: '-48%',
+    image: 'https://cozyhome.ru/upload/iblock/c52/y834w2e96qqoocmubpmw28j8jnh93rnu/gorkiy_shokolad_praline_B26339_1.jpeg',
+    url: 'https://trk.ppdu.ru/click/4sc0SauZ?erid=2SDnjcYLDVv&dl=https%3A%2F%2Fcozyhome.ru%2Fapp%2Fproduct%2Fpostelnoe-bele-gorkiy-shokolad-praline-dvuspalnyy-korichnevyy-B26352',
+  },
+  {
+    name: 'Подушка Микромассаж 50х70 (микроволокно лебяжий пух)',
+    category: 'Подушки',
+    price: '999 ₽',
+    oldPrice: '1 990 ₽',
+    discount: '-50%',
+    image: 'https://cozyhome.ru/upload/iblock/ab3/83dpqupsllegt9m8owkwz3i3ixhvjhib/mikromassazh_micro_massage_655785_655785.jpeg',
+    url: 'https://trk.ppdu.ru/click/4sc0SauZ?erid=2SDnjcYLDVv&dl=https%3A%2F%2Fcozyhome.ru%2Fapp%2Fproduct%2Fpodushka-micro-massage-50kh70-belyy-655785',
+  },
+  {
+    name: 'Скатерть праздничная Esselva 145х245',
+    category: 'Столовый текстиль',
+    price: '1 699 ₽',
+    oldPrice: '5 990 ₽',
+    discount: '-72%',
+    image: 'https://cozyhome.ru/upload/iblock/8d4/ouriq47tl2gy3y7neyg5klr7hh17faxi/esselva_esselva_A86906_1.jpeg',
+    url: 'https://trk.ppdu.ru/click/4sc0SauZ?erid=2SDnjcYLDVv&dl=https%3A%2F%2Fcozyhome.ru%2Fapp%2Fproduct%2Fskatert-esselva-esselva-ii-145kh245-belyy-A86907',
+  },
+  {
+    name: 'Комплект наволочек Лиловое сердце (поплин 50х70, 2 шт.)',
+    category: 'Наволочки',
+    price: '999 ₽',
+    oldPrice: '1 990 ₽',
+    discount: '-50%',
+    image: 'https://cozyhome.ru/upload/iblock/bdb/ryrjmv9kxr75lsgfc9x631qi21zb6phr/lilovoe_serdtse_B08986_1.jpeg',
+    url: 'https://trk.ppdu.ru/click/4sc0SauZ?erid=2SDnjcYLDVv&dl=https%3A%2F%2Fcozyhome.ru%2Fapp%2Fproduct%2Fkomplekt-navolochek-lilovoe-serdtse-50kh70-2-sht--zheltyy-B08986',
+  },
+];
+
+const generalCtaUrl = 'https://trk.ppdu.ru/click/4sc0SauZ?erid=2SDnjcYLDVv';
+const disclosureText = 'Реклама. ООО «Кози Хоум», ИНН 7724334335, erid: 2SDnjcYLDVv';
+---
+
+<section class={`container-main pb-12 ${className}`} aria-label="Специальные предложения для новосёлов от Cozy Home">
+  <div class="mb-6 md:mb-8">
+    <div class="flex items-center gap-2 text-xs font-bold text-accent-600 dark:text-accent-400 uppercase tracking-wider mb-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      </svg>
+      <span>Уютный дом • Спецпредложения</span>
+    </div>
+    <h2 class="font-heading text-2xl md:text-3xl font-black text-gray-900 dark:text-white leading-tight">
+      {title}
+    </h2>
+    <p class="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed">
+      {subtitle}
+    </p>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+    {deals.map((item) => (
+      <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden flex flex-col justify-between hover:shadow-xl hover:border-accent-400 dark:hover:border-accent-600 transition-all duration-300 group">
+        <div>
+          <!-- Image with discount badge -->
+          <a
+            href={item.url}
+            target="_blank"
+            rel="sponsored nofollow noopener"
+            data-affiliate="true"
+            data-partner="Cozy Home"
+            data-offer={item.name}
+            class="block relative aspect-square w-full overflow-hidden bg-gray-100 dark:bg-gray-800"
+          >
+            <img
+              src={item.image}
+              alt={item.name}
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+            />
+            <span class="absolute top-3 left-3 bg-red-600 text-white font-black text-xs px-2.5 py-1 rounded-lg shadow-sm">
+              {item.discount}
+            </span>
+            <span class="absolute top-3 right-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm text-gray-800 dark:text-gray-200 text-[11px] font-semibold px-2 py-0.5 rounded-md shadow-sm">
+              {item.category}
+            </span>
+          </a>
+
+          <!-- Details -->
+          <div class="p-4 sm:p-5 pb-0">
+            <h3 class="font-heading font-bold text-sm md:text-base text-gray-900 dark:text-white leading-snug line-clamp-2 min-h-[2.5rem] group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+              <a
+                href={item.url}
+                target="_blank"
+                rel="sponsored nofollow noopener"
+                data-affiliate="true"
+                data-partner="Cozy Home"
+                data-offer={item.name}
+              >
+                {item.name}
+              </a>
+            </h3>
+
+            <!-- Price block -->
+            <div class="mt-3 flex items-baseline gap-2">
+              <span class="font-heading font-black text-xl text-gray-900 dark:text-white">
+                {item.price}
+              </span>
+              <span class="text-xs md:text-sm text-gray-400 dark:text-gray-500 line-through font-medium">
+                {item.oldPrice}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="p-4 sm:p-5 pt-4">
+          <a
+            href={item.url}
+            target="_blank"
+            rel="sponsored nofollow noopener"
+            data-affiliate="true"
+            data-partner="Cozy Home"
+            data-offer={item.name}
+            class="w-full py-2.5 px-3 rounded-xl bg-accent-50 dark:bg-accent-950/40 text-accent-700 dark:text-accent-300 hover:bg-accent-600 hover:text-white dark:hover:bg-accent-600 dark:hover:text-white font-bold text-xs sm:text-sm text-center transition-all duration-200 flex items-center justify-center gap-1.5 border border-accent-200/60 dark:border-accent-800/60 active:scale-[0.99]"
+          >
+            <span>Купить со скидкой</span>
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- General CTA Banner -->
+  <div class="mt-8 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-warm-50 via-warm-100/50 to-accent-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 border border-warm-200/60 dark:border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+    <div>
+      <h3 class="font-heading font-bold text-lg md:text-xl text-gray-900 dark:text-white mb-1">
+        Больше товаров для уюта в новом доме
+      </h3>
+      <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+        Тысячи позиций постельного белья, полотенец, пледов, посуды и декора со скидками до 70%
+      </p>
+    </div>
+    <a
+      href={generalCtaUrl}
+      target="_blank"
+      rel="sponsored nofollow noopener"
+      data-affiliate="true"
+      data-partner="Cozy Home"
+      data-offer="Каталог акций"
+      class="shrink-0 py-3 px-5 sm:px-6 rounded-xl bg-accent-600 hover:bg-accent-700 text-white font-bold text-sm text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-accent-600/20 active:scale-[0.99]"
+    >
+      <span>Перейти в каталог акций Cozy Home (скидки до 70%)</span>
+      <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+      </svg>
+    </a>
+  </div>
+
+  <!-- Advertising Disclosure -->
+  <p class="mt-4 text-xs text-gray-400 dark:text-gray-500 leading-relaxed text-center">
+    {disclosureText}
+  </p>
+</section>
