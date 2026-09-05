@@ -3,127 +3,132 @@
 // Simplified NPD vs USN comparison for the hero section.
 ---
 
-<div class="fintech-card p-5 sm:p-6 lg:p-7 bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800/90 shadow-card">
-  <!-- Card Header -->
-  <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
-    <div>
-      <div class="flex items-center gap-2">
-        <h2 class="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
-          Экспресс-сравнение налогов
-        </h2>
-        <span class="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-semibold bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/80 font-tabular">
-          2026
-        </span>
-      </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-        Самозанятость (4%) vs ИП на УСН (6%)
-      </p>
-    </div>
-    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80 font-tabular">
-      Онлайн-калькулятор
-    </span>
-  </div>
+<div class="relative">
+  <!-- Ambient Backdrop Glow -->
+  <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-600/30 via-indigo-600/20 to-emerald-600/20 blur-xl opacity-75 pointer-events-none"></div>
 
-  <!-- Income Slider -->
-  <div class="pt-5 pb-4">
-    <div class="flex items-baseline justify-between mb-2">
-      <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider" for="hero-income">
-        Доход в месяц
-      </label>
-      <span class="text-xl sm:text-2xl font-bold font-tabular text-slate-900 dark:text-white tracking-tight" id="hero-income-value">
-        100 000 ₽
+  <div class="relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-2xl backdrop-blur-xl">
+    <!-- Card Header -->
+    <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+      <div>
+        <div class="flex items-center gap-2">
+          <h2 class="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+            Экспресс-сравнение налогов
+          </h2>
+          <span class="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-semibold bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/80 font-tabular">
+            2026
+          </span>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          Самозанятость (4%) vs ИП на УСН (6%)
+        </p>
+      </div>
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80 font-tabular">
+        Онлайн-калькулятор
       </span>
     </div>
 
-    <input
-      type="range"
-      id="hero-income"
-      min="10000"
-      max="500000"
-      step="5000"
-      value="100000"
-      class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-hidden"
-      aria-label="Доход в месяц"
-    />
-    <div class="flex justify-between text-[11px] text-slate-400 dark:text-slate-500 mt-1 font-tabular">
-      <span>10 000 ₽</span>
-      <span>250 000 ₽</span>
-      <span>500 000 ₽</span>
-    </div>
-  </div>
-
-  <!-- Two Comparison Result Cards -->
-  <div class="grid grid-cols-2 gap-3 pb-4">
-    <!-- NPD Box -->
-    <div class="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/70 dark:border-slate-800/80">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-semibold text-slate-600 dark:text-slate-300">
-          НПД (Самозанятый)
-        </span>
-        <span class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 font-tabular">
-          4%
+    <!-- Income Slider -->
+    <div class="pt-5 pb-4">
+      <div class="flex items-baseline justify-between mb-2">
+        <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider" for="hero-income">
+          Доход в месяц
+        </label>
+        <span class="text-xl sm:text-2xl font-bold font-tabular text-slate-900 dark:text-white tracking-tight" id="hero-income-value">
+          100 000 ₽
         </span>
       </div>
-      <span class="text-lg sm:text-xl font-bold font-tabular text-emerald-600 dark:text-emerald-400 block mt-1" id="hero-npd-amount">
-        4 000 ₽
-      </span>
-      <span class="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5">
-        взносы 0 ₽ • без отчётов
-      </span>
+
+      <input
+        type="range"
+        id="hero-income"
+        min="10000"
+        max="500000"
+        step="5000"
+        value="100000"
+        class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-hidden"
+        aria-label="Доход в месяц"
+      />
+      <div class="flex justify-between text-[11px] text-slate-400 dark:text-slate-500 mt-1 font-tabular">
+        <span>10 000 ₽</span>
+        <span>250 000 ₽</span>
+        <span>500 000 ₽</span>
+      </div>
     </div>
 
-    <!-- USN Box -->
-    <div class="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/70 dark:border-slate-800/80">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-semibold text-slate-600 dark:text-slate-300">
-          ИП (УСН 6%)
+    <!-- Two Comparison Result Cards -->
+    <div class="grid grid-cols-2 gap-3 pb-4">
+      <!-- NPD Box -->
+      <div class="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">
+            НПД (Самозанятый)
+          </span>
+          <span class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 font-tabular">
+            4%
+          </span>
+        </div>
+        <span class="text-lg sm:text-xl font-bold font-tabular text-emerald-600 dark:text-emerald-400 block mt-1" id="hero-npd-amount">
+          4 000 ₽
         </span>
-        <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 font-tabular">
-          6% + взносы
+        <span class="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5">
+          взносы 0 ₽ • без отчётов
         </span>
       </div>
-      <span class="text-lg sm:text-xl font-bold font-tabular text-slate-900 dark:text-white block mt-1" id="hero-usn-amount">
-        6 000 ₽
-      </span>
-      <span class="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5 font-tabular">
-        взносы 57 390 ₽/год
-      </span>
-    </div>
-  </div>
 
-  <!-- Visual Comparison Progress Bars -->
-  <div class="space-y-2 pb-4">
-    <div class="flex items-center gap-2.5 text-xs">
-      <span class="w-8 text-[11px] font-semibold text-slate-600 dark:text-slate-300">НПД</span>
-      <div class="flex-1 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-        <div class="h-full rounded-full bg-emerald-500 transition-all duration-200" id="hero-npd-bar" style="width: 67%"></div>
+      <!-- USN Box -->
+      <div class="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">
+            ИП (УСН 6%)
+          </span>
+          <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 font-tabular">
+            6% + взносы
+          </span>
+        </div>
+        <span class="text-lg sm:text-xl font-bold font-tabular text-slate-900 dark:text-white block mt-1" id="hero-usn-amount">
+          6 000 ₽
+        </span>
+        <span class="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5 font-tabular">
+          взносы 57 390 ₽/год
+        </span>
       </div>
     </div>
-    <div class="flex items-center gap-2.5 text-xs">
-      <span class="w-8 text-[11px] font-semibold text-slate-600 dark:text-slate-300">УСН</span>
-      <div class="flex-1 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-        <div class="h-full rounded-full bg-slate-400 dark:bg-slate-600 transition-all duration-200" id="hero-usn-bar" style="width: 100%"></div>
+
+    <!-- Visual Comparison Progress Bars -->
+    <div class="space-y-2 pb-4">
+      <div class="flex items-center gap-2.5 text-xs">
+        <span class="w-8 text-[11px] font-semibold text-slate-600 dark:text-slate-300">НПД</span>
+        <div class="flex-1 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+          <div class="h-full rounded-full bg-emerald-500 transition-all duration-200" id="hero-npd-bar" style="width: 67%"></div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5 text-xs">
+        <span class="w-8 text-[11px] font-semibold text-slate-600 dark:text-slate-300">УСН</span>
+        <div class="flex-1 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+          <div class="h-full rounded-full bg-slate-400 dark:bg-slate-600 transition-all duration-200" id="hero-usn-bar" style="width: 100%"></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Single Dynamic Verdict Banner -->
-  <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/60 mb-4 flex items-center justify-between gap-2">
-    <span class="text-xs sm:text-[13px] font-medium text-slate-800 dark:text-slate-200" id="hero-verdict">
-      💡 Самозанятость экономит 2 000 ₽ в месяц
-    </span>
-  </div>
+    <!-- Single Dynamic Verdict Banner -->
+    <div class="p-3 rounded-xl bg-brand-50/80 dark:bg-brand-950/40 border border-brand-200/80 dark:border-brand-800/60 mb-4 flex items-center justify-between gap-2">
+      <span class="text-xs sm:text-[13px] font-semibold text-brand-900 dark:text-brand-200" id="hero-verdict">
+        💡 Самозанятость экономит 2 000 ₽ в месяц
+      </span>
+    </div>
 
-  <!-- Primary Action -->
-  <a
-    href="/dlya-samozanyatyh/npd-vs-ip/"
-    class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs sm:text-sm transition-colors shadow-xs"
-  >
-    <span>Открыть детальный калькулятор НПД vs ИП</span>
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-    </svg>
-  </a>
+    <!-- Primary Action -->
+    <a
+      href="/dlya-samozanyatyh/npd-vs-ip/"
+      class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs sm:text-sm transition-all shadow-md shadow-brand-600/20 hover:shadow-brand-600/35"
+    >
+      <span>Сравнить НПД и ИП детально</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+      </svg>
+    </a>
+  </div>
 </div>
 
 <script>
