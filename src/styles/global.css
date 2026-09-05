@@ -6,20 +6,48 @@
   html {
     scroll-behavior: smooth;
   }
+
   body {
-    @apply min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased transition-colors duration-300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200;
   }
 
-  /* Clean custom scrollbars */
+  /* Clean minimal scrollbars */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors;
+    @apply bg-slate-300/80 dark:bg-slate-700/80 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors;
+  }
+}
+
+@layer utilities {
+  .font-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Precise subtle background patterns without blurry oversized blobs */
+  .fintech-grid {
+    background-size: 24px 24px;
+    background-image: radial-gradient(rgba(148, 163, 184, 0.22) 1px, transparent 1px);
+  }
+  .dark .fintech-grid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  }
+
+  .fintech-grid-subtle {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+  }
+  .dark .fintech-grid-subtle {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   }
 }
 
@@ -28,21 +56,30 @@
     @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
   }
 
-  /* Glassmorphism components */
+  /* Linear/Swiss style Fintech Cards */
+  .fintech-card {
+    @apply bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800/90 shadow-card;
+  }
+
+  .fintech-card-hover {
+    @apply fintech-card transition-all duration-200 hover:shadow-card-hover hover:border-brand-500/40 dark:hover:border-brand-400/40 hover:-translate-y-0.5;
+  }
+
+  /* Preserved card utilities for existing site sub-pages */
   .glass-card {
-    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 shadow-glass rounded-2xl;
+    @apply bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800/90 shadow-card backdrop-blur-xs;
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:shadow-glass-hover hover:-translate-y-1 hover:border-accent-500/40 dark:hover:border-accent-400/40;
+    @apply glass-card transition-all duration-200 hover:shadow-card-hover hover:-translate-y-0.5 hover:border-brand-500/40 dark:hover:border-brand-400/40;
   }
 
   .glass-header {
-    @apply bg-white/75 dark:bg-slate-950/75 backdrop-blur-xl border-b border-slate-200/70 dark:border-slate-800/70 shadow-sm;
+    @apply bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-xs;
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-300 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-brand-600 via-blue-600 to-indigo-600 dark:from-brand-400 dark:via-blue-300 dark:to-indigo-300 bg-clip-text text-transparent;
   }
 
   .gradient-text-emerald {
@@ -58,7 +95,6 @@
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover;
   }
 }
-
