@@ -1,5 +1,6 @@
 ---
 import Footer from '../components/Footer.astro';
+import '../styles/global.css';
 
 interface Props {
   title: string;
@@ -59,10 +60,9 @@ const websiteSchema = {
   <!-- Self-hosted fonts (no external requests → zero CLS from font swap) -->
   <link rel="preload" href="/fonts/inter-400-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inter-700-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/unbounded-700-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/unbounded-800-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/fonts/inter.css" />
-  <link rel="stylesheet" href="/fonts/unbounded.css" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
 
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
@@ -106,31 +106,14 @@ const websiteSchema = {
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/106217699" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
 
-  <!-- Google Analytics 4 (замените G-XXXXXXXXXX на ваш ID) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
+<body>
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-white focus:text-slate-900 focus:shadow-card-hover">Перейти к содержимому</a>
   <slot name="header" />
   <main id="main-content" class="flex-1">
     <slot />
   </main>
 
   <Footer />
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (saved === 'dark' || (!saved && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      }
-    });
-  </script>
 </body>
 </html>

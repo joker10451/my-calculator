@@ -3,26 +3,49 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    @apply min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200;
+    text-rendering: optimizeLegibility;
+    @apply min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans text-[16px] leading-normal;
   }
 
-  /* Clean minimal scrollbars */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+    letter-spacing: -0.015em;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
+
+  p {
+    text-wrap: pretty;
   }
-  ::-webkit-scrollbar-thumb {
-    @apply bg-slate-300/80 dark:bg-slate-700/80 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors;
+
+  /* Видимый фокус с клавиатуры для любых интерактивных элементов */
+  :focus-visible {
+    outline: 2px solid theme('colors.brand.600');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .dark :focus-visible {
+    outline-color: theme('colors.brand.400');
+  }
+
+  input[type='range'] {
+    accent-color: theme('colors.brand.600');
+  }
+
+  /* Серый 400 на белом даёт 2,6:1 — ниже WCAG AA. В светлой теме поднимаем до ~4,6:1. */
+  html:not(.dark) .text-slate-400,
+  html:not(.dark) .text-gray-400 {
+    color: #6b7685;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -30,71 +53,39 @@
   .font-tabular {
     font-variant-numeric: tabular-nums;
   }
-
-  /* Precise subtle background patterns without blurry oversized blobs */
-  .fintech-grid {
-    background-size: 24px 24px;
-    background-image: radial-gradient(rgba(148, 163, 184, 0.22) 1px, transparent 1px);
-  }
-  .dark .fintech-grid {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  }
-
-  .fintech-grid-subtle {
-    background-size: 40px 40px;
-    background-image: linear-gradient(to right, rgba(148, 163, 184, 0.07) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
-  }
-  .dark .fintech-grid-subtle {
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  }
 }
 
 @layer components {
   .container-main {
-    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
   }
 
-  /* Linear/Swiss style Fintech Cards */
   .fintech-card {
-    @apply bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800/90 shadow-card;
+    @apply bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800;
   }
 
   .fintech-card-hover {
-    @apply fintech-card transition-all duration-200 hover:shadow-card-hover hover:border-brand-500/40 dark:hover:border-brand-400/40 hover:-translate-y-0.5;
+    @apply fintech-card transition-colors hover:border-brand-400 dark:hover:border-brand-500;
   }
 
-  /* Preserved card utilities for existing site sub-pages */
+  /* Старые имена, которые ещё встречаются на подстраницах */
   .glass-card {
-    @apply bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800/90 shadow-card backdrop-blur-xs;
+    @apply fintech-card;
   }
-
-  .glass-card-hover {
-    @apply glass-card transition-all duration-200 hover:shadow-card-hover hover:-translate-y-0.5 hover:border-brand-500/40 dark:hover:border-brand-400/40;
-  }
-
-  .glass-header {
-    @apply bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-xs;
-  }
-
-  .gradient-text {
-    @apply bg-gradient-to-r from-brand-600 via-blue-600 to-indigo-600 dark:from-brand-400 dark:via-blue-300 dark:to-indigo-300 bg-clip-text text-transparent;
-  }
-
-  .gradient-text-emerald {
-    @apply bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 dark:from-emerald-400 dark:via-teal-300 dark:to-cyan-300 bg-clip-text text-transparent;
-  }
-
-  .gradient-text-warm {
-    @apply bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 dark:from-amber-300 dark:via-orange-300 dark:to-rose-300 bg-clip-text text-transparent;
-  }
-
-  .glow-subtle {
-    @apply shadow-glow dark:shadow-glow;
-  }
-
+  .glass-card-hover,
   .card-hover {
-    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover;
+    @apply fintech-card-hover;
+  }
+  .glass-header {
+    @apply bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800;
+  }
+  .gradient-text {
+    @apply text-brand-700 dark:text-brand-300;
+  }
+  .gradient-text-emerald {
+    @apply text-emerald-700 dark:text-emerald-300;
+  }
+  .gradient-text-warm {
+    @apply text-amber-700 dark:text-amber-300;
   }
 }

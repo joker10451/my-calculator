@@ -23,7 +23,8 @@ export default defineConfig({
   },
   integrations: [
     react(),
-    tailwind(),
+    // базу Tailwind подключает src/styles/global.css (импорт в Layout.astro)
+    tailwind({ applyBaseStyles: false }),
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
