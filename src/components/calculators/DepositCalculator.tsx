@@ -210,7 +210,7 @@ function ShareCard({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        fontFamily: 'Unbounded, Inter, Arial, sans-serif',
+        fontFamily: "'Golos Text', Arial, sans-serif",
         color: '#fff',
         padding: '70px 60px',
         boxSizing: 'border-box',
