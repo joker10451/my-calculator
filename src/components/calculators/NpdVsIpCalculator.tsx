@@ -311,7 +311,7 @@ export function NpdVsIpCalculator() {
       </div>
 
       {/* ---------- RESULTS ---------- */}
-      <div className="lg:col-span-3 space-y-5" ref={containerRef}>
+      <div className="lg:col-span-3 space-y-5 scroll-mt-20" id="npd-vs-ip-result" ref={containerRef}>
         {/* Verdict banner */}
         <div className={`rounded-2xl p-6 md:p-8 text-white shadow-lg overflow-hidden relative ${
           !comparison.npdAvailable
@@ -555,6 +555,22 @@ export function NpdVsIpCalculator() {
             <Share2 className="w-4 h-4" />
             {shareInProgress ? 'Генерация...' : 'Поделиться'}
           </button>
+        </div>
+      </div>
+      {/* Мобильная плашка итога: на телефоне результат ниже параметров, а итог виден сразу. */}
+      <div className="lg:hidden sticky bottom-3 z-20" aria-live="polite">
+        <div className="rounded-2xl bg-slate-900 text-white shadow-lg px-4 py-3 flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold truncate">
+              {comparison.winner === "tie"
+                ? "Нагрузка примерно равна"
+                : `${comparison.winner === "npd" ? "НПД" : "ИП УСН"} выгоднее на ${fmt(comparison.monthlySavings)} ₽/мес`}
+            </p>
+            <p className="text-xs text-white/70 font-tabular">
+              НПД {fmt(comparison.npdBurden)} ₽ · ИП {fmt(comparison.usnBurden)} ₽ в месяц
+            </p>
+          </div>
+          <a href="#npd-vs-ip-result" className="shrink-0 text-sm font-semibold underline underline-offset-4">Подробно</a>
         </div>
       </div>
     </div>
