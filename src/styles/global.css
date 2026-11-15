@@ -49,6 +49,12 @@
   }
 }
 
+/* Таблицы из markdown-контента шире телефона: скроллим таблицу, а не страницу */
+.prose table {
+  display: block;
+  overflow-x: auto;
+}
+
 @layer utilities {
   .font-tabular {
     font-variant-numeric: tabular-nums;

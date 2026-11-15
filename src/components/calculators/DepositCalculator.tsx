@@ -638,9 +638,7 @@ export function DepositCalculator() {
       {/* ---------- RESULTS (3 COLS) ---------- */}
       <div className="lg:col-span-3 space-y-5">
         {/* Main Hero Result Card */}
-        <div className="rounded-2xl p-7 md:p-9 text-white shadow-xl overflow-hidden relative bg-gradient-to-br from-emerald-600 via-teal-700 to-slate-900">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-400/10 rounded-full translate-y-24 -translate-x-24 pointer-events-none" />
+        <div className="rounded-2xl p-7 md:p-9 text-white overflow-hidden relative bg-emerald-700">
 
           <div className="relative">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
@@ -884,7 +882,7 @@ export function DepositCalculator() {
         </div>
 
         {/* CTA Button to banking comparison widget */}
-        <div className="p-6 rounded-2xl bg-gradient-to-r from-accent-600 to-blue-700 text-white shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="p-6 rounded-2xl bg-brand-700 text-white shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <h4 className="font-heading font-black text-base md:text-lg mb-1">
               Ищете максимальную ставку?

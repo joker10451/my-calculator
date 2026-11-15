@@ -104,32 +104,17 @@ const faqSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-  <!-- Mobile ToC -->
-  <div class="container-main lg:hidden overflow-x-auto pb-3 -mx-4 px-4">
-    <div class="flex gap-2 text-nowrap">
-      <a href="#calculator" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Калькулятор</a>
-      <a href="#offers" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Предложения банков</a>
-      <a href="#tax-guide" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Налог 2026 (ст. 214.2)</a>
-      <a href="#capitalization-guide" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Капитализация</a>
-      <a href="#asv-insurance" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Страховка АСВ 1.4 млн</a>
-      <a href="#faq" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Вопросы и ответы</a>
-    </div>
-  </div>
-
   <!-- MAIN CONTAINER -->
   <div class="container-main py-4 lg:py-6">
-    <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-10">
+    <div>
       {/* Left Main Column */}
       <div>
         {/* Header Hero Section */}
-        <section class="mb-8" id="calculator">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 text-xs font-bold mb-3">
-            <span>🔥</span> Актуально на 2026 год: ключевая ставка и ст. 214.2 НК РФ
-          </div>
-          <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+        <section class="mb-6" id="calculator">
+          <h1 class="text-[28px] leading-tight sm:text-4xl lg:text-[40px] font-bold text-gray-900 dark:text-white mb-3">
             Калькулятор вкладов 2026 — доходность, проценты и налог
           </h1>
-          <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          <p class="max-w-3xl text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-3">
             Рассчитайте точную доходность по банковскому вкладу с ежемесячной капитализацией, регулярным пополнением и вычетом налога на проценты (ст. 214.2 НК РФ). Мгновенный расчёт без регистрации.
           </p>
           <div class="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400">
@@ -152,6 +137,17 @@ const faqSchema = {
         <section class="mb-14">
           <DepositCalculator client:visible />
         </section>
+
+        <nav aria-label="Содержание страницы" class="-mx-4 px-4 sm:mx-0 sm:px-0 mb-10 overflow-x-auto">
+          <div class="flex gap-2 text-nowrap sm:flex-wrap">
+          <a href="#calculator" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Калькулятор</a>
+          <a href="#offers" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Предложения банков</a>
+          <a href="#tax-guide" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Налог 2026 (ст. 214.2)</a>
+          <a href="#capitalization-guide" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Капитализация</a>
+          <a href="#asv-insurance" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Страховка АСВ 1.4 млн</a>
+          <a href="#faq" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Вопросы и ответы</a>
+          </div>
+        </nav>
 
         {/* Pampadu Bank Offers Marketplace Widget */}
         <section class="mb-14" id="offers">
@@ -197,7 +193,7 @@ const faqSchema = {
               </div>
             </div>
 
-            <div class="prose prose-gray dark:prose-invert max-w-none text-sm leading-relaxed space-y-4">
+            <div class="prose prose-gray dark:prose-invert max-w-3xl text-sm leading-relaxed space-y-4">
               <p>
                 С 2021 года в России действует налог на доходы физических лиц по вкладам и счетам (статья 214.2 НК РФ). В 2026 году налогообложение процентных доходов рассчитывается по формуле с плавающим необлагаемым лимитом:
               </p>
@@ -352,7 +348,7 @@ const faqSchema = {
         </section>
 
         {/* Telegram CTA */}
-        <section class="p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white">
+        <section class="p-7 md:p-9 rounded-2xl bg-slate-900 dark:bg-slate-800 text-white">
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading text-xl font-bold mb-2">Подпишись на Telegram Считай.RU</h3>
@@ -364,31 +360,6 @@ const faqSchema = {
           </div>
         </section>
       </div>
-
-      {/* Right Desktop Sticky Sidebar */}
-      <aside class="hidden lg:block">
-        <div class="sticky top-24 space-y-6">
-          <div class="p-5 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
-            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Навигация по странице</h4>
-            <nav class="space-y-2 text-sm">
-              <a href="#calculator" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Калькулятор доходности</a>
-              <a href="#offers" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Витрина вкладов 30+ банков</a>
-              <a href="#tax-guide" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Налог на вклады (ст. 214.2)</a>
-              <a href="#capitalization-guide" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Капитализация и сложный %</a>
-              <a href="#asv-insurance" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Лимит страховки АСВ</a>
-              <a href="#faq" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Частые вопросы</a>
-            </nav>
-          </div>
-
-          <div class="p-5 rounded-2xl bg-gradient-to-br from-accent-600 to-blue-700 text-white shadow-md">
-            <h4 class="font-bold text-sm mb-2">Подбор лучшего вклада</h4>
-            <p class="text-xs text-blue-100 mb-4">Сравните ставки до 22% в проверенных банках и откройте онлайн.</p>
-            <a href="#offers" class="block w-full text-center py-2.5 rounded-xl bg-white text-accent-700 font-bold text-xs hover:bg-gray-100 transition-colors">
-              Выбрать вклад →
-            </a>
-          </div>
-        </div>
-      </aside>
     </div>
   </div>
 </Layout>

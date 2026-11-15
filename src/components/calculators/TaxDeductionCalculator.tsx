@@ -349,8 +349,7 @@ export function TaxDeductionCalculator() {
       {/* ---------- RESULTS (3 cols) ---------- */}
       <div className="lg:col-span-3 space-y-5">
         {/* Main Result Card */}
-        <div className="rounded-2xl p-6 md:p-8 text-white shadow-lg overflow-hidden relative bg-gradient-to-br from-emerald-600 to-teal-800">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-24 translate-x-24" />
+        <div className="rounded-2xl p-6 md:p-8 text-white shadow-lg overflow-hidden relative bg-emerald-700">
 
           <div className="relative">
             <div className="flex items-center justify-between mb-2">
