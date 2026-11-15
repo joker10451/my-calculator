@@ -56,10 +56,10 @@ const faqSchema = {
 };
 
 const products = [
-  { icon: '💰', name: 'Вклады и счета', desc: 'Ставки до 22% годовых, расчёт налога 2026', href: '/banki/kalkulyator-vkladov/' },
-  { icon: '💳', name: 'Кредитные карты', desc: 'Кэшбэк до 30%, льготный период 120+ дней', href: '#ppdwiBanki' },
-  { icon: '🏦', name: 'Кредиты наличными', desc: 'От 4,9%, одобрение за 5 минут', href: '#ppdwiBanki' },
-  { icon: '💼', name: 'РКО для бизнеса', desc: '0 ₽/мес, бесплатные переводы', href: '#ppdwiBanki' },
+  { name: 'Вклады и счета', desc: 'Ставки до 22% годовых, расчёт налога 2026', href: '/banki/kalkulyator-vkladov/' },
+  { name: 'Кредитные карты', desc: 'Кэшбэк до 30%, льготный период 120+ дней', href: '#ppdwiBanki' },
+  { name: 'Кредиты наличными', desc: 'От 4,9%, одобрение за 5 минут', href: '#ppdwiBanki' },
+  { name: 'РКО для бизнеса', desc: '0 ₽/мес, бесплатные переводы', href: '#ppdwiBanki' },
 ];
 ---
 
@@ -134,19 +134,19 @@ const products = [
         href="#ppdwiBanki"
         class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-bold hover:border-accent-400 hover:text-accent-600 transition-colors flex items-center gap-1.5"
       >
-        <span>💳</span> Карты с кэшбэком
+        Карты с кэшбэком
       </a>
       <a
         href="#ppdwiBanki"
         class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-bold hover:border-accent-400 hover:text-accent-600 transition-colors flex items-center gap-1.5"
       >
-        <span>⏳</span> Кредитные карты
+        Кредитные карты
       </a>
       <a
         href="#ppdwiBanki"
         class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-bold hover:border-accent-400 hover:text-accent-600 transition-colors flex items-center gap-1.5"
       >
-        <span>💼</span> РКО для бизнеса
+        РКО для бизнеса
       </a>
     </div>
 
@@ -173,7 +173,6 @@ const products = [
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {products.map((p) => (
         <a href={p.href} class="group p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-accent-300 dark:hover:border-accent-700 transition-all block">
-          <div class="text-2xl mb-3 group-hover:scale-110 transition-transform" aria-hidden="true">{p.icon}</div>
           <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-accent-600 transition-colors">{p.name}</h3>
           <p class="text-sm text-gray-500 dark:text-gray-400">{p.desc}</p>
         </a>
