@@ -98,31 +98,17 @@ const faqSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-  <!-- Mobile ToC (horizontal scroll) -->
-  <div class="container-main lg:hidden overflow-x-auto pb-3 -mx-4 px-4">
-    <div class="flex gap-2 text-nowrap">
-      <a href="#что-такое-налог-на-профессиональный-доход-нпд" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Что такое НПД</a>
-      <a href="#ставки-налога-самозанятого-в-2026-году" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Ставки</a>
-      <a href="#лимит-дохода-24-млн-рублей-в-год" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Лимит 2.4 млн</a>
-      <a href="#сравнение-самозанятость-vs-ип-vs-ндфл" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Сравнение</a>
-      <a href="#как-рассчитать-налог-пример-на-цифрах" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Пример</a>
-      <a href="#налоговый-вычет-для-самозанятых" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Вычет</a>
-      <a href="#что-будет-при-превышении-лимита" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Превышение</a>
-      <a href="#частые-ошибки-самозанятых" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Ошибки</a>
-    </div>
-  </div>
-
   <!-- Main content grid -->
   <div class="container-main py-4 lg:py-6">
-    <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-10">
+    <div>
       <!-- Left: content -->
       <div>
         <!-- H1 + intro -->
-        <section class="mb-8">
-          <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+        <section class="mb-6">
+          <h1 class="text-[28px] leading-tight sm:text-4xl lg:text-[40px] font-bold text-gray-900 dark:text-white mb-3">
             Калькулятор налога самозанятого в 2026 году
           </h1>
-          <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+          <p class="max-w-3xl text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-3">
             Рассчитайте налог на профессиональный доход (НПД) онлайн: 4% от физлиц или 6% от юрлиц.
             Сравните с ИП на УСН и НДФЛ 13%. Мгновенный результат — без кнопки «Рассчитать».
           </p>
@@ -131,19 +117,28 @@ const faqSchema = {
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               Обновлено: июль 2026
             </span>
-            <span class="flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Время расчёта: 30 сек
-            </span>
           </div>
         </section>
 
         <!-- Calculator -->
         <section class="mb-12">
-          <div class="rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 md:p-6">
+          <div>
             <SelfEmployedTaxCalculator client:visible />
           </div>
         </section>
+
+        <nav aria-label="Содержание страницы" class="-mx-4 px-4 sm:mx-0 sm:px-0 mb-10 overflow-x-auto">
+          <div class="flex gap-2 text-nowrap sm:flex-wrap">
+          <a href="#что-такое-налог-на-профессиональный-доход-нпд" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Что такое НПД</a>
+          <a href="#ставки-налога-самозанятого-в-2026-году" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Ставки</a>
+          <a href="#лимит-дохода-24-млн-рублей-в-год" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Лимит 2.4 млн</a>
+          <a href="#сравнение-самозанятость-vs-ип-vs-ндфл" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Сравнение</a>
+          <a href="#как-рассчитать-налог-пример-на-цифрах" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Пример</a>
+          <a href="#налоговый-вычет-для-самозанятых" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Вычет</a>
+          <a href="#что-будет-при-превышении-лимита" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Превышение</a>
+          <a href="#частые-ошибки-самозанятых" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Ошибки</a>
+          </div>
+        </nav>
 
         <!-- How-to -->
         <section class="mb-12">
@@ -168,7 +163,7 @@ const faqSchema = {
         </section>
 
         <!-- Article -->
-        <article class="prose prose-gray dark:prose-invert max-w-none mb-12">
+        <article class="prose prose-gray dark:prose-invert max-w-3xl mb-12">
           <Content />
         </article>
 
@@ -224,7 +219,7 @@ const faqSchema = {
         </section>
 
         <!-- CTA -->
-        <section class="mb-12 p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white">
+        <section class="mb-12 p-7 md:p-9 rounded-2xl bg-slate-900 dark:bg-slate-800 text-white">
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading text-xl font-bold mb-2">Подпишись на Telegram-канал</h3>
@@ -242,31 +237,6 @@ const faqSchema = {
           </div>
         </section>
       </div>
-
-      <!-- Right: Sidebar (desktop) -->
-      <aside class="hidden lg:block">
-        <div class="sticky top-24 space-y-6">
-          <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Содержание</h4>
-            <nav class="space-y-2 text-sm">
-              <a href="#что-такое-налог-на-профессиональный-доход-нпд" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Что такое НПД</a>
-              <a href="#ставки-налога-самозанятого-в-2026-году" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Ставки</a>
-              <a href="#лимит-дохода-24-млн-рублей-в-год" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Лимит 2.4 млн</a>
-              <a href="#сравнение-самозанятость-vs-ип-vs-ндфл" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Сравнение режимов</a>
-              <a href="#как-рассчитать-налог-пример-на-цифрах" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Пример расчёта</a>
-              <a href="#налоговый-вычет-для-самозанятых" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Вычет</a>
-              <a href="#что-будет-при-превышении-лимита" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Превышение лимита</a>
-              <a href="#частые-ошибки-самозанятых" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Ошибки</a>
-              <a href="#faq" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">FAQ</a>
-            </nav>
-          </div>
-          <div class="p-5 rounded-xl bg-gradient-to-br from-accent-600 to-blue-700 text-white">
-            <h4 class="font-bold text-sm mb-2">Полезно?</h4>
-            <p class="text-xs text-blue-100 mb-4">Подпишись на Telegram — 1 лайфхак в день.</p>
-            <a href="https://t.me/schitay_online" target="_blank" rel="noopener noreferrer" class="block w-full text-center py-2 rounded-lg bg-white/20 text-white font-bold text-sm hover:bg-white/30 transition-colors">Подписаться</a>
-          </div>
-        </div>
-      </aside>
     </div>
   </div>
 </Layout>

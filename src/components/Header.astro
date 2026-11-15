@@ -5,10 +5,9 @@ const currentPath = Astro.url.pathname;
 
 const navLinks = [
   { label: 'Самозанятым', href: '/dlya-samozanyatyh/' },
-  { label: 'Семье', href: '/semia/' },
-  { label: 'ЖКХ', href: '/zhkh/' },
-  { label: 'Авто', href: '/avto/' },
-  { label: 'Банки и карты', href: '/banki/' },
+  { label: 'Вклады и карты', href: '/banki/' },
+  // /zhkh/ — только заглушки «Скоро», /avto/ — без калькулятора: из меню убраны, страницы живут по старым URL
+  { label: 'Страхование ипотеки', href: '/semia/' },
   { label: 'Блог', href: '/blog/' },
 ];
 

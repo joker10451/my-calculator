@@ -392,13 +392,12 @@ export function SelfEmployedTaxCalculator() {
         <div
           className={`rounded-2xl p-7 md:p-9 text-white shadow-lg overflow-hidden relative ${
             state.mode === 'npd'
-              ? 'bg-gradient-to-br from-emerald-600 to-emerald-800'
+              ? 'bg-emerald-700'
               : state.mode === 'usn'
-              ? 'bg-gradient-to-br from-warm-500 to-warm-700'
-              : 'bg-gradient-to-br from-accent-600 to-blue-800'
+              ? 'bg-warm-700'
+              : 'bg-accent-700'
           }`}
         >
-          <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-24 translate-x-24" />
 
           <div className="relative">
             <p className="text-sm font-bold uppercase tracking-widest text-white/70 mb-1">

@@ -315,14 +315,13 @@ export function NpdVsIpCalculator() {
         {/* Verdict banner */}
         <div className={`rounded-2xl p-6 md:p-8 text-white shadow-lg overflow-hidden relative ${
           !comparison.npdAvailable
-            ? 'bg-gradient-to-br from-red-600 to-red-800'
+            ? 'bg-red-700'
             : comparison.winner === 'npd'
-            ? 'bg-gradient-to-br from-emerald-600 to-emerald-800'
+            ? 'bg-emerald-700'
             : comparison.winner === 'usn'
-            ? 'bg-gradient-to-br from-warm-500 to-warm-700'
-            : 'bg-gradient-to-br from-accent-600 to-blue-800'
+            ? 'bg-warm-700'
+            : 'bg-accent-700'
         }`}>
-          <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-24 translate-x-24" />
           <div className="relative">
             {!comparison.npdAvailable ? (
               <>

@@ -96,29 +96,17 @@ const faqSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-  <!-- Mobile Table of Contents -->
-  <div class="container-main lg:hidden overflow-x-auto pb-3 -mx-4 px-4">
-    <div class="flex gap-2 text-nowrap">
-      <a href="#как-работает-бонус" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Как работает бонус</a>
-      <a href="#таблица-расчёта" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Таблица на цифрах</a>
-      <a href="#кому-положен-вычет" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Кому положен</a>
-      <a href="#сгорает-ли-бонус" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Сгорает ли вычет</a>
-      <a href="#партнёрские-сервисы" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">Сервисы</a>
-      <a href="#faq" class="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-accent-100 dark:hover:bg-accent-900/30 hover:text-accent-700 transition-colors">FAQ</a>
-    </div>
-  </div>
-
   <!-- Main Grid -->
   <div class="container-main py-4 lg:py-6">
-    <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-10">
+    <div>
       <!-- Left Content Column -->
       <div>
         <!-- Hero Section -->
-        <section class="mb-8">
-          <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
+        <section class="mb-6">
+          <h1 class="text-[28px] leading-tight sm:text-4xl lg:text-[40px] font-bold text-gray-900 dark:text-white mb-3">
             Калькулятор налогового вычета 10 000 ₽ для самозанятых
           </h1>
-          <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+          <p class="max-w-3xl text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-3">
             Рассчитайте, на сколько месяцев вам хватит государственного налогового бонуса 10 000 ₽,
             какой будет льготная ставка (3% с физлиц и 4% с юрлиц) и сколько рублей вы сэкономите в месяц.
           </p>
@@ -127,19 +115,26 @@ const faqSchema = {
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               Актуально: 2026 год (422-ФЗ)
             </span>
-            <span class="flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Время расчёта: мгновенно
-            </span>
           </div>
         </section>
 
         <!-- Calculator Component -->
         <section class="mb-12">
-          <div class="rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 md:p-6">
+          <div>
             <TaxDeductionCalculator client:visible />
           </div>
         </section>
+
+        <nav aria-label="Содержание страницы" class="-mx-4 px-4 sm:mx-0 sm:px-0 mb-10 overflow-x-auto">
+          <div class="flex gap-2 text-nowrap sm:flex-wrap">
+          <a href="#как-работает-бонус" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Как работает бонус</a>
+          <a href="#таблица-расчёта" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Таблица на цифрах</a>
+          <a href="#кому-положен-вычет" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Кому положен</a>
+          <a href="#сгорает-ли-бонус" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Сгорает ли вычет</a>
+          <a href="#партнёрские-сервисы" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">Сервисы</a>
+          <a href="#faq" class="inline-flex items-center min-h-11 px-4 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-brand-500">FAQ</a>
+          </div>
+        </nav>
 
         <!-- Step by Step Guide -->
         <section class="mb-12">
@@ -164,7 +159,7 @@ const faqSchema = {
         </section>
 
         <!-- Explanatory Content / Articles -->
-        <article class="prose prose-gray dark:prose-invert max-w-none mb-12">
+        <article class="prose prose-gray dark:prose-invert max-w-3xl mb-12">
           <section id="как-работает-бонус">
             <h2>Как устроен налоговый вычет для самозанятых по 422-ФЗ</h2>
             <p>
@@ -433,7 +428,7 @@ const faqSchema = {
         </section>
 
         <!-- CTA Box -->
-        <section class="mb-12 p-7 md:p-9 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white">
+        <section class="mb-12 p-7 md:p-9 rounded-2xl bg-slate-900 dark:bg-slate-800 text-white">
           <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 class="font-heading text-xl font-bold mb-2">Подпишись на Telegram-канал</h3>
@@ -451,29 +446,6 @@ const faqSchema = {
           </div>
         </section>
       </div>
-
-      <!-- Right Sidebar (Desktop) -->
-      <aside class="hidden lg:block">
-        <div class="sticky top-24 space-y-6">
-          <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Содержание статьи</h4>
-            <nav class="space-y-2 text-sm">
-              <a href="#как-работает-бонус" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Как работает бонус</a>
-              <a href="#таблица-расчёта" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Таблица на цифрах</a>
-              <a href="#кому-положен-вычет" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Кому положен вычет</a>
-              <a href="#сгорает-ли-бонус" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Сгорает ли вычет</a>
-              <a href="#партнёрские-сервисы" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Сервисы для самозанятых</a>
-              <a href="#faq" class="block text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Вопросы и ответы</a>
-            </nav>
-          </div>
-
-          <div class="p-5 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white">
-            <h4 class="font-bold text-sm mb-2">Бонус 10 000 ₽</h4>
-            <p class="text-xs text-emerald-100 mb-4">Бессрочный налоговый вычет по ст. 12 422-ФЗ. Снижает налог до 3% и 4%.</p>
-            <a href="#faq" class="block w-full text-center py-2 rounded-lg bg-white/20 text-white font-bold text-sm hover:bg-white/30 transition-colors">Подробнее в FAQ</a>
-          </div>
-        </div>
-      </aside>
     </div>
   </div>
 </Layout>
