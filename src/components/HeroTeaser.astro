@@ -73,6 +73,7 @@
   const verdictEl = document.getElementById('hero-verdict');
 
   if (!slider) return;
+  const NPD_ANNUAL_LIMIT = 2_400_000;
 
   function calcBurden(income: number) {
     const npd = income * 0.04;
@@ -101,6 +102,17 @@
     if (usnEl) usnEl.textContent = fmt(r.usn) + ' ₽';
     if (npdBar) npdBar.style.width = Math.max(npdPct, 6) + '%';
     if (usnBar) usnBar.style.width = Math.max(usnPct, 6) + '%';
+
+    // НПД доступен только до 2,4 млн ₽ в год (ст. 4 422-ФЗ).
+    if (income * 12 > NPD_ANNUAL_LIMIT) {
+      if (npdEl) npdEl.textContent = 'недоступно';
+      if (npdBar) npdBar.style.width = '0%';
+      if (verdictEl) {
+        verdictEl.textContent = 'Доход выше 2,4 млн ₽ в год: самозанятость недоступна, подойдёт ИП';
+        verdictEl.className = 'mt-4 text-sm font-medium text-amber-800 dark:text-amber-300';
+      }
+      return;
+    }
 
     const diff = Math.abs(r.npd - r.usn);
     const threshold = Math.max(r.npd, r.usn) * 0.02;
