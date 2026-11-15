@@ -16,55 +16,50 @@ function isActive(href: string) {
 }
 ---
 
-<header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-950/95 border-b border-slate-200 dark:border-slate-800">
-  <div class="container-main h-14 flex items-center justify-between gap-4">
-    <a href="/" class="flex items-center gap-2 min-h-11 font-semibold text-[17px] tracking-tight text-slate-900 dark:text-white" aria-label="Считай.RU — главная">
-      <span class="flex items-center justify-center w-7 h-7 rounded-md bg-brand-600 text-white" aria-hidden="true">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-          <path d="M7 8h10M7 12h10M12 16h5"></path>
-        </svg>
-      </span>
-      Считай.RU
+<header class="sticky top-0 z-50 bg-ink-50 dark:bg-ink-950 border-b border-ink-900 dark:border-ink-700">
+  <div class="container-main h-14 md:h-16 flex items-center justify-between gap-4">
+    <a href="/" class="inline-flex items-center min-h-11 font-serif text-[26px] md:text-[28px] font-semibold tracking-tight leading-none text-ink-900 dark:text-ink-50" aria-label="Считай — главная">
+      Считай
     </a>
 
-    <nav class="hidden md:flex items-center gap-1" aria-label="Основная навигация">
+    <nav class="hidden md:flex items-center gap-6" aria-label="Основная навигация">
       {navLinks.map((link) => (
         <a
           href={link.href}
           aria-current={isActive(link.href) ? 'page' : undefined}
-          class="px-3 py-2 rounded-md text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 aria-[current=page]:text-brand-700 dark:aria-[current=page]:text-brand-300 aria-[current=page]:bg-brand-50 dark:aria-[current=page]:bg-slate-800"
+          class="py-2 text-[15px] text-ink-700 dark:text-ink-300 hover:text-ink-900 dark:hover:text-ink-50 underline-offset-[6px] decoration-1 hover:underline aria-[current=page]:text-ink-900 dark:aria-[current=page]:text-ink-50 aria-[current=page]:underline aria-[current=page]:decoration-brand-600 dark:aria-[current=page]:decoration-brand-300 aria-[current=page]:decoration-2"
         >
           {link.label}
         </a>
       ))}
     </nav>
 
-    <div class="flex items-center gap-1">
+    <div class="flex items-center">
       <ThemeToggle />
       <button
         type="button"
-        class="md:hidden w-11 h-11 flex items-center justify-center rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+        class="md:hidden w-11 h-11 flex items-center justify-center text-ink-900 dark:text-ink-100"
         aria-label="Меню"
         aria-expanded="false"
         aria-controls="mobile-menu"
         data-mobile-menu-toggle
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path class="menu-icon-open" stroke-linecap="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"></path>
-          <path class="menu-icon-close hidden" stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          <path class="menu-icon-open" stroke-linecap="square" stroke-width="1.5" d="M4 8h16M4 16h16"></path>
+          <path class="menu-icon-close hidden" stroke-linecap="square" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
   </div>
 
-  <nav id="mobile-menu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800" aria-label="Основная навигация" data-mobile-menu>
-    <ul class="container-main py-2">
+  <nav id="mobile-menu" class="md:hidden hidden border-t border-ink-200 dark:border-ink-800" aria-label="Основная навигация" data-mobile-menu>
+    <ul class="container-main divide-y divide-ink-200 dark:divide-ink-800">
       {navLinks.map((link) => (
         <li>
           <a
             href={link.href}
             aria-current={isActive(link.href) ? 'page' : undefined}
-            class="flex items-center min-h-12 px-2 rounded-md text-base font-medium text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 aria-[current=page]:text-brand-700 dark:aria-[current=page]:text-brand-300"
+            class="flex items-center min-h-12 font-serif text-lg text-ink-900 dark:text-ink-100 aria-[current=page]:text-brand-600 dark:aria-[current=page]:text-brand-300"
           >
             {link.label}
           </a>

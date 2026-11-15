@@ -7,36 +7,47 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    @apply min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans text-[16px] leading-normal;
+    font-synthesis-weight: none;
+    @apply min-h-screen flex flex-col bg-ink-50 dark:bg-ink-950 text-ink-900 dark:text-ink-100 font-sans text-[16px] leading-normal;
   }
 
-  h1, h2, h3, h4 {
+  /* Заголовки — засечками, как в деловом издании; h4 и ниже остаются гротеском (это подписи). */
+  h1, h2, h3 {
+    font-family: theme('fontFamily.serif');
+    font-weight: 600;
+    letter-spacing: -0.01em;
     text-wrap: balance;
-    letter-spacing: -0.015em;
   }
 
   p {
     text-wrap: pretty;
   }
 
+  ::selection {
+    background: theme('colors.brand.100');
+    color: theme('colors.ink.900');
+  }
+
   /* Видимый фокус с клавиатуры для любых интерактивных элементов */
   :focus-visible {
     outline: 2px solid theme('colors.brand.600');
     outline-offset: 2px;
-    border-radius: 4px;
   }
   .dark :focus-visible {
-    outline-color: theme('colors.brand.400');
+    outline-color: theme('colors.brand.300');
   }
 
   input[type='range'] {
     accent-color: theme('colors.brand.600');
   }
+  .dark input[type='range'] {
+    accent-color: theme('colors.brand.300');
+  }
 
-  /* Серый 400 на белом даёт 2,6:1 — ниже WCAG AA. В светлой теме поднимаем до ~4,6:1. */
+  /* Серый 400 на бумаге ниже WCAG AA. В светлой теме поднимаем до ~5:1. */
   html:not(.dark) .text-slate-400,
   html:not(.dark) .text-gray-400 {
-    color: #6b7685;
+    color: #706859;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -66,12 +77,22 @@
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
   }
 
+  /* Цифра результата: крупно, засечками, табличные цифры */
+  .figure {
+    @apply font-serif font-semibold tabular-nums tracking-tight leading-none text-[40px] sm:text-[48px] lg:text-[56px];
+  }
+
+  /* Мелкая подпись над цифрой или колонкой */
+  .label {
+    @apply text-[13px] font-medium text-ink-600 dark:text-ink-400;
+  }
+
   .fintech-card {
-    @apply bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800;
+    @apply border-t border-ink-900/80 dark:border-ink-200/60;
   }
 
   .fintech-card-hover {
-    @apply fintech-card transition-colors hover:border-brand-400 dark:hover:border-brand-500;
+    @apply fintech-card;
   }
 
   /* Старые имена, которые ещё встречаются на подстраницах */
@@ -83,15 +104,24 @@
     @apply fintech-card-hover;
   }
   .glass-header {
-    @apply bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800;
+    @apply bg-ink-50 dark:bg-ink-950 border-b border-ink-200 dark:border-ink-800;
   }
   .gradient-text {
-    @apply text-brand-700 dark:text-brand-300;
+    @apply text-brand-600 dark:text-brand-300;
   }
   .gradient-text-emerald {
-    @apply text-emerald-700 dark:text-emerald-300;
+    @apply text-brand-600 dark:text-brand-300;
   }
   .gradient-text-warm {
-    @apply text-amber-700 dark:text-amber-300;
+    @apply text-warm-700 dark:text-warm-300;
   }
+}
+
+/*
+ * Карточки по всему сайту были белыми плашками на сером. В редакционной сетке белых коробок нет:
+ * белый фон становится бумагой, а форму блока держит тонкая линия (border) самого элемента.
+ * Вне @layer, чтобы перекрыть утилиту bg-white той же специфичности.
+ */
+html:not(.dark) .bg-white {
+  background-color: theme('colors.ink.50');
 }

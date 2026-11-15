@@ -58,11 +58,11 @@ const websiteSchema = {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   <!-- Self-hosted fonts (no external requests → zero CLS from font swap) -->
-  <link rel="preload" href="/fonts/inter-400-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/inter-700-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/fonts/inter.css" />
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
+  <link rel="preload" href="/fonts/golos-text-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/source-serif-4-cyrillic-600-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/fonts/editorial.css" />
+  <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)" />
 
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
@@ -108,7 +108,7 @@ const websiteSchema = {
 
 </head>
 <body>
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-white focus:text-slate-900 focus:shadow-card-hover">Перейти к содержимому</a>
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-ink-50 focus:text-ink-900 focus:border focus:border-ink-900">Перейти к содержимому</a>
   <slot name="header" />
   <main id="main-content" class="flex-1">
     <slot />
