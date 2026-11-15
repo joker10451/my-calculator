@@ -314,65 +314,67 @@ const faqSchema = {
                 Удобные сервисы для работы с чеками и клиентами
               </h2>
               <p class="text-sm text-gray-600 dark:text-gray-400">
-                Бесплатные расчётные счета и сервисы для автоматической отправки чеков в ФНС без комиссии.
+                Банковские продукты для самозанятых и тех, кто переходит на ИП.
               </p>
             </div>
 
             <div class="grid sm:grid-cols-2 gap-4 mb-4">
-              <!-- Partner 1: T-Bank Account -->
+              <!-- Partner 1: Альфа-Банк, регистрация ИП + счёт -->
               <div class="p-5 rounded-xl bg-white dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 flex flex-col justify-between hover:shadow-md transition-shadow">
                 <div>
                   <div class="flex items-center justify-between mb-3">
                     <span class="font-heading font-black text-base text-gray-900 dark:text-white">
-                      {PARTNERS.tbank_account.name}
+                      {PARTNERS.alfa_business.name}
                     </span>
                     <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-accent-50 dark:bg-accent-900/40 text-accent-600 dark:text-accent-400">
-                      0 ₽ обслуживание
+                      Переход на ИП
                     </span>
                   </div>
                   <h3 class="font-bold text-sm text-gray-800 dark:text-gray-200 mb-1">
-                    {PARTNERS.tbank_account.offer}
+                    {PARTNERS.alfa_business.offer}
                   </h3>
                   <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                    Автоматическая регистрация дохода, привязка к «Мой налог», моментальные переводы на любые карты без комиссии.
+                    Заявка на регистрацию ИП и расчётный счёт в одном банке. Тарифы — на сайте банка.
                   </p>
                 </div>
                 <AffiliateLink
-                  href={PARTNERS.tbank_account.url}
-                  partner={PARTNERS.tbank_account.name}
-                  offer={PARTNERS.tbank_account.offer}
+                  href={PARTNERS.alfa_business.url}
+                  partner={PARTNERS.alfa_business.name}
+                  offer={PARTNERS.alfa_business.offer}
                   variant="button"
                 >
-                  Открыть счёт
+                  Узнать условия
                 </AffiliateLink>
+                <p class="mt-2 text-[10px] text-gray-400 dark:text-gray-500">{PARTNERS.alfa_business.disclosure}</p>
               </div>
 
-              <!-- Partner 2: Moe Delo -->
+              <!-- Partner 2: Альфа-Банк, карта для самозанятых -->
               <div class="p-5 rounded-xl bg-white dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 flex flex-col justify-between hover:shadow-md transition-shadow">
                 <div>
                   <div class="flex items-center justify-between mb-3">
                     <span class="font-heading font-black text-base text-gray-900 dark:text-white">
-                      {PARTNERS.moe_delo.name}
+                      {PARTNERS.alfa_selfemployed_card.name}
                     </span>
                     <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
-                      Онлайн-сервис
+                      Карта МИР
                     </span>
                   </div>
                   <h3 class="font-bold text-sm text-gray-800 dark:text-gray-200 mb-1">
-                    {PARTNERS.moe_delo.offer}
+                    {PARTNERS.alfa_selfemployed_card.offer}
                   </h3>
                   <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                    Учёт договоров с юрлицами, выставление счетов, акты выполненных работ и проверка контрагентов.
+                    Отдельная карта для поступлений от клиентов, чтобы доход по НПД не смешивался с личными деньгами.
                   </p>
                 </div>
                 <AffiliateLink
-                  href={PARTNERS.moe_delo.url}
-                  partner={PARTNERS.moe_delo.name}
-                  offer={PARTNERS.moe_delo.offer}
+                  href={PARTNERS.alfa_selfemployed_card.url}
+                  partner={PARTNERS.alfa_selfemployed_card.name}
+                  offer={PARTNERS.alfa_selfemployed_card.offer}
                   variant="button"
                 >
-                  Попробовать
+                  Оформить карту
                 </AffiliateLink>
+                <p class="mt-2 text-[10px] text-gray-400 dark:text-gray-500">{PARTNERS.alfa_selfemployed_card.disclosure}</p>
               </div>
             </div>
 
