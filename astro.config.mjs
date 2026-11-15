@@ -26,6 +26,8 @@ export default defineConfig({
     // базу Tailwind подключает src/styles/global.css (импорт в Layout.astro)
     tailwind({ applyBaseStyles: false }),
     sitemap({
+      // /zhkh/ — заглушка с noindex, в sitemap ей не место
+      filter: (page) => !page.includes('/zhkh/'),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),

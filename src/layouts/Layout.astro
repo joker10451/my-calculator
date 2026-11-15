@@ -8,9 +8,11 @@ interface Props {
   canonical: string;
   ogImage?: string;
   type?: 'website' | 'article';
+  /** Страница-заглушка: не индексировать */
+  noindex?: boolean;
 }
 
-const { title, description, canonical, ogImage, type = 'website' } = Astro.props;
+const { title, description, canonical, ogImage, type = 'website', noindex = false } = Astro.props;
 const defaultOgImage = 'https://schitay-online.ru/og-default.jpg';
 const imageUrl = ogImage || defaultOgImage;
 
@@ -39,6 +41,7 @@ const websiteSchema = {
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
 
   <meta property="og:type" content={type} />
   <meta property="og:title" content={title} />

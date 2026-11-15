@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Copy, Share2, Check } from 'lucide-react';
 import { toPng } from 'html-to-image';
-import { calcNpd, calcUsn, calcPatent, fmt, NPD_LIMIT } from '../../lib/tax';
+import { calcNpd, calcUsn, calcPatent, fmt, NPD_LIMIT, pct } from '../../lib/tax';
 
 type Mode = 'npd' | 'usn' | 'patent';
 
@@ -93,19 +93,19 @@ function ShareCard({
       </div>
 
       <div style={{ fontSize: 96, fontWeight: 700, lineHeight: 1, marginBottom: 16 }}>
-        {fmt(tax)} ₽
+        {fmt(tax)} ₽
       </div>
 
       <div style={{ fontSize: 24, color: '#94A3B8', textAlign: 'center' }}>
         {mode === 'npd'
-          ? `налог самозанятого при доходе ${fmt(income)} ₽/мес`
+          ? `налог самозанятого при доходе ${fmt(income)} ₽/мес`
           : mode === 'usn'
-          ? `налог ИП на УСН при доходе ${fmt(income)} ₽/мес`
-          : `налог ИП на патенте при доходе ${fmt(income)} ₽/мес`}
+          ? `налог ИП на УСН при доходе ${fmt(income)} ₽/мес`
+          : `налог ИП на патенте при доходе ${fmt(income)} ₽/мес`}
       </div>
 
       <div style={{ fontSize: 18, color: '#64748B', marginTop: 8 }}>
-        Ставка: {rate.toFixed(1)}% ·{' '}
+        Ставка: {pct(rate)} ·{' '}
         {mode === 'npd' ? (fromLegal ? 'доход от юрлиц' : 'доход от физлиц') : ''}
       </div>
 
@@ -179,8 +179,8 @@ export function SelfEmployedTaxCalculator() {
 
   const handleCopy = useCallback(async () => {
     const text = [
-      `Налог самозанятого при доходе ${fmt(state.income)} ₽/мес: ${fmt(result.tax)} ₽/мес (ставка ${result.rate.toFixed(1)}%).`,
-      `Экономия vs НДФЛ 13%: ${fmt(result.savingsNdfl)} ₽/мес.`,
+      `Налог самозанятого при доходе ${fmt(state.income)} ₽/мес: ${fmt(result.tax)} ₽/мес (ставка ${pct(result.rate)}).`,
+      `Экономия vs НДФЛ 13%: ${fmt(result.savingsNdfl)} ₽/мес.`,
       'Рассчитано на schitay-online.ru',
     ].join('\n');
 
@@ -272,7 +272,7 @@ export function SelfEmployedTaxCalculator() {
                 Доход в месяц
               </label>
               <span className="text-lg font-black text-accent-600 dark:text-accent-400">
-                {fmt(state.income)} ₽
+                {fmt(state.income)} ₽
               </span>
             </div>
             <div className="flex items-center gap-3">
@@ -377,8 +377,8 @@ export function SelfEmployedTaxCalculator() {
                 Внимание: превышение лимита НПД
               </p>
               <p className="text-red-600 dark:text-red-300">
-                При таком доходе ({fmt(state.income)} ₽/мес) годовая сумма
-                ({fmt(state.income * 12)} ₽) превышает лимит 2,4 млн ₽.
+                При таком доходе ({fmt(state.income)} ₽/мес) годовая сумма
+                ({fmt(state.income * 12)} ₽) превышает лимит 2,4 млн ₽.
                 После превышения нужно регистрироваться как ИП.
               </p>
             </div>
@@ -407,29 +407,29 @@ export function SelfEmployedTaxCalculator() {
               {fmt(animatedTax)} <span className="text-3xl">₽</span>
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-1 mt-3 text-sm text-white/80">
-              <span>В год: <strong>{fmt(result.taxYear)} ₽</strong></span>
+              <span>В год: <strong>{fmt(result.taxYear)} ₽</strong></span>
               <span>
                 Ставка:{' '}
                 <strong>
-                  {result.rate.toFixed(1)}%
+                  {pct(result.rate)}
                 </strong>
               </span>
               {result.insurance > 0 && (
                 <span>
-                  Взносы: <strong>{fmt(result.insurance)} ₽/мес</strong>
+                  Взносы: <strong>{fmt(result.insurance)} ₽/мес</strong>
                 </span>
               )}
             </div>
             <div className="mt-4 pt-4 border-t border-white/20">
               <p className="text-lg font-bold">
-                Экономия vs НДФЛ 13%: {fmt(result.savingsNdfl)} ₽/мес
+                Экономия vs НДФЛ 13%: {fmt(result.savingsNdfl)} ₽/мес
               </p>
             </div>
           </div>
         </div>
 
         {/* Comparison bars */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-6 md:p-7">
+        <div className="border-t border-ink-200 dark:border-ink-800 pt-5">
           <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 mb-5 uppercase tracking-wider">
             Сравнение режимов
           </h3>
@@ -446,7 +446,7 @@ export function SelfEmployedTaxCalculator() {
                       {b.label}
                     </span>
                     <span className="text-sm font-black text-gray-900 dark:text-white">
-                      {fmt(b.tax)} ₽
+                      {fmt(b.tax)} ₽
                     </span>
                   </div>
                   <div className="h-3 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">

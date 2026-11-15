@@ -6,8 +6,8 @@ import AffiliateLink from '../../components/AffiliateLink.astro';
 import DisclosureNote from '../../components/DisclosureNote.astro';
 import { PARTNERS } from '../../config/partners';
 
-const title = 'Калькулятор налогового вычета 10 000 ₽ для самозанятых 2026';
-const desc = 'Рассчитайте налоговый вычет 10 000 ₽ для самозанятых (НПД) по 422-ФЗ. Сколько месяцев действует скидка (3% с физлиц, 4% с юрлиц), остаток бонуса и экономия онлайн.';
+const title = 'Калькулятор налогового вычета 10 000 ₽ для самозанятых 2026';
+const desc = 'Рассчитайте налоговый вычет 10 000 ₽ для самозанятых (НПД) по 422-ФЗ. Сколько месяцев действует скидка (3% с физлиц, 4% с юрлиц), остаток бонуса и экономия онлайн.';
 const canonical = 'https://schitay-online.ru/dlya-samozanyatyh/vychet/';
 
 const breadcrumbSchema = {
@@ -16,14 +16,14 @@ const breadcrumbSchema = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://schitay-online.ru/' },
     { '@type': 'ListItem', position: 2, name: 'Самозанятым', item: 'https://schitay-online.ru/dlya-samozanyatyh/' },
-    { '@type': 'ListItem', position: 3, name: 'Налоговый вычет 10 000 ₽', item: canonical },
+    { '@type': 'ListItem', position: 3, name: 'Налоговый вычет 10 000 ₽', item: canonical },
   ],
 };
 
 const softwareSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Калькулятор налогового вычета 10 000 ₽ для самозанятых',
+  name: 'Калькулятор налогового вычета 10 000 ₽ для самозанятых',
   applicationCategory: 'FinanceApplication',
   operatingSystem: 'Web',
   offers: { '@type': 'Offer', price: 0, priceCurrency: 'RUB' },
@@ -31,27 +31,27 @@ const softwareSchema = {
 
 const faqItems = [
   {
-    question: 'Что такое налоговый вычет 10 000 ₽ для самозанятых?',
+    question: 'Что такое налоговый вычет 10 000 ₽ для самозанятых?',
     answer: 'Это государственный единовременный бонус (ст. 12 Федерального закона № 422-ФЗ), который автоматически предоставляется каждому гражданину при первой регистрации в качестве самозанятого (плательщика НПД). Бонус не перечисляется на банковскую карту деньгами, а уменьшает начисляемый налог: ставка снижается с 4% до 3% при работе с физлицами (скидка 1%) и с 6% до 4% при работе с юрлицами и ИП (скидка 2%).',
   },
   {
-    question: 'Как получить налоговый бонус 10 000 ₽?',
-    answer: 'Подавать заявления, собирать чеки или посещать налоговую инспекцию не требуется. Бонус 10 000 ₽ начисляется автоматически сразу после регистрации в приложении «Мой налог». Сумма сразу видна на главном экране личного кабинета, и налоговая служба самостоятельно списывает её при расчёте ежемесячного платежа.',
+    question: 'Как получить налоговый бонус 10 000 ₽?',
+    answer: 'Подавать заявления, собирать чеки или посещать налоговую инспекцию не требуется. Бонус 10 000 ₽ начисляется автоматически сразу после регистрации в приложении «Мой налог». Сумма сразу видна на главном экране личного кабинета, и налоговая служба самостоятельно списывает её при расчёте ежемесячного платежа.',
   },
   {
     question: 'Сгорает ли вычет в конце календарного года?',
-    answer: 'Нет, налоговый вычет самозанятого не имеет срока давности и не сгорает 31 декабря. Неиспользованный остаток бонуса в полном объёме переносится на следующий месяц и на все последующие годы, пока не будет исчерпан до 0 ₽.',
+    answer: 'Нет, налоговый вычет самозанятого не имеет срока давности и не сгорает 31 декабря. Неиспользованный остаток бонуса в полном объёме переносится на следующий месяц и на все последующие годы, пока не будет исчерпан до 0 ₽.',
   },
   {
     question: 'Что происходит с бонусом, если закрыть самозанятость и открыться снова?',
-    answer: 'Если вы сниметесь с учёта в качестве самозанятого, неиспользованный остаток налогового бонуса сохраняется за вашим ИНН. При повторной регистрации бонус возобновит своё действие ровно на ту сумму, которая оставалась. Однако новые 10 000 ₽ повторно не начисляются — вычет предоставляется один раз в жизни.',
+    answer: 'Если вы сниметесь с учёта в качестве самозанятого, неиспользованный остаток налогового бонуса сохраняется за вашим ИНН. При повторной регистрации бонус возобновит своё действие ровно на ту сумму, которая оставалась. Однако новые 10 000 ₽ повторно не начисляются — вычет предоставляется один раз в жизни.',
   },
   {
-    question: 'На сколько месяцев хватает вычета 10 000 ₽?',
-    answer: 'Срок действия зависит от суммы ежемесячного дохода и типа заказчиков. Например, при доходе 100 000 ₽ в месяц от физлиц экономия составляет 1 000 ₽/мес — вычета хватит ровно на 10 месяцев. При доходе 100 000 ₽ от юрлиц экономия 2 000 ₽/мес — бонуса хватит на 5 месяцев. При доходе 50 000 ₽ от физлиц бонус действует 20 месяцев.',
+    question: 'На сколько месяцев хватает вычета 10 000 ₽?',
+    answer: 'Срок действия зависит от суммы ежемесячного дохода и типа заказчиков. Например, при доходе 100 000 ₽ в месяц от физлиц экономия составляет 1 000 ₽/мес — вычета хватит ровно на 10 месяцев. При доходе 100 000 ₽ от юрлиц экономия 2 000 ₽/мес — бонуса хватит на 5 месяцев. При доходе 50 000 ₽ от физлиц бонус действует 20 месяцев.',
   },
   {
-    question: 'Можно ли вывести 10 000 ₽ бонуса на банковскую карту?',
+    question: 'Можно ли вывести 10 000 ₽ бонуса на банковскую карту?',
     answer: 'Нет, закон не предусматривает выплату бонуса наличными или перевод на банковский счёт. Эти средства предназначены исключительно для автоматической компенсации части налога на профессиональный доход при формировании чеков в приложении «Мой налог».',
   },
 ];
@@ -86,7 +86,7 @@ const faqSchema = {
         <span class="mx-1">/</span>
       </li>
       <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-800 dark:text-gray-200 font-medium">
-        <span itemprop="name">Налоговый вычет 10 000 ₽</span>
+        <span itemprop="name">Налоговый вычет 10 000 ₽</span>
         <meta itemprop="position" content="3" />
       </li>
     </ol>
@@ -104,10 +104,10 @@ const faqSchema = {
         <!-- Hero Section -->
         <section class="mb-6">
           <h1 class="text-[28px] leading-tight sm:text-4xl lg:text-[40px] font-bold text-gray-900 dark:text-white mb-3">
-            Калькулятор налогового вычета 10 000 ₽ для самозанятых
+            Калькулятор налогового вычета 10 000 ₽ для самозанятых
           </h1>
           <p class="max-w-3xl text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-3">
-            Рассчитайте, на сколько месяцев вам хватит государственного налогового бонуса 10 000 ₽,
+            Рассчитайте, на сколько месяцев вам хватит государственного налогового бонуса 10 000 ₽,
             какой будет льготная ставка (3% с физлиц и 4% с юрлиц) и сколько рублей вы сэкономите в месяц.
           </p>
           <div class="flex flex-wrap gap-3 text-sm text-gray-400 dark:text-gray-500">
@@ -153,7 +153,7 @@ const faqSchema = {
             <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
               <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-heading font-black text-lg mb-3">3</div>
               <h3 class="font-bold text-gray-900 dark:text-white mb-1">Оцените результат</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Узнайте сумму ежемесячной экономии, льготный налог и график списания бонуса 10 000 ₽.</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Узнайте сумму ежемесячной экономии, льготный налог и график списания бонуса 10 000 ₽.</p>
             </div>
           </div>
         </section>
@@ -164,13 +164,13 @@ const faqSchema = {
             <h2>Как устроен налоговый вычет для самозанятых по 422-ФЗ</h2>
             <p>
               Каждый гражданин, регистрирующийся в качестве плательщика налога на профессиональный доход (НПД),
-              получает от государства <strong>налоговый бонус в размере 10 000 рублей</strong>. Это регламентировано
+              получает от государства <strong>налоговый бонус в размере 10 000 рублей</strong>. Это регламентировано
               <strong>статьёй 12 Федерального закона № 422-ФЗ</strong>.
             </p>
             <p>
               Важно понимать: это не «живые деньги», которые поступят вам на карту. Государство начисляет виртуальный баланс
               в приложении <strong>«Мой налог»</strong>, который автоматически уменьшает процентную ставку налога до тех пор,
-              пока суммарная скидка не достигнет 10 000 ₽:
+              пока суммарная скидка не достигнет 10 000 ₽:
             </p>
             <ul>
               <li>
@@ -187,7 +187,7 @@ const faqSchema = {
           </section>
 
           <section id="таблица-расчёта">
-            <h2>Таблица: на сколько хватает вычета 10 000 ₽ при разном доходе</h2>
+            <h2>Таблица: на сколько хватает вычета 10 000 ₽ при разном доходе</h2>
             <p>
               Чем выше ваш доход и чем больше доля заказов от юрлиц, тем быстрее расходуется стартовый бонус.
               Ниже приведены точные расчёты для популярных уровней дохода:
@@ -206,52 +206,52 @@ const faqSchema = {
                 </thead>
                 <tbody>
                   <tr class="border-b border-gray-100 dark:border-gray-800">
-                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">30 000 ₽</td>
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">30 000 ₽</td>
                     <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Физлица (3%)</td>
-                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">900 ₽</td>
-                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">300 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">900 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">300 ₽</td>
                     <td class="text-right py-2.5 pl-4 font-bold text-accent-600">~33 мес.</td>
                   </tr>
                   <tr class="border-b border-gray-100 dark:border-gray-800">
-                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">50 000 ₽</td>
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">50 000 ₽</td>
                     <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Физлица (3%)</td>
-                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">1 500 ₽</td>
-                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">500 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">1 500 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">500 ₽</td>
                     <td class="text-right py-2.5 pl-4 font-bold text-accent-600">20 мес.</td>
                   </tr>
                   <tr class="border-b border-gray-100 dark:border-gray-800">
-                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">80 000 ₽</td>
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">80 000 ₽</td>
                     <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Физлица (3%)</td>
-                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">2 400 ₽</td>
-                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">800 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">2 400 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">800 ₽</td>
                     <td class="text-right py-2.5 pl-4 font-bold text-accent-600">12.5 мес.</td>
                   </tr>
                   <tr class="border-b border-gray-100 dark:border-gray-800">
-                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">100 000 ₽</td>
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">100 000 ₽</td>
                     <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Физлица (3%)</td>
-                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">3 000 ₽</td>
-                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">1 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">3 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">1 000 ₽</td>
                     <td class="text-right py-2.5 pl-4 font-bold text-accent-600">10 мес.</td>
                   </tr>
                   <tr class="border-b border-gray-100 dark:border-gray-800">
-                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">100 000 ₽</td>
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">100 000 ₽</td>
                     <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Юрлица / ИП (4%)</td>
-                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">4 000 ₽</td>
-                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">2 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">4 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">2 000 ₽</td>
                     <td class="text-right py-2.5 pl-4 font-bold text-accent-600">5 мес.</td>
                   </tr>
                   <tr class="border-b border-gray-100 dark:border-gray-800">
-                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">150 000 ₽</td>
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">150 000 ₽</td>
                     <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Юрлица / ИП (4%)</td>
-                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">6 000 ₽</td>
-                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">3 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">6 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">3 000 ₽</td>
                     <td class="text-right py-2.5 pl-4 font-bold text-accent-600">~3.3 мес.</td>
                   </tr>
                   <tr>
-                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">200 000 ₽</td>
+                    <td class="py-2.5 pr-4 text-gray-900 dark:text-white font-medium">200 000 ₽</td>
                     <td class="py-2.5 px-4 text-gray-600 dark:text-gray-400">Юрлица / ИП (4%)</td>
-                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">8 000 ₽</td>
-                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">4 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-emerald-600 font-semibold">8 000 ₽</td>
+                    <td class="text-right py-2.5 px-4 text-gray-900 dark:text-white">4 000 ₽</td>
                     <td class="text-right py-2.5 pl-4 font-bold text-accent-600">2.5 мес.</td>
                   </tr>
                 </tbody>
@@ -261,14 +261,14 @@ const faqSchema = {
 
           <section id="кому-положен-вычет">
             <h2>Кому предоставляется налоговый бонус</h2>
-            <p>Право на вычет 10 000 ₽ имеют:</p>
+            <p>Право на вычет 10 000 ₽ имеют:</p>
             <ul>
               <li>Все граждане РФ, впервые зарегистрировавшиеся в качестве плательщиков налога на профессиональный доход.</li>
               <li>Граждане стран Евразийского экономического союза (Беларусь, Казахстан, Армения, Киргизия), вставшие на учёт как самозанятые в РФ.</li>
               <li>Несовершеннолетние самозанятые (с 14 лет с согласия родителей или с 16 лет при эмансипации).</li>
             </ul>
             <p>
-              Бонус предоставляется <strong>один раз за всю жизнь</strong>. Если вы полностью использовали 10 000 ₽,
+              Бонус предоставляется <strong>один раз за всю жизнь</strong>. Если вы полностью использовали 10 000 ₽,
               дальнейшие налоги уплачиваются по стандартным ставкам: 4% с физлиц и 6% с юрлиц.
             </p>
           </section>
@@ -286,13 +286,13 @@ const faqSchema = {
             <h3>Что происходит при закрытии и повторном открытии самозанятости:</h3>
             <ol>
               <li>
-                <strong>Если вы потратили часть бонуса (например, 4 000 ₽):</strong> при снятии с учёта оставшиеся 6 000 ₽ закрепляются за вашим ИНН. Когда вы решите снова стать самозанятым — вам будут доступны именно эти 6 000 ₽.
+                <strong>Если вы потратили часть бонуса (например, 4 000 ₽):</strong> при снятии с учёта оставшиеся 6 000 ₽ закрепляются за вашим ИНН. Когда вы решите снова стать самозанятым — вам будут доступны именно эти 6 000 ₽.
               </li>
               <li>
-                <strong>Если вы потратили все 10 000 ₽:</strong> при повторном открытии самозанятости вычет будет равен 0 ₽, налог сразу пойдёт по базовым ставкам 4% и 6%.
+                <strong>Если вы потратили все 10 000 ₽:</strong> при повторном открытии самозанятости вычет будет равен 0 ₽, налог сразу пойдёт по базовым ставкам 4% и 6%.
               </li>
               <li>
-                <strong>Новые 10 000 ₽ не выдаются:</strong> повторная регистрация не сбрасывает счётчик вычета.
+                <strong>Новые 10 000 ₽ не выдаются:</strong> повторная регистрация не сбрасывает счётчик вычета.
               </li>
             </ol>
           </section>
@@ -300,7 +300,7 @@ const faqSchema = {
 
         <!-- Partner Offers Section -->
         <section class="mb-12" id="партнёрские-сервисы">
-          <div class="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800/80 border border-gray-200 dark:border-gray-800 shadow-md">
+          <div class="p-6 md:p-8 rounded-2xl border border-ink-200 dark:border-ink-800">
             <div class="max-w-2xl mb-6">
               <span class="text-xs font-bold uppercase tracking-widest text-accent-600 dark:text-accent-400 mb-1 block">
                 Рекомендации для самозанятых
@@ -409,11 +409,11 @@ const faqSchema = {
               <p class="text-sm text-gray-500 dark:text-gray-400">4% или 6% — полный расчёт налога самозанятого</p>
             </a>
 
-            <a href="/dlya-samozanyatyh/npd-vs-ip/" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-warm-300 dark:hover:border-warm-700 transition-all">
-              <div class="w-10 h-10 rounded-lg bg-warm-50 dark:bg-warm-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                <svg class="w-5 h-5 text-warm-600 dark:text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+            <a href="/dlya-samozanyatyh/npd-vs-ip/" class="group p-5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md hover:border-brand-300 dark:hover:border-brand-700 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 text-brand-600 dark:text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
               </div>
-              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-warm-600 transition-colors">Сравнение НПД vs ИП</h3>
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-brand-600 transition-colors">Сравнение НПД vs ИП</h3>
               <p class="text-sm text-gray-500 dark:text-gray-400">Что выгоднее: самозанятость или ИП на УСН 6%</p>
             </a>
 

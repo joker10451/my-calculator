@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Copy, Share2, Check } from 'lucide-react';
 import { toPng } from 'html-to-image';
-import { compareNpdVsUsn, fmt, FIXED_CONTRIBUTIONS_2026, NPD_LIMIT } from '../../lib/tax';
+import { compareNpdVsUsn, fmt, FIXED_CONTRIBUTIONS_2026, NPD_LIMIT, pct } from '../../lib/tax';
 
 const PRESETS = [80000, 150000, 300000];
 
@@ -42,19 +42,19 @@ function SegmentedBar({
   taxAmount,
   insuranceAmount,
   maxTotal,
-  taxColor,
-  insuranceColor,
+  total,
+  barClass,
   isWinner,
 }: {
   label: string;
   taxAmount: number;
   insuranceAmount: number;
   maxTotal: number;
-  taxColor: string;
-  insuranceColor: string;
+  /** Итоговая нагрузка из расчёта: tax и insurance округлены по отдельности, их сумма может отличаться на 1 ₽ */
+  total: number;
+  barClass: string;
   isWinner: boolean;
 }) {
-  const total = taxAmount + insuranceAmount;
   const pct = maxTotal > 0 ? (total / maxTotal) * 100 : 0;
   const taxPct = total > 0 ? (taxAmount / total) * 100 : 0;
   const insPct = total > 0 ? (insuranceAmount / total) * 100 : 0;
@@ -66,34 +66,27 @@ function SegmentedBar({
           {label}
           {isWinner && <span className="ml-1.5 text-emerald-500">✓</span>}
         </span>
-        <span className="text-xs font-black text-gray-900 dark:text-white">{fmt(total)} ₽</span>
+        <span className="text-xs font-black text-gray-900 dark:text-white">{fmt(total)} ₽</span>
       </div>
-      <div className="h-5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden flex">
+      <div className="h-2 bg-ink-200 dark:bg-ink-800 overflow-hidden flex" style={{ width: `${Math.max(pct, 2)}%` }}>
         {taxAmount > 0 && (
           <div
-            className="h-full transition-all duration-500"
-            style={{
-              width: `${taxPct}%`,
-              background: taxColor,
-            }}
-            title={`Налог: ${fmt(taxAmount)} ₽`}
+            className={`h-full transition-all duration-500 ${barClass}`}
+            style={{ width: `${taxPct}%` }}
+            title={`Налог: ${fmt(taxAmount)} ₽`}
           />
         )}
         {insuranceAmount > 0 && (
           <div
-            className="h-full transition-all duration-500 opacity-60"
-            style={{
-              width: `${insPct}%`,
-              background: insuranceColor,
-              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255,255,255,0.15) 4px, rgba(255,255,255,0.15) 8px)`,
-            }}
-            title={`Взносы: ${fmt(insuranceAmount)} ₽`}
+            className={`h-full transition-all duration-500 opacity-40 ${barClass}`}
+            style={{ width: `${insPct}%` }}
+            title={`Взносы: ${fmt(insuranceAmount)} ₽`}
           />
         )}
       </div>
-      <div className="flex gap-3 mt-0.5 text-[10px] text-gray-400">
-        {taxAmount > 0 && <span>налог {fmt(taxAmount)} ₽</span>}
-        {insuranceAmount > 0 && <span>взносы {fmt(insuranceAmount)} ₽</span>}
+      <div className="flex gap-3 mt-1 text-xs text-ink-500 dark:text-ink-400">
+        {taxAmount > 0 && <span>налог {fmt(taxAmount)} ₽</span>}
+        {insuranceAmount > 0 && <span>взносы {fmt(insuranceAmount)} ₽</span>}
       </div>
     </div>
   );
@@ -117,6 +110,10 @@ export function NpdVsIpCalculator() {
   const winnerBurden = comparison.winner === 'npd' ? comparison.npdBurden : comparison.usnBurden;
   const loserBurden = comparison.winner === 'npd' ? comparison.usnBurden : comparison.npdBurden;
   const maxBurden = Math.max(comparison.npdBurden, comparison.usnBurden);
+  // Одна выгода для заголовка, плашки и копирования: если НПД выигрывает и вычет включён — считаем от НПД с вычетом
+  const withDed = comparison.winner === 'npd' && useDeduction;
+  const npdShown = withDed ? comparison.npdMonthlyWithDeduction : comparison.npdBurden;
+  const savingNow = withDed ? comparison.usnBurden - comparison.npdMonthlyWithDeduction : comparison.monthlySavings;
 
   const animatedWinner = useAnimatedValue(comparison.winner === 'npd' ? comparison.npdBurden : comparison.usnBurden);
   const animatedLoser = useAnimatedValue(comparison.winner === 'npd' ? comparison.usnBurden : comparison.npdBurden);
@@ -129,11 +126,11 @@ export function NpdVsIpCalculator() {
 
   const handleCopy = useCallback(async () => {
     const lines = [
-      `Сравнение НПД vs ИП УСН при доходе ${fmt(income)} ₽/мес`,
-      `НПД: ${fmt(comparison.npdBurden)} ₽/мес (ставка ${comparison.npd.rate.toFixed(1)}%)`,
-      `ИП УСН: ${fmt(comparison.usnBurden)} ₽/мес (ставка ${comparison.usn.effectiveRate.toFixed(1)}%)`,
+      `Сравнение НПД vs ИП УСН при доходе ${fmt(income)} ₽/мес`,
+      `НПД: ${fmt(npdShown)} ₽/мес (ставка ${pct(comparison.npd.rate)})`,
+      `ИП УСН: ${fmt(comparison.usnBurden)} ₽/мес (ставка ${pct(comparison.usn.effectiveRate)})`,
       comparison.winner !== 'tie'
-        ? `${comparison.winner === 'npd' ? 'НПД' : 'ИП УСН'} выгоднее на ${fmt(comparison.monthlySavings)} ₽/мес`
+        ? `${comparison.winner === 'npd' ? 'НПД' : 'ИП УСН'} выгоднее на ${fmt(savingNow)} ₽/мес${withDed ? ` (с вычетом, первые ~${comparison.npdDeductionMonthsLeft} мес)` : ''}`
         : 'Режимы примерно равны по нагрузке',
       'Рассчитано на schitay-online.ru',
     ];
@@ -143,7 +140,7 @@ export function NpdVsIpCalculator() {
     setCopied(true);
     if (copyTimer.current) clearTimeout(copyTimer.current);
     copyTimer.current = setTimeout(() => setCopied(false), 2000);
-  }, [income, comparison]);
+  }, [income, comparison, npdShown, savingNow, withDed]);
 
   const handleShare = useCallback(async () => {
     setShareInProgress(true);
@@ -186,7 +183,7 @@ export function NpdVsIpCalculator() {
                 Доход в месяц
               </label>
               <span className="text-lg font-black text-accent-600 dark:text-accent-400">
-                {fmt(income)} ₽
+                {fmt(income)} ₽
               </span>
             </div>
             <div className="flex items-center gap-3 mb-2">
@@ -219,7 +216,7 @@ export function NpdVsIpCalculator() {
                       : 'border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
-                  {fmt(p)} ₽
+                  {fmt(p)} ₽
                 </button>
               ))}
             </div>
@@ -274,7 +271,7 @@ export function NpdVsIpCalculator() {
                   className="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-accent-600 focus:ring-accent-500"
                 />
                 <div>
-                  <span className="text-sm font-bold text-gray-700 dark:text-gray-300">Учесть стартовый вычет 10 000 ₽</span>
+                  <span className="text-sm font-bold text-gray-700 dark:text-gray-300">Учесть стартовый вычет 10 000 ₽</span>
                   <p className="text-xs text-gray-400">даётся один раз новым самозанятым, снижает ставку до 3%/4%, пока не исчерпан</p>
                 </div>
               </label>
@@ -289,7 +286,7 @@ export function NpdVsIpCalculator() {
                   </div>
                   <div className="mt-1.5 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-accent-500 to-accent-600 rounded-full transition-all duration-300"
+                      className="h-full bg-brand-600 dark:bg-brand-300 rounded-full transition-all duration-300"
                       style={{
                         width: `${Math.min(100, (Math.round(animatedMonths) / 24) * 100)}%`,
                       }}
@@ -303,8 +300,8 @@ export function NpdVsIpCalculator() {
 
           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
-              <p>Взносы ИП (2026): {fmt(FIXED_CONTRIBUTIONS_2026)} ₽/год + 1% с дохода &gt; 300к</p>
-              <p>Лимит НПД: {fmt(NPD_LIMIT)} ₽/год</p>
+              <p>Взносы ИП (2026): {fmt(FIXED_CONTRIBUTIONS_2026)} ₽/год + 1% с дохода &gt; 300к</p>
+              <p>Лимит НПД: {fmt(NPD_LIMIT)} ₽/год</p>
             </div>
           </div>
         </div>
@@ -327,10 +324,10 @@ export function NpdVsIpCalculator() {
               <>
                 <p className="text-sm font-bold uppercase tracking-widest text-white/70 mb-1">НПД недоступен</p>
                 <p className="text-2xl md:text-3xl font-black tracking-tight mb-1">
-                  Годовой доход превышает лимит 2,4 млн ₽
+                  Годовой доход превышает лимит 2,4 млн ₽
                 </p>
                 <p className="text-white/80 text-sm mt-2">
-                  Единственный вариант — ИП на УСН: <strong>{fmt(comparison.usnBurden)} ₽/мес</strong> полной нагрузки
+                  Единственный вариант — ИП на УСН: <strong>{fmt(comparison.usnBurden)} ₽/мес</strong> полной нагрузки
                 </p>
               </>
             ) : comparison.winner === 'tie' ? (
@@ -341,7 +338,7 @@ export function NpdVsIpCalculator() {
                     Вычет склоняет чашу в пользу НПД
                   </p>
                   <p className="text-white/80 text-sm mt-2">
-                    С вычетом НПД: {fmt(comparison.npdMonthlyWithDeduction)} ₽/мес · УСН: {fmt(comparison.usnBurden)} ₽/мес · экономия ~{fmt(comparison.usnBurden - comparison.npdMonthlyWithDeduction)} ₽/мес первые ~{comparison.npdDeductionMonthsLeft} мес
+                    С вычетом НПД: {fmt(comparison.npdMonthlyWithDeduction)} ₽/мес · УСН: {fmt(comparison.usnBurden)} ₽/мес · экономия ~{fmt(comparison.usnBurden - comparison.npdMonthlyWithDeduction)} ₽/мес первые ~{comparison.npdDeductionMonthsLeft} мес
                   </p>
                 </>
               ) : (
@@ -351,32 +348,32 @@ export function NpdVsIpCalculator() {
                     Нагрузка одинаковая
                   </p>
                   <p className="text-white/80 text-sm mt-2">
-                    НПД: {fmt(comparison.npdBurden)} ₽/мес · УСН: {fmt(comparison.usnBurden)} ₽/мес
+                    НПД: {fmt(comparison.npdBurden)} ₽/мес · УСН: {fmt(comparison.usnBurden)} ₽/мес
                   </p>
                 </>
               )
             ) : comparison.winner === 'npd' && useDeduction ? (
               <>
-                <p className="text-sm font-bold uppercase tracking-widest text-white/70 mb-1">С вычетом НПД выгоднее</p>
+                <p className="text-sm font-bold uppercase tracking-widest text-white/70 mb-1">НПД выгоднее на</p>
                 <p className="text-3xl md:text-5xl font-black tracking-tight mb-1">
-                  {fmt(comparison.usnBurden - comparison.npdMonthlyWithDeduction)} <span className="text-xl md:text-2xl">₽/мес</span>
+                  {fmt(savingNow)} <span className="text-xl md:text-2xl">₽/мес</span>
                 </p>
                 <p className="text-white/80 text-sm mt-2">
-                  первые ~{comparison.npdDeductionMonthsLeft} мес, затем <strong>{fmt(comparison.monthlySavings)} ₽/мес</strong>
+                  НПД с вычетом {fmt(npdShown)} ₽ против ИП {fmt(comparison.usnBurden)} ₽ в месяц, первые ~{comparison.npdDeductionMonthsLeft} мес. Когда вычет закончится, разница составит <strong>{fmt(comparison.monthlySavings)} ₽/мес</strong>.
                 </p>
               </>
             ) : (
               <>
                 <p className="text-sm font-bold uppercase tracking-widest text-white/70 mb-1">
-                  {comparison.winner === 'npd' ? 'НПД выгоднее' : 'ИП УСН выгоднее'}
+                  {comparison.winner === 'npd' ? 'НПД выгоднее на' : 'ИП УСН выгоднее на'}
                 </p>
                 <p className="text-3xl md:text-5xl font-black tracking-tight mb-1">
                   {fmt(comparison.monthlySavings)} <span className="text-xl md:text-2xl">₽/мес</span>
                 </p>
                 <p className="text-white/80 text-sm mt-2">
                   {comparison.winner === 'usn' && useDeduction
-                    ? 'вычет 10 000 ₽ немного снизит НПД на старте, но режим всё равно выгоднее ИП'
-                    : <>Экономия в год: <strong>{fmt(comparison.annualSavings)} ₽</strong></>
+                    ? 'вычет 10 000 ₽ немного снизит НПД на старте, но режим всё равно выгоднее ИП'
+                    : <>Экономия в год: <strong>{fmt(comparison.annualSavings)} ₽</strong></>
                   }
                 </p>
               </>
@@ -387,17 +384,17 @@ export function NpdVsIpCalculator() {
         {/* Asymmetric panels */}
         <div className="flex flex-col md:flex-row gap-4">
           {/* NPD panel */}
-          <div className={`rounded-2xl border-2 p-5 transition-all ${
+          <div className={`border-t-2 pt-4 ${
             comparison.winner === 'npd'
-              ? 'flex-[2] border-emerald-300 dark:border-emerald-700 bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-950/30 dark:to-gray-900'
-              : 'flex-1 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
+              ? 'flex-[2] border-brand-600 dark:border-brand-300'
+              : 'flex-1 border-ink-300 dark:border-ink-700'
           }`}>
             <div className="flex items-center justify-between mb-2">
               <h4 className={`font-heading font-black text-lg ${
                 comparison.winner === 'npd' ? 'text-emerald-700 dark:text-emerald-400' : 'text-gray-900 dark:text-white'
               }`}>НПД</h4>
               {comparison.winner === 'npd' && (
-                <span className="px-2.5 py-1 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400">
+                <span className="text-xs font-medium text-brand-600 dark:text-brand-300">
                   Выгоднее
                 </span>
               )}
@@ -409,68 +406,68 @@ export function NpdVsIpCalculator() {
                   Недоступен
                 </div>
                 <div className="text-xs text-red-400">
-                  превышен лимит 2,4 млн ₽/год
+                  превышен лимит 2,4 млн ₽/год
                 </div>
               </div>
             ) : useDeduction ? (
               <>
                 <div className="font-heading text-3xl font-black text-emerald-600 dark:text-emerald-400 mb-1">
-                  {fmt(comparison.npdMonthlyWithDeduction)} ₽
+                  {fmt(comparison.npdMonthlyWithDeduction)} ₽
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                   с вычетом, первые ~{comparison.npdDeductionMonthsLeft} мес
                 </div>
                 <div className="font-heading text-xl font-bold text-gray-400 dark:text-gray-500">
-                  {fmt(comparison.npdBurden)} ₽
+                  {fmt(comparison.npdBurden)} ₽
                 </div>
                 <div className="text-xs text-gray-400 dark:text-gray-500">
-                  после исчерпания вычета · ставка {comparison.npd.effectiveRate.toFixed(1)}%
+                  после исчерпания вычета · ставка {pct(comparison.npd.effectiveRate)}
                 </div>
               </>
             ) : (
               <>
                 <div className="font-heading text-3xl font-black text-gray-900 dark:text-white mb-1">
-                  {comparison.winner === 'npd' ? fmt(Math.round(animatedWinner)) : fmt(comparison.npdBurden)} ₽
+                  {comparison.winner === 'npd' ? fmt(Math.round(animatedWinner)) : fmt(comparison.npdBurden)} ₽
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                  в месяц · ставка {comparison.npd.effectiveRate.toFixed(1)}%
+                  в месяц · ставка {pct(comparison.npd.effectiveRate)}
                 </div>
               </>
             )}
           </div>
 
           {/* USN panel */}
-          <div className={`rounded-2xl border-2 p-5 transition-all ${
+          <div className={`border-t-2 pt-4 ${
             comparison.winner === 'usn'
-              ? 'flex-[2] border-warm-300 dark:border-warm-700 bg-gradient-to-br from-warm-50 to-white dark:from-warm-950/30 dark:to-gray-900'
-              : 'flex-1 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
+              ? 'flex-[2] border-brand-600 dark:border-brand-300'
+              : 'flex-1 border-ink-300 dark:border-ink-700'
           }`}>
             <div className="flex items-center justify-between mb-2">
               <h4 className={`font-heading font-black text-lg ${
-                comparison.winner === 'usn' ? 'text-warm-700 dark:text-warm-400' : 'text-gray-900 dark:text-white'
+                comparison.winner === 'usn' ? 'text-brand-600 dark:text-brand-300' : 'text-gray-900 dark:text-white'
               }`}>ИП УСН 6%</h4>
               {comparison.winner === 'usn' && (
-                <span className="px-2.5 py-1 text-[10px] font-bold rounded-full bg-warm-100 dark:bg-warm-900/50 text-warm-700 dark:text-warm-400">
+                <span className="text-xs font-medium text-brand-600 dark:text-brand-300">
                   Выгоднее
                 </span>
               )}
             </div>
             <div className="font-heading text-3xl font-black text-gray-900 dark:text-white mb-1">
-              {comparison.winner === 'usn' ? fmt(Math.round(animatedWinner)) : fmt(comparison.usnBurden)} ₽
+              {comparison.winner === 'usn' ? fmt(Math.round(animatedWinner)) : fmt(comparison.usnBurden)} ₽
             </div>
             <div className="text-sm text-gray-500 dark:text-gray-400">
-              в месяц · эффективная ставка {comparison.usn.effectiveRate.toFixed(1)}%
+              в месяц · эффективная ставка {pct(comparison.usn.effectiveRate)}
             </div>
             {comparison.usn.insurance > 0 && (
-              <div className="mt-2 text-xs text-warm-600 dark:text-warm-400">
-                Включая взносы {fmt(comparison.usn.insurance)} ₽/мес
+              <div className="mt-2 text-xs text-ink-600 dark:text-ink-400">
+                Включая взносы {fmt(comparison.usn.insurance)} ₽/мес
               </div>
             )}
           </div>
         </div>
 
         {/* Segmented burden bars */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-5 md:p-6">
+        <div className="border-t border-ink-200 dark:border-ink-800 pt-5">
           <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 mb-4 uppercase tracking-wider">
             Структура нагрузки
           </h3>
@@ -479,8 +476,8 @@ export function NpdVsIpCalculator() {
             taxAmount={comparison.npdBurden}
             insuranceAmount={0}
             maxTotal={maxBurden}
-            taxColor="#10B981"
-            insuranceColor="#10B981"
+            total={comparison.npdBurden}
+            barClass="bg-brand-600 dark:bg-brand-300"
             isWinner={comparison.winner === 'npd'}
           />
           <SegmentedBar
@@ -488,29 +485,16 @@ export function NpdVsIpCalculator() {
             taxAmount={comparison.usn.tax}
             insuranceAmount={comparison.usn.insurance}
             maxTotal={maxBurden}
-            taxColor="#F59E0B"
-            insuranceColor="#F59E0B"
+            total={comparison.usnBurden}
+            barClass="bg-ink-600 dark:bg-ink-300"
             isWinner={comparison.winner === 'usn'}
           />
-          <div className="flex gap-3 mt-2 text-[10px] text-gray-400">
-            <span className="flex items-center gap-1">
-              <span className="w-3 h-2 rounded-sm inline-block" style={{ background: '#10B981' }} />
-              налог
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="w-3 h-2 rounded-sm inline-block" style={{ background: '#F59E0B' }} />
-              налог
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="w-3 h-2 rounded-sm inline-block opacity-60" style={{ background: '#F59E0B', backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.2) 2px, rgba(255,255,255,0.2) 4px)' }} />
-              взносы
-            </span>
-          </div>
+          <p className="mt-2 text-xs text-ink-500 dark:text-ink-400">Приглушённая часть полосы ИП — страховые взносы.</p>
         </div>
 
         {/* Intersection point */}
         {comparison.intersectionIncome !== null && (
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-5 md:p-6">
+          <div className="border-t border-ink-200 dark:border-ink-800 pt-5">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-900/30 flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -522,7 +506,7 @@ export function NpdVsIpCalculator() {
                   Точка пересечения режимов
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  При доходе <strong className="text-gray-900 dark:text-white">{fmt(comparison.intersectionIncome)} ₽/мес</strong> нагрузка НПД и УСН сравнивается
+                  При доходе <strong className="text-gray-900 dark:text-white">{fmt(comparison.intersectionIncome)} ₽/мес</strong> нагрузка НПД и УСН сравнивается
                 </p>
                 {useDeduction && (
                   <p className="text-xs text-accent-500 dark:text-accent-400 mt-1">
@@ -564,10 +548,10 @@ export function NpdVsIpCalculator() {
             <p className="text-sm font-semibold truncate">
               {comparison.winner === "tie"
                 ? "Нагрузка примерно равна"
-                : `${comparison.winner === "npd" ? "НПД" : "ИП УСН"} выгоднее на ${fmt(comparison.monthlySavings)} ₽/мес`}
+                : `${comparison.winner === "npd" ? "НПД" : "ИП УСН"} выгоднее на ${fmt(savingNow)} ₽/мес`}
             </p>
             <p className="text-xs text-white/70 font-tabular">
-              НПД {fmt(comparison.npdBurden)} ₽ · ИП {fmt(comparison.usnBurden)} ₽ в месяц
+              НПД {fmt(npdShown)} ₽{withDed ? ' с вычетом' : ''} · ИП {fmt(comparison.usnBurden)} ₽ в месяц
             </p>
           </div>
           <a href="#npd-vs-ip-result" className="shrink-0 text-sm font-semibold underline underline-offset-4">Подробно</a>

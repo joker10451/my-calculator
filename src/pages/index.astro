@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import HeroTeaser from '../components/HeroTeaser.astro';
+import { PARTNERS } from '../config/partners';
 import { getCollection } from 'astro:content';
 
 const articles = (await getCollection('blog'))
@@ -20,19 +21,22 @@ const articles = (await getCollection('blog'))
     readingTime: Math.max(1, Math.round(a.body.split(/\s+/).length / 200)),
   }));
 
+// Ненавязчивая строка с офферами под мини-калькулятором; подпись erid обязательна
+const homeOffers = [PARTNERS.alfa_business, PARTNERS.alfa_selfemployed_card];
+
 const catalogCards = [
   {
     title: 'Налог самозанятого',
-    description: '4% с физлиц и 6% с юрлиц, с учётом стартового вычета 10 000 ₽.',
+    description: '4% с физлиц и 6% с юрлиц, с учётом стартового вычета 10 000 ₽.',
     href: '/dlya-samozanyatyh/kalkulyator-naloga/',
   },
   {
     title: 'НПД или ИП на УСН 6%',
-    description: 'Сколько вы заплатите в каждом режиме с учётом взносов ИП 57 390 ₽.',
+    description: 'Сколько вы заплатите в каждом режиме с учётом взносов ИП 57 390 ₽.',
     href: '/dlya-samozanyatyh/npd-vs-ip/',
   },
   {
-    title: 'Вычет 10 000 ₽',
+    title: 'Вычет 10 000 ₽',
     description: 'Сколько стартового вычета осталось и когда ставки вернутся к 4% и 6%.',
     href: '/dlya-samozanyatyh/vychet/',
   },
@@ -46,19 +50,19 @@ const catalogCards = [
 const faqItems = [
   {
     question: 'Сколько налогов платит самозанятый в 2026 году?',
-    answer: 'Ставка налога на профессиональный доход (НПД) составляет 4% при получении дохода от физических лиц и 6% — от юридических лиц и ИП. Лимит совокупного годового дохода составляет 2,4 млн ₽. Обязательных страховых взносов в СФР нет.',
+    answer: 'Ставка налога на профессиональный доход (НПД) составляет 4% при получении дохода от физических лиц и 6% — от юридических лиц и ИП. Лимит совокупного годового дохода составляет 2,4 млн ₽. Обязательных страховых взносов в СФР нет.',
   },
   {
     question: 'Как рассчитывается налог на вклады по правилам 2026 года?',
-    answer: 'Налог 13% (или 15% при годовом совокупном доходе свыше 2,4 млн ₽) начисляется только на сумму процентных доходов, превышающую необлагаемый порог. Порог равен: 1 000 000 ₽ × максимальная ключевая ставка Банка России на 1-е число каждого месяца отчётного года.',
+    answer: 'Налог 13% (или 15% при годовом совокупном доходе свыше 2,4 млн ₽) начисляется только на сумму процентных доходов, превышающую необлагаемый порог. Порог равен: 1 000 000 ₽ × максимальная ключевая ставка Банка России на 1-е число каждого месяца отчётного года.',
   },
   {
     question: 'Что выгоднее: самозанятость (НПД) или ИП на УСН 6%?',
-    answer: 'При годовом доходе до 2,4 млн ₽ самозанятость выгоднее в большинстве случаев, так как освобождает от обязательных страховых взносов (в 2026 году фиксированный взнос для ИП составляет 57 390 ₽) и сложной бухгалтерской отчётности.',
+    answer: 'При годовом доходе до 2,4 млн ₽ самозанятость выгоднее в большинстве случаев, так как освобождает от обязательных страховых взносов (в 2026 году фиксированный взнос для ИП составляет 57 390 ₽) и сложной бухгалтерской отчётности.',
   },
   {
-    question: 'Как работает стартовый вычет 10 000 ₽ для самозанятых?',
-    answer: 'Государство автоматически выделяет каждому новому плательщику НПД бонус в размере 10 000 ₽. Он списывается налоговой автоматически: ставка с доходов от физлиц снижается с 4% до 3% (1% скидка), а от юрлиц — с 6% до 4% (2% скидка), пока бонус не будет исчерпан.',
+    question: 'Как работает стартовый вычет 10 000 ₽ для самозанятых?',
+    answer: 'Государство автоматически выделяет каждому новому плательщику НПД бонус в размере 10 000 ₽. Он списывается налоговой автоматически: ставка с доходов от физлиц снижается с 4% до 3% (1% скидка), а от юрлиц — с 6% до 4% (2% скидка), пока бонус не будет исчерпан.',
   },
   {
     question: 'Безопасно ли производить расчёты на сайте Считай.RU?',
@@ -89,7 +93,7 @@ const faqSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <section class="container-main pt-8 md:pt-14">
-    <h1 class="max-w-4xl text-[30px] leading-[1.1] sm:text-5xl lg:text-[60px] text-ink-900 dark:text-ink-50">
+    <h1 class="max-w-4xl text-[28px] leading-[1.15] sm:text-5xl lg:text-[60px] text-ink-900 dark:text-ink-50">
       Калькуляторы налогов для&nbsp;самозанятых
     </h1>
     <p class="mt-4 max-w-2xl text-[17px] sm:text-xl leading-relaxed text-ink-600 dark:text-ink-300">
@@ -116,6 +120,27 @@ const faqSchema = {
 
       <div class="order-first lg:order-none">
         <HeroTeaser />
+        <aside class="mt-6 border-t border-ink-200 dark:border-ink-800 pt-4" aria-label="Предложения партнёров">
+          <p class="label">Открыть ИП или карту для самозанятого</p>
+          <ul class="mt-2 space-y-3">
+            {homeOffers.map((offer) => (
+              <li>
+                <a
+                  href={offer.url}
+                  target="_blank"
+                  rel="sponsored nofollow noopener"
+                  data-affiliate="true"
+                  data-partner={offer.name}
+                  data-offer={offer.offer}
+                  class="inline-flex min-h-11 items-center text-[15px] text-ink-900 dark:text-ink-50 underline underline-offset-4 decoration-1 hover:decoration-2"
+                >
+                  {offer.name} — {offer.offer}
+                </a>
+                <p class="text-xs text-ink-500 dark:text-ink-400">{offer.disclosure}</p>
+              </li>
+            ))}
+          </ul>
+        </aside>
       </div>
     </div>
   </section>
