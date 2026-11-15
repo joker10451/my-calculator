@@ -390,7 +390,7 @@ export function SelfEmployedTaxCalculator() {
       <div className="lg:col-span-3 space-y-5">
         {/* Main result */}
         <div
-          className={`rounded-2xl p-7 md:p-9 text-white shadow-lg overflow-hidden relative ${
+          className={`result-panel rounded-2xl p-7 md:p-9 text-white shadow-lg overflow-hidden relative ${
             state.mode === 'npd'
               ? 'bg-emerald-700'
               : state.mode === 'usn'
