@@ -1,40 +1,30 @@
 export interface Partner {
   name: string;
   offer: string;
+  /** Партнёрская ссылка Pampadu с токеном erid. */
   url: string;
-  commission: string;
+  /** Подпись рекламы рядом со ссылкой (ст. 18.1 ФЗ «О рекламе»). */
+  disclosure: string;
   category: 'samozanyatye' | 'semi' | 'universal';
 }
 
-export const PARTNERS: Record<string, Partner> = {
-  tbank_account: {
-    name: 'Т-Банк',
-    offer: 'Расчётный счёт для самозанятых',
-    url: 'https://www.tbank.ru/business/',
-    commission: 'до 5 000 ₽',
-    category: 'samozanyatye',
-  },
-  tbank_credit: {
-    name: 'Т-Банк',
-    offer: 'Кредитная карта Платинум',
-    url: 'https://www.tbank.ru/credit/',
-    commission: 'до 8 000 ₽',
-    category: 'universal',
-  },
-  moe_delo: {
-    name: 'Моё Дело',
-    offer: 'Бухгалтерия для самозанятых',
-    url: 'https://www.moedelo.org/',
-    commission: 'до 5 000 ₽',
-    category: 'samozanyatye',
-  },
-  alfa_bank: {
+export const PARTNERS = {
+  // Pampadu, оффер 2274 «Альфа-Банк — РегБиз + РКО»
+  alfa_business: {
     name: 'Альфа-Банк',
-    offer: 'Ипотека',
-    url: 'https://alfabank.ru/ipoteka/',
-    commission: 'до 10 000 ₽',
-    category: 'semi',
+    offer: 'Регистрация ИП и расчётный счёт',
+    url: 'https://trk.ppdu.ru/click/g1qTGqPE?erid=2SDnjeEA46e',
+    disclosure: 'Реклама. АО «Альфа-Банк», alfabank.ru. erid: 2SDnjeEA46e',
+    category: 'samozanyatye',
   },
-};
+  // Pampadu, оффер 2114 «Альфа-Банк — ДК МИР для самозанятых»
+  alfa_selfemployed_card: {
+    name: 'Альфа-Банк',
+    offer: 'Карта МИР для самозанятых',
+    url: 'https://trk.ppdu.ru/click/YTnbPQlG?erid=2SDnjcYZxoE',
+    disclosure: 'Реклама. АО «Альфа-Банк», alfabank.ru. erid: 2SDnjcYZxoE',
+    category: 'samozanyatye',
+  },
+} satisfies Record<string, Partner>;
 
 export type PartnerKey = keyof typeof PARTNERS;
