@@ -22,57 +22,24 @@ const articles = (await getCollection('blog'))
 
 const catalogCards = [
   {
-    title: 'Калькулятор налога НПД (4% и 6%)',
-    description: 'Расчёт налога на профессиональный доход при поступлениях от физлиц и юрлиц с автоматическим применением бонуса 10 000 ₽.',
-    tag: 'НПД 4% / 6%',
-    tagColor: 'brand',
+    title: 'Налог самозанятого',
+    description: '4% с физлиц и 6% с юрлиц, с учётом стартового вычета 10 000 ₽.',
     href: '/dlya-samozanyatyh/kalkulyator-naloga/',
-    icon: 'calculator',
   },
   {
-    title: 'Вклады и налог 2026 (ст. 214.2 НК РФ)',
-    description: 'Калькулятор чистого процентного дохода с учётом сложного процента, капитализации и необлагаемого лимита по ключевой ставке ЦБ РФ.',
-    tag: 'ст. 214.2 НК РФ',
-    tagColor: 'emerald',
-    href: '/banki/kalkulyator-vkladov/',
-    icon: 'bank',
-  },
-  {
-    title: 'Сравнение НПД vs ИП (УСН 6%)',
-    description: 'Анализ налоговой нагрузки самозанятого и ИП на УСН 6% с учётом фиксированных взносов 57 390 ₽ в СФР и лимитов 2026 года.',
-    tag: 'УСН 6% vs НПД',
-    tagColor: 'brand',
+    title: 'НПД или ИП на УСН 6%',
+    description: 'Сколько вы заплатите в каждом режиме с учётом взносов ИП 57 390 ₽.',
     href: '/dlya-samozanyatyh/npd-vs-ip/',
-    icon: 'scale',
   },
   {
-    title: 'Налоговый вычет 10 000 ₽',
-    description: 'Расчёт остатка стартового налогового вычета самозанятого, снижающего ставки до 3% и 4% до полного исчерпания лимита.',
-    tag: 'ст. 12 422-ФЗ',
-    tagColor: 'emerald',
+    title: 'Вычет 10 000 ₽',
+    description: 'Сколько стартового вычета осталось и когда ставки вернутся к 4% и 6%.',
     href: '/dlya-samozanyatyh/vychet/',
-    icon: 'gift',
-  },
-];
-
-const trustPillars = [
-  {
-    icon: '🔒',
-    title: '100% приватность',
-    subtitle: 'Расчёт в браузере',
-    text: 'Все математические вычисления выполняются локально на вашем устройстве. Доходы, вклады и личные данные не отправляются на сервер.',
   },
   {
-    icon: '⚖️',
-    title: 'Соответствие НК РФ',
-    subtitle: 'Актуальные нормы 2026',
-    text: 'Алгоритмы строго соблюдают требования 422-ФЗ, ст. 214.2 НК РФ, актуальные лимиты страховых взносов и нормативы ЦБ РФ.',
-  },
-  {
-    icon: '⚡',
-    title: '0 секунд ожидания',
-    subtitle: 'Мгновенный результат',
-    text: 'Быстрый интерактивный отклик ползунков в реальном времени. Без регистрации, очередей, авторизаций и скрытых условий.',
+    title: 'Доход по вкладу',
+    description: 'Проценты с капитализацией и налог сверх необлагаемого лимита (ст. 214.2 НК РФ).',
+    href: '/banki/kalkulyator-vkladov/',
   },
 ];
 
@@ -121,313 +88,83 @@ const faqSchema = {
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-  <!-- HERO SECTION -->
-  <section class="relative border-b border-slate-200/80 dark:border-slate-800/80 py-12 md:py-16 lg:py-20 fintech-grid overflow-hidden">
-    <!-- Ambient Radial Spotlight (eliminates the dark void) -->
-    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[850px] h-[420px] bg-gradient-to-b from-brand-600/20 via-indigo-500/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
+  <section class="container-main pt-6 pb-12 md:pt-12 md:pb-16">
+    <div class="grid gap-6 lg:grid-cols-[1fr_440px] lg:gap-12 lg:items-start">
+      <div class="lg:pt-4">
+        <h1 class="text-[28px] leading-tight sm:text-4xl lg:text-[44px] font-bold text-slate-900 dark:text-white">
+          Калькуляторы налогов для&nbsp;самозанятых
+        </h1>
+        <p class="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl">
+          Налог НПД, сравнение с ИП, стартовый вычет и доход по вкладу по правилам 2026 года. Без регистрации.
+        </p>
 
-    <div class="container-main max-w-6xl relative z-10">
-      <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        <!-- Left Hero Column -->
-        <div class="lg:col-span-7 space-y-6">
-          <!-- Status Pill Badge -->
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-xs">
-            <span class="flex h-2 w-2 relative">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-600 dark:bg-brand-400"></span>
+        <ul class="hidden lg:grid mt-8 gap-px rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-200 dark:bg-slate-800">
+          {catalogCards.map((card) => (
+            <li>
+              <a href={card.href} class="group flex items-center justify-between gap-4 px-5 py-4 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60">
+                <span>
+                  <span class="block font-semibold text-slate-900 dark:text-white group-hover:text-brand-700 dark:group-hover:text-brand-300">{card.title}</span>
+                  <span class="block text-sm text-slate-600 dark:text-slate-400 mt-0.5">{card.description}</span>
+                </span>
+                <svg class="w-5 h-5 shrink-0 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <HeroTeaser />
+    </div>
+  </section>
+
+  <section class="lg:hidden container-main pb-12" aria-labelledby="calcs-heading">
+    <h2 id="calcs-heading" class="text-xl font-bold text-slate-900 dark:text-white mb-3">Все калькуляторы</h2>
+    <ul class="grid gap-px rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-200 dark:bg-slate-800">
+      {catalogCards.map((card) => (
+        <li>
+          <a href={card.href} class="flex items-center justify-between gap-4 px-4 py-4 min-h-12 bg-white dark:bg-slate-900 active:bg-slate-50">
+            <span>
+              <span class="block font-semibold text-slate-900 dark:text-white">{card.title}</span>
+              <span class="block text-sm text-slate-600 dark:text-slate-400 mt-0.5">{card.description}</span>
             </span>
-            <span class="font-tabular">2026 • Актуальные ставки НК РФ, лимиты и ключевая ставка</span>
-          </div>
-
-          <!-- Main Title -->
-          <h1 class="text-3xl sm:text-4xl lg:text-[2.75rem] font-black tracking-tight text-slate-900 dark:text-white leading-[1.12]">
-            Точные расчёты <br />
-            <span class="bg-gradient-to-r from-brand-500 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">для ваших денег</span> <br />
-            за 2 минуты
-          </h1>
-
-          <!-- Subtitle -->
-          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-lg">
-            Бесплатные калькуляторы для самозанятых, вкладчиков, семей и бизнеса. Актуально по законам 2026 года, без регистрации и прямо в браузере.
-          </p>
-
-          <!-- Primary & Secondary CTA Buttons -->
-          <div class="pt-1 flex flex-wrap items-center gap-3">
-            <a
-              href="/dlya-samozanyatyh/kalkulyator-naloga/"
-              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm shadow-lg shadow-brand-600/25 hover:shadow-brand-600/40 hover:-translate-y-0.5 transition-all"
-            >
-              <span>Посчитать налог онлайн</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-
-            <a
-              href="/banki/kalkulyator-vkladov/"
-              class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-all hover:-translate-y-0.5 shadow-xs"
-            >
-              <span>💰 Вклады до 22%</span>
-            </a>
-          </div>
-
-          <!-- Trust Checkmarks Row -->
-          <div class="pt-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
-            <div class="flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span>Без регистрации</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span>100% приватно</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span>0 ₽ навсегда</span>
-            </div>
-          </div>
-
-          <!-- Quick Category Selector Chips -->
-          <div class="pt-2 flex flex-wrap items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
-            <span class="font-medium text-slate-500 dark:text-slate-400">Быстро:</span>
-            <a
-              href="/dlya-samozanyatyh/npd-vs-ip/"
-              class="px-2.5 py-1 rounded-md bg-white/80 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 hover:border-brand-500 text-slate-700 dark:text-slate-300 transition-colors"
-            >
-              НПД vs ИП →
-            </a>
-            <a
-              href="/dlya-samozanyatyh/vychet/"
-              class="px-2.5 py-1 rounded-md bg-white/80 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 hover:border-brand-500 text-slate-700 dark:text-slate-300 transition-colors"
-            >
-              Вычет 10 000 ₽ →
-            </a>
-            <a
-              href="/semia/"
-              class="px-2.5 py-1 rounded-md bg-white/80 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 hover:border-brand-500 text-slate-700 dark:text-slate-300 transition-colors"
-            >
-              Ипотека →
-            </a>
-          </div>
-        </div>
-
-        <!-- Right Hero Column: Interactive Teaser -->
-        <div class="lg:col-span-5">
-          <HeroTeaser />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CATALOG SECTION (КАТАЛОГ ИНСТРУМЕНТОВ) -->
-  <section class="py-16 md:py-20 border-b border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/50">
-    <div class="container-main">
-      <div class="max-w-2xl mb-10 md:mb-12">
-        <span class="text-xs font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider block">
-          Онлайн-сервисы
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
-          Каталог инструментов
-        </h2>
-        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
-          Проверенные математические модели и налоговые алгоритмы с учётом последних изменений законодательства.
-        </p>
-      </div>
-
-      <!-- 2x2 Balanced Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-        {catalogCards.map((card) => (
-          <a
-            href={card.href}
-            class="group fintech-card-hover p-6 sm:p-7 flex flex-col justify-between h-full"
-          >
-            <div>
-              <div class="flex items-center justify-between gap-3 mb-4">
-                <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-brand-600 dark:text-brand-400 group-hover:bg-brand-600 group-hover:text-white transition-colors">
-                  {card.icon === 'calculator' && (
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <rect x="4" y="2" width="16" height="20" rx="2" stroke-width="2"></rect>
-                      <line x1="8" y1="6" x2="16" y2="6" stroke-width="2"></line>
-                      <line x1="16" y1="14" x2="16" y2="18" stroke-width="2"></line>
-                      <path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" stroke-width="2.5" stroke-linecap="round"></path>
-                    </svg>
-                  )}
-                  {card.icon === 'bank' && (
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 3l9 7H3l9-7z"></path>
-                    </svg>
-                  )}
-                  {card.icon === 'scale' && (
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
-                    </svg>
-                  )}
-                  {card.icon === 'gift' && (
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V4a2 2 0 114 0v4m-4-4a2 2 0 10-4 0v4m-5 4h18M4 12h16v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8z"></path>
-                    </svg>
-                  )}
-                </div>
-
-                <span class={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold font-tabular ${
-                  card.tagColor === 'emerald'
-                    ? 'bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80'
-                    : 'bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/80'
-                }`}>
-                  {card.tag}
-                </span>
-              </div>
-
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-2">
-                {card.title}
-              </h3>
-
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                {card.description}
-              </p>
-            </div>
-
-            <div class="pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-brand-600 dark:text-brand-400">
-              <span>Открыть калькулятор</span>
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
+            <svg class="w-5 h-5 shrink-0 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
           </a>
-        ))}
-      </div>
-    </div>
+        </li>
+      ))}
+    </ul>
   </section>
 
-  <!-- TRUST PILLARS SECTION -->
-  <section class="py-16 md:py-20 border-b border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-950">
+  <section class="border-t border-slate-200 dark:border-slate-800 py-12 md:py-16" aria-labelledby="articles-heading">
     <div class="container-main">
-      <div class="max-w-2xl mx-auto text-center mb-12">
-        <span class="text-xs font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider block">
-          Стандарты сервиса
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
-          Почему нам доверяют расчёты
-        </h2>
-        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
-          Принципы конфиденциальности и математической точности лежат в основе каждого инструмента.
-        </p>
+      <div class="flex items-baseline justify-between gap-4 mb-6">
+        <h2 id="articles-heading" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Статьи</h2>
+        <a href="/blog/" class="inline-flex min-h-11 items-center text-sm font-medium text-brand-700 dark:text-brand-300 hover:underline underline-offset-4">Все статьи</a>
       </div>
-
-      <!-- 3 Clean Minimal Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
-        {trustPillars.map((pillar) => (
-          <div class="fintech-card p-6 sm:p-7 flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xl">
-                {pillar.icon}
-              </div>
-              <div>
-                <h3 class="text-base font-bold text-slate-900 dark:text-white">
-                  {pillar.title}
-                </h3>
-                <span class="text-xs font-medium text-brand-600 dark:text-brand-400 block mt-0.5">
-                  {pillar.subtitle}
-                </span>
-              </div>
-              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed pt-1">
-                {pillar.text}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- LATEST ARTICLES SECTION -->
-  <section class="py-16 md:py-20 border-b border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/50">
-    <div class="container-main">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 md:mb-12">
-        <div>
-          <span class="text-xs font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider block">
-            База знаний
-          </span>
-          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
-            Свежие статьи и финансовые разборы
-          </h2>
-        </div>
-        <a
-          href="/blog/"
-          class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 transition-colors"
-        >
-          <span>Все материалы</span>
-          <span>→</span>
-        </a>
-      </div>
-
-      <!-- 3 Clean Article Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+      <ul class="grid gap-6 md:grid-cols-3">
         {articles.map((article) => (
-          <a
-            href={`/blog/${article.slug}/`}
-            class="group fintech-card-hover p-6 flex flex-col justify-between"
-          >
-            <div>
-              <div class="flex items-center justify-between text-xs mb-3">
-                {article.tags && article.tags.length > 0 ? (
-                  <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                    {article.tags[0]}
-                  </span>
-                ) : (
-                  <span></span>
-                )}
-                <span class="text-slate-400 dark:text-slate-500 text-[11px] font-tabular">
-                  {article.readingTime} мин чтения
-                </span>
-              </div>
-
-              <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug mb-2">
-                {article.title}
-              </h3>
-
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
-                {article.description}
-              </p>
-            </div>
-
-            <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400 dark:text-slate-500 font-tabular">
-              <span>{article.formattedDate}</span>
-              <span class="font-semibold text-brand-600 dark:text-brand-400 group-hover:translate-x-0.5 transition-transform">
-                Читать →
-              </span>
-            </div>
-          </a>
+          <li>
+            <a href={`/blog/${article.slug}/`} class="group block">
+              <p class="text-sm text-slate-600 dark:text-slate-400 font-tabular">{article.formattedDate} · {article.readingTime} мин</p>
+              <h3 class="mt-1 text-lg font-semibold leading-snug text-slate-900 dark:text-white group-hover:text-brand-700 dark:group-hover:text-brand-300 group-hover:underline underline-offset-4">{article.title}</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 line-clamp-3">{article.description}</p>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
-  <!-- FAQ SECTION -->
-  <section class="py-16 md:py-20 bg-white dark:bg-slate-950">
+  <section class="border-t border-slate-200 dark:border-slate-800 py-12 md:py-16" aria-labelledby="faq-heading">
     <div class="container-main max-w-3xl">
-      <div class="text-center mb-10 md:mb-12">
-        <span class="text-xs font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider block">
-          Вопросы и ответы
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
-          Часто задаваемые вопросы
-        </h2>
-        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
-          Ответы на популярные вопросы о налогах, лимитах и правилах расчёта в 2026 году.
-        </p>
-      </div>
-
-      <div class="space-y-3">
+      <h2 id="faq-heading" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-4">Частые вопросы</h2>
+      <div class="divide-y divide-slate-200 dark:divide-slate-800 border-y border-slate-200 dark:border-slate-800">
         {faqItems.map((item) => (
-          <details class="group fintech-card p-5 open:border-brand-500/30 transition-colors">
-            <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-sm sm:text-base text-slate-900 dark:text-white list-none">
+          <details class="group">
+            <summary class="flex items-center justify-between gap-4 min-h-12 py-3 cursor-pointer font-medium text-slate-900 dark:text-white list-none">
               <span>{item.question}</span>
-              <span class="w-6 h-6 rounded-md bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 shrink-0 group-open:rotate-180 transition-transform duration-200">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </span>
+              <svg class="w-5 h-5 shrink-0 text-slate-500 group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
             </summary>
-            <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              {item.answer}
-            </div>
+            <p class="pb-4 text-slate-600 dark:text-slate-300 leading-relaxed">{item.answer}</p>
           </details>
         ))}
       </div>
