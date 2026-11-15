@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Copy, Share2, Check, Sparkles, Clock, ShieldCheck } from 'lucide-react';
 import { toPng } from 'html-to-image';
-import { fmt } from '../../lib/tax';
+import { fmt, dec, pct } from '../../lib/tax';
 
 const INITIAL_BONUS = 10000;
 const PRESETS = [30000, 60000, 100000, 200000];
@@ -83,7 +83,7 @@ function ShareCard({
       </div>
 
       <div style={{ fontSize: 96, fontWeight: 700, lineHeight: 1, marginBottom: 16, color: '#10B981' }}>
-        10 000 ₽
+        10 000 ₽
       </div>
 
       <div style={{ fontSize: 24, color: '#94A3B8', textAlign: 'center', marginBottom: 24 }}>
@@ -91,9 +91,9 @@ function ShareCard({
       </div>
 
       <div style={{ fontSize: 22, color: '#E2E8F0', textAlign: 'center', lineHeight: 1.6, maxWidth: 800 }}>
-        При доходе <strong style={{ color: '#fff' }}>{fmt(income)} ₽/мес</strong> ({clientType === 'physical' ? 'физлица, ставка 3%' : 'юрлица / ИП, ставка 4%'}):<br />
-        Экономия на налоге: <strong style={{ color: '#10B981' }}>{fmt(monthlySaving)} ₽/мес</strong><br />
-        Бонуса 10 000 ₽ хватит на <strong style={{ color: '#38BDF8' }}>~{monthsLeft < 1 ? '< 1' : monthsLeft.toFixed(1)} мес.</strong>
+        При доходе <strong style={{ color: '#fff' }}>{fmt(income)} ₽/мес</strong> ({clientType === 'physical' ? 'физлица, ставка 3%' : 'юрлица / ИП, ставка 4%'}):<br />
+        Экономия на налоге: <strong style={{ color: '#10B981' }}>{fmt(monthlySaving)} ₽/мес</strong><br />
+        Бонуса 10 000 ₽ хватит на <strong style={{ color: '#38BDF8' }}>~{monthsLeft < 1 ? '< 1' : dec(monthsLeft)} мес.</strong>
       </div>
 
       <div
@@ -109,7 +109,7 @@ function ShareCard({
         schitay-online.ru
       </div>
       <div style={{ fontSize: 16, color: '#64748B', marginTop: 8 }}>
-        Калькулятор налогового вычета 10 000 ₽ онлайн
+        Калькулятор налогового вычета 10 000 ₽ онлайн
       </div>
     </div>
   );
@@ -169,12 +169,12 @@ export function TaxDeductionCalculator() {
 
   const handleCopy = useCallback(async () => {
     const text = [
-      `Расчёт налогового вычета 10 000 ₽ для самозанятого:`,
-      `Доход: ${fmt(income)} ₽/мес (${clientType === 'physical' ? 'клиенты — физлица' : 'клиенты — юрлица/ИП'}).`,
-      `Налог со скидкой (${reducedRate}%): ${fmt(monthlyTaxWithBonus)} ₽/мес.`,
-      `Экономия: ${fmt(monthlySaving)} ₽/мес (скидка ${bonusRate}%).`,
-      `Бонуса 10 000 ₽ хватит на ~${monthsUntilExhausted.toFixed(1)} мес.`,
-      `Налог после исчерпания бонуса (${baseRate}%): ${fmt(monthlyTaxStandard)} ₽/мес.`,
+      `Расчёт налогового вычета 10 000 ₽ для самозанятого:`,
+      `Доход: ${fmt(income)} ₽/мес (${clientType === 'physical' ? 'клиенты — физлица' : 'клиенты — юрлица/ИП'}).`,
+      `Налог со скидкой (${reducedRate}%): ${fmt(monthlyTaxWithBonus)} ₽/мес.`,
+      `Экономия: ${fmt(monthlySaving)} ₽/мес (скидка ${bonusRate}%).`,
+      `Бонуса 10 000 ₽ хватит на ~${dec(monthsUntilExhausted)} мес.`,
+      `Налог после исчерпания бонуса (${baseRate}%): ${fmt(monthlyTaxStandard)} ₽/мес.`,
       'Рассчитано на schitay-online.ru/dlya-samozanyatyh/vychet/',
     ].join('\n');
 
@@ -200,7 +200,7 @@ export function TaxDeductionCalculator() {
       const file = new File([blob], 'vychet-samozanyatogo-10000.png', { type: 'image/png' });
 
       if (navigator.share && navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file], title: 'Мой налоговый вычет 10 000 ₽' });
+        await navigator.share({ files: [file], title: 'Мой налоговый вычет 10 000 ₽' });
       } else {
         const a = document.createElement('a');
         a.href = dataUrl;
@@ -236,7 +236,7 @@ export function TaxDeductionCalculator() {
               <h3 className="font-heading font-black text-base text-gray-900 dark:text-white">
                 Параметры дохода
               </h3>
-              <p className="text-xs text-gray-400">Стартовый бонус: 10 000 ₽</p>
+              <p className="text-xs text-gray-400">Стартовый бонус: 10 000 ₽</p>
             </div>
           </div>
 
@@ -247,7 +247,7 @@ export function TaxDeductionCalculator() {
                 Доход в месяц
               </label>
               <span className="text-lg font-black text-accent-600 dark:text-accent-400">
-                {fmt(income)} ₽
+                {fmt(income)} ₽
               </span>
             </div>
             <div className="flex items-center gap-3 mb-2">
@@ -354,7 +354,7 @@ export function TaxDeductionCalculator() {
           <div className="relative">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold uppercase tracking-widest text-emerald-100 bg-white/10 px-2.5 py-1 rounded-full">
-                Стартовый бонус 10 000 ₽
+                Стартовый бонус 10 000 ₽
               </span>
               <span className="text-xs text-emerald-100/90 font-semibold">
                 Льготная ставка {reducedRate}%
@@ -368,7 +368,7 @@ export function TaxDeductionCalculator() {
               <div className="text-4xl md:text-5xl font-black tracking-tight flex items-baseline gap-2">
                 {fmt(animatedTaxWithBonus)} <span className="text-2xl font-bold">₽</span>
                 <span className="text-sm font-semibold text-emerald-200 line-through">
-                  {fmt(animatedTaxStandard)} ₽
+                  {fmt(animatedTaxStandard)} ₽
                 </span>
               </div>
             </div>
@@ -377,13 +377,13 @@ export function TaxDeductionCalculator() {
               <div>
                 <span className="text-xs text-emerald-100 block">Ежемесячная экономия ({bonusRate}%):</span>
                 <span className="text-xl font-black text-white">
-                  {fmt(animatedMonthlySaving)} ₽/мес
+                  {fmt(animatedMonthlySaving)} ₽/мес
                 </span>
               </div>
               <div>
-                <span className="text-xs text-emerald-100 block">Бонуса 10 000 ₽ хватит на:</span>
+                <span className="text-xs text-emerald-100 block">Бонуса 10 000 ₽ хватит на:</span>
                 <span className="text-xl font-black text-white">
-                  ~{monthsUntilExhausted < 1 ? '< 1' : animatedMonths.toFixed(1)} мес.
+                  ~{monthsUntilExhausted < 1 ? '< 1' : dec(animatedMonths)} мес.
                 </span>
               </div>
             </div>
@@ -391,28 +391,28 @@ export function TaxDeductionCalculator() {
         </div>
 
         {/* Visual Depletion Bar Card */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-6">
+        <div className="border-t border-ink-200 dark:border-ink-800 pt-5">
           <div className="flex items-center justify-between mb-3">
             <h4 className="font-heading font-black text-sm text-gray-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-emerald-500" />
-              Шкала расходования бонуса 10 000 ₽
+              Шкала расходования бонуса 10 000 ₽
             </h4>
             <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
-              {monthlyDepletionPct.toFixed(1)}% в месяц
+              {pct(monthlyDepletionPct)} в месяц
             </span>
           </div>
 
           {/* Depletion speed bar */}
           <div className="space-y-2 mb-4">
             <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-              <span>Расход бонуса в месяц: <strong>{fmt(monthlySaving)} ₽</strong></span>
-              <span>Полный объём: <strong>10 000 ₽</strong></span>
+              <span>Расход бонуса в месяц: <strong>{fmt(monthlySaving)} ₽</strong></span>
+              <span>Полный объём: <strong>10 000 ₽</strong></span>
             </div>
             <div className="h-4 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden p-0.5 border border-gray-200 dark:border-gray-700">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-500"
+                className="h-full rounded-full bg-brand-600 dark:bg-brand-300 transition-all duration-500"
                 style={{ width: `${Math.min(100, Math.max(3, monthlyDepletionPct))}%` }}
-                title={`Расход ${fmt(monthlySaving)} ₽/мес`}
+                title={`Расход ${fmt(monthlySaving)} ₽/мес`}
               />
             </div>
           </div>
@@ -424,7 +424,7 @@ export function TaxDeductionCalculator() {
                 <Check className="w-3.5 h-3.5" /> В период вычета (~{monthsUntilExhausted < 1 ? '1' : monthsCeil} мес)
               </div>
               <div className="text-2xl font-black text-emerald-900 dark:text-emerald-100">
-                {fmt(monthlyTaxWithBonus)} ₽
+                {fmt(monthlyTaxWithBonus)} ₽
               </div>
               <div className="text-xs text-emerald-700 dark:text-emerald-400 mt-1">
                 Ставка <strong>{reducedRate}%</strong> (скидка {bonusRate}%)
@@ -436,7 +436,7 @@ export function TaxDeductionCalculator() {
                 <Clock className="w-3.5 h-3.5" /> После исчерпания бонуса
               </div>
               <div className="text-2xl font-black text-gray-900 dark:text-white">
-                {fmt(monthlyTaxStandard)} ₽
+                {fmt(monthlyTaxStandard)} ₽
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                 Стандартная ставка <strong>{baseRate}%</strong>
@@ -446,7 +446,7 @@ export function TaxDeductionCalculator() {
         </div>
 
         {/* Depletion Preview Table */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-6">
+        <div className="border-t border-ink-200 dark:border-ink-800 pt-5">
           <div className="flex items-center justify-between mb-4">
             <h4 className="font-heading font-black text-sm text-gray-900 dark:text-white uppercase tracking-wider">
               Помесячный график списания вычета
@@ -473,13 +473,13 @@ export function TaxDeductionCalculator() {
                       {row.month}-й месяц
                     </td>
                     <td className="py-2.5 px-2 text-right font-medium text-gray-600 dark:text-gray-300">
-                      {fmt(row.remainingBefore)} ₽
+                      {fmt(row.remainingBefore)} ₽
                     </td>
                     <td className="py-2.5 px-2 text-right font-bold text-emerald-600 dark:text-emerald-400">
-                      -{fmt(row.deductionUsed)} ₽
+                      -{fmt(row.deductionUsed)} ₽
                     </td>
                     <td className="py-2.5 px-2 text-right font-bold text-gray-900 dark:text-white">
-                      {fmt(row.taxPaid)} ₽
+                      {fmt(row.taxPaid)} ₽
                     </td>
                   </tr>
                 ))}

@@ -5,7 +5,7 @@ export interface Partner {
   url: string;
   /** Подпись рекламы рядом со ссылкой (ст. 18.1 ФЗ «О рекламе»). */
   disclosure: string;
-  category: 'samozanyatye' | 'semi' | 'universal';
+  category: 'samozanyatye' | 'semi' | 'auto' | 'universal';
 }
 
 export const PARTNERS = {
@@ -24,6 +24,14 @@ export const PARTNERS = {
     url: 'https://trk.ppdu.ru/click/YTnbPQlG?erid=2SDnjcYZxoE',
     disclosure: 'Реклама. АО «Альфа-Банк», alfabank.ru. erid: 2SDnjcYZxoE',
     category: 'samozanyatye',
+  },
+  // Pampadu, оффер 2986 «Сберстрахование — ОСАГО»
+  sber_osago: {
+    name: 'Сбербанк страхование',
+    offer: 'ОСАГО онлайн',
+    url: 'https://trk.ppdu.ru/click/c2PeHoOE?erid=2SDnjd8k228',
+    disclosure: 'Реклама. ООО СК «Сбербанк страхование», sberbankins.ru. erid: 2SDnjd8k228',
+    category: 'auto',
   },
 } satisfies Record<string, Partner>;
 

@@ -13,7 +13,7 @@
     <div class="flex items-baseline justify-between gap-3">
       <label class="label" for="hero-income">Доход в месяц</label>
       <output for="hero-income" class="font-serif text-2xl font-semibold tabular-nums text-ink-900 dark:text-ink-50" id="hero-income-value">
-        100 000 ₽
+        100 000 ₽
       </output>
     </div>
     <input
@@ -26,15 +26,15 @@
       class="mt-3 w-full h-6 cursor-pointer"
     />
     <div class="flex justify-between text-xs text-ink-500 dark:text-ink-400 mt-1 tabular-nums" aria-hidden="true">
-      <span>10 000 ₽</span>
-      <span>500 000 ₽</span>
+      <span>10 000 ₽</span>
+      <span>500 000 ₽</span>
     </div>
   </div>
 
   <dl class="mt-6 grid grid-cols-2 border-y border-ink-200 dark:border-ink-800 divide-x divide-ink-200 dark:divide-ink-800">
     <div class="py-4 pr-4">
       <dt class="label">Самозанятый, 4%</dt>
-      <dd class="mt-2 font-serif text-[32px] sm:text-[40px] leading-none font-semibold tabular-nums tracking-tight text-ink-900 dark:text-ink-50" id="hero-npd-amount">4 000 ₽</dd>
+      <dd class="mt-2 font-serif text-[32px] sm:text-[40px] leading-none font-semibold tabular-nums tracking-tight text-ink-900 dark:text-ink-50" id="hero-npd-amount">4 000 ₽</dd>
       <dd class="mt-2 text-xs text-ink-500 dark:text-ink-400">в месяц, взносов нет</dd>
       <dd class="mt-3 h-0.5 bg-ink-200 dark:bg-ink-800" aria-hidden="true">
         <div class="h-full bg-brand-600 dark:bg-brand-300" id="hero-npd-bar" style="width: 67%"></div>
@@ -42,8 +42,8 @@
     </div>
     <div class="py-4 pl-4">
       <dt class="label">ИП, УСН 6%</dt>
-      <dd class="mt-2 font-serif text-[32px] sm:text-[40px] leading-none font-semibold tabular-nums tracking-tight text-ink-900 dark:text-ink-50" id="hero-usn-amount">6 000 ₽</dd>
-      <dd class="mt-2 text-xs text-ink-500 dark:text-ink-400 tabular-nums">в месяц с взносами 57 390 ₽/год</dd>
+      <dd class="mt-2 font-serif text-[32px] sm:text-[40px] leading-none font-semibold tabular-nums tracking-tight text-ink-900 dark:text-ink-50" id="hero-usn-amount">6 000 ₽</dd>
+      <dd class="mt-2 text-xs text-ink-500 dark:text-ink-400 tabular-nums">в месяц с взносами 57 390 ₽/год</dd>
       <dd class="mt-3 h-0.5 bg-ink-200 dark:bg-ink-800" aria-hidden="true">
         <div class="h-full bg-ink-500" id="hero-usn-bar" style="width: 100%"></div>
       </dd>
@@ -51,7 +51,7 @@
   </dl>
 
   <p class="mt-4 text-[15px] font-medium text-brand-600 dark:text-brand-300" id="hero-verdict" aria-live="polite">
-    Самозанятость экономит 2 000 ₽ в месяц
+    Самозанятость экономит 2 000 ₽ в месяц
   </p>
 
   <a
@@ -98,17 +98,17 @@
     const npdPct = (r.npd / maxVal) * 100;
     const usnPct = (r.usn / maxVal) * 100;
 
-    if (npdEl) npdEl.textContent = fmt(r.npd) + ' ₽';
-    if (usnEl) usnEl.textContent = fmt(r.usn) + ' ₽';
+    if (npdEl) npdEl.textContent = fmt(r.npd) + ' ₽';
+    if (usnEl) usnEl.textContent = fmt(r.usn) + ' ₽';
     if (npdBar) npdBar.style.width = Math.max(npdPct, 6) + '%';
     if (usnBar) usnBar.style.width = Math.max(usnPct, 6) + '%';
 
-    // НПД доступен только до 2,4 млн ₽ в год (ст. 4 422-ФЗ).
+    // НПД доступен только до 2,4 млн ₽ в год (ст. 4 422-ФЗ).
     if (income * 12 > NPD_ANNUAL_LIMIT) {
       if (npdEl) npdEl.textContent = 'недоступно';
       if (npdBar) npdBar.style.width = '0%';
       if (verdictEl) {
-        verdictEl.textContent = 'Доход выше 2,4 млн ₽ в год: самозанятость недоступна, подойдёт ИП';
+        verdictEl.textContent = 'Доход выше 2,4 млн ₽ в год: самозанятость недоступна, подойдёт ИП';
         verdictEl.className = 'mt-4 text-[15px] font-medium text-warm-700 dark:text-warm-300';
       }
       return;
@@ -132,7 +132,7 @@
 
   slider.addEventListener('input', function() {
     const val = parseInt((this as HTMLInputElement).value, 10);
-    if (valueEl) valueEl.textContent = fmt(val) + ' ₽';
+    if (valueEl) valueEl.textContent = fmt(val) + ' ₽';
     slider.setAttribute('aria-valuetext', fmt(val) + ' рублей');
     update(val);
   });

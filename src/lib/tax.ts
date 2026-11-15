@@ -7,6 +7,16 @@ export function fmt(n: number): string {
   return Math.round(n).toLocaleString('ru-RU');
 }
 
+/** Дробное число по-русски: 4,0 вместо 4.0 */
+export function dec(n: number, digits = 1): string {
+  return n.toLocaleString('ru-RU', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
+/** Процент с неразрывным пробелом: «4,0 %» */
+export function pct(n: number, digits = 1): string {
+  return dec(n, digits) + '\u00A0%';
+}
+
 export function deductionMonthlySaving(income: number, shareFromLegal: number): number {
   return income * 0.01 * (1 + shareFromLegal);
 }

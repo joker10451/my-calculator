@@ -16,7 +16,7 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import { toPng } from 'html-to-image';
-import { fmt } from '../../lib/tax';
+import { fmt, pct } from '../../lib/tax';
 
 const DEPOSIT_PRESETS = [100000, 300000, 500000, 1000000, 3000000];
 const TERM_OPTIONS = [
@@ -221,7 +221,7 @@ function ShareCard({
           СЧИТАЙ.RU — КАЛЬКУЛЯТОР ВКЛАДОВ 2026
         </div>
         <div style={{ fontSize: 24, color: '#94A3B8' }}>
-          Вклад {fmt(result.initialDeposit)} ₽ на {months} мес. под {rate.toFixed(1)}%
+          Вклад {fmt(result.initialDeposit)} ₽ на {months} мес. под {pct(rate)}
         </div>
       </div>
 
@@ -230,7 +230,7 @@ function ShareCard({
           Итоговая сумма к получению
         </div>
         <div style={{ fontSize: 84, fontWeight: 900, lineHeight: 1, color: '#FFFFFF', marginBottom: 20 }}>
-          {fmt(result.finalBalance)} ₽
+          {fmt(result.finalBalance)} ₽
         </div>
 
         <div
@@ -250,25 +250,25 @@ function ShareCard({
           <div>
             <div style={{ fontSize: 14, color: '#94A3B8', marginBottom: 4 }}>Начисленные проценты:</div>
             <div style={{ fontSize: 28, fontWeight: 700, color: '#38BDF8' }}>
-              +{fmt(result.totalInterest)} ₽
+              +{fmt(result.totalInterest)} ₽
             </div>
           </div>
           <div>
             <div style={{ fontSize: 14, color: '#94A3B8', marginBottom: 4 }}>Налог по вкладу (ст. 214.2):</div>
             <div style={{ fontSize: 28, fontWeight: 700, color: result.totalTax > 0 ? '#F87171' : '#10B981' }}>
-              {result.totalTax > 0 ? `-${fmt(result.totalTax)} ₽` : '0 ₽ (в лимите)'}
+              {result.totalTax > 0 ? `-${fmt(result.totalTax)} ₽` : '0 ₽ (в лимите)'}
             </div>
           </div>
           <div>
             <div style={{ fontSize: 14, color: '#94A3B8', marginBottom: 4 }}>Чистая прибыль:</div>
             <div style={{ fontSize: 28, fontWeight: 700, color: '#10B981' }}>
-              +{fmt(result.netProfit)} ₽
+              +{fmt(result.netProfit)} ₽
             </div>
           </div>
           <div>
             <div style={{ fontSize: 14, color: '#94A3B8', marginBottom: 4 }}>Эффективная ставка:</div>
             <div style={{ fontSize: 28, fontWeight: 700, color: '#FBBF24' }}>
-              {result.effectiveRate.toFixed(2)}% годовых
+              {pct(result.effectiveRate, 2)} годовых
             </div>
           </div>
         </div>
@@ -276,7 +276,7 @@ function ShareCard({
 
       <div style={{ textAlign: 'center', width: '100%' }}>
         <div style={{ fontSize: 14, color: '#64748B', marginBottom: 12 }}>
-          Капитализация: {capitalization === 'monthly' ? 'Ежемесячно' : 'В конце срока'} · Ставка ЦБ 2026: {keyRate.toFixed(1)}% · Лимит: {fmt(result.taxFreeThreshold)} ₽
+          Капитализация: {capitalization === 'monthly' ? 'Ежемесячно' : 'В конце срока'} · Ставка ЦБ 2026: {pct(keyRate)} · Лимит: {fmt(result.taxFreeThreshold)} ₽
         </div>
         <div style={{ width: 400, height: 2, background: 'rgba(255,255,255,0.1)', margin: '0 auto 16px auto' }} />
         <div style={{ fontSize: 24, color: '#2563EB', fontWeight: 800 }}>schitay-online.ru</div>
@@ -313,15 +313,15 @@ export function DepositCalculator() {
   const handleCopy = useCallback(async () => {
     const text = [
       `Расчёт доходности и налога по вкладу (2026):`,
-      `Сумма вклада: ${fmt(initialDeposit)} ₽ на ${months} мес.`,
-      `Ставка: ${rate.toFixed(1)}% (${capitalization === 'monthly' ? 'с ежемесячной капитализацией' : 'выплата в конце срока'}).`,
-      `Эффективная ставка: ${result.effectiveRate.toFixed(2)}% годовых.`,
-      monthlyTopUp > 0 ? `Ежемесячное пополнение: ${fmt(monthlyTopUp)} ₽/мес.` : '',
-      `Начислено процентов: ${fmt(result.totalInterest)} ₽.`,
-      `Необлагаемый лимит (ст. 214.2 НК РФ): ${fmt(result.taxFreeThreshold)} ₽.`,
-      `Налог к уплате: ${result.totalTax > 0 ? `${fmt(result.totalTax)} ₽` : '0 ₽ (доход в пределах лимита)'}.`,
-      `Чистая прибыль: ${fmt(result.netProfit)} ₽.`,
-      `Итоговая сумма к получению: ${fmt(result.finalBalance)} ₽.`,
+      `Сумма вклада: ${fmt(initialDeposit)} ₽ на ${months} мес.`,
+      `Ставка: ${pct(rate)} (${capitalization === 'monthly' ? 'с ежемесячной капитализацией' : 'выплата в конце срока'}).`,
+      `Эффективная ставка: ${pct(result.effectiveRate, 2)} годовых.`,
+      monthlyTopUp > 0 ? `Ежемесячное пополнение: ${fmt(monthlyTopUp)} ₽/мес.` : '',
+      `Начислено процентов: ${fmt(result.totalInterest)} ₽.`,
+      `Необлагаемый лимит (ст. 214.2 НК РФ): ${fmt(result.taxFreeThreshold)} ₽.`,
+      `Налог к уплате: ${result.totalTax > 0 ? `${fmt(result.totalTax)} ₽` : '0 ₽ (доход в пределах лимита)'}.`,
+      `Чистая прибыль: ${fmt(result.netProfit)} ₽.`,
+      `Итоговая сумма к получению: ${fmt(result.finalBalance)} ₽.`,
       'Рассчитано на schitay-online.ru',
     ]
       .filter(Boolean)
@@ -404,7 +404,7 @@ export function DepositCalculator() {
                 Сумма вклада
               </label>
               <span className="text-lg font-black text-accent-600 dark:text-accent-400">
-                {fmt(initialDeposit)} ₽
+                {fmt(initialDeposit)} ₽
               </span>
             </div>
             <div className="flex items-center gap-3 mb-2">
@@ -452,7 +452,7 @@ export function DepositCalculator() {
                 Процентная ставка (% годовых)
               </label>
               <span className="text-lg font-black text-accent-600 dark:text-accent-400">
-                {rate.toFixed(1)}%
+                {pct(rate)}
               </span>
             </div>
             <div className="flex items-center gap-3">
@@ -529,7 +529,7 @@ export function DepositCalculator() {
                   Ежемесячно к балансу
                 </div>
                 <div className="text-[10px] text-gray-400 mt-1">
-                  Эффективная: {result.effectiveRate.toFixed(2)}%
+                  Эффективная: {pct(result.effectiveRate, 2)}
                 </div>
               </button>
 
@@ -547,7 +547,7 @@ export function DepositCalculator() {
                   Выплата на счёт
                 </div>
                 <div className="text-[10px] text-gray-400 mt-1">
-                  Номинальная: {rate.toFixed(1)}%
+                  Номинальная: {pct(rate)}
                 </div>
               </button>
             </div>
@@ -560,7 +560,7 @@ export function DepositCalculator() {
                 Ежемесячное пополнение
               </label>
               <span className="text-sm font-black text-accent-600 dark:text-accent-400">
-                {fmt(monthlyTopUp)} ₽/мес
+                {fmt(monthlyTopUp)} ₽/мес
               </span>
             </div>
             <div className="flex items-center gap-3 mb-2">
@@ -609,7 +609,7 @@ export function DepositCalculator() {
                 Ключевая ставка ЦБ (2026)
               </label>
               <span className="text-xs font-black text-accent-600 dark:text-accent-400">
-                {keyRate.toFixed(1)}%
+                {pct(keyRate)}
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -625,11 +625,11 @@ export function DepositCalculator() {
                 aria-label="Ключевая ставка ЦБ"
               />
               <span className="text-xs text-gray-500 dark:text-gray-400 font-bold whitespace-nowrap">
-                Лимит: {fmt(result.taxFreeThreshold)} ₽
+                Лимит: {fmt(result.taxFreeThreshold)} ₽
               </span>
             </div>
             <p className="text-[11px] text-gray-400 dark:text-gray-500 leading-tight">
-              Необлагаемый доход = 1 000 000 ₽ × {keyRate.toFixed(1)}% = {fmt(result.taxFreeThreshold)} ₽/год (ст. 214.2 НК РФ).
+              Необлагаемый доход = 1 000 000 ₽ × {pct(keyRate)} = {fmt(result.taxFreeThreshold)} ₽/год (ст. 214.2 НК РФ).
             </p>
           </div>
         </div>
@@ -646,7 +646,7 @@ export function DepositCalculator() {
                 Итого к получению
               </span>
               <span className="text-xs text-emerald-100/90 font-semibold bg-emerald-950/40 px-2.5 py-1 rounded-lg">
-                Эффективная ставка {result.effectiveRate.toFixed(2)}%
+                Эффективная ставка {pct(result.effectiveRate, 2)}
               </span>
             </div>
 
@@ -655,7 +655,7 @@ export function DepositCalculator() {
                 {fmt(animatedFinalBalance)} <span className="text-2xl md:text-3xl font-bold">₽</span>
               </div>
               <p className="text-xs md:text-sm text-emerald-100/80 mt-1">
-                Вложено: <strong>{fmt(result.totalInvested)} ₽</strong> · Доход после налога: <strong>+{fmt(animatedNetProfit)} ₽</strong>
+                Вложено: <strong>{fmt(result.totalInvested)} ₽</strong> · Доход после налога: <strong>+{fmt(animatedNetProfit)} ₽</strong>
               </p>
             </div>
 
@@ -663,19 +663,19 @@ export function DepositCalculator() {
               <div>
                 <span className="text-xs text-emerald-100 block">Начислено процентов:</span>
                 <span className="text-lg md:text-xl font-black text-white">
-                  +{fmt(animatedTotalInterest)} ₽
+                  +{fmt(animatedTotalInterest)} ₽
                 </span>
               </div>
               <div>
                 <span className="text-xs text-emerald-100 block">Налог НДФЛ (2026):</span>
                 <span className={`text-lg md:text-xl font-black ${result.totalTax > 0 ? 'text-rose-200' : 'text-emerald-200'}`}>
-                  {result.totalTax > 0 ? `-${fmt(animatedTotalTax)} ₽` : '0 ₽ (в лимите)'}
+                  {result.totalTax > 0 ? `-${fmt(animatedTotalTax)} ₽` : '0 ₽ (в лимите)'}
                 </span>
               </div>
               <div className="col-span-2 sm:col-span-1">
                 <span className="text-xs text-emerald-100 block">Чистая доходность:</span>
                 <span className="text-lg md:text-xl font-black text-amber-200">
-                  {result.netYieldRate.toFixed(2)}% годовых
+                  {pct(result.netYieldRate, 2)} годовых
                 </span>
               </div>
             </div>
@@ -684,67 +684,67 @@ export function DepositCalculator() {
 
         {/* 4 Breakdown Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="p-4 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
+          <div className="py-3 border-t border-ink-200 dark:border-ink-800">
             <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 font-bold mb-1">
-              <Wallet className="w-3.5 h-3.5 text-blue-500" />
+              <Wallet className="w-3.5 h-3.5 text-ink-500" />
               Вложено всего
             </div>
             <div className="text-lg font-black text-gray-900 dark:text-white">
-              {fmt(result.totalInvested)} ₽
+              {fmt(result.totalInvested)} ₽
             </div>
             <div className="text-[11px] text-gray-400 mt-0.5">
-              {result.totalTopUps > 0 ? `+${fmt(result.totalTopUps)} ₽ пополнений` : 'Без пополнений'}
+              {result.totalTopUps > 0 ? `+${fmt(result.totalTopUps)} ₽ пополнений` : 'Без пополнений'}
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
+          <div className="py-3 border-t border-ink-200 dark:border-ink-800">
             <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 font-bold mb-1">
               <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
               Начислено %
             </div>
             <div className="text-lg font-black text-emerald-600 dark:text-emerald-400">
-              +{fmt(result.totalInterest)} ₽
+              +{fmt(result.totalInterest)} ₽
             </div>
             <div className="text-[11px] text-gray-400 mt-0.5">
               {capitalization === 'monthly' ? 'с капитализацией' : 'в конце срока'}
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
+          <div className="py-3 border-t border-ink-200 dark:border-ink-800">
             <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 font-bold mb-1">
               <Percent className="w-3.5 h-3.5 text-rose-500" />
               Налог по вкладу
             </div>
             <div className={`text-lg font-black ${result.totalTax > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
-              {result.totalTax > 0 ? `${fmt(result.totalTax)} ₽` : '0 ₽'}
+              {result.totalTax > 0 ? `${fmt(result.totalTax)} ₽` : '0 ₽'}
             </div>
             <div className="text-[11px] text-gray-400 mt-0.5">
               {result.totalTax > 0 ? '13% с превышения' : 'в пределах лимита'}
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
+          <div className="py-3 border-t border-ink-200 dark:border-ink-800">
             <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 font-bold mb-1">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <Sparkles className="w-3.5 h-3.5 text-ink-500" />
               Чистая прибыль
             </div>
             <div className="text-lg font-black text-gray-900 dark:text-white">
-              +{fmt(result.netProfit)} ₽
+              +{fmt(result.netProfit)} ₽
             </div>
             <div className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
-              {result.netYieldRate.toFixed(2)}% годовых
+              {pct(result.netYieldRate, 2)} годовых
             </div>
           </div>
         </div>
 
         {/* Tax 2026 Explanation Box (ст. 214.2 НК РФ) */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-6">
+        <div className="border-t border-ink-200 dark:border-ink-800 pt-5">
           <div className="flex items-center justify-between mb-3">
             <h4 className="font-heading font-black text-sm text-gray-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
               {isTaxExempt ? (
                 <ShieldCheck className="w-4 h-4 text-emerald-500" />
               ) : (
-                <ShieldAlert className="w-4 h-4 text-amber-500" />
+                <ShieldAlert className="w-4 h-4 text-ink-500" />
               )}
               Налог на проценты по вкладам 2026 (ст. 214.2 НК РФ)
             </h4>
@@ -752,10 +752,10 @@ export function DepositCalculator() {
               className={`text-xs font-bold px-2.5 py-1 rounded-full ${
                 isTaxExempt
                   ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300'
-                  : 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300'
+                  : 'text-warm-700 dark:text-warm-300'
               }`}
             >
-              {isTaxExempt ? 'Налог 0 ₽' : `Налог ${fmt(result.totalTax)} ₽`}
+              {isTaxExempt ? 'Налог 0 ₽' : `Налог ${fmt(result.totalTax)} ₽`}
             </span>
           </div>
 
@@ -764,21 +764,21 @@ export function DepositCalculator() {
               <div>
                 <span className="text-gray-400 block">Необлагаемый лимит (год):</span>
                 <strong className="text-sm text-gray-900 dark:text-white">
-                  {fmt(result.taxFreeThreshold)} ₽
+                  {fmt(result.taxFreeThreshold)} ₽
                 </strong>
-                <span className="text-[10px] text-gray-400 block">1 млн ₽ × {keyRate}%</span>
+                <span className="text-[10px] text-gray-400 block">1 млн ₽ × {keyRate}%</span>
               </div>
               <div>
                 <span className="text-gray-400 block">Годовой доход по вкладу:</span>
                 <strong className="text-sm text-gray-900 dark:text-white">
-                  {fmt(result.annualizedInterest)} ₽
+                  {fmt(result.annualizedInterest)} ₽
                 </strong>
                 <span className="text-[10px] text-gray-400 block">годовой эквивалент</span>
               </div>
               <div>
                 <span className="text-gray-400 block">Налоговая база:</span>
                 <strong className={`text-sm ${result.taxableIncomeAnnual > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
-                  {fmt(result.taxableIncomeAnnual)} ₽
+                  {fmt(result.taxableIncomeAnnual)} ₽
                 </strong>
                 <span className="text-[10px] text-gray-400 block">превышение лимита</span>
               </div>
@@ -786,18 +786,18 @@ export function DepositCalculator() {
 
             {isTaxExempt ? (
               <p className="text-emerald-700 dark:text-emerald-400 font-medium">
-                ✓ Ваш доход по вкладу ({fmt(result.totalInterest)} ₽) полностью укладывается в необлагаемый лимит ({fmt(result.taxFreeThreshold)} ₽/год). Платить налог не потребуется.
+                ✓ Ваш доход по вкладу ({fmt(result.totalInterest)} ₽) полностью укладывается в необлагаемый лимит ({fmt(result.taxFreeThreshold)} ₽/год). Платить налог не потребуется.
               </p>
             ) : (
-              <p className="text-amber-700 dark:text-amber-400 font-medium">
-                ! Доход превышает необлагаемый лимит на {fmt(result.taxableIncomeAnnual)} ₽ в год. На сумму превышения начисляется НДФЛ 13% ({fmt(result.totalTax)} ₽ за весь срок {months} мес.). ФНС пришлёт уведомление автоматически до 1 декабря 2027 г.
+              <p className="text-warm-700 dark:text-warm-300 font-medium">
+                ! Доход превышает необлагаемый лимит на {fmt(result.taxableIncomeAnnual)} ₽ в год. На сумму превышения начисляется НДФЛ 13% ({fmt(result.totalTax)} ₽ за весь срок {months} мес.). ФНС пришлёт уведомление автоматически до 1 декабря 2027 г.
               </p>
             )}
           </div>
         </div>
 
         {/* Month-by-month Schedule Table Accordion */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-6">
+        <div className="border-t border-ink-200 dark:border-ink-800 pt-5">
           <button
             type="button"
             onClick={() => setShowSchedule(!showSchedule)}
@@ -835,16 +835,16 @@ export function DepositCalculator() {
                           {row.month}-й мес.
                         </td>
                         <td className="py-2 px-2 text-right font-medium text-gray-600 dark:text-gray-300">
-                          {row.topUp > 0 ? `+${fmt(row.topUp)} ₽` : '—'}
+                          {row.topUp > 0 ? `+${fmt(row.topUp)} ₽` : '—'}
                         </td>
                         <td className="py-2 px-2 text-right font-bold text-emerald-600 dark:text-emerald-400">
-                          +{fmt(row.monthlyInterest)} ₽
+                          +{fmt(row.monthlyInterest)} ₽
                         </td>
                         <td className="py-2 px-2 text-right font-medium text-gray-600 dark:text-gray-300">
-                          {fmt(row.accruedInterest)} ₽
+                          {fmt(row.accruedInterest)} ₽
                         </td>
                         <td className="py-2 px-2 text-right font-black text-gray-900 dark:text-white">
-                          {fmt(row.endBalance)} ₽
+                          {fmt(row.endBalance)} ₽
                         </td>
                       </tr>
                     ))}
