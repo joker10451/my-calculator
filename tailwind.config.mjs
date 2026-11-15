@@ -48,6 +48,9 @@ export default {
         brand: green,
         accent: green,
         blue: green,
+        // «выгодно» и полосы сравнения были ярким изумрудным — второй зелёный; сводим к акценту
+        emerald: green,
+        teal: green,
         warm: {
           50: '#FBF6EA',
           100: '#F5EACF',

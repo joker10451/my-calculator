@@ -125,3 +125,79 @@
 html:not(.dark) .bg-white {
   background-color: theme('colors.ink.50');
 }
+
+/*
+ * Итог калькулятора в редакционном виде: вместо цветной плашки — линия сверху,
+ * крупная цифра засечками и мелкие подписи. Разметка карточек в TSX не менялась
+ * (только класс result-panel), поэтому переопределяем их белый текст и полупрозрачные фоны здесь.
+ */
+.result-panel {
+  background: none !important;
+  color: theme('colors.ink.900');
+  border-top: 2px solid theme('colors.ink.900');
+  border-bottom: 1px solid theme('colors.ink.200');
+  border-radius: 0;
+  padding: 1.25rem 0 1.5rem !important;
+}
+.dark .result-panel {
+  color: theme('colors.ink.50');
+  border-top-color: theme('colors.ink.200');
+  border-bottom-color: theme('colors.ink.800');
+}
+.result-panel .text-white { color: inherit; }
+.result-panel [class*='text-white/'],
+.result-panel [class*='text-emerald-100'] {
+  color: theme('colors.ink.600');
+}
+.dark .result-panel [class*='text-white/'],
+.dark .result-panel [class*='text-emerald-100'] {
+  color: theme('colors.ink.400');
+}
+.result-panel [class*='text-amber-'],
+.result-panel [class*='text-yellow-'],
+.result-panel [class*='text-emerald-2'],
+.result-panel [class*='text-emerald-3'] {
+  color: theme('colors.brand.600');
+}
+.dark .result-panel [class*='text-amber-'],
+.dark .result-panel [class*='text-yellow-'],
+.dark .result-panel [class*='text-emerald-2'],
+.dark .result-panel [class*='text-emerald-3'] {
+  color: theme('colors.brand.300');
+}
+.result-panel [class*='border-white/'] { border-color: theme('colors.ink.200'); }
+.dark .result-panel [class*='border-white/'] { border-color: theme('colors.ink.800'); }
+.result-panel [class*='bg-white/'],
+.result-panel [class*='bg-emerald-950'],
+.result-panel [class*='bg-black/'] {
+  background: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.result-panel .uppercase {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+/* Главная цифра итога */
+.result-panel :is(.text-3xl, .text-4xl, .text-5xl, .text-6xl) {
+  font-family: theme('fontFamily.serif');
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Заголовки-капслоком внутри калькуляторов («ПАРАМЕТРЫ», «СРАВНЕНИЕ РЕЖИМОВ») — это подписи, а не заголовки статьи */
+:is(h3, h4).uppercase {
+  font-family: theme('fontFamily.sans');
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: theme('colors.ink.600');
+}
+.dark :is(h3, h4).uppercase {
+  color: theme('colors.ink.400');
+}

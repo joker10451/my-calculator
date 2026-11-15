@@ -638,7 +638,7 @@ export function DepositCalculator() {
       {/* ---------- RESULTS (3 COLS) ---------- */}
       <div className="lg:col-span-3 space-y-5">
         {/* Main Hero Result Card */}
-        <div className="rounded-2xl p-7 md:p-9 text-white overflow-hidden relative bg-emerald-700">
+        <div className="result-panel rounded-2xl p-7 md:p-9 text-white overflow-hidden relative bg-emerald-700">
 
           <div className="relative">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">

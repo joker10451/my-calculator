@@ -313,7 +313,7 @@ export function NpdVsIpCalculator() {
       {/* ---------- RESULTS ---------- */}
       <div className="lg:col-span-3 space-y-5 scroll-mt-20" id="npd-vs-ip-result" ref={containerRef}>
         {/* Verdict banner */}
-        <div className={`rounded-2xl p-6 md:p-8 text-white shadow-lg overflow-hidden relative ${
+        <div className={`result-panel rounded-2xl p-6 md:p-8 text-white shadow-lg overflow-hidden relative ${
           !comparison.npdAvailable
             ? 'bg-red-700'
             : comparison.winner === 'npd'
